@@ -44,15 +44,9 @@ const guestName = computed(() => {
 });
 const { play } = useMusic();
 
-async function openInvitation(){
+async function openInvitation() {
 
     await play();
-
-    emit("open");
-
-}
-
-function openInvitation() {
 
     gsap.to(".opening", {
 

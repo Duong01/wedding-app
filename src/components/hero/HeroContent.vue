@@ -6,6 +6,10 @@
       SAVE THE DATE
     </div>
 
+    <div class="hero-badge">
+      Một ngày cưới đẹp như lời mơ
+    </div>
+
     <!-- Couple -->
     <div class="couple">
 
@@ -94,6 +98,12 @@ onMounted(()=>{
         duration:1
     },"-=.7")
 
+    .from(".hero-badge",{
+        y:20,
+        opacity:0,
+        duration:.8
+    },"-=.5")
+
     .from(".date",{
         y:20,
         opacity:0,
@@ -144,8 +154,20 @@ onMounted(()=>{
 
     opacity:.85;
 
-    margin-bottom:28px;
+    margin-bottom:12px;
 
+}
+
+.hero-badge{
+    margin-bottom:24px;
+    padding:8px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,.16);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.25);
+    font-size:0.95rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
 }
 
 .couple{

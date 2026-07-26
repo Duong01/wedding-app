@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import defaults from "@/utils/defaultData";
+import defaults from "./../utils/defaultData";
 
 export const useWeddingStore = defineStore("wedding", {
 

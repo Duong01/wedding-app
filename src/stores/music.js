@@ -8,7 +8,7 @@ export const useMusicStore = defineStore("music", {
 
         volume: 0.6,
 
-        src: "/music/default.mp3"
+        src: "@/assets/music/So_Beautiful_In_White.mp3"
 
     }),
 

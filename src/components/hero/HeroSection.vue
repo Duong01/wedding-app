@@ -13,12 +13,6 @@
     <!-- Nội dung -->
     <HeroContent />
 
-    <!-- Sóng -->
-    <HeroWave />
-
-    <!-- Scroll -->
-    <HeroScrollDown />
-
   </section>
 </template>
 
@@ -26,8 +20,6 @@
 import HeroBackground from "./HeroBackground.vue";
 import HeroParticles from "./HeroParticles.vue";
 import HeroContent from "./HeroContent.vue";
-import HeroWave from "./HeroWave.vue";
-import HeroScrollDown from "./HeroScrollDown.vue";
 </script>
 
 <style scoped lang="scss">

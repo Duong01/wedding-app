@@ -129,12 +129,12 @@ const person = computed(() => {
   if (props.type === "groom") {
 
     return store.wedding.couple?.groom ?? {
-      name: "Nguyễn Văn A",
-      avatar: "/images/default-groom.jpg",
-      job: "Software Engineer",
-      description: "Tình yêu không phải là nhìn vào nhau, mà là cùng nhìn về một hướng.",
-      father: "Ông Nguyễn Văn ...",
-      mother: "Bà Trần Thị ...",
+      name: "Nguyễn Đức Huy",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
+      job: "Founder / Product Designer",
+      description: "Người luôn tin rằng một mái ấm hạnh phúc được xây từ sự tử tế, chung tay và yêu thương mỗi ngày.",
+      father: "Ông Nguyễn Văn Minh",
+      mother: "Bà Phạm Thị Hồng",
       facebook: "#",
       instagram: "#",
       tiktok: "#"
@@ -143,12 +143,12 @@ const person = computed(() => {
   }
 
   return store.wedding.couple?.bride ?? {
-    name: "Trần Thị B",
-    avatar: "/images/default-bride.jpg",
-    job: "Designer",
-    description: "Mỗi khoảnh khắc bên nhau đều là món quà quý giá.",
-    father: "Ông Trần Văn ...",
-    mother: "Bà Lê Thị ...",
+    name: "Trần Thu Thảo",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80",
+    job: "Brand Strategist",
+    description: "Người yêu những điều nhỏ bé, lãng mạn và luôn muốn biến mỗi ngày trở nên đáng nhớ hơn.",
+    father: "Ông Trần Văn Nam",
+    mother: "Bà Lê Thị Hoa",
     facebook: "#",
     instagram: "#",
     tiktok: "#"
