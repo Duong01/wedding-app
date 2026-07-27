@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-
+import music from "@/assets/music/So_Beautiful_In_White.mp3";
 export const useMusicStore = defineStore("music", {
 
     state: () => ({
@@ -8,7 +8,7 @@ export const useMusicStore = defineStore("music", {
 
         volume: 0.6,
 
-        src: "@/assets/music/So_Beautiful_In_White.mp3"
+        src: music
 
     }),
 

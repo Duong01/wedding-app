@@ -1,7 +1,6 @@
 <template>
   <div class="hero-background">
 
-```
 <!-- Video -->
 <video
   v-if="videoUrl"
@@ -33,8 +32,6 @@
 <div class="light light-1"></div>
 
 <div class="light light-2"></div>
-```
-
   </div>
 </template>
 

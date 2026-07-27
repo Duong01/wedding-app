@@ -9,34 +9,41 @@ export function useMusic() {
     const audio = ref();
 
     function init(el) {
+        function init(el) {
+    audio.value = el;
 
-        audio.value = el;
+    console.log("store.src =", store.src);
 
-        audio.value.volume = store.volume;
+    audio.value.src = store.src;
 
-        audio.value.src = store.src;
+    console.log("audio.src =", audio.value.src);
+
+    audio.value.load();
+
+    audio.value.onerror = () => {
+        console.log("Audio error", audio.value.error);
+    };
+}
 
     }
 
     async function play() {
+    if (!audio.value) return;
 
-        if (!audio.value) return;
-
-        try {
-
-            await audio.value.play();
-
-            store.play();
-
-        }
-
-        catch (e) {
-
-            console.error(e);
-
-        }
-
+    if (!audio.value.src) {
+        console.error("Audio source is empty");
+        return;
     }
+
+    console.log(audio.value.src);
+
+    try {
+        await audio.value.play();
+        store.play();
+    } catch (e) {
+        console.error(e);
+    }
+}
 
     function pause() {
 

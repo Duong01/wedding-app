@@ -1,7 +1,6 @@
 <template>
   <div ref="card" class="hero-card">
 
-```
 <div class="invite-text">
   Wedding Invitation
 </div>
@@ -98,7 +97,6 @@
   MỞ THIỆP
 
 </v-btn>
-```
 
   </div>
 </template>
