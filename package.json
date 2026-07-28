@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^6.1.14",
+    "@mdi/font": "^7.4.47",
     "@mdi/js": "^7.4.47",
     "@vueuse/core": "^14.3.0",
     "@vueuse/motion": "^3.0.3",

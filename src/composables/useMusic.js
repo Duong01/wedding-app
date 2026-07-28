@@ -9,22 +9,16 @@ export function useMusic() {
     const audio = ref();
 
     function init(el) {
-        function init(el) {
-    audio.value = el;
+        if (!el) return;
 
-    console.log("store.src =", store.src);
+        audio.value = el;
+        audio.value.src = store.src;
+        audio.value.volume = store.volume;
+        audio.value.load();
 
-    audio.value.src = store.src;
-
-    console.log("audio.src =", audio.value.src);
-
-    audio.value.load();
-
-    audio.value.onerror = () => {
-        console.log("Audio error", audio.value.error);
-    };
-}
-
+        audio.value.onerror = () => {
+            console.log("Audio error", audio.value.error);
+        };
     }
 
     async function play() {

@@ -1,73 +1,35 @@
 <template>
   <div class="home-page">
+    <!-- Màn hình mở thiệp -->
+    <OpenInvitation v-if="!opened" @open="handleOpen" />
 
-
-<!-- Màn hình mở thiệp -->
-<OpenInvitation
-  v-if="!opened"
-  @open="handleOpen"
-/>
-
-<!-- Nội dung chính -->
-<template v-else>
-
-
-<HeroSection />
-
-  <CoupleSection />
-
-  <LoveStorySection />
-
-  <GallerySection />
-
-  <TimelineSection />
-
-  <EventSection />
-
-  <MapSection />
-
-  <GiftSection />
-
-  <RsvpSection />
-
-  <GuestBookSection />
-
-  <FooterSection />
-
-  <FloatingMusic />
-
-  <ScrollTop />
-  <!-- Các section sẽ thêm dần -->
-  
-  <!-- <CoupleSection />
-  <CountdownSection />
-  <LoveStorySection />
-  <GallerySection />
-  <VideoSection />
-  <EventSection />
-  <MapSection />
-  <GiftSection />
-  <RSVPSection />
-  <GuestBookSection />
-  <FooterSection /> -->
- 
-
-</template>
-
-
+    <!-- Nội dung chính -->
+    <template v-else>
+      <HeroSection />
+      <HighlightsSection />
+      <CoupleSection />
+      <LoveStorySection />
+      <GallerySection />
+      <TimelineSection />
+      <EventSection />
+      <MapSection />
+      <GiftSection />
+      <RsvpSection />
+      <GuestBookSection />
+      <FooterSection />
+      <ScrollTop />
+    </template>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-
 import { useWedding } from "./../composables/useWedding";
-
 import OpenInvitation from "./../components/hero/OpenInvitation.vue";
 import HeroSection from "./../components/hero/HeroSection.vue";
+import HighlightsSection from "./../components/common/HighlightsSection.vue";
 import CoupleSection from "./../components/couple/CoupleSection.vue";
 import LoveStorySection from "./../components/story/LoveStorySection.vue";
-import FloatingMusic from "./../components/common/FloatingMusic.vue";
 import ScrollTop from "./../components/common/ScrollTop.vue";
 import GallerySection from "./../components/gallery/GallerySection.vue";
 import TimelineSection from "./../components/timeline/TimelineSection.vue";
@@ -79,32 +41,21 @@ import GuestBookSection from "./../components/guestbook/GuestBookSection.vue";
 import FooterSection from "./../components/footer/FooterSection.vue";
 
 const opened = ref(false);
-
 const { loadWedding } = useWedding();
 
 onMounted(async () => {
-
-    await loadWedding();
-
+  await loadWedding();
 });
 
 function handleOpen() {
-
-    opened.value = true;
-
+  opened.value = true;
 }
 </script>
 
 <style scoped>
-
-.home-page{
-
-    min-height:100vh;
-
-    overflow:hidden;
-
-    background:#FFF8F6;
-
+.home-page {
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff8f6;
 }
-
 </style>

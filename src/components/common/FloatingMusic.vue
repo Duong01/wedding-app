@@ -46,7 +46,7 @@ function toggle() {
 <style scoped>
 .music {
   position: fixed;
-  right: 20px;
+  left: 20px;
   bottom: 30px;
   z-index: 9999;
 }

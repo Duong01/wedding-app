@@ -7,6 +7,7 @@ import router from "./router";
 // Vuetify
 import { createVuetify } from "vuetify";
 import "vuetify/styles";
+import '@mdi/font/css/materialdesignicons.css';
 
 // Components
 import Loading from "./components/common/Loading.vue";
@@ -20,6 +21,9 @@ import * as directives from "vuetify/directives";
 const vuetify = createVuetify({
     components,
     directives,
+    icons: {
+        defaultSet: 'mdi'
+    },
     theme: {
         defaultTheme: "light",
 

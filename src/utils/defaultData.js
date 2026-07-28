@@ -57,7 +57,8 @@ const defaultData = {
       time: "08:00",
       date: "14/11/2026",
       place: "Khách sạn The Reverie",
-      description: "Một buổi lễ ấm áp, đầy hoa và ánh sáng, dành cho những người thân yêu nhất."
+      description: "Một buổi lễ ấm áp, đầy hoa và ánh sáng, dành cho những người thân yêu nhất.",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80"
     },
     {
       id: 2,
@@ -66,7 +67,8 @@ const defaultData = {
       time: "19:00",
       date: "14/11/2026",
       place: "Sảnh tầng 2",
-      description: "Đêm tiệc sẽ có âm nhạc, ăn uống và nhiều hoạt động vui vẻ cùng nhau."
+      description: "Đêm tiệc sẽ có âm nhạc, ăn uống và nhiều hoạt động vui vẻ cùng nhau.",
+      image: "https://images.unsplash.com/photo-1528852131039-a86af0f0be1f?auto=format&fit=crop&w=900&q=80"
     },
     {
       id: 3,
@@ -75,7 +77,8 @@ const defaultData = {
       time: "07:30",
       date: "14/11/2026",
       place: "Cổng chính",
-      description: "Khu vực đón khách sẽ có đội ngũ hỗ trợ và hướng dẫn chỗ ngồi."
+      description: "Khu vực đón khách sẽ có đội ngũ hỗ trợ và hướng dẫn chỗ ngồi.",
+      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80"
     }
   ],
   gifts: [
