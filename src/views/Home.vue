@@ -7,15 +7,11 @@
     <template v-else>
       <HeroSection />
       <HighlightsSection />
-      <CoupleSection />
-      <LoveStorySection />
       <GallerySection />
-      <TimelineSection />
       <EventSection />
       <MapSection />
-      <GiftSection />
-      <RsvpSection />
       <GuestBookSection />
+      <GiftSection />
       <FooterSection />
       <ScrollTop />
     </template>
@@ -28,15 +24,11 @@ import { useWedding } from "./../composables/useWedding";
 import OpenInvitation from "./../components/hero/OpenInvitation.vue";
 import HeroSection from "./../components/hero/HeroSection.vue";
 import HighlightsSection from "./../components/common/HighlightsSection.vue";
-import CoupleSection from "./../components/couple/CoupleSection.vue";
-import LoveStorySection from "./../components/story/LoveStorySection.vue";
 import ScrollTop from "./../components/common/ScrollTop.vue";
 import GallerySection from "./../components/gallery/GallerySection.vue";
-import TimelineSection from "./../components/timeline/TimelineSection.vue";
 import EventSection from "./../components/event/EventSection.vue";
 import MapSection from "./../components/map/MapSection.vue";
 import GiftSection from "./../components/gift/GiftSection.vue";
-import RsvpSection from "./../components/rsvp/RsvpSection.vue";
 import GuestBookSection from "./../components/guestbook/GuestBookSection.vue";
 import FooterSection from "./../components/footer/FooterSection.vue";
 
@@ -55,7 +47,7 @@ function handleOpen() {
 <style scoped>
 .home-page {
   min-height: 100vh;
-  overflow: hidden;
-  background: #fff8f6;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #fff8f6 0%, #fffdfc 100%);
 }
 </style>

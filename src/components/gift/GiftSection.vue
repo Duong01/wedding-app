@@ -3,7 +3,7 @@
     <v-container>
       <div class="section-header">
         <div class="sub-title">Hộp Quà Mừng</div>
-        <h2>Gửi Lời Chúc & Quà Mừng</h2>
+        <h2>Gửi lời chúc và món quà yêu thương</h2>
         <p>Mỗi lời chúc và món quà đều là niềm vui lớn với chúng mình.</p>
       </div>
 
@@ -65,21 +65,24 @@ const banks = computed(() => store.wedding.banks ?? []);
   margin-bottom: 56px;
 }
 .sub-title {
-  letter-spacing: 4px;
-  color: #c86c8a;
+  letter-spacing: 0.3em;
+  color: #c57c78;
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 10px;
+  font-size: 0.85rem;
 }
 .section-header h2 {
-  font-size: 2.5rem;
-  color: #3c2a2d;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  color: #4d3537;
   margin-bottom: 10px;
 }
 .section-header p {
   color: #7d6b70;
   max-width: 680px;
   margin: 0 auto;
+  line-height: 1.8;
 }
 .gift-grid {
   gap: 24px;
@@ -125,6 +128,7 @@ const banks = computed(() => store.wedding.banks ?? []);
 .bank-summary p {
   margin: 0;
   color: #7e6b72;
+  line-height: 1.8;
 }
 .bank-grid {
   gap: 24px;

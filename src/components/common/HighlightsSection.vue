@@ -1,254 +1,334 @@
 <template>
-  <section class="highlights-section" id="wedding-events">
-    <v-container>
-      <div class="section-header">
-        <div class="sub-title">Thông Tin Lễ Cưới</div>
-        <h2>Ngày Trọng Đại Của Chúng Tôi</h2>
-        <p>Khoảnh khắc quan trọng, địa điểm và thời gian được chuẩn bị tinh tế cho ngày cưới.</p>
-      </div>
+  <section class="wedding-section" id="wedding-events">
+    <v-container class="invite-container">
 
-      <div class="event-slider">
-        <div class="event-track" :style="{ transform: `translateX(-${activeIndex * 100}%)` }">
-          <div
-            class="event-card"
-            v-for="(event, index) in events"
-            :key="event.id"
-          >
-            <div class="event-item">
-              <div class="event-item-image">
-                <v-img :src="event.image || coverImage" height="500" cover />
-              </div>
-              <div class="event-item-info">
-                <div class="event-label">{{ event.date }} · {{ event.time }}</div>
-                <h3 class="event-title">{{ event.title }}</h3>
-                <div class="event-type">{{ event.type }}</div>
-                <p class="event-place">{{ event.place }}</p>
-                <p class="event-desc">{{ event.description }}</p>
-                <div class="event-actions">
-                  <v-btn color="pink" variant="tonal" class="event-map-btn" @click="openMap(event.place)">
-                    <v-icon left>mdi-map-search</v-icon>
-                    Xem bản đồ
-                  </v-btn>
-                </div>
-              </div>
-            </div>
+      <h2 class="title">
+        THÔNG TIN LỄ CƯỚI
+      </h2>
+
+      <!-- Cha mẹ -->
+      <div class="family-wrapper">
+
+        <div class="family">
+          <div class="family-label">Bố Mẹ</div>
+
+          <div class="family-name">
+            Ông: {{ wedding.brideFather }}
           </div>
+
+          <div class="family-name">
+            Bà: {{ wedding.brideMother }}
+          </div>
+
+          <p>
+            {{ wedding.brideAddress }}
+          </p>
         </div>
+
+        <div class="divider"></div>
+
+        <div class="family">
+          <div class="family-label">Bố Mẹ</div>
+
+          <div class="family-name">
+            Ông: {{ wedding.groomFather }}
+          </div>
+
+          <div class="family-name">
+            Bà: {{ wedding.groomMother }}
+          </div>
+
+          <p>
+            {{ wedding.groomAddress }}
+          </p>
+        </div>
+
       </div>
 
-      <div class="timeline-controls">
-        <v-btn icon @click="prev" :disabled="activeIndex === 0">
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
-        <span>{{ activeIndex + 1 }} / {{ events.length }}</span>
-        <v-btn icon @click="next" :disabled="activeIndex === events.length - 1">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
+      <!-- Cô dâu -->
+      <div class="person-name">
+        {{ wedding.bride }}
       </div>
+
+      <div class="person-role">
+        CÔ DÂU
+      </div>
+
+      <div class="and">&</div>
+
+      <!-- Chú rể -->
+      <div class="person-name">
+        {{ wedding.groom }}
+      </div>
+
+      <div class="person-role">
+        CHÚ RỂ
+      </div>
+
+      <div class="event-text">
+        LỄ VU QUY ĐƯỢC CỬ HÀNH TẠI
+      </div>
+
+      <div class="event-place">
+        {{ wedding.location }}
+      </div>
+
+      <div class="event-time">
+        VÀO LÚC {{ firstEvent?.time }}
+      </div>
+
+      <!-- Ngày -->
+      <div class="calendar">
+
+        <span>
+          {{ firstEvent?.weekday || "CHỦ NHẬT" }}
+        </span>
+
+        <div class="day">
+          {{ firstEvent?.day || "29" }}
+        </div>
+
+        <span>
+          THÁNG {{ firstEvent?.month || "03" }}
+        </span>
+
+      </div>
+
+      <div class="year">
+        {{ firstEvent?.year || "2026" }}
+      </div>
+
+      <div class="lunar">
+        {{ firstEvent?.lunar || "(Tức ngày 11 tháng 2 năm Bính Ngọ)" }}
+      </div>
+
     </v-container>
   </section>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useWeddingStore } from "@/stores/wedding";
 
 const store = useWeddingStore();
-const events = computed(() => store.wedding.events ?? []);
-const coverImage = computed(() => store.wedding.coverImage);
-const activeIndex = ref(0);
 
-function prev() {
-  if (activeIndex.value > 0) activeIndex.value -= 1;
-}
+const wedding = computed(() => store.wedding);
 
-function next() {
-  if (activeIndex.value < events.value.length - 1) activeIndex.value += 1;
-}
-
-function openMap(place) {
-  const query = encodeURIComponent(place);
-  window.open(`https://maps.google.com/maps?q=${query}`, "_blank");
-}
+const firstEvent = computed(() => {
+  return store.wedding.events?.[0] ?? {};
+});
 </script>
 
 <style scoped>
-.highlights-section {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #fff4f6 0%, #fffefc 100%);
+
+.wedding-section {
+
+    padding:100px 0;
+    background:#f7f2ea;
+    position:relative;
+
 }
 
-.section-header {
-  text-align: center;
-  margin-bottom: 56px;
+/* nền giấy */
+
+.wedding-section::before{
+
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(rgba(0,0,0,.02) 1px, transparent 1px);
+
+    background-size:18px 18px;
+    opacity:.4;
 }
 
-.sub-title {
-  color: #cb7d8c;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 10px;
+.invite-container{
+
+    max-width:900px;
+    position:relative;
+    z-index:2;
+    text-align:center;
 }
 
-.section-header h2 {
-  font-size: 2.75rem;
-  color: #3c2a2f;
-  margin-bottom: 12px;
+.title{
+
+    color:#7a1d1d;
+    font-size:38px;
+    margin-bottom:70px;
+
+    font-family:"Cormorant Garamond",serif;
+    font-weight:700;
 }
 
-.section-header p {
-  color: #7f6e75;
-  max-width: 640px;
-  margin: 0 auto;
+.family-wrapper{
+
+    display:grid;
+    grid-template-columns:1fr 1px 1fr;
+    gap:50px;
+    align-items:start;
+
+    margin-bottom:90px;
 }
 
-.event-slider {
-  overflow: hidden;
-  position: relative;
+.divider{
+
+    background:#9b4b4b;
+    width:1px;
+    height:140px;
+    margin:auto;
 }
 
-.event-track {
-  display: flex;
-  width: 100%;
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+.family{
+
+    color:#6d2020;
 }
 
-.event-card {
-  min-width: 100%;
-  padding: 24px 0;
-  display: flex;
-  justify-content: center;
+.family-label{
+
+    margin-bottom:12px;
+
+    font-size:22px;
+    font-family:"Cormorant Garamond",serif;
 }
 
-.event-item {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 36px;
-  overflow: hidden;
-  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(219, 166, 176, 0.25);
+.family-name{
+
+    font-size:22px;
+    font-weight:600;
+    margin:10px 0;
 }
 
-.event-item-image {
-  min-height: 500px;
-  overflow: hidden;
+.family p{
+
+    margin-top:20px;
+    line-height:1.8;
 }
 
-.event-item-image .v-img {
-  height: 100%;
+.person-name{
+
+    font-size:72px;
+    color:#7b1f1f;
+
+    font-family:"Cormorant Garamond",serif;
+    font-weight:400;
+
+    margin-top:20px;
 }
 
-.event-item-info {
-  padding: 44px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  animation: fadeUp 0.8s ease;
+.person-role{
+
+    margin-top:10px;
+    letter-spacing:7px;
+    color:#7b1f1f;
+    font-size:14px;
 }
 
-.event-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: #fde7ef;
-  color: #be5071;
-  font-weight: 700;
-  margin-bottom: 18px;
+.and{
+
+    font-size:54px;
+    color:#7b1f1f;
+    margin:20px 0;
+    font-family:"Cormorant Garamond",serif;
 }
 
-.event-title {
-  margin: 0 0 14px;
-  font-size: 2.25rem;
-  color: #3c2a2f;
-  line-height: 1.05;
+.event-text{
+
+    margin-top:70px;
+    color:#7b1f1f;
+    font-size:24px;
+    line-height:2;
 }
 
-.event-type {
-  display: inline-block;
-  color: #b96178;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 14px;
+.event-place{
+
+    color:#7b1f1f;
+    font-size:28px;
+    font-weight:600;
 }
 
-.event-place {
-  margin-bottom: 16px;
-  color: #8c5a70;
-  font-weight: 700;
+.event-time{
+
+    margin-top:20px;
+    color:#7b1f1f;
+    font-size:24px;
 }
 
-.event-desc {
-  color: #6f6a6a;
-  line-height: 1.85;
-  margin-bottom: 28px;
+.calendar{
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:25px;
+
+    margin-top:55px;
 }
 
-.event-actions {
-  display: flex;
-  justify-content: flex-start;
+.calendar span{
+
+    color:#7b1f1f;
+    font-size:22px;
 }
 
-.event-map-btn {
-  border-radius: 999px;
+.day{
+
+    font-size:90px;
+    color:#7b1f1f;
+
+    line-height:1;
+
+    font-family:"Cormorant Garamond",serif;
 }
 
-.timeline-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 24px;
+.year{
+
+    margin-top:15px;
+    font-size:42px;
+    color:#7b1f1f;
+
+    font-family:"Cormorant Garamond",serif;
 }
 
-.timeline-controls span {
-  font-weight: 700;
-  color: #5f3f4d;
+.lunar{
+
+    margin-top:10px;
+    color:#7b1f1f;
+    font-style:italic;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@media(max-width:768px){
+
+    .family-wrapper{
+
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .divider{
+        display:none;
+    }
+
+    .person-name{
+        font-size:48px;
+    }
+
+    .day{
+        font-size:60px;
+    }
+
+    .calendar{
+
+        flex-direction:column;
+        align-items:center;
+        gap:5px;
+    }
+
+    .title{
+
+        font-size:30px;
+    }
+
 }
 
-@media (max-width: 1040px) {
-  .event-item {
-    grid-template-columns: 1fr;
-  }
-
-  .event-item-image {
-    min-height: 340px;
-  }
-}
-
-@media (max-width: 760px) {
-  .section-header h2 {
-    font-size: 2rem;
-  }
-
-  .event-item {
-    gap: 18px;
-  }
-
-  .event-item-info {
-    padding: 28px;
-  }
-
-  .event-title {
-    font-size: 1.75rem;
-  }
-}
 </style>

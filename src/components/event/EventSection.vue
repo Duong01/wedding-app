@@ -1,94 +1,314 @@
-<template>
-  <section class="section">
-    <v-container>
-      <div class="section-header">
-        <div class="sub-title">Wedding Event</div>
-        <h2>Thông Tin Lễ Cưới</h2>
-        <p>Chúng mình đã chuẩn bị một ngày vui trọn vẹn với nhiều khoảnh khắc đáng nhớ.</p>
-      </div>
+﻿<template>
+<section class="event-section">
 
-      <v-row>
-        <v-col v-for="event in events" :key="event.id" cols="12" md="4">
-          <div class="event-card">
-            <div class="event-badge">{{ event.type }}</div>
-            <h3>{{ event.title }}</h3>
-            <p class="event-time">{{ event.time }} · {{ event.date }}</p>
-            <p class="event-place">{{ event.place }}</p>
-            <p class="event-desc">{{ event.description }}</p>
-          </div>
-        </v-col>
-      </v-row>
+    <v-container class="invite">
+
+        <h2 class="title">
+            THÔNG TIN TIỆC CƯỚI
+        </h2>
+
+        <div class="desc">
+            TIỆC CƯỚI SẼ DIỄN RA VÀO LÚC:
+        </div>
+
+        <div class="time">
+            {{ firstEvent.time }}
+        </div>
+
+        <div class="calendar-date">
+
+            <span>{{ firstEvent.weekday }}</span>
+
+            <div class="day">
+                {{ firstEvent.day }}
+            </div>
+
+            <span>THÁNG {{ firstEvent.month }}</span>
+
+        </div>
+
+        <div class="year">
+            {{ firstEvent.year }}
+        </div>
+
+        <div class="lunar">
+            {{ firstEvent.lunar }}
+        </div>
+
+        <div class="schedule">
+
+            <div>
+                <small>ĐÓN KHÁCH</small>
+                <strong>{{ firstEvent.guestTime }}</strong>
+            </div>
+
+            <div>
+                <small>KHAI TIỆC</small>
+                <strong>{{ firstEvent.partyTime }}</strong>
+            </div>
+
+        </div>
+
+        <WeddingCalendar
+            :year="Number(firstEvent.year)"
+            :month="Number(firstEvent.month)"
+            :day="Number(firstEvent.day)"
+        />
+
+        <a
+            class="calendar-link"
+            :href="calendarUrl"
+            target="_blank"
+        >
+            Thêm vào lịch
+        </a>
+
+        <button
+            class="confirm-btn"
+            @click="$emit('confirm')"
+        >
+            XÁC NHẬN THAM DỰ
+        </button>
+
     </v-container>
-  </section>
+
+</section>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
+import {computed} from "vue";
+import {useWeddingStore} from "@/stores/wedding";
 
-const store = useWeddingStore();
-const events = computed(() => store.wedding.events ?? []);
+const store=useWeddingStore();
+
+const firstEvent=computed(()=>store.wedding.events[0]);
+
+const calendarUrl=computed(()=>{
+
+return `https://calendar.google.com/calendar/render?action=TEMPLATE`;
+
+});
 </script>
 
 <style scoped>
-.section {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #fff9fc 0%, #fff 100%);
+.event-section{
+
+    background:#f7f2ea;
+    padding:100px 0;
+    position:relative;
 }
-.section-header {
-  text-align: center;
-  margin-bottom: 56px;
+
+.event-section::before{
+
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:url("/images/paper.webp");
+    opacity:.18;
 }
-.sub-title {
-  color: #d88a9c;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 10px;
+
+.invite{
+
+    max-width:700px;
+    text-align:center;
 }
-.section-header h2 {
-  font-size: 2rem;
-  color: #3f2a2a;
-  margin-bottom: 10px;
+
+.title{
+
+    color:#7b1f1f;
+
+    font-size:42px;
+
+    font-family:"Cormorant Garamond";
 }
-.section-header p {
-  color: #7a6a6a;
+
+.desc{
+
+    margin-top:25px;
+
+    color:#7b1f1f;
+
+    font-size:30px;
 }
-.event-card {
-  padding: 28px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(216, 138, 156, 0.18);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+.time{
+
+    margin:35px 0;
+
+    font-size:48px;
+
+    color:#7b1f1f;
+
+    font-weight:bold;
 }
-.event-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.12);
+
+.calendar-date{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    gap:25px;
 }
-.event-badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: #ffe4eb;
-  color: #b45b73;
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 14px;
+
+.calendar-date span{
+
+    font-size:22px;
+
+    color:#7b1f1f;
 }
-.event-card h3 {
-  font-size: 1.2rem;
-  color: #3f2a2a;
-  margin-bottom: 8px;
+
+.day{
+
+    font-size:86px;
+
+    line-height:1;
+
+    color:#7b1f1f;
+
+    font-family:"Cormorant Garamond";
 }
-.event-time,
-.event-place {
-  color: #d88a9c;
-  font-weight: 600;
-  margin-bottom: 6px;
+
+.year{
+
+    margin-top:20px;
+
+    font-size:42px;
+
+    color:#7b1f1f;
 }
-.event-desc {
-  color: #6f6a6a;
-  line-height: 1.7;
+
+.lunar{
+
+    margin:20px 0 50px;
+}
+
+.schedule{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:80px;
+
+    margin-bottom:45px;
+}
+
+.schedule div{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.schedule strong{
+
+    color:#7b1f1f;
+
+    font-size:30px;
+}
+
+.calendar{
+
+    border:1px solid #c9a6a0;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    background:#fffdf9;
+
+    margin:40px auto;
+}
+
+.calendar-header{
+
+    padding:18px;
+
+    border-bottom:1px solid #d9b2aa;
+
+    font-weight:700;
+
+    color:#7b1f1f;
+}
+
+.week,
+.days{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+}
+
+.week{
+
+    border-bottom:1px solid #eee;
+}
+
+.week span{
+
+    padding:12px 0;
+}
+
+.cell{
+
+    height:55px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.heart{
+
+    position:relative;
+
+    color:#8b1d1d;
+
+    font-size:32px;
+}
+
+.heart span{
+
+    position:absolute;
+
+    color:#fff;
+
+    font-size:13px;
+
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-55%);
+}
+
+.confirm-btn{
+
+    margin-top:35px;
+
+    padding:16px 40px;
+
+    background:#8b1d1d;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.confirm-btn:hover{
+
+    background:#701515;
 }
 </style>
