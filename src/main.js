@@ -10,7 +10,7 @@ import "vuetify/styles";
 import '@mdi/font/css/materialdesignicons.css';
 
 // Components
-import Loading from "./components/common/Loading.vue";
+// import Loading from "./components/common/Loading.vue";
 import ScrollTop from "./components/common/ScrollTop.vue";
 import FloatingMusic from "./components/common/FloatingMusic.vue";
 
@@ -52,7 +52,7 @@ app.use(createPinia());
 app.use(router);
 app.use(vuetify);
 
-app.component("AppLoading", Loading);
+// app.component("AppLoading", Loading);
 app.component("ScrollTop", ScrollTop);
 app.component("FloatingMusic", FloatingMusic);
 

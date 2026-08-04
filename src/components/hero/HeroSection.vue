@@ -34,6 +34,8 @@ import HeroContent from "./HeroContent.vue";
 
     overflow:hidden;
 
+    background: linear-gradient(135deg, #fef5f1 0%, #fff8f5 100%);
+
 }
 
 .hero-overlay{
@@ -46,11 +48,13 @@ import HeroContent from "./HeroContent.vue";
 
     linear-gradient(
 
-        rgba(0,0,0,.25),
+        to bottom,
 
-        rgba(0,0,0,.45),
+        rgba(255,245,241,.1),
 
-        rgba(0,0,0,.7)
+        rgba(255,235,220,.2),
+
+        rgba(255,222,200,.3)
 
     );
 

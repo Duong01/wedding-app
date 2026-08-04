@@ -65,11 +65,12 @@ onMounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.26);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(16px);
+  font-family: "Inter", sans-serif;
 }
 
 .eyebrow {
   margin: 0 0 10px;
-  font-size: 0.8rem;
+  font-size: clamp(0.72rem, 2vw, 0.86rem);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   opacity: 0.9;
@@ -78,7 +79,7 @@ onMounted(() => {
 .hero-names {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+  font-size: clamp(2.2rem, 4.8vw, 3.4rem);
   font-weight: 600;
   line-height: 1.15;
 }
@@ -91,8 +92,8 @@ onMounted(() => {
 .hero-subtitle {
   margin: 16px auto 0;
   max-width: 560px;
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: clamp(0.98rem, 2.2vw, 1.05rem);
+  line-height: 1.85;
   opacity: 0.95;
 }
 
@@ -108,7 +109,7 @@ onMounted(() => {
   padding: 8px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.16);
-  font-size: 0.95rem;
+  font-size: clamp(0.88rem, 2vw, 0.95rem);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 

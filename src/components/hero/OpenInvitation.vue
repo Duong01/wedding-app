@@ -55,6 +55,10 @@ async function openInvitation() {
 .opening {
   position: fixed;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   overflow: hidden;
   z-index: 999;
   background: linear-gradient(135deg, #140b15 0%, #2e1b25 100%);

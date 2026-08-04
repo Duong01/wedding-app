@@ -133,37 +133,37 @@ const backgroundStyle = computed(() => ({
 
     border-radius:50%;
 
-    filter:blur(120px);
+    filter:blur(140px);
 
-    opacity:.35;
+    opacity:.25;
 
 }
 
 .light-1{
 
-    width:300px;
+    width:400px;
 
-    height:300px;
+    height:400px;
 
-    background:#ffb6d5;
+    background: linear-gradient(135deg, #ffb6d9, #ffa0c9);
 
-    top:-80px;
+    top:-100px;
 
-    left:-80px;
+    left:-150px;
 
 }
 
 .light-2{
 
-    width:350px;
+    width:450px;
 
-    height:350px;
+    height:450px;
 
-    background:#ffe4a8;
+    background: linear-gradient(135deg, #ffe0b2, #ffd8a8);
 
-    bottom:-120px;
+    bottom:-150px;
 
-    right:-120px;
+    right:-200px;
 
 }
 
@@ -189,17 +189,17 @@ transform:scale(1.18);
 
 .light-1{
 
-width:180px;
+width:250px;
 
-height:180px;
+height:250px;
 
 }
 
 .light-2{
 
-width:220px;
+width:300px;
 
-height:220px;
+height:300px;
 
 }
 
