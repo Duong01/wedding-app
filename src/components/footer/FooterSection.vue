@@ -22,7 +22,7 @@ Thank you for celebrating with us.
 
 <div class="copyright">
 
-© {{ new Date().getFullYear() }} Wedding Invitation
+© {{ new Date().getFullYear() }} ngaychungdoi.com
 
 </div>
 

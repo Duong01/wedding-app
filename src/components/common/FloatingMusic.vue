@@ -52,8 +52,8 @@ function toggle() {
 }
 
 .music-btn {
-  width: 72px;
-  height: 72px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -98,8 +98,8 @@ function toggle() {
 
 @media (max-width: 600px) {
   .music-btn {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
   }
 }
 </style>

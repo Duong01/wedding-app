@@ -1,7 +1,7 @@
 <template>
   <div ref="card" class="hero-card">
     <div class="card-top">
-      <div class="invite-badge animate-item">✨ Wedding Invitation ✨</div>
+      <!-- <div class="invite-badge animate-item">✨ Wedding Invitation ✨</div> -->
       <p class="guest animate-item">{{ guestName }}</p>
       <h2 class="welcome animate-item">Trân trọng kính mời</h2>
     </div>

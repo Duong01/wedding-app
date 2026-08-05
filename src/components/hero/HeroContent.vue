@@ -2,12 +2,12 @@
   <div ref="container" class="hero-content">
     <div class="hero-card animate-item">
       <p class="eyebrow">The Wedding Of</p>
-      <h1 class="hero-names">{{ wedding.groomName }} <span>&</span> {{ wedding.brideName }}</h1>
+      <h1 class="hero-names">{{ bride.name }} <span>&</span> {{ groom.name }}</h1>
       <p class="hero-subtitle">Sự hiện diện của các bạn là niềm vui lớn nhất của chúng mình</p>
 
       <div class="hero-meta">
-        <div class="meta-pill">{{ formatDate(wedding.weddingDate) }}</div>
-        <div class="meta-pill">{{ wedding.location }}</div>
+        <div class="meta-pill">{{ formatDate(event.date) }}</div>
+        <div class="meta-pill">{{ event.location }}</div>
       </div>
 
       <HeroCountdown />
@@ -19,12 +19,16 @@
 import { ref, onMounted, computed } from "vue";
 import { gsap } from "gsap";
 import dayjs from "dayjs";
-
 import HeroCountdown from "./HeroCountdown.vue";
 import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
-const wedding = computed(() => store.wedding);
+const store1 = useWeddingStore();
+
+const wedding = computed(() => store1.wedding);
+const bride = computed(() => wedding.value.couple?.bride ?? {});
+const groom = computed(() => wedding.value.couple?.groom ?? {});
+const event = computed(() => wedding.value.events?.[0] ?? {});
+
 const container = ref();
 
 function formatDate(date) {

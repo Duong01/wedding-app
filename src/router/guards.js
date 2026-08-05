@@ -2,7 +2,7 @@ export function setupRouterGuards(router) {
 
     router.beforeEach((to, from, next) => {
 
-        document.title = to.meta.title || "Wedding Invitation";
+        document.title = to.meta.title || "Ngày chung đôi";
 
         next();
 

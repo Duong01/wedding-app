@@ -1,0 +1,163 @@
+{
+  "id": 1,
+  "slug": "ha-uyen-tran-hieu",
+  "theme": "traditional-red",
+  "language": "vi",
+  "weddingDate": "2026-11-14T08:00:00",
+  "coverImage": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80",
+
+  "couple": {
+    "bride": {
+      "name": "Hà Uyên",
+      "nickname": "Uyên",
+      "role": "Cô dâu",
+      "avatar": "/images/bride.jpg",
+      "cover": "/images/bride-cover.jpg",
+      "father": "Đinh Văn Tá",
+      "mother": "Nguyễn Thị Thu",
+      "address": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
+      "description": "Một cô gái nhẹ nhàng, luôn mang đến sự ấm áp cho mọi người."
+    },
+    "groom": {
+      "name": "Trần Hiếu",
+      "nickname": "Hiếu",
+      "role": "Chú rể",
+      "avatar": "/images/groom.jpg",
+      "cover": "/images/groom-cover.jpg",
+      "father": "Trần Văn Bình",
+      "mother": "Nguyễn Thị Bảy",
+      "address": "Số 9 đường Cống Đồng, thôn Đức Hậu, xã Đa Phúc, TP Hà Nội",
+      "description": "Một chàng trai chân thành, luôn biết quan tâm và sẻ chia."
+    }
+  },
+
+  "hero": {
+    "title": "Save The Date",
+    "subtitle": "Trân trọng kính mời",
+    "background": "/images/hero.jpg",
+    "music": "/music/wedding.mp3"
+  },
+
+  "story": {
+    "title": "Chuyện Tình Yêu",
+    "description": "Từ những người bạn, chúng mình đã cùng nhau đi qua nhiều chặng đường và quyết định nắm tay nhau suốt cuộc đời."
+  },
+
+  "events": [
+    {
+      "id": 1,
+      "type": "vuquy",
+      "title": "Lễ Vu Quy",
+      "weekday": "CHỦ NHẬT",
+      "day": "29",
+      "month": "03",
+      "year": "2026",
+      "date": "2026-11-14",
+      "time": "09:00",
+      "lunar": "Tức ngày 11 tháng 2 năm Bính Ngọ",
+      "location": "Tư gia nhà gái",
+      "address": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
+      "map": "https://maps.google.com/?q=21.123456,105.123456"
+    },
+    {
+      "id": 2,
+      "type": "tanthanh",
+      "title": "Lễ Thành Hôn",
+      "weekday": "CHỦ NHẬT",
+      "day": "29",
+      "month": "03",
+      "year": "2026",
+      "date": "2026-11-14",
+      "time": "17:30",
+      "lunar": "Tức ngày 11 tháng 2 năm Bính Ngọ",
+      "location": "Nhà hàng ABC",
+      "address": "123 Đường Lê Lợi, Hà Nội",
+      "map": "https://maps.google.com/?q=21.0285,105.8542"
+    }
+  ],
+
+  "gallery": [
+    {
+      "id": 1,
+      "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": 2,
+      "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": 3,
+      "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": 4,
+      "image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": 5,
+      "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": 6,
+      "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+    }
+  ],
+
+  "timeline": [
+    {
+      "id": 1,
+      "date": "10/06/2022",
+      "title": "Lần đầu gặp nhau",
+      "description": "Một cuộc gặp gỡ tình cờ đã mở đầu cho câu chuyện của chúng mình.",
+      "image": "/images/story/1.jpg"
+    },
+    {
+      "id": 2,
+      "date": "15/02/2023",
+      "title": "Bắt đầu hẹn hò",
+      "description": "Chúng mình chính thức đồng hành cùng nhau.",
+      "image": "/images/story/2.jpg"
+    },
+    {
+      "id": 3,
+      "date": "01/01/2025",
+      "title": "Cầu hôn",
+      "description": "Khoảnh khắc đáng nhớ nhất cuộc đời.",
+      "image": "/images/story/3.jpg"
+    }
+  ],
+
+  "gift": {
+    "title": "Mừng Cưới",
+    "description": "Sự hiện diện của bạn là niềm vui lớn nhất. Nếu muốn gửi lời chúc bằng món quà nhỏ, bạn có thể chuyển khoản theo thông tin dưới đây.",
+    "bankName": "MB Bank",
+    "accountName": "TRẦN VĂN HIẾU",
+    "accountNumber": "0123456789",
+    "qrCode": "/images/qr-bank.png"
+  },
+
+  "guestBook": {
+    "enabled": true,
+    "title": "Sổ Lưu Bút"
+  },
+
+  "countdown": {
+    "enabled": true,
+    "target": "2026-11-14T09:00:00"
+  },
+
+  "footer": {
+    "message": "Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi.",
+    "copyright": "© 2026 Hà Uyên & Trần Hiếu"
+  },
+
+  "settings": {
+    "showMusic": true,
+    "showGallery": true,
+    "showTimeline": true,
+    "showGift": true,
+    "showGuestBook": true,
+    "showMap": true,
+    "showCountdown": true
+  }
+}

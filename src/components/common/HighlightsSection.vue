@@ -1,108 +1,99 @@
 <template>
-  <section class="wedding-section" id="wedding-events">
-    <v-container class="invite-container">
+  <section class="wedding-section">
+    <div class="invite-container">
+      <!-- TITLE -->
+      <h2 class="section-title">THÔNG TIN LỄ CƯỚI</h2>
 
-      <h2 class="title">
-        THÔNG TIN LỄ CƯỚI
-      </h2>
-
-      <!-- Cha mẹ -->
+      <!-- FAMILY INFORMATION -->
       <div class="family-wrapper">
+        <!-- NHÀ GÁI -->
+        <div class="family-item">
+          <div class="family-title">Bố Mẹ</div>
 
-        <div class="family">
-          <div class="family-label">Bố Mẹ</div>
+          <div class="family-name">Ông: {{ bride.father }}</div>
 
-          <div class="family-name">
-            Ông: {{ wedding.brideFather }}
+          <div class="family-name">Bà: {{ bride.mother }}</div>
+
+          <div class="family-address">
+            {{ bride.address }}
           </div>
-
-          <div class="family-name">
-            Bà: {{ wedding.brideMother }}
-          </div>
-
-          <p>
-            {{ wedding.brideAddress }}
-          </p>
         </div>
 
-        <div class="divider"></div>
+        <!-- divider -->
 
-        <div class="family">
-          <div class="family-label">Bố Mẹ</div>
+        <div class="family-divider"></div>
 
-          <div class="family-name">
-            Ông: {{ wedding.groomFather }}
+        <!-- NHÀ TRAI -->
+
+        <div class="family-item">
+          <div class="family-title">Bố Mẹ</div>
+
+          <div class="family-name">Ông: {{ groom.father }}</div>
+
+          <div class="family-name">Bà: {{ groom.mother }}</div>
+
+          <div class="family-address">
+            {{ groom.address }}
+          </div>
+        </div>
+      </div>
+
+      <!-- COUPLE -->
+
+      <div class="couple-wrapper">
+        <div class="person">
+          <div class="person-name">
+            {{ bride.name }}
           </div>
 
-          <div class="family-name">
-            Bà: {{ wedding.groomMother }}
-          </div>
-
-          <p>
-            {{ wedding.groomAddress }}
-          </p>
+          <div class="person-role">CÔ DÂU</div>
         </div>
 
+        <div class="symbol">&</div>
+
+        <div class="person">
+          <div class="person-name">
+            {{ groom.name }}
+          </div>
+
+          <div class="person-role">CHÚ RỂ</div>
+        </div>
       </div>
 
-      <!-- Cô dâu -->
-      <div class="person-name">
-        {{ wedding.bride }}
+      <!-- EVENT INFORMATION -->
+
+      <div class="event-wrapper">
+        <div class="event-title">LỄ VU QUY ĐƯỢC CỬ HÀNH TẠI</div>
+
+        <div class="event-location">
+          {{ event.location }}
+        </div>
+
+        <div class="event-time">VÀO LÚC {{ event.time }}</div>
       </div>
 
-      <div class="person-role">
-        CÔ DÂU
-      </div>
+      <!-- DATE -->
 
-      <div class="and">&</div>
-
-      <!-- Chú rể -->
-      <div class="person-name">
-        {{ wedding.groom }}
-      </div>
-
-      <div class="person-role">
-        CHÚ RỂ
-      </div>
-
-      <div class="event-text">
-        LỄ VU QUY ĐƯỢC CỬ HÀNH TẠI
-      </div>
-
-      <div class="event-place">
-        {{ wedding.location }}
-      </div>
-
-      <div class="event-time">
-        VÀO LÚC {{ firstEvent?.time }}
-      </div>
-
-      <!-- Ngày -->
-      <div class="calendar">
-
-        <span>
-          {{ firstEvent?.weekday || "CHỦ NHẬT" }}
-        </span>
+      <div class="date-wrapper">
+        <div class="weekday">
+          {{ event.weekday }}
+        </div>
 
         <div class="day">
-          {{ firstEvent?.day || "29" }}
+          {{ event.day }}
         </div>
 
-        <span>
-          THÁNG {{ firstEvent?.month || "03" }}
-        </span>
-
+        <div class="month">THÁNG {{ event.month }}</div>
       </div>
 
       <div class="year">
-        {{ firstEvent?.year || "2026" }}
+        {{ event.year }}
       </div>
 
       <div class="lunar">
-        {{ firstEvent?.lunar || "(Tức ngày 11 tháng 2 năm Bính Ngọ)" }}
+        {{ event.lunar }}
       </div>
-
-    </v-container>
+    </div>
   </section>
 </template>
 
@@ -114,221 +105,210 @@ const store = useWeddingStore();
 
 const wedding = computed(() => store.wedding);
 
-const firstEvent = computed(() => {
-  return store.wedding.events?.[0] ?? {};
-});
+const bride = computed(() => wedding.value.couple?.bride ?? {});
+
+const groom = computed(() => wedding.value.couple?.groom ?? {});
+
+const event = computed(() => wedding.value.events?.[0] ?? {});
 </script>
 
 <style scoped>
-
 .wedding-section {
-
-    padding:100px 0;
-    background:#f7f2ea;
-    position:relative;
-
+  padding: 45px 15px 40px;
+  color: #7b1b1b;
+  text-align: center;
 }
 
-/* nền giấy */
-
-.wedding-section::before{
-
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:
-        radial-gradient(rgba(0,0,0,.02) 1px, transparent 1px);
-
-    background-size:18px 18px;
-    opacity:.4;
+.invite-container {
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
 }
 
-.invite-container{
+/* TITLE */
 
-    max-width:900px;
-    position:relative;
-    z-index:2;
-    text-align:center;
+.section-title {
+  font-size: 24px;
+
+  font-weight: 700;
+
+  margin-bottom: 35px;
+
+  letter-spacing: 1px;
 }
 
-.title{
+/* =====================
+      FAMILY
+===================== */
 
-    color:#7a1d1d;
-    font-size:38px;
-    margin-bottom:70px;
+.family-wrapper {
+  display: grid;
 
-    font-family:"Cormorant Garamond",serif;
-    font-weight:700;
+  grid-template-columns: 1fr 1px 1fr;
+
+  gap: 12px;
+
+  align-items: start;
+
+  width: 100%;
 }
 
-.family-wrapper{
+.family-divider {
+  height: 90px;
 
-    display:grid;
-    grid-template-columns:1fr 1px 1fr;
-    gap:50px;
-    align-items:start;
+  width: 1px;
 
-    margin-bottom:90px;
+  background: #b47777;
 }
 
-.divider{
+.family-title {
+  font-size: 16px;
 
-    background:#9b4b4b;
-    width:1px;
-    height:140px;
-    margin:auto;
+  margin-bottom: 10px;
 }
 
-.family{
+.family-name {
+  font-size: 14px;
 
-    color:#6d2020;
+  line-height: 1.7;
+
+  white-space: nowrap;
 }
 
-.family-label{
-
-    margin-bottom:12px;
-
-    font-size:22px;
-    font-family:"Cormorant Garamond",serif;
+.family-name span {
+  font-weight: 600;
 }
 
-.family-name{
+.family-address {
+  font-size: 12px;
 
-    font-size:22px;
-    font-weight:600;
-    margin:10px 0;
+  line-height: 1.5;
+
+  margin-top: 10px;
 }
 
-.family p{
+/* =====================
+       COUPLE
+===================== */
 
-    margin-top:20px;
-    line-height:1.8;
+.couple-wrapper {
+  margin-top: 45px;
+
+  margin-bottom: 45px;
 }
 
-.person-name{
+.person-name {
+  font-family: "Cormorant Garamond", serif;
 
-    font-size:72px;
-    color:#7b1f1f;
+  font-size: 42px;
 
-    font-family:"Cormorant Garamond",serif;
-    font-weight:400;
-
-    margin-top:20px;
+  line-height: 1.1;
 }
 
-.person-role{
+.person-role {
+  font-size: 11px;
 
-    margin-top:10px;
-    letter-spacing:7px;
-    color:#7b1f1f;
-    font-size:14px;
+  letter-spacing: 4px;
+
+  margin-top: 5px;
 }
 
-.and{
+.symbol {
+  font-family: "Cormorant Garamond", serif;
 
-    font-size:54px;
-    color:#7b1f1f;
-    margin:20px 0;
-    font-family:"Cormorant Garamond",serif;
+  font-size: 36px;
+
+  margin: 12px 0;
 }
 
-.event-text{
+/* =====================
+        EVENT
+===================== */
 
-    margin-top:70px;
-    color:#7b1f1f;
-    font-size:24px;
-    line-height:2;
+.event-wrapper {
+  margin-top: 30px;
 }
 
-.event-place{
+.event-title {
+  font-size: 14px;
 
-    color:#7b1f1f;
-    font-size:28px;
-    font-weight:600;
+  line-height: 1.6;
 }
 
-.event-time{
+.event-location {
+  font-size: 20px;
 
-    margin-top:20px;
-    color:#7b1f1f;
-    font-size:24px;
+  font-weight: 700;
+
+  margin-top: 8px;
 }
 
-.calendar{
+.event-time {
+  font-size: 15px;
 
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    gap:25px;
-
-    margin-top:55px;
+  margin-top: 12px;
 }
 
-.calendar span{
+/* =====================
+        DATE
+===================== */
 
-    color:#7b1f1f;
-    font-size:22px;
+.date-wrapper {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 35px;
+} 
+
+.weekday {
+  width: 45px;
+
+  font-size: 12px;
 }
 
-.day{
+.day {
+  font-family: "Cormorant Garamond", serif;
 
-    font-size:90px;
-    color:#7b1f1f;
+  font-size: 65px;
 
-    line-height:1;
-
-    font-family:"Cormorant Garamond",serif;
+  line-height: 1;
 }
 
-.year{
-
-    margin-top:15px;
-    font-size:42px;
-    color:#7b1f1f;
-
-    font-family:"Cormorant Garamond",serif;
+.month {
+  font-size: 13px;
 }
 
-.lunar{
+.year {
+  font-family: "Cormorant Garamond", serif;
 
-    margin-top:10px;
-    color:#7b1f1f;
-    font-style:italic;
+  font-size: 30px;
+
+  margin-top: 12px;
 }
 
-@media(max-width:768px){
+.lunar {
+  font-size: 13px;
 
-    .family-wrapper{
-
-        grid-template-columns:1fr;
-        gap:40px;
-    }
-
-    .divider{
-        display:none;
-    }
-
-    .person-name{
-        font-size:48px;
-    }
-
-    .day{
-        font-size:60px;
-    }
-
-    .calendar{
-
-        flex-direction:column;
-        align-items:center;
-        gap:5px;
-    }
-
-    .title{
-
-        font-size:30px;
-    }
-
+  margin-top: 8px;
 }
+.family-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.family-address {
+  font-size: 13px;
 
+  line-height: 1.5;
+
+  max-width: 150px;
+
+  margin: 10px auto 0;
+}
 </style>
+

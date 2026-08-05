@@ -2,68 +2,82 @@
   <section id="gallery" class="gallery-section">
     <v-container>
       <div class="section-header">
-        <div class="sub-title">Album Ảnh</div>
-        <h2>Những khoảnh khắc đẹp</h2>
-        <p>Nhấn vào bất kỳ bức ảnh nào để xem toàn bộ bộ sưu tập theo kiểu slideshow.</p>
+          <h2>
+              Album Ảnh
+          </h2>
+
+          <p>
+              Lưu giữ những khoảnh khắc đẹp nhất trong hành trình của chúng mình.
+          </p>
+
       </div>
 
       <div class="album-grid">
 
-    <div
-        v-for="(item,index) in previewImages"
-        :key="item.id"
-        class="album-item"
-        @click="openGallery(index)"
+  <!-- 3 ảnh đầu -->
+  <div
+    v-for="(item,index) in previewImages.slice(0,3)"
+    :key="item.id"
+    class="album-item"
+    @click="openGallery(index)"
+  >
+    <img :src="item.image" :alt="item.title">
+  </div>
+
+  <!-- Ô xem thêm -->
+  <div
+    class="album-item more-item"
+    @click="openGallery(3)"
+  >
+    <img
+      :src="gallery[3]?.image"
+      alt=""
     >
 
-        <img
-            :src="item.image"
-            :alt="item.title"
-        >
+    <div class="more-overlay">
 
-        <div
-            v-if="index===3 && remainImages>0"
-            class="more-overlay"
-        >
-            +{{ remainImages }}
-        </div>
+      <div class="more-count">
+        +{{ remainImages + 1 }}
+      </div>
+
+      <div class="more-text">
+        Xem tất cả
+      </div>
 
     </div>
+
+  </div>
 
 </div>
     </v-container>
 
-    <div v-if="selectedItem" class="lightbox" @click.self="closeLightbox">
-      <div class="lightbox-panel">
-        <button class="lightbox-close" type="button" @click="closeLightbox">
-          <v-icon>mdi-close</v-icon>
-        </button>
+        <v-dialog
+    v-model="dialog"
+    fullscreen
+    persistent
+    transition="dialog-fade-transition"
+    content-class="gallery-dialog"
+>
 
-        <div class="lightbox-body">
-          <button class="nav-btn nav-btn-left" type="button" @click.stop="prevImage">
-            <v-icon>mdi-chevron-left</v-icon>
-          </button>
+    <GalleryModal
 
-          <div class="lightbox-image-wrap">
-            <img :src="selectedItem.image" :alt="selectedItem.title" class="lightbox-image" />
-            <div class="lightbox-caption">
-              <p>{{ selectedItem.title }}</p>
-              <span>{{ currentIndex + 1 }} / {{ gallery.length }}</span>
-            </div>
-          </div>
+        :images="gallery"
 
-          <button class="nav-btn nav-btn-right" type="button" @click.stop="nextImage">
-            <v-icon>mdi-chevron-right</v-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+        :start-index="currentIndex"
+
+        @close="dialog=false"
+
+    />
+
+</v-dialog>
+      </section>
 </template>
 
 <script setup>
 import { computed, onBeforeUnmount, ref } from "vue";
 import { useWeddingStore } from "@/stores/wedding";
+import GalleryModal from './GalleryModal.vue';
+const dialog = ref(false);
 
 const store = useWeddingStore();
 const gallery = computed(() => store.wedding.gallery ?? []);
@@ -77,21 +91,30 @@ const remainImages = computed(()=>
     gallery.value.length-4
 ); 
 function openGallery(index) {
-  selectedIndex.value = index;
-  document.body.style.overflow = "hidden";
+  selectedIndex.value=index;
+
+    dialog.value=true;
 }
 
 function closeLightbox() {
-  selectedIndex.value = -1;
-  document.body.style.overflow = "";
+  dialog.value=false;
+
+    selectedIndex.value=-1;
 }
 
-function prevImage() {
-  if (selectedIndex.value > 0) selectedIndex.value -= 1;
+function nextImage(){
+
+    selectedIndex.value =
+        (selectedIndex.value + 1) % gallery.value.length;
+
 }
 
-function nextImage() {
-  if (selectedIndex.value < gallery.value.length - 1) selectedIndex.value += 1;
+function prevImage(){
+
+    selectedIndex.value =
+        (selectedIndex.value - 1 + gallery.value.length)
+        % gallery.value.length;
+
 }
 
 onBeforeUnmount(() => {
@@ -126,52 +149,124 @@ onBeforeUnmount(() => {
   margin: 0 auto;
   line-height: 1.8;
 }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+
+.album-grid{
+
+    max-width:760px;
+
+    margin:40px auto 0;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
 }
-.gallery-card {
-  position: relative;
-  min-height: 320px;
-  border: 0;
-  padding: 0;
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  animation: slideFade 0.8s ease both;
-  cursor: pointer;
-  background: transparent;
+
+
+.album-item{
+
+    position:relative;
+
+    aspect-ratio:1;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    background:#fff;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:.35s;
+
 }
-.gallery-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.16);
+
+
+.album-item:hover{
+
+    transform:translateY(-6px);
+
 }
-.gallery-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s ease;
+
+
+.album-item img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.45s;
+
 }
-.gallery-card:hover .gallery-image {
-  transform: scale(1.06);
+
+
+.album-item:hover img{
+
+    transform:scale(1.08);
+
 }
-.gallery-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 24px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.58) 100%);
+
+
+
+/* ô xem thêm */
+
+.more-item{
+
+    position:relative;
+
 }
-.gallery-overlay span {
-  color: white;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+
+
+.more-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(20,20,20,.45);
+
+    backdrop-filter:blur(2px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#fff;
+
+}
+
+
+.more-count{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    line-height:1;
+
+}
+
+
+.more-text{
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
 }
 .lightbox {
   position: fixed;
@@ -261,9 +356,6 @@ onBeforeUnmount(() => {
   }
 }
 @media (max-width: 880px) {
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
   .lightbox-body {
     grid-template-columns: 32px 1fr 32px;
   }
@@ -354,26 +446,4 @@ onBeforeUnmount(() => {
     transform:scale(1.06);
 }
 
-.more-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:rgba(0,0,0,.45);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:white;
-
-    font-size:44px;
-
-    font-weight:bold;
-
-    backdrop-filter:blur(2px);
-}
 </style>

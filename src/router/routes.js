@@ -4,7 +4,7 @@ export default [
     name: "Home",
     component: () => import("./../views/Home.vue"),
     meta: {
-      title: "Wedding Invitation"
+      title: "Ngày chung đôi"
     }
   },
 

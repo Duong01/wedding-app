@@ -22,7 +22,7 @@
       </div>
 
       <div class="subtitle">
-        Wedding Invitation
+        Ngày chung đôi
       </div>
 
       <!-- Lottie -->
