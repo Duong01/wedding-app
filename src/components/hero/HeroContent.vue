@@ -2,7 +2,7 @@
   <div ref="container" class="hero-content">
     <div class="hero-card animate-item">
       <p class="eyebrow">The Wedding Of</p>
-      <h1 class="hero-names">{{ bride.name }} <span>&</span> {{ groom.name }}</h1>
+      <h1 class="hero-names">{{ bride.name }} <div>&</div> {{ groom.name }}</h1>
       <p class="hero-subtitle">Sự hiện diện của các bạn là niềm vui lớn nhất của chúng mình</p>
 
       <div class="hero-meta">

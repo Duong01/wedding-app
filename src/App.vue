@@ -31,17 +31,17 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-const loading = ref(true);
+const loading = ref(false);
 
-onMounted(() => {
+// onMounted(() => {
 
-    setTimeout(() => {
+//     setTimeout(() => {
 
-        loading.value = false;
+//         loading.value = false;
 
-    }, 2500);
+//     }, 1000);
 
-});
+// });
 </script>
 
 <style lang="scss">

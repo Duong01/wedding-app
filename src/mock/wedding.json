@@ -32,10 +32,14 @@
   },
 
   "hero": {
+    "groomName":"Trần Hiếu",
+    "brideName":"Hà Uyên",
     "title": "Save The Date",
+    "weddingDate": "2026-11-14T08:00:00",
     "subtitle": "Trân trọng kính mời",
     "background": "/images/hero.jpg",
-    "music": "/music/wedding.mp3"
+    "music": "/music/wedding.mp3",
+    "location": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh"
   },
 
   "story": {
@@ -56,7 +60,7 @@
       "time": "09:00",
       "lunar": "Tức ngày 11 tháng 2 năm Bính Ngọ",
       "location": "Tư gia nhà gái",
-      "address": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
+      "address": "Thôn Đồng Tâm, xã Hợp Thịnh, Bắc Ninh",
       "map": "https://maps.google.com/?q=21.123456,105.123456"
     },
     {
@@ -127,18 +131,45 @@
     }
   ],
 
-  "gift": {
-    "title": "Mừng Cưới",
-    "description": "Sự hiện diện của bạn là niềm vui lớn nhất. Nếu muốn gửi lời chúc bằng món quà nhỏ, bạn có thể chuyển khoản theo thông tin dưới đây.",
-    "bankName": "MB Bank",
-    "accountName": "TRẦN VĂN HIẾU",
-    "accountNumber": "0123456789",
-    "qrCode": "/images/qr-bank.png"
-  },
+  "gifts": [
+    {
+      "id": 1,
+      "name": "Chuyển khoản",
+      "description": "Nếu muốn gửi lời chúc bằng món quà nhỏ, bạn có thể chuyển khoản theo thông tin dưới đây.",
+      "bankName": "MB Bank",
+      "accountName": "TRẦN VĂN HIẾU",
+      "accountNumber": "0123456789",
+      "qrCode": "/images/qr-bank.png"
+    },
+    {
+      "id": 2,
+      "name": "Ví điện tử",
+      "description": "Bạn cũng có thể gửi lời chúc thông qua ví điện tử.",
+      "bankName": "Momo",
+      "accountName": "HÀ THỊ UYÊN",
+      "accountNumber": "0123456789",
+      "qrCode": "/images/qr-momo.png"
+    }
+    
+  ],
 
   "guestBook": {
     "enabled": true,
-    "title": "Sổ Lưu Bút"
+    "title": "Sổ Lưu Bút",
+    "guest":[
+      {
+        "id":1,
+      "name":"Hoài",
+      "message":"Chúc hai bạn trăm năm hạnh phúc ❤️",
+      "created_at":"20:30 18/03/2026"
+      },
+      {
+        "id":2,
+        "name":"Linh",
+        "message":"Mãi mãi bên nhau nhé 🥰",
+        "created_at":"18:12 18/03/2026"
+      }
+    ]
   },
 
   "countdown": {
@@ -148,7 +179,9 @@
 
   "footer": {
     "message": "Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi.",
-    "copyright": "© 2026 Hà Uyên & Trần Hiếu"
+    "copyright": "Hà Uyên & Trần Hiếu",
+    "groomName": "Trần Hiếu",
+    "brideName": "Hà Uyên"
   },
 
   "settings": {

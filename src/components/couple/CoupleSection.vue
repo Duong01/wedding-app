@@ -1,7 +1,7 @@
 <template>
   <section class="couple-section" id="couple">
 
-    <v-container class="py-16">
+    <v-container>
 
       <!-- Section Title -->
       <div class="section-header">

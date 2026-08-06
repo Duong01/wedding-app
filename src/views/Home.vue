@@ -1,17 +1,16 @@
 <template>
   <div class="home-page">
     <!-- Màn hình mở thiệp -->
-    <OpenInvitation
-      v-if="!opened"
-      @open="handleOpen"
-    />
+    <div v-if="!opened" class="open-wrapper">
+      <OpenInvitation @open="handleOpen" />
+    </div>
 
     <!-- Nội dung -->
     <template v-else>
       <!-- Hero -->
       <HeroSection />
 
-      <!-- Nội dung trên nền giấy -->
+      <!-- Nội dung -->
       <main class="content-wrapper">
         <HighlightsSection />
         <GallerySection />
@@ -29,8 +28,8 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-// import { useWedding } from "@/composables/useWedding";
 import { useWeddingStore } from "@/stores/wedding";
+
 import OpenInvitation from "@/components/hero/OpenInvitation.vue";
 import HeroSection from "@/components/hero/HeroSection.vue";
 
@@ -44,7 +43,6 @@ import FooterSection from "@/components/footer/FooterSection.vue";
 import ScrollTop from "@/components/common/ScrollTop.vue";
 
 const opened = ref(false);
-// const { loadWedding } = useWedding();
 const weddingStore = useWeddingStore();
 
 onMounted(async () => {
@@ -57,41 +55,64 @@ const handleOpen = () => {
 </script>
 
 <style scoped>
-.home-page{
-    min-height:100vh;
-    overflow-x:hidden;
-    background:#7b0d0d;
+.home-page {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Căn giữa OpenInvitation */
+.open-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 /* Khung giấy */
-.content-wrapper{
-    width:min(92%,760px);
-    margin:-40px auto 0;
-    position:relative;
-    z-index:2;
+.content-wrapper {
+  width: min(95%, 800px);
+  margin: -40px auto 0;
+  position: relative;
+  z-index: 2;
 
-    background:#f8f3ea;
-    border-radius:40px 40px 0 0;
+  background: #9c0d20;
+  border-radius: 40px 40px 0 0;
 
-    /* padding:70px 55px 100px; */
+  overflow: hidden;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.18);
+}
 
-    overflow:hidden;
-    box-shadow:0 -8px 30px rgba(0,0,0,.18);
+/* Responsive */
+@media (max-width: 768px) {
+  .content-wrapper {
+    width: min(98%, 100%);
+    margin: -30px auto 0;
+    border-radius: 30px 30px 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    width: 100%;
+    margin: -20px auto 0;
+    border-radius: 25px 25px 0 0;
+  }
 }
 
 /* Texture giấy */
-.content-wrapper::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:url("/images/paper-texture.png") center/cover;
-    opacity:.12;
-    pointer-events:none;
+.content-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/images/paper-texture.png") center/cover;
+  opacity: 0.12;
+  pointer-events: none;
 }
 
-/* tất cả section */
-.content-wrapper > section{
-    position:relative;
-    z-index:2;
+/* Các section */
+.content-wrapper > section {
+  position: relative;
+  z-index: 2;
 }
 </style>

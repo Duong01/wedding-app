@@ -2,156 +2,449 @@
   --primary: #7b0d0d;
   --gold: #d8b46d;
   --paper: #f8f3ea;
+  --text: #4d3a32;
+  --sub-text: #8b6a5d;
+  --white: #fff;
+
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .08);
 }
 
-.section-title {
-  font-size: 42px;
-  font-weight: 700;
+/* ===========================
+   Base
+=========================== */
 
-  letter-spacing: 2px;
-
-  color: var(--primary);
-
-  text-align: center;
-
-  margin-bottom: 55px;
+*{
+  box-sizing:border-box;
 }
 
-.section-subtitle {
-  font-size: 18px;
-
-  color: #8b6a5d;
-
-  text-align: center;
-
-  margin-bottom: 40px;
-
-  letter-spacing: 3px;
+html{
+  scroll-behavior:smooth;
 }
 
-p {
-  font-size: 18px;
-
-  line-height: 1.9;
-
-  color: #4d3a32;
+body{
+  color:var(--text);
+  background:var(--paper);
+  font-family:"Be Vietnam Pro",sans-serif;
 }
 
-h3 {
-  font-size: 30px;
 
-  color: var(--primary);
-}
-
-small {
-  font-size: 16px;
-}
-.family {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  margin-bottom: 60px;
+img{
+  max-width:100%;
+  display:block;
 }
 
-.family h4 {
-  font-size: 28px;
-  margin-bottom: 15px;
-  color: #7b0d0d;
+a{
+  text-decoration:none;
 }
 
-.family p {
-  font-size: 18px;
-  line-height: 1.8;
+p{
+  margin:0;
+  color:var(--text);
+  font-size:clamp(14px,1.2vw,17px);
+  line-height:1.8;
 }
+
+small{
+  font-size:clamp(12px,1vw,14px);
+  color:#777;
+}
+
+/* ===========================
+   Heading
+=========================== */
+
+.section-subtitle{
+  text-align:center;
+  color:var(--sub-text);
+  font-size:clamp(12px,1vw,14px);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.section-title{
+  text-align:center;
+  color:var(--primary);
+  font-size:clamp(24px,3vw,42px);
+  font-weight:700;
+  letter-spacing:1px;
+  margin-bottom:18px;
+}
+
+h3{
+  margin:0;
+  color:var(--primary);
+  font-size:clamp(22px,2vw,32px);
+  font-weight:600;
+}
+
+/* ===========================
+   Family
+=========================== */
+
+.family{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:40px;
+}
+
+.family h4{
+  color:var(--primary);
+  font-size:clamp(18px,2vw,26px);
+}
+
+.family p{
+  font-size:clamp(14px,1.2vw,16px);
+}
+
+/* ===========================
+   Bride & Groom
+=========================== */
+
 .bride-name,
-.groom-name {
-  font-size: 62px;
+.groom-name{
 
-  font-weight: 300;
+  font-family:"Cormorant Garamond",serif;
 
-  color: #7b0d0d;
+  font-size:clamp(36px,6vw,68px);
 
-  margin: 25px 0;
+  font-weight:500;
+
+  color:var(--primary);
+
 }
 
-.role {
-  font-size: 18px;
+.role{
 
-  letter-spacing: 5px;
+  font-size:clamp(12px,1.2vw,16px);
 
-  margin-bottom: 35px;
-}
-.event-date {
-  display: flex;
+  letter-spacing:4px;
 
-  justify-content: center;
+  text-transform:uppercase;
 
-  align-items: center;
+  color:#777;
 
-  gap: 18px;
-
-  margin: 45px 0;
 }
 
-.day {
-  font-size: 74px;
-  font-weight: 700;
-  color: #7b0d0d;
+/* ===========================
+   Date
+=========================== */
+
+.event-date{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:flex-end;
+
+  gap:16px;
+
+  flex-wrap:wrap;
+
 }
 
-.month {
-  font-size: 26px;
+.day{
+
+  font-size:clamp(52px,8vw,82px);
+
+  font-family:"Cormorant Garamond",serif;
+
+  color:var(--primary);
+
+  line-height:1;
 }
 
-.year {
-  font-size: 34px;
-  margin-top: 15px;
-}
-section {
-  padding: 40px 0;
+.month{
+
+  font-size:clamp(18px,2vw,26px);
+
+  color:var(--primary);
 }
 
-.gallery {
-  margin-top: 100px;
+.year{
+
+
+  font-size:clamp(22px,3vw,34px);
+
+  color:var(--primary);
 }
 
-.event {
-  margin-top: 100px;
+/* ===========================
+   Card
+=========================== */
+
+.card{
+
+  background:var(--white);
+
+  border-radius:var(--radius);
+
+  box-shadow:var(--shadow);
+
+  padding:24px;
 }
 
-.map {
-  margin-top: 100px;
+.paper-card{
+
+  background:var(--paper);
+
+  border-radius:var(--radius);
+
+  border:1px solid rgba(123,13,13,.12);
 }
 
-.guestbook {
-  margin-top: 100px;
-}
-@media (max-width: 768px) {
-  .content-wrapper {
-    padding: 45px 28px 70px;
+/* ===========================
+   Animations
+=========================== */
 
-    width: 95%;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.8s ease-out;
+}
+
+.animate-float {
+  animation: floatAnimation 3s ease-in-out infinite;
+}
+
+/* ===========================
+   Button
+=========================== */
+
+.primary-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-height:48px;
+
+  padding:0 26px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:var(--primary);
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:600;
+
+  transition:.3s;
+
+  cursor:pointer;
+}
+
+.primary-btn:hover{
+
+  transform:translateY(-2px);
+
+  opacity:.95;
+}
+
+.outline-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-height:48px;
+
+  padding:0 26px;
+
+  border-radius:12px;
+
+  border:1px solid var(--primary);
+
+  color:var(--primary);
+
+  background:#fff;
+
+  transition:.3s;
+}
+
+.outline-btn:hover{
+
+  background:var(--primary);
+
+  color:#fff;
+}
+
+/* ===========================
+   Container
+=========================== */
+
+.container-sm{
+
+  max-width:760px;
+
+  margin:auto;
+}
+
+.container-md{
+
+  max-width:980px;
+
+  margin:auto;
+}
+
+.container-lg{
+
+  max-width:1200px;
+
+  margin:auto;
+}
+.location-info{
+  text-align: center;
+  color: #ffffff;
+}
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:991px){
+
+  section{
+
+    padding:60px 20px;
   }
 
-  .section-title {
-    font-size: 32px;
+  .family{
+
+    gap:30px;
   }
 
-  .family {
-    grid-template-columns: 1fr;
-    gap: 35px;
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:768px){
+
+  section{
+
+    padding:50px 16px;
   }
 
-  .bride-name,
-  .groom-name {
-    font-size: 46px;
+  .family{
+
+    grid-template-columns:1fr;
+
+    gap:24px;
   }
 
-  .day {
-    font-size: 56px;
+  .event-date{
+
+    gap:12px;
   }
 
-  p {
-    font-size: 17px;
+  .card{
+
+    padding:18px;
   }
+
+  .primary-btn,
+  .outline-btn{
+
+    width:100%;
+  }
+
+}
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width:480px){
+
+  .section-title{
+
+    margin-bottom:12px;
+  }
+
+  .event-date{
+
+    flex-direction:column;
+
+    align-items:center;
+  }
+
+  .day{
+
+    line-height:.9;
+  }
+
 }

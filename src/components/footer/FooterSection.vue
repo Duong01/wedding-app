@@ -1,73 +1,160 @@
 <template>
-
 <footer class="footer">
 
-<v-container>
+    <div class="footer-overlay"></div>
+    <p class="footer-text">
+            {{ wedding.message }}
+        </p>
+    <v-container class="container-sm footer-content">
 
-<h2>
+        <h2 class="couple-name">
+            {{ wedding.groomName }}
+            &
+            {{ wedding.brideName }}
+        </h2>
 
-Nguyễn Văn A
+        
 
-<span>&</span>
-
-Trần Thị B
-
-</h2>
-
-<p>
-
-Thank you for celebrating with us.
-
-</p>
-
-<div class="copyright">
-
-© {{ new Date().getFullYear() }} ngaychungdoi.com
-
-</div>
-
-</v-container>
+        <div class="copyright">
+            © {{ new Date().getFullYear() }}
+            {{ wedding.copyright }}
+        </div>
+        <div class="footer-line"></div>
+        <div class="copyright">
+            ngaychungdoi.com
+        </div>
+    </v-container>
 
 </footer>
-
 </template>
+<script setup>
+import { computed } from "vue";
+import { useWeddingStore } from "@/stores/wedding";
 
+const store = useWeddingStore();
+
+const wedding = computed(() => store.wedding.footer ?? {});
+</script>
 <style scoped>
-
 .footer{
+    position:relative;
+    overflow:hidden;
+    background:#7b0d0d;
+}
 
-padding:80px 20px;
+.footer::before{
 
-text-align:center;
+    content:"";
 
-background:#2d2d2d;
+    position:absolute;
 
-color:white;
+    inset:0;
+
+    background:url("/images/pattern.png") center;
+
+    opacity:.06;
+}
+
+.footer-overlay{
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at top,#b81b1b20 0%,transparent 60%);
+}
+
+.footer-content{
+
+    position:relative;
+
+    text-align:center;
+
+    z-index:2;
+}
+
+
+.couple-name{
+
+    font-size:20px;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-weight:600;
+
+    color:#f7d8a3;
 
 }
 
-.footer h2{
+.couple-name span{
 
-font-size:42px;
 
-margin-bottom:20px;
+    color:#fff;
 
+    font-weight:300;
 }
 
-.footer span{
-
-color:#ff8fb0;
-
-margin:0 10px;
-
+.footer-text{
+    max-width:620px;
+    background: #f7d8a3;
+    margin:0;
+    padding: 0;
+    color:rgba(65, 31, 31, 0.85);
+    line-height:1.9;
 }
 
-.footer p{
+.footer-line{
 
-opacity:.8;
+    width:120px;
 
-margin-bottom:30px;
+    height:2px;
 
+    margin:38px auto;
+
+    background:rgba(247,216,163,.7);
 }
 
+.copyright{
+
+    color:rgba(255,255,255,.65);
+
+    font-size:11px;
+
+    line-height:2;
+}
+
+@media(max-width:768px){
+
+    .footer-icon{
+
+        width:58px;
+        height:58px;
+
+        font-size:18px;
+    }
+
+    .couple-name{
+
+        font-size:18px;
+
+        line-height:1.4;
+    }
+
+    .couple-name span{
+
+        display:block;
+
+    }
+
+    .footer-text{
+        height: 70px;
+        font-size:12px;
+        text-align: center;
+        line-height: 70px;
+    }
+
+    .copyright{
+
+        font-size:11px;
+    }
+
+}
 </style>

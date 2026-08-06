@@ -1,49 +1,52 @@
 <template>
   <section class="gift-section">
+
     <v-container>
-      <div class="section-header">
-        <div class="sub-title">Hộp Quà Mừng</div>
-        <h2>Gửi lời chúc và món quà yêu thương</h2>
-        <p>Mỗi lời chúc và món quà đều là niềm vui lớn với chúng mình.</p>
-      </div>
 
-      <v-row class="gift-grid">
-        <v-col v-for="gift in gifts" :key="gift.id" cols="12" md="6">
-          <div class="gift-card">
-            <div class="gift-icon">
-              <v-icon size="28" color="pink">{{ gift.icon }}</v-icon>
-            </div>
-            <h3>{{ gift.title }}</h3>
-            <p>{{ gift.description }}</p>
-          </div>
-        </v-col>
-      </v-row>
-
-      <div class="bank-wrapper">
-        <div class="bank-summary">
-          <h3>Thông Tin Tài Khoản</h3>
-          <p>Nếu quý khách muốn gửi quà, xin vui lòng tham khảo thông tin dưới đây.</p>
+        <div class="section-subtitle">
+            Mừng cưới
         </div>
 
-        <v-row class="bank-grid">
-          <v-col v-for="bank in banks" :key="bank.id" cols="12" md="6">
-            <div class="bank-card">
-              <div class="bank-card-top">
-                <div>
-                  <h4>{{ bank.bankName }}</h4>
-                  <p><strong>Chủ tài khoản:</strong> {{ bank.accountName }}</p>
-                  <p><strong>Số tài khoản:</strong> {{ bank.number }}</p>
+        <h2 class="section-title">
+            HỘP QUÀ MỪNG
+        </h2>
+
+        <div class="gift-grid">
+
+            <div
+                class="gift-item"
+                v-for="gift in gifts"
+                :key="gift.id"
+            >
+
+                <div class="qr-card">
+
+                    <img
+                        :src="gift.qrCode"
+                        class="qr-image"
+                    />
+
                 </div>
-              </div>
-              <div class="qr-box">
-                <span>QR</span>
-              </div>
+
+                <div class="bank-name">
+                    {{ gift.bankName }}
+                </div>
+
+                <div class="account-number">
+                    {{ gift.accountNumber }}
+                </div>
+
+                <div class="account-name">
+                    {{ gift.accountName }}
+                </div>
+
             </div>
-          </v-col>
-        </v-row>
-      </div>
+
+        </div>
+
     </v-container>
-  </section>
+
+</section>
 </template>
 
 <script setup>
@@ -52,113 +55,199 @@ import { useWeddingStore } from "@/stores/wedding";
 
 const store = useWeddingStore();
 const gifts = computed(() => store.wedding.gifts ?? []);
-const banks = computed(() => store.wedding.banks ?? []);
+async function copy(text){
+    await navigator.clipboard.writeText(text);
+
+}
 </script>
 
 <style scoped>
-.gift-section {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #fff7f6 0%, #fffdfc 100%);
+.gift-section{
+
+    background:#7b0d0d;
+    position:relative;
+    overflow:hidden;
 }
-.section-header {
-  text-align: center;
-  margin-bottom: 56px;
+
+.gift-section::before{
+
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("/images/pattern.png") center;
+    opacity:.06;
 }
-.sub-title {
-  letter-spacing: 0.3em;
-  color: #c57c78;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  font-size: 0.85rem;
+
+.section-title{
+
+    color:#f9d99f;
+    margin-bottom:45px;
 }
-.section-header h2 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 2rem;
-  color: #4d3537;
-  margin-bottom: 10px;
+
+.section-subtitle{
+
+    color:#f5dcb0;
+    margin-bottom:10px;
 }
-.section-header p {
-  color: #7d6b70;
-  max-width: 680px;
-  margin: 0 auto;
-  line-height: 1.8;
+
+.gift-grid{
+
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    gap:45px;
+    flex-wrap:wrap;
+
 }
-.gift-grid {
-  gap: 24px;
-  margin-bottom: 48px;
+
+.gift-item{
+
+    text-align:center;
 }
-.gift-card {
-  padding: 34px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.93);
-  border: 1px solid rgba(222, 155, 178, 0.24);
-  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.08);
+
+.qr-card{
+
+    width:170px;
+    height:170px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:10px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25),
+        inset 0 0 0 2px #ececec;
+
+    transition:.3s;
 }
-.gift-icon {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #ffe5ed;
-  margin-bottom: 18px;
+
+.qr-card:hover{
+
+    transform:translateY(-6px);
 }
-.gift-card h3 {
-  color: #3b2a2e;
-  margin-bottom: 12px;
+
+.qr-image{
+
+    width:100%;
+    height:100%;
+    object-fit:contain;
 }
-.gift-card p {
-  color: #6f6067;
-  line-height: 1.75;
+
+.bank-name{
+
+
+    color:#f7dca8;
+
+    font-size:12px;
 }
-.bank-wrapper {
-  display: grid;
-  gap: 24px;
+
+.account-number{
+
+    margin-top:5px;
+
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
 }
-.bank-summary {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
+
+.account-name{
+
+    margin-top:6px;
+
+    color:#f7dca8;
+
+    font-size:11px;
+
+    font-weight:600;
 }
-.bank-summary h3 {
-  margin-bottom: 12px;
-  color: #3c2b2f;
+
+.copy-btn{
+
+    margin-top:18px;
+
+    padding:10px 24px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#f7dca8;
+
+    color:#7b0d0d;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
 }
-.bank-summary p {
-  margin: 0;
-  color: #7e6b72;
-  line-height: 1.8;
+
+.copy-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#fff;
 }
-.bank-grid {
-  gap: 24px;
+
+@media(max-width:768px){
+
+    .gift-grid{
+
+        gap:28px;
+    }
+
+    .qr-card{
+
+        width:145px;
+        height:145px;
+    }
+
+    .account-number{
+
+        font-size:11px;
+    }
+
+    .account-name{
+
+        font-size:11px;
+    }
+
+    .copy-btn{
+
+        font-size:11px;
+        padding:8px 18px;
+    }
+
 }
-.bank-card {
-  padding: 28px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(222, 155, 178, 0.22);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
-  display: grid;
-  gap: 18px;
+.qr-card{
+    animation:float 4s ease-in-out infinite;
 }
-.bank-card-top h4 {
-  margin: 0 0 10px;
-  color: #3c2a2f;
+
+.qr-card:nth-child(2){
+
+    animation-delay:.8s;
 }
-.bank-card-top p {
-  margin: 0 0 4px;
-  color: #6d5d65;
-}
-.qr-box {
-  width: 110px;
-  height: 110px;
-  border-radius: 22px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #ffd8e6, #fff5f9);
-  color: #c74775;
-  font-weight: 700;
-  font-size: 1.15rem;
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
 }
 </style>

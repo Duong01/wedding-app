@@ -9,7 +9,7 @@
       :groom-image="wedding.couple?.groom?.avatar || defaultAvatar"
       :bride-image="wedding.couple?.bride?.avatar || defaultAvatar"
       :wedding-date="wedding.weddingDate"
-      :address="displayAddress"
+      :address="wedding.location"
       @open="openInvitation"
     />
   </section>
@@ -27,13 +27,12 @@ import { useWeddingStore } from "@/stores/wedding";
 
 const emit = defineEmits(["open"]);
 const store = useWeddingStore();
-const wedding = computed(() => store.wedding);
+const wedding1 = computed(() => store.wedding);
+const wedding = computed(() => wedding1.value.hero ?? {});
+
 const guestName = computed(() => "Kính mời");
 const defaultAvatar = "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80";
-const displayAddress = computed(() => {
-  if (!wedding.value.location && !wedding.value.address) return "Sắp có thông tin chi tiết";
-  return [wedding.value.location, wedding.value.address].filter(Boolean).join(" • ");
-});
+
 
 const { play } = useMusic();
 
@@ -55,10 +54,6 @@ async function openInvitation() {
 .opening {
   position: fixed;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
   overflow: hidden;
   z-index: 999;
   background: linear-gradient(135deg, #140b15 0%, #2e1b25 100%);

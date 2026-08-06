@@ -114,27 +114,27 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
 <style scoped>
 .wedding-section {
-  padding: 45px 15px 40px;
-  color: #7b1b1b;
+  padding: 50px 20px 45px;
+  color: rgb(104, 14, 14);
+  background-color: rgb(248, 240, 227);
   text-align: center;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .invite-container {
   width: 100%;
-  max-width: 430px;
+  max-width: 480px;
   margin: auto;
 }
 
 /* TITLE */
 
 .section-title {
-  font-size: 24px;
-
+  font-size: clamp(22px, 5vw, 28px);
   font-weight: 700;
-
   margin-bottom: 35px;
-
   letter-spacing: 1px;
+  animation: fadeInUp 0.8s ease-out 0.1s both;
 }
 
 /* =====================
@@ -143,36 +143,34 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
 .family-wrapper {
   display: grid;
-
   grid-template-columns: 1fr 1px 1fr;
-
   gap: 12px;
-
   align-items: start;
-
   width: 100%;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .family-divider {
   height: 90px;
-
   width: 1px;
-
   background: #b47777;
 }
 
-.family-title {
-  font-size: 16px;
+.family-item {
+  padding: 0 10px;
+}
 
+.family-title {
+  font-size: clamp(14px, 3vw, 16px);
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .family-name {
-  font-size: 14px;
-
+  font-size: clamp(12px, 2.5vw, 14px);
   line-height: 1.7;
-
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .family-name span {
@@ -180,11 +178,10 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 }
 
 .family-address {
-  font-size: 12px;
-
+  font-size: clamp(11px, 2vw, 13px);
   line-height: 1.5;
-
   margin-top: 10px;
+  max-width: 100%;
 }
 
 /* =====================
@@ -193,32 +190,34 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
 .couple-wrapper {
   margin-top: 45px;
-
   margin-bottom: 45px;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.person {
+  animation: scaleIn 0.6s ease-out;
 }
 
 .person-name {
   font-family: "Cormorant Garamond", serif;
-
-  font-size: 42px;
-
+  font-size: clamp(28px, 8vw, 42px);
   line-height: 1.1;
+  font-weight: 600;
 }
 
 .person-role {
-  font-size: 11px;
-
+  font-size: clamp(10px, 2vw, 12px);
   letter-spacing: 4px;
-
-  margin-top: 5px;
+  margin-top: 8px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .symbol {
   font-family: "Cormorant Garamond", serif;
-
-  font-size: 36px;
-
+  font-size: clamp(28px, 6vw, 36px);
   margin: 12px 0;
+  animation: floatAnimation 3s ease-in-out infinite;
 }
 
 /* =====================
@@ -226,27 +225,28 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 ===================== */
 
 .event-wrapper {
-  margin-top: 30px;
+  margin-top: 35px;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
 .event-title {
-  font-size: 14px;
-
+  font-size: clamp(12px, 2vw, 14px);
   line-height: 1.6;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .event-location {
-  font-size: 20px;
-
+  font-size: clamp(16px, 4vw, 20px);
   font-weight: 700;
-
   margin-top: 8px;
 }
 
 .event-time {
-  font-size: 15px;
-
+  font-size: clamp(13px, 3vw, 15px);
   margin-top: 12px;
+  font-weight: 500;
 }
 
 /* =====================
@@ -255,60 +255,84 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
 .date-wrapper {
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  gap: 12px;
-
+  gap: 8px;
   margin-top: 35px;
-} 
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+}
 
 .weekday {
-  width: 45px;
-
-  font-size: 12px;
+  width: auto;
+  font-size: clamp(11px, 2vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .day {
   font-family: "Cormorant Garamond", serif;
-
-  font-size: 65px;
-
+  font-size: clamp(48px, 12vw, 65px);
   line-height: 1;
+  font-weight: 700;
 }
 
 .month {
-  font-size: 13px;
+  font-size: clamp(12px, 2vw, 13px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .year {
   font-family: "Cormorant Garamond", serif;
-
-  font-size: 30px;
-
+  font-size: clamp(24px, 6vw, 30px);
   margin-top: 12px;
+  font-weight: 600;
 }
 
 .lunar {
-  font-size: 13px;
-
+  font-size: clamp(12px, 2vw, 13px);
   margin-top: 8px;
+  color: #8b6a5d;
+  font-style: italic;
 }
-.family-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+@media (max-width: 768px) {
+  .wedding-section {
+    padding: 40px 15px 35px;
+  }
+
+  .family-wrapper {
+    gap: 10px;
+  }
+
+  .family-divider {
+    height: 80px;
+  }
 }
-.family-address {
-  font-size: 13px;
 
-  line-height: 1.5;
+@media (max-width: 480px) {
+  .wedding-section {
+    padding: 30px 12px 25px;
+  }
 
-  max-width: 150px;
+  .invite-container {
+    max-width: 100%;
+  }
 
-  margin: 10px auto 0;
+  .family-wrapper {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .family-divider {
+    display: none;
+  }
+
+  .couple-wrapper {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
 }
 </style>
 

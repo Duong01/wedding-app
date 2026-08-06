@@ -13,7 +13,7 @@ import '@mdi/font/css/materialdesignicons.css';
 // import Loading from "./components/common/Loading.vue";
 import ScrollTop from "./components/common/ScrollTop.vue";
 import FloatingMusic from "./components/common/FloatingMusic.vue";
-// import "./assets/styles/theme.css";
+import "./assets/styles/theme.css";
 // Vuetify
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";

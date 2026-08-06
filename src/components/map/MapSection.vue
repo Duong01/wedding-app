@@ -1,22 +1,15 @@
 ﻿<template>
-  <section class="location-section">
+  <section class="location-section map">
     <v-container>
+      <h2 class="section-title">Tiệc cưới diễn ra tại</h2>
+          <p class="location-info">
+            {{ firstEvent.address }}
+          </p>
       <div class="location-card">
-        <div class="location-copy">
-          <div class="sub-title">Địa Điểm</div>
-          <h2>Tiệc cưới tại {{ wedding.location }}</h2>
-          <p>{{ wedding.address }}</p>
-          <div class="location-note">Hãy đến đúng giờ để cùng nhau bắt đầu một ngày vui trọn vẹn.</div>
-        </div>
+      
 
         <div class="map-frame">
-          <iframe
-            :src="mapSrc"
-            width="100%"
-            height="100%"
-            style="border:0"
-            loading="lazy"
-          ></iframe>
+          <iframe :src="mapSrc" loading="lazy" />
         </div>
       </div>
     </v-container>
@@ -29,68 +22,146 @@ import { useWeddingStore } from "@/stores/wedding";
 
 const store = useWeddingStore();
 const wedding = computed(() => store.wedding);
-
+const firstEvent = computed(() => store.wedding.events?.[0] ?? {});
 const mapSrc = computed(() => {
-  const query = encodeURIComponent(wedding.value.address || wedding.value.location || "");
-  return `https://maps.google.com/maps?q=${query}&output=embed`;
+  const query = wedding.value.events?.[0];
+  return `${query.map}&output=embed`;
 });
 </script>
 
 <style scoped>
-.location-section {
-  padding: 70px 0 100px;
+.section-title{
+    color: #fff;
 }
-
+.location-info p{
+  color: #fff;
+}
 .location-card {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 24px;
-  padding: 32px;
-  border-radius: 36px;
-  background: linear-gradient(135deg, rgba(255, 250, 245, 0.97) 0%, rgba(255, 244, 235, 0.95) 100%);
-  border: 1px solid rgba(206, 160, 145, 0.24);
-  box-shadow: 0 24px 70px rgba(93, 61, 54, 0.08);
+
+  overflow: hidden;
+
 }
 
-.sub-title {
-  color: #c57c78;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 10px;
-  font-size: 0.85rem;
+.info-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 25px;
 }
 
-.location-copy h2 {
-  margin: 0 0 12px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 2rem;
-  color: #4d3537;
+.info-item {
+  display: flex;
+
+  gap: 18px;
+
+  align-items: flex-start;
 }
 
-.location-copy p {
-  margin: 0 0 16px;
-  color: #7a6768;
-  line-height: 1.8;
+.info-item span {
+  width: 46px;
+
+  height: 46px;
+
+  border-radius: 50%;
+
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 22px;
 }
 
-.location-note {
-  padding: 16px 18px;
-  border-radius: 20px;
-  background: #fff4ec;
-  color: #8c5f55;
-  font-weight: 600;
+.info-item strong {
+  display: block;
+
+  color: var(--primary);
+
+  margin-top: 6px;
+}
+
+.actions {
+  display: flex;
+
+  gap: 15px;
+
+  margin-top: 40px;
+}
+
+.primary-btn {
+  flex: 1;
+
+  background: var(--primary);
+
+  color: white;
+
+  text-align: center;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+.outline-btn {
+  flex: 1;
+
+  border: 1px solid var(--primary);
+
+  color: var(--primary);
+
+  text-align: center;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+}
+
+.outline-btn:hover {
+
+  color: white;
 }
 
 .map-frame {
-  min-height: 420px;
-  overflow: hidden;
-  border-radius: 24px;
+  height: 320px;
+  width: 100%;
 }
 
-@media (max-width: 980px) {
+.map-frame iframe {
+  width: 100%;
+
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+}
+
+@media (max-width: 900px) {
   .location-card {
     grid-template-columns: 1fr;
+  }
+
+  
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .map-frame {
+    height: 360px;
   }
 }
 </style>
