@@ -81,7 +81,7 @@ import StoryTimeline from "./StoryTimeline.vue";
 
     color:#d79ba8;
 
-    font-size:13px;
+    // font-size:13px;
 
     margin-bottom:10px;
 
@@ -89,7 +89,7 @@ import StoryTimeline from "./StoryTimeline.vue";
 
 .section-title h2{
 
-    font-size:46px;
+    // font-size:46px;
 
     color:#444;
 
@@ -119,7 +119,7 @@ padding:70px 0;
 
 .section-title h2{
 
-font-size:32px;
+// font-size:32px;
 
 }
 

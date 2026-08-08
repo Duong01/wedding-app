@@ -74,9 +74,8 @@ const wedding = computed(() => store.wedding.footer ?? {});
 
 .couple-name{
 
-    font-size:20px;
+    /* font-size:20px; */
 
-    font-family:"Cormorant Garamond",serif;
 
     font-weight:600;
 
@@ -116,7 +115,7 @@ const wedding = computed(() => store.wedding.footer ?? {});
 
     color:rgba(255,255,255,.65);
 
-    font-size:11px;
+    /* font-size:11px; */
 
     line-height:2;
 }
@@ -128,12 +127,12 @@ const wedding = computed(() => store.wedding.footer ?? {});
         width:58px;
         height:58px;
 
-        font-size:18px;
+        /* font-size:18px; */
     }
 
     .couple-name{
 
-        font-size:18px;
+        /* font-size:18px; */
 
         line-height:1.4;
     }
@@ -146,14 +145,14 @@ const wedding = computed(() => store.wedding.footer ?? {});
 
     .footer-text{
         height: 70px;
-        font-size:12px;
+        /* font-size:12px; */
         text-align: center;
         line-height: 70px;
     }
 
     .copyright{
 
-        font-size:11px;
+        /* font-size:11px; */
     }
 
 }

@@ -112,15 +112,14 @@ onMounted(() => {
 
 .invite-badge {
   letter-spacing: 0.28em;
-  font-size: 0.8rem;
+  // font-size: 0.8rem;
   text-transform: uppercase;
   opacity: 0.85;
 }
 
 .guest {
   margin-top: 16px;
-  font-size: 1.8rem;
-  font-family: "Georgia", "Times New Roman", serif;
+  // font-size: 1.8rem;
   font-weight: 600;
   color: #fff;
 }
@@ -128,7 +127,7 @@ onMounted(() => {
 .welcome {
   margin: 10px 0 24px;
   opacity: 0.95;
-  font-size: 1rem;
+  // font-size: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -154,7 +153,7 @@ onMounted(() => {
 }
 
 .avatar-label {
-  font-size: 0.75rem;
+  // font-size: 0.75rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   opacity: 0.8;
@@ -165,7 +164,7 @@ onMounted(() => {
 }
 
 .names {
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  // font-size: clamp(1.9rem, 3vw, 2.6rem);
   line-height: 1.25;
   font-weight: 700;
   margin: 0;
@@ -190,7 +189,7 @@ onMounted(() => {
   padding: 8px 12px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
-  font-size: 0.95rem;
+  // font-size: 0.95rem;
 }
 
 .open-btn {
@@ -221,11 +220,11 @@ onMounted(() => {
   }
 
   .guest {
-    font-size: 1.45rem;
+    // font-size: 1.45rem;
   }
 
   .meta-item {
-    font-size: 0.85rem;
+    // font-size: 0.85rem;
   }
 }
 </style>

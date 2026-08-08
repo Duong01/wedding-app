@@ -220,7 +220,7 @@ onMounted(() => {
 
     color:#d48b98;
 
-    font-size:14px;
+    // font-size:14px;
 
     font-weight:600;
 
@@ -230,7 +230,7 @@ onMounted(() => {
 
 .content h3{
 
-    font-size:26px;
+    // font-size:26px;
 
     color:#444;
 
@@ -288,7 +288,7 @@ padding:20px;
 
 .content h3{
 
-font-size:22px;
+// font-size:22px;
 
 }
 

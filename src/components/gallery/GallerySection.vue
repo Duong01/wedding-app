@@ -1,18 +1,30 @@
 ﻿<template>
   <section id="gallery" class="gallery-section">
     <v-container>
-      <div class="section-header">
-          <h2>
-              Album Ảnh
-          </h2>
+      <div class="album-heading">
 
-          <p>
-              Lưu giữ những khoảnh khắc đẹp nhất trong hành trình của chúng mình.
-          </p>
+  <div class="album-kicker">
+    OUR LOVE STORY
+  </div>
 
-      </div>
+  <h2 class="album-title">
+    Khoảnh khắc của chúng mình
+  </h2>
 
-      <div class="album-grid">
+  <div class="album-ornament">
+    <span></span>
+    <i>✦</i>
+    <span></span>
+  </div>
+
+  <p class="album-description">
+    Lưu giữ những khoảnh khắc đẹp nhất
+    trong hành trình yêu thương của chúng mình.
+  </p>
+
+</div>
+
+<div class="album-grid">
 
   <!-- 3 ảnh đầu -->
   <div
@@ -123,6 +135,183 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+/* =========================================================
+   WEDDING ALBUM
+   ========================================================= */
+
+.album-heading {
+    width: 100%;
+    max-width: 600px;
+
+    margin: 0 auto 32px;
+
+    text-align: center;
+}
+
+
+/* OUR LOVE STORY */
+
+.album-kicker {
+    margin-bottom: 8px;
+
+    font-family: var(--font-main);
+
+    font-size: 8px;
+    font-weight: 500;
+
+    letter-spacing: 3.5px;
+
+    color: var(--gold);
+
+    text-transform: uppercase;
+}
+
+
+/* Tiêu đề */
+
+.album-title {
+    margin: 0;
+
+    font-family: var(--font-wedding);
+
+    font-size: clamp(32px, 7vw, 46px);
+
+    font-weight: 500;
+
+    font-style: italic;
+
+    line-height: 1.05;
+
+    color: var(--primary);
+
+    letter-spacing: -.3px;
+}
+
+
+/* Trang trí */
+
+.album-ornament {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 15px auto 13px;
+}
+
+
+.album-ornament span {
+    display: block;
+
+    width: 42px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(216, 180, 109, .7)
+        );
+}
+
+
+.album-ornament span:last-child {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(216, 180, 109, .7),
+            transparent
+        );
+}
+
+
+.album-ornament i {
+    font-family: var(--font-wedding);
+
+    font-size: 13px;
+
+    font-style: normal;
+
+    color: var(--gold);
+}
+
+
+/* Mô tả */
+
+.album-description {
+    max-width: 420px;
+
+    margin: 0 auto;
+
+    font-family: var(--font-main);
+
+    font-size: 11px;
+
+    font-weight: 300;
+
+    line-height: 1.8;
+
+    color: var(--sub-text);
+}
+.album-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+/* Tất cả item */
+
+.album-item {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 220px;
+
+    border-radius: 18px;
+
+    background: #eee;
+
+    cursor: pointer;
+
+    isolation: isolate;
+}
+
+
+/* Ảnh */
+
+.album-item img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform .7s cubic-bezier(.2,.65,.25,1),
+        filter .5s ease;
+}
+
+
+/* Hover */
+
+.album-item:hover img {
+    transform: scale(1.045);
+
+    filter: brightness(.88);
+}
 .gallery-section{
     background:#f8f5ed;
     position:relative;
@@ -147,15 +336,14 @@ onBeforeUnmount(() => {
 
 .section-header h2{
     color:#7b1f1f;
-    font-size: clamp(28px, 7vw, 46px);
-    font-family:"Cormorant Garamond",serif;
+    /* font-size: clamp(28px, 7vw, 46px); */
     font-weight:700;
     margin: 0 0 15px 0;
 }
 
 .section-header p {
     color: #8b6a5d;
-    font-size: clamp(13px, 3vw, 16px);
+    /* font-size: clamp(13px, 3vw, 16px); */
     line-height: 1.6;
     max-width: 500px;
     margin: 0 auto;
@@ -209,35 +397,93 @@ onBeforeUnmount(() => {
     position:relative;
 }
 
-.more-overlay{
-    position:absolute;
-    inset:0;
-    background: linear-gradient(135deg, rgba(20,20,20,.5), rgba(10,10,10,.6));
-    backdrop-filter:blur(3px);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    color:#fff;
-    transition: .3s ease-out;
+.more-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(35, 20, 17, .05),
+            rgba(35, 20, 17, .62)
+        );
+
+    transition:
+        background .4s ease;
 }
+
 
 .album-item:hover .more-overlay {
-    backdrop-filter: blur(5px);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(35, 20, 17, .15),
+            rgba(35, 20, 17, .72)
+        );
 }
 
-.more-count{
-    font-size: clamp(18px, 5vw, 24px);
-    font-weight:700;
-    line-height:1;
+
+/* +12 */
+
+.more-count {
+    font-family: var(--font-wedding);
+
+    font-size: 34px;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    color: #fff;
 }
 
-.more-text{
-    margin-top:10px;
-    font-size: clamp(11px, 2vw, 13px);
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    font-weight: 600;
+
+/* Xem tất cả */
+
+.more-text {
+    margin-top: 8px;
+
+    font-family: var(--font-main);
+
+    font-size: 8px;
+
+    font-weight: 500;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, .92);
+}
+
+
+/* đường trang trí */
+
+.more-text::before {
+    content: "";
+
+    display: block;
+
+    width: 28px;
+    height: 1px;
+
+    margin: 0 auto 10px;
+
+    background: rgba(255, 255, 255, .65);
 }
 
 /* Lightbox/Modal Styles */
@@ -277,7 +523,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
   transition: 0.3s ease-out;
   font-weight: bold;
-  font-size: 24px;
+  /* font-size: 24px; */
 }
 
 .lightbox-close:hover {
@@ -305,7 +551,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
   transition: 0.3s ease-out;
   font-weight: bold;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 .nav-btn:hover {
@@ -336,7 +582,7 @@ onBeforeUnmount(() => {
   background: white;
   color: #7b1f1f;
   border-radius: 0 0 24px 24px;
-  font-size: clamp(12px, 2vw, 14px);
+  /* font-size: clamp(12px, 2vw, 14px); */
 }
 
 .lightbox-caption p {
@@ -380,13 +626,13 @@ onBeforeUnmount(() => {
   .nav-btn {
     width: 40px;
     height: 40px;
-    font-size: 18px;
+    /* font-size: 18px; */
   }
 
   .lightbox-close {
     width: 40px;
     height: 40px;
-    font-size: 22px;
+    /* font-size: 22px; */
   }
 }
 
@@ -410,7 +656,36 @@ onBeforeUnmount(() => {
   .nav-btn {
     width: 36px;
     height: 36px;
-    font-size: 16px;
+    /* font-size: 16px; */
   }
+}
+/* =========================================================
+   FULLSCREEN GALLERY
+   ========================================================= */
+
+.gallery-dialog {
+    background: #120e0d !important;
+
+    overflow: hidden !important;
+}
+
+
+/* nền */
+
+.gallery-dialog::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(125, 16, 21, .12),
+            transparent 55%
+        );
 }
 </style>

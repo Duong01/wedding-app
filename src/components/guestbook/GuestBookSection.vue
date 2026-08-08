@@ -133,7 +133,7 @@ const wishes = computed(() => store.wedding.guestBook?.guest ?? []);
 .wish-track span{
     margin-right:70px;
     color:#ffe9c5;
-    font-size:13px;
+    /* font-size:13px; */
     font-style:italic;
 }
 
@@ -167,7 +167,7 @@ transform:translateX(-50%);
     background:rgba(255,255,255,.05);
     color:#fff;
     margin-bottom:18px;
-    font-size:13px;
+    /* font-size:13px; */
 }
 
 .guestbook-form input::placeholder,
@@ -241,7 +241,7 @@ height:58px;
 border-radius:50%;
 background:#d8b46d;
 color:#7b0d0d;
-font-size:18px;
+/* font-size:18px; */
 font-weight:bold;
 display:flex;
 justify-content:center;
@@ -267,7 +267,7 @@ margin-bottom:10px;
 
 .head strong{
 
-font-size:14px;
+/* font-size:14px; */
 color:#fff;
 
 }
@@ -304,7 +304,7 @@ gap:14px;
 
 width:48px;
 height:48px;
-font-size:16px;
+/* font-size:16px; */
 
 }
 
@@ -318,7 +318,7 @@ gap:4px;
 
 .wish-track span{
 
-font-size:13px;
+/* font-size:13px; */
 margin-right:45px;
 
 }

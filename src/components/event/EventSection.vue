@@ -1,90 +1,181 @@
 ﻿<template>
-  <section class="event-section">
-    <v-container class="invite">
-      <div class="event-card">
-        <div class="section-head">
-          <h2 class="title">THÔNG TIN TIỆC CƯỚI</h2>
+  <div class="invitation-section">
 
-          <p class="desc">
-            Trân trọng kính mời Quý khách đến chung vui cùng gia đình
-          </p>
-        </div>
+  <!-- =========================
+       HEADER
+       ========================= -->
 
-        <!-- Thời gian -->
-        <div class="event-info">
-          <div class="time">
-            {{ firstEvent.time }}
-          </div>
+  <div class="invitation-heading">
 
-          <div class="calendar-date">
-            <span>{{ firstEvent.weekday }}</span>
+    
+    <h2 class="invitation-title">
+      Trân trọng kính mời
+    </h2>
 
-            <div class="day">
-              {{ firstEvent.day }}
-            </div>
+    <div class="invitation-ornament">
+      <span></span>
+      <i>✦</i>
+      <span></span>
+    </div>
 
-            <span>THÁNG {{ firstEvent.month }}</span>
-          </div>
+    <p class="desc">
+      Trân trọng kính mời Quý khách đến chung vui
+      cùng gia đình trong ngày hạnh phúc của chúng mình
+    </p>
 
-          <div class="year">
-            {{ firstEvent.year }}
-          </div>
+  </div>
 
-          <div class="lunar">
-            {{ firstEvent.lunar }}
-          </div>
-        </div>
 
-        <!-- Lịch -->
-        <!-- Calendar -->
-        <div class="calendar-card">
-          <div class="calendar-header">
-            Tháng {{ firstEvent.month }} / {{ firstEvent.year }}
-          </div>
+  <!-- =========================
+       EVENT TIME
+       ========================= -->
 
-          <div class="calendar-week">
-            <div v-for="d in weekDays" :key="d">
-              {{ d }}
-            </div>
-          </div>
+  <div class="event-info">
 
-          <div class="calendar-days">
-            <div
-              v-for="(day, index) in calendarDays"
-              :key="index"
-              class="calendar-cell"
-              :class="{
-                empty: !day,
-                active: day === Number(firstEvent.day),
-              }"
-            >
-              <template v-if="day">
-                <div v-if="day === Number(firstEvent.day)" class="heart-day">
-                  ❤
-                  <span>{{ day }}</span>
-                </div>
+    <div class="time-label">
+      VÀO LÚC
+    </div>
 
-                <span v-else>
-                  {{ day }}
-                </span>
-              </template>
-            </div>
-          </div>
-        </div>
+    <div class="time">
+      {{ firstEvent.time }}
+    </div>
 
-        <!-- Button -->
-        <div class="action">
-          <a class="calendar-link" :href="calendarUrl" target="_blank">
-            Thêm vào lịch
-          </a>
 
-          <button class="confirm-btn" @click="$emit('confirm')">
-            XÁC NHẬN THAM DỰ
-          </button>
-        </div>
+    <div class="calendar-date">
+
+      <span class="weekday">
+        {{ firstEvent.weekday }}
+      </span>
+
+      <div class="date-number">
+        {{ firstEvent.day }}
       </div>
-    </v-container>
-  </section>
+
+      <span class="month">
+        THÁNG {{ firstEvent.month }}
+      </span>
+
+    </div>
+
+
+    <div class="year">
+      {{ firstEvent.year }}
+    </div>
+
+
+    <div class="lunar">
+      {{ firstEvent.lunar }}
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CALENDAR
+       ========================= -->
+
+  <div class="calendar-card">
+
+    <div class="calendar-top">
+
+      <div class="calendar-label">
+        SAVE THE DATE
+      </div>
+
+      <div class="calendar-header">
+        Tháng {{ firstEvent.month }} / {{ firstEvent.year }}
+      </div>
+
+    </div>
+
+
+    <div class="calendar-week">
+
+      <div
+        v-for="d in weekDays"
+        :key="d"
+      >
+        {{ d }}
+      </div>
+
+    </div>
+
+
+    <div class="calendar-days">
+
+      <div
+        v-for="(day, index) in calendarDays"
+        :key="index"
+        class="calendar-cell"
+        :class="{
+          empty: !day,
+          active: day === Number(firstEvent.day),
+        }"
+      >
+
+        <template v-if="day">
+
+          <div
+            v-if="day === Number(firstEvent.day)"
+            class="heart-day"
+          >
+            <span class="heart">
+              ♥
+            </span>
+
+            <span class="heart-number">
+              {{ day }}
+            </span>
+          </div>
+
+          <span v-else>
+            {{ day }}
+          </span>
+
+        </template>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ACTION
+       ========================= -->
+
+  <div class="action">
+
+    <a
+      class="calendar-link"
+      :href="calendarUrl"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="calendar-icon">＋</span>
+
+      <span>
+        Thêm vào lịch
+      </span>
+    </a>
+
+
+    <button
+      class="confirm-btn"
+      type="button"
+      @click="$emit('confirm')"
+    >
+      <span>
+        XÁC NHẬN THAM DỰ
+      </span>
+
+      <i>→</i>
+    </button>
+
+  </div>
+
+</div>
 </template>
 
 <script setup>
@@ -135,385 +226,785 @@ const calendarDays = computed(() => {
 </script>
 
 <style scoped>
-.event-section {
-  /* padding:90px 20px; */
-  background: #f7f2ea;
-  position: relative;
+
+.invitation-section {
+    position: relative;
+    background: #f8f5ed;
+    width: 100%;
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    padding: 20px 16px 60px;
+
+    color: var(--text);
 }
 
-.event-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("/images/paper.webp");
-  opacity: 0.12;
-  pointer-events: none;
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.invitation-heading {
+    max-width: 520px;
+
+    margin: 0 auto 32px;
+
+    text-align: center;
 }
 
-.invite {
-  max-width: 820px;
-  margin: auto;
+
+/* WEDDING INVITATION */
+
+.invitation-kicker {
+    margin-bottom: 8px;
+
+
+    font-size: 8px;
+
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    color: var(--gold);
+
+    text-transform: uppercase;
 }
 
-/* ================= CARD ================= */
 
-.event-card {
-  background: #fffdfb;
-  border: 1px solid #ead7d2;
-  border-radius: 28px;
-  padding: 55px 45px;
-  text-align: center;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
-  position: relative;
+/* Title */
+
+.invitation-title {
+    margin: 0;
+
+
+    font-size: clamp(34px, 8vw, 48px);
+
+    font-weight: 500;
+
+    font-style: italic;
+
+    line-height: 1.05;
+
+    color: var(--primary);
 }
 
-/* ================= TITLE ================= */
 
-.sub-title {
-  display: block;
-  color: #b68d63;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  font-size: 13px;
-  margin-bottom: 10px;
+/* Ornament */
+
+.invitation-ornament {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 14px auto 14px;
 }
 
-.title {
-  color: #7b1f1f;
-  font-size: 20px;
-  font-family: "Cormorant Garamond", serif;
-  margin-bottom: 15px;
+
+.invitation-ornament span {
+    width: 42px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(216,180,109,.7)
+        );
 }
 
-.desc {
-  color: #7d6f6b;
-  font-size: 14px;
-  line-height: 1.7;
+
+.invitation-ornament span:last-child {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(216,180,109,.7),
+            transparent
+        );
 }
 
-/* ================= TIME ================= */
+
+.invitation-ornament i {
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    color: var(--gold);
+}
+
+
+/* Description */
+
+.invitation-heading .desc {
+    max-width: 420px;
+
+    margin: 0 auto;
+
+
+    font-size: 12px;
+
+    font-weight: 300;
+
+    line-height: 1.8;
+
+    color: var(--sub-text);
+}
+
+
+/* =========================================================
+   EVENT INFORMATION
+   ========================================================= */
+
+.event-info {
+    position: relative;
+
+    text-align: center;
+
+    margin: 0 auto 32px;
+
+    color: var(--primary);
+}
+
+
+/* VÀO LÚC */
+
+.time-label {
+    margin-bottom: 2px;
+
+
+    font-size: 8px;
+
+    font-weight: 500;
+
+    letter-spacing: 2.5px;
+
+    color: var(--gold);
+
+    text-transform: uppercase;
+}
+
+
+/* 09:00 */
 
 .time {
-  margin: 35px 0 28px;
-  font-size: 42px;
-  color: #7b1f1f;
-  font-weight: 700;
+    margin-bottom: 16px;
+
+
+    font-size: 25px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    color: var(--primary);
 }
 
-/* ================= DATE ================= */
+
+/* =========================================================
+   DATE
+   ========================================================= */
 
 .calendar-date {
-  display: flex;
+    display: flex;
 
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 
-  align-items: center;
-
-  gap: 20px;
+    gap: 13px;
 }
 
-.calendar-date span {
-  color: #7b1f1f;
 
-  font-size: 18px;
+/* THỨ */
 
-  font-weight: 500;
+.calendar-date .weekday {
+    font-size: 15px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    color: var(--primary);
 }
 
-.day {
-  font-size: 72px;
 
-  font-family: "Cormorant Garamond", serif;
+/* NGÀY */
 
-  color: #7b1f1f;
+.date-number {
+    position: relative;
 
-  line-height: 1;
+    padding: 0 14px;
 
-  padding: 0 18px;
 
-  border-left: 1px solid #d9bfb8;
+    font-size: 48px;
 
-  border-right: 1px solid #d9bfb8;
+    font-weight: 500;
+
+    line-height: .9;
+
+    color: var(--primary);
 }
 
-.year {
-  margin-top: 15px;
 
-  font-size: 34px;
+/* line hai bên */
 
-  color: #7b1f1f;
+.date-number::before,
+.date-number::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+
+    width: 25px;
+
+    height: 1px;
+
+    background: rgba(123,13,13,.22);
 }
+
+
+.date-number::before {
+    right: 100%;
+}
+
+
+.date-number::after {
+    left: 100%;
+}
+
+
+/* THÁNG */
+
+.calendar-date .month {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: var(--primary);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   YEAR
+   ========================================================= */
+
+.event-info .year {
+    margin-top: 13px;
+
+
+    font-size: 24px;
+
+    font-weight: 600;
+
+    color: var(--primary);
+}
+
+
+/* Lunar */
 
 .lunar {
-  margin-top: 10px;
-  color: #9c8c87;
-  font-size: 15px;
-  font-style: italic;
+    margin-top: 8px;
+
+
+    font-size: 12px;
+
+    font-style: italic;
+
+    color: var(--sub-text);
 }
 
-/* ================= SCHEDULE ================= */
 
-.schedule {
-  margin: 45px auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 20px;
-
-  max-width: 450px;
-}
-
-.schedule-item {
-  background: #faf7f4;
-
-  border: 1px solid #ead7d2;
-
-  border-radius: 18px;
-
-  padding: 20px;
-
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-
-.schedule-item small {
-  display: block;
-
-  color: #8e6d63;
-
-  letter-spacing: 2px;
-
-  font-size: 12px;
-
-  margin-bottom: 10px;
-}
-
-.schedule-item strong {
-  color: #7b1f1f;
-
-  font-size: 28px;
-}
-
-/* ================= CALENDAR ================= */
+/* =========================================================
+   CALENDAR CARD
+   ========================================================= */
 
 .calendar-card {
-  margin: 45px auto;
+    position: relative;
 
-  max-width: 450px;
-
-  background: white;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-
-  border: 1px solid #ead7d2;
-}
-
-/* ================= ACTION ================= */
-
-.action {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 18px;
-}
-
-.calendar-link {
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: 999px;
-
-  color: #7b1f1f;
-
-  transition: 0.3s;
-}
-
-.calendar-link:hover {
-  color: #ccc;
-}
-
-.confirm-btn {
-  width: 280px;
-
-  height: 54px;
-
-  border: none;
-
-  border-radius: 999px;
-
-  background: #7b1f1f;
-
-  color: #fff;
-
-  font-size: 16px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: 0.3s;
-
-  box-shadow: 0 12px 25px rgba(123, 31, 31, 0.28);
-}
-
-.confirm-btn:hover {
-  transform: translateY(-3px);
-
-  background: #641515;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 768px) {
-  .event-card {
-    padding: 35px 22px;
-  }
-
-  .title {
-    font-size: 30px;
-  }
-
-  .desc {
-    font-size: 15px;
-  }
-
-  .time {
-    font-size: 32px;
-  }
-
-  .calendar-date {
-    gap: 12px;
-  }
-
-  .calendar-date span {
-    font-size: 15px;
-  }
-
-  .day {
-    font-size: 56px;
-
-    padding: 0 12px;
-  }
-
-  .year {
-    font-size: 28px;
-  }
-
-  .schedule {
-    grid-template-columns: 1fr;
-
-    max-width: 280px;
-  }
-
-  .calendar-card {
-    max-width: 100%;
-  }
-
-  .confirm-btn {
     width: 100%;
 
-    max-width: 280px;
-  }
+    max-width: 520px;
+
+    margin: 0 auto 28px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.68);
+
+    border: 1px solid rgba(123,13,13,.1);
+
+    box-shadow:
+        0 15px 45px rgba(78,46,35,.07);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
 }
-.calendar-card {
-  width: 420px;
-  max-width: 100%;
-  margin: 35px auto;
-  background: #fffdf9;
-  border: 1px solid #d9b6ae;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+
+/* =========================================================
+   CALENDAR HEADER
+   ========================================================= */
+
+.calendar-top {
+    text-align: center;
+
+    margin-bottom: 18px;
 }
+
+
+.calendar-label {
+    margin-bottom: 5px;
+
+    font-size: 7px;
+
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    color: var(--gold);
+}
+
 
 .calendar-header {
-  padding: 18px;
-  font-size: 22px;
-  font-weight: 700;
-  color: #7b1f1f;
-  border-bottom: 1px solid #ead7d1;
-  font-family: "Cormorant Garamond", serif;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    color: var(--primary);
 }
 
-.calendar-week,
+
+/* =========================================================
+   WEEK
+   ========================================================= */
+
+.calendar-week {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid rgba(123,13,13,.08);
+}
+
+
+.calendar-week > div {
+    text-align: center;
+
+
+    font-size: 8px;
+
+    font-weight: 500;
+
+    color: var(--sub-text);
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   DAYS
+   ========================================================= */
+
 .calendar-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    row-gap: 5px;
+
+    padding-top: 8px;
 }
 
-.calendar-week div {
-  padding: 12px 0;
-  text-align: center;
-  font-size: 14px;
-  color: #9a5a52;
-  border-bottom: 1px solid #f2e5df;
-}
 
 .calendar-cell {
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6a1f1f;
-  font-size: 16px;
+    position: relative;
+
+    min-height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+
+    font-size: 15px;
+
+    color: var(--text);
 }
+
 
 .calendar-cell.empty {
-  visibility: hidden;
+    pointer-events: none;
 }
+
+
+/* =========================================================
+   ACTIVE DAY
+   ========================================================= */
 
 .heart-day {
-  position: relative;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #7b1f1f;
-  font-size: 34px;
+    position: relative;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 }
 
-.heart-day span {
-  position: absolute;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -58%);
+
+.heart {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 34px;
+
+    color: var(--primary);
+
+    line-height: 1;
 }
 
-@media (max-width: 768px) {
-  .calendar-card {
+
+.heart-number {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 1px;
+
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #fff;
+}
+/* =========================================================
+   ACTION
+   ========================================================= */
+
+.action {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+
     width: 100%;
-  }
 
-  .calendar-cell {
-    height: 42px;
-    font-size: 14px;
-  }
+    max-width: 420px;
 
-  .calendar-header {
-    font-size: 20px;
-  }
+    margin: 0 auto;
+}
 
-  .heart-day {
-    width: 30px;
-    height: 30px;
-    font-size: 30px;
-  }
 
-  .heart-day span {
-    font-size: 11px;
-  }
+/* =========================================================
+   ADD TO CALENDAR
+   ========================================================= */
+
+.calendar-link {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 42px;
+
+    padding: 0 20px;
+
+    border: 1px solid rgba(123,13,13,.18);
+
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.calendar-icon {
+    font-size: 15px;
+
+    color: var(--gold);
+}
+
+
+.calendar-link:hover {
+    background: var(--primary);
+
+    color: #fff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   CONFIRM
+   ========================================================= */
+
+.confirm-btn {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    padding: 0 24px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7b0d0d,
+            #941c1c
+        );
+
+    color: #fff;
+
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(123,13,13,.18);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.confirm-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(123,13,13,.25);
+}
+
+
+.confirm-btn i {
+    font-size: 16px;
+
+    font-style: normal;
+
+    color: var(--gold);
+
+    transition:
+        transform .3s ease;
+}
+
+
+.confirm-btn:hover i {
+    transform: translateX(4px);
+}
+@media (max-width: 600px) {
+
+    .invitation-section {
+        padding:
+            10px
+            14px
+            45px;
+    }
+
+
+    .invitation-heading {
+        margin-bottom: 26px;
+    }
+
+
+    .invitation-kicker {
+        font-size: 7px;
+
+        letter-spacing: 2.5px;
+    }
+
+
+    .invitation-title {
+        font-size: 35px;
+    }
+
+
+    .invitation-heading .desc {
+        max-width: 330px;
+
+        font-size: 11px;
+
+        line-height: 1.75;
+    }
+
+
+    /* EVENT */
+
+    .time-label {
+        font-size: 7px;
+
+        letter-spacing: 2px;
+    }
+
+
+    .time {
+        font-size: 23px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .calendar-date {
+        gap: 9px;
+    }
+
+
+    .calendar-date .weekday {
+        font-size: 13px;
+    }
+
+
+    .date-number {
+        font-size: 44px;
+
+        padding: 0 10px;
+    }
+
+
+    .date-number::before,
+    .date-number::after {
+        width: 17px;
+    }
+
+
+    .calendar-date .month {
+        font-size: 12px;
+    }
+
+
+    .event-info .year {
+        font-size: 22px;
+    }
+
+
+    .lunar {
+        font-size: 11px;
+    }
+
+
+    /* CALENDAR */
+
+    .calendar-card {
+        padding: 16px 12px;
+
+        border-radius: 17px;
+    }
+
+
+    .calendar-label {
+        font-size: 6px;
+
+        letter-spacing: 2.5px;
+    }
+
+
+    .calendar-header {
+        font-size: 20px;
+    }
+
+
+    .calendar-cell {
+        min-height: 34px;
+
+        font-size: 14px;
+    }
+
+
+    .heart-day {
+        width: 31px;
+        height: 31px;
+    }
+
+
+    .heart {
+        font-size: 31px;
+    }
+
+
+    .heart-number {
+        font-size: 12px;
+    }
+
+
+    /* BUTTON */
+
+    .action {
+        max-width: 100%;
+    }
+
+
+    .calendar-link {
+        min-height: 40px;
+
+        font-size: 9px;
+    }
+
+
+    .confirm-btn {
+        min-height: 48px;
+
+        font-size: 9px;
+
+        letter-spacing: 1px;
+    }
 }
 </style>

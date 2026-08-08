@@ -209,7 +209,7 @@ onMounted(async()=>{
 
 .heart{
 
-    font-size:70px;
+    // font-size:70px;
 
     color:#ff4b7d;
 
@@ -219,7 +219,7 @@ onMounted(async()=>{
 
 .title{
 
-    font-size:34px;
+    // font-size:34px;
 
     font-weight:700;
 
@@ -245,7 +245,7 @@ onMounted(async()=>{
 
     color:#888;
 
-    font-size:14px;
+    // font-size:14px;
 
     text-transform:uppercase;
 
@@ -271,13 +271,13 @@ padding:30px 20px;
 
 .title{
 
-font-size:24px;
+// font-size:24px;
 
 }
 
 .heart{
 
-font-size:55px;
+// font-size:55px;
 
 }
 

@@ -89,7 +89,7 @@ import CoupleCard from "./CoupleCard.vue";
 
     text-transform:uppercase;
 
-    font-size:13px;
+    // font-size:13px;
 
     margin-bottom:12px;
 
@@ -97,7 +97,7 @@ import CoupleCard from "./CoupleCard.vue";
 
 .section-header h2{
 
-    font-size:42px;
+    // font-size:42px;
 
     font-weight:700;
 
@@ -123,7 +123,7 @@ import CoupleCard from "./CoupleCard.vue";
 
 .section-header h2{
 
-font-size:30px;
+// font-size:30px;
 
 }
 

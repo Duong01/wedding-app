@@ -145,7 +145,7 @@ async function copy(text){
 
     color:#f7dca8;
 
-    font-size:12px;
+    /* font-size:12px; */
 }
 
 .account-number{
@@ -154,7 +154,7 @@ async function copy(text){
 
     color:#fff;
 
-    font-size:12px;
+    /* font-size:12px; */
 
     font-weight:700;
 
@@ -167,7 +167,7 @@ async function copy(text){
 
     color:#f7dca8;
 
-    font-size:11px;
+    /* font-size:11px; */
 
     font-weight:600;
 }
@@ -215,17 +215,17 @@ async function copy(text){
 
     .account-number{
 
-        font-size:11px;
+        /* font-size:11px; */
     }
 
     .account-name{
 
-        font-size:11px;
+        /* font-size:11px; */
     }
 
     .copy-btn{
 
-        font-size:11px;
+        /* font-size:11px; */
         padding:8px 18px;
     }
 

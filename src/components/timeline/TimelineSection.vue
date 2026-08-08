@@ -82,7 +82,7 @@ import HeroCountdown from "@/components/hero/HeroCountdown.vue";
 }
 
 .section-header h2 {
-  font-size: 2.5rem;
+  /* font-size: 2.5rem; */
   color: #3d2b2f;
   margin-bottom: 12px;
 }
@@ -118,7 +118,7 @@ import HeroCountdown from "@/components/hero/HeroCountdown.vue";
 }
 
 .timeline-date {
-  font-size: 1.35rem;
+  /* font-size: 1.35rem; */
   font-weight: 700;
   color: #b95f7d;
 }

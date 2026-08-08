@@ -74,7 +74,7 @@ const mapSrc = computed(() => {
 
   align-items: center;
 
-  font-size: 22px;
+  /* font-size: 22px; */
 }
 
 .info-item strong {
@@ -143,7 +143,6 @@ const mapSrc = computed(() => {
 
 .map-frame iframe {
   width: 100%;
-
   height: 100%;
   border-radius: 10px;
   border: none;

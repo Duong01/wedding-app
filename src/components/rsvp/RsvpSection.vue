@@ -37,7 +37,7 @@
   margin-bottom: 10px;
 }
 .section-header h2 {
-  font-size: 2rem;
+  /* font-size: 2rem; */
   color: #3f2a2a;
   margin-bottom: 10px;
 }

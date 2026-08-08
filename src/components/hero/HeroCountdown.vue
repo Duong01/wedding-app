@@ -1,28 +1,16 @@
 <template>
   <div class="countdown">
-
-    <div
-      v-for="item in countdownItems"
-      :key="item.label"
-      class="count-item"
-    >
+    <div v-for="item in countdownItems" :key="item.label" class="count-item">
       <Transition name="flip" mode="out-in">
-
-        <div
-          :key="item.value"
-          class="number"
-        >
+        <div :key="item.value" class="number">
           {{ format(item.value) }}
         </div>
-
       </Transition>
 
       <div class="label">
         {{ item.label }}
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -41,220 +29,171 @@ const now = ref(dayjs());
 let timer = null;
 
 const remain = computed(() => {
+  const target = dayjs(store.wedding.weddingDate);
 
-    const target = dayjs(store.wedding.weddingDate);
+  const diff = target.diff(now.value);
 
-    const diff = target.diff(now.value);
-
-    if (diff <= 0) {
-
-        return {
-            days: 0,
-            hours: 0,
-            minutes: 0,
-            seconds: 0
-        };
-
-    }
-
-    const d = dayjs.duration(diff);
-
+  if (diff <= 0) {
     return {
-
-        days: Math.floor(d.asDays()),
-
-        hours: d.hours(),
-
-        minutes: d.minutes(),
-
-        seconds: d.seconds()
-
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
     };
+  }
 
+  const d = dayjs.duration(diff);
+
+  return {
+    days: Math.floor(d.asDays()),
+
+    hours: d.hours(),
+
+    minutes: d.minutes(),
+
+    seconds: d.seconds(),
+  };
 });
 
 const countdownItems = computed(() => [
+  {
+    label: "Ngày",
+    value: remain.value.days,
+  },
 
-    {
-        label: "Ngày",
-        value: remain.value.days
-    },
+  {
+    label: "Giờ",
+    value: remain.value.hours,
+  },
 
-    {
-        label: "Giờ",
-        value: remain.value.hours
-    },
+  {
+    label: "Phút",
+    value: remain.value.minutes,
+  },
 
-    {
-        label: "Phút",
-        value: remain.value.minutes
-    },
-
-    {
-        label: "Giây",
-        value: remain.value.seconds
-    }
-
+  {
+    label: "Giây",
+    value: remain.value.seconds,
+  },
 ]);
 
-function format(value){
-
-    return String(value).padStart(2,"0");
-
+function format(value) {
+  return String(value).padStart(2, "0");
 }
 
-onMounted(()=>{
-
-    timer = setInterval(()=>{
-
-        now.value = dayjs();
-
-    },1000);
-
+onMounted(() => {
+  timer = setInterval(() => {
+    now.value = dayjs();
+  }, 1000);
 });
 
-onUnmounted(()=>{
-
-    clearInterval(timer);
-
+onUnmounted(() => {
+  clearInterval(timer);
 });
 </script>
 
 <style scoped lang="scss">
+.countdown {
+  margin-top: 45px;
 
-.countdown{
+  display: flex;
 
-    margin-top:45px;
+  justify-content: center;
 
-    display:flex;
-
-    justify-content:center;
-
-    gap:18px;
-
-    flex-wrap:wrap;
+  gap: 18px;
 
 }
 
-.count-item{
+.count-item {
+  width: 95px;
 
-    width:95px;
+  border-radius: 22px;
 
-    border-radius:22px;
+  padding: 18px 12px;
 
-    padding:18px 12px;
+  backdrop-filter: blur(20px);
 
-    backdrop-filter:blur(20px);
+  background: rgba(255, 255, 255, 0.15);
 
-    background:rgba(255,255,255,.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
-    border:1px solid rgba(255,255,255,.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 
-    box-shadow:0 12px 30px rgba(0,0,0,.15);
-
-    text-align:center;
-
+  text-align: center;
 }
 
-.number{
+.number {
+//   font-size: 42px;
 
-    font-size:42px;
+  font-weight: 700;
 
-    font-weight:700;
+  color: #7b0d0d;
 
-    color:white;
-
-    line-height:1;
-
+  line-height: 1;
 }
 
-.label{
+.label {
+  margin-top: 10px;
 
-    margin-top:10px;
+  color: #7b0d0d;
 
-    color:white;
+  opacity: 0.85;
 
-    opacity:.85;
+//   font-size: 14px;
 
-    font-size:14px;
+  letter-spacing: 1px;
 
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
+  text-transform: uppercase;
 }
 
 /* Animation */
 
 .flip-enter-active,
-.flip-leave-active{
-
-    transition:all .35s ease;
-
+.flip-leave-active {
+  transition: all 0.35s ease;
 }
 
-.flip-enter-from{
+.flip-enter-from {
+  opacity: 0;
 
-    opacity:0;
-
-    transform:rotateX(-90deg);
-
+  transform: rotateX(-90deg);
 }
 
-.flip-leave-to{
+.flip-leave-to {
+  opacity: 0;
 
-    opacity:0;
-
-    transform:rotateX(90deg);
-
+  transform: rotateX(90deg);
 }
 
-@media(max-width:768px){
+@media (max-width: 768px) {
+  .countdown {
+    gap: 12px;
+  }
 
-.countdown{
+  .count-item {
+    width: 78px;
 
-gap:12px;
+    padding: 14px;
+  }
 
+  .number {
+    // font-size: 30px;
+  }
+
+  .label {
+    // font-size: 12px;
+  }
 }
 
-.count-item{
+@media (max-width: 480px) {
+  .count-item {
+    width: 68px;
 
-width:78px;
+    padding: 12px;
+  }
 
-padding:14px;
-
+  .number {
+    // font-size: 26px;
+  }
 }
-
-.number{
-
-font-size:30px;
-
-}
-
-.label{
-
-font-size:12px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.count-item{
-
-width:68px;
-
-padding:12px;
-
-}
-
-.number{
-
-font-size:26px;
-
-}
-
-}
-
 </style>

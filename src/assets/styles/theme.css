@@ -1,450 +1,513 @@
-:root {
-  --primary: #7b0d0d;
-  --gold: #d8b46d;
-  --paper: #f8f3ea;
-  --text: #4d3a32;
-  --sub-text: #8b6a5d;
-  --white: #fff;
 
-  --radius: 18px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+/* ===========================
+   Wedding Font
+   =========================== */
+
+/* Font chính: hiện đại, dễ đọc
+   Font tiêu đề: thanh lịch, sang trọng */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+
+:root {
+    --primary: #7b0d0d;
+    --gold: #d8b46d;
+    --paper: #f8f3ea;
+    --text: #4d3a32;
+    --sub-text: #8b6a5d;
+    --white: #fff;
+
+    --radius: 18px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
 }
+
 
 /* ===========================
    Base
-=========================== */
+   =========================== */
 
-*{
-  box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html{
-  scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-  color:var(--text);
-  background:var(--paper);
-  font-family:"Be Vietnam Pro",sans-serif;
+body {
+    color: var(--text);
+    background: var(--paper);
+
+    /* Font hiện đại cho nội dung */
+    font-family: "Be Vietnam Pro", sans-serif;
+
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-
-img{
-  max-width:100%;
-  display:block;
+img {
+    max-width: 100%;
+    display: block;
 }
 
-a{
-  text-decoration:none;
+a {
+    text-decoration: none;
 }
 
-p{
-  margin:0;
-  color:var(--text);
-  font-size:clamp(14px,1.2vw,17px);
-  line-height:1.8;
+p {
+    margin: 0;
+    color: var(--text);
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: clamp(14px, 1.2vw, 17px);
+    font-weight: 400;
+    line-height: 1.8;
 }
 
-small{
-  font-size:clamp(12px,1vw,14px);
-  color:#777;
+small {
+    font-size: clamp(12px, 1vw, 14px);
+    color: #777;
 }
+
 
 /* ===========================
    Heading
-=========================== */
+   =========================== */
 
-.section-subtitle{
-  text-align:center;
-  color:var(--sub-text);
-  font-size:clamp(12px,1vw,14px);
-  letter-spacing:3px;
-  text-transform:uppercase;
-  margin-bottom:8px;
+.section-subtitle {
+    text-align: center;
+    color: var(--sub-text);
+
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: clamp(11px, 1vw, 14px);
+    font-weight: 500;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    margin-bottom: 8px;
 }
 
-.section-title{
-  text-align:center;
-  color:var(--primary);
-  font-size:clamp(24px,3vw,42px);
-  font-weight:700;
-  letter-spacing:1px;
-  margin-bottom:18px;
+.section-title {
+    text-align: center;
+    color: var(--primary);
+
+    /* Font serif sang trọng */
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 600;
+
+    letter-spacing: .5px;
+    line-height: 1.15;
+
+    margin-bottom: 18px;
 }
 
-h3{
-  margin:0;
-  color:var(--primary);
-  font-size:clamp(22px,2vw,32px);
-  font-weight:600;
+h3 {
+    margin: 0;
+    color: var(--primary);
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 600;
+
+    line-height: 1.2;
 }
+
 
 /* ===========================
    Family
-=========================== */
+   =========================== */
 
-.family{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:40px;
+.family {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
 }
 
-.family h4{
-  color:var(--primary);
-  font-size:clamp(18px,2vw,26px);
+.family h4 {
+    color: var(--primary);
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(22px, 2vw, 28px);
+    font-weight: 600;
+
+    margin: 0 0 8px;
 }
 
-.family p{
-  font-size:clamp(14px,1.2vw,16px);
+.family p {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: clamp(14px, 1.2vw, 16px);
+    line-height: 1.8;
 }
+
 
 /* ===========================
    Bride & Groom
-=========================== */
+   =========================== */
 
 .bride-name,
-.groom-name{
+.groom-name {
+    font-family: "Cormorant Garamond", serif;
 
-  font-family:"Cormorant Garamond",serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 500;
 
-  font-size:clamp(36px,6vw,68px);
+    color: var(--primary);
 
-  font-weight:500;
+    line-height: 1.05;
+    letter-spacing: .5px;
 
-  color:var(--primary);
-
+    /* Tạo cảm giác mềm mại hơn */
+    font-style: normal;
 }
 
-.role{
 
-  font-size:clamp(12px,1.2vw,16px);
+/* Vai trò: Cô dâu / Chú rể */
 
-  letter-spacing:4px;
+.role {
+    font-family: "Be Vietnam Pro", sans-serif;
 
-  text-transform:uppercase;
+    font-size: clamp(11px, 1.2vw, 15px);
+    font-weight: 500;
 
-  color:#777;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 
+    color: #777;
+
+    line-height: 1.5;
 }
+
 
 /* ===========================
    Date
-=========================== */
+   =========================== */
 
-.event-date{
+.event-date {
+    display: flex;
 
-  display:flex;
+    justify-content: center;
+    align-items: flex-end;
 
-  justify-content:center;
-
-  align-items:flex-end;
-
-  gap:16px;
-
-  flex-wrap:wrap;
-
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
-.day{
 
-  font-size:clamp(52px,8vw,82px);
+/* Ngày */
 
-  font-family:"Cormorant Garamond",serif;
+.day {
+    font-family: 'Times New Roman', Times, serif;
 
-  color:var(--primary);
+    font-size: clamp(58px, 8vw, 90px);
+    font-weight: 500;
 
-  line-height:1;
+    color: var(--primary);
+
+    line-height: .85;
 }
 
-.month{
 
-  font-size:clamp(18px,2vw,26px);
+/* Tháng */
 
-  color:var(--primary);
+.month {
+    font-family: 'Times New Roman', Times, serif;
+
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 600;
+
+    color: var(--primary);
+
+    line-height: 1;
 }
 
-.year{
 
+/* Năm */
 
-  font-size:clamp(22px,3vw,34px);
+.year {
+    font-family: 'Times New Roman', Times, serif;
 
-  color:var(--primary);
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 500;
+
+    color: var(--primary);
+
+    line-height: 1;
 }
+
 
 /* ===========================
    Card
-=========================== */
+   =========================== */
 
-.card{
+.card {
+    background: var(--white);
+    border-radius: var(--radius);
 
-  background:var(--white);
+    box-shadow: var(--shadow);
 
-  border-radius:var(--radius);
-
-  box-shadow:var(--shadow);
-
-  padding:24px;
+    padding: 24px;
 }
 
-.paper-card{
+.paper-card {
+    background: var(--paper);
 
-  background:var(--paper);
+    border-radius: var(--radius);
 
-  border-radius:var(--radius);
-
-  border:1px solid rgba(123,13,13,.12);
+    border: 1px solid rgba(123, 13, 13, .12);
 }
+
 
 /* ===========================
    Animations
-=========================== */
+   =========================== */
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes floatAnimation {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .animate-fade-in {
-  animation: fadeInUp 0.8s ease-out;
+    animation: fadeInUp .8s ease-out;
 }
 
 .animate-slide-left {
-  animation: slideInLeft 0.8s ease-out;
+    animation: slideInLeft .8s ease-out;
 }
 
 .animate-slide-right {
-  animation: slideInRight 0.8s ease-out;
+    animation: slideInRight .8s ease-out;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.8s ease-out;
+    animation: scaleIn .8s ease-out;
 }
 
 .animate-float {
-  animation: floatAnimation 3s ease-in-out infinite;
+    animation: floatAnimation 3s ease-in-out infinite;
 }
+
 
 /* ===========================
    Button
-=========================== */
+   =========================== */
 
-.primary-btn{
+.primary-btn {
+    display: inline-flex;
 
-  display:inline-flex;
+    align-items: center;
+    justify-content: center;
 
-  align-items:center;
+    min-height: 48px;
 
-  justify-content:center;
+    padding: 0 26px;
 
-  min-height:48px;
+    border: none;
+    border-radius: 12px;
 
-  padding:0 26px;
+    background: var(--primary);
+    color: #fff;
 
-  border:none;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
 
-  border-radius:12px;
-
-  background:var(--primary);
-
-  color:#fff;
-
-  font-size:15px;
-
-  font-weight:600;
-
-  transition:.3s;
-
-  cursor:pointer;
+    transition: .3s;
+    cursor: pointer;
 }
 
-.primary-btn:hover{
-
-  transform:translateY(-2px);
-
-  opacity:.95;
+.primary-btn:hover {
+    transform: translateY(-2px);
+    opacity: .95;
 }
 
-.outline-btn{
+.outline-btn {
+    display: inline-flex;
 
-  display:inline-flex;
+    align-items: center;
+    justify-content: center;
 
-  align-items:center;
+    min-height: 48px;
 
-  justify-content:center;
+    padding: 0 26px;
 
-  min-height:48px;
+    border-radius: 12px;
+    border: 1px solid var(--primary);
 
-  padding:0 26px;
+    color: var(--primary);
+    background: #fff;
 
-  border-radius:12px;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
 
-  border:1px solid var(--primary);
-
-  color:var(--primary);
-
-  background:#fff;
-
-  transition:.3s;
+    transition: .3s;
 }
 
-.outline-btn:hover{
-
-  background:var(--primary);
-
-  color:#fff;
+.outline-btn:hover {
+    background: var(--primary);
+    color: #fff;
 }
+
 
 /* ===========================
    Container
-=========================== */
+   =========================== */
 
-.container-sm{
-
-  max-width:760px;
-
-  margin:auto;
+.container-sm {
+    max-width: 760px;
+    margin: auto;
 }
 
-.container-md{
-
-  max-width:980px;
-
-  margin:auto;
+.container-md {
+    max-width: 980px;
+    margin: auto;
 }
 
-.container-lg{
-
-  max-width:1200px;
-
-  margin:auto;
+.container-lg {
+    max-width: 1200px;
+    margin: auto;
 }
-.location-info{
-  text-align: center;
-  color: #ffffff;
+
+.location-info {
+    text-align: center;
+    color: #ffffff;
+
+    font-family: "Be Vietnam Pro", sans-serif;
 }
+
+
 /* ===========================
    Tablet
-=========================== */
+   =========================== */
 
-@media (max-width:991px){
+@media (max-width: 991px) {
 
-  section{
+    section {
+        padding: 60px 20px;
+    }
 
-    padding:60px 20px;
-  }
-
-  .family{
-
-    gap:30px;
-  }
-
+    .family {
+        gap: 30px;
+    }
 }
+
 
 /* ===========================
    Mobile
-=========================== */
+   =========================== */
 
-@media (max-width:768px){
+@media (max-width: 768px) {
 
-  section{
+    section {
+        padding: 50px 16px;
+    }
 
-    padding:50px 16px;
-  }
+    .family {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
 
-  .family{
+    .event-date {
+        gap: 12px;
+    }
 
-    grid-template-columns:1fr;
+    .card {
+        padding: 18px;
+    }
 
-    gap:24px;
-  }
+    .primary-btn,
+    .outline-btn {
+        width: 100%;
+    }
 
-  .event-date{
+    .bride-name,
+    .groom-name {
+        font-size: clamp(40px, 13vw, 58px);
+    }
 
-    gap:12px;
-  }
-
-  .card{
-
-    padding:18px;
-  }
-
-  .primary-btn,
-  .outline-btn{
-
-    width:100%;
-  }
-
+    .section-title {
+        font-size: clamp(30px, 9vw, 42px);
+    }
 }
+
 
 /* ===========================
    Small Mobile
-=========================== */
+   =========================== */
 
-@media (max-width:480px){
+@media (max-width: 480px) {
 
-  .section-title{
+    .section-title {
+        margin-bottom: 12px;
+    }
 
-    margin-bottom:12px;
-  }
+    .event-date {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .event-date{
+    .day {
+        line-height: .9;
+    }
 
-    flex-direction:column;
-
-    align-items:center;
-  }
-
-  .day{
-
-    line-height:.9;
-  }
-
+    .month,
+    .year {
+        line-height: 1;
+    }
 }
+

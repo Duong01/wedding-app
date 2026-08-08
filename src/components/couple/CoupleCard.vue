@@ -223,7 +223,7 @@ onMounted(() => {
 
     text-align:center;
 
-    font-size:32px;
+    // font-size:32px;
 
     font-weight:700;
 
@@ -315,7 +315,7 @@ padding:24px;
 
 .name{
 
-font-size:26px;
+// font-size:26px;
 
 }
 

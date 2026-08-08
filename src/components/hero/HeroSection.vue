@@ -41,24 +41,15 @@ import HeroContent from "./HeroContent.vue";
 .hero-overlay{
 
     position:absolute;
-
     inset:0;
+    z-index:2;
 
     background:
-
-    linear-gradient(
-
-        to bottom,
-
-        rgba(255,245,241,.1),
-
-        rgba(255,235,220,.2),
-
-        rgba(255,222,200,.3)
-
-    );
-
-    z-index:2;
+        linear-gradient(
+            rgba(25,18,18,.45),
+            rgba(25,18,18,.35),
+            rgba(25,18,18,.55)
+        );
 
 }
 
