@@ -46,7 +46,9 @@
         <div class="person-role">CÔ DÂU</div>
       </div>
 
-      <div class="symbol">&</div>
+      <div class="symbol">
+        <img src="@/assets/chu-hy.webp" alt="Symbol" />
+      </div>
 
       <div class="person">
         <div class="person-name">
@@ -79,25 +81,25 @@
 </div>
 
 
-<!-- DATE -->
 <div class="date-wrapper">
 
-  <!-- THỨ -->
-  <div class="weekday">
-    {{ event.weekday }}
-  </div>
-
-  <!-- NGÀY + THÁNG -->
   <div class="date-main">
 
-    <div class="date-line"></div>
+    <!-- THỨ -->
+    <div class="weekday">
+      {{ event.weekday }}
+    </div>
 
+    <div class="date-separator"></div>
+
+    <!-- NGÀY -->
     <div class="day">
       {{ event.day }}
     </div>
 
     <div class="date-separator"></div>
 
+    <!-- THÁNG -->
     <div class="month">
       THÁNG {{ event.month }}
     </div>
@@ -368,8 +370,6 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
   flex-shrink: 0;
 
-  border: 1px solid rgba(216, 180, 109, 0.5);
-
   border-radius: 50%;
 
   font-family: var(--font-wedding);
@@ -469,39 +469,23 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 /* =========================================================
    DATE
    ========================================================= */
+/* =========================================================
+   THỜI GIAN CƯỚI
+   THỨ | NGÀY | THÁNG
+   ========================================================= */
 
 .date-wrapper {
-  position: relative;
-
-  display: flex;
-
-  flex-direction: column;
-  align-items: center;
-
+  width: 100%;
   margin: 0 auto;
+  padding-top: 10px;
 
-  padding-top: 15px;
+  text-align: center;
+  color: var(--primary);
 }
 
-/* Thứ */
-
-.weekday {
-  margin-bottom: 8px;
-
-  font-family: 'Times New Roman', Times, serif;
-
-  font-size: 9px;
-
-  font-weight: 500;
-
-  letter-spacing: 3px;
-
-  text-transform: uppercase;
-
-  color: var(--sub-text);
-}
-
-/* Khối ngày */
+/* =========================
+   THỨ - NGÀY - THÁNG
+   ========================= */
 
 .date-main {
   display: flex;
@@ -510,77 +494,121 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
   justify-content: center;
 
   gap: 18px;
+
+  min-height: 65px;
 }
 
-/* Ngày lớn */
+/* =========================
+   THỨ
+   ========================= */
 
-.day {
-  font-family: 'Times New Roman', Times, serif;
+.weekday {
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
 
-  font-size: clamp(72px, 15vw, 120px);
-
-  font-weight: 500;
-
-  line-height: 0.75;
-
-  color: var(--primary);
-
-  letter-spacing: -3px;
-}
-
-/* Tháng + năm */
-
-.date-side {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  gap: 3px;
-}
-
-/* Tháng */
-
-.month {
-  font-family: 'Times New Roman', Times, serif;
-
-  font-size: 9px;
-
-  font-weight: 500;
-
-  letter-spacing: 2px;
-
-  color: var(--sub-text);
-}
-
-/* Năm */
-
-.date-side .year {
-  font-family: 'Times New Roman', Times, serif;
-
-  font-size: clamp(28px, 6vw, 42px);
-
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
 
   line-height: 1;
 
+  letter-spacing: 1.5px;
+
+  color: var(--primary);
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+/* =========================
+   NGÀY
+   ========================= */
+
+.day {
+  font-family: "Times New Roman", Times, serif;
+
+  font-size: 48px;
+  font-weight: 700;
+
+  line-height: 0.9;
+
+  color: var(--primary);
+
+  letter-spacing: -1px;
+
+  min-width: 55px;
+
+  text-align: center;
+}
+
+/* =========================
+   THÁNG
+   ========================= */
+
+.month {
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  letter-spacing: 1.5px;
+
+  color: var(--primary);
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+/* =========================
+   ĐƯỜNG KẺ
+   ========================= */
+
+.date-separator {
+  width: 1px;
+  height: 28px;
+
+  flex-shrink: 0;
+
+  background: rgba(123, 13, 13, 0.38);
+}
+
+/* =========================
+   NĂM
+   ========================= */
+
+.date-wrapper .year {
+  margin-top: 22px;
+
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+
+  font-size: 28px;
+  font-weight: 500;
+
+  line-height: 1.2;
+
   color: var(--primary);
 }
 
-/* Âm lịch */
+/* =========================
+   ÂM LỊCH
+   ========================= */
 
 .lunar {
-  margin-top: 18px;
+  margin-top: 14px;
 
-  font-family: var(--font-main);
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
 
-  font-size: 9px;
+  font-size: 13px;
+  font-weight: 500;
 
-  font-weight: 300;
+  line-height: 1.5;
 
-  color: var(--sub-text);
+  color: var(--primary);
 }
+
+
 .wedding-info .family-wrapper,
 .wedding-info .couple-wrapper,
 .wedding-info .event-wrapper,
@@ -787,12 +815,6 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
     font-size: 30px;
   }
 
-  .symbol {
-    width: 34px;
-    height: 34px;
-
-    font-size: 20px;
-  }
 
   .event-location {
     font-size: 23px;
@@ -876,135 +898,41 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
    DATE
    ========================================================= */
 
-.date-wrapper {
-    width: 100%;
 
-    margin: 0 auto;
+@media (max-width: 600px) {
 
-    text-align: center;
+  .date-main {
+    gap: 10px;
+    min-height: 58px;
+  }
 
-    color: var(--primary);
-}
+  .weekday {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
 
+  .day {
+    font-size: 40px;
+    min-width: 48px;
+  }
 
-/* =========================================================
-   WEEKDAY
-   ========================================================= */
+  .month {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
 
-.weekday {
-    margin-bottom: 10px;
+  .date-separator {
+    height: 24px;
+  }
 
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    line-height: 1;
-
-    color: var(--primary);
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   DATE MAIN
-   ========================================================= */
-
-.date-main {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    height: 50px;
-
-    gap: 12px;
-}
-
-
-/* đường line bên trái */
-
-.date-line {
-    width: 1px;
-    height: 25px;
-
-    background: rgba(123, 13, 13, .35);
-}
-
-
-/* NGÀY */
-
-.day {
-    
-
-    font-size: 34px;
-
-
-    line-height: 1;
-
-    color: var(--primary);
-}
-
-
-/* đường line giữa */
-
-.date-separator {
-    width: 1px;
-    height: 25px;
-
-    background: rgba(123, 13, 13, .35);
-}
-
-
-/* THÁNG */
-
-.month {
-
-    font-size: 15px;
-
-
-    line-height: 1;
-
-    color: var(--primary);
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   YEAR
-   ========================================================= */
-
-.date-wrapper .year {
-    margin-top: 12px;
-
-
-    font-size: 22px;
-
-
-    line-height: 1;
-
-    color: var(--primary);
-}
-
-
-/* =========================================================
-   LUNAR
-   ========================================================= */
-
-.lunar {
+  .date-wrapper .year {
     margin-top: 18px;
+    font-size: 25px;
+  }
 
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 13px;
-
-    font-weight: 500;
-
-    line-height: 1.5;
-
-    color: var(--primary);
+  .lunar {
+    margin-top: 12px;
+    font-size: 11px;
+  }
 }
 </style>

@@ -43,6 +43,7 @@ const loading = ref(false);
 
 
 :root {
+    --aa: radial-gradient(circle at 0px 0px, rgb(104, 14, 14) 35px, transparent 35px) left top / 70px 70px no-repeat, radial-gradient(circle at 100% 0px, rgb(104, 14, 14) 35px, transparent 35px) right top / 70px 70px, radial-gradient(circle at 0px 100%, rgb(104, 14, 14) 35px, transparent 35px) left bottom / 70px 70px, radial-gradient(circle at 100% 100%, rgb(104, 14, 14) 35px, transparent 35px) right bottom / 70px 70px, url("/images/themes/longphung-v2-red/bg-frame.jpg") center center / cover;
     --font-script: "Allura", cursive;
     --font-wedding: "Cormorant Garamond", serif;
     --font-main: "Montserrat", sans-serif;

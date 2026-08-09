@@ -6,8 +6,6 @@
        ========================= -->
 
   <div class="invitation-heading">
-
-    
     <h2 class="invitation-title">
       Trân trọng kính mời
     </h2>
@@ -24,7 +22,6 @@
     </p>
 
   </div>
-
 
   <!-- =========================
        EVENT TIME
