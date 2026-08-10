@@ -7,7 +7,7 @@
 
   <div class="invitation-heading">
     <h2 class="invitation-title">
-      Trân trọng kính mời
+      THÔNG TIN TIỆC CƯỚI
     </h2>
 
     <div class="invitation-ornament">
@@ -17,8 +17,7 @@
     </div>
 
     <p class="desc">
-      Trân trọng kính mời Quý khách đến chung vui
-      cùng gia đình trong ngày hạnh phúc của chúng mình
+      Tiệc cưới sẽ diễn ra
     </p>
 
   </div>
@@ -43,11 +42,11 @@
       <span class="weekday">
         {{ firstEvent.weekday }}
       </span>
-
+      <div class="date-separator"></div>
       <div class="date-number">
         {{ firstEvent.day }}
       </div>
-
+<div class="date-separator"></div>
       <span class="month">
         THÁNG {{ firstEvent.month }}
       </span>
@@ -275,11 +274,10 @@ const calendarDays = computed(() => {
     margin: 0;
 
 
-    font-size: clamp(34px, 8vw, 48px);
+    font-size: clamp(20px, 8vw, 30px);
 
-    font-weight: 500;
+    font-weight: 600;
 
-    font-style: italic;
 
     line-height: 1.05;
 
@@ -366,7 +364,14 @@ const calendarDays = computed(() => {
     color: var(--primary);
 }
 
+.date-separator {
+  width: 1px;
+  height: 28px;
 
+  flex-shrink: 0;
+
+  background: rgba(123, 13, 13, 0.38);
+}
 /* VÀO LÚC */
 
 .time-label {
@@ -678,7 +683,7 @@ const calendarDays = computed(() => {
     align-items: center;
     justify-content: center;
 
-    font-size: 34px;
+    font-size: 55px;
 
     color: var(--primary);
 
@@ -694,7 +699,7 @@ const calendarDays = computed(() => {
     margin-top: 1px;
 
 
-    font-size: 13px;
+    font-size: 15px;
 
     font-weight: 600;
 
@@ -871,7 +876,7 @@ const calendarDays = computed(() => {
 
 
     .invitation-title {
-        font-size: 35px;
+        font-size: 20px;
     }
 
 

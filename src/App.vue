@@ -16,7 +16,7 @@
       <!-- Global Components -->
       <FloatingMusic />
 
-      <ScrollTop />
+      <!-- <ScrollTop /> -->
     </template>
   </v-app>
 </template>

@@ -1,105 +1,179 @@
 <template>
-  <div class="music">
-    <audio ref="audio" loop preload="auto"></audio>
+  <div class="music-control">
 
-    <Transition name="zoom">
-      <div
-        class="music-btn"
-        :class="{ playing: store.playing }"
-        @click="toggle"
-      >
-        <v-icon size="32">
-          {{ store.playing ? "mdi-disc" : "mdi-music" }}
-        </v-icon>
-      </div>
-    </Transition>
+    <!-- Audio ẩn -->
+    <audio
+      ref="audio"
+      loop
+      preload="auto"
+    ></audio>
+
+    <!-- Nút nhạc -->
+    <button
+      type="button"
+      class="music-btn"
+      :class="{ playing: store.playing }"
+      @click="toggle"
+      aria-label="Bật hoặc tắt nhạc"
+    >
+      <v-icon size="30">
+        {{ store.playing ? "mdi-disc" : "mdi-music" }}
+      </v-icon>
+
+      <span class="music-ring"></span>
+    </button>
+
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
-
 import { useMusic } from "@/composables/useMusic";
 
-const audio = ref();
+const audio = ref(null);
 
 const {
   store,
-
   init,
-
-  play,
-
-  pause,
+  toggle
 } = useMusic();
 
 onMounted(() => {
   init(audio.value);
 });
-
-function toggle() {
-  if (store.playing) pause();
-  else play();
-}
 </script>
 
 <style scoped>
-.music {
+.music-control {
   position: fixed;
-  left: 20px;
-  bottom: 30px;
-  z-index: 9999;
+  left: 24px;
+  bottom: 24px;
+  z-index: 99999;
 }
 
+/* Audio không hiển thị */
+audio {
+  display: none;
+}
+
+/* Nút */
 .music-btn {
-  width: 50px;
-  height: 50px;
+  position: relative;
+
+  width: 40px;
+  height: 40px;
+
+  border: 0;
   border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
-  color: white;
-  background: linear-gradient(135deg, #ff7aa2 0%, #ff4d88 50%, #ff6b91 100%);
-  box-shadow: 0 16px 36px rgba(255, 91, 139, 0.35);
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  color: #fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff8fab 0%,
+      #ff5d8f 50%,
+      #e94f78 100%
+    );
+
+  box-shadow:
+    0 10px 30px rgba(232, 80, 120, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* Hover */
 .music-btn:hover {
-  transform: scale(1.08) translateY(-2px);
-  box-shadow: 0 22px 42px rgba(255, 91, 139, 0.42);
+  transform: translateY(-4px) scale(1.06);
+
+  box-shadow:
+    0 16px 38px rgba(232, 80, 120, 0.45),
+    0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* Click */
+.music-btn:active {
+  transform: scale(0.94);
+}
+
+/* Khi đang phát */
 .music-btn.playing {
-  animation: rotate 4s linear infinite;
+  animation: musicRotate 5s linear infinite;
 }
 
-@keyframes rotate {
+/* Icon */
+.music-btn :deep(.v-icon) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Vòng sáng */
+.music-ring {
+  position: absolute;
+  inset: -5px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  pointer-events: none;
+}
+
+/* Vòng pulse khi phát */
+.music-btn.playing .music-ring {
+  animation: musicPulse 1.8s ease-out infinite;
+}
+
+@keyframes musicRotate {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.zoom-enter-active,
-.zoom-leave-active {
-  transition: 0.35s ease;
+@keyframes musicPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
 }
 
-.zoom-enter-from,
-.zoom-leave-to {
-  opacity: 0;
-  transform: scale(0.5);
-}
-
+/* Mobile */
 @media (max-width: 600px) {
+  .music-control {
+    left: 16px;
+    bottom: 18px;
+  }
+
   .music-btn {
     width: 40px;
     height: 40px;
+  }
+
+  .music-btn :deep(.v-icon) {
+    font-size: 26px !important;
   }
 }
 </style>

@@ -21,7 +21,7 @@
         <FooterSection />
       </main>
 
-      <ScrollTop />
+      <!-- <ScrollTop /> -->
     </template>
   </div>
 </template>
@@ -40,7 +40,7 @@ import MapSection from "@/components/map/MapSection.vue";
 import GuestBookSection from "@/components/guestbook/GuestBookSection.vue";
 import GiftSection from "@/components/gift/GiftSection.vue";
 import FooterSection from "@/components/footer/FooterSection.vue";
-import ScrollTop from "@/components/common/ScrollTop.vue";
+// import ScrollTop from "@/components/common/ScrollTop.vue";
 
 const opened = ref(false);
 const weddingStore = useWeddingStore();

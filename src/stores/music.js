@@ -1,43 +1,30 @@
 import { defineStore } from "pinia";
-import music from "@/assets/music/So_Beautiful_In_White.mp3";
+import musicFile from "@/assets/music/So_Beautiful_In_White.mp3";
+
 export const useMusicStore = defineStore("music", {
+  state: () => ({
+    playing: false,
 
-    state: () => ({
+    volume: 0.6,
 
-        playing: false,
+    src: musicFile
+  }),
 
-        volume: 0.6,
+  actions: {
+    play() {
+      this.playing = true;
+    },
 
-        src: music
+    pause() {
+      this.playing = false;
+    },
 
-    }),
+    setVolume(value) {
+      this.volume = value;
+    },
 
-    actions: {
-
-        play() {
-
-            this.playing = true;
-
-        },
-
-        pause() {
-
-            this.playing = false;
-
-        },
-
-        setVolume(value) {
-
-            this.volume = value;
-
-        },
-
-        setSource(src) {
-
-            this.src = src;
-
-        }
-
+    setSource(src) {
+      this.src = src;
     }
-
+  }
 });
