@@ -193,7 +193,7 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
   font-family: var(--font-main);
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
 
   letter-spacing: 3px;
@@ -244,7 +244,7 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 
   font-family: var(--font-main);
 
-  font-size: 10px;
+  font-size: 12px;
 
   font-weight: 300;
 
@@ -641,7 +641,7 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
 }
 @media (max-width: 600px) {
   .wedding-info {
-    padding: 50px 18px 60px;
+    padding: 50px 18px 0px;
   }
 
   /* =====================
@@ -657,7 +657,7 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
   }
 
   .family-kicker {
-    font-size: 7px;
+    font-size: 10px;
     letter-spacing: 2px;
   }
 
@@ -668,13 +668,13 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
   }
 
   .family-name {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .family-address {
     max-width: 140px;
 
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .family-divider {
@@ -803,12 +803,12 @@ const event = computed(() => wedding.value.events?.[0] ?? {});
   }
 
   .family-name {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .family-address {
     max-width: 115px;
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .person-name {

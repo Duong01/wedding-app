@@ -64,6 +64,7 @@
         :keyboard="{
           enabled: true
         }"
+        :loop="images.length > 1"
         :touch-ratio="1"
         :resistance-ratio="0.65"
         @swiper="onMainSwiper"
@@ -300,11 +301,11 @@ function onMainSwiper(swiper) {
 
   mainSwiper.value = swiper;
 
-  currentIndex.value = swiper.activeIndex;
+  currentIndex.value = swiper.realIndex;
 
-  nextTick(() => {
-    syncThumbnail();
-  });
+  // nextTick(() => {
+  //   syncThumbnail();
+  // });
 
 }
 
@@ -315,9 +316,9 @@ function onMainSwiper(swiper) {
 
 function onSlideChange(swiper) {
 
-  currentIndex.value = swiper.activeIndex;
+  currentIndex.value = swiper.realIndex;
 
-  syncThumbnail();
+  // syncThumbnail();
 
 }
 
@@ -482,791 +483,772 @@ onBeforeUnmount(() => {
   isolation: isolate;
 }
 
-
-/* ======================================================
-   BACKGROUND
-   ====================================================== */
+/* =========================================================
+   GALLERY - LUXURY SLIDER
+   ========================================================= */
 
 .gallery-bg {
-  position: absolute;
-
+  position: fixed;
   inset: 0;
-
-  z-index: -1;
+  z-index: -2;
 
   background:
     radial-gradient(
-      ellipse at center,
-      #241816 0%,
-      #150f0e 50%,
-      #0e0b0a 100%
+      circle at 50% 35%,
+      rgba(255, 255, 255, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #17120f 0%,
+      #0b0b0b 45%,
+      #1a1410 100%
     );
+
+  overflow: hidden;
+}
+
+.gallery-bg::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(212, 175, 55, 0.12),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 255, 255, 0.08),
+      transparent 25%
+    );
+
+  filter: blur(60px);
 }
 
 
-/* ======================================================
+/* =========================================================
    HEADER
-   ====================================================== */
+   ========================================================= */
 
 .gallery-header {
   position: relative;
-
-  flex: 0 0 62px;
-
-  width: 100%;
+  z-index: 10;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  padding:
-    max(8px, env(safe-area-inset-top))
-    18px
-    0;
+  height: 72px;
+  padding: 0 80px;
 }
 
-
-/* TITLE */
-
 .gallery-title {
+  color: #f8f1df;
+
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-title span {
+  position: relative;
+}
+
+.gallery-title span::after {
+  content: "";
+
   position: absolute;
+  left: 50%;
+  bottom: -9px;
 
-  left: 20px;
+  width: 36px;
+  height: 1px;
 
-  top: 50%;
+  transform: translateX(-50%);
 
-  transform: translateY(-35%);
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 20px;
-
-  font-style: italic;
-
-  color: rgba(255,255,255,.9);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d8b45a,
+    transparent
+  );
 }
 
 
 /* COUNTER */
 
 .gallery-counter {
+  position: absolute;
+  left: 28px;
 
   display: flex;
-
   align-items: center;
-
   gap: 7px;
 
-  font-family:
-    "Be Vietnam Pro",
-    Arial,
-    sans-serif;
+  color: rgba(255, 255, 255, 0.5);
 
-  font-size: 10px;
-
-  letter-spacing: 2px;
-
-  color: rgba(255,255,255,.45);
+  font-size: 13px;
+  letter-spacing: 0.08em;
 }
 
 .gallery-counter strong {
+  color: #e7c76a;
 
-  font-size: 13px;
-
+  font-size: 17px;
   font-weight: 500;
-
-  color: #fff;
 }
 
 
 /* CLOSE */
 
 .close-button {
-
   position: absolute;
+  right: 25px;
 
-  right: 18px;
+  width: 44px;
+  height: 44px;
 
-  top: 50%;
-
-  transform: translateY(-30%);
-
-  width: 38px;
-  height: 38px;
-
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
 
-  border:
-    1px solid
-    rgba(255,255,255,.16);
+  background: rgba(255, 255, 255, 0.06);
 
-  background:
-    rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
 
   cursor: pointer;
 
   transition:
-    .25s ease;
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .close-button:hover {
+  background: rgba(216, 180, 90, 0.15);
+  border-color: rgba(216, 180, 90, 0.6);
 
-  background:
-    rgba(255,255,255,.14);
-
-  transform:
-    translateY(-30%)
-    rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .close-button span {
-
   position: absolute;
-
-  left: 50%;
   top: 50%;
+  left: 50%;
 
-  width: 15px;
+  width: 17px;
   height: 1px;
 
   background: #fff;
 }
 
 .close-button span:first-child {
-
-  transform:
-    translate(-50%, -50%)
-    rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .close-button span:last-child {
-
-  transform:
-    translate(-50%, -50%)
-    rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 
-/* ======================================================
-   MAIN
-   ====================================================== */
+/* =========================================================
+   MAIN IMAGE
+   ========================================================= */
 
 .gallery-main {
-
   position: relative;
 
-  flex: 1 1 auto;
-
-  min-height: 0;
-
-  width: 100%;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  padding:
-    4px
-    60px;
-
-}
-
-
-/* ======================================================
-   MAIN SWIPER
-   ====================================================== */
-
-.main-swiper {
-
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 210px);
 
-  overflow: hidden;
-}
-
-.main-slide {
-
-  height: 100%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-
-/* ======================================================
-   MAIN PHOTO
-   ====================================================== */
-
-.main-photo {
-
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 2px;
+  min-height: 400px;
 }
 
 
 /*
- * ẢNH CHÍNH
- *
- * Không dùng object-fit: cover
- *
- * => Không cắt cô dâu / chú rể
+ * Swiper
  */
 
-.main-photo img {
-
-  display: block;
-
-  width: auto;
-
-  height: auto;
-
-  max-width: 100%;
-
-  max-height: 100%;
-
-  object-fit: contain;
-
-  border-radius: 5px;
-
-  user-select: none;
-
-  -webkit-user-select: none;
-
-  -webkit-user-drag: none;
-
-  opacity: 0;
-
-  transform: scale(.98);
-
-  transition:
-    opacity .4s ease,
-    transform .45s ease;
-
-  box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.5);
+.main-swiper {
+  width: min(82vw, 1200px);
+  height: 100%;
 }
 
-.main-photo img.loaded {
-
-  opacity: 1;
-
-  transform: scale(1);
-}
-
-
-/* ======================================================
-   ARROW
-   ====================================================== */
-
-.gallery-arrow {
-
-  position: absolute;
-
-  z-index: 20;
-
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: 48px;
-  height: 48px;
-
+.main-slide {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  border:
-    1px solid
-    rgba(255,255,255,.18);
-
-  border-radius: 50%;
-
-  background:
-    rgba(0,0,0,.32);
-
-  backdrop-filter: blur(12px);
-
-  cursor: pointer;
-
-  transition: .25s ease;
-}
-
-.gallery-arrow:hover {
-
-  background:
-    rgba(255,255,255,.12);
-
-  border-color:
-    rgba(255,255,255,.4);
-}
-
-.gallery-arrow-left {
-  left: 14px;
-}
-
-.gallery-arrow-right {
-  right: 14px;
-}
-
-.gallery-arrow span {
-
-  width: 10px;
-  height: 10px;
-
-  border-top:
-    1px solid white;
-
-  border-right:
-    1px solid white;
-}
-
-.gallery-arrow-left span {
-
-  transform: rotate(-135deg);
-}
-
-.gallery-arrow-right span {
-
-  transform: rotate(45deg);
+  padding: 18px;
+  box-sizing: border-box;
 }
 
 
-/* ======================================================
-   CAPTION
-   ====================================================== */
+/*
+ * Khung ảnh chính
+ */
 
-.gallery-caption {
-
-  flex: 0 0 auto;
-
-  width: 100%;
-
-  min-height: 27px;
-
-  padding:
-    0 20px 4px;
+.main-photo {
+  position: relative;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  text-align: center;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 16px;
-
-  font-style: italic;
-
-  color:
-    rgba(255,255,255,.78);
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-}
-
-
-/* ======================================================
-   THUMBNAIL AREA
-   ====================================================== */
-
-.thumbnail-area {
-
-  flex: 0 0 auto;
-
   width: 100%;
+  height: 100%;
 
-  padding:
-    7px
-    18px
-    max(14px, env(safe-area-inset-bottom));
+  max-width: 1100px;
+  max-height: 650px;
+
+  padding: 7px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
 
   background:
     linear-gradient(
-      to bottom,
-      rgba(0,0,0,0),
-      rgba(0,0,0,.3)
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.03)
     );
-}
 
-
-/* ======================================================
-   THUMBNAIL SWIPER
-   ====================================================== */
-
-.thumbnail-swiper {
-
-  width: 100%;
-
-  max-width: 900px;
-
-  margin: 0 auto;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(216, 180, 90, 0.12),
+    0 0 60px rgba(216, 180, 90, 0.08);
 
   overflow: hidden;
-}
-
-
-/* ======================================================
-   THUMBNAIL
-   ====================================================== */
-
-.thumbnail-slide {
-
-  height: 64px;
-
-  border-radius: 6px;
-
-  overflow: hidden;
-
-  cursor: pointer;
-
-  opacity: .4;
-
-  transform: scale(.94);
 
   transition:
-    opacity .25s ease,
-    transform .25s ease;
-}
-
-.thumbnail-slide:hover {
-
-  opacity: .8;
-
-  transform: scale(.97);
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
 }
 
 
-/* ACTIVE */
+/*
+ * Viền vàng bên trong
+ */
 
-.thumbnail-slide.active {
+.main-photo::before {
+  content: "";
 
+  position: absolute;
+  inset: 4px;
+
+  border: 1px solid rgba(216, 180, 90, 0.35);
+  border-radius: 19px;
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+/*
+ * Ánh sáng chạy quanh ảnh
+ */
+
+.main-photo::after {
+  content: "";
+
+  position: absolute;
+  inset: -100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  );
+
+  transform: translateX(-30%);
+
+  transition: transform 1s ease;
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+.swiper-slide-active .main-photo::after {
+  transform: translateX(30%);
+}
+
+
+/*
+ * IMAGE
+ */
+
+.main-photo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  border-radius: 18px;
+
+  opacity: 0;
+
+  transform: scale(0.985);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.main-photo img.loaded {
   opacity: 1;
-
   transform: scale(1);
 }
 
 
-/* IMAGE */
+/* =========================================================
+   ARROWS
+   ========================================================= */
 
-.thumbnail-image {
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
 
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 54px;
+  height: 54px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+
+  background: rgba(15, 15, 15, 0.45);
+
+  backdrop-filter: blur(14px);
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.gallery-arrow:hover {
+  background: rgba(216, 180, 90, 0.18);
+
+  border-color: rgba(216, 180, 90, 0.65);
+
+  box-shadow:
+    0 0 25px rgba(216, 180, 90, 0.15);
+}
+
+.gallery-arrow-left {
+  left: 28px;
+}
+
+.gallery-arrow-right {
+  right: 28px;
+}
+
+.gallery-arrow-left:hover {
+  transform: translate(-4px, -50%);
+}
+
+.gallery-arrow-right:hover {
+  transform: translate(4px, -50%);
+}
+
+
+/*
+ * Arrow icon
+ */
+
+.gallery-arrow span {
+  width: 10px;
+  height: 10px;
+
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+}
+
+.gallery-arrow-left span {
+  transform: rotate(-135deg);
+  margin-left: 4px;
+}
+
+.gallery-arrow-right span {
+  transform: rotate(45deg);
+  margin-right: 4px;
+}
+
+
+/* =========================================================
+   CAPTION
+   ========================================================= */
+
+.gallery-caption {
   position: relative;
 
+  width: fit-content;
+  max-width: 80%;
+
+  margin: -5px auto 12px;
+  padding: 9px 22px;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-align: center;
+
+  border: 1px solid rgba(216, 180, 90, 0.25);
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.28);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   THUMBNAILS
+   ========================================================= */
+
+.thumbnail-area {
+  position: relative;
+
+  width: min(90vw, 900px);
+
+  margin: 0 auto;
+
+  padding: 5px 0 18px;
+}
+
+.thumbnail-swiper {
   width: 100%;
-  height: 100%;
+  overflow: visible;
+}
+
+.thumbnail-slide {
+  cursor: pointer;
+  opacity: 0.5;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.thumbnail-slide:hover {
+  opacity: 0.9;
+  transform: translateY(-3px);
+}
+
+.thumbnail-slide.active {
+  opacity: 1;
+  transform: translateY(-5px);
+}
+
+
+/*
+ * Thumbnail frame
+ */
+
+.thumbnail-image {
+  position: relative;
+
+  aspect-ratio: 1 / 0.72;
+
+  padding: 3px;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.05);
 
   overflow: hidden;
 
-  border-radius: 6px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
   transition:
-    border-color .25s ease,
-    box-shadow .25s ease;
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
-
-.thumbnail-slide.active
-.thumbnail-image {
-
-  border-color:
-    #d7b477;
-
-  box-shadow:
-    0 0 0 1px
-      rgba(215,180,119,.18),
-    0 7px 20px
-      rgba(0,0,0,.35);
-}
-
 
 .thumbnail-image img {
+  display: block;
 
   width: 100%;
   height: 100%;
 
-  display: block;
-
   object-fit: cover;
 
-  transition:
-    transform .35s ease;
+  border-radius: 9px;
+
+  transition: transform 0.4s ease;
 }
 
-.thumbnail-slide:hover
-.thumbnail-image img {
-
-  transform: scale(1.05);
+.thumbnail-slide:hover img {
+  transform: scale(1.07);
 }
 
 
-/* NUMBER */
+/*
+ * Active thumbnail
+ */
 
-.thumbnail-overlay {
+.thumbnail-slide.active .thumbnail-image {
+  border-color: #d8b45a;
+
+  box-shadow:
+    0 0 0 1px rgba(216, 180, 90, 0.25),
+    0 5px 22px rgba(216, 180, 90, 0.22);
+}
+
+
+/*
+ * Active glow
+ */
+
+.thumbnail-slide.active .thumbnail-image::after {
+  content: "";
 
   position: absolute;
+  inset: 0;
 
-  right: 4px;
+  border-radius: 9px;
 
-  bottom: 3px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 225, 145, 0.4);
 
-  font-family:
-    Arial,
-    sans-serif;
+  pointer-events: none;
+}
 
-  font-size: 8px;
+
+/*
+ * Number overlay
+ */
+
+.thumbnail-overlay {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+
+  min-width: 19px;
+  height: 19px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 4px;
+
+  border-radius: 6px;
 
   color: #fff;
 
-  text-shadow:
-    0 1px 4px #000;
+  font-size: 9px;
+  line-height: 1;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  backdrop-filter: blur(5px);
+}
+
+.thumbnail-slide.active .thumbnail-overlay {
+  color: #17120f;
+  background: #d8b45a;
 }
 
 
-/* ======================================================
-   MOBILE
-   ====================================================== */
+/* =========================================================
+   SWIPER TRANSITION
+   ========================================================= */
 
-@media (max-width: 600px) {
+.main-swiper .swiper-slide {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
 
   .gallery-header {
-
-    flex-basis: 52px;
-
-    padding:
-      max(5px, env(safe-area-inset-top))
-      12px
-      0;
+    height: 58px;
+    padding: 0 60px;
   }
 
   .gallery-title {
-
-    left: 14px;
-
-    font-size: 17px;
+    font-size: 14px;
+    letter-spacing: 0.12em;
   }
 
   .gallery-counter {
-
-    font-size: 9px;
-
-    letter-spacing: 1.5px;
+    left: 15px;
+    font-size: 11px;
   }
 
   .gallery-counter strong {
+    font-size: 14px;
+  }
+
+  .close-button {
+    right: 14px;
+
+    width: 38px;
+    height: 38px;
+  }
+
+  .gallery-main {
+    height: calc(100vh - 180px);
+
+    min-height: 350px;
+  }
+
+  .main-swiper {
+    width: 100%;
+  }
+
+  .main-slide {
+    padding: 10px;
+  }
+
+  .main-photo {
+    padding: 5px;
+
+    border-radius: 18px;
+  }
+
+  .main-photo::before {
+    inset: 3px;
+    border-radius: 14px;
+  }
+
+  .main-photo img {
+    border-radius: 13px;
+  }
+
+  .gallery-arrow {
+    width: 42px;
+    height: 42px;
+  }
+
+  .gallery-arrow-left {
+    left: 8px;
+  }
+
+  .gallery-arrow-right {
+    right: 8px;
+  }
+
+  .gallery-caption {
+    max-width: 85%;
+
+    margin-top: -2px;
+
+    padding: 7px 16px;
 
     font-size: 12px;
   }
 
-  .close-button {
-
-    right: 12px;
-
-    width: 34px;
-    height: 34px;
+  .thumbnail-area {
+    width: calc(100% - 24px);
+    padding-bottom: 12px;
   }
 
+  .thumbnail-image {
+    border-radius: 9px;
+  }
 
-  /* MAIN */
+  .thumbnail-image img {
+    border-radius: 6px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
 
   .gallery-main {
-
-    padding:
-      2px
-      40px;
+    height: calc(100vh - 165px);
   }
 
-
-  /*
-   * Ảnh dọc gần full màn hình
-   */
+  .main-slide {
+    padding: 7px;
+  }
 
   .main-photo {
-
-    padding: 0;
+    border-radius: 15px;
   }
 
   .main-photo img {
-
-    max-width: 100%;
-
-    max-height: 100%;
-
-    border-radius: 3px;
-
-    box-shadow:
-      0 15px 45px
-      rgba(0,0,0,.55);
+    border-radius: 10px;
   }
 
-
-  /* ARROW */
-
   .gallery-arrow {
-
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 
   .gallery-arrow-left {
-    left: 4px;
+    left: 5px;
   }
 
   .gallery-arrow-right {
-    right: 4px;
+    right: 5px;
   }
 
   .gallery-arrow span {
-
     width: 8px;
     height: 8px;
   }
 
-
-  /* CAPTION */
-
-  .gallery-caption {
-
-    min-height: 25px;
-
-    padding:
-      0 12px 3px;
-
-    font-size: 14px;
-  }
-
-
-  /* THUMB */
-
   .thumbnail-area {
-
-    padding:
-      5px
-      10px
-      max(10px, env(safe-area-inset-bottom));
+    width: calc(100% - 18px);
   }
-
-  .thumbnail-slide {
-
-    height: 58px;
-
-    border-radius: 5px;
-  }
-
-  .thumbnail-image {
-
-    border-radius: 5px;
-  }
-
-  .thumbnail-overlay {
-
-    display: none;
-  }
-
 }
 
 
-/* ======================================================
-   PHONE NHỎ
-   ====================================================== */
-
-@media (max-width: 375px) {
-
-  .gallery-main {
-
-    padding-left: 36px;
-    padding-right: 36px;
-  }
-
-  .thumbnail-slide {
-
-    height: 52px;
-  }
-
-}
-
-
-/* ======================================================
-   LANDSCAPE MOBILE
-   ====================================================== */
-
-@media
-(max-width: 900px)
-and
-(orientation: landscape) {
-
-  .gallery-header {
-
-    flex-basis: 42px;
-  }
-
-  .gallery-main {
-
-    padding:
-      2px
-      45px;
-  }
-
-  .thumbnail-slide {
-
-    height: 42px;
-  }
-
-  .gallery-caption {
-
-    min-height: 21px;
-
-    font-size: 12px;
-  }
-
-}
-
-
-/* ======================================================
+/* =========================================================
    REDUCE MOTION
-   ====================================================== */
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-  * {
-
-    animation-duration: .01ms !important;
-
-    transition-duration: .01ms !important;
-
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
-
 }
 
 </style>
