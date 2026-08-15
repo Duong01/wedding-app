@@ -1,11 +1,40 @@
+[
 {
   "id": 1,
   "slug": "ha-uyen-tran-hieu",
-  "theme": "traditional-red",
+  "groomName": "Trần Hiếu",
+  "brideName": "Hà Uyên",
   "language": "vi",
   "weddingDate": "2026-11-14T08:00:00",
   "coverImage": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80",
+  "theme": {
+    "name": "traditional-red",
+    "colors": {
+      "primary": "#7b0d0d",
+      "secondary": "#9d2525",
+      "accent": "#c79d5c",
+      "accentLight": "#f7d8a3",
 
+      "background": "#f8f5ed",
+      "backgroundSecondary": "#eee8dc",
+
+      "text": "#5c4d46",
+      "textSecondary": "#806f66",
+
+      "white": "#fffaf4"
+    },
+
+    "fonts": {
+      "main": "Cormorant Garamond",
+      "heading": "Cormorant Garamond",
+      "script": "The Nautigal"
+    },
+
+    "layout": {
+      "maxWidth": "900px",
+      "sectionPadding": "80px"
+    }
+  },
   "couple": {
     "bride": {
       "name": "Hà Uyên",
@@ -192,5 +221,12 @@
     "showGuestBook": true,
     "showMap": true,
     "showCountdown": true
+  },
+  "music": {
+    "enabled": true,
+    "url": "/src/assets/music/So_Beautiful_In_White.mp3",
+    "title": "So_Beautiful_In_White",
+    "autoplay": false
   }
 }
+]

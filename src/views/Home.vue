@@ -1,118 +1,398 @@
 <template>
-  <div class="home-page">
-    <!-- Màn hình mở thiệp -->
-    <div v-if="!opened" class="open-wrapper">
-      <OpenInvitation @open="handleOpen" />
-    </div>
+  <section class="wedding-list">
+    <v-container>
+      <div class="page-header">
+        <div class="sub-title">Wedding Invitation</div>
 
-    <!-- Nội dung -->
-    <template v-else>
-      <!-- Hero -->
-      <HeroSection />
+        <h1>Những mẫu thiệp cưới</h1>
 
-      <!-- Nội dung -->
-      <main class="content-wrapper">
-        <HighlightsSection />
-        <GallerySection />
-        <EventSection />
-        <MapSection />
-        <GuestBookSection />
-        <GiftSection />
-        <FooterSection />
-      </main>
+        <p>Lựa chọn mẫu thiệp phù hợp với ngày trọng đại của bạn.</p>
+      </div>
 
-      <!-- <ScrollTop /> -->
-    </template>
-  </div>
+      <!-- Loading -->
+      <div v-if="store.loading" class="loading">Đang tải...</div>
+
+      <!-- Error -->
+      <div v-else-if="store.error" class="error-message">
+        {{ store.error }}
+      </div>
+
+      <!-- Không có dữ liệu -->
+      <div v-else-if="weddings.length === 0" class="empty-message">
+        Chưa có mẫu thiệp cưới nào.
+      </div>
+
+      <!-- Danh sách thiệp -->
+      <v-row v-else>
+        <v-col
+          v-for="wedding in weddings"
+          :key="wedding.id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
+          <article class="wedding-card" @click="openWedding(wedding)">
+            <!-- Cover -->
+            <div class="wedding-cover">
+              <img
+                :src="wedding.coverImage"
+                :alt="getCoupleName(wedding)"
+                loading="lazy"
+                @error="handleImageError"
+              />
+
+              <div class="cover-overlay">
+                <span> Xem thiệp </span>
+              </div>
+            </div>
+
+            <!-- Thông tin -->
+            <div class="wedding-info">
+              <h2>
+                {{ wedding.couple?.bride?.name || "" }}
+                &
+                {{ wedding.couple?.groom?.name || "" }}
+              </h2>
+
+              <p>
+                {{ formatDate(wedding.weddingDate) }}
+              </p>
+
+              <button type="button" @click.stop="openWedding(wedding)">
+                Xem thiệp
+              </button>
+            </div>
+          </article>
+        </v-col>
+      </v-row>
+    </v-container>
+  </section>
 </template>
 
+
 <script setup>
-import { ref, onMounted } from "vue";
+import { computed, onMounted } from "vue";
+
+import { useRouter } from "vue-router";
+
 import { useWeddingStore } from "@/stores/wedding";
 
-import OpenInvitation from "@/components/hero/OpenInvitation.vue";
-import HeroSection from "@/components/hero/HeroSection.vue";
+const router = useRouter();
 
-import HighlightsSection from "@/components/common/HighlightsSection.vue";
-import GallerySection from "@/components/gallery/GallerySection.vue";
-import EventSection from "@/components/event/EventSection.vue";
-import MapSection from "@/components/map/MapSection.vue";
-import GuestBookSection from "@/components/guestbook/GuestBookSection.vue";
-import GiftSection from "@/components/gift/GiftSection.vue";
-import FooterSection from "@/components/footer/FooterSection.vue";
-// import ScrollTop from "@/components/common/ScrollTop.vue";
-
-const opened = ref(false);
-const weddingStore = useWeddingStore();
-
-onMounted(async () => {
-  await weddingStore.loadWedding();
+const store = useWeddingStore();
+/*
+ * Danh sách thiệp cho Home
+ */
+const weddings = computed(() => {
+  return store.weddings || [];
 });
 
-const handleOpen = () => {
-  opened.value = true;
-};
-</script>
+/*
+ * Load danh sách thiệp
+ */
+onMounted(async () => {
+  await store.loadWeddings();
 
-<style scoped>
-.home-page {
-  min-height: 100vh;
-  overflow-x: hidden;
+  console.log("Danh sách wedding:", store.weddings);
+});
+
+function getCoupleName(wedding) {
+  const bride = wedding?.couple?.bride?.name || "";
+
+  const groom = wedding?.couple?.groom?.name || "";
+
+  return `${bride} & ${groom}`;
+}
+/*
+ * Click vào thiệp
+ */
+function openWedding(wedding) {
+  console.log(wedding.slug);
+  router.push({
+    name: "WeddingBySlug",
+    params: {
+      slug: wedding.slug,
+    },
+  });
 }
 
-/* Căn giữa OpenInvitation */
-.open-wrapper {
+/*
+ * Format ngày
+ */
+function formatDate(date) {
+  if (!date) {
+    return "";
+  }
+
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(parsedDate);
+}
+</script>
+
+
+<style scoped>
+.wedding-list {
   min-height: 100vh;
+  padding: 80px 0 100px;
+
+  background: linear-gradient(135deg, #fff8f8 0%, #fffdfb 50%, #fff7f5 100%);
+}
+
+/* Header */
+
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.sub-title {
+  margin-bottom: 10px;
+
+  color: #c76a7e;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  letter-spacing: 0.3em;
+
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  margin: 0 0 12px;
+
+  color: #4d3537;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+
+  font-weight: 600;
+}
+
+.page-header p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: #7a6768;
+
+  line-height: 1.8;
+}
+
+/* Loading */
+
+.loading {
+  padding: 80px 20px;
+
+  text-align: center;
+
+  color: #9a7378;
+
+  font-size: 1rem;
+}
+
+/* Error */
+
+.error-message {
+  padding: 40px 20px;
+
+  text-align: center;
+
+  color: #b64c5f;
+
+  background: #fff0f2;
+
+  border-radius: 20px;
+}
+
+/* Empty */
+
+.empty-message {
+  padding: 80px 20px;
+
+  text-align: center;
+
+  color: #8b7779;
+}
+
+/* Card */
+
+.wedding-card {
+  height: 100%;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  background: #fff;
+
+  border: 1px solid rgba(205, 166, 152, 0.18);
+
+  border-radius: 24px;
+
+  box-shadow: 0 15px 45px rgba(93, 61, 54, 0.08);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.wedding-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow: 0 25px 60px rgba(93, 61, 54, 0.15);
+}
+
+/* Cover */
+
+.wedding-cover {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 3 / 4;
+
+  overflow: hidden;
+
+  background: #f5eeee;
+}
+
+.wedding-cover img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.6s ease;
+}
+
+.wedding-card:hover .wedding-cover img {
+  transform: scale(1.05);
+}
+
+/* Overlay */
+
+.cover-overlay {
+  position: absolute;
+
+  inset: 0;
+
   display: flex;
-  justify-content: center;
+
   align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+
+  background: rgba(67, 35, 40, 0.35);
+
+  transition: opacity 0.35s ease;
+}
+
+.wedding-card:hover .cover-overlay {
+  opacity: 1;
+}
+
+.cover-overlay span {
+  padding: 11px 22px;
+
+  color: #fff;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  border-radius: 999px;
+
+  backdrop-filter: blur(8px);
+}
+
+/* Info */
+
+.wedding-info {
   padding: 20px;
 }
 
-/* Khung giấy */
-.content-wrapper {
-  width: min(95%, 800px);
-  margin: -40px auto 0;
-  position: relative;
-  z-index: 2;
+.wedding-info h2 {
+  margin: 0 0 7px;
 
-  background: #9c0d20;
-  border-radius: 40px 40px 0 0;
+  color: #4d3537;
 
-  overflow: hidden;
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.18);
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 1.35rem;
+
+  font-weight: 600;
+
+  text-align: center;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .content-wrapper {
-    width: min(98%, 100%);
-    margin: -30px auto 0;
-    border-radius: 30px 30px 0 0;
+.wedding-info p {
+  margin: 0 0 15px;
+
+  color: #a16f76;
+
+  font-size: 0.9rem;
+
+  text-align: center;
+}
+
+/* Button */
+
+.wedding-info button {
+  width: 100%;
+
+  padding: 11px 16px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  color: #fff;
+
+  background: linear-gradient(135deg, #c97885, #ad5d6d);
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wedding-info button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(173, 93, 109, 0.25);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .wedding-list {
+    padding: 55px 0 70px;
   }
-}
 
-@media (max-width: 480px) {
-  .content-wrapper {
-    width: 100%;
-    margin: -20px auto 0;
-    border-radius: 25px 25px 0 0;
+  .page-header {
+    margin-bottom: 35px;
   }
-}
 
-/* Texture giấy */
-.content-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("/images/paper-texture.png") center/cover;
-  opacity: 0.12;
-  pointer-events: none;
-}
-
-/* Các section */
-.content-wrapper > section {
-  position: relative;
-  z-index: 2;
+  .wedding-info {
+    padding: 16px;
+  }
 }
 </style>

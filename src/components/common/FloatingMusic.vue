@@ -1,49 +1,99 @@
 <template>
-  <div class="music-control">
-
-    <!-- Audio ẩn -->
+  <div
+    v-if="musicEnabled"
+    class="music-control"
+  >
     <audio
       ref="audio"
       loop
       preload="auto"
     ></audio>
 
-    <!-- Nút nhạc -->
     <button
       type="button"
       class="music-btn"
-      :class="{ playing: store.playing }"
+      :class="{
+        playing: store.playing
+      }"
       @click="toggle"
       aria-label="Bật hoặc tắt nhạc"
     >
       <v-icon size="30">
-        {{ store.playing ? "mdi-disc" : "mdi-music" }}
+        {{
+          store.playing
+            ? "mdi-disc"
+            : "mdi-music"
+        }}
       </v-icon>
 
       <span class="music-ring"></span>
     </button>
-
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import {
+  computed,
+  onMounted,
+} from "vue";
+
 import { useMusic } from "@/composables/useMusic";
 
-const audio = ref(null);
+const props = defineProps({
+  music: {
+    type: Object,
+    default: () => ({
+      enabled: false,
+      url: "",
+      title: "",
+      autoplay: false,
+    }),
+  },
+});
 
 const {
+  audio,
   store,
   init,
-  toggle
+  play,
+  pause,
+  toggle,
 } = useMusic();
 
+const musicEnabled = computed(() => {
+  return (
+    props.music?.enabled === true &&
+    !!props.music?.url
+  );
+});
+
 onMounted(() => {
-  init(audio.value);
+  if (!musicEnabled.value) {
+    return;
+  }
+
+  console.log(
+    "🎵 FloatingMusic init:",
+    props.music
+  );
+
+  init(
+    audio.value,
+    props.music
+  );
+});
+
+// Cho component cha gọi:
+// floatingMusicRef.value.play()
+defineExpose({
+  play,
+  pause,
+  toggle,
 });
 </script>
 
 <style scoped>
+/* CSS của bạn giữ nguyên */
 .music-control {
   position: fixed;
   left: 24px;
@@ -51,29 +101,21 @@ onMounted(() => {
   z-index: 99999;
 }
 
-/* Audio không hiển thị */
 audio {
   display: none;
 }
 
-/* Nút */
 .music-btn {
   position: relative;
-
   width: 40px;
   height: 40px;
-
   border: 0;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
-
   color: #fff;
-
   background:
     linear-gradient(
       135deg,
@@ -81,54 +123,42 @@ audio {
       #ff5d8f 50%,
       #e94f78 100%
     );
-
   box-shadow:
     0 10px 30px rgba(232, 80, 120, 0.35),
     0 4px 12px rgba(0, 0, 0, 0.12);
-
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
-/* Hover */
 .music-btn:hover {
   transform: translateY(-4px) scale(1.06);
-
   box-shadow:
     0 16px 38px rgba(232, 80, 120, 0.45),
     0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Click */
 .music-btn:active {
   transform: scale(0.94);
 }
 
-/* Khi đang phát */
 .music-btn.playing {
   animation: musicRotate 5s linear infinite;
 }
 
-/* Icon */
 .music-btn :deep(.v-icon) {
   position: relative;
   z-index: 2;
 }
 
-/* Vòng sáng */
 .music-ring {
   position: absolute;
   inset: -5px;
-
   border-radius: 50%;
-
   border: 1px solid rgba(255, 255, 255, 0.55);
-
   pointer-events: none;
 }
 
-/* Vòng pulse khi phát */
 .music-btn.playing .music-ring {
   animation: musicPulse 1.8s ease-out infinite;
 }
@@ -160,7 +190,6 @@ audio {
   }
 }
 
-/* Mobile */
 @media (max-width: 600px) {
   .music-control {
     left: 16px;

@@ -18,18 +18,24 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import { useWeddingStore } from "@/stores/wedding";
+
+const props = defineProps({
+  timeWedding:{
+    type: String,
+    required: true,
+    default: "2026/12/12T08:00:00"
+  }
+  
+})
 
 dayjs.extend(duration);
-
-const store = useWeddingStore();
 
 const now = ref(dayjs());
 
 let timer = null;
 
 const remain = computed(() => {
-  const target = dayjs(store.wedding.weddingDate);
+  const target = dayjs(props.timeWedding);
 
   const diff = target.diff(now.value);
 

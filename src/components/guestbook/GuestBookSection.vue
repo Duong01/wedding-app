@@ -94,9 +94,15 @@
 
 <script setup>
 import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
-const store = useWeddingStore();
-const wishes = computed(() => store.wedding.guestBook?.guest ?? []);
+
+const props = defineProps({
+    guestBook:{
+        type: Object,
+        required: true,
+        default: () => []
+    }
+})
+const wishes = computed(() => props.guestBook?.guest ?? []);
 </script>
 
 <style scoped>

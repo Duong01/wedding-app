@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="gallery-viewer"
-    @keydown.esc="closeGallery"
-  >
-
+  <div class="gallery-viewer" @keydown.esc="closeGallery">
     <!-- ================================
          BACKGROUND
          ================================ -->
@@ -13,7 +9,6 @@
          HEADER
          ================================ -->
     <div class="gallery-header">
-
       <div class="gallery-title">
         <span>Album ảnh</span>
       </div>
@@ -33,14 +28,12 @@
         <span></span>
         <span></span>
       </button>
-
     </div>
 
     <!-- ================================
          MAIN IMAGE AREA
          ================================ -->
     <div class="gallery-main">
-
       <!-- PREVIOUS -->
       <button
         v-if="images.length > 1"
@@ -52,7 +45,6 @@
         <span></span>
       </button>
 
-
       <!-- MAIN SWIPER -->
       <Swiper
         class="main-swiper"
@@ -62,7 +54,7 @@
         :slides-per-view="1"
         :space-between="0"
         :keyboard="{
-          enabled: true
+          enabled: true,
         }"
         :loop="images.length > 1"
         :touch-ratio="1"
@@ -70,15 +62,12 @@
         @swiper="onMainSwiper"
         @slide-change="onSlideChange"
       >
-
         <SwiperSlide
           v-for="(item, index) in images"
           :key="item.id || index"
           class="main-slide"
         >
-
           <div class="main-photo">
-
             <img
               :src="item.image"
               :alt="item.title || `Ảnh cưới ${index + 1}`"
@@ -87,13 +76,9 @@
               :class="{ loaded: loadedImages[index] }"
               @load="loadedImages[index] = true"
             />
-
           </div>
-
         </SwiperSlide>
-
       </Swiper>
-
 
       <!-- NEXT -->
       <button
@@ -105,29 +90,19 @@
       >
         <span></span>
       </button>
-
     </div>
-
 
     <!-- ================================
          CAPTION
          ================================ -->
-    <div
-      v-if="images[currentIndex]?.title"
-      class="gallery-caption"
-    >
+    <div v-if="images[currentIndex]?.title" class="gallery-caption">
       {{ images[currentIndex].title }}
     </div>
-
 
     <!-- ================================
          THUMBNAILS
          ================================ -->
-    <div
-      v-if="images.length > 1"
-      class="thumbnail-area"
-    >
-
+    <div v-if="images.length > 1" class="thumbnail-area">
       <Swiper
         class="thumbnail-swiper"
         :modules="modules"
@@ -138,44 +113,41 @@
         :breakpoints="{
           0: {
             slidesPerView: 4,
-            spaceBetween: 6
+            spaceBetween: 6,
           },
 
           360: {
             slidesPerView: 5,
-            spaceBetween: 7
+            spaceBetween: 7,
           },
 
           480: {
             slidesPerView: 6,
-            spaceBetween: 8
+            spaceBetween: 8,
           },
 
           768: {
             slidesPerView: 8,
-            spaceBetween: 9
+            spaceBetween: 9,
           },
 
           1024: {
             slidesPerView: 10,
-            spaceBetween: 10
-          }
+            spaceBetween: 10,
+          },
         }"
         @swiper="onThumbnailSwiper"
       >
-
         <SwiperSlide
           v-for="(item, index) in images"
           :key="'thumbnail-' + (item.id || index)"
           class="thumbnail-slide"
           :class="{
-            active: currentIndex === index
+            active: currentIndex === index,
           }"
           @click="selectImage(index)"
         >
-
           <div class="thumbnail-image">
-
             <img
               :src="item.image"
               :alt="`Ảnh ${index + 1}`"
@@ -187,40 +159,20 @@
             <div class="thumbnail-overlay">
               {{ formatNumber(index + 1) }}
             </div>
-
           </div>
-
         </SwiperSlide>
-
       </Swiper>
-
     </div>
-
   </div>
 </template>
 
 
 <script setup>
-import {
-  computed,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
-import {
-  Swiper,
-  SwiperSlide,
-} from "swiper/vue";
-
-import {
-  Keyboard,
-  FreeMode,
-} from "swiper/modules";
+import { Keyboard, FreeMode } from "swiper/modules";
 
 import "swiper/css";
-
 
 // ========================================
 // PROPS
@@ -238,15 +190,11 @@ const props = defineProps({
   },
 });
 
-
 // ========================================
 // EMIT
 // ========================================
 
-const emit = defineEmits([
-  "close",
-]);
-
+const emit = defineEmits(["close"]);
 
 // ========================================
 // SWIPER
@@ -259,30 +207,19 @@ const currentIndex = ref(0);
 
 const loadedImages = ref({});
 
-
-const modules = [
-  Keyboard,
-  FreeMode,
-];
-
+const modules = [Keyboard, FreeMode];
 
 // ========================================
 // INDEX AN TOÀN
 // ========================================
 
 const safeStartIndex = computed(() => {
-
   if (!props.images.length) {
     return 0;
   }
 
-  return Math.min(
-    Math.max(props.startIndex, 0),
-    props.images.length - 1
-  );
-
+  return Math.min(Math.max(props.startIndex, 0), props.images.length - 1);
 });
-
 
 // ========================================
 // FORMAT
@@ -292,13 +229,11 @@ function formatNumber(number) {
   return String(number).padStart(2, "0");
 }
 
-
 // ========================================
 // MAIN SWIPER
 // ========================================
 
 function onMainSwiper(swiper) {
-
   mainSwiper.value = swiper;
 
   currentIndex.value = swiper.realIndex;
@@ -306,40 +241,31 @@ function onMainSwiper(swiper) {
   // nextTick(() => {
   //   syncThumbnail();
   // });
-
 }
-
 
 // ========================================
 // SLIDE CHANGE
 // ========================================
 
 function onSlideChange(swiper) {
-
   currentIndex.value = swiper.realIndex;
 
   // syncThumbnail();
-
 }
-
 
 // ========================================
 // THUMBNAIL SWIPER
 // ========================================
 
 function onThumbnailSwiper(swiper) {
-
   thumbnailSwiper.value = swiper;
-
 }
-
 
 // ========================================
 // CHỌN ẢNH TỪ THUMBNAIL
 // ========================================
 
 function selectImage(index) {
-
   if (!mainSwiper.value) {
     return;
   }
@@ -349,16 +275,13 @@ function selectImage(index) {
   currentIndex.value = index;
 
   syncThumbnail();
-
 }
-
 
 // ========================================
 // ĐỒNG BỘ THUMBNAIL
 // ========================================
 
 function syncThumbnail() {
-
   if (!thumbnailSwiper.value) {
     return;
   }
@@ -372,57 +295,41 @@ function syncThumbnail() {
    * khi có thể.
    */
   if (typeof swiper.slideTo === "function") {
-
-    swiper.slideTo(
-      Math.max(index - 2, 0),
-      350
-    );
-
+    swiper.slideTo(Math.max(index - 2, 0), 350);
   }
-
 }
-
 
 // ========================================
 // PREVIOUS
 // ========================================
 
 function prevImage() {
-
   if (!mainSwiper.value) {
     return;
   }
 
   mainSwiper.value.slidePrev();
-
 }
-
 
 // ========================================
 // NEXT
 // ========================================
 
 function nextImage() {
-
   if (!mainSwiper.value) {
     return;
   }
 
   mainSwiper.value.slideNext();
-
 }
-
 
 // ========================================
 // CLOSE
 // ========================================
 
 function closeGallery() {
-
   emit("close");
-
 }
-
 
 // ========================================
 // KHÓA SCROLL TRANG
@@ -432,27 +339,21 @@ let oldOverflow = "";
 let oldTouchAction = "";
 
 onMounted(() => {
-
   oldOverflow = document.body.style.overflow;
   oldTouchAction = document.body.style.touchAction;
 
   document.body.style.overflow = "hidden";
   document.body.style.touchAction = "none";
-
 });
 
-
 onBeforeUnmount(() => {
-
   document.body.style.overflow = oldOverflow;
   document.body.style.touchAction = oldTouchAction;
-
 });
 </script>
 
 
 <style scoped>
-
 /* ======================================================
    ROOT
    ====================================================== */
@@ -492,18 +393,12 @@ onBeforeUnmount(() => {
   inset: 0;
   z-index: -2;
 
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at 50% 35%,
       rgba(255, 255, 255, 0.12),
       transparent 35%
     ),
-    linear-gradient(
-      135deg,
-      #17120f 0%,
-      #0b0b0b 45%,
-      #1a1410 100%
-    );
+    linear-gradient(135deg, #17120f 0%, #0b0b0b 45%, #1a1410 100%);
 
   overflow: hidden;
 }
@@ -513,8 +408,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: -10%;
 
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at 20% 30%,
       rgba(212, 175, 55, 0.12),
       transparent 25%
@@ -527,7 +421,6 @@ onBeforeUnmount(() => {
 
   filter: blur(60px);
 }
-
 
 /* =========================================================
    HEADER
@@ -553,8 +446,7 @@ onBeforeUnmount(() => {
   letter-spacing: 0.18em;
   text-transform: uppercase;
 
-  text-shadow:
-    0 2px 20px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
 .gallery-title span {
@@ -573,14 +465,8 @@ onBeforeUnmount(() => {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #d8b45a,
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, #d8b45a, transparent);
 }
-
 
 /* COUNTER */
 
@@ -605,7 +491,6 @@ onBeforeUnmount(() => {
   font-weight: 500;
 }
 
-
 /* CLOSE */
 
 .close-button {
@@ -624,10 +509,7 @@ onBeforeUnmount(() => {
 
   cursor: pointer;
 
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .close-button:hover {
@@ -656,7 +538,6 @@ onBeforeUnmount(() => {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-
 /* =========================================================
    MAIN IMAGE
    ========================================================= */
@@ -673,7 +554,6 @@ onBeforeUnmount(() => {
 
   min-height: 400px;
 }
-
 
 /*
  * Swiper
@@ -692,7 +572,6 @@ onBeforeUnmount(() => {
   padding: 18px;
   box-sizing: border-box;
 }
-
 
 /*
  * Khung ảnh chính
@@ -716,25 +595,19 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.18),
-      rgba(255, 255, 255, 0.03)
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.03)
+  );
 
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(216, 180, 90, 0.12),
-    0 0 60px rgba(216, 180, 90, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(216, 180, 90, 0.12), 0 0 60px rgba(216, 180, 90, 0.08);
 
   overflow: hidden;
 
-  transition:
-    transform 0.5s ease,
-    box-shadow 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
-
 
 /*
  * Viền vàng bên trong
@@ -752,7 +625,6 @@ onBeforeUnmount(() => {
   pointer-events: none;
   z-index: 2;
 }
-
 
 /*
  * Ánh sáng chạy quanh ảnh
@@ -783,7 +655,6 @@ onBeforeUnmount(() => {
   transform: translateX(30%);
 }
 
-
 /*
  * IMAGE
  */
@@ -802,9 +673,7 @@ onBeforeUnmount(() => {
 
   transform: scale(0.985);
 
-  transition:
-    opacity 0.45s ease,
-    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: opacity 0.45s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 
   user-select: none;
   -webkit-user-drag: none;
@@ -814,7 +683,6 @@ onBeforeUnmount(() => {
   opacity: 1;
   transform: scale(1);
 }
-
 
 /* =========================================================
    ARROWS
@@ -844,10 +712,7 @@ onBeforeUnmount(() => {
 
   cursor: pointer;
 
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease,
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
@@ -856,8 +721,7 @@ onBeforeUnmount(() => {
 
   border-color: rgba(216, 180, 90, 0.65);
 
-  box-shadow:
-    0 0 25px rgba(216, 180, 90, 0.15);
+  box-shadow: 0 0 25px rgba(216, 180, 90, 0.15);
 }
 
 .gallery-arrow-left {
@@ -875,7 +739,6 @@ onBeforeUnmount(() => {
 .gallery-arrow-right:hover {
   transform: translate(4px, -50%);
 }
-
 
 /*
  * Arrow icon
@@ -898,7 +761,6 @@ onBeforeUnmount(() => {
   transform: rotate(45deg);
   margin-right: 4px;
 }
-
 
 /* =========================================================
    CAPTION
@@ -926,10 +788,8 @@ onBeforeUnmount(() => {
 
   backdrop-filter: blur(12px);
 
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
-
 
 /* =========================================================
    THUMBNAILS
@@ -954,9 +814,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
   opacity: 0.5;
 
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .thumbnail-slide:hover {
@@ -968,7 +826,6 @@ onBeforeUnmount(() => {
   opacity: 1;
   transform: translateY(-5px);
 }
-
 
 /*
  * Thumbnail frame
@@ -988,10 +845,7 @@ onBeforeUnmount(() => {
 
   overflow: hidden;
 
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .thumbnail-image img {
@@ -1011,7 +865,6 @@ onBeforeUnmount(() => {
   transform: scale(1.07);
 }
 
-
 /*
  * Active thumbnail
  */
@@ -1019,11 +872,9 @@ onBeforeUnmount(() => {
 .thumbnail-slide.active .thumbnail-image {
   border-color: #d8b45a;
 
-  box-shadow:
-    0 0 0 1px rgba(216, 180, 90, 0.25),
+  box-shadow: 0 0 0 1px rgba(216, 180, 90, 0.25),
     0 5px 22px rgba(216, 180, 90, 0.22);
 }
-
 
 /*
  * Active glow
@@ -1037,12 +888,10 @@ onBeforeUnmount(() => {
 
   border-radius: 9px;
 
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 225, 145, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 225, 145, 0.4);
 
   pointer-events: none;
 }
-
 
 /*
  * Number overlay
@@ -1079,24 +928,19 @@ onBeforeUnmount(() => {
   background: #d8b45a;
 }
 
-
 /* =========================================================
    SWIPER TRANSITION
    ========================================================= */
 
 .main-swiper .swiper-slide {
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 768px) {
-
   .gallery-header {
     height: 58px;
     padding: 0 60px;
@@ -1189,13 +1033,11 @@ onBeforeUnmount(() => {
   }
 }
 
-
 /* =========================================================
    SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 480px) {
-
   .gallery-main {
     height: calc(100vh - 165px);
   }
@@ -1235,13 +1077,11 @@ onBeforeUnmount(() => {
   }
 }
 
-
 /* =========================================================
    REDUCE MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -1250,5 +1090,4 @@ onBeforeUnmount(() => {
     animation-duration: 0.01ms !important;
   }
 }
-
 </style>

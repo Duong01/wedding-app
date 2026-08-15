@@ -176,11 +176,17 @@
 
 <script setup>
 import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
+const props = defineProps({
+    events:{
+        type: Object,
+        required: true,
+        default: () => []
+    }
+})
 
-const firstEvent = computed(() => store.wedding.events?.[0] ?? {});
+
+const firstEvent = computed(() => props.events?.[0] ?? {});
 
 const calendarUrl = computed(() => {
   return `https://calendar.google.com/calendar/render?action=TEMPLATE`;

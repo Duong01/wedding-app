@@ -1,7 +1,5 @@
 ﻿<template>
   <v-container class="location-section">
-  <div class="location-card">
-
     <!-- Header -->
     <div class="location-header">
       
@@ -16,6 +14,9 @@
         </p>
       </div>
     </div>
+  <div class="location-card">
+
+    
 
     <!-- Map -->
     <div class="map-frame">
@@ -83,19 +84,22 @@
 
 <script setup>
 import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
-
-const wedding = computed(() => store.wedding);
-const firstEvent = computed(() => store.wedding.events?.[0] ?? {});
-console.log(firstEvent.value);
+const props = defineProps({
+  events:{
+    type: Object,
+    required: true,
+    default: ()=>[]
+  }
+})
+const firstEvent = computed(() => props.events?.[0] ?? {});
+console.log(firstEvent.value)
 const mapSrcLink = computed(() => {
-  const query = wedding.value.events?.[0];
+  const query = firstEvent.value;
   return `${query.map}`;
 });
 const mapSrc = computed(() => {
-  const query = wedding.value.events?.[0];
+  const query = firstEvent.value;
   return `${query.map}&output=embed`;
 });
 </script>
@@ -180,33 +184,29 @@ const mapSrc = computed(() => {
   text-align: center;
   margin-bottom: 4px;
 
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
 
   letter-spacing: 0.22em;
 
-  color: #b88968;
+  color: #fff0f3;
 }
 
 .location-heading h2 {
   margin: 0;
   font-size: clamp(24px, 3vw, 34px);
-text-align: center;
+  text-align: center;
   font-weight: 500;
-
   line-height: 1.2;
-
   color: #542f35;
 }
 
 .location-heading p {
   margin: 7px 0 0;
   text-align: center;
-  font-size: 14px;
-
+  font-size: 12px;
   line-height: 1.6;
-
-  color: #8b6f73;
+  color: #fff0f3;
 }
 
 

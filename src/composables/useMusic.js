@@ -1,62 +1,122 @@
-import { ref, watch } from "vue";
+import {
+  ref,
+  watch,
+  onBeforeUnmount,
+} from "vue";
+
 import { useMusicStore } from "@/stores/music";
-
-const audio = ref(null);
-
-let initialized = false;
 
 export function useMusic() {
   const store = useMusicStore();
 
-  function init(el) {
-    if (!el) return;
+  const audio = ref(null);
+
+  const music = ref(null);
+
+  function init(el, musicData) {
+    if (!el) {
+      console.warn(
+        "Music audio element chưa tồn tại."
+      );
+
+      return;
+    }
 
     audio.value = el;
+    music.value = musicData;
 
-    if (!initialized) {
-      initialized = true;
+    audio.value.volume = store.volume;
+    audio.value.loop = true;
 
-      audio.value.volume = store.volume;
+    const src = musicData?.url;
 
-      if (store.src) {
-        audio.value.src = store.src;
-        audio.value.load();
-      }
+    if (!src) {
+      console.warn(
+        "Thiệp hiện tại không có music.url"
+      );
 
-      audio.value.addEventListener("play", () => {
-        store.play();
-      });
-
-      audio.value.addEventListener("pause", () => {
-        store.pause();
-      });
-
-      audio.value.addEventListener("ended", () => {
-        store.pause();
-      });
-
-      audio.value.addEventListener("error", (event) => {
-        console.error(
-          "Không thể phát nhạc:",
-          event,
-          audio.value?.src
-        );
-      });
+      return;
     }
+
+    console.log(
+      "🎵 Khởi tạo nhạc:",
+      src
+    );
+
+    audio.value.src = src;
+    audio.value.load();
+
+    audio.value.addEventListener(
+      "play",
+      handlePlay
+    );
+
+    audio.value.addEventListener(
+      "pause",
+      handlePause
+    );
+
+    audio.value.addEventListener(
+      "ended",
+      handlePause
+    );
+
+    audio.value.addEventListener(
+      "error",
+      handleError
+    );
+  }
+
+  function handlePlay() {
+    store.play();
+  }
+
+  function handlePause() {
+    store.pause();
+  }
+
+  function handleError(event) {
+    const el = event.target;
+
+    console.error(
+      "❌ Không thể tải nhạc:",
+      el.currentSrc
+    );
+
+    console.error(
+      "Audio error:",
+      el.error
+    );
+
+    console.error(
+      "Error code:",
+      el.error?.code
+    );
+
+    console.error(
+      "Error message:",
+      el.error?.message
+    );
   }
 
   async function play() {
     if (!audio.value) {
-      console.warn("Music audio chưa được khởi tạo.");
+      console.warn(
+        "Music audio chưa được khởi tạo."
+      );
+
+      return false;
+    }
+
+    if (!music.value?.url) {
+      console.warn(
+        "Không có URL nhạc."
+      );
+
       return false;
     }
 
     try {
-      if (audio.value.src !== store.src) {
-        audio.value.src = store.src;
-        audio.value.load();
-      }
-
       audio.value.volume = store.volume;
 
       await audio.value.play();
@@ -64,8 +124,12 @@ export function useMusic() {
       store.play();
 
       return true;
+
     } catch (error) {
-      console.error("Không thể phát nhạc:", error);
+      console.error(
+        "Không thể phát nhạc:",
+        error
+      );
 
       store.pause();
 
@@ -74,7 +138,9 @@ export function useMusic() {
   }
 
   function pause() {
-    if (!audio.value) return;
+    if (!audio.value) {
+      return;
+    }
 
     audio.value.pause();
 
@@ -102,26 +168,55 @@ export function useMusic() {
       );
     },
     {
-      immediate: true
+      immediate: true,
     }
   );
 
-  watch(
-    () => store.src,
-    (src) => {
-      if (!audio.value || !src) return;
-
-      audio.value.src = src;
-      audio.value.load();
+  onBeforeUnmount(() => {
+    if (!audio.value) {
+      return;
     }
-  );
+
+    audio.value.pause();
+
+    audio.value.removeEventListener(
+      "play",
+      handlePlay
+    );
+
+    audio.value.removeEventListener(
+      "pause",
+      handlePause
+    );
+
+    audio.value.removeEventListener(
+      "ended",
+      handlePause
+    );
+
+    audio.value.removeEventListener(
+      "error",
+      handleError
+    );
+
+    audio.value.removeAttribute("src");
+
+    audio.value.load();
+
+    audio.value = null;
+
+    music.value = null;
+
+    store.pause();
+  });
 
   return {
     audio,
+    music,
     store,
     init,
     play,
     pause,
-    toggle
+    toggle,
   };
 }

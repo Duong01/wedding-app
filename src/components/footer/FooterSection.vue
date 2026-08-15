@@ -1,159 +1,509 @@
 <template>
-<footer class="footer">
+  <footer class="footer">
 
+    <!-- Background -->
+    <div class="footer-pattern"></div>
     <div class="footer-overlay"></div>
-    <p class="footer-text">
-            {{ wedding.message }}
-        </p>
-    <v-container class="container-sm footer-content">
 
-        <h2 class="couple-name">
-            {{ wedding.groomName }}
-            &
-            {{ wedding.brideName }}
-        </h2>
+    <!-- Nội dung -->
+    <v-container class="footer-container">
 
-        
+      <!-- Message -->
+      <p
+        v-if="wedding.message"
+        class="footer-message"
+      >
+        {{ wedding.message }}
+      </p>
 
-        <div class="copyright">
-            © {{ new Date().getFullYear() }}
-            {{ wedding.copyright }}
+      <!-- Couple -->
+      <div class="couple-wrapper">
+
+        <div class="couple-name">
+          {{ wedding.groomName }}
         </div>
-        <div class="footer-line"></div>
-        <div class="copyright">
-            ngaychungdoi.com
+
+        <div class="couple-symbol">
+          &
         </div>
+
+        <div class="couple-name">
+          {{ wedding.brideName }}
+        </div>
+
+      </div>
+
+      <!-- Line -->
+      <div class="footer-line"></div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        © {{ currentYear }}
+        {{ wedding.copyright }}
+      </div>
+
+      <div class="website">
+        ngaychungdoi.com
+      </div>
+
     </v-container>
 
-</footer>
+  </footer>
 </template>
+
 <script setup>
 import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
+const props = defineProps({
+  footer: {
+    type: Object,
+    required: true,
+    default: () => ({}),
+  },
+});
 
-const wedding = computed(() => store.wedding.footer ?? {});
+const wedding = computed(() => props.footer ?? {});
+
+const currentYear = new Date().getFullYear();
 </script>
+
 <style scoped>
-.footer{
-    position:relative;
-    overflow:hidden;
-    background:#7b0d0d;
+
+/* =========================================================
+   DESIGN SYSTEM
+   ========================================================= */
+
+.footer {
+  --primary: #7b0d0d;
+  --primary-light: #9d2525;
+
+  --gold: #c79d5c;
+  --gold-light: #f7d8a3;
+
+  --paper: #f8f5ed;
+
+  --text: #5c4d46;
+  --sub-text: #806f66;
+
+  --white: #fffaf4;
+
+  position: relative;
+
+  width: 100%;
+
+  min-height: 420px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #7b0d0d 0%,
+      #861313 50%,
+      #720909 100%
+    );
+
+  color: var(--white);
+
+  text-align: center;
 }
 
-.footer::before{
 
-    content:"";
+/* =========================================================
+   BACKGROUND PATTERN
+   ========================================================= */
 
-    position:absolute;
+.footer-pattern {
+  position: absolute;
 
-    inset:0;
+  inset: 0;
 
-    background:url("/images/pattern.png") center;
+  background-image:
+    radial-gradient(
+      circle at center,
+      rgba(247, 216, 163, 0.12) 0,
+      transparent 45%
+    );
 
-    opacity:.06;
-}
-
-.footer-overlay{
-    position:absolute;
-    inset:0;
-    background:
-        radial-gradient(circle at top,#b81b1b20 0%,transparent 60%);
-}
-
-.footer-content{
-
-    position:relative;
-
-    text-align:center;
-
-    z-index:2;
+  pointer-events: none;
 }
 
 
-.couple-name{
+/* =========================================================
+   OVERLAY
+   ========================================================= */
 
-    /* font-size:20px; */
+.footer-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(247, 216, 163, 0.16),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(60, 0, 0, 0.18)
+    );
+
+  pointer-events: none;
+}
 
 
-    font-weight:600;
+/* =========================================================
+   CONTAINER
+   ========================================================= */
 
-    color:#f7d8a3;
+.footer-container {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  max-width: 760px;
+
+  margin: 0 auto;
+
+  padding: 80px 24px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.footer-message {
+  width: 100%;
+
+  max-width: 600px;
+
+  margin: 0 auto 42px;
+
+  padding: 0;
+
+  font-family: var(--font-main);
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  line-height: 1.9;
+
+  letter-spacing: 0.3px;
+
+  color: rgba(255, 250, 244, 0.88);
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   COUPLE
+   ========================================================= */
+
+.couple-wrapper {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 24px;
+
+  width: 100%;
+}
+
+
+/* Tên */
+
+.couple-name {
+  font-family: var(--font-wedding);
+
+  font-size: clamp(
+    38px,
+    7vw,
+    58px
+  );
+
+  font-weight: 500;
+
+  font-style: italic;
+
+  line-height: 1;
+
+  color: var(--gold-light);
+
+  white-space: nowrap;
+}
+
+
+/* & */
+
+.couple-symbol {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  font-family: var(--font-wedding);
+
+  font-size: 30px;
+
+  font-style: italic;
+
+  color: var(--gold);
+
+  border: 1px solid rgba(
+    247,
+    216,
+    163,
+    0.35
+  );
+
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   LINE
+   ========================================================= */
+
+.footer-line {
+  width: 100%;
+
+  max-width: 120px;
+
+  height: 1px;
+
+  margin: 38px auto 28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(247, 216, 163, 0.75),
+      transparent
+    );
+}
+
+
+/* =========================================================
+   COPYRIGHT
+   ========================================================= */
+
+.copyright {
+  font-family: var(--font-main);
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  line-height: 1.8;
+
+  letter-spacing: 1px;
+
+  color: rgba(
+    255,
+    250,
+    244,
+    0.65
+  );
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   WEBSITE
+   ========================================================= */
+
+.website {
+  margin-top: 8px;
+
+  font-family: var(--font-main);
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: rgba(
+    247,
+    216,
+    163,
+    0.75
+  );
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .footer {
+    min-height: 380px;
+  }
+
+  .footer-container {
+    padding: 65px 20px;
+  }
+
+  .footer-message {
+    max-width: 500px;
+
+    margin-bottom: 35px;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+  }
+
+  .couple-wrapper {
+    gap: 15px;
+  }
+
+  .couple-name {
+    font-size: clamp(
+      34px,
+      10vw,
+      48px
+    );
+  }
+
+  .couple-symbol {
+    width: 36px;
+    height: 36px;
+
+    font-size: 25px;
+  }
 
 }
 
-.couple-name span{
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-    color:#fff;
+@media (max-width: 600px) {
 
-    font-weight:300;
-}
+  .footer {
+    min-height: 360px;
+  }
 
-.footer-text{
-    max-width:620px;
-    background: #f7d8a3;
-    margin:0;
-    padding: 0;
-    color:rgba(65, 31, 31, 0.85);
-    line-height:1.9;
-}
+  .footer-container {
+    padding: 60px 18px;
+  }
 
-.footer-line{
+  .footer-message {
+    margin-bottom: 32px;
 
-    width:120px;
+    font-size: 12px;
 
-    height:2px;
+    line-height: 1.8;
 
-    margin:38px auto;
+    max-width: 330px;
+  }
 
-    background:rgba(247,216,163,.7);
-}
+  .couple-wrapper {
+    gap: 9px;
+  }
 
-.copyright{
+  .couple-name {
+    font-size: clamp(
+      30px,
+      10vw,
+      42px
+    );
+  }
 
-    color:rgba(255,255,255,.65);
+  .couple-symbol {
+    width: 32px;
+    height: 32px;
 
-    /* font-size:11px; */
+    font-size: 22px;
+  }
 
-    line-height:2;
-}
+  .footer-line {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
 
-@media(max-width:768px){
+  .copyright {
+    font-size: 10px;
+  }
 
-    .footer-icon{
+  .website {
+    font-size: 8px;
 
-        width:58px;
-        height:58px;
-
-        /* font-size:18px; */
-    }
-
-    .couple-name{
-
-        /* font-size:18px; */
-
-        line-height:1.4;
-    }
-
-    .couple-name span{
-
-        display:block;
-
-    }
-
-    .footer-text{
-        height: 70px;
-        /* font-size:12px; */
-        text-align: center;
-        line-height: 70px;
-    }
-
-    .copyright{
-
-        /* font-size:11px; */
-    }
+    letter-spacing: 2px;
+  }
 
 }
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .footer-container {
+    padding: 50px 14px;
+  }
+
+  .footer-message {
+    font-size: 11px;
+
+    max-width: 290px;
+  }
+
+  .couple-wrapper {
+    gap: 6px;
+  }
+
+  .couple-name {
+    font-size: 28px;
+  }
+
+  .couple-symbol {
+    width: 29px;
+    height: 29px;
+
+    font-size: 20px;
+  }
+
+}
+
 </style>

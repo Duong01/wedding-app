@@ -11,7 +11,7 @@
     <div class="hero-overlay"></div>
 
     <!-- Nội dung -->
-    <HeroContent />
+    <HeroContent :hero="hero" />
 
   </section>
 </template>
@@ -20,6 +20,13 @@
 import HeroBackground from "./HeroBackground.vue";
 import HeroParticles from "./HeroParticles.vue";
 import HeroContent from "./HeroContent.vue";
+
+const props = defineProps({
+  hero:{
+    type: Object,
+    required: true
+  }
+})
 </script>
 
 <style scoped lang="scss">

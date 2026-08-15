@@ -2,9 +2,9 @@
   <div ref="container" class="hero-content">
     <div class="hero-card animate-item">
       <p class="eyebrow">The Wedding Of</p>
-      <div class="bride-name">{{ bride.name }}</div>
+      <div class="bride-name">{{ hero.groomName }}</div>
       <div class="icon">&</div>
-      <div class="groom-name">{{ groom.name }}</div>
+      <div class="groom-name">{{ hero.brideName }}</div>
       
       <p class="hero-subtitle">
         Sự hiện diện của các bạn là niềm vui lớn nhất của chúng mình
@@ -14,7 +14,7 @@
         <div class="hero-meta-item">
           <span class="hero-meta-label">Save the Date</span>
           <span class="hero-meta-date">
-            {{ formatDate(event.date) }}
+            {{ formatDate(hero.weddingDate) }}
           </span>
         </div>
 
@@ -25,12 +25,12 @@
         <div class="hero-meta-item">
           <span class="hero-meta-label">Wedding Ceremony</span>
           <span class="hero-meta-location">
-            {{ event.location }}
+            {{ hero.location }}
           </span>
         </div>
       </div>
 
-      <HeroCountdown />
+      <HeroCountdown :timeWedding ="hero.weddingDate" />
     </div>
   </div>
 </template>
@@ -40,32 +40,21 @@ import { ref, onMounted, computed } from "vue";
 import { gsap } from "gsap";
 import dayjs from "dayjs";
 import HeroCountdown from "./HeroCountdown.vue";
-import { useWeddingStore } from "@/stores/wedding";
 
-const store1 = useWeddingStore();
-
-const wedding = computed(() => store1.wedding);
-const bride = computed(() => wedding.value.couple?.bride ?? {});
-const groom = computed(() => wedding.value.couple?.groom ?? {});
-const event = computed(() => wedding.value.events?.[0] ?? {});
-
-const container = ref();
+const props = defineProps({
+  hero :{
+    type: Object,
+    required: true,
+    default :() => ({})
+  }
+})
 
 function formatDate(date) {
   if (!date) return "";
   return dayjs(date).format("DD.MM.YYYY");
 }
 
-onMounted(() => {
-  const elements = container.value?.querySelectorAll(".animate-item");
-  gsap.from(elements, {
-    y: 26,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.12,
-    ease: "power3.out",
-  });
-});
+
 </script>
 
 <style scoped lang="scss">

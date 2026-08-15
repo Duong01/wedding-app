@@ -51,10 +51,15 @@
 
 <script setup>
 import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
-const gifts = computed(() => store.wedding.gifts ?? []);
+const props = defineProps({
+    gifts:{
+        type: Object,
+        required: true,
+        default: () => []
+    }
+})
+const gifts = computed(() => props.gifts ?? []);
 async function copy(text){
     await navigator.clipboard.writeText(text);
 

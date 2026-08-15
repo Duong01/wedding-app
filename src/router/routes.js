@@ -1,11 +1,31 @@
 export default [
+  // {
+  //   path: "/",
+  //   name: "Home",
+  //   component: () => import("./../views/Home.vue"),
+
+  // },
   {
     path: "/",
     name: "Home",
-    component: () => import("./../views/Home.vue"),
+    component: () => import("@/views/Home.vue"),
     meta: {
-      title: "Ngày chung đôi"
-    }
+      title: "Ngày chung đôi",
+    },
+  },
+
+  // {
+  //   path: "/wedding/:id",
+  //   name: "WeddingDetail",
+  //   component: () => import("@/views/WeddingDetail.vue"),
+  //   props: true,
+  // },
+
+  {
+    path: "/wedding/:slug",
+    name: "WeddingBySlug",
+    component: () => import("@/views/WeddingDetail.vue"),
+    props: true,
   },
 
   // {

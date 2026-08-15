@@ -399,9 +399,9 @@ const displayAddress = computed(() => {
       #670b0f 100%
     );
 
-  box-shadow:
+  /* box-shadow:
     0 30px 70px rgba(45, 24, 14, .28),
-    0 8px 22px rgba(45, 24, 14, .15);
+    0 8px 22px rgba(45, 24, 14, .15); */
 
   isolation: isolate;
 }
@@ -472,13 +472,13 @@ const displayAddress = computed(() => {
    * nhưng vẫn trong suốt.
    */
 
-  background:
+  /* background:
     radial-gradient(
       ellipse at center,
       rgba(77, 5, 8, .56) 0%,
       rgba(77, 5, 8, .30) 52%,
       rgba(77, 5, 8, 0) 78%
-    );
+    ); */
 
   border-radius: 45%;
 
@@ -500,12 +500,12 @@ const displayAddress = computed(() => {
 
   border-radius: 50%;
 
-  background:
+  /* background:
     radial-gradient(
       circle,
       rgba(232, 191, 110, .12),
       transparent 68%
-    );
+    ); */
 
   filter: blur(10px);
 
@@ -655,8 +655,8 @@ const displayAddress = computed(() => {
 
   line-height: 1;
 
-  box-shadow:
-    0 4px 18px rgba(234, 195, 116, .25);
+  /* box-shadow:
+    0 4px 18px rgba(234, 195, 116, .25); */
 }
 
 
@@ -928,9 +928,9 @@ const displayAddress = computed(() => {
 
   letter-spacing: .2px;
 
-  box-shadow:
+  /* box-shadow:
     0 7px 20px rgba(32, 5, 5, .3),
-    0 0 0 4px rgba(235, 202, 132, .12);
+    0 0 0 4px rgba(235, 202, 132, .12); */
 
   transition:
     transform .28s ease,
@@ -1166,16 +1166,6 @@ const displayAddress = computed(() => {
 
     padding: 18px 10px;
 
-    /*
-     * Tăng độ sạch vùng chữ
-     */
-    background:
-      radial-gradient(
-        ellipse at center,
-        rgba(73, 5, 8, .7),
-        rgba(73, 5, 8, .3) 65%,
-        transparent 85%
-      );
   }
 
 

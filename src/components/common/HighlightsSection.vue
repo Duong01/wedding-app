@@ -124,15 +124,24 @@
 import { computed } from "vue";
 import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
+const props = defineProps({
+  couple: {
+    type: Object,
+    required: true,
+    default: ({})
+  },
+  events:{
+    type: Object,
+    required: true,
+    default: ({})
+  }
+});
 
-const wedding = computed(() => store.wedding);
+const bride = computed(() => props.couple?.bride ?? {});
 
-const bride = computed(() => wedding.value.couple?.bride ?? {});
+const groom = computed(() => props.couple?.groom ?? {});
 
-const groom = computed(() => wedding.value.couple?.groom ?? {});
-
-const event = computed(() => wedding.value.events?.[0] ?? {});
+const event = computed(() => props.events?.[0] ?? {});
 </script>
 
 <style scoped>

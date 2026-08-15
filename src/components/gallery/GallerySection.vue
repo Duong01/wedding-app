@@ -78,12 +78,18 @@
 
 <script setup>
 import { computed, onBeforeUnmount, ref } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
 import GalleryModal from "./GalleryModal.vue";
 const dialog = ref(false);
 
-const store = useWeddingStore();
-const gallery = computed(() => store.wedding.gallery ?? []);
+const props = defineProps({
+  gallery:{
+    type: Object,
+    required: true,
+    default: () => []
+  }
+})
+
+const gallery = computed(() => props.gallery ?? []);
 const selectedIndex = ref(-1);
 const currentIndex = computed(() => selectedIndex.value);
 const selectedItem = computed(() =>
