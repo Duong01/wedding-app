@@ -30,18 +30,26 @@
 <script setup>
 import { computed } from "vue";
 
-import { useWeddingStore } from "@/stores/wedding";
 
-const store = useWeddingStore();
 
-const wedding = computed(() => store.wedding);
+
+const props = defineProps({
+  background: {
+    type: Object,
+    required: true,
+    default: () => ({}),
+  },
+});
+
+console.log(props.background);
+
 
 const videoUrl = computed(() => {
-  return wedding.value.video || "";
+  return props.background.video || "";
 });
 
 const coverImage = computed(() => {
-  return wedding.value.coverImage;
+  return props.background.image || "";
 });
 
 const backgroundStyle = computed(() => ({

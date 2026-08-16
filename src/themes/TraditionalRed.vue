@@ -153,13 +153,57 @@ const handleOpen = async () => {
 ========================================================= */
 
 .content-wrapper {
+  position: relative;
+
   width: 100%;
+  max-width: 900px;
 
   margin: 0 auto;
 
-  background: var(--background);
+  padding: 70px 30px 80px;
 
   color: var(--text);
+
+  text-align: center;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 249, 0.96),
+      rgba(255, 248, 244, 0.96)
+    );
+}
+
+/* Chữ 囍 trang trí phía sau */
+.content-wrapper::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image: url("@/assets/chu-hy.webp");
+
+  background-repeat: no-repeat;
+
+  background-position: center;
+
+  background-size: 260px auto;
+
+  opacity: 0.08;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+/* Nội dung nằm trên hình */
+.content-wrapper > * {
+  position: relative;
+
+  z-index: 1;
 }
 
 /* =========================================================

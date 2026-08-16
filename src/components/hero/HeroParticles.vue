@@ -300,7 +300,7 @@ onUnmounted(() => {
 
     pointer-events:none;
 
-    z-index:2;
+    z-index:1000;
 
 }
 

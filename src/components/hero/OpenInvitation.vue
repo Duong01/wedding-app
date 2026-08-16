@@ -8,8 +8,7 @@
       :background="backgroundImage"
     />
 
-    <!-- Particles -->
-    <HeroParticles />
+    
 
     <!-- Invitation -->
     <HeroCard
@@ -27,6 +26,8 @@
       @open="openInvitation"
     />
   </section>
+  <!-- Particles -->
+    <HeroParticles />
 </template>
 
 <script setup>
@@ -73,7 +74,6 @@ const fonts = computed(() => {
 
 const backgroundImage = computed(() => {
   return (
-    props.wedding?.hero?.background ||
     props.wedding?.coverImage ||
     ""
   );

@@ -46,10 +46,6 @@
         <div class="person-role">CÔ DÂU</div>
       </div>
 
-      <div class="symbol">
-        <img src="@/assets/chu-hy.webp" alt="Symbol" />
-      </div>
-
       <div class="person">
         <div class="person-name">
           {{ groom.name }}
@@ -151,7 +147,7 @@ const event = computed(() => props.events?.[0] ?? {});
 
 .wedding-info {
   position: relative;
-  background: #f8f5ed;
+
   width: 100%;
   max-width: 900px;
 
@@ -164,8 +160,44 @@ const event = computed(() => props.events?.[0] ?? {});
   text-align: center;
 
   overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 249, 0.96),
+      rgba(255, 248, 244, 0.96)
+    );
 }
 
+/* Chữ 囍 trang trí phía sau */
+.wedding-info::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image: url("@/assets/chu-hy.webp");
+
+  background-repeat: no-repeat;
+
+  background-position: center;
+
+  background-size: 260px auto;
+
+  opacity: 0.08;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+/* Nội dung nằm trên hình */
+.wedding-info > * {
+  position: relative;
+
+  z-index: 1;
+}
 /* =========================================================
    FAMILY
    ========================================================= */
