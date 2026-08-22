@@ -1,51 +1,154 @@
 :root {
+  /* =========================================================
+     WEDDING COLOR SYSTEM
+     Asian / Traditional / Elegant
+  ========================================================= */
 
-  --primary: #7b0d0d;
-  --secondary: #9d2525;
+  /* Primary - đỏ son */
+  --primary: #7d0d10;
+  --primary-dark: #65090c;
+  --primary-light: #8f1518;
 
-  --accent: #c79d5c;
-  --accent-light: #f7d8a3;
+  /* Secondary */
+  --secondary: #a32929;
+  --secondary-dark: #741013;
 
-  --background: #f8f5ed;
-  --background-secondary: #eee8dc;
+  /* Gold */
+  --accent: #e9bd76;
+  --accent-light: #f8dfad;
+  --accent-soft: rgba(233, 189, 118, 0.65);
 
-  --surface: #fffdf9;
+  /* =========================================================
+     BACKGROUND
+  ========================================================= */
 
-  --text: #5c4d46;
-  --text-secondary: #806f66;
+  /* Background chính của thiệp */
+  --background: #7d0d10;
 
-  --heading: #7b0d0d;
+  /* Background section phụ */
+  --background-secondary: #6e0b0e;
+
+  /* Surface dùng cho section giấy / card */
+  --surface: #f7f0df;
+
+  /* Surface sáng */
+  --surface-light: #fff7e5;
+
+  /* =========================================================
+     TEXT
+  ========================================================= */
+
+  /* Chữ chính trên nền đỏ */
+  --text: #f8dfad;
+
+  /* Chữ phụ */
+  --text-secondary: rgba(248, 223, 173, 0.72);
+
+  /* Heading */
+  --heading: #f8dfad;
+
+  /* Chữ vàng nổi bật */
+  --text-gold: #e9bd76;
+
+  /* Chữ đỏ khi nằm trên nền giấy */
+  --text-dark: #741013;
+
+  /* =========================================================
+     BASIC COLORS
+  ========================================================= */
 
   --white: #fffaf4;
 
+  --black: #240405;
 
+  --gold: var(--accent);
+
+  --paper: var(--surface);
+
+  --sub-text: var(--text-secondary);
+
+
+  /* =========================================================
+     TYPOGRAPHY
+  ========================================================= */
+
+  /* Nội dung */
   --font-main:
     "Cormorant Garamond",
     Georgia,
     serif;
 
+  /* Heading */
   --font-heading:
     "Cormorant Garamond",
     Georgia,
     serif;
 
+  /* Tên cô dâu / chú rể */
   --font-script:
     "The Nautigal",
     cursive;
 
-
+  /* Ký hiệu & / ornament */
   --font-wedding:
     "The Nautigal",
     cursive;
 
+  --font-base:"Times New Roman", Times, serif;
 
-  --gold: var(--accent);
-  --paper: var(--surface);
-  --sub-text: var(--text-secondary);
 
+  /* =========================================================
+     LAYOUT
+  ========================================================= */
 
   --content-width: 900px;
 
   --section-padding: 80px;
 
+
+  /* =========================================================
+     BORDER
+  ========================================================= */
+
+  --border-gold:
+    rgba(233, 189, 118, 0.45);
+
+  --border-light:
+    rgba(248, 223, 173, 0.25);
+
+
+  /* =========================================================
+     SHADOW
+  ========================================================= */
+
+  --shadow-soft:
+    0 12px 40px rgba(48, 3, 4, 0.18);
+
+  --shadow-deep:
+    0 20px 60px rgba(35, 2, 3, 0.35);
+
+
+  /* =========================================================
+     RADIUS
+  ========================================================= */
+
+  --radius-sm: 8px;
+
+  --radius-md: 16px;
+
+  --radius-lg: 24px;
+
+
+  /* =========================================================
+     TRANSITION
+  ========================================================= */
+
+  --transition-fast:
+    180ms ease;
+
+  --transition-normal:
+    350ms ease;
+
+  --transition-slow:
+    700ms ease;
 }

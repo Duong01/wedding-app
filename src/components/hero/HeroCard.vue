@@ -259,13 +259,7 @@ const displayAddress = computed(() => {
 
   z-index: -10;
 
-  background:
-    radial-gradient(
-      circle at center,
-      #fffdf7 0%,
-      #f8f3e8 50%,
-      #ebe3d3 100%
-    );
+  background: url("@/assets/bg-frame.jpg") center / cover;
 }
 
 .paper-bg::before {
@@ -276,11 +270,7 @@ const displayAddress = computed(() => {
 
   opacity: .22;
 
-  background-image:
-    radial-gradient(
-      rgba(120, 95, 55, .18) .7px,
-      transparent .8px
-    );
+  background: url("@/assets/bg-frame.jpg") center / cover;
 
   background-size: 7px 7px;
 }

@@ -1,173 +1,173 @@
 <template>
   <div class="hero-background">
-    <!-- Video -->
-    <video
-      v-if="videoUrl"
-      class="bg-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      :poster="coverImage"
-    >
-      <source :src="videoUrl" type="video/mp4" />
-    </video>
 
-    <!-- Image -->
-    <div v-else class="bg-image" :style="backgroundStyle"></div>
+    <!-- Nền đỏ -->
+    <div class="red-background"></div>
 
-    <!-- Overlay -->
-    <div class="overlay"></div>
+    <!-- Hoa văn chìm -->
+    <div class="pattern"></div>
 
-    <!-- Light -->
-    <div class="light light-1"></div>
+    <!-- Ánh sáng -->
+    <div class="warm-glow"></div>
 
-    <div class="light light-2"></div>
+    <!-- Viền tối -->
+    <div class="vignette"></div>
+
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
-
-
-
-
-const props = defineProps({
-  background: {
-    type: Object,
-    required: true,
-    default: () => ({}),
-  },
-});
-
-console.log(props.background);
-
-
-const videoUrl = computed(() => {
-  return props.background.video || "";
-});
-
-const coverImage = computed(() => {
-  return props.background.image || "";
-});
-
-const backgroundStyle = computed(() => ({
-  backgroundImage: `url(${coverImage.value})`,
-}));
 </script>
 
-<style scoped lang="scss">
+<style scoped>
+
 .hero-background {
   position: absolute;
 
   inset: 0;
 
+  z-index: 0;
+
   overflow: hidden;
+
+  pointer-events: none;
 }
 
-/* ---------------- Image ---------------- */
 
-.bg-image {
+/* =========================================================
+   RED BACKGROUND
+========================================================= */
+
+.red-background {
   position: absolute;
 
   inset: 0;
 
-  background-position: center;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(174, 43, 43, 0.35),
+      transparent 55%
+    ),
 
-  background-size: cover;
-
-  animation: kenburns 25s linear infinite alternate;
+    linear-gradient(
+      180deg,
+      #8d1115 0%,
+      #7b0d0d 45%,
+      #69090c 100%
+    );
 }
 
-/* ---------------- Video ---------------- */
 
-.bg-video {
-  position: absolute;
+/* =========================================================
+   HOA VĂN CHỮ HỶ
+========================================================= */
 
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  transform: scale(1.1);
-}
-
-/* ---------------- Overlay ---------------- */
-
-.overlay {
+.pattern {
   position: absolute;
 
   inset: 0;
 
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.25),
-    rgba(0, 0, 0, 0.45),
-    rgba(0, 0, 0, 0.65)
-  );
+  background-image:
+    url("@/assets/chu-hy.webp");
+
+
+  background-position:
+    center 30%;
+
+  background-size:
+    360px auto;
+
+  opacity: 0.08;
+
+  filter:
+    sepia(0.3)
+    brightness(1.25);
+
+  mix-blend-mode: screen;
 }
 
-/* ---------------- Lights ---------------- */
 
-.light {
+/* =========================================================
+   WARM GLOW
+========================================================= */
+
+.warm-glow {
   position: absolute;
+
+  width: 500px;
+
+  height: 500px;
+
+  top: 30%;
+
+  left: 50%;
+
+  transform:
+    translate(-50%, -50%);
 
   border-radius: 50%;
 
-  filter: blur(140px);
+  background:
+    radial-gradient(
+      circle,
+      rgba(244, 194, 108, 0.15),
+      transparent 70%
+    );
 
-  opacity: 0.25;
+  filter: blur(35px);
 }
 
-.light-1 {
-  width: 400px;
 
-  height: 400px;
+/* =========================================================
+   VIGNETTE
+========================================================= */
 
-  background: linear-gradient(135deg, #ffb6d9, #ffa0c9);
+.vignette {
+  position: absolute;
 
-  top: -100px;
+  inset: 0;
 
-  left: -150px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(45, 0, 0, 0.22),
+      transparent 20%,
+      transparent 80%,
+      rgba(45, 0, 0, 0.22)
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(35, 0, 0, 0.18),
+      transparent 20%,
+      transparent 75%,
+      rgba(35, 0, 0, 0.35)
+    );
 }
 
-.light-2 {
-  width: 450px;
 
-  height: 450px;
-
-  background: linear-gradient(135deg, #ffe0b2, #ffd8a8);
-
-  bottom: -150px;
-
-  right: -200px;
-}
-
-/* ---------------- Animation ---------------- */
-
-@keyframes kenburns {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(1.18);
-  }
-}
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 600px) {
-  .light-1 {
-    width: 250px;
 
-    height: 250px;
+  .pattern {
+    background-size: 300px auto;
+
+    background-position:
+      center 30%;
+
+    opacity: 0.07;
   }
 
-  .light-2 {
-    width: 300px;
+  .warm-glow {
+    width: 380px;
 
-    height: 300px;
+    height: 380px;
   }
+
 }
+
 </style>

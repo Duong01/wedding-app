@@ -1,24 +1,43 @@
 <template>
-  <canvas ref="canvas" class="hero-particles"></canvas>
+  <canvas
+    ref="canvas"
+    class="hero-particles"
+  ></canvas>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import {
+  ref,
+  onMounted,
+  onUnmounted,
+} from "vue";
 
 const canvas = ref(null);
 
-let ctx;
+let ctx = null;
+
 let width = 0;
 let height = 0;
-let dpr = window.devicePixelRatio || 1;
+
+let dpr =
+  window.devicePixelRatio || 1;
+
 let animationId = 0;
 
 const particles = [];
 
-const MAX_PARTICLES =
-  window.innerWidth < 768
-    ? 45
-    : 90;
+const getMaxParticles = () => {
+  if (window.innerWidth < 380) {
+    return 25;
+  }
+
+  if (window.innerWidth < 768) {
+    return 38;
+  }
+
+  return 65;
+};
+
 
 class Particle {
 
@@ -26,37 +45,55 @@ class Particle {
     this.reset(true);
   }
 
+
   reset(first = false) {
 
-    this.x = Math.random() * width;
+    this.x =
+      Math.random() * width;
 
     this.y = first
       ? Math.random() * height
-      : -50;
+      : -40;
 
-    this.size = Math.random() * 10 + 8;
+    this.size =
+      Math.random() * 8 + 6;
 
-    this.speedY = Math.random() * 0.8 + 0.5;
+    this.speedY =
+      Math.random() * 0.7 + 0.35;
 
-    this.speedX = Math.random() * 0.8 - 0.4;
+    this.speedX =
+      Math.random() * 0.5 - 0.25;
 
-    this.rotation = Math.random() * Math.PI;
+    this.rotation =
+      Math.random() *
+      Math.PI *
+      2;
 
     this.rotateSpeed =
-      (Math.random() - 0.5) * 0.03;
+      (Math.random() - 0.5) *
+      0.025;
 
     this.alpha =
-      Math.random() * 0.5 + 0.4;
+      Math.random() * 0.45 + 0.2;
 
-    const r = Math.random();
+    const random =
+      Math.random();
 
-    if (r < 0.45)
+    if (random < 0.48) {
+
       this.type = "petal";
-    else if (r < 0.75)
+
+    } else if (random < 0.82) {
+
       this.type = "heart";
-    else
+
+    } else {
+
       this.type = "spark";
+
+    }
   }
+
 
   update() {
 
@@ -64,45 +101,70 @@ class Particle {
 
     this.x += this.speedX;
 
-    this.rotation += this.rotateSpeed;
+    this.rotation +=
+      this.rotateSpeed;
 
     this.x +=
-      Math.sin(this.y * 0.01) * 0.35;
+      Math.sin(
+        this.y * 0.008
+      ) * 0.25;
+
 
     if (
       this.y >
-      height + 60
+      height + 50
     ) {
+
       this.reset();
+
     }
 
   }
 
+
   draw() {
+
+    if (!ctx) return;
 
     ctx.save();
 
-    ctx.translate(this.x, this.y);
+    ctx.translate(
+      this.x,
+      this.y
+    );
 
-    ctx.rotate(this.rotation);
+    ctx.rotate(
+      this.rotation
+    );
 
-    ctx.globalAlpha = this.alpha;
+    ctx.globalAlpha =
+      this.alpha;
 
-    switch (this.type) {
 
-      case "petal":
-        drawPetal(this.size);
-        break;
+    if (
+      this.type === "heart"
+    ) {
 
-      case "heart":
-        drawHeart(this.size * 0.7);
-        break;
+      drawHeart(
+        this.size
+      );
 
-      case "spark":
-        drawSpark(this.size * 0.3);
-        break;
+    } else if (
+      this.type === "petal"
+    ) {
+
+      drawPetal(
+        this.size
+      );
+
+    } else {
+
+      drawSpark(
+        this.size
+      );
 
     }
+
 
     ctx.restore();
 
@@ -110,13 +172,61 @@ class Particle {
 
 }
 
-function drawPetal(size) {
 
-  ctx.fillStyle = "#ffd3df";
+/* =========================================================
+   HEART
+========================================================= */
+
+function drawHeart(size) {
+
+  ctx.fillStyle =
+    "#f5c6a5";
 
   ctx.beginPath();
 
-  ctx.moveTo(0, -size);
+  ctx.moveTo(
+    0,
+    size * 0.9
+  );
+
+  ctx.bezierCurveTo(
+    size * 1.8,
+    -size * 0.5,
+    size * 2.8,
+    size * 0.4,
+    0,
+    size * 2.4
+  );
+
+  ctx.bezierCurveTo(
+    -size * 2.8,
+    size * 0.4,
+    -size * 1.8,
+    -size * 0.5,
+    0,
+    size * 0.9
+  );
+
+  ctx.fill();
+
+}
+
+
+/* =========================================================
+   PETAL
+========================================================= */
+
+function drawPetal(size) {
+
+  ctx.fillStyle =
+    "#f3d5b4";
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    0,
+    -size
+  );
 
   ctx.bezierCurveTo(
     size,
@@ -140,46 +250,22 @@ function drawPetal(size) {
 
 }
 
-function drawHeart(size) {
 
-  ctx.fillStyle = "#ff4d88";
-
-  ctx.beginPath();
-
-  ctx.moveTo(0, size);
-
-  ctx.bezierCurveTo(
-    size * 2,
-    -size,
-    size * 3,
-    size,
-    0,
-    size * 3
-  );
-
-  ctx.bezierCurveTo(
-    -size * 3,
-    size,
-    -size * 2,
-    -size,
-    0,
-    size
-  );
-
-  ctx.fill();
-
-}
+/* =========================================================
+   SPARK
+========================================================= */
 
 function drawSpark(size) {
 
-  ctx.fillStyle = "#fff8cc";
+  ctx.fillStyle =
+    "#ffe6a8";
 
   ctx.beginPath();
 
   ctx.arc(
     0,
     0,
-    size,
+    size * 0.35,
     0,
     Math.PI * 2
   );
@@ -188,23 +274,51 @@ function drawSpark(size) {
 
 }
 
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
 function resize() {
 
-  width = window.innerWidth;
+  if (!canvas.value) return;
 
-  height = window.innerHeight;
+  width =
+    canvas.value.parentElement
+      ?.clientWidth ||
+    window.innerWidth;
 
-  dpr = window.devicePixelRatio || 1;
+  height =
+    canvas.value.parentElement
+      ?.clientHeight ||
+    window.innerHeight;
 
-  canvas.value.width = width * dpr;
+  dpr =
+    Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
 
-  canvas.value.height = height * dpr;
 
-  canvas.value.style.width = width + "px";
+  canvas.value.width =
+    width * dpr;
 
-  canvas.value.style.height = height + "px";
+  canvas.value.height =
+    height * dpr;
 
-  ctx = canvas.value.getContext("2d");
+
+  canvas.value.style.width =
+    `${width}px`;
+
+  canvas.value.style.height =
+    `${height}px`;
+
+
+  ctx =
+    canvas.value.getContext(
+      "2d"
+    );
+
 
   ctx.setTransform(
     dpr,
@@ -217,23 +331,40 @@ function resize() {
 
 }
 
+
+/* =========================================================
+   CREATE
+========================================================= */
+
 function createParticles() {
 
   particles.length = 0;
 
+  const count =
+    getMaxParticles();
+
   for (
     let i = 0;
-    i < MAX_PARTICLES;
+    i < count;
     i++
   ) {
+
     particles.push(
       new Particle()
     );
+
   }
 
 }
 
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
 function animate() {
+
+  if (!ctx) return;
 
   ctx.clearRect(
     0,
@@ -242,13 +373,17 @@ function animate() {
     height
   );
 
-  particles.forEach((p) => {
 
-    p.update();
+  particles.forEach(
+    (particle) => {
 
-    p.draw();
+      particle.update();
 
-  });
+      particle.draw();
+
+    }
+  );
+
 
   animationId =
     requestAnimationFrame(
@@ -256,6 +391,11 @@ function animate() {
     );
 
 }
+
+
+/* =========================================================
+   MOUNT
+========================================================= */
 
 onMounted(() => {
 
@@ -265,12 +405,18 @@ onMounted(() => {
 
   animate();
 
+
   window.addEventListener(
     "resize",
     resize
   );
 
 });
+
+
+/* =========================================================
+   UNMOUNT
+========================================================= */
 
 onUnmounted(() => {
 
@@ -284,23 +430,25 @@ onUnmounted(() => {
   );
 
 });
+
 </script>
+
 
 <style scoped>
 
-.hero-particles{
+.hero-particles {
 
-    position:absolute;
+  position: absolute;
 
-    inset:0;
+  inset: 0;
 
-    width:100%;
+  width: 100%;
 
-    height:100%;
+  height: 100%;
 
-    pointer-events:none;
+  z-index: 4;
 
-    z-index:1000;
+  pointer-events: none;
 
 }
 

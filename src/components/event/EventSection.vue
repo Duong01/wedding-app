@@ -1,1018 +1,1699 @@
 ﻿<template>
-  <div class="invitation-section">
+  <section class="event-section">
 
-  <!-- =========================
-       HEADER
-       ========================= -->
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-  <div class="invitation-heading">
-    <h2 class="invitation-title">
-      THÔNG TIN TIỆC CƯỚI
-    </h2>
+    <header class="event-header">
+      <h2 class="event-title">
+        THÔNG TIN TIỆC CƯỚI
+      </h2>
 
-    <div class="invitation-ornament">
-      <span></span>
-      <i>✦</i>
-      <span></span>
-    </div>
-
-    <p class="desc">
-      Tiệc cưới sẽ diễn ra
-    </p>
-
-  </div>
-
-  <!-- =========================
-       EVENT TIME
-       ========================= -->
-
-  <div class="event-info">
-
-    <div class="time-label">
-      VÀO LÚC
-    </div>
-
-    <div class="time">
-      {{ firstEvent.time }}
-    </div>
-
-
-    <div class="calendar-date">
-
-      <span class="weekday">
-        {{ firstEvent.weekday }}
-      </span>
-      <div class="date-separator"></div>
-      <div class="date-number">
-        {{ firstEvent.day }}
-      </div>
-<div class="date-separator"></div>
-      <span class="month">
-        THÁNG {{ firstEvent.month }}
-      </span>
-
-    </div>
-
-
-    <div class="year">
-      {{ firstEvent.year }}
-    </div>
-
-
-    <div class="lunar">
-      {{ firstEvent.lunar }}
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       CALENDAR
-       ========================= -->
-
-  <div class="calendar-card">
-
-    <div class="calendar-top">
-
-      <div class="calendar-label">
-        SAVE THE DATE
+      <div class="title-decoration">
+        <span></span>
+        <i>✦</i>
+        <span></span>
       </div>
 
-      <div class="calendar-header">
-        Tháng {{ firstEvent.month }} / {{ firstEvent.year }}
+      <p class="event-description">
+        Trân trọng kính mời quý khách đến chung vui
+        cùng gia đình chúng tôi trong ngày trọng đại.
+      </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN DATE
+    ====================================================== -->
+
+    <div class="main-date">
+
+      <div class="time-label">
+        TIỆC CƯỚI ĐƯỢC TỔ CHỨC VÀO LÚC
       </div>
 
-    </div>
-
-
-    <div class="calendar-week">
-
-      <div
-        v-for="d in weekDays"
-        :key="d"
-      >
-        {{ d }}
+      <div class="event-time">
+        {{ firstEvent.time }}
       </div>
 
-    </div>
+
+      <div class="date-display">
+
+        <div class="date-side">
+          <span>
+            {{ firstEvent.weekday }}
+          </span>
+        </div>
 
 
-    <div class="calendar-days">
+        <div class="date-center">
 
-      <div
-        v-for="(day, index) in calendarDays"
-        :key="index"
-        class="calendar-cell"
-        :class="{
-          empty: !day,
-          active: day === Number(firstEvent.day),
-        }"
-      >
-
-        <template v-if="day">
-
-          <div
-            v-if="day === Number(firstEvent.day)"
-            class="heart-day"
-          >
-            <span class="heart">
-              ♥
-            </span>
-
-            <span class="heart-number">
-              {{ day }}
-            </span>
-          </div>
-
-          <span v-else>
-            {{ day }}
+          <span class="date-number">
+            {{ firstEvent.day }}
           </span>
 
-        </template>
+          <span class="date-month">
+            THÁNG {{ firstEvent.month }}
+          </span>
+
+        </div>
+
+
+        <div class="date-side">
+          <span>
+            {{ firstEvent.year }}
+          </span>
+        </div>
+
+      </div>
+
+
+      <div
+        v-if="firstEvent.lunar"
+        class="lunar-date"
+      >
+        {{ firstEvent.lunar }}
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DECORATIVE DIVIDER
+    ====================================================== -->
+
+    <div class="gold-divider">
+
+      <span></span>
+
+      <div class="divider-diamond">
+        ◆
+      </div>
+
+      <span></span>
+
+    </div>
+
+
+    <!-- =====================================================
+         CALENDAR
+    ====================================================== -->
+
+    <div class="calendar-card">
+
+      <!-- Calendar header -->
+
+      <div class="calendar-header">
+
+        <div class="calendar-month">
+          THÁNG {{ firstEvent.month }}
+        </div>
+
+        <div class="calendar-year">
+          {{ firstEvent.year }}
+        </div>
+
+      </div>
+
+
+      <!-- Week -->
+
+      <div class="calendar-week">
+
+        <div
+          v-for="day in weekDays"
+          :key="day"
+        >
+          {{ day }}
+        </div>
+
+      </div>
+
+
+      <!-- Days -->
+
+      <div class="calendar-days">
+
+        <div
+          v-for="(day, index) in calendarDays"
+          :key="index"
+          class="calendar-cell"
+          :class="{
+            empty: !day,
+            active: day === Number(firstEvent.day),
+          }"
+        >
+
+          <template v-if="day">
+
+            <div
+              v-if="day === Number(firstEvent.day)"
+              class="active-day"
+            >
+
+              <span class="heart">
+                ♥
+              </span>
+
+              <span class="active-number">
+                {{ day }}
+              </span>
+
+            </div>
+
+            <span
+              v-else
+              class="normal-day"
+            >
+              {{ day }}
+            </span>
+
+          </template>
+
+        </div>
 
       </div>
 
     </div>
 
-  </div>
+    <!-- =====================================================
+         ACTION
+    ====================================================== -->
+
+    <div class="event-actions">
+
+      <a
+        class="calendar-button"
+        :href="calendarUrl"
+        target="_blank"
+        rel="noopener"
+      >
+
+        <span class="button-icon">
+          ＋
+        </span>
+
+        <span>
+          THÊM VÀO LỊCH
+        </span>
+
+      </a>
 
 
-  <!-- =========================
-       ACTION
-       ========================= -->
+      <button
+        class="confirm-button"
+        type="button"
+        @click="$emit('confirm')"
+      >
 
-  <div class="action">
+        <span>
+          XÁC NHẬN THAM DỰ
+        </span>
 
-    <a
-      class="calendar-link"
-      :href="calendarUrl"
-      target="_blank"
-      rel="noopener"
-    >
-      <span class="calendar-icon">＋</span>
+        <span class="button-arrow">
+          →
+        </span>
 
-      <span>
-        Thêm vào lịch
+      </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         BOTTOM ORNAMENT
+    ====================================================== -->
+
+    <div class="section-ornament bottom-ornament">
+
+      <span class="ornament-line"></span>
+
+      <span class="ornament-symbol">
+        ❖
       </span>
-    </a>
 
+      <span class="ornament-line"></span>
 
-    <button
-      class="confirm-btn"
-      type="button"
-      @click="$emit('confirm')"
-    >
-      <span>
-        XÁC NHẬN THAM DỰ
-      </span>
+    </div>
 
-      <i>→</i>
-    </button>
-
-  </div>
-
-</div>
+  </section>
 </template>
+
 
 <script setup>
 import { computed } from "vue";
 
 const props = defineProps({
-    events:{
-        type: Object,
-        required: true,
-        default: () => []
-    }
-})
-
-
-const firstEvent = computed(() => props.events?.[0] ?? {});
-
-const calendarUrl = computed(() => {
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE`;
+  events: {
+    type: Array,
+    default: () => [],
+  },
 });
 
-const weekDays = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+defineEmits(["confirm"]);
+
+
+/* =========================================================
+   FIRST EVENT
+========================================================= */
+
+const firstEvent = computed(() => {
+  return props.events?.[0] ?? {};
+});
+
+
+/* =========================================================
+   GOOGLE CALENDAR
+========================================================= */
+
+const calendarUrl = computed(() => {
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE";
+});
+
+
+/* =========================================================
+   WEEK DAYS
+========================================================= */
+
+const weekDays = [
+  "T2",
+  "T3",
+  "T4",
+  "T5",
+  "T6",
+  "T7",
+  "CN",
+];
+
+
+/* =========================================================
+   CALENDAR DAYS
+========================================================= */
 
 const calendarDays = computed(() => {
+
   const year = Number(firstEvent.value.year);
   const month = Number(firstEvent.value.month);
 
-  if (!year || !month) return [];
+  if (!year || !month) {
+    return [];
+  }
 
-  const firstDate = new Date(year, month - 1, 1);
+  const firstDate = new Date(
+    year,
+    month - 1,
+    1
+  );
 
   let start = firstDate.getDay();
 
-  // đổi Chủ nhật thành cuối tuần
-  start = start === 0 ? 6 : start - 1;
+  // Chủ nhật đưa xuống cuối tuần
+  start = start === 0
+    ? 6
+    : start - 1;
 
-  const totalDays = new Date(year, month, 0).getDate();
+  const totalDays =
+    new Date(
+      year,
+      month,
+      0
+    ).getDate();
 
   const result = [];
 
-  for (let i = 0; i < start; i++) {
+
+  // Ô trống đầu tháng
+  for (
+    let i = 0;
+    i < start;
+    i++
+  ) {
     result.push(null);
   }
 
-  for (let i = 1; i <= totalDays; i++) {
+
+  // Ngày
+  for (
+    let i = 1;
+    i <= totalDays;
+    i++
+  ) {
     result.push(i);
   }
 
-  while (result.length % 7 !== 0) {
+
+  // Đủ hàng
+  while (
+    result.length % 7 !== 0
+  ) {
     result.push(null);
   }
+
 
   return result;
 });
 </script>
 
+
 <style scoped>
 
-.invitation-section {
-    position: relative;
-    background: #f8f5ed;
-    width: 100%;
-    max-width: 680px;
+/* =========================================================
+   EVENT SECTION
+   Mobile first
+   Font: Times New Roman
+========================================================= */
 
-    margin: 0 auto;
+.event-section {
+  --event-red: #7b0d0d;
+  --event-red-dark: #620909;
+  --event-gold: #a97931;
+  --event-gold-light: #c9a45c;
+  --event-text: #4f4039;
+  --event-muted: #76655c;
+  --event-line: rgba(123, 13, 13, 0.18);
 
-    padding: 20px 16px 60px;
+  position: relative;
 
-    color: var(--text);
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0 auto;
+
+  padding:
+    42px
+    16px
+    50px;
+
+  box-sizing: border-box;
+
+  color: var(--event-text);
+
+  font-family:var(--font-base);
+
+  text-align: center;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   RESET FONT
+========================================================= */
+
+.event-section *,
+.event-section *::before,
+.event-section *::after {
+  font-family:var(--font-base);
+
+  box-sizing: border-box;
 }
 
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
-.invitation-heading {
-    max-width: 520px;
+.event-header {
+  width: 100%;
+  max-width: 520px;
 
-    margin: 0 auto 32px;
-
-    text-align: center;
-}
-
-
-/* WEDDING INVITATION */
-
-.invitation-kicker {
-    margin-bottom: 8px;
-
-
-    font-size: 8px;
-
-    font-weight: 500;
-
-    letter-spacing: 3px;
-
-    color: var(--gold);
-
-    text-transform: uppercase;
-}
-
-
-/* Title */
-
-.invitation-title {
-    margin: 0;
-
-
-    font-size: clamp(20px, 8vw, 30px);
-
-    font-weight: 600;
-
-
-    line-height: 1.05;
-
-    color: var(--primary);
-}
-
-
-/* Ornament */
-
-.invitation-ornament {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    margin: 14px auto 14px;
-}
-
-
-.invitation-ornament span {
-    width: 42px;
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(216,180,109,.7)
-        );
-}
-
-
-.invitation-ornament span:last-child {
-    background:
-        linear-gradient(
-            90deg,
-            rgba(216,180,109,.7),
-            transparent
-        );
-}
-
-
-.invitation-ornament i {
-
-    font-size: 14px;
-
-    font-style: normal;
-
-    color: var(--gold);
-}
-
-
-/* Description */
-
-.invitation-heading .desc {
-    max-width: 420px;
-
-    margin: 0 auto;
-
-
-    font-size: 12px;
-
-    font-weight: 300;
-
-    line-height: 1.8;
-
-    color: var(--sub-text);
+  margin:
+    0
+    auto
+    30px;
 }
 
 
 /* =========================================================
-   EVENT INFORMATION
-   ========================================================= */
+   TITLE
+========================================================= */
 
-.event-info {
-    position: relative;
+.event-title {
+  margin: 0;
 
-    text-align: center;
+  color: var(--event-red);
 
-    margin: 0 auto 32px;
+  font-family:var(--font-base);
 
-    color: var(--primary);
+  font-size: 25px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
 }
 
-.date-separator {
-  width: 1px;
-  height: 28px;
 
-  flex-shrink: 0;
+/* =========================================================
+   TITLE DECORATION
+========================================================= */
 
-  background: rgba(123, 13, 13, 0.38);
+.title-decoration {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  margin:
+    12px
+    auto
+    13px;
 }
-/* VÀO LÚC */
+
+
+.title-decoration span {
+  width: 42px;
+
+  max-width: 15vw;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--event-gold),
+      transparent
+    );
+}
+
+
+.title-decoration i {
+  flex: 0 0 auto;
+
+  color: var(--event-gold);
+
+  font-family:var(--font-base);
+
+  font-size: 13px;
+
+  font-style: normal;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.event-description {
+  width: 100%;
+  max-width: 330px;
+
+  margin: 0 auto;
+
+  color: var(--event-muted);
+
+  font-family:var(--font-base);
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  line-height: 1.65;
+
+  letter-spacing: 0.01em;
+}
+
+
+/* =========================================================
+   MAIN DATE
+========================================================= */
+
+.main-date {
+  width: 100%;
+  max-width: 500px;
+
+  margin:
+    0
+    auto
+    26px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   TIME LABEL
+========================================================= */
 
 .time-label {
-    margin-bottom: 2px;
+  margin-bottom: 7px;
 
+  color: var(--event-gold);
 
-    font-size: 8px;
+  font-family:var(--font-base);
 
-    font-weight: 500;
+  font-size: 11px;
 
-    letter-spacing: 2.5px;
+  font-weight: 700;
 
-    color: var(--gold);
+  line-height: 1.3;
 
-    text-transform: uppercase;
-}
+  letter-spacing: 0.12em;
 
-
-/* 09:00 */
-
-.time {
-    margin-bottom: 16px;
-
-
-    font-size: 25px;
-
-    font-weight: 600;
-
-    line-height: 1;
-
-    color: var(--primary);
+  text-transform: uppercase;
 }
 
 
 /* =========================================================
-   DATE
-   ========================================================= */
+   EVENT TIME
+========================================================= */
 
-.calendar-date {
-    display: flex;
+.event-time {
+  margin-bottom: 20px;
 
-    align-items: center;
-    justify-content: center;
+  color: var(--event-red);
 
-    gap: 13px;
+  font-family:var(--font-base);
+
+  font-size: 28px;
+
+  font-weight: 700;
+
+  line-height: 1.1;
+
+  letter-spacing: 0.02em;
 }
 
 
-/* THỨ */
+/* =========================================================
+   DATE DISPLAY
+========================================================= */
 
-.calendar-date .weekday {
-    font-size: 15px;
+.date-display {
+  display: flex;
 
-    font-weight: 600;
+  align-items: center;
 
-    text-transform: uppercase;
+  justify-content: center;
 
-    color: var(--primary);
+  gap: 13px;
+
+  width: 100%;
+
+  margin: 0 auto;
 }
 
 
-/* NGÀY */
+/* =========================================================
+   DATE SIDE
+========================================================= */
+
+.date-side {
+  flex: 0 1 70px;
+
+  min-width: 0;
+
+  color: var(--event-red);
+
+  font-family:var(--font-base);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  letter-spacing: 0.03em;
+
+  text-transform: uppercase;
+
+  overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   DATE CENTER
+========================================================= */
+
+.date-center {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  min-width: 94px;
+
+  padding:
+    9px
+    13px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* =========================================================
+   DATE CENTER LINES
+========================================================= */
+
+.date-center::before,
+.date-center::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(169, 121, 49, 0.55),
+      transparent
+    );
+}
+
+
+.date-center::before {
+  top: 0;
+}
+
+
+.date-center::after {
+  bottom: 0;
+}
+
+
+/* =========================================================
+   DATE NUMBER
+========================================================= */
 
 .date-number {
-    position: relative;
+  color: var(--event-red);
 
-    padding: 0 14px;
+  font-family:var(--font-base);
 
+  font-size: 58px;
 
-    font-size: 48px;
+  font-weight: 700;
 
-    font-weight: 500;
+  line-height: 0.85;
 
-    line-height: .9;
-
-    color: var(--primary);
-}
-
-
-/* line hai bên */
-
-.date-number::before,
-.date-number::after {
-    content: "";
-
-    position: absolute;
-
-    top: 50%;
-
-    width: 25px;
-
-    height: 1px;
-
-    background: rgba(123,13,13,.22);
-}
-
-
-.date-number::before {
-    right: 100%;
-}
-
-
-.date-number::after {
-    left: 100%;
-}
-
-
-/* THÁNG */
-
-.calendar-date .month {
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    color: var(--primary);
-
-    white-space: nowrap;
+  letter-spacing: -0.025em;
 }
 
 
 /* =========================================================
-   YEAR
-   ========================================================= */
+   DATE MONTH
+========================================================= */
 
-.event-info .year {
-    margin-top: 13px;
+.date-month {
+  margin-top: 9px;
 
+  color: var(--event-gold);
+font-family:var(--font-base);
 
-    font-size: 24px;
+  font-size: 10px;
 
-    font-weight: 600;
+  font-weight: 700;
 
-    color: var(--primary);
+  line-height: 1.2;
+
+  letter-spacing: 0.13em;
+
+  white-space: nowrap;
 }
 
 
-/* Lunar */
+/* =========================================================
+   LUNAR DATE
+========================================================= */
 
-.lunar {
-    margin-top: 8px;
+.lunar-date {
+  margin-top: 13px;
+
+  color: var(--event-muted);
+
+ font-family:var(--font-base);
+
+  font-size: 13px;
+
+  font-style: italic;
+
+  line-height: 1.4;
+}
 
 
-    font-size: 12px;
+/* =========================================================
+   GOLD DIVIDER
+========================================================= */
 
-    font-style: italic;
+.gold-divider {
+  display: flex;
 
-    color: var(--sub-text);
+  align-items: center;
+
+  gap: 10px;
+
+  width: min(230px, 70%);
+
+  margin:
+    26px
+    auto
+    25px;
+}
+
+
+.gold-divider span {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(169, 121, 49, 0.55)
+    );
+}
+
+
+.gold-divider span:last-child {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(169, 121, 49, 0.55),
+      transparent
+    );
+}
+
+
+.divider-diamond {
+  flex: 0 0 auto;
+
+  color: var(--event-gold);
+
+  font-family:var(--font-base);
+  font-size: 9px;
+
+  line-height: 1;
 }
 
 
 /* =========================================================
    CALENDAR CARD
-   ========================================================= */
+========================================================= */
 
 .calendar-card {
-    position: relative;
+  width: 100%;
+  max-width: 350px;
 
-    width: 100%;
+  margin:
+    0
+    auto
+    30px;
 
-    max-width: 520px;
+  padding:
+    22px
+    17px
+    20px;
 
-    margin: 0 auto 28px;
+  border:
+    1px solid
+    rgba(123, 13, 13, 0.16);
 
-    padding: 20px;
+  background: transparent;
 
-    border-radius: 20px;
-
-    background:
-        rgba(255,255,255,.68);
-
-    border: 1px solid rgba(123,13,13,.1);
-
-    box-shadow:
-        0 15px 45px rgba(78,46,35,.07);
-
-    backdrop-filter: blur(8px);
-
-    -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 8px 24px
+    rgba(80, 40, 20, 0.035);
 }
 
 
 /* =========================================================
    CALENDAR HEADER
-   ========================================================= */
-
-.calendar-top {
-    text-align: center;
-
-    margin-bottom: 18px;
-}
-
-
-.calendar-label {
-    margin-bottom: 5px;
-
-    font-size: 7px;
-
-    font-weight: 500;
-
-    letter-spacing: 3px;
-
-    color: var(--gold);
-}
-
+========================================================= */
 
 .calendar-header {
+  margin-bottom: 18px;
+}
 
-    font-size: 22px;
 
-    font-weight: 600;
+.calendar-month {
+  color: var(--event-red);
+    font-family:var(--font-base);   
+  font-size: 22px;
 
-    color: var(--primary);
+  font-weight: 700;
+
+  line-height: 1.1;
+}
+
+
+.calendar-year {
+  margin-top: 4px;
+
+  color: var(--event-muted);
+
+  font-family:var(--font-base);
+
+  font-size: 12px;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.12em;
 }
 
 
 /* =========================================================
    WEEK
-   ========================================================= */
+========================================================= */
 
 .calendar-week {
-    display: grid;
+  display: grid;
 
-    grid-template-columns:
-        repeat(7, 1fr);
+  grid-template-columns:
+    repeat(7, minmax(0, 1fr));
 
-    padding-bottom: 8px;
+  width: 100%;
 
-    border-bottom: 1px solid rgba(123,13,13,.08);
+  padding:
+    0
+    0
+    8px;
+
+  border-bottom:
+    1px solid
+    rgba(123, 13, 13, 0.14);
 }
 
 
 .calendar-week > div {
-    text-align: center;
+  color: var(--event-gold);
 
+  font-family:var(--font-base);
 
-    font-size: 8px;
+  font-size: 11px;
 
-    font-weight: 500;
+  font-weight: 700;
 
-    color: var(--sub-text);
-
-    text-transform: uppercase;
+  line-height: 1.2;
 }
 
 
 /* =========================================================
-   DAYS
-   ========================================================= */
+   CALENDAR DAYS
+========================================================= */
 
 .calendar-days {
-    display: grid;
+  display: grid;
 
-    grid-template-columns:
-        repeat(7, 1fr);
+  grid-template-columns:
+    repeat(7, minmax(0, 1fr));
 
-    row-gap: 5px;
+  width: 100%;
 
-    padding-top: 8px;
+  row-gap: 3px;
+
+  padding-top: 8px;
 }
 
 
 .calendar-cell {
-    position: relative;
+  position: relative;
 
-    min-height: 38px;
+  min-width: 0;
 
-    display: flex;
+  min-height: 36px;
 
-    align-items: center;
-    justify-content: center;
+  display: flex;
 
+  align-items: center;
 
-    font-size: 15px;
+  justify-content: center;
 
-    color: var(--text);
+  color: var(--event-text);
+
+  font-family:var(--font-base);
+
+  font-size: 15px;
+
+  font-weight: 400;
+
+  line-height: 1;
 }
 
 
 .calendar-cell.empty {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 
 /* =========================================================
    ACTIVE DAY
-   ========================================================= */
+========================================================= */
 
-.heart-day {
-    position: relative;
+.active-day {
+  position: relative;
 
-    width: 34px;
-    height: 34px;
+  width: 45px;
+  height: 45px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+
+  justify-content: center;
 }
 
 
 .heart {
-    position: absolute;
+  position: absolute;
 
-    inset: 0;
+  inset: -2px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
 
-    font-size: 55px;
+  justify-content: center;
 
-    color: var(--primary);
+  color: var(--event-red);
 
-    line-height: 1;
+  font-family:var(--font-base);
+
+  font-size: 39px;
+
+  line-height: 1;
 }
 
 
-.heart-number {
-    position: relative;
+.active-number {
+  position: relative;
 
-    z-index: 2;
+  z-index: 2;
 
-    margin-top: 1px;
+  margin-top: 1px;
 
+  color: #fffaf4;
+
+  font-family:var(--font-base);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+.normal-day {
+  color: var(--event-text);
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.event-location {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  width: 100%;
+  max-width: 340px;
+
+  margin:
+    0
+    auto
+    28px;
+
+  padding:
+    14px
+    10px;
+
+  border-top:
+    1px solid
+    rgba(169, 121, 49, 0.22);
+
+  border-bottom:
+    1px solid
+    rgba(169, 121, 49, 0.22);
+}
+
+
+.location-icon {
+  flex: 0 0 auto;
+
+  color: var(--event-gold);
+
+  font-family:var(--font-base);
+
+  font-size: 21px;
+
+  line-height: 1;
+}
+
+
+.location-content {
+  min-width: 0;
+
+  text-align: left;
+}
+
+
+.location-title {
+  margin-bottom: 4px;
+
+  color: var(--event-gold);
+
+  font-family:var(--font-base);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.14em;
+}
+
+
+.location-name {
+  color: var(--event-red);
+
+  font-family:var(--font-base);
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  line-height: 1.35;
+}
+
+
+.location-address {
+  margin-top: 3px;
+
+  color: var(--event-muted);
+
+  font-family:var(--font-base);
+
+  font-size: 13px;
+
+  font-weight: 400;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.event-actions {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: stretch;
+
+  gap: 10px;
+
+  width: 100%;
+  max-width: 340px;
+
+  margin:
+    0
+    auto;
+}
+
+
+/* =========================================================
+   CALENDAR BUTTON
+========================================================= */
+
+.calendar-button {
+  width: 100%;
+
+  min-height: 44px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  padding:
+    8px
+    18px;
+
+  border:
+    1px solid
+    rgba(123, 13, 13, 0.22);
+
+  color: var(--event-red);
+
+  background: transparent;
+
+  font-family:var(--font-base);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.06em;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.button-icon {
+  color: var(--event-gold);
+
+  font-family:var(--font-base);
+
+  font-size: 17px;
+
+  line-height: 1;
+}
+
+
+.calendar-button:hover,
+.calendar-button:focus-visible {
+  color: #fffaf4;
+
+  background: var(--event-red);
+
+  border-color: var(--event-red);
+}
+
+
+/* =========================================================
+   CONFIRM BUTTON
+========================================================= */
+
+.confirm-button {
+  width: 100%;
+
+  min-height: 48px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  padding:
+    8px
+    18px;
+
+  border: 1px solid var(--event-red);
+
+  color: #fffaf4;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--event-red),
+      var(--event-red-dark)
+    );
+
+ font-family:var(--font-base);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.07em;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 18px
+    rgba(123, 13, 13, 0.14);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.confirm-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 22px
+    rgba(123, 13, 13, 0.20);
+}
+
+
+.confirm-button:active {
+  transform: translateY(0);
+
+  box-shadow:
+    0 4px 10px
+    rgba(123, 13, 13, 0.15);
+}
+
+
+.button-arrow {
+  color: #f2d08b;
+
+  font-family:var(--font-base);
+
+  font-size: 17px;
+
+  line-height: 1;
+
+  transition:
+    transform 0.2s ease;
+}
+
+
+.confirm-button:hover .button-arrow {
+  transform: translateX(3px);
+}
+
+
+/* =========================================================
+   BOTTOM ORNAMENT
+========================================================= */
+
+.section-ornament {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  width: 100%;
+  max-width: 180px;
+
+  margin:
+    0
+    auto;
+}
+
+
+.bottom-ornament {
+  margin-top: 34px;
+}
+
+
+.ornament-line {
+  flex: 1;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(169, 121, 49, 0.45),
+      transparent
+    );
+}
+
+
+.ornament-symbol {
+  flex: 0 0 auto;
+
+  color: var(--event-gold);
+
+  font-family:var(--font-base);
+
+  font-size: 12px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   320 - 359px
+========================================================= */
+
+@media (max-width: 359px) {
+
+  .event-section {
+    padding:
+      34px
+      12px
+      42px;
+  }
+
+
+  .event-title {
+    font-size: 22px;
+
+    letter-spacing: 0.025em;
+  }
+
+
+  .event-description {
+    max-width: 290px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+  }
+
+
+  .event-header {
+    margin-bottom: 27px;
+  }
+
+
+  .time-label {
+    font-size: 10px;
+
+    letter-spacing: 0.08em;
+  }
+
+
+  .event-time {
+    font-size: 26px;
+
+    margin-bottom: 18px;
+  }
+
+
+  .date-display {
+    gap: 8px;
+  }
+
+
+  .date-side {
+    flex-basis: 58px;
+
+    font-size: 12px;
+  }
+
+
+  .date-center {
+    min-width: 88px;
+
+    padding:
+      8px
+      10px;
+  }
+
+
+  .date-number {
+    font-size: 53px;
+  }
+
+
+  .date-month {
+    font-size: 9px;
+
+    letter-spacing: 0.1em;
+  }
+
+
+  .calendar-card {
+    max-width: 100%;
+
+    padding:
+      20px
+      10px
+      18px;
+  }
+
+
+  .calendar-cell {
+    min-height: 34px;
+
+    font-size: 14px;
+  }
+
+
+  .active-day {
+    width: 34px;
+    height: 34px;
+  }
+
+
+  .heart {
+    font-size: 37px;
+  }
+
+
+  .location-name {
+    font-size: 14px;
+  }
+
+
+  .location-address {
+    font-size: 12px;
+  }
+
+
+  .calendar-button,
+  .confirm-button {
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 601px) {
+
+  .event-section {
+    max-width: 680px;
+
+    padding:
+      60px
+      28px
+      70px;
+  }
+
+
+  .event-header {
+    max-width: 560px;
+
+    margin-bottom: 38px;
+  }
+
+
+  .event-title {
+    font-size: 30px;
+  }
+
+
+  .event-description {
+    max-width: 450px;
 
     font-size: 15px;
+  }
 
-    font-weight: 600;
 
-    color: #fff;
+  .event-time {
+    font-size: 31px;
+  }
+
+
+  .date-display {
+    gap: 22px;
+  }
+
+
+  .date-side {
+    flex-basis: 90px;
+
+    font-size: 14px;
+  }
+
+
+  .date-center {
+    min-width: 110px;
+  }
+
+
+  .date-number {
+    font-size: 66px;
+  }
+
+
+  .calendar-card {
+    max-width: 390px;
+
+    padding:
+      25px
+      22px
+      23px;
+  }
+
+
+  .calendar-month {
+    font-size: 25px;
+  }
+
+
+  .calendar-cell {
+    min-height: 40px;
+
+    font-size: 16px;
+  }
+
+
+  .event-location,
+  .event-actions {
+    max-width: 390px;
+  }
+
+
+  .calendar-button,
+  .confirm-button {
+    font-size: 13px;
+  }
 }
+
+
 /* =========================================================
-   ACTION
-   ========================================================= */
+   DESKTOP
+========================================================= */
 
-.action {
-    display: flex;
+@media (min-width: 1024px) {
 
-    flex-direction: column;
+  .event-section {
+    max-width: 760px;
 
-    align-items: center;
+    padding:
+      72px
+      30px
+      82px;
+  }
 
-    gap: 10px;
 
-    width: 100%;
+  .event-title {
+    font-size: 34px;
+  }
 
+
+  .event-description {
+    font-size: 16px;
+  }
+
+
+  .event-time {
+    font-size: 34px;
+  }
+
+
+  .date-number {
+    font-size: 72px;
+  }
+
+
+  .calendar-card {
     max-width: 420px;
-
-    margin: 0 auto;
-}
+  }
 
 
-/* =========================================================
-   ADD TO CALENDAR
-   ========================================================= */
-
-.calendar-link {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
+  .calendar-cell {
     min-height: 42px;
 
-    padding: 0 20px;
-
-    border: 1px solid rgba(123,13,13,.18);
-
-    border-radius: 999px;
-
-    background: transparent;
-
-    color: var(--primary);
-
-    font-size: 10px;
-
-    font-weight: 500;
-
-    text-decoration: none;
-
-    transition:
-        background .3s ease,
-        color .3s ease,
-        transform .3s ease;
-}
+    font-size: 17px;
+  }
 
 
-.calendar-icon {
-    font-size: 15px;
-
-    color: var(--gold);
-}
-
-
-.calendar-link:hover {
-    background: var(--primary);
-
-    color: #fff;
-
-    transform: translateY(-2px);
+  .event-location,
+  .event-actions {
+    max-width: 420px;
+  }
 }
 
 
 /* =========================================================
-   CONFIRM
-   ========================================================= */
+   TOUCH DEVICES
+========================================================= */
 
-.confirm-btn {
-    position: relative;
+@media (hover: none) {
 
-    width: 100%;
-
-    min-height: 50px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 18px;
-
-    padding: 0 24px;
-
-    border: none;
-
-    border-radius: 999px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7b0d0d,
-            #941c1c
-        );
-
-    color: #fff;
+  .calendar-button:hover,
+  .confirm-button:hover {
+    transform: none;
+  }
 
 
-    font-size: 10px;
-
-    font-weight: 500;
-
-    letter-spacing: 1.2px;
-
-    cursor: pointer;
-
+  .confirm-button:hover {
     box-shadow:
-        0 10px 25px rgba(123,13,13,.18);
+      0 7px 18px
+      rgba(123, 13, 13, 0.14);
+  }
 
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
+
+  .confirm-button:hover .button-arrow {
+    transform: none;
+  }
 }
 
 
-.confirm-btn:hover {
-    transform: translateY(-2px);
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
 
-    box-shadow:
-        0 14px 30px rgba(123,13,13,.25);
+.calendar-button:focus-visible,
+.confirm-button:focus-visible {
+  outline:
+    2px solid
+    var(--event-gold);
+
+  outline-offset: 3px;
 }
 
 
-.confirm-btn i {
-    font-size: 16px;
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
 
-    font-style: normal;
+@media (prefers-reduced-motion: reduce) {
 
-    color: var(--gold);
-
-    transition:
-        transform .3s ease;
+  .event-section *,
+  .event-section *::before,
+  .event-section *::after {
+    transition: none !important;
+  }
 }
 
-
-.confirm-btn:hover i {
-    transform: translateX(4px);
-}
-@media (max-width: 600px) {
-
-    .invitation-section {
-        padding:
-            10px
-            14px
-            45px;
-    }
-
-
-    .invitation-heading {
-        margin-bottom: 26px;
-    }
-
-
-    .invitation-kicker {
-        font-size: 7px;
-
-        letter-spacing: 2.5px;
-    }
-
-
-    .invitation-title {
-        font-size: 20px;
-    }
-
-
-    .invitation-heading .desc {
-        max-width: 330px;
-
-        font-size: 11px;
-
-        line-height: 1.75;
-    }
-
-
-    /* EVENT */
-
-    .time-label {
-        font-size: 7px;
-
-        letter-spacing: 2px;
-    }
-
-
-    .time {
-        font-size: 23px;
-
-        margin-bottom: 14px;
-    }
-
-
-    .calendar-date {
-        gap: 9px;
-    }
-
-
-    .calendar-date .weekday {
-        font-size: 13px;
-    }
-
-
-    .date-number {
-        font-size: 44px;
-
-        padding: 0 10px;
-    }
-
-
-    .date-number::before,
-    .date-number::after {
-        width: 17px;
-    }
-
-
-    .calendar-date .month {
-        font-size: 12px;
-    }
-
-
-    .event-info .year {
-        font-size: 22px;
-    }
-
-
-    .lunar {
-        font-size: 11px;
-    }
-
-
-    /* CALENDAR */
-
-    .calendar-card {
-        padding: 16px 12px;
-
-        border-radius: 17px;
-    }
-
-
-    .calendar-label {
-        font-size: 6px;
-
-        letter-spacing: 2.5px;
-    }
-
-
-    .calendar-header {
-        font-size: 20px;
-    }
-
-
-    .calendar-cell {
-        min-height: 34px;
-
-        font-size: 14px;
-    }
-
-
-    .heart-day {
-        width: 31px;
-        height: 31px;
-    }
-
-
-    .heart {
-        font-size: 31px;
-    }
-
-
-    .heart-number {
-        font-size: 12px;
-    }
-
-
-    /* BUTTON */
-
-    .action {
-        max-width: 100%;
-    }
-
-
-    .calendar-link {
-        min-height: 40px;
-
-        font-size: 9px;
-    }
-
-
-    .confirm-btn {
-        min-height: 48px;
-
-        font-size: 9px;
-
-        letter-spacing: 1px;
-    }
-}
 </style>

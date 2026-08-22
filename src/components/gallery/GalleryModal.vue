@@ -1,23 +1,49 @@
 <template>
-  <div class="gallery-viewer" @keydown.esc="closeGallery">
-    <!-- ================================
+  <div
+    ref="galleryRef"
+    class="gallery-viewer"
+    tabindex="0"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Album ảnh"
+    @keydown.esc="closeGallery"
+    @keydown.left.prevent="prevImage"
+    @keydown.right.prevent="nextImage"
+  >
+    <!-- =====================================================
          BACKGROUND
-         ================================ -->
-    <div class="gallery-bg"></div>
+    ====================================================== -->
 
-    <!-- ================================
+    <div class="gallery-bg">
+      <div class="gallery-bg-glow"></div>
+    </div>
+
+    <!-- =====================================================
          HEADER
-         ================================ -->
-    <div class="gallery-header">
-      <div class="gallery-title">
-        <span>Album ảnh</span>
-      </div>
+    ====================================================== -->
+
+    <header class="gallery-header">
+      <!-- COUNTER -->
 
       <div class="gallery-counter">
-        <strong>{{ formatNumber(currentIndex + 1) }}</strong>
+        <strong>
+          {{ formatNumber(currentIndex + 1) }}
+        </strong>
+
         <span>/</span>
-        <span>{{ formatNumber(images.length) }}</span>
+
+        <span>
+          {{ formatNumber(images.length) }}
+        </span>
       </div>
+
+      <!-- TITLE -->
+
+      <div class="gallery-title">
+        ALBUM ẢNH
+      </div>
+
+      <!-- CLOSE -->
 
       <button
         type="button"
@@ -28,43 +54,59 @@
         <span></span>
         <span></span>
       </button>
-    </div>
+    </header>
 
-    <!-- ================================
-         MAIN IMAGE AREA
-         ================================ -->
-    <div class="gallery-main">
+    <!-- =====================================================
+         MAIN IMAGE
+    ====================================================== -->
+
+    <main class="gallery-main">
       <!-- PREVIOUS -->
+
       <button
         v-if="images.length > 1"
         type="button"
         class="gallery-arrow gallery-arrow-left"
-        @click="prevImage"
         aria-label="Ảnh trước"
+        @click.stop="prevImage"
       >
         <span></span>
       </button>
 
-      <!-- MAIN SWIPER -->
+      <!-- ===================================================
+           MAIN SWIPER
+      ==================================================== -->
+
       <Swiper
+        v-if="images.length"
+        ref="mainSwiperComponent"
         class="main-swiper"
         :modules="modules"
         :initial-slide="safeStartIndex"
-        :speed="500"
         :slides-per-view="1"
         :space-between="0"
+        :loop="images.length > 1"
+        :speed="180"
+        :grab-cursor="true"
+        :allow-touch-move="true"
+        :touch-ratio="1"
+        :touch-angle="45"
+        :threshold="5"
+        :resistance="true"
+        :resistance-ratio="0.65"
+        :watch-overflow="true"
+        :observer="true"
+        :observe-parents="true"
         :keyboard="{
           enabled: true,
+          onlyInViewport: false,
         }"
-        :loop="images.length > 1"
-        :touch-ratio="1"
-        :resistance-ratio="0.65"
         @swiper="onMainSwiper"
         @slide-change="onSlideChange"
       >
         <SwiperSlide
           v-for="(item, index) in images"
-          :key="item.id || index"
+          :key="`main-${item.id || index}`"
           class="main-slide"
         >
           <div class="main-photo">
@@ -73,7 +115,9 @@
               :alt="item.title || `Ảnh cưới ${index + 1}`"
               draggable="false"
               decoding="async"
-              :class="{ loaded: loadedImages[index] }"
+              :class="{
+                loaded: loadedImages[index],
+              }"
               @load="loadedImages[index] = true"
             />
           </div>
@@ -81,58 +125,75 @@
       </Swiper>
 
       <!-- NEXT -->
+
       <button
         v-if="images.length > 1"
         type="button"
         class="gallery-arrow gallery-arrow-right"
-        @click="nextImage"
         aria-label="Ảnh tiếp theo"
+        @click.stop="nextImage"
       >
         <span></span>
       </button>
-    </div>
+    </main>
 
-    <!-- ================================
+    <!-- =====================================================
          CAPTION
-         ================================ -->
-    <div v-if="images[currentIndex]?.title" class="gallery-caption">
+    ====================================================== -->
+
+    <div
+      v-if="images[currentIndex]?.title"
+      class="gallery-caption"
+    >
       {{ images[currentIndex].title }}
     </div>
 
-    <!-- ================================
+    <!-- =====================================================
          THUMBNAILS
-         ================================ -->
-    <div v-if="images.length > 1" class="thumbnail-area">
+    ====================================================== -->
+
+    <section
+      v-if="images.length > 1"
+      class="thumbnail-area"
+    >
       <Swiper
         class="thumbnail-swiper"
-        :modules="modules"
-        :slides-per-view="4"
-        :space-between="8"
-        :free-mode="true"
-        :watch-slides-progress="true"
+        :modules="[]"
+        :slides-per-view="4.5"
+        :space-between="7"
+        :centered-slides="false"
+        :free-mode="false"
+        :watch-overflow="true"
+        :observer="true"
+        :observe-parents="true"
         :breakpoints="{
           0: {
-            slidesPerView: 4,
+            slidesPerView: 4.2,
             spaceBetween: 6,
           },
 
           360: {
-            slidesPerView: 5,
-            spaceBetween: 7,
+            slidesPerView: 4.5,
+            spaceBetween: 6,
           },
 
           480: {
-            slidesPerView: 6,
-            spaceBetween: 8,
+            slidesPerView: 5.5,
+            spaceBetween: 7,
           },
 
           768: {
-            slidesPerView: 8,
-            spaceBetween: 9,
+            slidesPerView: 7,
+            spaceBetween: 8,
           },
 
           1024: {
-            slidesPerView: 10,
+            slidesPerView: 9,
+            spaceBetween: 9,
+          },
+
+          1400: {
+            slidesPerView: 11,
             spaceBetween: 10,
           },
         }"
@@ -140,43 +201,55 @@
       >
         <SwiperSlide
           v-for="(item, index) in images"
-          :key="'thumbnail-' + (item.id || index)"
+          :key="`thumbnail-${item.id || index}`"
           class="thumbnail-slide"
           :class="{
             active: currentIndex === index,
           }"
-          @click="selectImage(index)"
+          @click.stop="selectImage(index)"
         >
-          <div class="thumbnail-image">
-            <img
-              :src="item.image"
-              :alt="`Ảnh ${index + 1}`"
-              loading="lazy"
-              decoding="async"
-              draggable="false"
-            />
+          <button
+            type="button"
+            class="thumbnail-button"
+            :aria-label="`Xem ảnh ${index + 1}`"
+          >
+            <div class="thumbnail-image">
+              <img
+                :src="item.image"
+                :alt="`Ảnh ${index + 1}`"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
 
-            <div class="thumbnail-overlay">
-              {{ formatNumber(index + 1) }}
+              <span class="thumbnail-number">
+                {{ formatNumber(index + 1) }}
+              </span>
             </div>
-          </div>
+          </button>
         </SwiperSlide>
       </Swiper>
-    </div>
+    </section>
   </div>
 </template>
 
-
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from "vue";
 
-import { Keyboard, FreeMode } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Keyboard } from "swiper/modules";
 
 import "swiper/css";
 
-// ========================================
+// =========================================================
 // PROPS
-// ========================================
+// =========================================================
 
 const props = defineProps({
   images: {
@@ -190,663 +263,1126 @@ const props = defineProps({
   },
 });
 
-// ========================================
+// =========================================================
 // EMIT
-// ========================================
+// =========================================================
 
 const emit = defineEmits(["close"]);
 
-// ========================================
-// SWIPER
-// ========================================
+// =========================================================
+// REFS
+// =========================================================
+
+const galleryRef = ref(null);
 
 const mainSwiper = ref(null);
+
 const thumbnailSwiper = ref(null);
 
 const currentIndex = ref(0);
 
 const loadedImages = ref({});
 
-const modules = [Keyboard, FreeMode];
+// =========================================================
+// MODULES
+// =========================================================
 
-// ========================================
-// INDEX AN TOÀN
-// ========================================
+const modules = [Keyboard];
+
+// =========================================================
+// SAFE START INDEX
+// =========================================================
 
 const safeStartIndex = computed(() => {
   if (!props.images.length) {
     return 0;
   }
 
-  return Math.min(Math.max(props.startIndex, 0), props.images.length - 1);
+  return Math.min(
+    Math.max(Number(props.startIndex) || 0, 0),
+    props.images.length - 1
+  );
 });
 
-// ========================================
+// =========================================================
 // FORMAT
-// ========================================
+// =========================================================
 
 function formatNumber(number) {
   return String(number).padStart(2, "0");
 }
 
-// ========================================
-// MAIN SWIPER
-// ========================================
+// =========================================================
+// MAIN SWIPER READY
+// =========================================================
 
 function onMainSwiper(swiper) {
   mainSwiper.value = swiper;
 
-  currentIndex.value = swiper.realIndex;
+  currentIndex.value = swiper.realIndex || 0;
 
-  // nextTick(() => {
-  //   syncThumbnail();
-  // });
+  nextTick(() => {
+    syncThumbnail(currentIndex.value, false);
+  });
 }
 
-// ========================================
-// SLIDE CHANGE
-// ========================================
+// =========================================================
+// MAIN SLIDE CHANGE
+// =========================================================
 
 function onSlideChange(swiper) {
-  currentIndex.value = swiper.realIndex;
+  /*
+   * realIndex rất quan trọng khi loop:true.
+   *
+   * Không sử dụng swiper.activeIndex ở đây.
+   */
 
-  // syncThumbnail();
+  currentIndex.value = swiper.realIndex || 0;
+
+  syncThumbnail(currentIndex.value, true);
 }
 
-// ========================================
-// THUMBNAIL SWIPER
-// ========================================
+// =========================================================
+// THUMBNAIL SWIPER READY
+// =========================================================
 
 function onThumbnailSwiper(swiper) {
   thumbnailSwiper.value = swiper;
+
+  nextTick(() => {
+    syncThumbnail(currentIndex.value, false);
+  });
 }
 
-// ========================================
-// CHỌN ẢNH TỪ THUMBNAIL
-// ========================================
+// =========================================================
+// SELECT THUMBNAIL
+// =========================================================
 
 function selectImage(index) {
-  if (!mainSwiper.value) {
+  const swiper = mainSwiper.value;
+
+  if (!swiper || !props.images.length) {
     return;
   }
 
-  mainSwiper.value.slideTo(index);
+  if (index < 0 || index >= props.images.length) {
+    return;
+  }
+
+  /*
+   * Khi main swiper loop:true
+   *
+   * PHẢI dùng slideToLoop()
+   *
+   * Không dùng slideTo().
+   */
+
+  swiper.slideToLoop(index, 160);
+
+  /*
+   * Cập nhật UI ngay.
+   *
+   * Không phải chờ animation kết thúc.
+   */
 
   currentIndex.value = index;
 
-  syncThumbnail();
+  syncThumbnail(index, true);
 }
 
-// ========================================
-// ĐỒNG BỘ THUMBNAIL
-// ========================================
+// =========================================================
+// SYNC THUMBNAIL
+// =========================================================
 
-function syncThumbnail() {
-  if (!thumbnailSwiper.value) {
-    return;
-  }
-
+function syncThumbnail(index = currentIndex.value, animated = true) {
   const swiper = thumbnailSwiper.value;
 
-  const index = currentIndex.value;
+  if (!swiper || !swiper.slides?.length) {
+    return;
+  }
 
   /*
-   * Đưa thumbnail đang chọn vào giữa
-   * khi có thể.
+   * Số lượng thumbnail đang nhìn thấy.
    */
-  if (typeof swiper.slideTo === "function") {
-    swiper.slideTo(Math.max(index - 2, 0), 350);
-  }
+
+  const visible =
+    Number(swiper.params.slidesPerView) || 4;
+
+  /*
+   * Giữ thumbnail active ở khoảng giữa vùng nhìn thấy
+   * nếu có thể.
+   */
+
+  const target = Math.max(
+    Math.min(
+      Math.round(index - visible / 2),
+      props.images.length - Math.ceil(visible)
+    ),
+    0
+  );
+
+  swiper.slideTo(
+    target,
+    animated ? 120 : 0
+  );
 }
 
-// ========================================
+// =========================================================
 // PREVIOUS
-// ========================================
+// =========================================================
 
 function prevImage() {
-  if (!mainSwiper.value) {
+  const swiper = mainSwiper.value;
+
+  if (!swiper || props.images.length <= 1) {
     return;
   }
 
-  mainSwiper.value.slidePrev();
+  /*
+   * Swiper loop tự xử lý:
+   *
+   * Ảnh đầu -> ảnh cuối
+   */
+
+  swiper.slidePrev(180);
 }
 
-// ========================================
+// =========================================================
 // NEXT
-// ========================================
+// =========================================================
 
 function nextImage() {
-  if (!mainSwiper.value) {
+  const swiper = mainSwiper.value;
+
+  if (!swiper || props.images.length <= 1) {
     return;
   }
 
-  mainSwiper.value.slideNext();
+  /*
+   * Swiper loop tự xử lý:
+   *
+   * Ảnh cuối -> ảnh đầu
+   */
+
+  swiper.slideNext(180);
 }
 
-// ========================================
+// =========================================================
 // CLOSE
-// ========================================
+// =========================================================
 
 function closeGallery() {
   emit("close");
 }
 
-// ========================================
-// KHÓA SCROLL TRANG
-// ========================================
+// =========================================================
+// KEYBOARD
+// =========================================================
+
+function handleKeyboard(event) {
+  /*
+   * Không xử lý nếu người dùng đang nhập text.
+   */
+
+  const target = event.target;
+
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  ) {
+    return;
+  }
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+
+    closeGallery();
+
+    return;
+  }
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+
+    prevImage();
+
+    return;
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+
+    nextImage();
+  }
+}
+
+// =========================================================
+// PRELOAD IMAGE
+// =========================================================
+
+function preloadAroundCurrent() {
+  if (!props.images.length) {
+    return;
+  }
+
+  const total = props.images.length;
+
+  const indexes = [
+    currentIndex.value,
+    (currentIndex.value + 1) % total,
+    (currentIndex.value - 1 + total) % total,
+  ];
+
+  indexes.forEach((index) => {
+    const src = props.images[index]?.image;
+
+    if (!src) {
+      return;
+    }
+
+    const image = new Image();
+
+    image.src = src;
+  });
+}
+
+// =========================================================
+// LOCK BODY SCROLL
+// =========================================================
 
 let oldOverflow = "";
-let oldTouchAction = "";
+let oldOverscrollBehavior = "";
 
-onMounted(() => {
+onMounted(async () => {
   oldOverflow = document.body.style.overflow;
-  oldTouchAction = document.body.style.touchAction;
+  oldOverscrollBehavior =
+    document.body.style.overscrollBehavior;
+
+  /*
+   * Chỉ khóa scroll.
+   *
+   * KHÔNG dùng:
+   *
+   * body.style.touchAction = "none"
+   *
+   * vì có thể ảnh hưởng thao tác vuốt trên mobile.
+   */
 
   document.body.style.overflow = "hidden";
-  document.body.style.touchAction = "none";
+
+  document.body.style.overscrollBehavior = "none";
+
+  window.addEventListener(
+    "keydown",
+    handleKeyboard
+  );
+
+  await nextTick();
+
+  /*
+   * Focus gallery để keyboard hoạt động.
+   */
+
+  galleryRef.value?.focus({
+    preventScroll: true,
+  });
+
+  preloadAroundCurrent();
 });
+
+// =========================================================
+// CLEANUP
+// =========================================================
 
 onBeforeUnmount(() => {
   document.body.style.overflow = oldOverflow;
-  document.body.style.touchAction = oldTouchAction;
+
+  document.body.style.overscrollBehavior =
+    oldOverscrollBehavior;
+
+  window.removeEventListener(
+    "keydown",
+    handleKeyboard
+  );
+
+  mainSwiper.value?.destroy?.(true, true);
+
+  thumbnailSwiper.value?.destroy?.(true, true);
+
+  mainSwiper.value = null;
+
+  thumbnailSwiper.value = null;
 });
 </script>
 
-
 <style scoped>
-/* ======================================================
+/* =========================================================
    ROOT
-   ====================================================== */
+========================================================= */
 
 .gallery-viewer {
   position: fixed;
-
   inset: 0;
 
   z-index: 99999;
 
   width: 100%;
   height: 100dvh;
-
   min-height: 100svh;
 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+
+  /*
+   * HEADER
+   * MAIN
+   * CAPTION
+   * THUMBNAILS
+   */
+
+  grid-template-rows:
+    58px
+    minmax(0, 1fr)
+    auto
+    96px;
 
   overflow: hidden;
 
-  background: #110d0c;
-
   color: #fff;
 
+  background: #100c0a;
+
   overscroll-behavior: none;
+
+  outline: none;
 
   isolation: isolate;
 }
 
+
 /* =========================================================
-   GALLERY - LUXURY SLIDER
-   ========================================================= */
+   BACKGROUND
+========================================================= */
 
 .gallery-bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
+
   z-index: -2;
 
-  background: radial-gradient(
-      circle at 50% 35%,
-      rgba(255, 255, 255, 0.12),
-      transparent 35%
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(255, 255, 255, 0.08),
+      transparent 38%
     ),
-    linear-gradient(135deg, #17120f 0%, #0b0b0b 45%, #1a1410 100%);
+    linear-gradient(
+      145deg,
+      #1b1210 0%,
+      #0c0908 48%,
+      #17100d 100%
+    );
 
-  overflow: hidden;
+  pointer-events: none;
 }
 
-.gallery-bg::before {
-  content: "";
-  position: absolute;
-  inset: -10%;
 
-  background: radial-gradient(
-      circle at 20% 30%,
-      rgba(212, 175, 55, 0.12),
-      transparent 25%
+.gallery-bg-glow {
+  position: absolute;
+  inset: -20%;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(216, 180, 90, 0.11),
+      transparent 24%
     ),
     radial-gradient(
-      circle at 80% 70%,
-      rgba(255, 255, 255, 0.08),
+      circle at 85% 75%,
+      rgba(216, 180, 90, 0.07),
       transparent 25%
     );
 
-  filter: blur(60px);
+  filter: blur(70px);
 }
+
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 .gallery-header {
   position: relative;
-  z-index: 10;
+
+  z-index: 50;
+
+  width: 100%;
+  height: 58px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  height: 72px;
-  padding: 0 80px;
+  box-sizing: border-box;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(12, 9, 8, 0.78);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
+
+
+/* =========================================================
+   TITLE
+========================================================= */
 
 .gallery-title {
-  color: #f8f1df;
+  color: #f6e6bd;
 
-  font-size: 18px;
-  font-weight: 500;
+  font-family:
+    "Cormorant Garamond",
+    "Times New Roman",
+    serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
   letter-spacing: 0.18em;
-  text-transform: uppercase;
 
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+
+  user-select: none;
 }
 
-.gallery-title span {
-  position: relative;
-}
 
-.gallery-title span::after {
-  content: "";
-
-  position: absolute;
-  left: 50%;
-  bottom: -9px;
-
-  width: 36px;
-  height: 1px;
-
-  transform: translateX(-50%);
-
-  background: linear-gradient(90deg, transparent, #d8b45a, transparent);
-}
-
-/* COUNTER */
+/* =========================================================
+   COUNTER
+========================================================= */
 
 .gallery-counter {
   position: absolute;
-  left: 28px;
+
+  left: 14px;
+  top: 50%;
 
   display: flex;
+
   align-items: center;
-  gap: 7px;
 
-  color: rgba(255, 255, 255, 0.5);
+  gap: 5px;
 
-  font-size: 13px;
+  transform: translateY(-50%);
+
+  color: rgba(255, 255, 255, 0.45);
+
+  font-family:
+    "Cormorant Garamond",
+    "Times New Roman",
+    serif;
+
+  font-size: 11px;
+
   letter-spacing: 0.08em;
+
+  user-select: none;
 }
+
 
 .gallery-counter strong {
-  color: #e7c76a;
+  color: #e4c46e;
 
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 14px;
+
+  font-weight: 600;
 }
 
-/* CLOSE */
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
 
 .close-button {
   position: absolute;
-  right: 25px;
 
-  width: 44px;
-  height: 44px;
+  top: 50%;
+  right: 12px;
 
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  transform: translateY(-50%);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
   border-radius: 50%;
 
   background: rgba(255, 255, 255, 0.06);
 
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   cursor: pointer;
 
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
+
 
 .close-button:hover {
-  background: rgba(216, 180, 90, 0.15);
-  border-color: rgba(216, 180, 90, 0.6);
+  border-color: rgba(224, 190, 100, 0.7);
 
-  transform: rotate(90deg);
+  background: rgba(224, 190, 100, 0.12);
+
+  transform:
+    translateY(-50%)
+    rotate(90deg);
 }
+
+
+.close-button:active {
+  transform:
+    translateY(-50%)
+    scale(0.92);
+}
+
 
 .close-button span {
   position: absolute;
+
   top: 50%;
   left: 50%;
 
-  width: 17px;
+  width: 15px;
   height: 1px;
 
   background: #fff;
 }
 
+
 .close-button span:first-child {
-  transform: translate(-50%, -50%) rotate(45deg);
+  transform:
+    translate(-50%, -50%)
+    rotate(45deg);
 }
+
 
 .close-button span:last-child {
-  transform: translate(-50%, -50%) rotate(-45deg);
+  transform:
+    translate(-50%, -50%)
+    rotate(-45deg);
 }
 
+
 /* =========================================================
-   MAIN IMAGE
-   ========================================================= */
+   MAIN AREA
+========================================================= */
 
 .gallery-main {
   position: relative;
 
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  height: calc(100vh - 210px);
-
-  min-height: 400px;
+  overflow: hidden;
 }
 
-/*
- * Swiper
- */
+
+/* =========================================================
+   MAIN SWIPER
+========================================================= */
 
 .main-swiper {
-  width: min(82vw, 1200px);
+  position: relative;
+
+  width: 100%;
   height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
 }
 
-.main-slide {
+
+/*
+ * Đảm bảo wrapper luôn là flex ngang.
+ *
+ * Đây là phần quan trọng để tránh ảnh chồng lên nhau.
+ */
+
+.main-swiper :deep(.swiper-wrapper) {
+  width: 100%;
+  height: 100%;
+
   display: flex;
+
+  align-items: stretch;
+}
+
+
+.main-swiper :deep(.swiper-slide) {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  flex: 0 0 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+
   align-items: center;
   justify-content: center;
 
-  padding: 18px;
   box-sizing: border-box;
+
+  overflow: hidden;
 }
 
-/*
- * Khung ảnh chính
- */
+
+/* =========================================================
+   MAIN SLIDE
+========================================================= */
+
+.main-slide {
+  padding: 10px 56px;
+}
+
+
+/* =========================================================
+   MAIN PHOTO
+========================================================= */
 
 .main-photo {
   position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   width: 100%;
   height: 100%;
 
-  max-width: 1100px;
-  max-height: 650px;
+  min-width: 0;
+  min-height: 0;
 
-  padding: 7px;
+  display: flex;
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 24px;
+  align-items: center;
+  justify-content: center;
 
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.18),
-    rgba(255, 255, 255, 0.03)
-  );
+  box-sizing: border-box;
 
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(216, 180, 90, 0.12), 0 0 60px rgba(216, 180, 90, 0.08);
+  padding: 5px;
+
+  border: 1px solid rgba(216, 180, 90, 0.55);
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
 
   overflow: hidden;
 
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(216, 180, 90, 0.08);
 }
 
+
 /*
- * Viền vàng bên trong
+ * Viền vàng bên trong.
  */
 
 .main-photo::before {
   content: "";
 
   position: absolute;
+
   inset: 4px;
 
-  border: 1px solid rgba(216, 180, 90, 0.35);
-  border-radius: 19px;
-
-  pointer-events: none;
   z-index: 2;
-}
 
-/*
- * Ánh sáng chạy quanh ảnh
- */
+  border: 1px solid rgba(216, 180, 90, 0.25);
 
-.main-photo::after {
-  content: "";
-
-  position: absolute;
-  inset: -100%;
-
-  background: linear-gradient(
-    120deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.08) 50%,
-    transparent 60%
-  );
-
-  transform: translateX(-30%);
-
-  transition: transform 1s ease;
+  border-radius: 10px;
 
   pointer-events: none;
-  z-index: 3;
 }
 
-.swiper-slide-active .main-photo::after {
-  transform: translateX(30%);
-}
 
-/*
- * IMAGE
- */
+/* =========================================================
+   MAIN IMAGE
+========================================================= */
 
 .main-photo img {
+  position: relative;
+
+  z-index: 1;
+
   display: block;
 
   width: 100%;
   height: 100%;
 
+  /*
+   * Quan trọng:
+   *
+   * Không crop ảnh.
+   * Ảnh ngang/dọc đều nằm gọn trong khung.
+   */
+
   object-fit: contain;
 
-  border-radius: 18px;
+  object-position: center;
+
+  border-radius: 9px;
 
   opacity: 0;
 
   transform: scale(0.985);
 
-  transition: opacity 0.45s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-
   user-select: none;
+
   -webkit-user-drag: none;
+
+  transition:
+    opacity 0.16s ease,
+    transform 0.18s cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
 }
+
 
 .main-photo img.loaded {
   opacity: 1;
+
   transform: scale(1);
 }
 
+
 /* =========================================================
    ARROWS
-   ========================================================= */
+========================================================= */
 
 .gallery-arrow {
   position: absolute;
+
   top: 50%;
 
-  z-index: 20;
+  z-index: 30;
+
+  width: 44px;
+  height: 44px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  width: 54px;
-  height: 54px;
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-
-  background: rgba(15, 15, 15, 0.45);
-
-  backdrop-filter: blur(14px);
+  padding: 0;
 
   transform: translateY(-50%);
 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  border-radius: 50%;
+
+  background:
+    rgba(10, 8, 7, 0.5);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
   cursor: pointer;
 
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease,
-    box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  touch-action: manipulation;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
 }
+
 
 .gallery-arrow:hover {
-  background: rgba(216, 180, 90, 0.18);
+  border-color: rgba(224, 190, 100, 0.7);
 
-  border-color: rgba(216, 180, 90, 0.65);
-
-  box-shadow: 0 0 25px rgba(216, 180, 90, 0.15);
+  background:
+    rgba(224, 190, 100, 0.14);
 }
+
+
+.gallery-arrow:active {
+  transform:
+    translateY(-50%)
+    scale(0.9);
+}
+
 
 .gallery-arrow-left {
-  left: 28px;
+  left: 10px;
 }
+
 
 .gallery-arrow-right {
-  right: 28px;
+  right: 10px;
 }
+
 
 .gallery-arrow-left:hover {
-  transform: translate(-4px, -50%);
+  transform:
+    translate(-3px, -50%);
 }
+
 
 .gallery-arrow-right:hover {
-  transform: translate(4px, -50%);
+  transform:
+    translate(3px, -50%);
 }
 
-/*
- * Arrow icon
- */
 
 .gallery-arrow span {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 
   border-top: 1.5px solid #fff;
   border-right: 1.5px solid #fff;
 }
 
+
 .gallery-arrow-left span {
   transform: rotate(-135deg);
-  margin-left: 4px;
+
+  margin-left: 3px;
 }
+
 
 .gallery-arrow-right span {
   transform: rotate(45deg);
-  margin-right: 4px;
+
+  margin-right: 3px;
 }
+
 
 /* =========================================================
    CAPTION
-   ========================================================= */
+========================================================= */
 
 .gallery-caption {
   position: relative;
 
-  width: fit-content;
-  max-width: 80%;
+  z-index: 20;
 
-  margin: -5px auto 12px;
-  padding: 9px 22px;
+  width: fit-content;
+
+  max-width: calc(100% - 30px);
+
+  margin: 0 auto 5px;
+
+  padding: 6px 15px;
+
+  box-sizing: border-box;
 
   color: rgba(255, 255, 255, 0.88);
 
-  font-size: 14px;
-  letter-spacing: 0.05em;
+  font-family:
+    "Cormorant Garamond",
+    "Times New Roman",
+    serif;
+
+  font-size: 13px;
+
+  line-height: 1.35;
+
+  letter-spacing: 0.04em;
+
   text-align: center;
 
-  border: 1px solid rgba(216, 180, 90, 0.25);
+  border: 1px solid rgba(216, 180, 90, 0.22);
+
   border-radius: 999px;
 
-  background: rgba(0, 0, 0, 0.28);
+  background:
+    rgba(0, 0, 0, 0.3);
 
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+
+  user-select: none;
 }
 
+
 /* =========================================================
-   THUMBNAILS
-   ========================================================= */
+   THUMBNAIL AREA
+========================================================= */
 
 .thumbnail-area {
   position: relative;
 
-  width: min(90vw, 900px);
+  z-index: 40;
 
-  margin: 0 auto;
+  width: 100%;
 
-  padding: 5px 0 18px;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  padding:
+    7px
+    10px
+    12px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12, 9, 8, 0.45),
+      rgba(12, 9, 8, 0.9)
+    );
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
+
+
+/* =========================================================
+   THUMBNAIL SWIPER
+========================================================= */
 
 .thumbnail-swiper {
   width: 100%;
-  overflow: visible;
+  height: 76px;
+
+  overflow: hidden;
 }
+
+
+.thumbnail-swiper :deep(.swiper-wrapper) {
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+}
+
+
+.thumbnail-swiper :deep(.swiper-slide) {
+  height: 68px;
+
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   THUMBNAIL BUTTON
+========================================================= */
+
+.thumbnail-button {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+
+  touch-action: manipulation;
+}
+
+
+/* =========================================================
+   THUMBNAIL
+========================================================= */
 
 .thumbnail-slide {
-  cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.42;
 
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
+
 
 .thumbnail-slide:hover {
-  opacity: 0.9;
-  transform: translateY(-3px);
+  opacity: 0.8;
+
+  transform: translateY(-2px);
 }
+
 
 .thumbnail-slide.active {
   opacity: 1;
-  transform: translateY(-5px);
+
+  transform: translateY(-3px);
 }
 
-/*
- * Thumbnail frame
- */
 
 .thumbnail-image {
   position: relative;
 
-  aspect-ratio: 1 / 0.72;
+  width: 100%;
+  height: 100%;
 
-  padding: 3px;
+  box-sizing: border-box;
 
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 12px;
-
-  background: rgba(255, 255, 255, 0.05);
+  padding: 2px;
 
   overflow: hidden;
 
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  border:
+    1px solid rgba(255, 255, 255, 0.14);
+
+  border-radius: 7px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
+
 
 .thumbnail-image img {
   display: block;
@@ -856,236 +1392,475 @@ onBeforeUnmount(() => {
 
   object-fit: cover;
 
-  border-radius: 9px;
+  border-radius: 5px;
 
-  transition: transform 0.4s ease;
+  user-select: none;
+
+  -webkit-user-drag: none;
+
+  transition:
+    transform 0.22s ease;
 }
 
-.thumbnail-slide:hover img {
-  transform: scale(1.07);
+
+.thumbnail-slide:hover .thumbnail-image img {
+  transform: scale(1.05);
 }
 
-/*
- * Active thumbnail
- */
+
+/* =========================================================
+   ACTIVE THUMBNAIL
+========================================================= */
 
 .thumbnail-slide.active .thumbnail-image {
-  border-color: #d8b45a;
+  border-color: #dfbf65;
 
-  box-shadow: 0 0 0 1px rgba(216, 180, 90, 0.25),
-    0 5px 22px rgba(216, 180, 90, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(223, 191, 101, 0.35),
+    0 5px 18px rgba(223, 191, 101, 0.16);
 }
 
-/*
- * Active glow
- */
 
-.thumbnail-slide.active .thumbnail-image::after {
-  content: "";
+/* =========================================================
+   THUMBNAIL NUMBER
+========================================================= */
 
+.thumbnail-number {
   position: absolute;
-  inset: 0;
 
-  border-radius: 9px;
+  right: 3px;
+  bottom: 3px;
 
-  box-shadow: inset 0 0 0 1px rgba(255, 225, 145, 0.4);
-
-  pointer-events: none;
-}
-
-/*
- * Number overlay
- */
-
-.thumbnail-overlay {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-
-  min-width: 19px;
-  height: 19px;
+  min-width: 17px;
+  height: 17px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  padding: 0 4px;
+  padding: 0 3px;
 
-  border-radius: 6px;
+  box-sizing: border-box;
 
   color: #fff;
 
-  font-size: 9px;
+  font-family:
+    "Cormorant Garamond",
+    "Times New Roman",
+    serif;
+
+  font-size: 8px;
+
   line-height: 1;
 
-  background: rgba(0, 0, 0, 0.55);
+  border-radius: 4px;
+
+  background:
+    rgba(0, 0, 0, 0.58);
 
   backdrop-filter: blur(5px);
 }
 
-.thumbnail-slide.active .thumbnail-overlay {
+
+.thumbnail-slide.active .thumbnail-number {
   color: #17120f;
-  background: #d8b45a;
+
+  background: #dfbf65;
 }
+
 
 /* =========================================================
-   SWIPER TRANSITION
-   ========================================================= */
+   TABLET / DESKTOP
+========================================================= */
 
-.main-swiper .swiper-slide {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+@media (min-width: 769px) {
+  .gallery-viewer {
+    grid-template-rows:
+      68px
+      minmax(0, 1fr)
+      auto
+      104px;
+  }
+
+
+  .gallery-header {
+    height: 68px;
+  }
+
+
+  .gallery-title {
+    font-size: 15px;
+  }
+
+
+  .gallery-counter {
+    left: 22px;
+  }
+
+
+  .close-button {
+    right: 18px;
+  }
+
+
+  .main-slide {
+    padding:
+      18px
+      90px;
+  }
+
+
+  .main-photo {
+    max-width: 1200px;
+
+    padding: 7px;
+
+    border-radius: 16px;
+  }
+
+
+  .main-photo::before {
+    inset: 5px;
+
+    border-radius: 11px;
+  }
+
+
+  .main-photo img {
+    border-radius: 11px;
+  }
+
+
+  .thumbnail-area {
+    width: min(100%, 1100px);
+
+    margin: 0 auto;
+
+    border-radius:
+      12px
+      12px
+      0
+      0;
+  }
 }
+
 
 /* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 768px) {
-  .gallery-header {
-    height: 58px;
-    padding: 0 60px;
+  .gallery-viewer {
+    grid-template-rows:
+      54px
+      minmax(0, 1fr)
+      auto
+      88px;
   }
+
+
+  .gallery-header {
+    height: 54px;
+
+    padding:
+      0
+      52px;
+  }
+
 
   .gallery-title {
-    font-size: 14px;
-    letter-spacing: 0.12em;
+    font-size: 11px;
+
+    letter-spacing: 0.16em;
   }
+
 
   .gallery-counter {
-    left: 15px;
-    font-size: 11px;
+    left: 11px;
+
+    font-size: 9px;
   }
+
 
   .gallery-counter strong {
-    font-size: 14px;
-  }
-
-  .close-button {
-    right: 14px;
-
-    width: 38px;
-    height: 38px;
-  }
-
-  .gallery-main {
-    height: calc(100vh - 180px);
-
-    min-height: 350px;
-  }
-
-  .main-swiper {
-    width: 100%;
-  }
-
-  .main-slide {
-    padding: 10px;
-  }
-
-  .main-photo {
-    padding: 5px;
-
-    border-radius: 18px;
-  }
-
-  .main-photo::before {
-    inset: 3px;
-    border-radius: 14px;
-  }
-
-  .main-photo img {
-    border-radius: 13px;
-  }
-
-  .gallery-arrow {
-    width: 42px;
-    height: 42px;
-  }
-
-  .gallery-arrow-left {
-    left: 8px;
-  }
-
-  .gallery-arrow-right {
-    right: 8px;
-  }
-
-  .gallery-caption {
-    max-width: 85%;
-
-    margin-top: -2px;
-
-    padding: 7px 16px;
-
     font-size: 12px;
   }
 
-  .thumbnail-area {
-    width: calc(100% - 24px);
-    padding-bottom: 12px;
-  }
 
-  .thumbnail-image {
-    border-radius: 9px;
-  }
+  .close-button {
+    right: 9px;
 
-  .thumbnail-image img {
-    border-radius: 6px;
-  }
-}
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 480px) {
-  .gallery-main {
-    height: calc(100vh - 165px);
-  }
-
-  .main-slide {
-    padding: 7px;
-  }
-
-  .main-photo {
-    border-radius: 15px;
-  }
-
-  .main-photo img {
-    border-radius: 10px;
-  }
-
-  .gallery-arrow {
     width: 36px;
     height: 36px;
   }
+
+
+  /* =====================================================
+     MAIN
+  ====================================================== */
+
+  .main-slide {
+    padding:
+      7px
+      7px;
+  }
+
+
+  .main-photo {
+    width: 100%;
+    height: 100%;
+
+    padding: 4px;
+
+    border-radius: 10px;
+
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.42);
+  }
+
+
+  .main-photo::before {
+    inset: 3px;
+
+    border-radius: 7px;
+  }
+
+
+  .main-photo img {
+    border-radius: 6px;
+  }
+
+
+  /* =====================================================
+     ARROWS
+  ====================================================== */
+
+  .gallery-arrow {
+    width: 34px;
+    height: 34px;
+
+    background:
+      rgba(10, 8, 7, 0.58);
+  }
+
 
   .gallery-arrow-left {
     left: 5px;
   }
 
+
   .gallery-arrow-right {
     right: 5px;
   }
 
+
   .gallery-arrow span {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
   }
 
+
+  /* =====================================================
+     CAPTION
+  ====================================================== */
+
+  .gallery-caption {
+    max-width: calc(100% - 24px);
+
+    margin-bottom: 3px;
+
+    padding:
+      4px
+      11px;
+
+    font-size: 10px;
+  }
+
+
+  /* =====================================================
+     THUMBNAILS
+  ====================================================== */
+
   .thumbnail-area {
-    width: calc(100% - 18px);
+    height: 88px;
+
+    padding:
+      6px
+      8px
+      8px;
+  }
+
+
+  .thumbnail-swiper {
+    height: 72px;
+  }
+
+
+  .thumbnail-swiper :deep(.swiper-slide) {
+    height: 64px;
+  }
+
+
+  .thumbnail-image {
+    border-radius: 6px;
+  }
+
+
+  .thumbnail-image img {
+    border-radius: 4px;
+  }
+
+
+  .thumbnail-number {
+    right: 2px;
+    bottom: 2px;
+
+    min-width: 14px;
+    height: 14px;
+
+    font-size: 7px;
+
+    border-radius: 3px;
   }
 }
 
+
 /* =========================================================
-   REDUCE MOTION
-   ========================================================= */
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .gallery-viewer {
+    grid-template-rows:
+      50px
+      minmax(0, 1fr)
+      auto
+      78px;
+  }
+
+
+  .gallery-header {
+    height: 50px;
+  }
+
+
+  .gallery-title {
+    font-size: 10px;
+  }
+
+
+  .close-button {
+    width: 33px;
+    height: 33px;
+  }
+
+
+  .main-slide {
+    padding: 5px;
+  }
+
+
+  .gallery-arrow {
+    width: 31px;
+    height: 31px;
+  }
+
+
+  .gallery-arrow-left {
+    left: 4px;
+  }
+
+
+  .gallery-arrow-right {
+    right: 4px;
+  }
+
+
+  .thumbnail-area {
+    height: 78px;
+
+    padding:
+      5px
+      7px
+      7px;
+  }
+
+
+  .thumbnail-swiper {
+    height: 65px;
+  }
+
+
+  .thumbnail-swiper :deep(.swiper-slide) {
+    height: 58px;
+  }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (
+  max-width: 768px
+) and (
+  orientation: landscape
+) {
+  .gallery-viewer {
+    grid-template-rows:
+      46px
+      minmax(0, 1fr)
+      68px;
+  }
+
+
+  .gallery-header {
+    height: 46px;
+  }
+
+
+  .gallery-caption {
+    display: none;
+  }
+
+
+  .thumbnail-area {
+    height: 68px;
+
+    padding:
+      4px
+      8px
+      6px;
+  }
+
+
+  .thumbnail-swiper {
+    height: 58px;
+  }
+
+
+  .thumbnail-swiper :deep(.swiper-slide) {
+    height: 50px;
+  }
+
+
+  .main-slide {
+    padding:
+      4px
+      48px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
+  .gallery-viewer *,
+  .gallery-viewer *::before,
+  .gallery-viewer *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }

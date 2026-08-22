@@ -1,979 +1,891 @@
 <template>
-  <section class="wedding-info">
+  <section class="highlights-section">
+    <!-- =====================================================
+         DECORATIVE BACKGROUND
+    ====================================================== -->
 
-    <div class="family-wrapper">
-      <!-- NHÀ GÁI -->
-      <div class="family-item family-bride">
-        <div class="family-kicker">NHÀ GÁI</div>
+    <div class="section-pattern"></div>
 
-        <div class="family-name">Ông: {{ bride.father }}</div>
+    <!-- =====================================================
+         MAIN CARD
+    ====================================================== -->
 
-        <div class="family-name">Bà: {{ bride.mother }}</div>
+    <div class="wedding-info-card">
+      <!-- ===================================================
+           TOP DECORATION
+      ==================================================== -->
 
-        <div class="family-address">
-          {{ bride.address }}
+      <div class="top-decoration">
+        <span class="decoration-line"></span>
+
+        <span class="decoration-symbol"> 囍 </span>
+
+        <span class="decoration-line"></span>
+      </div>
+
+      <!-- ===================================================
+           TITLE
+      ==================================================== -->
+
+      <div class="section-heading">
+        <span class="section-subtitle"> TRÂN TRỌNG KÍNH MỜI </span>
+
+        <h2>THÔNG TIN LỄ CƯỚI</h2>
+
+        <span class="heading-line"></span>
+      </div>
+
+      <!-- ===================================================
+           COUPLE / FAMILY
+      ==================================================== -->
+
+      <div class="family-grid">
+        <!-- BRIDE -->
+
+        <div class="family-column bride-column">
+          <span class="family-role"> NHÀ GÁI </span>
+
+          <h3>
+            {{ couple?.bride?.name || "Cô dâu" }}
+          </h3>
+
+          <div class="family-divider"></div>
+
+          <p v-if="couple?.bride?.father">
+            <span>Ông</span>
+            {{ couple.bride.father }}
+          </p>
+
+          <p v-if="couple?.bride?.mother">
+            <span>Bà</span>
+            {{ couple.bride.mother }}
+          </p>
+        </div>
+
+        <!-- CENTER -->
+
+        <div class="family-center">
+          <div class="center-ornament">
+            <span></span>
+            <b>♥</b>
+            <span></span>
+          </div>
+
+          <div class="ampersand">&</div>
+
+          <div class="center-ornament">
+            <span></span>
+            <b>♥</b>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- GROOM -->
+
+        <div class="family-column groom-column">
+          <span class="family-role"> NHÀ TRAI </span>
+
+          <h3>
+            {{ couple?.groom?.name || "Chú rể" }}
+          </h3>
+
+          <div class="family-divider"></div>
+
+          <p v-if="couple?.groom?.father">
+            <span>Ông</span>
+            {{ couple.groom.father }}
+          </p>
+
+          <p v-if="couple?.groom?.mother">
+            <span>Bà</span>
+            {{ couple.groom.mother }}
+          </p>
         </div>
       </div>
 
-      <!-- DIVIDER -->
-      <div class="family-divider">
-        <span>✦</span>
-      </div>
+      <!-- ===================================================
+           WEDDING DATE
+      ==================================================== -->
 
-      <!-- NHÀ TRAI -->
-      <div class="family-item family-groom">
-        <div class="family-kicker">NHÀ TRAI</div>
-        <div class="family-name">Ông: {{ groom.father }}</div>
+      <div class="wedding-date">
+        <div class="date-top">
+          <span class="date-line"></span>
 
-        <div class="family-name">Bà: {{ groom.mother }}</div>
+          <span class="weekday">
+            {{ weddingWeekday }}
+          </span>
 
-        <div class="family-address">
-          {{ groom.address }}
-        </div>
-      </div>
-    </div>
-
-    <!-- =========================
-       COUPLE
-       ========================= -->
-
-    <div class="couple-wrapper">
-      <div class="person">
-        <div class="person-name">
-          {{ bride.name }}
+          <span class="date-line"></span>
         </div>
 
-        <div class="person-role">CÔ DÂU</div>
-      </div>
+        <div class="date-main">
+          <div class="date-side">
+            <span>THÁNG</span>
 
-      <div class="person">
-        <div class="person-name">
-          {{ groom.name }}
+            <strong>
+              {{ weddingMonth }}
+            </strong>
+          </div>
+
+          <div class="date-day">
+            {{ weddingDay }}
+          </div>
+
+          <div class="date-side">
+            <span>NĂM</span>
+
+            <strong>
+              {{ weddingYear }}
+            </strong>
+          </div>
         </div>
 
-        <div class="person-role">CHÚ RỂ</div>
+        <div v-if="weddingLunar" class="lunar-date">
+          ({{ weddingLunar }})
+        </div>
       </div>
+
+
     </div>
-
-    <!-- =========================
-       EVENT
-       ========================= -->
-
-    <!-- EVENT INFORMATION -->
-<div class="event-wrapper">
-
-  <div class="event-title">
-    LỄ VU QUY ĐƯỢC CỬ HÀNH TẠI
-  </div>
-
-  <div class="event-location">
-    {{ event.location }}
-  </div>
-
-  <div class="event-time">
-    VÀO LÚC {{ event.time }}
-  </div>
-
-</div>
-
-
-<div class="date-wrapper">
-
-  <div class="date-main">
-
-    <!-- THỨ -->
-    <div class="weekday">
-      {{ event.weekday }}
-    </div>
-
-    <div class="date-separator"></div>
-
-    <!-- NGÀY -->
-    <div class="day">
-      {{ event.day }}
-    </div>
-
-    <div class="date-separator"></div>
-
-    <!-- THÁNG -->
-    <div class="month">
-      THÁNG {{ event.month }}
-    </div>
-
-  </div>
-
-  <!-- NĂM -->
-  <div class="year">
-    {{ event.year }}
-  </div>
-
-  <!-- ÂM LỊCH -->
-  <div class="lunar">
-    ({{ event.lunar }})
-  </div>
-
-</div>
   </section>
 </template>
 
+
 <script setup>
 import { computed } from "vue";
-import { useWeddingStore } from "@/stores/wedding";
 
 const props = defineProps({
   couple: {
     type: Object,
-    required: true,
-    default: ({})
+    default: () => ({}),
   },
-  events:{
-    type: Object,
-    required: true,
-    default: ({})
-  }
+
+  events: {
+    type: Array,
+    default: () => [],
+  },
 });
 
-const bride = computed(() => props.couple?.bride ?? {});
+/* =========================================================
+   WEDDING DATE
+========================================================= */
 
-const groom = computed(() => props.couple?.groom ?? {});
+const mainEvent = computed(() => {
+  return props.events?.[0] || null;
+});
 
-const event = computed(() => props.events?.[0] ?? {});
+const weddingDate = computed(() => {
+  if (mainEvent.value?.date) {
+    return new Date(mainEvent.value.date);
+  }
+
+  return new Date();
+});
+
+const weddingDay = computed(() => {
+  if (mainEvent.value?.day) {
+    return String(mainEvent.value.day).padStart(2, "0");
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+  }).format(weddingDate.value);
+});
+
+const weddingMonth = computed(() => {
+  if (mainEvent.value?.month) {
+    return String(mainEvent.value.month).padStart(2, "0");
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    month: "2-digit",
+  }).format(weddingDate.value);
+});
+
+const weddingYear = computed(() => {
+  if (mainEvent.value?.year) {
+    return mainEvent.value.year;
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    year: "numeric",
+  }).format(weddingDate.value);
+});
+
+const weddingWeekday = computed(() => {
+  if (mainEvent.value?.weekday) {
+    return mainEvent.value.weekday;
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    weekday: "long",
+  })
+    .format(weddingDate.value)
+    .toUpperCase();
+});
+
+const weddingLunar = computed(() => {
+  return mainEvent.value?.lunar || "";
+});
 </script>
 
-<style scoped>
-/* =========================================================
-   MODERN WEDDING INFORMATION
-   ========================================================= */
 
-.wedding-info {
+<style scoped lang="scss">
+/* =========================================================
+   SECTION
+========================================================= */
+
+.highlights-section {
   position: relative;
 
   width: 100%;
-  max-width: 900px;
 
-  margin: 0 auto;
+  padding: 28px 14px 35px;
 
-  padding: 70px 30px 80px;
 
-  color: var(--text);
-
-  text-align: center;
+  color: #5d332c;
 
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 253, 249, 0.96),
-      rgba(255, 248, 244, 0.96)
-    );
+  isolation: isolate;
 }
 
-/* Chữ 囍 trang trí phía sau */
-.wedding-info::before {
+/* =========================================================
+   PAPER TEXTURE
+========================================================= */
+
+.highlights-section::before {
   content: "";
 
   position: absolute;
 
   inset: 0;
 
-  background-image: url("@/assets/chu-hy.webp");
+  z-index: -1;
 
-  background-repeat: no-repeat;
+  background-image: radial-gradient(
+    rgba(123, 13, 13, 0.035) 1px,
+    transparent 1px
+  );
 
-  background-position: center;
-
-  background-size: 260px auto;
-
-  opacity: 0.08;
+  background-size: 7px 7px;
 
   pointer-events: none;
-
-  z-index: 0;
-}
-
-/* Nội dung nằm trên hình */
-.wedding-info > * {
-  position: relative;
-
-  z-index: 1;
-}
-/* =========================================================
-   FAMILY
-   ========================================================= */
-
-.family-wrapper {
-  display: grid;
-
-  grid-template-columns: 1fr auto 1fr;
-
-  align-items: center;
-
-  max-width: 720px;
-
-  margin: 0 auto 70px;
-
-  gap: 45px;
-}
-
-/* Family item */
-
-.family-item {
-  display: flex;
-
-  flex-direction: column;
-  align-items: center;
-
-  text-align: center;
-}
-
-/* Nhà gái / Nhà trai */
-
-.family-kicker {
-  margin-bottom: 8px;
-
-  font-family: var(--font-main);
-
-  font-size: 12px;
-  font-weight: 500;
-
-  letter-spacing: 3px;
-
-  color: var(--gold);
-
-  text-transform: uppercase;
-}
-
-/* Gia đình */
-
-.family-title {
-  margin-bottom: 16px;
-
-  font-family: var(--font-wedding);
-
-  font-size: clamp(25px, 5vw, 32px);
-
-  font-weight: 500;
-
-  line-height: 1;
-
-  color: var(--primary);
-}
-
-/* Tên bố mẹ */
-
-.family-name {
-  margin-bottom: 3px;
-
-  font-family: var(--font-main);
-
-  font-size: 12px;
-
-  font-weight: 400;
-
-  line-height: 1.7;
-
-  color: var(--text);
-}
-
-/* Địa chỉ */
-
-.family-address {
-  max-width: 230px;
-
-  margin-top: 8px;
-
-  font-family: var(--font-main);
-
-  font-size: 12px;
-
-  font-weight: 300;
-
-  line-height: 1.7;
-
-  color: var(--sub-text);
 }
 
 /* =========================================================
-   FAMILY DIVIDER
-   ========================================================= */
+   DECORATIVE PATTERN
+========================================================= */
 
-.family-divider {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 1px;
-  height: 95px;
-
-  background: rgba(216, 180, 109, 0.45);
-}
-
-.family-divider span {
+.section-pattern {
   position: absolute;
 
-  display: flex;
+  inset: 0;
 
-  align-items: center;
-  justify-content: center;
+  z-index: -1;
 
-  width: 28px;
-  height: 28px;
 
-  background: var(--paper);
+  opacity: 0.025;
 
-  font-family: var(--font-wedding);
-
-  font-size: 14px;
-
-  color: var(--gold);
+  pointer-events: none;
 }
 
 /* =========================================================
-   COUPLE
-   ========================================================= */
+   CARD
+========================================================= */
 
-.couple-wrapper {
+.wedding-info-card {
   position: relative;
 
+  width: 100%;
+
+  max-width: 390px;
+
+  margin: 0 auto;
+
+  padding: 30px 20px 32px;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   INNER BORDER
+========================================================= */
+
+.wedding-info-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 8px;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TOP DECORATION
+========================================================= */
+
+.top-decoration,
+.bottom-decoration {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
-  gap: clamp(25px, 8vw, 70px);
-
-  margin: 0 auto 65px;
-
-  padding: 45px 0;
-
-  border-top: 1px solid rgba(123, 13, 13, 0.1);
-  border-bottom: 1px solid rgba(123, 13, 13, 0.1);
+  gap: 10px;
 }
 
-/* Người */
-
-.person {
-  flex: 1;
-
-  min-width: 0;
+.top-decoration {
+  margin-bottom: 22px;
 }
 
-/* Tên */
+.decoration-line {
+  width: 45px;
 
-.person-name {
-  font-family: var(--font-wedding);
+  height: 1px;
 
-  font-size: clamp(38px, 7vw, 62px);
-
-  font-weight: 500;
-
-  font-style: italic;
-
-  line-height: 0.9;
-
-  color: var(--primary);
-
-  letter-spacing: -0.5px;
 }
 
-/* Vai trò */
-
-.person-role {
-  margin-top: 13px;
-
-  font-family: var(--font-main);
-
-  font-size: 8px;
-
-  font-weight: 500;
-
-  letter-spacing: 3px;
-
-  color: var(--sub-text);
-
-  text-transform: uppercase;
-}
-
-/* & */
-
-.symbol {
+.decoration-symbol {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
-  width: 48px;
-  height: 48px;
+  width: 30px;
 
-  flex-shrink: 0;
+  height: 30px;
 
   border-radius: 50%;
 
-  font-family: var(--font-wedding);
+  color: #8b1515;
 
-  font-size: 28px;
+  font-family: "Noto Serif", serif;
 
-  font-style: italic;
+  font-size: 19px;
 
-  font-weight: 400;
-
-  color: var(--gold);
-
-  background: var(--paper);
 }
 
 /* =========================================================
-   EVENT
-   ========================================================= */
+   HEADING
+========================================================= */
 
-.event-wrapper {
-    width: 100%;
-    max-width: 650px;
+.section-heading {
+  text-align: center;
 
-    margin: 0 auto 28px;
-
-    text-align: center;
-
-    color: var(--primary);
+  margin-bottom: 28px;
 }
 
-/* English kicker */
+.section-subtitle {
+  display: block;
 
-.event-kicker {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 
-  font-family: var(--font-main);
+  color: #a56b45;
 
-  font-size: 8px;
+  font-family: var(--font-main), serif;
 
-  font-weight: 500;
+  font-size: 12px;
 
-  letter-spacing: 3px;
+  font-weight: 600;
 
-  text-transform: uppercase;
-
-  color: var(--gold);
+  letter-spacing: 0.24em;
 }
 
-/* Tiêu đề */
+.section-heading h2 {
+  margin: 0;
 
-.event-title {
-    margin-bottom: 8px;
+  color: #841616;
 
-    font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading), serif;
 
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 21px;
 
-    line-height: 1.3;
+  font-weight: 600;
 
-    color: var(--primary);
-
-    text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-/* Địa điểm */
+.heading-line {
+  display: block;
 
-.event-location {
+  width: 65px;
 
-  max-width: 600px;
+  height: 1px;
 
-  font-family: var(--font-wedding);
+  margin: 9px auto 0;
 
-  font-size: clamp(25px, 5vw, 36px);
-
-  font-weight: 500;
-
-  line-height: 1.15;
-
-  color: var(--primary);
 }
 
-/* Giờ */
+/* =========================================================
+   FAMILY
+========================================================= */
 
-.event-time {
-  font-family: 'Times New Roman', Times, serif;
+.family-grid {
+  display: grid;
 
-  font-size: 10px;
+  grid-template-columns:
+    1fr
+    26px
+    1fr;
 
-  font-weight: 400;
+  align-items: center;
 
-  letter-spacing: 1.5px;
+  margin-bottom: 27px;
+}
 
-  color: var(--text);
+.family-column {
+  text-align: center;
+}
+
+.family-role {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #a36a48;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+}
+
+.family-column h3 {
+  margin: 0;
+
+  color: #7c1717;
+
+  font-family: var(--font-heading), serif;
+
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+.family-divider {
+  width: 35px;
+
+  height: 1px;
+
+  margin: 8px auto;
+
+}
+
+.family-column p {
+  margin: 2px 0;
+
+  color: #80665b;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.family-column p span {
+  color: #a06e50;
+
+  margin-right: 3px;
+}
+
+.family-center {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+}
+
+.ampersand {
+  color: #9a2620;
+
+  font-family: var(--font-script), cursive;
+
+  font-size: 24px;
+
+  line-height: 1;
+}
+
+.center-ornament {
+  display: flex;
+
+  align-items: center;
+
+  gap: 3px;
+}
+
+.center-ornament span {
+  width: 5px;
+
+  height: 1px;
+
+}
+
+.center-ornament b {
+  color: #b67b52;
+
+  font-size: 12px;
 }
 
 /* =========================================================
    DATE
-   ========================================================= */
-/* =========================================================
-   THỜI GIAN CƯỚI
-   THỨ | NGÀY | THÁNG
-   ========================================================= */
+========================================================= */
 
-.date-wrapper {
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 10px;
+.wedding-date {
+  position: relative;
 
-  text-align: center;
-  color: var(--primary);
+  margin: 5px 0 30px;
+
+  padding: 20px 0 17px;
 }
 
-/* =========================
-   THỨ - NGÀY - THÁNG
-   ========================= */
+.date-top {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.date-line {
+  width: 32px;
+
+  height: 1px;
+
+}
+
+.weekday {
+  color: #8a1717;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.17em;
+}
 
 .date-main {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
-  gap: 18px;
-
-  min-height: 65px;
+  gap: 15px;
 }
 
-/* =========================
-   THỨ
-   ========================= */
+.date-side {
+  display: flex;
 
-.weekday {
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 2px;
+
+  min-width: 40px;
+}
+
+.date-side span {
+  color: #a2765c;
+
+  font-size: 11px;
+
+  letter-spacing: 0.15em;
+}
+
+.date-side strong {
+  color: #8b2520;
+
+  font-family: var(--font-heading), serif;
 
   font-size: 16px;
+
   font-weight: 600;
+}
+
+.date-day {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 75px;
+
+  height: 75px;
+
+  color: #8c1616;
+
+  font-family: var(--font-heading), serif;
+
+  font-size: 53px;
+
+  font-weight: 500;
 
   line-height: 1;
 
-  letter-spacing: 1.5px;
 
-  color: var(--primary);
 
-  text-transform: uppercase;
-
-  white-space: nowrap;
+  box-shadow: inset 0 0 0 4px rgba(139, 22, 22, 0.035);
 }
 
-/* =========================
-   NGÀY
-   ========================= */
+.lunar-date {
+  margin-top: 13px;
+  text-align: center;
+  color: #8c7063;
 
-.day {
-  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
 
-  font-size: 48px;
-  font-weight: 700;
+  line-height: 1.5;
+}
 
-  line-height: 0.9;
+/* =========================================================
+   EVENTS
+========================================================= */
 
-  color: var(--primary);
+.events-wrapper {
+  display: flex;
 
-  letter-spacing: -1px;
+  flex-direction: column;
 
-  min-width: 55px;
+  gap: 16px;
+}
+
+.event-card {
+  position: relative;
+
+  padding: 17px 15px 18px;
+
+}
+
+/* =========================================================
+   EVENT HEADER
+========================================================= */
+
+.event-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+}
+
+.event-header h3 {
+  margin: 0;
+
+  color: #861818;
+
+  font-family: var(--font-heading), serif;
+
+  font-size: 17px;
+
+  font-weight: 600;
+}
+
+.event-icon {
+  color: #b27b52;
+
+  font-size: 8px;
+}
+
+/* =========================================================
+   EVENT TIME
+========================================================= */
+
+.event-time {
+  margin-top: 8px;
 
   text-align: center;
 }
 
-/* =========================
-   THÁNG
-   ========================= */
+.event-time span {
+  color: #8e2820;
 
-.month {
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-family: var(--font-heading), serif;
 
-  font-size: 16px;
+  font-size: 21px;
+
   font-weight: 600;
-
-  line-height: 1;
-
-  letter-spacing: 1.5px;
-
-  color: var(--primary);
-
-  text-transform: uppercase;
-
-  white-space: nowrap;
 }
-
-/* =========================
-   ĐƯỜNG KẺ
-   ========================= */
-
-.date-separator {
-  width: 1px;
-  height: 28px;
-
-  flex-shrink: 0;
-
-  background: rgba(123, 13, 13, 0.38);
-}
-
-/* =========================
-   NĂM
-   ========================= */
-
-.date-wrapper .year {
-  margin-top: 22px;
-
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
-
-  font-size: 28px;
-  font-weight: 500;
-
-  line-height: 1.2;
-
-  color: var(--primary);
-}
-
-/* =========================
-   ÂM LỊCH
-   ========================= */
-
-.lunar {
-  margin-top: 14px;
-
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
-
-  font-size: 13px;
-  font-weight: 500;
-
-  line-height: 1.5;
-
-  color: var(--primary);
-}
-
-
-.wedding-info .family-wrapper,
-.wedding-info .couple-wrapper,
-.wedding-info .event-wrapper,
-.wedding-info .date-wrapper {
-  animation: weddingFadeUp 0.9s ease both;
-}
-
-.wedding-info .couple-wrapper {
-  animation-delay: 0.15s;
-}
-
-.wedding-info .event-wrapper {
-  animation-delay: 0.3s;
-}
-
-.wedding-info .date-wrapper {
-  animation-delay: 0.45s;
-}
-
-@keyframes weddingFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@media (max-width: 600px) {
-  .wedding-info {
-    padding: 50px 18px 0px;
-  }
-
-  /* =====================
-       FAMILY
-       ===================== */
-
-  .family-wrapper {
-    grid-template-columns: 1fr auto 1fr;
-
-    gap: 14px;
-
-    margin-bottom: 50px;
-  }
-
-  .family-kicker {
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-
-  .family-title {
-    margin-bottom: 12px;
-
-    font-size: 23px;
-  }
-
-  .family-name {
-    font-size: 11px;
-  }
-
-  .family-address {
-    max-width: 140px;
-
-    font-size: 11px;
-  }
-
-  .family-divider {
-    height: 80px;
-  }
-
-  .family-divider span {
-    width: 22px;
-    height: 22px;
-
-    font-size: 11px;
-  }
-
-  /* =====================
-       COUPLE
-       ===================== */
-
-  .couple-wrapper {
-    gap: 12px;
-
-    margin-bottom: 50px;
-
-    padding: 34px 0;
-  }
-
-  .person-name {
-    font-size: clamp(31px, 10vw, 45px);
-  }
-
-  .person-role {
-    margin-top: 10px;
-
-    font-size: 7px;
-
-    letter-spacing: 2px;
-  }
-
-  .symbol {
-    width: 38px;
-    height: 38px;
-
-    font-size: 22px;
-  }
-
-  /* =====================
-       EVENT
-       ===================== */
-
-
-
-  .event-wrapper {
-        margin-bottom: 24px;
-    }
-
-
-    .event-title {
-        font-size: 14px;
-
-        letter-spacing: .1px;
-    }
-
-
-    .event-location {
-        margin-bottom: 12px;
-
-        font-size: 15px;
-    }
-
-
-    .event-time {
-        font-size: 15px;
-    }
-
-
-    .weekday {
-        margin-bottom: 8px;
-
-        font-size: 15px;
-    }
-
-
-    .date-main {
-        height: 46px;
-
-        gap: 10px;
-    }
-
-
-    .date-line,
-    .date-separator {
-        height: 22px;
-    }
-
-
-    .day {
-        font-size: 32px;
-    }
-
-
-    .month {
-        font-size: 14px;
-    }
-
-
-    .date-wrapper .year {
-        margin-top: 11px;
-
-        font-size: 21px;
-    }
-
-
-    .lunar {
-        margin-top: 15px;
-
-        font-size: 12px;
-    }
-}
-@media (max-width: 380px) {
-  .wedding-info {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .family-wrapper {
-    gap: 8px;
-  }
-
-  .family-name {
-    font-size: 11px;
-  }
-
-  .family-address {
-    max-width: 115px;
-    font-size: 11px;
-  }
-
-  .person-name {
-    font-size: 30px;
-  }
-
-
-  .event-location {
-    font-size: 23px;
-  }
-
-  .day {
-    font-size: 68px;
-  }
-
-  .date-side .year {
-    font-size: 27px;
-  }
-}
-/* =========================================================
-   EVENT INFORMATION
-   ========================================================= */
-
-.event-wrapper {
-    width: 100%;
-    max-width: 650px;
-
-    margin: 0 auto 28px;
-
-    text-align: center;
-
-    color: var(--primary);
-}
-
-
-/* LỄ VU QUY... */
-
-.event-title {
-    margin-bottom: 8px;
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    line-height: 1.3;
-
-    color: var(--primary);
-
-    text-transform: uppercase;
-}
-
-
-/* Địa điểm */
 
 .event-location {
-    margin-bottom: 14px;
+  margin-top: 6px;
 
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 17px;
-    font-weight: 600;
-
-    line-height: 1.3;
-
-    color: var(--primary);
-
-    text-transform: uppercase;
+  text-align: center;
 }
 
+.event-location strong {
+  display: block;
 
-/* VÀO LÚC */
+  color: #624a40;
 
-.event-time {
+  font-size: 10px;
 
-    font-size: 16px;
-
-    line-height: 1.3;
-
-    color: var(--primary);
-
-    text-transform: uppercase;
+  font-weight: 600;
 }
 
+.event-location p {
+  margin: 4px 0 0;
+
+  color: #8a746a;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
 
 /* =========================================================
-   DATE
-   ========================================================= */
+   MAP BUTTON
+========================================================= */
+
+.map-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 11px;
+
+  padding: 6px 12px;
+
+  color: #8b2520;
+
+  font-size: 12px;
+
+  text-decoration: none;
 
 
-@media (max-width: 600px) {
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.map-button:hover {
+  background: #8b2520;
+
+  color: white;
+}
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.bottom-decoration {
+  margin-top: 27px;
+}
+
+.double-heart {
+  color: #a83b2c;
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 600px) {
+  .highlights-section {
+    padding: 38px 20px 45px;
+  }
+
+  .wedding-info-card {
+    max-width: 410px;
+
+    padding: 36px 25px 38px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+  .highlights-section {
+    padding: 20px 10px 30px;
+  }
+
+  .wedding-info-card {
+    max-width: 100%;
+
+    padding: 27px 17px 30px;
+
+    box-shadow: 0 5px 20px rgba(80, 30, 20, 0.06);
+  }
+
+  .section-heading h2 {
+    font-size: 19px;
+  }
+
+  .family-column h3 {
+    font-size: 16px;
+  }
+
+  .date-day {
+    width: 68px;
+
+    height: 68px;
+
+    font-size: 48px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+  .highlights-section {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .wedding-info-card {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .family-grid {
+    grid-template-columns:
+      1fr
+      20px
+      1fr;
+  }
+
+  .family-column h3 {
+    font-size: 15px;
+  }
+
+  .family-column p {
+    font-size: 12px;
+  }
 
   .date-main {
-    gap: 10px;
-    min-height: 58px;
+    gap: 9px;
   }
 
-  .weekday {
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
+  .date-day {
+    width: 64px;
 
-  .day {
-    font-size: 40px;
-    min-width: 48px;
-  }
+    height: 64px;
 
-  .month {
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
-
-  .date-separator {
-    height: 24px;
-  }
-
-  .date-wrapper .year {
-    margin-top: 18px;
-    font-size: 25px;
-  }
-
-  .lunar {
-    margin-top: 12px;
-    font-size: 11px;
+    font-size: 44px;
   }
 }
 </style>

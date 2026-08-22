@@ -145,12 +145,7 @@ const openInvitation = () => {
   align-items: center;
   justify-content: center;
 
-  background:
-    linear-gradient(
-      135deg,
-      var(--background) 0%,
-      var(--background-secondary) 100%
-    );
+  background: url("@/assets/bg-frame.jpg") center / cover;
 
   color: var(--text);
 
@@ -169,16 +164,7 @@ const openInvitation = () => {
 
   pointer-events: none;
 
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      color-mix(
-        in srgb,
-        var(--white) 30%,
-        transparent
-      ),
-      transparent 55%
-    );
+  background: url("@/assets/bg-frame.jpg") center / cover;
 }
 
 .opening > :deep(*) {
