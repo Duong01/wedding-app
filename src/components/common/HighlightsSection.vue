@@ -27,13 +27,19 @@
            TITLE
       ==================================================== -->
 
-      <div class="section-heading">
+      <header class="event-header">
         <span class="section-subtitle"> TRÂN TRỌNG KÍNH MỜI </span>
+        <h2 class="event-title">
+          THÔNG TIN TIỆC CƯỚI
+        </h2>
 
-        <h2>THÔNG TIN LỄ CƯỚI</h2>
-
-        <span class="heading-line"></span>
+      <div class="title-decoration">
+        <span></span>
+        <i>✦</i>
+        <span></span>
       </div>
+    </header>
+
 
       <!-- ===================================================
            COUPLE / FAMILY
@@ -361,18 +367,85 @@ const weddingLunar = computed(() => {
 
   border-radius: 50%;
 
-  color: #8b1515;
+  color: var(--p-primary, #8b1515);
 
-  font-family: "Noto Serif", serif;
+  font-family: var(--font-symbol);
+  font-variant-numeric: lining-nums;
 
-  font-size: 19px;
+  font-size: var(--text-lg);
 
 }
 
 /* =========================================================
    HEADING
 ========================================================= */
+.event-title {
+  margin: 0;
 
+  color: var(--p-primary, #7b0d0d);
+
+  font-family:var(--font-heading);
+  font-variant-numeric: lining-nums;
+
+  font-size: var(--text-2xl);
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
+.title-decoration {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  margin:
+    12px
+    auto
+    13px;
+}
+
+
+.title-decoration span {
+  width: 42px;
+
+  max-width: 15vw;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--p-gold, #a97931),
+      transparent
+    );
+}
+
+
+.title-decoration i {
+  flex: 0 0 auto;
+
+  color: var(--p-gold, #a97931);
+
+  font-size: var(--text-xs);
+
+  font-style: normal;
+
+  line-height: 1;
+}
 .section-heading {
   text-align: center;
 
@@ -384,11 +457,11 @@ const weddingLunar = computed(() => {
 
   margin-bottom: 5px;
 
-  color: #a56b45;
+  color: var(--p-muted, #a56b45);
 
-  font-family: var(--font-main), serif;
+  font-family: var(--font-main);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   font-weight: 600;
 
@@ -398,11 +471,12 @@ const weddingLunar = computed(() => {
 .section-heading h2 {
   margin: 0;
 
-  color: #841616;
+  color: var(--p-primary, #841616);
 
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 21px;
+  font-size: var(--text-xl);
 
   font-weight: 600;
 
@@ -446,9 +520,9 @@ const weddingLunar = computed(() => {
 
   margin-bottom: 7px;
 
-  color: #a36a48;
+  color: var(--p-muted, #a36a48);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   font-weight: 600;
 
@@ -458,11 +532,12 @@ const weddingLunar = computed(() => {
 .family-column h3 {
   margin: 0;
 
-  color: #7c1717;
+  color: var(--p-primary, #7c1717);
 
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 18px;
+  font-size: var(--text-lg);
 
   font-weight: 600;
 }
@@ -479,9 +554,9 @@ const weddingLunar = computed(() => {
 .family-column p {
   margin: 2px 0;
 
-  color: #80665b;
+  color: var(--p-muted, #80665b);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   line-height: 1.5;
 }
@@ -505,11 +580,12 @@ const weddingLunar = computed(() => {
 }
 
 .ampersand {
-  color: #9a2620;
+  color: var(--p-primary, #9a2620);
 
-  font-family: var(--font-script), cursive;
+  font-family: var(--font-script);
+  font-variant-numeric: lining-nums;
 
-  font-size: 24px;
+  font-size: var(--text-xl);
 
   line-height: 1;
 }
@@ -530,9 +606,9 @@ const weddingLunar = computed(() => {
 }
 
 .center-ornament b {
-  color: #b67b52;
+  color: var(--p-gold, #b67b52);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 /* =========================================================
@@ -567,9 +643,9 @@ const weddingLunar = computed(() => {
 }
 
 .weekday {
-  color: #8a1717;
+  color: var(--p-primary, #8a1717);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -599,19 +675,20 @@ const weddingLunar = computed(() => {
 }
 
 .date-side span {
-  color: #a2765c;
+  color: var(--p-muted, #a2765c);
 
-  font-size: 11px;
+  font-size: var(--text-xs);
 
   letter-spacing: 0.15em;
 }
 
 .date-side strong {
-  color: #8b2520;
+  color: var(--p-primary, #8b2520);
 
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 16px;
+  font-size: var(--text-lg);
 
   font-weight: 600;
 }
@@ -627,11 +704,12 @@ const weddingLunar = computed(() => {
 
   height: 75px;
 
-  color: #8c1616;
+  color: var(--p-primary, #8c1616);
 
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 53px;
+  font-size: var(--text-display);
 
   font-weight: 500;
 
@@ -645,9 +723,9 @@ const weddingLunar = computed(() => {
 .lunar-date {
   margin-top: 13px;
   text-align: center;
-  color: #8c7063;
+  color: var(--p-muted, #8c7063);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   line-height: 1.5;
 }
@@ -676,26 +754,16 @@ const weddingLunar = computed(() => {
 ========================================================= */
 
 .event-header {
-  display: flex;
+  width: 100%;
+  max-width: 520px;
 
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 8px;
+  margin:
+    0
+    auto
+    30px;
 }
 
-.event-header h3 {
-  margin: 0;
 
-  color: #861818;
-
-  font-family: var(--font-heading), serif;
-
-  font-size: 17px;
-
-  font-weight: 600;
-}
 
 .event-icon {
   color: #b27b52;
@@ -714,11 +782,12 @@ const weddingLunar = computed(() => {
 }
 
 .event-time span {
-  color: #8e2820;
+  color: var(--p-primary, #8e2820);
 
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 21px;
+  font-size: var(--text-xl);
 
   font-weight: 600;
 }
@@ -732,9 +801,9 @@ const weddingLunar = computed(() => {
 .event-location strong {
   display: block;
 
-  color: #624a40;
+  color: var(--p-ink, #624a40);
 
-  font-size: 10px;
+  font-size: var(--text-xs);
 
   font-weight: 600;
 }
@@ -742,9 +811,9 @@ const weddingLunar = computed(() => {
 .event-location p {
   margin: 4px 0 0;
 
-  color: #8a746a;
+  color: var(--p-muted, #8a746a);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   line-height: 1.5;
 }
@@ -766,9 +835,9 @@ const weddingLunar = computed(() => {
 
   padding: 6px 12px;
 
-  color: #8b2520;
+  color: var(--p-primary, #8b2520);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   text-decoration: none;
 
@@ -777,7 +846,7 @@ const weddingLunar = computed(() => {
 }
 
 .map-button:hover {
-  background: #8b2520;
+  background: var(--p-primary, #8b2520);
 
   color: white;
 }
@@ -793,7 +862,7 @@ const weddingLunar = computed(() => {
 .double-heart {
   color: #a83b2c;
 
-  font-size: 13px;
+  font-size: var(--text-xs);
 }
 
 /* =========================================================
@@ -817,6 +886,9 @@ const weddingLunar = computed(() => {
 ========================================================= */
 
 @media (max-width: 430px) {
+   .event-header {
+    margin-bottom: 27px;
+  }
   .highlights-section {
     padding: 20px 10px 30px;
   }
@@ -829,20 +901,10 @@ const weddingLunar = computed(() => {
     box-shadow: 0 5px 20px rgba(80, 30, 20, 0.06);
   }
 
-  .section-heading h2 {
-    font-size: 19px;
-  }
-
-  .family-column h3 {
-    font-size: 16px;
-  }
-
   .date-day {
     width: 68px;
 
     height: 68px;
-
-    font-size: 48px;
   }
 }
 
@@ -868,14 +930,6 @@ const weddingLunar = computed(() => {
       1fr;
   }
 
-  .family-column h3 {
-    font-size: 15px;
-  }
-
-  .family-column p {
-    font-size: 12px;
-  }
-
   .date-main {
     gap: 9px;
   }
@@ -884,8 +938,6 @@ const weddingLunar = computed(() => {
     width: 64px;
 
     height: 64px;
-
-    font-size: 44px;
   }
 }
 </style>

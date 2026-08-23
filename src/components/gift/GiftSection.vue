@@ -69,7 +69,7 @@ async function copy(text){
 <style scoped>
 .gift-section{
 
-    background:#7b0d0d;
+    background:var(--p-deep, #7b0d0d);
     position:relative;
     overflow:hidden;
 }
@@ -85,13 +85,13 @@ async function copy(text){
 
 .section-title{
 
-    color:#f9d99f;
+    color:var(--p-gold-light, #f8dfad);
     margin-bottom:45px;
 }
 
 .section-subtitle{
 
-    color:#f5dcb0;
+    color:var(--p-gold-light, #f8dfad);
     margin-bottom:10px;
 }
 
@@ -148,9 +148,10 @@ async function copy(text){
 .bank-name{
 
 
-    color:#f7dca8;
+    color:var(--p-gold-light, #f8dfad);
 
-    /* font-size:12px; */
+    font-family:var(--font-main);
+    font-size:var(--text-sm);
 }
 
 .account-number{
@@ -159,7 +160,9 @@ async function copy(text){
 
     color:#fff;
 
-    /* font-size:12px; */
+    font-family:var(--font-heading);
+    font-variant-numeric: lining-nums;
+    font-size:var(--text-sm);
 
     font-weight:700;
 
@@ -170,9 +173,10 @@ async function copy(text){
 
     margin-top:6px;
 
-    color:#f7dca8;
+    color:var(--p-gold-light, #f8dfad);
 
-    /* font-size:11px; */
+    font-family:var(--font-main);
+    font-size:var(--text-xs);
 
     font-weight:600;
 }
@@ -187,10 +191,12 @@ async function copy(text){
 
     border-radius:30px;
 
-    background:#f7dca8;
+    background:var(--p-gold-light, #f8dfad);
 
-    color:#7b0d0d;
+    color:var(--p-deep, #7b0d0d);
 
+    font-family:var(--font-main);
+    font-size:var(--text-sm);
     font-weight:700;
 
     cursor:pointer;
@@ -218,19 +224,8 @@ async function copy(text){
         height:145px;
     }
 
-    .account-number{
-
-        /* font-size:11px; */
-    }
-
-    .account-name{
-
-        /* font-size:11px; */
-    }
-
     .copy-btn{
 
-        /* font-size:11px; */
         padding:8px 18px;
     }
 

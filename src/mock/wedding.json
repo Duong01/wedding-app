@@ -27,7 +27,7 @@
     "fonts": {
       "main": "Cormorant Garamond",
       "heading": "Cormorant Garamond",
-      "script": "The Nautigal"
+      "script": "Allura"
     },
 
     "layout": {
@@ -226,6 +226,480 @@
     "enabled": true,
     "url": "/src/assets/music/So_Beautiful_In_White.mp3",
     "title": "So_Beautiful_In_White",
+    "autoplay": false
+  }
+},
+
+{
+  "id": 2,
+  "slug": "minh-anh-quoc-huy",
+  "groomName": "Quốc Huy",
+  "brideName": "Minh Anh",
+  "language": "vi",
+  "weddingDate": "2026-12-06T17:00:00",
+  "coverImage": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80",
+  "theme": {
+    "name": "romantic-pink",
+    "colors": {
+      "primary": "#b0566b",
+      "secondary": "#c97387",
+      "accent": "#c9986a",
+      "accentLight": "#fbeee6",
+
+      "background": "#fdf6f3",
+      "backgroundSecondary": "#faeef0",
+
+      "text": "#5c4448",
+      "textSecondary": "#a08589",
+
+      "white": "#fffaf7"
+    },
+
+    "fonts": {
+      "main": "Cormorant Garamond",
+      "heading": "Cormorant Garamond",
+      "script": "Allura"
+    },
+
+    "layout": {
+      "maxWidth": "900px",
+      "sectionPadding": "80px"
+    }
+  },
+  "couple": {
+    "bride": {
+      "name": "Minh Anh",
+      "nickname": "Anh",
+      "role": "Cô dâu",
+      "avatar": "/images/bride.jpg",
+      "cover": "/images/bride-cover.jpg",
+      "father": "Lê Văn Đức",
+      "mother": "Trần Thị Hồng",
+      "address": "Số 12 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
+      "description": "Cô gái dịu dàng, yêu hoa và những buổi chiều nắng vàng."
+    },
+    "groom": {
+      "name": "Quốc Huy",
+      "nickname": "Huy",
+      "role": "Chú rể",
+      "avatar": "/images/groom.jpg",
+      "cover": "/images/groom-cover.jpg",
+      "father": "Phạm Văn Tùng",
+      "mother": "Nguyễn Thị Lan",
+      "address": "Số 45 Lê Lợi, Hải Châu, Đà Nẵng",
+      "description": "Chàng trai lãng mạn, tin vào tình yêu vĩnh cửu."
+    }
+  },
+
+  "hero": {
+    "groomName": "Quốc Huy",
+    "brideName": "Minh Anh",
+    "title": "Save The Date",
+    "weddingDate": "2026-12-06T17:00:00",
+    "subtitle": "Trân trọng kính mời",
+    "background": "/images/hero.jpg",
+    "music": "/music/wedding.mp3",
+    "location": "Trung tâm Hội nghị White Palace, TP. Hồ Chí Minh"
+  },
+
+  "story": {
+    "title": "Chuyện Tình Yêu",
+    "description": "Từ một lời chào ngọt ngào, chúng mình đã viết nên câu chuyện của riêng mình."
+  },
+
+  "events": [
+    {
+      "id": 1,
+      "type": "tanthanh",
+      "title": "Lễ Thành Hôn",
+      "weekday": "CHỦ NHẬT",
+      "day": "06",
+      "month": "12",
+      "year": "2026",
+      "date": "2026-12-06",
+      "time": "17:00",
+      "lunar": "",
+      "location": "White Palace",
+      "address": "194 Hoàng Văn Thụ, Phú Nhuận, TP. Hồ Chí Minh",
+      "map": "https://maps.google.com/?q=10.8008,106.6731"
+    }
+  ],
+
+  "gallery": [
+    { "id": 1, "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80" },
+    { "id": 2, "image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80" },
+    { "id": 3, "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80" },
+    { "id": 4, "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80" }
+  ],
+
+  "timeline": [],
+
+  "gifts": [
+    {
+      "id": 1,
+      "name": "Chuyển khoản",
+      "description": "Gửi tình cảm đến chúng mình qua chuyển khoản.",
+      "bankName": "Vietcombank",
+      "accountName": "PHẠM QUỐC HUY",
+      "accountNumber": "0071000123456",
+      "qrCode": "/images/qr-bank.png"
+    }
+  ],
+
+  "guestBook": {
+    "enabled": true,
+    "title": "Sổ Lưu Bút",
+    "guest": [
+      {
+        "id": 1,
+        "name": "Thảo Vy",
+        "message": "Chúc hai bạn mãi hạnh phúc nhé! 🌸",
+        "created_at": "10:00 01/12/2026"
+      }
+    ]
+  },
+
+  "countdown": {
+    "enabled": true,
+    "target": "2026-12-06T17:00:00"
+  },
+
+  "footer": {
+    "message": "Sự hiện diện của Quý khách là niềm vui lớn nhất của chúng mình.",
+    "copyright": "Minh Anh & Quốc Huy",
+    "groomName": "Quốc Huy",
+    "brideName": "Minh Anh"
+  },
+
+  "settings": {
+    "showMusic": true,
+    "showGallery": true,
+    "showTimeline": false,
+    "showGift": true,
+    "showGuestBook": true,
+    "showMap": true,
+    "showCountdown": true
+  },
+  "music": {
+    "enabled": true,
+    "url": "/src/assets/music/So_Beautiful_In_White.mp3",
+    "title": "",
+    "autoplay": false
+  }
+},
+
+{
+  "id": 3,
+  "slug": "ngoc-linh-hai-dang",
+  "groomName": "Hải Đăng",
+  "brideName": "Ngọc Linh",
+  "language": "vi",
+  "weddingDate": "2027-01-09T18:30:00",
+  "coverImage": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=1600&q=80",
+  "theme": {
+    "name": "elegant-gold",
+    "colors": {
+      "primary": "#23201a",
+      "secondary": "#35301f",
+      "accent": "#d4af37",
+      "accentLight": "#f3e5c0",
+
+      "background": "#f6f1e6",
+      "backgroundSecondary": "#efe8d8",
+
+      "text": "#3a332a",
+      "textSecondary": "#8a7d6a",
+
+      "white": "#fffdf6"
+    },
+
+    "fonts": {
+      "main": "Cormorant Garamond",
+      "heading": "Cormorant Garamond",
+      "script": "Allura"
+    },
+
+    "layout": {
+      "maxWidth": "900px",
+      "sectionPadding": "80px"
+    }
+  },
+  "couple": {
+    "bride": {
+      "name": "Ngọc Linh",
+      "nickname": "Linh",
+      "role": "Cô dâu",
+      "avatar": "/images/bride.jpg",
+      "cover": "/images/bride-cover.jpg",
+      "father": "Vũ Đình Khánh",
+      "mother": "Đỗ Thị Bích",
+      "address": "Số 88 Trần Duy Hưng, Cầu Giấy, Hà Nội",
+      "description": "Phái đẹp quyền lực, yêu sự sang trọng và tinh tế."
+    },
+    "groom": {
+      "name": "Hải Đăng",
+      "nickname": "Đăng",
+      "role": "Chú rể",
+      "avatar": "/images/groom.jpg",
+      "cover": "/images/groom-cover.jpg",
+      "father": "Bùi Văn Sơn",
+      "mother": "Lê Thị Nga",
+      "address": "Số 21 Xuân Thủy, Cầu Giấy, Hà Nội",
+      "description": "Quý ông lịch lãm phong cách thập niên 1920."
+    }
+  },
+
+  "hero": {
+    "groomName": "Hải Đăng",
+    "brideName": "Ngọc Linh",
+    "title": "Save The Date",
+    "weddingDate": "2027-01-09T18:30:00",
+    "subtitle": "Trân trọng kính mời",
+    "background": "/images/hero.jpg",
+    "music": "/music/wedding.mp3",
+    "location": "Khách sạn Metropole, Hà Nội"
+  },
+
+  "story": {
+    "title": "Chuyện Tình Yêu",
+    "description": "Một đêm Gatsby, một ánh mắt và rồi cả một đời gắn bó."
+  },
+
+  "events": [
+    {
+      "id": 1,
+      "type": "tanthanh",
+      "title": "Lễ Thành Hôn",
+      "weekday": "THỨ BẢY",
+      "day": "09",
+      "month": "01",
+      "year": "2027",
+      "date": "2027-01-09",
+      "time": "18:30",
+      "lunar": "",
+      "location": "Sofitel Legend Metropole",
+      "address": "15 Ngô Quyền, Hoàn Kiếm, Hà Nội",
+      "map": "https://maps.google.com/?q=21.0227,105.8544"
+    }
+  ],
+
+  "gallery": [
+    { "id": 1, "image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80" },
+    { "id": 2, "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80" },
+    { "id": 3, "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80" },
+    { "id": 4, "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80" }
+  ],
+
+  "timeline": [],
+
+  "gifts": [
+    {
+      "id": 1,
+      "name": "Chuyển khoản",
+      "description": "Gửi tặng đôi uyên ương qua chuyển khoản.",
+      "bankName": "Techcombank",
+      "accountName": "BÙI HẢI ĐĂNG",
+      "accountNumber": "19036688888888",
+      "qrCode": "/images/qr-bank.png"
+    }
+  ],
+
+  "guestBook": {
+    "enabled": true,
+    "title": "Sổ Lưu Bút",
+    "guest": [
+      {
+        "id": 1,
+        "name": "Đức Anh",
+        "message": "Chúc mừng hai bạn! ✨",
+        "created_at": "20:00 05/01/2027"
+      }
+    ]
+  },
+
+  "countdown": {
+    "enabled": true,
+    "target": "2027-01-09T18:30:00"
+  },
+
+  "footer": {
+    "message": "Rất hân hạnh được đón tiếp Quý khách trong đêm tiệc sang trọng này.",
+    "copyright": "Ngọc Linh & Hải Đăng",
+    "groomName": "Hải Đăng",
+    "brideName": "Ngọc Linh"
+  },
+
+  "settings": {
+    "showMusic": true,
+    "showGallery": true,
+    "showTimeline": false,
+    "showGift": true,
+    "showGuestBook": true,
+    "showMap": true,
+    "showCountdown": true
+  },
+  "music": {
+    "enabled": true,
+    "url": "/src/assets/music/So_Beautiful_In_White.mp3",
+    "title": "",
+    "autoplay": false
+  }
+},
+
+{
+  "id": 4,
+  "slug": "thu-ha-minh-quan",
+  "groomName": "Minh Quân",
+  "brideName": "Thu Hà",
+  "language": "vi",
+  "weddingDate": "2026-11-28T11:00:00",
+  "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+  "theme": {
+    "name": "modern-white",
+    "colors": {
+      "primary": "#6b7f6a",
+      "secondary": "#8ba089",
+      "accent": "#93a58c",
+      "accentLight": "#eef2ea",
+
+      "background": "#fbfaf7",
+      "backgroundSecondary": "#f4f5ef",
+
+      "text": "#3f4a3e",
+      "textSecondary": "#8b948a",
+
+      "white": "#ffffff"
+    },
+
+    "fonts": {
+      "main": "Cormorant Garamond",
+      "heading": "Cormorant Garamond",
+      "script": "Allura"
+    },
+
+    "layout": {
+      "maxWidth": "900px",
+      "sectionPadding": "80px"
+    }
+  },
+  "couple": {
+    "bride": {
+      "name": "Thu Hà",
+      "nickname": "Hà",
+      "role": "Cô dâu",
+      "avatar": "/images/bride.jpg",
+      "cover": "/images/bride-cover.jpg",
+      "father": "Ngô Văn Bình",
+      "mother": "Phạm Thu Hương",
+      "address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
+      "description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
+    },
+    "groom": {
+      "name": "Minh Quân",
+      "nickname": "Quân",
+      "role": "Chú rể",
+      "avatar": "/images/groom.jpg",
+      "cover": "/images/groom-cover.jpg",
+      "father": "Đặng Trọng Nghĩa",
+      "mother": "Vũ Thị Mai",
+      "address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
+      "description": "Tối giản nhưng không đơn điệu, chân thành mỗi ngày."
+    }
+  },
+
+  "hero": {
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà",
+    "title": "Save The Date",
+    "weddingDate": "2026-11-28T11:00:00",
+    "subtitle": "Trân trọng kính mời",
+    "background": "/images/hero.jpg",
+    "music": "/music/wedding.mp3",
+    "location": "The Garden Studio, Hà Nội"
+  },
+
+  "story": {
+    "title": "Chuyện Tình Yêu",
+    "description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+  },
+
+  "events": [
+    {
+      "id": 1,
+      "type": "vuquy",
+      "title": "Lễ Vu Quy",
+      "weekday": "THỨ BẢY",
+      "day": "28",
+      "month": "11",
+      "year": "2026",
+      "date": "2026-11-28",
+      "time": "11:00",
+      "lunar": "",
+      "location": "The Garden Studio",
+      "address": "24 Tăng Bạt Hổ, Hai Bà Trưng, Hà Nội",
+      "map": "https://maps.google.com/?q=21.0144,105.8524"
+    }
+  ],
+
+  "gallery": [
+    { "id": 1, "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80" },
+    { "id": 2, "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80" },
+    { "id": 3, "image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80" },
+    { "id": 4, "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80" }
+  ],
+
+  "timeline": [],
+
+  "gifts": [
+    {
+      "id": 1,
+      "name": "Chuyển khoản",
+      "description": "Gửi lời chúc kèm món quà nhỏ.",
+      "bankName": "MB Bank",
+      "accountName": "NGÔ THU HÀ",
+      "accountNumber": "0401123456789",
+      "qrCode": "/images/qr-bank.png"
+    }
+  ],
+
+  "guestBook": {
+    "enabled": true,
+    "title": "Sổ Lưu Bút",
+    "guest": [
+      {
+        "id": 1,
+        "name": "Khánh Chi",
+        "message": "Chúc hai bạn bình yên bên nhau 🌿",
+        "created_at": "09:30 20/11/2026"
+      }
+    ]
+  },
+
+  "countdown": {
+    "enabled": true,
+    "target": "2026-11-28T11:00:00"
+  },
+
+  "footer": {
+    "message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
+    "copyright": "Thu Hà & Minh Quân",
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà"
+  },
+
+  "settings": {
+    "showMusic": true,
+    "showGallery": true,
+    "showTimeline": false,
+    "showGift": true,
+    "showGuestBook": true,
+    "showMap": true,
+    "showCountdown": true
+  },
+  "music": {
+    "enabled": true,
+    "url": "/src/assets/music/So_Beautiful_In_White.mp3",
+    "title": "",
     "autoplay": false
   }
 }

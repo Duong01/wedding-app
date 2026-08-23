@@ -17,7 +17,7 @@
   --accent: #e9bd76;
   --accent-light: #f8dfad;
   --accent-soft: rgba(233, 189, 118, 0.65);
-
+  --p-gold-light: #f8dfad;
   /* =========================================================
      BACKGROUND
   ========================================================= */
@@ -69,14 +69,23 @@
 
 
   /* =========================================================
-     TYPOGRAPHY
+     TYPOGRAPHY - FONT FAMILY (DUY NHẤT TOÀN ỨNG DỤNG)
+     =========================================================
+     Quy ước:
+     - --font-script : chữ ký, dấu &, từ ngữ trang trí  -> Allura
+     - --font-heading: tiêu đề, tên, ngày tháng         -> Cormorant Garamond
+     - --font-main   : nội dung thân bài                -> Cormorant Garamond
+     - --font-symbol : ký tự trang trí CJK (囍)        -> Noto Serif SC / SimSun
+     Không dùng font-family literal trong component.
   ========================================================= */
 
   /* Nội dung */
-  --font-main:
+  /* --font-main:
     "Cormorant Garamond",
     Georgia,
-    serif;
+    serif; */
+
+    --font-main: "Times New Roman", Times, serif;
 
   /* Heading */
   --font-heading:
@@ -84,17 +93,57 @@
     Georgia,
     serif;
 
-  /* Tên cô dâu / chú rể */
+  /* Tên cô dâu / chú rể - chữ ký */
   --font-script:
-    "The Nautigal",
+    "Allura",
     cursive;
 
-  /* Ký hiệu & / ornament */
-  --font-wedding:
-    "The Nautigal",
-    cursive;
+  /* Ký hiệu & / ornament (alias legacy) */
+  --font-wedding: var(--font-heading);
 
-  --font-base:"Times New Roman", Times, serif;
+  /* Alias legacy - mọi tham chiếu cũ trỏ về font chính */
+  --font-base: var(--font-main);
+
+  /* Ký tự trang trí 囍 */
+  --font-symbol:
+    "Noto Serif SC",
+    "SimSun",
+    "Songti SC",
+    serif;
+
+
+  /* =========================================================
+     TYPOGRAPHY - FONT SIZE SCALE (DUY NHẤT TOÀN ỨNG DỤNG)
+     =========================================================
+     Quy ước thay cho px hardcode trong component:
+     - --text-xs     : label, kicker, chú thích nhỏ   (10-12px)
+     - --text-sm     : chữ nhỏ, nút, meta             (12-14px)
+     - --text-md     : nội dung thân bài              (13-15px)
+     - --text-lg     : nội dung lớn / tên phụ         (15-18px)
+     - --text-xl     : sub-heading                    (18-24px)
+     - --text-2xl    : heading card                   (22-32px)
+     - --text-3xl    : tiêu đề section                (28-40px)
+     - --text-4xl    : tên trong card / footer        (32-48px)
+     - --text-display: tên hero, số ngày lớn          (44-64px)
+  ========================================================= */
+
+  --text-xs: clamp(10px, 2.2vw, 12px);
+
+  --text-sm: clamp(12px, 2.7vw, 14px);
+
+  --text-md: clamp(13px, 3vw, 15px);
+
+  --text-lg: clamp(15px, 3.5vw, 18px);
+
+  --text-xl: clamp(18px, 4.5vw, 24px);
+
+  --text-2xl: clamp(22px, 6vw, 32px);
+
+  --text-3xl: clamp(28px, 8vw, 40px);
+
+  --text-4xl: clamp(32px, 9vw, 48px);
+
+  --text-display: clamp(44px, 13vw, 64px);
 
 
   /* =========================================================
@@ -151,4 +200,248 @@
 
   --transition-slow:
     700ms ease;
+}
+
+
+/* ===========================================================
+   RESET
+=========================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-height: 100%;
+}
+
+
+/* ===========================================================
+   BASE TYPOGRAPHY
+=========================================================== */
+
+body {
+  margin: 0;
+
+  font-family: var(--font-main);
+  font-size: var(--text-md);
+  font-weight: 400;
+  line-height: 1.7;
+
+  color: var(--text);
+  background: var(--paper);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Vuetify shell dùng chung font hệ thống thiệp */
+.v-application {
+  font-family: var(--font-main);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+p {
+  font-family: var(--font-main);
+  font-size: var(--text-md);
+  line-height: 1.75;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--primary);
+}
+
+h1 {
+  font-size: var(--text-3xl);
+}
+
+h2 {
+  font-size: var(--text-2xl);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+h5 {
+  font-size: var(--text-md);
+}
+
+h6 {
+  font-size: var(--text-sm);
+}
+
+small {
+  font-size: var(--text-xs);
+}
+
+span,
+a,
+li,
+label {
+  font-family: inherit;
+}
+
+
+/* ===========================================================
+   WEDDING TITLE / SUBTITLE (class dùng chung)
+=========================================================== */
+
+.section-title {
+  margin-bottom: 12px;
+
+  text-align: center;
+
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+
+  line-height: 1.1;
+
+  color: var(--primary);
+}
+
+.section-subtitle {
+  margin-bottom: 6px;
+
+  text-align: center;
+
+  font-family: var(--font-main);
+  font-size: var(--text-xs);
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: var(--sub-text);
+}
+
+
+/* ===========================================================
+   BRIDE / GROOM NAME
+=========================================================== */
+
+.bride-name,
+.groom-name {
+  font-family: var(--font-heading);
+
+  font-size: var(--text-display);
+
+  font-weight: 500;
+
+  line-height: 0.95;
+
+  letter-spacing: 0.2px;
+
+  color: var(--primary);
+}
+
+.role {
+  font-family: var(--font-main);
+
+  font-size: var(--text-xs);
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: var(--sub-text);
+}
+
+
+/* ===========================================================
+   DATE
+=========================================================== */
+
+.event-date {
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-end;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.day {
+  font-family: var(--font-heading);
+
+  font-size: var(--text-display);
+  font-weight: 500;
+
+  line-height: 0.8;
+
+  color: var(--primary);
+}
+
+.month {
+  font-family: var(--font-heading);
+
+  font-size: var(--text-lg);
+  font-weight: 600;
+
+  line-height: 1;
+
+  color: var(--primary);
+}
+
+.year {
+  font-family: var(--font-heading);
+
+  font-size: var(--text-xl);
+  font-weight: 500;
+
+  line-height: 1;
+
+  color: var(--primary);
+}
+
+
+/* ===========================================================
+   BUTTON
+=========================================================== */
+
+.primary-btn,
+.outline-btn {
+  min-height: 42px;
+
+  padding: 0 20px;
+
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  line-height: 1;
 }

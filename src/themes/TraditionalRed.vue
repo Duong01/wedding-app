@@ -55,7 +55,7 @@
             class="section-reveal"
           >
             <MapSection :events="wedding.events" />
-          </section>
+          </section>  
 
           <section
             v-if="
@@ -185,6 +185,28 @@ onBeforeUnmount(() => {
   background: url("@/assets/bg-frame.jpg") center / cover;
 }
 .wedding-page {
+  /* =====================================================
+     PALETTE - Á ĐÔNG (đỏ son & vàng kim)
+     ===================================================== */
+  --p-primary: #7b0d0d;
+  --p-primary-light: #861313;
+  --p-primary-dark: #65090c;
+  --p-gold: #c79d5c;
+  --p-gold-light: #ffe3b1;
+  --p-paper: #f8f5ed;
+  --p-ink: #4f4039;
+  --p-muted: #80665b;
+  --p-deep: #7b0d0d;
+  --p-line: rgba(123, 13, 13, 0.18);
+  --p-accent-soft: linear-gradient(135deg, #fff0e8, #fbe4d6);
+  --p-on-bg: #fff0f3;
+  --p-on-bg-muted: rgba(255, 240, 243, 0.85);
+  --p-hero-1: #8d1115;
+  --p-hero-2: #7b0d0d;
+  --p-hero-3: #69090c;
+  --p-hero-glow: rgba(174, 43, 43, 0.35);
+  --p-hero-text: #f7d8a3;
+
   position: relative;
 
   width: 100%;
@@ -193,6 +215,7 @@ onBeforeUnmount(() => {
   overflow-x: hidden;
 
   color: var(--text);
+  
 }
 
 /* =========================================================
@@ -225,11 +248,9 @@ onBeforeUnmount(() => {
 
   background-size: 430px auto;
 
-  opacity: 0.085;
+  opacity: 0.1;
 
-  mix-blend-mode: screen;
-
-  filter: brightness(0.75) contrast(0.9);
+  /* Bỏ mix-blend-mode + filter để tránh repaint nặng khi lăn */
 }
 
 /*
@@ -286,7 +307,6 @@ onBeforeUnmount(() => {
   position: relative;
 
   width: 900px;
-
   max-width: 100%;
 
   min-height: 100vh;
@@ -294,22 +314,29 @@ onBeforeUnmount(() => {
   margin: 0 auto;
 
   /*
-   * QUAN TRỌNG:
-   * Không dùng background trắng.
-   * Toàn bộ thiệp dùng nền đỏ.
+   * KHÔNG padding ở đây
+   *
+   * Padding phải nằm ở invitation-content
    */
-  background: linear-gradient(
-    180deg,
-    rgba(125, 13, 16, 0.98),
-    rgba(105, 8, 11, 0.98)
-  );
+  padding: 0;
 
-  box-shadow: 0 0 0 1px rgba(100, 45, 20, 0.15),
-    0 12px 35px rgba(50, 20, 10, 0.18), 0 35px 100px rgba(50, 20, 10, 0.22);
+  background:
+    linear-gradient(
+      180deg,
+      var(--p-primary) 0%,
+      var(--p-primary-dark) 100%
+    );
+
+  color: var(--text);
 
   overflow: hidden;
 
   isolation: isolate;
+
+  box-shadow:
+    0 0 0 1px rgba(100, 45, 20, 0.15),
+    0 12px 35px rgba(50, 20, 10, 0.18),
+    0 35px 100px rgba(50, 20, 10, 0.22);
 }
 
 /* =========================================================
@@ -333,13 +360,10 @@ onBeforeUnmount(() => {
 
   background-position: center top;
 
-  background-size: 430px auto;
+  background-size: 100% auto;
 
-  opacity: 0.075;
-
-  mix-blend-mode: screen;
+  opacity: 0.10;
 }
-
 /* =========================================================
    HERO
    FULL MÀN HÌNH
@@ -400,9 +424,7 @@ onBeforeUnmount(() => {
 
   background-size: 430px auto;
 
-  opacity: 0.07;
-
-  mix-blend-mode: screen;
+  opacity: 0.085;
 }
 
 /* =========================================================
@@ -507,20 +529,17 @@ onBeforeUnmount(() => {
 .section-reveal {
   opacity: 0;
 
-  transform: translateY(35px);
+  transform: translateY(24px);
 
-  filter: blur(5px);
-
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 0.9s ease;
+  /* Chỉ opacity + transform -> chạy GPU, không giật lag */
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-reveal.is-visible {
   opacity: 1;
 
   transform: translateY(0);
-
-  filter: blur(0);
 }
 
 /* =========================================================
@@ -540,9 +559,6 @@ onBeforeUnmount(() => {
 ========================================================= */
 
 @media (min-width: 768px) {
-  .wedding-page {
-    padding-bottom: 70px;
-  }
 
   .invitation-device {
     width: 900px;
@@ -552,15 +568,10 @@ onBeforeUnmount(() => {
     border-radius: 0;
   }
 
-  .invitation-content {
-    padding: 35px 12px 90px;
-  }
-
   .invitation-content > section {
     padding-left: 10px;
     padding-right: 10px;
 
-    margin-bottom: 30px;
   }
 }
 
@@ -570,7 +581,12 @@ onBeforeUnmount(() => {
 
 @media (max-width: 767px) {
   .wedding-page {
-    background: linear-gradient(180deg, #7d0d10 0%, #720a0d 50%, #69080b 100%);
+    background: linear-gradient(
+      180deg,
+      var(--p-primary) 0%,
+      var(--p-primary-dark) 50%,
+      var(--p-primary-dark) 100%
+    );
   }
 
   .invitation-device {
@@ -591,10 +607,6 @@ onBeforeUnmount(() => {
     min-height: 100dvh;
 
     height: 100dvh;
-  }
-
-  .invitation-content {
-    padding: 20px 8px 70px;
   }
 
   .invitation-content > section {
@@ -645,8 +657,6 @@ onBeforeUnmount(() => {
     opacity: 1;
 
     transform: none;
-
-    filter: none;
 
     transition: none;
   }

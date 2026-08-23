@@ -3,7 +3,6 @@
 
     <!-- Background -->
     <div class="footer-pattern"></div>
-    <div class="footer-overlay"></div>
 
     <!-- Nội dung -->
     <v-container class="footer-container">
@@ -74,16 +73,16 @@ const currentYear = new Date().getFullYear();
    ========================================================= */
 
 .footer {
-  --primary: #7b0d0d;
-  --primary-light: #9d2525;
+  --primary: var(--p-primary, #7b0d0d);
+  --primary-light: var(--p-primary, #9d2525);
 
-  --gold: #c79d5c;
-  --gold-light: #f7d8a3;
+  --gold: var(--p-gold, #c79d5c);
+  --gold-light: var(--p-gold-light, #f8dfad);
 
-  --paper: #f8f5ed;
+  --paper: var(--p-paper, #f8f5ed);
 
-  --text: #5c4d46;
-  --sub-text: #806f66;
+  --text: var(--p-ink, #5c4d46);
+  --sub-text: var(--p-muted, #806f66);
 
   --white: #fffaf4;
 
@@ -100,13 +99,6 @@ const currentYear = new Date().getFullYear();
 
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      180deg,
-      #7b0d0d 0%,
-      #861313 50%,
-      #720909 100%
-    );
 
   color: var(--white);
 
@@ -123,12 +115,7 @@ const currentYear = new Date().getFullYear();
 
   inset: 0;
 
-  background-image:
-    radial-gradient(
-      circle at center,
-      rgba(247, 216, 163, 0.12) 0,
-      transparent 45%
-    );
+  
 
   pointer-events: none;
 }
@@ -137,26 +124,6 @@ const currentYear = new Date().getFullYear();
 /* =========================================================
    OVERLAY
    ========================================================= */
-
-.footer-overlay {
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(247, 216, 163, 0.16),
-      transparent 55%
-    ),
-    linear-gradient(
-      180deg,
-      transparent,
-      rgba(60, 0, 0, 0.18)
-    );
-
-  pointer-events: none;
-}
 
 
 /* =========================================================
@@ -174,7 +141,6 @@ const currentYear = new Date().getFullYear();
 
   margin: 0 auto;
 
-  padding: 80px 24px;
 
   display: flex;
 
@@ -197,13 +163,12 @@ const currentYear = new Date().getFullYear();
 
   max-width: 600px;
 
-  margin: 0 auto 42px;
 
   padding: 0;
 
   font-family: var(--font-main);
 
-  font-size: 14px;
+  font-size: var(--text-sm);
 
   font-weight: 400;
 
@@ -211,7 +176,12 @@ const currentYear = new Date().getFullYear();
 
   letter-spacing: 0.3px;
 
-  color: rgba(255, 250, 244, 0.88);
+  color: rgba(
+    247,
+    216,
+    163,
+    0.75
+  );
 
   text-align: center;
 }
@@ -239,11 +209,7 @@ const currentYear = new Date().getFullYear();
 .couple-name {
   font-family: var(--font-wedding);
 
-  font-size: clamp(
-    38px,
-    7vw,
-    58px
-  );
+  font-size: var(--text-4xl);
 
   font-weight: 500;
 
@@ -272,7 +238,7 @@ const currentYear = new Date().getFullYear();
 
   font-family: var(--font-wedding);
 
-  font-size: 30px;
+  font-size: var(--text-2xl);
 
   font-style: italic;
 
@@ -319,7 +285,7 @@ const currentYear = new Date().getFullYear();
 .copyright {
   font-family: var(--font-main);
 
-  font-size: 11px;
+  font-size: var(--text-xs);
 
   font-weight: 400;
 
@@ -347,7 +313,7 @@ const currentYear = new Date().getFullYear();
 
   font-family: var(--font-main);
 
-  font-size: 9px;
+  font-size: var(--text-xs);
 
   font-weight: 500;
 
@@ -377,15 +343,13 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-container {
-    padding: 65px 20px;
+    /* padding: 65px 20px; */
   }
 
   .footer-message {
     max-width: 500px;
 
-    margin-bottom: 35px;
-
-    font-size: 13px;
+    /* margin-bottom: 35px; */
 
     line-height: 1.8;
   }
@@ -394,19 +358,9 @@ const currentYear = new Date().getFullYear();
     gap: 15px;
   }
 
-  .couple-name {
-    font-size: clamp(
-      34px,
-      10vw,
-      48px
-    );
-  }
-
   .couple-symbol {
     width: 36px;
     height: 36px;
-
-    font-size: 25px;
   }
 
 }
@@ -423,13 +377,11 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-container {
-    padding: 60px 18px;
+    /* padding: 60px 18px; */
   }
 
   .footer-message {
-    margin-bottom: 32px;
-
-    font-size: 12px;
+    /* margin-bottom: 32px; */
 
     line-height: 1.8;
 
@@ -440,33 +392,17 @@ const currentYear = new Date().getFullYear();
     gap: 9px;
   }
 
-  .couple-name {
-    font-size: clamp(
-      30px,
-      10vw,
-      42px
-    );
-  }
-
   .couple-symbol {
     width: 32px;
     height: 32px;
-
-    font-size: 22px;
   }
 
   .footer-line {
     margin-top: 32px;
-    margin-bottom: 24px;
-  }
-
-  .copyright {
-    font-size: 10px;
+    /* margin-bottom: 24px; */
   }
 
   .website {
-    font-size: 8px;
-
     letter-spacing: 2px;
   }
 
@@ -480,12 +416,10 @@ const currentYear = new Date().getFullYear();
 @media (max-width: 380px) {
 
   .footer-container {
-    padding: 50px 14px;
+    /* padding: 50px 14px; */
   }
 
   .footer-message {
-    font-size: 11px;
-
     max-width: 290px;
   }
 
@@ -493,15 +427,9 @@ const currentYear = new Date().getFullYear();
     gap: 6px;
   }
 
-  .couple-name {
-    font-size: 28px;
-  }
-
   .couple-symbol {
     width: 29px;
     height: 29px;
-
-    font-size: 20px;
   }
 
 }

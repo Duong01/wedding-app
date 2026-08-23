@@ -196,9 +196,9 @@ function goHome() {
 .loading-title {
   color: #54363b;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: 28px;
+  font-size: var(--text-2xl);
 
   font-weight: 600;
 
@@ -208,7 +208,8 @@ function goHome() {
 .loading-text {
   color: #95777c;
 
-  font-size: 14px;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
 
   margin-bottom: 24px;
 }
@@ -288,9 +289,9 @@ function goHome() {
 
   color: #54363b;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: 32px;
+  font-size: var(--text-2xl);
 }
 
 .error-content p,
@@ -298,6 +299,9 @@ function goHome() {
   margin: 0 auto 28px;
 
   color: #806d71;
+
+  font-family: var(--font-main);
+  font-size: var(--text-md);
 
   line-height: 1.8;
 }
@@ -313,7 +317,8 @@ function goHome() {
 
   color: white;
 
-  font-size: 14px;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
 
   font-weight: 600;
 
@@ -361,20 +366,11 @@ function goHome() {
     font-size: 28px;
   }
 
-  .loading-title {
-    font-size: 24px;
-  }
-
   .error-content,
   .theme-error-content {
     padding: 36px 22px;
 
     border-radius: 22px;
-  }
-
-  .error-content h1,
-  .theme-error-content h1 {
-    font-size: 28px;
   }
 }
 </style>

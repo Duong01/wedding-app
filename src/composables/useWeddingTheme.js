@@ -85,7 +85,7 @@ export function useWeddingTheme(wedding) {
       "--font-script":
         fonts.script
           ? `"${fonts.script}", cursive`
-          : '"The Nautigal", cursive',
+          : '"Allura", cursive',
 
 
       /* ====================================================
@@ -93,9 +93,9 @@ export function useWeddingTheme(wedding) {
       ==================================================== */
 
       "--font-wedding":
-        fonts.script
-          ? `"${fonts.script}", cursive`
-          : '"The Nautigal", cursive',
+        fonts.heading
+          ? `"${fonts.heading}", Georgia, serif`
+          : '"Cormorant Garamond", Georgia, serif',
 
       "--gold":
         colors.accent || "#c79d5c",

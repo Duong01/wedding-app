@@ -135,7 +135,7 @@ function formatDate(date) {
 
   text-align: center;
 
-  color: #f8dfad;
+  color: var(--p-gold-light, #f8dfad);
 
   display: flex;
 
@@ -177,9 +177,9 @@ function formatDate(date) {
 
   color: var(--accent-light, #f7d8a3);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(9px, 1.2vw, 12px);
+  font-size: var(--text-xs);
 
   font-weight: 500;
 
@@ -228,15 +228,13 @@ function formatDate(date) {
     8px;
 
   color:
-    #e7c47d;
+    var(--p-gold, #e7c47d);
 
   font-family:
-    "Noto Serif SC",
-    "SimSun",
-    serif;
+    var(--font-symbol);
 
   font-size:
-    30px;
+    var(--text-2xl);
 
   line-height:
     1;
@@ -294,7 +292,7 @@ function formatDate(date) {
 
   border:
     1px solid
-    #e7c47d;
+    var(--p-gold, #e7c47d);
 
   transform:
     rotate(45deg);
@@ -308,21 +306,13 @@ function formatDate(date) {
   width: 100%;
 
   color:
-    #f7d8a3;
+    var(--p-hero-text, #f7d8a3);
 
   font-family:
-    var(
-      --font-script,
-      "The Nautigal",
-      cursive
-    );
+    var(--font-script);
 
   font-size:
-    clamp(
-      48px,
-      13vw,
-      70px
-    );
+    var(--text-display);
 
   font-weight:
     400;
@@ -350,9 +340,9 @@ function formatDate(date) {
 
   color: var(--accent-light, #f7d8a3);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(30px, 5vw, 44px);
+  font-size: var(--text-3xl);
 
   font-weight: 400;
 
@@ -408,9 +398,9 @@ function formatDate(date) {
 
   color: var(--accent-light, #f7d8a3);
 
-  font-family: Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: 11px;
+  font-size: var(--text-xs);
 
   line-height: 1;
 }
@@ -426,9 +416,9 @@ function formatDate(date) {
 
   color: var(--accent-light, #f7d8a3);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-main);
 
-  font-size: clamp(13px, 1.5vw, 15px);
+  font-size: var(--text-md);
 
   font-weight: 400;
 
@@ -487,9 +477,9 @@ function formatDate(date) {
 
   color: var(--accent-light, #f7d8a3);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(9px, 1vw, 11px);
+  font-size: var(--text-xs);
 
   font-weight: 600;
 
@@ -509,9 +499,10 @@ function formatDate(date) {
 .meta-value {
   color: var(--accent-light, #f7d8a3);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: clamp(12px, 1.4vw, 15px);
+  font-size: var(--text-sm);
 
   font-weight: 600;
 
@@ -531,9 +522,9 @@ function formatDate(date) {
 
   color: var(--accent-light, #f7d8a3);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(10px, 1.2vw, 13px);
+  font-size: var(--text-sm);
 
   font-weight: 400;
 
@@ -590,7 +581,7 @@ function formatDate(date) {
 
   // background: var(--primary, #7b0d0d);
 
-  font-size: 8px;
+  font-size: var(--text-xs);
 
   line-height: 1;
 }
@@ -606,18 +597,9 @@ function formatDate(date) {
 }
 
 /* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-  .person-name {
-    font-size: clamp(48px, 10vw, 70px);
-  }
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
+   TABLET / MOBILE
+   (cỡ chữ đã responsive qua --text-* scale)
+======================================================== */
 
 @media (max-width: 600px) {
   .hero-content {
@@ -631,21 +613,7 @@ function formatDate(date) {
   .eyebrow {
     margin-bottom: 14px;
 
-    font-size: 9px;
-
     letter-spacing: 0.3em;
-  }
-
-  .person-name {
-    font-size: clamp(45px, 14vw, 62px);
-
-    line-height: 0.9;
-  }
-
-  .ampersand {
-    margin: 9px 0;
-
-    font-size: 31px;
   }
 
   .ornament {
@@ -656,8 +624,6 @@ function formatDate(date) {
 
   .subtitle {
     width: min(100%, 340px);
-
-    font-size: 13px;
 
     line-height: 1.6;
   }
@@ -673,19 +639,11 @@ function formatDate(date) {
   }
 
   .meta-label {
-    font-size: 8px;
-
     letter-spacing: 0.12em;
-  }
-
-  .meta-value {
-    font-size: 12px;
   }
 
   .meta-location {
     max-width: 145px;
-
-    font-size: 11px;
 
     line-height: 1.4;
   }
@@ -701,7 +659,7 @@ function formatDate(date) {
 
 /* =========================================================
    SMALL MOBILE
-========================================================= */
+======================================================== */
 
 @media (max-width: 380px) {
   .hero-content {
@@ -710,20 +668,6 @@ function formatDate(date) {
 
   .eyebrow {
     margin-bottom: 12px;
-
-    font-size: 8px;
-  }
-
-  .person-name {
-    font-size: 43px;
-
-    line-height: 0.9;
-  }
-
-  .ampersand {
-    margin: 7px 0;
-
-    font-size: 28px;
   }
 
   .ornament {
@@ -734,8 +678,6 @@ function formatDate(date) {
 
   .subtitle {
     max-width: 300px;
-
-    font-size: 12px;
 
     line-height: 1.55;
   }
@@ -749,19 +691,11 @@ function formatDate(date) {
   }
 
   .meta-label {
-    font-size: 7px;
-
     letter-spacing: 0.09em;
-  }
-
-  .meta-value {
-    font-size: 12px;
   }
 
   .meta-location {
     max-width: 125px;
-
-    font-size: 11px;
   }
 
   .meta-divider {
@@ -775,17 +709,13 @@ function formatDate(date) {
 
 /* =========================================================
    VERY SHORT MOBILE
-========================================================= */
+======================================================== */
 
 @media (max-width: 600px) and (max-height: 700px) {
   .hero-content {
     align-items: flex-start;
 
     padding-top: 45px;
-  }
-
-  .person-name {
-    font-size: clamp(42px, 12vw, 54px);
   }
 
   .ampersand {
@@ -869,11 +799,9 @@ function formatDate(date) {
   color: #e2bd72;
 
   font-family:
-    "Noto Serif SC",
-    "SimSun",
-    serif;
+    var(--font-symbol);
 
-  font-size: 27px;
+  font-size: var(--text-2xl);
 
   line-height: 1;
 

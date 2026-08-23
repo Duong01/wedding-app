@@ -2,10 +2,11 @@
   <section class="guestbook-section">
 
     <v-container class="container-md">
-
-        <div class="section-subtitle">
-            Sổ lưu bút
-        </div>
+        
+         <h2 class="section-title">
+            SỔ LƯU BÚT
+        </h2>
+        
 
         <!-- Chữ chạy -->
         <div class="wish-marquee">
@@ -106,9 +107,15 @@ const wishes = computed(() => props.guestBook?.guest ?? []);
 </script>
 
 <style scoped>
+.section-title{
+
+    color:var(--p-gold-light, #f8dfad);
+    margin-bottom:45px;
+}
+
 .guestbook-section{
   margin: 0;
-    background:#7b0d0d;
+    background:var(--p-deep, #7b0d0d);
     position:relative;
     overflow:hidden;
     color:#fff;
@@ -139,7 +146,8 @@ const wishes = computed(() => props.guestBook?.guest ?? []);
 .wish-track span{
     margin-right:70px;
     color:#ffe9c5;
-    /* font-size:13px; */
+    font-family:var(--font-main);
+    font-size:var(--text-sm);
     font-style:italic;
 }
 
@@ -173,7 +181,8 @@ transform:translateX(-50%);
     background:rgba(255,255,255,.05);
     color:#fff;
     margin-bottom:18px;
-    /* font-size:13px; */
+    font-family:var(--font-main);
+    font-size:var(--text-sm);
 }
 
 .guestbook-form input::placeholder,
@@ -217,7 +226,7 @@ max-height:250px;
 }
 
 .wish-list::-webkit-scrollbar-thumb{
-    background:#d8b46d;
+    background:var(--p-gold, #d8b46d);
     border-radius:20px;
 }
 .wish-card{
@@ -245,9 +254,10 @@ background:rgba(255,255,255,.12);
 width:58px;
 height:58px;
 border-radius:50%;
-background:#d8b46d;
-color:#7b0d0d;
-/* font-size:18px; */
+background:var(--p-gold, #d8b46d);
+color:var(--p-deep, #7b0d0d);
+font-family:var(--font-heading);
+font-size:var(--text-lg);
 font-weight:bold;
 display:flex;
 justify-content:center;
@@ -273,7 +283,8 @@ margin-bottom:10px;
 
 .head strong{
 
-/* font-size:14px; */
+font-family:var(--font-main);
+font-size:var(--text-md);
 color:#fff;
 
 }
@@ -310,7 +321,6 @@ gap:14px;
 
 width:48px;
 height:48px;
-/* font-size:16px; */
 
 }
 
@@ -324,7 +334,6 @@ gap:4px;
 
 .wish-track span{
 
-/* font-size:13px; */
 margin-right:45px;
 
 }

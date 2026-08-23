@@ -46,15 +46,15 @@
   background:
     radial-gradient(
       circle at 50% 35%,
-      rgba(174, 43, 43, 0.35),
+      var(--p-hero-glow, rgba(174, 43, 43, 0.35)),
       transparent 55%
     ),
 
     linear-gradient(
       180deg,
-      #8d1115 0%,
-      #7b0d0d 45%,
-      #69090c 100%
+      var(--p-hero-1, #8d1115) 0%,
+      var(--p-hero-2, #7b0d0d) 45%,
+      var(--p-hero-3, #69090c) 100%
     );
 }
 

@@ -302,7 +302,9 @@ function closeLightbox() {
 
   margin-bottom: 8px;
 
-  font-size: 7px;
+  font-family: var(--font-main);
+
+  font-size: var(--text-xs);
 
   font-weight: 600;
 
@@ -323,12 +325,9 @@ function closeLightbox() {
 
   color: var(--primary, #7b0d0d);
 
-  font-family:
-    var(--font-heading),
-    "Cormorant Garamond",
-    serif;
+  font-family: var(--font-heading);
 
-  font-size: 26px;
+  font-size: var(--text-2xl);
 
   font-weight: 600;
 
@@ -372,12 +371,9 @@ background:
 
 
 .album-ornament i {
-  font-family: var(
-    --font-wedding,
-    serif
-  );
+  font-family: var(--font-heading);
 
-  font-size: 13px;
+  font-size: var(--text-xs);
 
   font-style: normal;
 
@@ -394,7 +390,9 @@ background:
 
   margin: 0 auto;
 
-  font-size: 10px;
+  font-family: var(--font-main);
+
+  font-size: var(--text-sm);
 
   font-weight: 300;
 
@@ -630,7 +628,9 @@ background:
   
   color: #392914;
 
-  font-size: 10px;
+  font-family: var(--font-heading);
+
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -643,7 +643,9 @@ background:
 ========================================================= */
 
 .more-text {
-  font-size: 10px;
+  font-family: var(--font-main);
+
+  font-size: var(--text-xs);
 
   font-weight: 500;
 
@@ -656,7 +658,7 @@ background:
 ========================================================= */
 
 .more-arrow {
-  font-size: 13px;
+  font-size: var(--text-sm);
 
   color:
     rgba(255,255,255,0.82);
@@ -713,7 +715,7 @@ background:
   color:
     var(--primary, #7b0d0d);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 
@@ -776,14 +778,10 @@ background:
   }
 
   .album-kicker {
-    font-size: 6px;
-
     letter-spacing: 2.5px;
   }
 
   .album-description {
-    font-size: 9px;
-
     max-width: 300px;
   }
 
@@ -815,12 +813,6 @@ background:
     min-width: 24px;
 
     height: 24px;
-
-    font-size: 9px;
-  }
-
-  .more-text {
-    font-size: 9px;
   }
 
   .more-arrow {

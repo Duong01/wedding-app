@@ -5,13 +5,12 @@
       
 
       <div class="location-heading">
-        <div class="location-eyebrow">
+        <h2 class="section-title">
           TIỆC CƯỚI SẼ TỔ CHỨC TẠI
+        </h2>
+        <div class="section-subtitle">
+           {{ firstEvent?.address }}
         </div>
-
-        <p>
-          {{ firstEvent?.address }}
-        </p>
       </div>
     </div>
   <div class="location-card">
@@ -105,6 +104,17 @@ const mapSrc = computed(() => {
 </script>
 
 <style scoped>
+
+.section-title{
+
+    color:var(--p-gold-light, #f8dfad);
+}
+
+.section-subtitle{
+
+    color:var(--p-gold-light, #f8dfad);
+    margin-bottom:10px;
+}
 /* ================================
    LOCATION
 ================================ */
@@ -162,17 +172,11 @@ const mapSrc = computed(() => {
 
   border-radius: 18px;
 
-  color: #b85c72;
+  color: var(--p-primary, #b85c72);
 
-  background:
-    linear-gradient(
-      135deg,
-      #fff0f3,
-      #fbe0e6
-    );
+  background: var(--p-accent-soft, linear-gradient(135deg, #fff0f3, #fbe0e6));
 
-  box-shadow:
-    0 8px 20px rgba(184, 92, 114, 0.12);
+  box-shadow: 0 8px 20px rgba(120, 90, 100, 0.12);
 }
 
 .location-heading {
@@ -184,28 +188,12 @@ const mapSrc = computed(() => {
   text-align: center;
   margin-bottom: 4px;
 
-  font-size: 14px;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
   font-weight: 700;
 
   letter-spacing: 0.22em;
 
-  color: #fff0f3;
-}
-
-.location-heading h2 {
-  margin: 0;
-  font-size: clamp(24px, 3vw, 34px);
-  text-align: center;
-  font-weight: 500;
-  line-height: 1.2;
-  color: #542f35;
-}
-
-.location-heading p {
-  margin: 7px 0 0;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.6;
   color: #fff0f3;
 }
 
@@ -270,7 +258,8 @@ const mapSrc = computed(() => {
 
   backdrop-filter: blur(12px);
 
-  font-size: 13px;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 
@@ -312,9 +301,9 @@ const mapSrc = computed(() => {
 
   border-radius: 15px;
 
-  color: #b85c72;
+  color: var(--p-primary, #b85c72);
 
-  background: #fff0f3;
+  background: var(--p-accent-soft, #fff0f3);
 }
 
 .address-content {
@@ -326,7 +315,8 @@ const mapSrc = computed(() => {
 
   margin-bottom: 3px;
 
-  font-size: 11px;
+  font-family: var(--font-main);
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -334,15 +324,16 @@ const mapSrc = computed(() => {
 
   text-transform: uppercase;
 
-  color: #b88968;
+  color: var(--p-gold, #b88968);
 }
 
 .address-content p {
   margin: 0;
 
-  color: #5d474b;
+  color: var(--p-ink, #5d474b);
 
-  font-size: 14px;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
 
   line-height: 1.5;
 }
@@ -361,19 +352,20 @@ const mapSrc = computed(() => {
 
   color: white !important;
 
-  font-size: 14px !important;
+  font-family: var(--font-main) !important;
+  font-size: var(--text-sm) !important;
 
   font-weight: 600 !important;
 
   background:
     linear-gradient(
       135deg,
-      #d8758d,
-      #b95770
+      var(--p-primary, #d8758d),
+      var(--p-primary-dark, #b95770)
     ) !important;
 
   box-shadow:
-    0 10px 24px rgba(185, 87, 112, 0.25) !important;
+    0 10px 24px rgba(120, 80, 90, 0.25) !important;
 
   transition:
     transform 0.25s ease,
@@ -384,7 +376,7 @@ const mapSrc = computed(() => {
   transform: translateY(-2px);
 
   box-shadow:
-    0 14px 30px rgba(185, 87, 112, 0.34) !important;
+    0 14px 30px rgba(120, 80, 90, 0.34) !important;
 }
 
 
@@ -446,14 +438,9 @@ const mapSrc = computed(() => {
     border-radius: 14px;
   }
 
-  .location-heading h2 {
-    font-size: 25px;
-  }
-
   .location-heading p {
     margin-top: 5px;
     text-align: center;
-    font-size: 12px;
 
     line-height: 1.5;
   }
@@ -471,8 +458,6 @@ const mapSrc = computed(() => {
 
   .map-badge {
     padding: 7px 11px;
-
-    font-size: 11px;
   }
 
   .location-bottom {
@@ -494,10 +479,6 @@ const mapSrc = computed(() => {
 
     width: 42px;
     height: 42px;
-  }
-
-  .address-content p {
-    font-size: 13px;
   }
 
   .map-button {
@@ -522,10 +503,6 @@ const mapSrc = computed(() => {
   .location-header {
     padding-left: 8px;
     padding-right: 8px;
-  }
-
-  .location-heading h2 {
-    font-size: 22px;
   }
 
   .map-frame {

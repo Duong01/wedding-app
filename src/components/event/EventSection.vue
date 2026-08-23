@@ -361,17 +361,18 @@ const calendarDays = computed(() => {
 /* =========================================================
    EVENT SECTION
    Mobile first
-   Font: Times New Roman
+   Font: theo hệ typography chung (--font-main / --font-heading)
 ========================================================= */
 
 .event-section {
-  --event-red: #7b0d0d;
-  --event-red-dark: #620909;
-  --event-gold: #a97931;
-  --event-gold-light: #c9a45c;
-  --event-text: #4f4039;
-  --event-muted: #76655c;
-  --event-line: rgba(123, 13, 13, 0.18);
+  /* Palette theo theme (mỗi theme tự định nghĩa --p-*) */
+  --event-red: var(--p-primary, #7b0d0d);
+  --event-red-dark: var(--p-primary-dark, #620909);
+  --event-gold: var(--p-gold, #a97931);
+  --event-gold-light: var(--p-gold-light, #f8dfad);
+  --event-text: var(--p-ink, #4f4039);
+  --event-muted: var(--p-muted, #76655c);
+  --event-line: var(--p-line, rgba(123, 13, 13, 0.18));
 
   position: relative;
 
@@ -434,9 +435,9 @@ const calendarDays = computed(() => {
 
   color: var(--event-red);
 
-  font-family:var(--font-base);
+  font-family:var(--font-heading);
 
-  font-size: 25px;
+  font-size: var(--text-2xl);
 
   font-weight: 700;
 
@@ -492,9 +493,7 @@ const calendarDays = computed(() => {
 
   color: var(--event-gold);
 
-  font-family:var(--font-base);
-
-  font-size: 13px;
+  font-size: var(--text-xs);
 
   font-style: normal;
 
@@ -514,9 +513,9 @@ const calendarDays = computed(() => {
 
   color: var(--event-muted);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 14px;
+  font-size: var(--text-sm);
 
   font-weight: 400;
 
@@ -552,9 +551,9 @@ const calendarDays = computed(() => {
 
   color: var(--event-gold);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 11px;
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -575,9 +574,10 @@ const calendarDays = computed(() => {
 
   color: var(--event-red);
 
-  font-family:var(--font-base);
+  font-family:var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 28px;
+  font-size: var(--text-2xl);
 
   font-weight: 700;
 
@@ -617,9 +617,9 @@ const calendarDays = computed(() => {
 
   color: var(--event-red);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 13px;
+  font-size: var(--text-sm);
 
   font-weight: 700;
 
@@ -700,9 +700,10 @@ const calendarDays = computed(() => {
 .date-number {
   color: var(--event-red);
 
-  font-family:var(--font-base);
+  font-family:var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 58px;
+  font-size: var(--text-display);
 
   font-weight: 700;
 
@@ -720,9 +721,9 @@ const calendarDays = computed(() => {
   margin-top: 9px;
 
   color: var(--event-gold);
-font-family:var(--font-base);
+font-family:var(--font-main);
 
-  font-size: 10px;
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -743,9 +744,9 @@ font-family:var(--font-base);
 
   color: var(--event-muted);
 
- font-family:var(--font-base);
+ font-family:var(--font-main);
 
-  font-size: 13px;
+  font-size: var(--text-sm);
 
   font-style: italic;
 
@@ -804,8 +805,7 @@ font-family:var(--font-base);
 
   color: var(--event-gold);
 
-  font-family:var(--font-base);
-  font-size: 9px;
+  font-size: var(--text-xs);
 
   line-height: 1;
 }
@@ -852,8 +852,9 @@ font-family:var(--font-base);
 
 .calendar-month {
   color: var(--event-red);
-    font-family:var(--font-base);   
-  font-size: 22px;
+    font-family:var(--font-heading);
+    font-variant-numeric: lining-nums;   
+  font-size: var(--text-xl);
 
   font-weight: 700;
 
@@ -866,9 +867,9 @@ font-family:var(--font-base);
 
   color: var(--event-muted);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   line-height: 1.2;
 
@@ -902,9 +903,9 @@ font-family:var(--font-base);
 .calendar-week > div {
   color: var(--event-gold);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 11px;
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -945,9 +946,10 @@ font-family:var(--font-base);
 
   color: var(--event-text);
 
-  font-family:var(--font-base);
+  font-family:var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 15px;
+  font-size: var(--text-md);
 
   font-weight: 400;
 
@@ -1008,9 +1010,10 @@ font-family:var(--font-base);
 
   color: #fffaf4;
 
-  font-family:var(--font-base);
+  font-family:var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -1085,9 +1088,9 @@ font-family:var(--font-base);
 
   color: var(--event-gold);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 10px;
+  font-size: var(--text-xs);
 
   font-weight: 700;
 
@@ -1100,9 +1103,10 @@ font-family:var(--font-base);
 .location-name {
   color: var(--event-red);
 
-  font-family:var(--font-base);
+  font-family:var(--font-heading);
+  font-variant-numeric: lining-nums;
 
-  font-size: 15px;
+  font-size: var(--text-md);
 
   font-weight: 700;
 
@@ -1115,9 +1119,10 @@ font-family:var(--font-base);
 
   color: var(--event-muted);
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
+  font-variant-numeric: lining-nums;
 
-  font-size: 13px;
+  font-size: var(--text-sm);
 
   font-weight: 400;
 
@@ -1176,9 +1181,9 @@ font-family:var(--font-base);
 
   background: transparent;
 
-  font-family:var(--font-base);
+  font-family:var(--font-main);
 
-  font-size: 12px;
+  font-size: var(--text-sm);
 
   font-weight: 700;
 
@@ -1239,7 +1244,7 @@ font-family:var(--font-base);
     8px
     18px;
 
-  border: 1px solid var(--event-red);
+ border: 1px solid var(--event-red);
 
   color: #fffaf4;
 
@@ -1250,9 +1255,9 @@ font-family:var(--font-base);
       var(--event-red-dark)
     );
 
- font-family:var(--font-base);
+ font-family:var(--font-main);
 
-  font-size: 12px;
+  font-size: var(--text-sm);
 
   font-weight: 700;
 
@@ -1356,9 +1361,7 @@ font-family:var(--font-base);
 
   color: var(--event-gold);
 
-  font-family:var(--font-base);
-
-  font-size: 12px;
+  font-size: var(--text-xs);
 
   line-height: 1;
 }
@@ -1378,53 +1381,31 @@ font-family:var(--font-base);
       42px;
   }
 
-
-  .event-title {
-    font-size: 22px;
-
-    letter-spacing: 0.025em;
-  }
-
-
   .event-description {
     max-width: 290px;
 
-    font-size: 13px;
-
     line-height: 1.6;
   }
-
 
   .event-header {
     margin-bottom: 27px;
   }
 
-
   .time-label {
-    font-size: 10px;
-
     letter-spacing: 0.08em;
   }
 
-
   .event-time {
-    font-size: 26px;
-
     margin-bottom: 18px;
   }
-
 
   .date-display {
     gap: 8px;
   }
 
-
   .date-side {
     flex-basis: 58px;
-
-    font-size: 12px;
   }
-
 
   .date-center {
     min-width: 88px;
@@ -1434,18 +1415,9 @@ font-family:var(--font-base);
       10px;
   }
 
-
-  .date-number {
-    font-size: 53px;
-  }
-
-
   .date-month {
-    font-size: 9px;
-
     letter-spacing: 0.1em;
   }
-
 
   .calendar-card {
     max-width: 100%;
@@ -1456,38 +1428,17 @@ font-family:var(--font-base);
       18px;
   }
 
-
   .calendar-cell {
     min-height: 34px;
-
-    font-size: 14px;
   }
-
 
   .active-day {
     width: 34px;
     height: 34px;
   }
 
-
   .heart {
     font-size: 37px;
-  }
-
-
-  .location-name {
-    font-size: 14px;
-  }
-
-
-  .location-address {
-    font-size: 12px;
-  }
-
-
-  .calendar-button,
-  .confirm-button {
-    font-size: 11px;
   }
 }
 
@@ -1507,52 +1458,27 @@ font-family:var(--font-base);
       70px;
   }
 
-
   .event-header {
     max-width: 560px;
 
     margin-bottom: 38px;
   }
 
-
-  .event-title {
-    font-size: 30px;
-  }
-
-
   .event-description {
     max-width: 450px;
-
-    font-size: 15px;
   }
-
-
-  .event-time {
-    font-size: 31px;
-  }
-
 
   .date-display {
     gap: 22px;
   }
 
-
   .date-side {
     flex-basis: 90px;
-
-    font-size: 14px;
   }
-
 
   .date-center {
     min-width: 110px;
   }
-
-
-  .date-number {
-    font-size: 66px;
-  }
-
 
   .calendar-card {
     max-width: 390px;
@@ -1563,28 +1489,13 @@ font-family:var(--font-base);
       23px;
   }
 
-
-  .calendar-month {
-    font-size: 25px;
-  }
-
-
   .calendar-cell {
     min-height: 40px;
-
-    font-size: 16px;
   }
-
 
   .event-location,
   .event-actions {
     max-width: 390px;
-  }
-
-
-  .calendar-button,
-  .confirm-button {
-    font-size: 13px;
   }
 }
 
@@ -1604,38 +1515,13 @@ font-family:var(--font-base);
       82px;
   }
 
-
-  .event-title {
-    font-size: 34px;
-  }
-
-
-  .event-description {
-    font-size: 16px;
-  }
-
-
-  .event-time {
-    font-size: 34px;
-  }
-
-
-  .date-number {
-    font-size: 72px;
-  }
-
-
   .calendar-card {
     max-width: 420px;
   }
 
-
   .calendar-cell {
     min-height: 42px;
-
-    font-size: 17px;
   }
-
 
   .event-location,
   .event-actions {

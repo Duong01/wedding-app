@@ -240,10 +240,7 @@ const displayAddress = computed(() => {
 
   background: #f5f0e5;
 
-  font-family:
-    "Noto Serif",
-    "Times New Roman",
-    serif;
+  font-family: var(--font-main);
 
   isolation: isolate;
 }
@@ -283,12 +280,9 @@ const displayAddress = computed(() => {
 .bg-happiness {
   position: absolute;
 
-  font-family:
-    "Noto Serif SC",
-    "SimSun",
-    serif;
+  font-family: var(--font-symbol);
 
-  font-size: 30px;
+  font-size: var(--text-2xl);
 
   color: rgba(174, 55, 58, .16);
 
@@ -384,9 +378,9 @@ const displayAddress = computed(() => {
   background:
     linear-gradient(
       135deg,
-      #821114 0%,
-      #751013 48%,
-      #670b0f 100%
+      var(--p-primary-light, #821114) 0%,
+      var(--p-primary, #751013) 48%,
+      var(--p-primary-dark, #670b0f) 100%
     );
 
   /* box-shadow:
@@ -636,12 +630,9 @@ const displayAddress = computed(() => {
 
   color: #7a3d22;
 
-  font-family:
-    "Noto Serif SC",
-    "SimSun",
-    serif;
+  font-family: var(--font-symbol);
 
-  font-size: 27px;
+  font-size: var(--text-2xl);
 
   line-height: 1;
 
@@ -702,9 +693,9 @@ const displayAddress = computed(() => {
 .guest {
   margin-bottom: 5px;
 
-  color: #ecd7a1;
+  color: var(--p-gold-light, #f8dfad);
 
-  font-size: clamp(12px, 1.25vw, 16px);
+  font-size: var(--text-sm);
 
   letter-spacing: 1px;
 
@@ -725,20 +716,16 @@ const displayAddress = computed(() => {
 
   justify-content: center;
 
-  color: #f8e4aa;
+  color: var(--p-gold-light, #f8e4aa);
 
   text-shadow:
     0 2px 8px rgba(37, 5, 5, .7);
 }
 
 .name {
-  font-family:
-    "Cormorant Garamond",
-    "Noto Serif",
-    "Times New Roman",
-    serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(30px, 4vw, 48px);
+  font-size: var(--text-4xl);
 
   line-height: 1.05;
 
@@ -750,13 +737,11 @@ const displayAddress = computed(() => {
 .ampersand {
   margin: 2px 0;
 
-  color: #e7c57b;
+  color: var(--p-gold, #e7c57b);
 
-  font-family:
-    "Times New Roman",
-    serif;
+  font-family: var(--font-script);
 
-  font-size: 20px;
+  font-size: var(--text-xl);
 
   line-height: 1;
 }
@@ -769,9 +754,9 @@ const displayAddress = computed(() => {
 .date {
   margin-top: 9px;
 
-  color: #efd69a;
+  color: var(--p-gold-light, #f8dfad);
 
-  font-size: clamp(13px, 1.4vw, 17px);
+  font-size: var(--text-md);
 
   white-space: nowrap;
 
@@ -814,14 +799,11 @@ const displayAddress = computed(() => {
 }
 
 .mini-symbol {
-  color: #e7c47a;
+  color: var(--p-gold, #e7c47a);
 
-  font-family:
-    "Noto Serif SC",
-    "SimSun",
-    serif;
+  font-family: var(--font-symbol);
 
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 
@@ -830,9 +812,9 @@ const displayAddress = computed(() => {
 ========================================================= */
 
 .invitation-text {
-  color: #f0d9a2;
+  color: var(--p-gold-light, #f8dfad);
 
-  font-size: clamp(12px, 1.3vw, 16px);
+  font-size: var(--text-sm);
 
   line-height: 1.4;
 
@@ -858,7 +840,7 @@ const displayAddress = computed(() => {
 
   color: rgba(241, 217, 165, .78);
 
-  font-size: 10px;
+  font-size: var(--text-xs);
 
   line-height: 1.35;
 
@@ -907,12 +889,9 @@ const displayAddress = computed(() => {
 
   color: #681216;
 
-  font-family:
-    "Noto Serif",
-    "Times New Roman",
-    serif;
+  font-family: var(--font-main);
 
-  font-size: 15px;
+  font-size: var(--text-md);
 
   font-weight: 600;
 
@@ -1198,49 +1177,21 @@ const displayAddress = computed(() => {
   .main-symbol {
     width: 47px;
     height: 47px;
-
-    font-size: 24px;
   }
 
 
   /* -------------------------
-     NAMES
-  ------------------------- */
-
-  .name {
-    font-size: clamp(27px, 8vw, 36px);
-  }
-
-  .ampersand {
-    font-size: 17px;
-  }
-
-
-  /* -------------------------
-     DATE
+     NAMES / DATE / LOCATION / BUTTON
+     (cỡ chữ đã responsive qua --text-* scale)
   ------------------------- */
 
   .date {
-    font-size: 13px;
-
     margin-top: 8px;
   }
 
-
-  /* -------------------------
-     LOCATION
-  ------------------------- */
-
   .location {
     max-width: 190px;
-
-    font-size: 9px;
   }
-
-
-  /* -------------------------
-     BUTTON
-  ------------------------- */
 
   .open-button {
     min-width: 245px;
@@ -1248,14 +1199,6 @@ const displayAddress = computed(() => {
     height: 46px;
 
     margin-top: 12px;
-
-    font-size: 14px;
-  }
-
-
-  /* Background */
-  .bg-happiness {
-    font-size: 22px;
   }
 
 }
@@ -1289,28 +1232,12 @@ const displayAddress = computed(() => {
   .main-symbol {
     width: 42px;
     height: 42px;
-
-    font-size: 21px;
-  }
-
-  .name {
-    font-size: 25px;
-  }
-
-  .date {
-    font-size: 12px;
-  }
-
-  .invitation-text {
-    font-size: 12px;
   }
 
   .open-button {
     min-width: 135px;
 
     height: 43px;
-
-    font-size: 13px;
   }
 
 }
@@ -1338,12 +1265,6 @@ const displayAddress = computed(() => {
   .main-symbol {
     width: 40px;
     height: 40px;
-
-    font-size: 20px;
-  }
-
-  .name {
-    font-size: 24px;
   }
 
   .date {

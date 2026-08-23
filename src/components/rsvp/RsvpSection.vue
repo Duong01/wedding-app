@@ -35,6 +35,9 @@
   text-transform: uppercase;
   font-weight: 700;
   margin-bottom: 10px;
+
+  font-family: var(--font-main);
+  font-size: var(--text-xs);
 }
 .section-header h2 {
   /* font-size: 2rem; */

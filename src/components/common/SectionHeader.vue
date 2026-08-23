@@ -79,7 +79,7 @@ defineProps({
 
   font-family: var(--font-main);
 
-  font-size: 13px;
+  font-size: var(--text-xs);
 
   font-weight: 600;
 
@@ -98,7 +98,7 @@ defineProps({
 
   font-family: var(--font-heading);
 
-  font-size: clamp(32px, 5vw, 46px);
+  font-size: var(--text-3xl);
 
   font-weight: 600;
 
@@ -139,7 +139,7 @@ defineProps({
 
   color: var(--accent);
 
-  font-size: 13px;
+  font-size: var(--text-xs);
 
 }
 
@@ -152,7 +152,7 @@ defineProps({
 
   font-family: var(--font-main);
 
-  font-size: 16px;
+  font-size: var(--text-lg);
 
   line-height: 1.8;
 
@@ -164,20 +164,6 @@ defineProps({
   .section-header {
 
     margin-bottom: 36px;
-
-  }
-
-
-  .section-title {
-
-    font-size: 32px;
-
-  }
-
-
-  .section-description {
-
-    font-size: 15px;
 
   }
 

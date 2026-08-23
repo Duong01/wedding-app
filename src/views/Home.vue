@@ -160,7 +160,8 @@ function formatDate(date) {
 
   color: #c76a7e;
 
-  font-size: 0.8rem;
+  font-family: var(--font-main);
+  font-size: var(--text-xs);
   font-weight: 700;
 
   letter-spacing: 0.3em;
@@ -173,9 +174,9 @@ function formatDate(date) {
 
   color: #4d3537;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--text-3xl);
 
   font-weight: 600;
 }
@@ -199,7 +200,8 @@ function formatDate(date) {
 
   color: #9a7378;
 
-  font-size: 1rem;
+  font-family: var(--font-main);
+  font-size: var(--text-md);
 }
 
 /* Error */
@@ -309,7 +311,8 @@ function formatDate(date) {
 
   color: #fff;
 
-  font-size: 0.9rem;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
 
   font-weight: 600;
 
@@ -331,9 +334,9 @@ function formatDate(date) {
 
   color: #4d3537;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-heading);
 
-  font-size: 1.35rem;
+  font-size: var(--text-xl);
 
   font-weight: 600;
 
@@ -345,7 +348,8 @@ function formatDate(date) {
 
   color: #a16f76;
 
-  font-size: 0.9rem;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
 
   text-align: center;
 }
@@ -365,7 +369,8 @@ function formatDate(date) {
 
   background: linear-gradient(135deg, #c97885, #ad5d6d);
 
-  font-size: 0.9rem;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
 
   font-weight: 600;
 

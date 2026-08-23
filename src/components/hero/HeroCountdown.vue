@@ -338,18 +338,11 @@ onUnmounted(() => {
 ========================================================= */
 
 .number {
-  color: #f7d8a3;
+  color: var(--p-hero-text, #f7d8a3);
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  font-family: var(--font-heading);
 
-  font-size: clamp(
-    24px,
-    4vw,
-    34px
-  );
+  font-size: var(--text-2xl);
 
   font-weight: 600;
 
@@ -386,19 +379,9 @@ onUnmounted(() => {
       0.72
     );
 
-  font-family:
-    var(
-      --font-main,
-      "Cormorant Garamond",
-      Georgia,
-      serif
-    );
+  font-family: var(--font-main);
 
-  font-size: clamp(
-    8px,
-    1.2vw,
-    10px
-  );
+  font-size: var(--text-xs);
 
   font-weight: 500;
 
@@ -474,7 +457,6 @@ onUnmounted(() => {
     gap: 9px;
   }
 
-
   .count-item {
     padding:
       10px
@@ -484,20 +466,11 @@ onUnmounted(() => {
     border-radius: 10px;
   }
 
-
   .number-wrapper {
     height: 31px;
   }
 
-
-  .number {
-    font-size: 26px;
-  }
-
-
   .label {
-    font-size: 8px;
-
     letter-spacing: 0.1em;
   }
 }
@@ -539,20 +512,8 @@ onUnmounted(() => {
     height: 28px;
   }
 
-
-  .number {
-    font-size: clamp(
-      21px,
-      7vw,
-      26px
-    );
-  }
-
-
   .label {
     margin-top: 5px;
-
-    font-size: 8px;
 
     letter-spacing: 0.08em;
   }
@@ -589,16 +550,8 @@ onUnmounted(() => {
     height: 25px;
   }
 
-
-  .number {
-    font-size: 20px;
-  }
-
-
   .label {
     margin-top: 4px;
-
-    font-size: 7px;
 
     letter-spacing: 0.05em;
   }
@@ -625,16 +578,6 @@ onUnmounted(() => {
 
   .number-wrapper {
     height: 24px;
-  }
-
-
-  .number {
-    font-size: 20px;
-  }
-
-
-  .label {
-    font-size: 7px;
   }
 }
 

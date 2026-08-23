@@ -120,7 +120,7 @@ const themeStyle = computed(() => {
 
     "--font-script":
       fonts.value.script ||
-      "The Nautigal",
+      "Allura",
   };
 });
 

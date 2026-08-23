@@ -7,9 +7,9 @@
 
 <script setup>
 import {
-  ref,
   onMounted,
   onUnmounted,
+  ref,
 } from "vue";
 
 const canvas = ref(null);
@@ -19,23 +19,31 @@ let ctx = null;
 let width = 0;
 let height = 0;
 
+/* Giới hạn DPR 1.5 -> giảm chi phí fill canvas */
 let dpr =
-  window.devicePixelRatio || 1;
+  Math.min(window.devicePixelRatio || 1, 1.5);
 
 let animationId = 0;
 
 const particles = [];
 
+/* Chỉ vẽ khi hero đang hiển thị trong viewport */
+let isVisible = true;
+
+const prefersReducedMotion =
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 const getMaxParticles = () => {
   if (window.innerWidth < 380) {
-    return 25;
+    return 20;
   }
 
   if (window.innerWidth < 768) {
-    return 38;
+    return 30;
   }
 
-  return 65;
+  return 50;
 };
 
 
@@ -296,7 +304,7 @@ function resize() {
   dpr =
     Math.min(
       window.devicePixelRatio || 1,
-      2
+      1.5
     );
 
 
@@ -360,6 +368,8 @@ function createParticles() {
 
 /* =========================================================
    ANIMATION
+   - start/stop theo viewport & tab visibility
+   -> không đốt GPU/CPU khi người dùng đang lăn
 ========================================================= */
 
 function animate() {
@@ -393,6 +403,39 @@ function animate() {
 }
 
 
+function startAnimation() {
+
+  if (
+    animationId ||
+    prefersReducedMotion ||
+    !isVisible
+  ) {
+    return;
+  }
+
+  animationId =
+    requestAnimationFrame(
+      animate
+    );
+
+}
+
+
+function stopAnimation() {
+
+  if (animationId) {
+
+    cancelAnimationFrame(
+      animationId
+    );
+
+    animationId = 0;
+
+  }
+
+}
+
+
 /* =========================================================
    MOUNT
 ========================================================= */
@@ -403,7 +446,52 @@ onMounted(() => {
 
   createParticles();
 
-  animate();
+
+  /* Tạm dừng canvas khi hero ra khỏi màn hình */
+  let visibilityObserver = null;
+
+  if (canvas.value && "IntersectionObserver" in window) {
+
+    visibilityObserver = new IntersectionObserver(
+      (entries) => {
+
+        isVisible = entries[0]?.isIntersecting ?? true;
+
+        if (isVisible) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+
+      },
+      {
+        threshold: 0.02,
+      }
+    );
+
+    visibilityObserver.observe(canvas.value);
+
+  }
+
+
+  /* Dừng khi tab ẩn */
+  const handleVisibilityChange = () => {
+
+    if (document.hidden) {
+      stopAnimation();
+    } else {
+      startAnimation();
+    }
+
+  };
+
+  document.addEventListener(
+    "visibilitychange",
+    handleVisibilityChange
+  );
+
+
+  startAnimation();
 
 
   window.addEventListener(
@@ -411,23 +499,24 @@ onMounted(() => {
     resize
   );
 
-});
 
+  onUnmounted(() => {
 
-/* =========================================================
-   UNMOUNT
-========================================================= */
+    stopAnimation();
 
-onUnmounted(() => {
+    visibilityObserver?.disconnect();
 
-  cancelAnimationFrame(
-    animationId
-  );
+    document.removeEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
 
-  window.removeEventListener(
-    "resize",
-    resize
-  );
+    window.removeEventListener(
+      "resize",
+      resize
+    );
+
+  });
 
 });
 

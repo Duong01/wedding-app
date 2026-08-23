@@ -2,7 +2,7 @@
   <section class="hero-section">
 
     <!-- Nền -->
-    <HeroBackground />
+    <!-- <HeroBackground /> -->
 
     <!-- Hiệu ứng -->
     <HeroParticles />
@@ -64,9 +64,9 @@ defineProps({
 
   overflow: hidden;
 
-  background: #7b0d0d;
+  /* background: var(--p-hero-2, #7b0d0d); */
 
-  color: #f8dfad;
+  color: var(--p-gold-light, #f8dfad);
 
   isolation: isolate;
 }
