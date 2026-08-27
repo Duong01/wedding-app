@@ -12,7 +12,7 @@
         class="avatar"
       >
         <v-img
-          :src="person.avatar"
+          :src="person.Avatar"
           cover
         />
       </v-avatar>
@@ -21,17 +21,17 @@
 
     <!-- Name -->
     <h2 class="name">
-      {{ person.name }}
+      {{ person.Name }}
     </h2>
 
     <!-- Job -->
     <div class="job">
-      {{ person.job }}
+      {{ person.Job }}
     </div>
 
     <!-- Description -->
     <p class="description">
-      {{ person.description }}
+      {{ person.Description }}
     </p>
 
     <v-divider class="my-5" />
@@ -47,7 +47,7 @@
 
         <span>Cha:</span>
 
-        <strong>{{ person.father }}</strong>
+        <strong>{{ person.Father }}</strong>
 
       </div>
 
@@ -59,7 +59,7 @@
 
         <span>Mẹ:</span>
 
-        <strong>{{ person.mother }}</strong>
+        <strong>{{ person.Mother }}</strong>
 
       </div>
 
@@ -73,7 +73,7 @@
       <v-btn
         icon
         variant="text"
-        :href="person.facebook"
+        :href="person.Facebook"
         target="_blank"
       >
         <v-icon>
@@ -84,7 +84,7 @@
       <v-btn
         icon
         variant="text"
-        :href="person.instagram"
+        :href="person.Instagram"
         target="_blank"
       >
         <v-icon>
@@ -95,7 +95,7 @@
       <v-btn
         icon
         variant="text"
-        :href="person.tiktok"
+        :href="person.Tiktok"
         target="_blank"
       >
         <v-icon>
@@ -128,30 +128,30 @@ const person = computed(() => {
 
   if (props.type === "groom") {
 
-    return store.wedding.couple?.groom ?? {
-      name: "Nguyễn Đức Huy",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
-      job: "Founder / Product Designer",
-      description: "Người luôn tin rằng một mái ấm hạnh phúc được xây từ sự tử tế, chung tay và yêu thương mỗi ngày.",
-      father: "Ông Nguyễn Văn Minh",
-      mother: "Bà Phạm Thị Hồng",
-      facebook: "#",
-      instagram: "#",
-      tiktok: "#"
+    return store.wedding.couple?.Groom ?? {
+      Name: "Nguyễn Đức Huy",
+      Avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
+      Job: "Founder / Product Designer",
+      Description: "Người luôn tin rằng một mái ấm hạnh phúc được xây từ sự tử tế, chung tay và yêu thương mỗi ngày.",
+      Father: "Ông Nguyễn Văn Minh",
+      Mother: "Bà Phạm Thị Hồng",
+      Facebook: "#",
+      Instagram: "#",
+      Tiktok: "#"
     };
 
   }
 
-  return store.wedding.couple?.bride ?? {
-    name: "Trần Thu Thảo",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80",
-    job: "Brand Strategist",
-    description: "Người yêu những điều nhỏ bé, lãng mạn và luôn muốn biến mỗi ngày trở nên đáng nhớ hơn.",
-    father: "Ông Trần Văn Nam",
-    mother: "Bà Lê Thị Hoa",
-    facebook: "#",
-    instagram: "#",
-    tiktok: "#"
+  return store.wedding.couple?.Bride ?? {
+    Name: "Trần Thu Thảo",
+    Avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80",
+    Job: "Brand Strategist",
+    Description: "Người yêu những điều nhỏ bé, lãng mạn và luôn muốn biến mỗi ngày trở nên đáng nhớ hơn.",
+    Father: "Ông Trần Văn Nam",
+    Mother: "Bà Lê Thị Hoa",
+    Facebook: "#",
+    Instagram: "#",
+    Tiktok: "#"
   };
 
 });

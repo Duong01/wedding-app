@@ -99,7 +99,7 @@ export const useWeddingStore = defineStore("wedding", {
           (item) => {
 
             return {
-              id: item.id,
+              id: item.Id,
 
               slug: item.slug,
 
@@ -119,35 +119,35 @@ export const useWeddingStore = defineStore("wedding", {
                */
               couple: {
 
-                bride: {
+                Bride: {
 
-                  name:
-                    item.couple?.bride?.name ||
+                  Name:
+                    item.couple?.Bride?.Name ||
                     "",
 
-                  nickname:
-                    item.couple?.bride?.nickname ||
+                  Nickname:
+                    item.couple?.Bride?.Nickname ||
                     "",
 
-                  role:
-                    item.couple?.bride?.role ||
+                  Rle:
+                    item.couple?.Bride?.Role ||
                     "Cô dâu",
 
                 },
 
 
-                groom: {
+                Groom: {
 
-                  name:
-                    item.couple?.groom?.name ||
+                  Name:
+                    item.couple?.Groom?.Name ||
                     "",
 
-                  nickname:
-                    item.couple?.groom?.nickname ||
+                  Nickname:
+                    item.couple?.Groom?.Nickname ||
                     "",
 
-                  role:
-                    item.couple?.groom?.role ||
+                  Role:
+                    item.couple?.Groom?.Role ||
                     "Chú rể",
 
                 },
@@ -178,7 +178,7 @@ export const useWeddingStore = defineStore("wedding", {
 
 
         this.error =
-          error?.message ||
+          error?.Message ||
           "Không thể tải danh sách thiệp.";
 
 
@@ -278,7 +278,7 @@ export const useWeddingStore = defineStore("wedding", {
 
 
         this.error =
-          error?.message ||
+          error?.Message ||
           "Không thể tải thiệp cưới.";
 
 

@@ -35,7 +35,7 @@
       </div>
 
       <div class="event-time">
-        {{ firstEvent.time }}
+        {{ firstEvent.Time }}
       </div>
 
 
@@ -43,7 +43,7 @@
 
         <div class="date-side">
           <span>
-            {{ firstEvent.weekday }}
+            {{ firstEvent.Weekday }}
           </span>
         </div>
 
@@ -51,11 +51,11 @@
         <div class="date-center">
 
           <span class="date-number">
-            {{ firstEvent.day }}
+            {{ firstEvent.Day }}
           </span>
 
           <span class="date-month">
-            THÁNG {{ firstEvent.month }}
+            THÁNG {{ firstEvent.Month }}
           </span>
 
         </div>
@@ -63,7 +63,7 @@
 
         <div class="date-side">
           <span>
-            {{ firstEvent.year }}
+            {{ firstEvent.Year }}
           </span>
         </div>
 
@@ -71,10 +71,10 @@
 
 
       <div
-        v-if="firstEvent.lunar"
+        v-if="firstEvent.Lunar"
         class="lunar-date"
       >
-        {{ firstEvent.lunar }}
+        {{ firstEvent.Lunar }}
       </div>
 
     </div>
@@ -108,11 +108,11 @@
       <div class="calendar-header">
 
         <div class="calendar-month">
-          THÁNG {{ firstEvent.month }}
+          THÁNG {{ firstEvent.Month }}
         </div>
 
         <div class="calendar-year">
-          {{ firstEvent.year }}
+          {{ firstEvent.Year }}
         </div>
 
       </div>
@@ -142,14 +142,14 @@
           class="calendar-cell"
           :class="{
             empty: !day,
-            active: day === Number(firstEvent.day),
+            active: day === Number(firstEvent.Day),
           }"
         >
 
           <template v-if="day">
 
             <div
-              v-if="day === Number(firstEvent.day)"
+              v-if="day === Number(firstEvent.Day)"
               class="active-day"
             >
 
@@ -293,8 +293,8 @@ const weekDays = [
 
 const calendarDays = computed(() => {
 
-  const year = Number(firstEvent.value.year);
-  const month = Number(firstEvent.value.month);
+  const year = Number(firstEvent.value.Year);
+  const month = Number(firstEvent.value.Month);
 
   if (!year || !month) {
     return [];
@@ -453,7 +453,7 @@ const calendarDays = computed(() => {
    TITLE DECORATION
 ========================================================= */
 
-.title-decoration {
+.Title-decoration {
   display: flex;
 
   align-items: center;
@@ -471,7 +471,7 @@ const calendarDays = computed(() => {
 }
 
 
-.title-decoration span {
+.Title-decoration span {
   width: 42px;
 
   max-width: 15vw;
@@ -488,7 +488,7 @@ const calendarDays = computed(() => {
 }
 
 
-.title-decoration i {
+.Title-decoration i {
   flex: 0 0 auto;
 
   color: var(--event-gold);

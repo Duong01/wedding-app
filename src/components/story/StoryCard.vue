@@ -18,26 +18,26 @@
     >
       <!-- Image -->
       <v-img
-        :src="story.image"
+        :src="story.Image"
         height="260"
         cover
         class="story-image"
-        :lazy-src="story.image"
+        :lazy-src="story.Image"
       />
 
       <!-- Content -->
       <div class="content">
 
         <div class="date">
-          {{ formatDate(story.date) }}
+          {{ formatDate(story.Date) }}
         </div>
 
         <h3>
-          {{ story.title }}
+          {{ story.Title }}
         </h3>
 
         <p>
-          {{ story.description }}
+          {{ story.Description }}
         </p>
 
       </div>

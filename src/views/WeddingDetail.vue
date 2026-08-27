@@ -73,6 +73,7 @@ import TraditionalRed from "@/themes/TraditionalRed.vue";
 import RomanticPink from "@/themes/RomanticPink.vue";
 import ElegantGold from "@/themes/ElegantGold.vue";
 import ModernWhite from "@/themes/ModernWhite.vue";
+import NhatBinhDo from "@/themes/NhatBinhDo.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -86,12 +87,13 @@ const themes = {
   "romantic-pink": RomanticPink,
   "elegant-gold": ElegantGold,
   "modern-white": ModernWhite,
+  "nhat-binh-do": NhatBinhDo,
 };
 
 const currentTheme = computed(() => {
   const themeName = wedding.value?.theme;
   return themeName
-    ? themes[themeName.name] || null
+    ? themes[themeName.Name] || null
     : null;
 });
 

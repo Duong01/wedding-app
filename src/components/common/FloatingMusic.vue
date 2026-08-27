@@ -43,10 +43,10 @@ const props = defineProps({
   music: {
     type: Object,
     default: () => ({
-      enabled: false,
-      url: "",
-      title: "",
-      autoplay: false,
+      Enabled: false,
+      Url: "",
+      Title: "",
+      Autoplay: false,
     }),
   },
 });
@@ -62,8 +62,8 @@ const {
 
 const musicEnabled = computed(() => {
   return (
-    props.music?.enabled === true &&
-    !!props.music?.url
+    props.music?.Enabled === true &&
+    !!props.music?.Url
   );
 });
 

@@ -25,7 +25,6 @@
       </div>
 
       <!-- LABEL -->
-
       <div class="label">
         {{ item.label }}
       </div>
@@ -67,7 +66,7 @@ const props = defineProps({
 /* =========================================================
    TIME
 ========================================================= */
-
+console.log(props.timeWedding)
 const now = ref(dayjs());
 
 let timer = null;

@@ -16,28 +16,28 @@
             <div
                 class="gift-item"
                 v-for="gift in gifts"
-                :key="gift.id"
+                :key="gift.Id"
             >
 
                 <div class="qr-card">
 
                     <img
-                        :src="gift.qrCode"
+                        :src="gift.QrCode"
                         class="qr-image"
                     />
 
                 </div>
 
                 <div class="bank-name">
-                    {{ gift.bankName }}
+                    {{ gift.BankName }}
                 </div>
 
                 <div class="account-number">
-                    {{ gift.accountNumber }}
+                    {{ gift.AccountNumber }}
                 </div>
 
                 <div class="account-name">
-                    {{ gift.accountName }}
+                    {{ gift.AccountName }}
                 </div>
 
             </div>

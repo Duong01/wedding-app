@@ -8,7 +8,7 @@
 
         v-for="(item,index) in stories"
 
-        :key="item.id"
+        :key="item.Id"
 
         :story="item"
 

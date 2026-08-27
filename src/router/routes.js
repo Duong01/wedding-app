@@ -28,6 +28,13 @@ export default [
     props: true,
   },
 
+  {
+    path: "/:slug/:token",
+    name: "WeddingByApi",
+    component: () => import("@/views/WeddingApi.vue"),
+    props: true,
+  },
+
   // {
   //   path: "/loading",
   //   name: "Loading",

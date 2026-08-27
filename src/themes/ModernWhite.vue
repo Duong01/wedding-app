@@ -9,11 +9,11 @@
         <p class="mw-open-kicker">You are invited to</p>
 
         <h1 class="mw-open-names">
-          {{ wedding?.groomName }}
+          {{ wedding?.GroomName }}
 
           <span>&</span>
 
-          {{ wedding?.brideName }}
+          {{ wedding?.BrideName }}
         </h1>
 
         <div class="mw-rule"></div>
@@ -42,15 +42,15 @@
 
       <section class="mw-hero">
         <p class="mw-hero-kicker">
-          {{ wedding?.hero?.title || "Save The Date" }}
+          {{ wedding?.hero?.Title || "Save The Date" }}
         </p>
 
         <h1 class="mw-hero-name">
-          {{ wedding?.hero?.groomName || wedding?.groomName }}
+          {{ wedding?.hero?.GroomName || wedding?.GroomName }}
         </h1>
 
         <h1 class="mw-hero-name">
-          {{ wedding?.hero?.brideName || wedding?.brideName }}
+          {{ wedding?.hero?.BrideName || wedding?.BrideName }}
         </h1>
 
         <div class="mw-rule"></div>
@@ -94,7 +94,7 @@
 
             <div class="mw-row-body">
               <h3 class="mw-person-name">
-                {{ wedding?.couple?.bride?.name || wedding?.brideName }}
+                {{ wedding?.couple?.bride?.name || wedding?.BrideName }}
               </h3>
 
               <p
@@ -124,7 +124,7 @@
 
             <div class="mw-row-body">
               <h3 class="mw-person-name">
-                {{ wedding?.couple?.groom?.name || wedding?.groomName }}
+                {{ wedding?.couple?.groom?.name || wedding?.GroomName }}
               </h3>
 
               <p
@@ -164,11 +164,11 @@
         <div class="mw-event-list">
           <article
             v-for="event in events"
-            :key="event.id"
+            :key="event.Id"
             class="mw-event"
           >
             <p class="mw-event-title">
-              {{ event.title || "Lễ Thành Hôn" }}
+              {{ event.Title || "Lễ Thành Hôn" }}
             </p>
 
             <div class="mw-event-line">
@@ -223,14 +223,14 @@
         <div class="mw-photo-grid">
           <button
             v-for="(item, index) in gallery.slice(0, 6)"
-            :key="item.id ?? index"
+            :key="item.Id ?? index"
             type="button"
             class="mw-photo"
             @click="openGallery(index)"
           >
             <img
-              :src="item.image"
-              :alt="item.title || 'Ảnh cưới'"
+              :src="item.Image"
+              :alt="item.Title || 'Ảnh cưới'"
               loading="lazy"
             />
 
@@ -256,7 +256,7 @@
         <div class="mw-gift-list">
           <article
             v-for="gift in gifts"
-            :key="gift.id"
+            :key="gift.Id"
             class="mw-gift-card"
           >
             <div class="mw-gift-qr">
@@ -299,11 +299,11 @@
         <div class="mw-wish-list">
           <blockquote
             v-for="wish in wishes"
-            :key="wish.id"
+            :key="wish.Id"
             class="mw-wish"
           >
             <p class="mw-wish-message">
-              {{ wish.message }}
+              {{ wish.Message }}
             </p>
 
             <footer class="mw-wish-meta">
@@ -319,21 +319,21 @@
 
       <footer class="mw-footer">
         <p class="mw-footer-message">
-          {{ wedding?.footer?.message }}
+          {{ wedding?.footer?.Message }}
         </p>
 
         <div class="mw-footer-names">
-          {{ wedding?.footer?.groomName || wedding?.groomName }}
+          {{ wedding?.footer?.GroomName || wedding?.GroomName }}
 
           <em>&</em>
 
-          {{ wedding?.footer?.brideName || wedding?.brideName }}
+          {{ wedding?.footer?.BrideName || wedding?.BrideName }}
         </div>
 
         <div class="mw-rule short"></div>
 
         <p class="mw-footer-copy">
-          © {{ currentYear }} {{ wedding?.footer?.copyright }}
+          © {{ currentYear }} {{ wedding?.footer?.Copyright }}
         </p>
 
         <p class="mw-footer-site">ngaychungdoi.com</p>
@@ -341,7 +341,7 @@
 
       <!-- Nhạc nền nổi -->
       <FloatingMusic
-        v-if="wedding?.music?.enabled && wedding?.settings?.showMusic"
+        v-if="wedding?.music?.Enabled && wedding?.settings?.showMusic"
         ref="floatingMusicRef"
         :music="wedding.music"
       />

@@ -28,7 +28,7 @@ export function useMusic() {
     audio.value.volume = store.volume;
     audio.value.loop = true;
 
-    const src = musicData?.url;
+    const src = musicData?.Url;
 
     if (!src) {
       console.warn(
@@ -95,7 +95,7 @@ export function useMusic() {
 
     console.error(
       "Error message:",
-      el.error?.message
+      el.error?.Message
     );
   }
 
@@ -108,7 +108,7 @@ export function useMusic() {
       return false;
     }
 
-    if (!music.value?.url) {
+    if (!music.value?.Url) {
       console.warn(
         "Không có URL nhạc."
       );

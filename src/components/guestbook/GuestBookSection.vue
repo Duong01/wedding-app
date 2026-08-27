@@ -15,9 +15,9 @@
 
                 <span
                     v-for="item in wishes"
-                    :key="item.id"
+                    :key="item.Id"
                 >
-                    💛 {{ item.name }}: "{{ item.message }}"
+                    💛 {{ item.Name }}: "{{ item.Message }}"
                 </span>
 
             </div>
@@ -57,11 +57,11 @@
             <div
                 class="wish-card"
                 v-for="item in wishes"
-                :key="item.id"
+                :key="item.Id"
             >
 
                 <div class="avatar">
-                    {{ item.name.charAt(0).toUpperCase() }}
+                    {{ item.Name.charAt(0).toUpperCase() }}
                 </div>
 
                 <div class="content">
@@ -69,17 +69,17 @@
                     <div class="head">
 
                         <strong>
-                            {{ item.name }}
+                            {{ item.Name }}
                         </strong>
 
                         <small>
-                            {{ item.created_at }}
+                            {{ item.CreatedAt }}
                         </small>
 
                     </div>
 
                     <p>
-                        {{ item.message }}
+                        {{ item.Message }}
                     </p>
 
                 </div>
@@ -103,7 +103,7 @@ const props = defineProps({
         default: () => []
     }
 })
-const wishes = computed(() => props.guestBook?.guest ?? []);
+const wishes = computed(() => props.guestBook?.Guest ?? []);
 </script>
 
 <style scoped>

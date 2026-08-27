@@ -26,7 +26,7 @@
       <v-row v-else>
         <v-col
           v-for="wedding in weddings"
-          :key="wedding.id"
+          :key="wedding.Id"
           cols="12"
           sm="6"
           md="4"
@@ -50,9 +50,9 @@
             <!-- Thông tin -->
             <div class="wedding-info">
               <h2>
-                {{ wedding.couple?.bride?.name || "" }}
+                {{ wedding.couple?.Bride?.Name || "" }}
                 &
-                {{ wedding.couple?.groom?.name || "" }}
+                {{ wedding.couple?.Groom?.Name || "" }}
               </h2>
 
               <p>
@@ -98,9 +98,9 @@ onMounted(async () => {
 });
 
 function getCoupleName(wedding) {
-  const bride = wedding?.couple?.bride?.name || "";
+  const bride = wedding?.couple?.Bride?.Name || "";
 
-  const groom = wedding?.couple?.groom?.name || "";
+  const groom = wedding?.couple?.Groom?.Name || "";
 
   return `${bride} & ${groom}`;
 }

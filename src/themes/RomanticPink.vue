@@ -55,8 +55,8 @@
             {{ formattedWeddingDate }}
           </div>
 
-          <p v-if="wedding?.opening?.message">
-            {{ wedding.opening.message }}
+          <p v-if="wedding?.opening?.Message">
+            {{ wedding.opening.Message }}
           </p>
 
           <button
@@ -321,7 +321,7 @@
 
             <article
               v-for="(item, index) in storyItems"
-              :key="item.id || index"
+              :key="item.Id || index"
               class="story-item"
             >
 
@@ -336,7 +336,7 @@
                 </span>
 
                 <h3>
-                  {{ item.title }}
+                  {{ item.Title }}
                 </h3>
 
                 <p>
@@ -344,12 +344,12 @@
                 </p>
 
                 <div
-                  v-if="item.image"
+                  v-if="item.Image"
                   class="story-image"
                 >
                   <img
-                    :src="item.image"
-                    :alt="item.title"
+                    :src="item.Image"
+                    :alt="item.Title"
                     loading="lazy"
                   />
                 </div>
@@ -675,7 +675,7 @@
 
             <article
               v-for="(event, index) in events"
-              :key="event.id || index"
+              :key="event.Id || index"
               class="event-card"
             >
 
@@ -702,7 +702,7 @@
               </div>
 
               <h3>
-                {{ event.title || event.type || 'Sự kiện' }}
+                {{ event.Title || event.type || 'Sự kiện' }}
               </h3>
 
               <p class="event-location">
@@ -768,7 +768,7 @@
 
             <button
               v-for="(image, index) in gallery"
-              :key="image.id || index"
+              :key="image.Id || index"
               class="gallery-item"
               :class="{
                 'gallery-large': index % 5 === 0 ||
@@ -881,7 +881,7 @@
               </span>
 
               <h2>
-                {{ location.title || 'Địa điểm tổ chức' }}
+                {{ location.Title || 'Địa điểm tổ chức' }}
               </h2>
 
               <h3>
@@ -953,7 +953,7 @@
           </span>
 
           <h2>
-            {{ dressCode.title || 'Dress Code' }}
+            {{ dressCode.Title || 'Dress Code' }}
           </h2>
 
           <p>
@@ -1013,7 +1013,7 @@
 
             <article
               v-for="(gift, index) in gifts"
-              :key="gift.id || index"
+              :key="gift.Id || index"
               class="gift-card"
             >
 
@@ -1086,7 +1086,7 @@
           </span>
 
           <h2>
-            {{ rsvp.title || 'Bạn sẽ tham dự chứ?' }}
+            {{ rsvp.Title || 'Bạn sẽ tham dự chứ?' }}
           </h2>
 
           <p>
@@ -1135,7 +1135,7 @@
 
             <article
               v-for="(wish, index) in wishes"
-              :key="wish.id || index"
+              :key="wish.Id || index"
               class="wish-card"
             >
 
@@ -1144,7 +1144,7 @@
               </div>
 
               <p>
-                {{ wish.message }}
+                {{ wish.Message }}
               </p>
 
               <strong>
@@ -1286,7 +1286,7 @@
 
             <button
               v-for="(image, index) in gallery"
-              :key="image.id || index"
+              :key="image.Id || index"
               type="button"
               :class="{
                 active:
@@ -1374,7 +1374,7 @@
             </span>
 
             <h2>
-              {{ rsvp?.title || 'Xác nhận tham dự' }}
+              {{ rsvp?.Title || 'Xác nhận tham dự' }}
             </h2>
 
             <p>
@@ -1419,7 +1419,7 @@
               />
 
               <textarea
-                v-model="rsvpForm.message"
+                v-model="rsvpForm.Message"
                 rows="4"
                 placeholder="Lời nhắn..."
               ></textarea>
@@ -1517,13 +1517,13 @@ const bride = computed(() =>
 
 const groomName = computed(() =>
   groom.value?.name ||
-  wedding.value?.groomName ||
+  wedding.value?.GroomName ||
   "Chú rể"
 );
 
 const brideName = computed(() =>
   bride.value?.name ||
-  wedding.value?.brideName ||
+  wedding.value?.BrideName ||
   "Cô dâu"
 );
 
@@ -1538,7 +1538,7 @@ const hasCouple = computed(() =>
 
 const coverImage = computed(() =>
   wedding.value?.coverImage ||
-  wedding.value?.hero?.image ||
+  wedding.value?.hero?.Image ||
   defaultAvatar
 );
 
@@ -1549,7 +1549,7 @@ const coverImage = computed(() =>
 
 const heroSubtitle = computed(() =>
   wedding.value?.hero?.subtitle ||
-  wedding.value?.hero?.title ||
+  wedding.value?.hero?.Title ||
   "WE ARE GETTING MARRIED"
 );
 
@@ -1568,12 +1568,12 @@ const hasInvitation = computed(() =>
 );
 
 const invitationTitle = computed(() =>
-  invitation.value?.title ||
+  invitation.value?.Title ||
   "Trân trọng kính mời"
 );
 
 const invitationMessage = computed(() =>
-  invitation.value?.message ||
+  invitation.value?.Message ||
   invitation.value?.description ||
   "Sự hiện diện của quý vị là niềm vinh hạnh lớn đối với gia đình chúng tôi."
 );
@@ -1777,7 +1777,7 @@ const getGalleryImage = (image) => {
   }
 
   return (
-    image?.image ||
+    image?.Image ||
     image?.url ||
     image?.src ||
     image?.thumbnail ||
@@ -2033,7 +2033,7 @@ const submitRsvp = async () => {
     rsvpForm.name = "";
     rsvpForm.attending = "";
     rsvpForm.guests = 1;
-    rsvpForm.message = "";
+    rsvpForm.Message = "";
 
     rsvpOpen.value = false;
 
@@ -2171,12 +2171,12 @@ const themeStyle = computed(() => {
 ============================================================= */
 
 const footerMessage = computed(() =>
-  wedding.value?.footer?.message ||
+  wedding.value?.footer?.Message ||
   ""
 );
 
 const copyright = computed(() =>
-  wedding.value?.footer?.copyright ||
+  wedding.value?.footer?.Copyright ||
   "Ngày Chung Đôi"
 );
 

@@ -38,13 +38,13 @@
         <!-- ẢNH 1 -->
         <div
           v-for="(item, index) in previewImages.slice(0, 3)"
-          :key="item.id ?? index"
+          :key="item.Id ?? index"
           class="album-item"
           @click="openGallery(index)"
         >
           <img
-            :src="item.image"
-            :alt="item.title || 'Ảnh cưới'"
+            :src="item.Image"
+            :alt="item.Title || 'Ảnh cưới'"
             loading="lazy"
           />
 
@@ -62,8 +62,8 @@
           @click="openGallery(3)"
         >
           <img
-            :src="gallery[3]?.image"
-            :alt="gallery[3]?.title || 'Xem thêm ảnh'"
+            :src="gallery[3]?.Image"
+            :alt="gallery[3]?.Title || 'Xem thêm ảnh'"
             loading="lazy"
           />
 
@@ -490,7 +490,7 @@ background:
    IMAGE SHINE
 ========================================================= */
 
-.image-shine {
+.Image-shine {
   position: absolute;
 
   inset: 0;
@@ -526,7 +526,7 @@ background:
 }
 
 
-.album-item:hover .image-shine {
+.album-item:hover .Image-shine {
   transform:
     translateX(120%);
 }
@@ -901,7 +901,7 @@ background:
 
   .album-item,
   .album-item img,
-  .image-shine,
+  .Image-shine,
   .more-arrow {
     transition: none;
   }

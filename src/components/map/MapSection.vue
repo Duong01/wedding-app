@@ -9,7 +9,7 @@
           TIỆC CƯỚI SẼ TỔ CHỨC TẠI
         </h2>
         <div class="section-subtitle">
-           {{ firstEvent?.address }}
+           {{ firstEvent?.Address }}
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
           </span>
 
           <p>
-            {{ firstEvent?.address || "Địa chỉ tổ chức tiệc cưới" }}
+            {{ firstEvent?.Address || "Địa chỉ tổ chức tiệc cưới" }}
           </p>
         </div>
       </div>
@@ -95,11 +95,11 @@ const firstEvent = computed(() => props.events?.[0] ?? {});
 console.log(firstEvent.value)
 const mapSrcLink = computed(() => {
   const query = firstEvent.value;
-  return `${query.map}`;
+  return `${query.Map}`;
 });
 const mapSrc = computed(() => {
   const query = firstEvent.value;
-  return `${query.map}&output=embed`;
+  return `${query.Map}&output=embed`;
 });
 </script>
 

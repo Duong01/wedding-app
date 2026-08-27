@@ -52,19 +52,19 @@
           <span class="family-role"> NHÀ GÁI </span>
 
           <h3>
-            {{ couple?.bride?.name || "Cô dâu" }}
+            {{ couple?.Bride?.Name || "Cô dâu" }}
           </h3>
 
           <div class="family-divider"></div>
 
-          <p v-if="couple?.bride?.father">
+          <p v-if="couple?.Bride?.Father">
             <span>Ông</span>
-            {{ couple.bride.father }}
+            {{ couple.Bride.Father }}
           </p>
 
-          <p v-if="couple?.bride?.mother">
+          <p v-if="couple?.Bride?.Mother">
             <span>Bà</span>
-            {{ couple.bride.mother }}
+            {{ couple.Bride.Mother }}
           </p>
         </div>
 
@@ -92,19 +92,19 @@
           <span class="family-role"> NHÀ TRAI </span>
 
           <h3>
-            {{ couple?.groom?.name || "Chú rể" }}
+            {{ couple?.Groom?.Name || "Chú rể" }}
           </h3>
 
           <div class="family-divider"></div>
 
-          <p v-if="couple?.groom?.father">
+          <p v-if="couple?.Groom?.Father">
             <span>Ông</span>
-            {{ couple.groom.father }}
+            {{ couple.Groom.Father }}
           </p>
 
-          <p v-if="couple?.groom?.mother">
+          <p v-if="couple?.Groom?.Mother">
             <span>Bà</span>
-            {{ couple.groom.mother }}
+            {{ couple.Groom.Mother }}
           </p>
         </div>
       </div>
@@ -181,16 +181,16 @@ const mainEvent = computed(() => {
 });
 
 const weddingDate = computed(() => {
-  if (mainEvent.value?.date) {
-    return new Date(mainEvent.value.date);
+  if (mainEvent.value?.EventDate) {
+    return new Date(mainEvent.value.EventDate);
   }
 
   return new Date();
 });
 
 const weddingDay = computed(() => {
-  if (mainEvent.value?.day) {
-    return String(mainEvent.value.day).padStart(2, "0");
+  if (mainEvent.value?.Day) {
+    return String(mainEvent.value.Day).padStart(2, "0");
   }
 
   return new Intl.DateTimeFormat("vi-VN", {
@@ -199,8 +199,8 @@ const weddingDay = computed(() => {
 });
 
 const weddingMonth = computed(() => {
-  if (mainEvent.value?.month) {
-    return String(mainEvent.value.month).padStart(2, "0");
+  if (mainEvent.value?.Month) {
+    return String(mainEvent.value.Month).padStart(2, "0");
   }
 
   return new Intl.DateTimeFormat("vi-VN", {
@@ -209,8 +209,8 @@ const weddingMonth = computed(() => {
 });
 
 const weddingYear = computed(() => {
-  if (mainEvent.value?.year) {
-    return mainEvent.value.year;
+  if (mainEvent.value?.Year) {
+    return mainEvent.value.Year;
   }
 
   return new Intl.DateTimeFormat("vi-VN", {
@@ -219,8 +219,8 @@ const weddingYear = computed(() => {
 });
 
 const weddingWeekday = computed(() => {
-  if (mainEvent.value?.weekday) {
-    return mainEvent.value.weekday;
+  if (mainEvent.value?.Weekday) {
+    return mainEvent.value.Weekday;
   }
 
   return new Intl.DateTimeFormat("vi-VN", {
@@ -231,7 +231,7 @@ const weddingWeekday = computed(() => {
 });
 
 const weddingLunar = computed(() => {
-  return mainEvent.value?.lunar || "";
+  return mainEvent.value?.Lunar || "";
 });
 </script>
 

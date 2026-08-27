@@ -1,5 +1,5 @@
 <template>
-  <div class="wedding-page" :data-theme="theme.name" :style="themeStyle">
+  <div class="wedding-page" :data-theme="theme.Name" :style="themeStyle">
     <!-- =====================================================
          OPEN INVITATION
     ====================================================== -->
@@ -40,7 +40,7 @@
             </section>
 
             <section
-              v-if="wedding?.gallery?.length && wedding?.settings?.showGallery"
+              v-if="wedding?.gallery?.length && wedding?.settings?.ShowGallery"
               class="section-reveal"
             >
               <GallerySection :gallery="wedding.gallery" />
@@ -51,7 +51,7 @@
             </section>
           </div>
           <section
-            v-if="wedding?.events?.length && wedding?.settings?.showMap"
+            v-if="wedding?.events?.length && wedding?.settings?.ShowMap"
             class="section-reveal"
           >
             <MapSection :events="wedding.events" />
@@ -59,7 +59,7 @@
 
           <section
             v-if="
-              wedding?.settings?.showGuestBook && wedding?.guestBook?.enabled
+              wedding?.settings?.showGuestBook && wedding?.guestBook?.Enabled
             "
             class="section-reveal"
           >
@@ -67,7 +67,7 @@
           </section>
 
           <section
-            v-if="wedding?.settings?.showGift && wedding?.gifts?.length"
+            v-if="wedding?.settings?.ShowGift && wedding?.gifts?.length"
             class="section-reveal"
           >
             <GiftSection :gifts="wedding.gifts" />
@@ -81,7 +81,7 @@
 
       <!-- Floating music nằm ngoài thiệp -->
       <FloatingMusic
-        v-if="wedding?.music?.enabled && wedding?.settings?.showMusic"
+        v-if="wedding?.music?.Enabled && wedding?.settings?.ShowMusic"
         ref="floatingMusicRef"
         :music="wedding.music"
       />

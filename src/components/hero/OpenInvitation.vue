@@ -16,13 +16,13 @@
       :groom-name="wedding.groomName"
       :bride-name="wedding.brideName"
       :groom-image="
-        wedding.couple?.groom?.avatar || defaultAvatar
+        wedding.couple?.Groom?.Avatar || defaultAvatar
       "
       :bride-image="
-        wedding.couple?.bride?.avatar || defaultAvatar
+        wedding.couple?.Bride?.Avatar || defaultAvatar
       "
       :wedding-date="wedding.weddingDate"
-      :address="wedding.hero?.location || getLocation"
+      :address="wedding.hero?.Location || getLocation"
       @open="openInvitation"
     />
   </section>
@@ -63,11 +63,11 @@ const theme = computed(() => {
 });
 
 const colors = computed(() => {
-  return theme.value?.colors || {};
+  return theme.value?.Colors || {};
 });
 
 const fonts = computed(() => {
-  return theme.value?.fonts || {};
+  return theme.value?.Fonts || {};
 });
 
 
@@ -82,44 +82,44 @@ const backgroundImage = computed(() => {
 
 
 const getLocation = computed(() => {
-  return props.wedding?.hero?.location || "";
+  return props.wedding?.hero?.Location || "";
 });
 
 
 const themeStyle = computed(() => {
   return {
-    "--primary": colors.value.primary || "#7b0d0d",
-    "--secondary": colors.value.secondary || "#9d2525",
+    "--primary": colors.value.Primary || "#7b0d0d",
+    "--secondary": colors.value.Secondary || "#9d2525",
 
-    "--accent": colors.value.accent || "#c79d5c",
+    "--accent": colors.value.Accent || "#c79d5c",
     "--accent-light":
-      colors.value.accentLight || "#f7d8a3",
+      colors.value.AccentLight || "#f7d8a3",
 
     "--background":
-      colors.value.background || "#f8f5ed",
+      colors.value.Background || "#f8f5ed",
 
     "--background-secondary":
-      colors.value.backgroundSecondary || "#eee8dc",
+      colors.value.BackgroundSecondary || "#eee8dc",
 
     "--text":
-      colors.value.text || "#5c4d46",
+      colors.value.Text || "#5c4d46",
 
     "--text-secondary":
-      colors.value.textSecondary || "#806f66",
+      colors.value.TextSecondary || "#806f66",
 
     "--white":
-      colors.value.white || "#fffaf4",
+      colors.value.White || "#fffaf4",
 
     "--font-main":
-      fonts.value.main ||
+      fonts.value.Main ||
       "Cormorant Garamond",
 
     "--font-heading":
-      fonts.value.heading ||
+      fonts.value.Heading ||
       "Cormorant Garamond",
 
     "--font-script":
-      fonts.value.script ||
+      fonts.value.Script ||
       "Allura",
   };
 });

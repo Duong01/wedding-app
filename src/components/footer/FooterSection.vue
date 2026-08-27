@@ -9,17 +9,17 @@
 
       <!-- Message -->
       <p
-        v-if="wedding.message"
+        v-if="wedding.Message"
         class="footer-message"
       >
-        {{ wedding.message }}
+        {{ wedding.Message }}
       </p>
 
       <!-- Couple -->
       <div class="couple-wrapper">
 
         <div class="couple-name">
-          {{ wedding.groomName }}
+          {{ wedding.GroomName }}
         </div>
 
         <div class="couple-symbol">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="couple-name">
-          {{ wedding.brideName }}
+          {{ wedding.BrideName }}
         </div>
 
       </div>
@@ -38,7 +38,7 @@
       <!-- Copyright -->
       <div class="copyright">
         © {{ currentYear }}
-        {{ wedding.copyright }}
+        {{ wedding.Copyright }}
       </div>
 
       <div class="website">
@@ -282,7 +282,7 @@ const currentYear = new Date().getFullYear();
    COPYRIGHT
    ========================================================= */
 
-.copyright {
+.Copyright {
   font-family: var(--font-main);
 
   font-size: var(--text-xs);

@@ -23,13 +23,13 @@
 
 
         <div class="person-name">
-          {{ hero.groomName }}
+          {{ hero.GroomName }}
         </div>
 
         <div class="ampersand">&</div>
 
         <div class="person-name">
-          {{ hero.brideName }}
+          {{ hero.BrideName }}
         </div>
       </div>
 
@@ -64,7 +64,7 @@
           <span class="meta-label"> Save the Date </span>
 
           <span class="meta-value">
-            {{ formatDate(hero.weddingDate) }}
+            {{ formatDate(hero.WeddingDate) }}
           </span>
         </div>
 
@@ -80,7 +80,7 @@
           <span class="meta-label"> Wedding Ceremony </span>
 
           <span class="meta-location">
-            {{ hero.location }}
+            {{ hero.Location }}
           </span>
         </div>
       </div>
@@ -90,7 +90,7 @@
       ========================================== -->
 
       <div class="countdown-wrapper">
-        <HeroCountdown :time-wedding="hero.weddingDate" />
+        <HeroCountdown :timeWedding="hero.WeddingDate" />
       </div>
     </div>
   </div>
@@ -383,10 +383,6 @@ function formatDate(date) {
   // background: linear-gradient(90deg, transparent, var(--accent, #c79d5c));
 
   opacity: 0.7;
-}
-
-.ornament-line:last-child {
-  // background: linear-gradient(90deg, var(--accent, #c79d5c), transparent);
 }
 
 /* =========================================================

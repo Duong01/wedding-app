@@ -106,13 +106,13 @@
       >
         <SwiperSlide
           v-for="(item, index) in images"
-          :key="`main-${item.id || index}`"
+          :key="`main-${item.Id || index}`"
           class="main-slide"
         >
           <div class="main-photo">
             <img
-              :src="item.image"
-              :alt="item.title || `Ảnh cưới ${index + 1}`"
+              :src="item.Image"
+              :alt="item.Title || `Ảnh cưới ${index + 1}`"
               draggable="false"
               decoding="async"
               :class="{
@@ -142,10 +142,10 @@
     ====================================================== -->
 
     <div
-      v-if="images[currentIndex]?.title"
+      v-if="images[currentIndex]?.Title"
       class="gallery-caption"
     >
-      {{ images[currentIndex].title }}
+      {{ images[currentIndex].Title }}
     </div>
 
     <!-- =====================================================
@@ -201,7 +201,7 @@
       >
         <SwiperSlide
           v-for="(item, index) in images"
-          :key="`thumbnail-${item.id || index}`"
+          :key="`thumbnail-${item.Id || index}`"
           class="thumbnail-slide"
           :class="{
             active: currentIndex === index,
@@ -215,7 +215,7 @@
           >
             <div class="thumbnail-image">
               <img
-                :src="item.image"
+                :src="item.Image"
                 :alt="`Ảnh ${index + 1}`"
                 loading="lazy"
                 decoding="async"
@@ -535,7 +535,7 @@ function preloadAroundCurrent() {
   ];
 
   indexes.forEach((index) => {
-    const src = props.images[index]?.image;
+    const src = props.images[index]?.Image;
 
     if (!src) {
       return;

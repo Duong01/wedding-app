@@ -79,9 +79,9 @@ async function loadWedding(){
 
       const res=await weddingApi.getWedding()
 
-      groomName.value=res.data.groomName || "Nguyễn Văn A"
+      groomName.value=res.data.GroomName || "Nguyễn Văn A"
 
-      brideName.value=res.data.brideName || "Trần Thị B"
+      brideName.value=res.data.BrideName || "Trần Thị B"
 
     */
 
@@ -217,7 +217,7 @@ onMounted(async()=>{
 
 }
 
-.title{
+.Title{
 
     // font-size:34px;
 
@@ -229,7 +229,7 @@ onMounted(async()=>{
 
 }
 
-.title span{
+.Title span{
 
     color:#e91e63;
 
@@ -269,7 +269,7 @@ padding:30px 20px;
 
 }
 
-.title{
+.Title{
 
 // font-size:24px;
 
