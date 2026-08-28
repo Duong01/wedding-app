@@ -178,7 +178,12 @@
         "Icon": "✧"
       }
     ],
-
+    "recipientName": [
+      {
+        "token": "X7kP92mQa",
+        "Name": "Bạn Dương"
+      }
+    ],
     "gifts": [
       {
         "Id": 1,
@@ -409,7 +414,7 @@
         "Icon": "✧"
       }
     ],
-
+    "recipientName": [],
     "gifts": [
       {
         "Id": 1,
@@ -625,7 +630,7 @@
         "Icon": "✧"
       }
     ],
-
+    "recipientName": [],
     "gifts": [
       {
         "Id": 1,
@@ -841,7 +846,7 @@
         "Icon": "✧"
       }
     ],
-
+    "recipientName": [],
     "gifts": [
       {
         "Id": 1,
@@ -931,6 +936,681 @@
         "Script": "Allura"
       },
 
+      "Layout": {
+        "MaxWidth": "900px",
+        "SectionPadding": "80px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Thu Hà",
+        "Nickname": "Hà",
+        "Role": "Cô dâu",
+        "Avatar": "/images/bride.jpg",
+        "Cover": "/images/bride-cover.jpg",
+        "Father": "Ngô Văn Bình",
+        "Mother": "Phạm Thu Hương",
+        "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
+        "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
+      },
+      "Groom": {
+        "Name": "Minh Quân",
+        "Nickname": "Quân",
+        "Role": "Chú rể",
+        "Avatar": "/images/groom.jpg",
+        "Cover": "/images/groom-cover.jpg",
+        "Father": "Đặng Trọng Nghĩa",
+        "Mother": "Vũ Thị Mai",
+        "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
+        "Description": "Tối giản nhưng không đơn điệu, chân thành mỗi ngày."
+      }
+    },
+
+    "hero": {
+      "GroomName": "Minh Quân",
+      "BrideName": "Thu Hà",
+      "Title": "Save The Date",
+      "WeddingDate": "2026-11-28T11:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "/images/hero.jpg",
+      "Music": "/music/wedding.mp3",
+      "Location": "The Garden Studio, Hà Nội"
+    },
+
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+    },
+
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "28",
+        "Month": "11",
+        "Year": "2026",
+        "EventDate": "2026-11-28",
+        "EventTime": "11:00",
+        "Lunar": "",
+        "Location": "The Garden Studio",
+        "Address": "24 Tăng Bạt Hổ, Hai Bà Trưng, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0144,105.8524",
+        "ReceptionTime": "17:30",
+        "CeremonyTime": "18:00"
+      }
+    ],
+
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "08:00",
+        "Title": "Chuẩn bị đón khách",
+        "Description": "Cô dâu chú rể chuẩn bị những khoảnh khắc đầu tiên.",
+        "Location": "Tư gia nhà gái",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "09:30",
+        "Title": "Làm lễ gia tiên",
+        "Description": "Nghi thức gia tiên và trao gửi lời chúc phúc.",
+        "Location": "Tư gia",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "11:00",
+        "Title": "Đón khách",
+        "Description": "Trân trọng đón tiếp quý khách đến chung vui.",
+        "Location": "Sảnh tiệc cưới",
+        "Icon": "♡"
+      },
+      {
+        "Id": 4,
+        "Time": "11:30",
+        "Title": "Khai tiệc",
+        "Description": "Cùng nhau nâng ly chúc mừng hạnh phúc đôi uyên ương.",
+        "Location": "Nhà hàng tiệc cưới",
+        "Icon": "✦"
+      },
+      {
+        "Id": 5,
+        "Time": "12:00",
+        "Title": "Chụp ảnh lưu niệm",
+        "Description": "Lưu lại những khoảnh khắc đáng nhớ cùng gia đình và bạn bè.",
+        "Location": "Sảnh tiệc",
+        "Icon": "✧"
+      }
+    ],
+    "recipientName": {
+      "token": "X7kP92mQa",
+      "Name": "Dương"
+    },
+
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Gửi lời chúc kèm món quà nhỏ.",
+        "BankName": "MB Bank",
+        "AccountName": "NGÔ THU HÀ",
+        "AccountNumber": "0401123456789",
+        "QrCode": "/images/qr-bank.png"
+      },
+      {
+        "Id": 2,
+        "Name": "Chuyển khoản",
+        "Description": "Gửi lời chúc kèm món quà nhỏ.",
+        "BankName": "MB Bank",
+        "AccountName": "NGÔ THU HÀ",
+        "AccountNumber": "0401123456789",
+        "QrCode": "/images/qr-bank.png"
+      }
+    ],
+
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ Lưu Bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Khánh Chi",
+          "Message": "Chúc hai bạn bình yên bên nhau 🌿",
+          "CreatedAt": "09:30 20/11/2026"
+        }
+      ]
+    },
+
+    "countdown": {
+      "Enabled": true,
+      "Target": "2026-11-28T11:00:00"
+    },
+
+    "footer": {
+      "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
+      "Copyright": "Thu Hà & Minh Quân",
+      "GroomName": "Minh Quân",
+      "BrideName": "Thu Hà"
+    },
+
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Title": "",
+      "Autoplay": false
+    }
+  },
+  {
+    "Id": 6,
+    "slug": "royal-red",
+    "GroomName": "Minh Quân",
+    "BrideName": "Thu Hà",
+    "language": "vi",
+    "WeddingDate": "2026-11-28T11:00:00",
+    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "theme": {
+      "Name": "royal-red",
+      "Colors": {
+        "Primary": "#5c080c",
+        "Secondary": "#8c171b",
+        "Accent": "#d0a85c",
+        "AccentLight": "#f4dca5",
+        "Background": "#f4eee2",
+        "BackgroundSecondary": "#e7decd",
+        "Text": "#49352d",
+        "TextSecondary": "#79645a",
+        "White": "#fff9ed"
+      },
+      "Fonts": {
+        "Main": "Cinzel",
+        "Heading": "Cinzel",
+        "Script": "Great Vibes"
+      },
+      "Layout": {
+        "MaxWidth": "900px",
+        "SectionPadding": "85px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Thu Hà",
+        "Nickname": "Hà",
+        "Role": "Cô dâu",
+        "Avatar": "/images/bride.jpg",
+        "Cover": "/images/bride-cover.jpg",
+        "Father": "Ngô Văn Bình",
+        "Mother": "Phạm Thu Hương",
+        "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
+        "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
+      },
+      "Groom": {
+        "Name": "Minh Quân",
+        "Nickname": "Quân",
+        "Role": "Chú rể",
+        "Avatar": "/images/groom.jpg",
+        "Cover": "/images/groom-cover.jpg",
+        "Father": "Đặng Trọng Nghĩa",
+        "Mother": "Vũ Thị Mai",
+        "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
+        "Description": "Tối giản nhưng không đơn điệu, chân thành mỗi ngày."
+      }
+    },
+
+    "hero": {
+      "GroomName": "Minh Quân",
+      "BrideName": "Thu Hà",
+      "Title": "Save The Date",
+      "WeddingDate": "2026-11-28T11:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "/images/hero.jpg",
+      "Music": "/music/wedding.mp3",
+      "Location": "The Garden Studio, Hà Nội"
+    },
+
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+    },
+
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "28",
+        "Month": "11",
+        "Year": "2026",
+        "EventDate": "2026-11-28",
+        "EventTime": "11:00",
+        "Lunar": "",
+        "Location": "The Garden Studio",
+        "Address": "24 Tăng Bạt Hổ, Hai Bà Trưng, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0144,105.8524",
+        "ReceptionTime": "17:30",
+        "CeremonyTime": "18:00"
+      }
+    ],
+
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "08:00",
+        "Title": "Chuẩn bị đón khách",
+        "Description": "Cô dâu chú rể chuẩn bị những khoảnh khắc đầu tiên.",
+        "Location": "Tư gia nhà gái",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "09:30",
+        "Title": "Làm lễ gia tiên",
+        "Description": "Nghi thức gia tiên và trao gửi lời chúc phúc.",
+        "Location": "Tư gia",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "11:00",
+        "Title": "Đón khách",
+        "Description": "Trân trọng đón tiếp quý khách đến chung vui.",
+        "Location": "Sảnh tiệc cưới",
+        "Icon": "♡"
+      },
+      {
+        "Id": 4,
+        "Time": "11:30",
+        "Title": "Khai tiệc",
+        "Description": "Cùng nhau nâng ly chúc mừng hạnh phúc đôi uyên ương.",
+        "Location": "Nhà hàng tiệc cưới",
+        "Icon": "✦"
+      },
+      {
+        "Id": 5,
+        "Time": "12:00",
+        "Title": "Chụp ảnh lưu niệm",
+        "Description": "Lưu lại những khoảnh khắc đáng nhớ cùng gia đình và bạn bè.",
+        "Location": "Sảnh tiệc",
+        "Icon": "✧"
+      }
+    ],
+    "recipientName": {
+      "token": "X7kP92mQa",
+      "Name": "Dương"
+    },
+
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Gửi lời chúc kèm món quà nhỏ.",
+        "BankName": "MB Bank",
+        "AccountName": "NGÔ THU HÀ",
+        "AccountNumber": "0401123456789",
+        "QrCode": "/images/qr-bank.png"
+      },
+      {
+        "Id": 2,
+        "Name": "Chuyển khoản",
+        "Description": "Gửi lời chúc kèm món quà nhỏ.",
+        "BankName": "MB Bank",
+        "AccountName": "NGÔ THU HÀ",
+        "AccountNumber": "0401123456789",
+        "QrCode": "/images/qr-bank.png"
+      }
+    ],
+
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ Lưu Bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Khánh Chi",
+          "Message": "Chúc hai bạn bình yên bên nhau 🌿",
+          "CreatedAt": "09:30 20/11/2026"
+        }
+      ]
+    },
+
+    "countdown": {
+      "Enabled": true,
+      "Target": "2026-11-28T11:00:00"
+    },
+
+    "footer": {
+      "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
+      "Copyright": "Thu Hà & Minh Quân",
+      "GroomName": "Minh Quân",
+      "BrideName": "Thu Hà"
+    },
+
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Title": "",
+      "Autoplay": false
+    }
+  },
+  {
+    "Id": 7,
+    "slug": "dong-son",
+    "GroomName": "Minh Quân",
+    "BrideName": "Thu Hà",
+    "language": "vi",
+    "WeddingDate": "2026-11-28T11:00:00",
+    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "theme": {
+      "Name": "dong-son",
+      "Colors": {
+        "Primary": "#762d1f",
+        "Secondary": "#984a32",
+        "Accent": "#b9824b",
+        "AccentLight": "#e3c18d",
+        "Background": "#f3eadc",
+        "BackgroundSecondary": "#e5d8c4",
+        "Text": "#49372d",
+        "TextSecondary": "#806b5c",
+        "White": "#fffaf1"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cinzel",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "900px",
+        "SectionPadding": "80px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Thu Hà",
+        "Nickname": "Hà",
+        "Role": "Cô dâu",
+        "Avatar": "/images/bride.jpg",
+        "Cover": "/images/bride-cover.jpg",
+        "Father": "Ngô Văn Bình",
+        "Mother": "Phạm Thu Hương",
+        "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
+        "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
+      },
+      "Groom": {
+        "Name": "Minh Quân",
+        "Nickname": "Quân",
+        "Role": "Chú rể",
+        "Avatar": "/images/groom.jpg",
+        "Cover": "/images/groom-cover.jpg",
+        "Father": "Đặng Trọng Nghĩa",
+        "Mother": "Vũ Thị Mai",
+        "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
+        "Description": "Tối giản nhưng không đơn điệu, chân thành mỗi ngày."
+      }
+    },
+
+    "hero": {
+      "GroomName": "Minh Quân",
+      "BrideName": "Thu Hà",
+      "Title": "Save The Date",
+      "WeddingDate": "2026-11-28T11:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "/images/hero.jpg",
+      "Music": "/music/wedding.mp3",
+      "Location": "The Garden Studio, Hà Nội"
+    },
+
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+    },
+
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "28",
+        "Month": "11",
+        "Year": "2026",
+        "EventDate": "2026-11-28",
+        "EventTime": "11:00",
+        "Lunar": "",
+        "Location": "The Garden Studio",
+        "Address": "24 Tăng Bạt Hổ, Hai Bà Trưng, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0144,105.8524",
+        "ReceptionTime": "17:30",
+        "CeremonyTime": "18:00"
+      }
+    ],
+
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "08:00",
+        "Title": "Chuẩn bị đón khách",
+        "Description": "Cô dâu chú rể chuẩn bị những khoảnh khắc đầu tiên.",
+        "Location": "Tư gia nhà gái",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "09:30",
+        "Title": "Làm lễ gia tiên",
+        "Description": "Nghi thức gia tiên và trao gửi lời chúc phúc.",
+        "Location": "Tư gia",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "11:00",
+        "Title": "Đón khách",
+        "Description": "Trân trọng đón tiếp quý khách đến chung vui.",
+        "Location": "Sảnh tiệc cưới",
+        "Icon": "♡"
+      },
+      {
+        "Id": 4,
+        "Time": "11:30",
+        "Title": "Khai tiệc",
+        "Description": "Cùng nhau nâng ly chúc mừng hạnh phúc đôi uyên ương.",
+        "Location": "Nhà hàng tiệc cưới",
+        "Icon": "✦"
+      },
+      {
+        "Id": 5,
+        "Time": "12:00",
+        "Title": "Chụp ảnh lưu niệm",
+        "Description": "Lưu lại những khoảnh khắc đáng nhớ cùng gia đình và bạn bè.",
+        "Location": "Sảnh tiệc",
+        "Icon": "✧"
+      }
+    ],
+    "recipientName": {
+      "token": "X7kP92mQa",
+      "Name": "Dương"
+    },
+
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Gửi lời chúc kèm món quà nhỏ.",
+        "BankName": "MB Bank",
+        "AccountName": "NGÔ THU HÀ",
+        "AccountNumber": "0401123456789",
+        "QrCode": "/images/qr-bank.png"
+      },
+      {
+        "Id": 2,
+        "Name": "Chuyển khoản",
+        "Description": "Gửi lời chúc kèm món quà nhỏ.",
+        "BankName": "MB Bank",
+        "AccountName": "NGÔ THU HÀ",
+        "AccountNumber": "0401123456789",
+        "QrCode": "/images/qr-bank.png"
+      }
+    ],
+
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ Lưu Bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Khánh Chi",
+          "Message": "Chúc hai bạn bình yên bên nhau 🌿",
+          "CreatedAt": "09:30 20/11/2026"
+        }
+      ]
+    },
+
+    "countdown": {
+      "Enabled": true,
+      "Target": "2026-11-28T11:00:00"
+    },
+
+    "footer": {
+      "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
+      "Copyright": "Thu Hà & Minh Quân",
+      "GroomName": "Minh Quân",
+      "BrideName": "Thu Hà"
+    },
+
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Title": "",
+      "Autoplay": false
+    }
+  },
+  {
+    "Id": 8,
+    "slug": "ivory-gold",
+    "GroomName": "Minh Quân",
+    "BrideName": "Thu Hà",
+    "language": "vi",
+    "WeddingDate": "2026-11-28T11:00:00",
+    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "theme": {
+      "Name": "ivory-gold",
+      "Colors": {
+        "Primary": "#6f2528",
+        "Secondary": "#91484a",
+        "Accent": "#c9a66b",
+        "AccentLight": "#f0ddb5",
+        "Background": "#faf7ef",
+        "BackgroundSecondary": "#f0ebe0",
+        "Text": "#51433c",
+        "TextSecondary": "#82746b",
+        "White": "#fffdf8"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Ballet"
+      },
       "Layout": {
         "MaxWidth": "900px",
         "SectionPadding": "80px"

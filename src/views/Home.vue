@@ -1,6 +1,5 @@
 <template>
   <section class="wedding-list">
-    <v-container>
       <div class="page-header">
         <div class="sub-title">Wedding Invitation</div>
 
@@ -66,7 +65,6 @@
           </article>
         </v-col>
       </v-row>
-    </v-container>
   </section>
 </template>
 

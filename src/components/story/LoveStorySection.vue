@@ -4,7 +4,6 @@
     class="story-section"
   >
 
-    <v-container>
 
       <!-- Title -->
 
@@ -32,7 +31,6 @@
 
       <StoryTimeline />
 
-    </v-container>
 
   </section>
 </template>

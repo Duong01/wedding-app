@@ -15,6 +15,7 @@
       :guest-name="guestName"
       :groom-name="wedding.groomName"
       :bride-name="wedding.brideName"
+      :events="wedding.events"
       :groom-image="
         wedding.couple?.Groom?.Avatar || defaultAvatar
       "
@@ -23,6 +24,7 @@
       "
       :wedding-date="wedding.weddingDate"
       :address="wedding.hero?.Location || getLocation"
+      :recipientName="wedding.recipientName"
       @open="openInvitation"
     />
   </section>

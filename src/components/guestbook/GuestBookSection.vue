@@ -1,7 +1,6 @@
 <template>
   <section class="guestbook-section">
 
-    <v-container class="container-md">
         
          <h2 class="section-title">
             SỔ LƯU BÚT
@@ -88,7 +87,6 @@
 
         </div>
 
-    </v-container>
 
 </section>
 </template>
@@ -192,151 +190,375 @@ color:rgba(255,255,255,.55);
 
 }
 
-.action{
+.action {
+    display: flex;
 
-display:flex;
-justify-content:flex-end;
+    justify-content: center;
+    align-items: center;
 
+    width: 100%;
+
+    margin-top: 4px;
 }
 
-.wish-list{
+.primary-btn {
+    width: min(100%, 360px);
 
-max-height:250px;
+    min-height: 48px;
 
-    overflow-y:auto;
+    padding: 12px 28px;
 
-    display:flex;
+    border: 1px solid rgba(255, 239, 190, .8);
 
-    flex-direction:column;
+    border-radius: 999px;
 
-    gap:18px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffe9b5 0%,
+            #e5c27d 50%,
+            #cda45f 100%
+        );
 
-    padding-right:8px;
+    color: var(--p-deep, #7b0d0d);
 
-    scroll-behavior:smooth;
+    font-family: var(--font-main);
 
-}
-.wish-list::-webkit-scrollbar{
-    width:8px;
-}
+    font-size: var(--text-sm);
 
-.wish-list::-webkit-scrollbar-track{
-    background:rgba(255,255,255,.08);
-    border-radius:20px;
-}
+    font-weight: 700;
 
-.wish-list::-webkit-scrollbar-thumb{
-    background:var(--p-gold, #d8b46d);
-    border-radius:20px;
-}
-.wish-card{
-padding: 10px;
-display:flex;
-gap:18px;
-background:rgba(255,255,255,.08);
-border-radius:22px;
-border:1px solid rgba(255,255,255,.18);
-backdrop-filter:blur(12px);
-transition:.35s;
+    letter-spacing: .3px;
 
-}
+    cursor: pointer;
 
-.wish-card:hover{
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, .20),
+        inset 0 1px 0 rgba(255, 255, 255, .5);
 
-transform:translateY(-4px);
-
-background:rgba(255,255,255,.12);
-
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease;
 }
 
-.avatar{
 
-width:58px;
-height:58px;
-border-radius:50%;
-background:var(--p-gold, #d8b46d);
-color:var(--p-deep, #7b0d0d);
-font-family:var(--font-heading);
-font-size:var(--text-lg);
-font-weight:bold;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-shrink:0;
+/* Hover */
 
+.primary-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 9px 24px rgba(0, 0, 0, .28),
+        0 0 18px rgba(238, 202, 122, .18),
+        inset 0 1px 0 rgba(255, 255, 255, .55);
 }
 
-.content{
 
-flex:1;
+/* Click */
 
+.primary-btn:active {
+    transform: scale(.97);
 }
 
-.head{
+/* =========================================================
+   WISH LIST
+========================================================= */
 
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:10px;
+.wish-list {
+    max-height: 250px;
 
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding: 2px 6px 2px 2px;
+
+    scroll-behavior: smooth;
 }
 
-.head strong{
 
-font-family:var(--font-main);
-font-size:var(--text-md);
-color:#fff;
+/* =========================================================
+   SCROLLBAR
+========================================================= */
 
+.wish-list::-webkit-scrollbar {
+    width: 5px;
 }
 
-.head small{
+.wish-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, .06);
 
-color:#ffe2b8;
-
+    border-radius: 20px;
 }
 
-.content p{
+.wish-list::-webkit-scrollbar-thumb {
+    background: rgba(216, 180, 109, .7);
 
-margin:0;
-color:#fff;
-line-height:1.8;
-
+    border-radius: 20px;
 }
 
-@media(max-width:768px){
 
-.guestbook-form{
+/* =========================================================
+   WISH CARD
+========================================================= */
 
-padding:20px;
+.wish-card {
+    display: flex;
 
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 11px 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, .095),
+            rgba(255, 255, 255, .045)
+        );
+
+    border: 1px solid rgba(255, 226, 174, .14);
+
+    border-radius: 13px;
+
+    backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 3px 12px rgba(35, 0, 0, .10);
+
+    transition:
+        background .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
 }
 
-.wish-card{
+.wish-card:hover {
+    transform: translateY(-2px);
 
-gap:14px;
+    background:
+        rgba(255, 255, 255, .11);
 
+    border-color:
+        rgba(255, 220, 155, .28);
 }
 
-.avatar{
 
-width:48px;
-height:48px;
+/* =========================================================
+   AVATAR
+========================================================= */
 
+.avatar {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f2d38d,
+            #c79d5c
+        );
+
+    color: var(--p-deep, #7b0d0d);
+
+    font-family: var(--font-heading);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, .18);
 }
 
-.head{
 
-flex-direction:column;
-align-items:flex-start;
-gap:4px;
+/* =========================================================
+   CONTENT
+========================================================= */
 
+.content {
+    flex: 1;
+
+    min-width: 0;
 }
 
-.wish-track span{
 
-margin-right:45px;
+/* =========================================================
+   HEADER
+========================================================= */
 
+.head {
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 3px;
+
+    line-height: 1.2;
 }
 
+.head strong {
+    min-width: 0;
+
+    color: #fff;
+
+    font-family: var(--font-main);
+
+    font-size: var(--text-sm);
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.head small {
+    flex-shrink: 0;
+
+    color: rgba(255, 226, 184, .62);
+
+    font-family: var(--font-main);
+
+    font-size: 10px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.content p {
+    margin: 0;
+
+    color: rgba(255, 245, 232, .88);
+
+    font-family: var(--font-main);
+
+    font-size: var(--text-xs);
+
+    line-height: 1.5;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+    .primary-btn {
+        width: 100%;
+
+        min-height: 46px;
+
+        padding: 11px 20px;
+
+        font-size: 13px;
+    }
+    .wish-list {
+        max-height: 230px;
+
+        gap: 8px;
+
+        padding-right: 4px;
+    }
+
+    .wish-card {
+        gap: 9px;
+
+        padding: 9px 10px;
+
+        border-radius: 11px;
+    }
+
+    .avatar {
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+
+        font-size: 13px;
+    }
+
+    .head {
+        gap: 6px;
+
+        margin-bottom: 2px;
+    }
+
+    .head strong {
+        font-size: 12px;
+    }
+
+    .head small {
+        font-size: 9px;
+    }
+
+    .content p {
+        font-size: 11px;
+
+        line-height: 1.45;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .wish-card {
+        padding: 8px 9px;
+
+        gap: 8px;
+    }
+
+    .avatar {
+        width: 31px;
+        height: 31px;
+
+        flex-basis: 31px;
+
+        font-size: 12px;
+    }
+
+    .head strong {
+        font-size: 11px;
+    }
+
+    .head small {
+        font-size: 8px;
+    }
+
+    .content p {
+        font-size: 10px;
+    }
 }
 </style>

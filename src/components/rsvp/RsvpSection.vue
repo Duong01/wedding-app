@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <v-container>
+
       <div class="section-header">
         <div class="sub-title">RSVP</div>
         <h2>Xác Nhận Tham Dự</h2>
@@ -16,7 +16,6 @@
           <v-btn color="pink" size="large" block class="submit-btn">Xác nhận</v-btn>
         </v-form>
       </div>
-    </v-container>
   </section>
 </template>
 

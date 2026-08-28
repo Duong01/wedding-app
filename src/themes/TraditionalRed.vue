@@ -24,6 +24,7 @@
         <HeroSection
           v-if="wedding?.hero"
           :hero="wedding.hero"
+          :recipientName="wedding.recipientName"
           class="section-reveal hero-reveal"
         />
 
@@ -36,6 +37,7 @@
                 v-if="wedding?.couple"
                 :couple="wedding.couple"
                 :events="wedding.events"
+                
               />
             </section>
 
@@ -46,20 +48,34 @@
               <GallerySection :gallery="wedding.gallery" />
             </section>
 
-            <section v-if="wedding?.events?.length" class="section-reveal">
+            <section v-if="wedding?.settings?.ShowEvents" class="section-reveal">
               <EventSection :events="wedding.events" />
             </section>
           </div>
           <section
-            v-if="wedding?.events?.length && wedding?.settings?.ShowMap"
+            v-if="wedding?.settings?.ShowMap"
             class="section-reveal"
           >
             <MapSection :events="wedding.events" />
           </section>  
 
           <section
+          v-if="wedding?.settings?.ShowTimeline && wedding?.events.length"
+          class="section-reveal"
+          >
+
+            <Timeline
+              :timeline="wedding.timeline"
+              :events="wedding.events"
+              :countdown="wedding.countdown"
+              :settings="wedding.settings"
+            />
+
+          </section>
+
+          <section
             v-if="
-              wedding?.settings?.showGuestBook && wedding?.guestBook?.Enabled
+              wedding?.settings?.ShowGuestBook && wedding?.guestBook?.Enabled
             "
             class="section-reveal"
           >
@@ -98,6 +114,7 @@ import HighlightsSection from "@/components/common/HighlightsSection.vue";
 import GallerySection from "@/components/gallery/GallerySection.vue";
 import EventSection from "@/components/event/EventSection.vue";
 import MapSection from "@/components/map/MapSection.vue";
+import Timeline from "@/components/timeline/TimelineSection.vue";
 import GuestBookSection from "@/components/guestbook/GuestBookSection.vue";
 import GiftSection from "@/components/gift/GiftSection.vue";
 import FooterSection from "@/components/footer/FooterSection.vue";
@@ -182,8 +199,27 @@ onBeforeUnmount(() => {
    PAGE - NỀN TOÀN BỘ THIỆP
 ========================================================= */
 .bg-content {
+  position: relative;
+
   background: url("@/assets/bg-frame.jpg") center / cover;
+
+  border: 1px solid rgba(231, 193, 119, .55);
+
+  border-radius: 16px;
+
+  /*
+   * Viền ngoài + viền trong rất nhẹ
+   */
+  box-shadow:
+    0 0 0 1px rgba(123, 13, 13, .65),
+    0 0 0 4px rgba(231, 193, 119, .07),
+    0 10px 35px rgba(35, 5, 5, .18),
+    inset 0 0 0 1px rgba(255, 227, 177, .10);
+
+  overflow: hidden;
+
 }
+
 .wedding-page {
   /* =====================================================
      PALETTE - Á ĐÔNG (đỏ son & vàng kim)
@@ -588,7 +624,6 @@ onBeforeUnmount(() => {
       var(--p-primary-dark) 100%
     );
   }
-
   .invitation-device {
     width: 100%;
 

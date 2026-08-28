@@ -1,5 +1,5 @@
 ﻿<template>
-  <v-container class="location-section">
+  <div class="location-section">
     <!-- Header -->
     <div class="location-header">
       
@@ -78,7 +78,7 @@
     </div>
 
   </div>
-</v-container>
+</div>
 </template>
 
 <script setup>
@@ -121,7 +121,6 @@ const mapSrc = computed(() => {
 
 .location-section {
   padding-top: 60px;
-  padding-bottom: 70px;
 }
 
 /* Card */
@@ -188,7 +187,6 @@ const mapSrc = computed(() => {
   text-align: center;
   margin-bottom: 4px;
 
-  font-family: var(--font-main);
   font-size: var(--text-sm);
   font-weight: 700;
 
@@ -388,7 +386,6 @@ const mapSrc = computed(() => {
 
   .location-section {
     padding-top: 40px;
-    padding-bottom: 50px;
   }
 
   .location-card {

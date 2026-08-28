@@ -1,8 +1,6 @@
 <template>
   <section class="gift-section">
 
-    <v-container>
-
         <div class="section-subtitle">
             Mừng cưới
         </div>
@@ -44,7 +42,6 @@
 
         </div>
 
-    </v-container>
 
 </section>
 </template>
@@ -95,54 +92,280 @@ async function copy(text){
     margin-bottom:10px;
 }
 
-.gift-grid{
+/* =========================================================
+   GIFT GRID
+   → LUÔN 2 QR TRÊN CÙNG 1 DÒNG
+========================================================= */
 
-    position:relative;
+.gift-grid {
+    position: relative;
 
-    display:flex;
-    justify-content:center;
-    gap:45px;
-    flex-wrap:wrap;
+    width: 100%;
+    max-width: 620px;
 
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    align-items: start;
+
+    justify-content: center;
+
+    gap: clamp(14px, 5vw, 45px);
+
+    padding: 0 10px;
+
+    box-sizing: border-box;
 }
 
-.gift-item{
 
-    text-align:center;
+/* =========================================================
+   GIFT ITEM
+========================================================= */
+
+.gift-item {
+    min-width: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
 }
 
-.qr-card{
 
-    width:170px;
-    height:170px;
+/* =========================================================
+   QR CARD
+   → TỰ CO THEO MÀN HÌNH
+========================================================= */
 
-    background:#fff;
+.qr-card {
+    /*
+     * Desktop tối đa 170px
+     * Mobile tự giảm nhưng KHÔNG BAO GIỜ làm rớt dòng
+     */
+    width: min(170px, 100%);
 
-    border-radius:18px;
+    aspect-ratio: 1 / 1;
 
-    padding:10px;
+    height: auto;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: clamp(6px, 2vw, 10px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.25),
+        0 8px 25px rgba(0, 0, 0, .25),
         inset 0 0 0 2px #ececec;
 
-    transition:.3s;
+    animation: float 4s ease-in-out infinite;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
 }
 
-.qr-card:hover{
 
-    transform:translateY(-6px);
+/* =========================================================
+   QR IMAGE
+========================================================= */
+
+.qr-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    min-width: 0;
 }
 
-.qr-image{
 
-    width:100%;
-    height:100%;
-    object-fit:contain;
+/* =========================================================
+   TEXT
+========================================================= */
+
+.bank-name {
+    width: 100%;
+
+    margin-top: 8px;
+
+    color: var(--p-gold-light, #f8dfad);
+
+    font-family: var(--font-main);
+
+    font-size: var(--text-sm);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.account-number {
+    width: 100%;
+
+    margin-top: 5px;
+
+    color: #fff;
+
+    font-family: var(--font-heading);
+
+    font-variant-numeric: lining-nums;
+
+    font-size: var(--text-sm);
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.account-name {
+    width: 100%;
+
+    margin-top: 6px;
+
+    color: var(--p-gold-light, #f8dfad);
+
+    font-family: var(--font-main);
+
+    font-size: var(--text-xs);
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.qr-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, .30),
+        inset 0 0 0 2px #ececec;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .gift-grid {
+        width: 100%;
+
+        max-width: 100%;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 16px;
+
+        padding:
+            0 6px;
+    }
+
+    .qr-card {
+        width: min(145px, 100%);
+
+        border-radius: 14px;
+
+        padding: 7px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .gift-grid {
+        gap: 10px;
+
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    .qr-card {
+        width: min(125px, 100%);
+
+        border-radius: 12px;
+
+        padding: 6px;
+    }
+
+    .bank-name {
+        font-size: 11px;
+    }
+
+    .account-number {
+        font-size: 11px;
+
+        letter-spacing: .5px;
+    }
+
+    .account-name {
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   FLOAT ANIMATION
+========================================================= */
+
+.qr-card:nth-child(2) {
+    animation-delay: .8s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
 }
 
 .bank-name{
@@ -212,17 +435,6 @@ async function copy(text){
 }
 
 @media(max-width:768px){
-
-    .gift-grid{
-
-        gap:28px;
-    }
-
-    .qr-card{
-
-        width:145px;
-        height:145px;
-    }
 
     .copy-btn{
 

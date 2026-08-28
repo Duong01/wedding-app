@@ -1,7 +1,6 @@
 <template>
   <section class="couple-section" id="couple">
 
-    <v-container>
 
       <!-- Section Title -->
       <div class="section-header">
@@ -44,7 +43,6 @@
 
       </v-row>
 
-    </v-container>
 
   </section>
 </template>

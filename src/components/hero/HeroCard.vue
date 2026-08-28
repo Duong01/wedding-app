@@ -54,9 +54,23 @@
             <span></span>
           </div>
 
-          <!-- Guest -->
-          <div class="guest">
-            {{ guestName }}
+          <div
+            v-if="recipient"
+            class="red-card__guest"
+          >
+            <span class="red-card__guest-label">
+              Trân trọng kính mời
+            </span>
+
+            <div class="red-card__guest-name">
+              <span class="guest-line"></span>
+
+              <strong>
+                {{ recipient }}
+              </strong>
+
+              <span class="guest-line"></span>
+            </div>
           </div>
 
           <!-- Names -->
@@ -78,7 +92,10 @@
 
           <!-- Date -->
           <div class="date">
-            {{ formattedDate }}
+            Vào lúc: {{ getevents.EventTime }}
+          </div>
+          <div class="date">
+            {{getevents.Weekday}} , {{ formattedDate }}
           </div>
 
           <!-- Divider -->
@@ -95,10 +112,7 @@
           </div>
 
           <!-- Invitation -->
-          <div class="invitation-text">
-            Trân trọng kính mời
-          </div>
-
+          
           <!-- Address -->
           <div
             v-if="displayAddress"
@@ -158,10 +172,7 @@ import dragonImage from "@/assets/phuong.webp";
 import phoenixImage from "@/assets/rong.webp";
 
 const props = defineProps({
-  guestName: {
-    type: String,
-    default: "Kính mời"
-  },
+
 
   groomName: {
     type: String,
@@ -191,11 +202,30 @@ const props = defineProps({
   address: {
     type: String,
     default: ""
+  },
+  recipientName:{
+    type: Object,
+    default: ()=>{}
+  },
+  events:{
+    type: Object,
+    default: ()=>[{}]
   }
 });
 
 defineEmits(["open"]);
 
+const getevents = computed(() => {
+  return props.events?.[0] ?? {};
+});
+const recipient = computed(() => {
+
+  const firstRecipient =
+    props.recipientName?.[0];
+
+  return firstRecipient?.Name || null;
+
+});
 const formattedDate = computed(() => {
   if (!props.weddingDate) {
     return "";
@@ -244,6 +274,134 @@ const displayAddress = computed(() => {
 
   isolation: isolate;
 }
+
+/* =========================================================
+   GUEST NAME - HIGHLIGHT
+========================================================= */
+
+.red-card__guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  margin: 4px 0 11px;
+
+  position: relative;
+
+  z-index: 15;
+}
+
+/* Trân trọng kính mời */
+
+.red-card__guest-label {
+  color: rgba(248, 223, 173, .82);
+
+  font-size: var(--text-sm);
+
+  line-height: 1.3;
+
+  margin-bottom: 5px;
+
+  letter-spacing: .04em;
+
+  text-shadow:
+    0 1px 5px rgba(0, 0, 0, .5);
+}
+
+
+/* Tên khách */
+
+.red-card__guest-name {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  gap: 8px;
+}
+
+
+/* Đường trang trí */
+
+.guest-line {
+  width: 24px;
+  height: 1px;
+
+  flex-shrink: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #f1d18b
+    );
+
+  opacity: .85;
+}
+
+.guest-line:last-child {
+  transform: rotate(180deg);
+}
+
+
+/* Tên người được mời */
+
+.red-card__guest-name strong {
+  position: relative;
+
+  display: inline-block;
+
+  max-width: 82%;
+
+  padding: 5px 16px 6px;
+
+  border-radius: 999px;
+
+  color: #fff1c5;
+
+  font-family: var(--font-heading);
+
+  font-size: clamp(13px, 4vw, 17px);
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: .025em;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, .75),
+    0 0 12px rgba(255, 220, 140, .25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(104, 12, 17, .95),
+      rgba(125, 19, 20, .8),
+      rgba(91, 8, 13, .95)
+    );
+
+  border: 1px solid rgba(239, 204, 125, .72);
+
+  box-shadow:
+    0 3px 12px rgba(35, 3, 3, .3),
+    inset 0 1px 0 rgba(255, 241, 190, .15);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+
 
 
 /* =========================================================
@@ -450,20 +608,6 @@ const displayAddress = computed(() => {
   justify-content: center;
 
   text-align: center;
-
-  /*
-   * Vùng trung tâm hơi tối hơn nền
-   * nhưng vẫn trong suốt.
-   */
-
-  /* background:
-    radial-gradient(
-      ellipse at center,
-      rgba(77, 5, 8, .56) 0%,
-      rgba(77, 5, 8, .30) 52%,
-      rgba(77, 5, 8, 0) 78%
-    ); */
-
   border-radius: 45%;
 
   padding: 20px 12px;
@@ -483,13 +627,6 @@ const displayAddress = computed(() => {
   height: 280px;
 
   border-radius: 50%;
-
-  /* background:
-    radial-gradient(
-      circle,
-      rgba(232, 191, 110, .12),
-      transparent 68%
-    ); */
 
   filter: blur(10px);
 
@@ -636,8 +773,6 @@ const displayAddress = computed(() => {
 
   line-height: 1;
 
-  /* box-shadow:
-    0 4px 18px rgba(234, 195, 116, .25); */
 }
 
 
@@ -686,21 +821,6 @@ const displayAddress = computed(() => {
 }
 
 
-/* =========================================================
-   GUEST
-========================================================= */
-
-.guest {
-  margin-bottom: 5px;
-
-  color: var(--p-gold-light, #f8dfad);
-
-  font-size: var(--text-sm);
-
-  letter-spacing: 1px;
-
-  white-space: nowrap;
-}
 
 
 /* =========================================================
@@ -755,7 +875,7 @@ const displayAddress = computed(() => {
   margin-top: 9px;
 
   color: var(--p-gold-light, #f8dfad);
-
+  font-variant-numeric: lining-nums;
   font-size: var(--text-md);
 
   white-space: nowrap;
@@ -802,7 +922,7 @@ const displayAddress = computed(() => {
   color: var(--p-gold, #e7c47a);
 
   font-family: var(--font-symbol);
-
+  font-variant-numeric: lining-nums;
   font-size: var(--text-xs);
 }
 
@@ -1122,6 +1242,30 @@ const displayAddress = computed(() => {
   }
 
 
+.red-card__guest {
+    margin: 3px 0 9px;
+  }
+
+  .red-card__guest-label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .red-card__guest-name {
+    gap: 6px;
+  }
+
+  .guest-line {
+    width: 16px;
+  }
+
+  .red-card__guest-name strong {
+    max-width: 85%;
+
+    padding: 5px 12px;
+
+    font-size: 16px;
+  }
   /* -------------------------
      CENTER
   ------------------------- */
@@ -1239,9 +1383,16 @@ const displayAddress = computed(() => {
 
     height: 43px;
   }
+  .red-card__guest-name strong {
+    font-size: 14px;
+    padding: 4px 10px;
+  }
+
+  .guest-line {
+    width: 12px;
+  }
 
 }
-
 
 /* =========================================================
    SHORT SCREEN

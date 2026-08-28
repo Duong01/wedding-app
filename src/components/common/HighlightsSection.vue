@@ -28,7 +28,7 @@
       ==================================================== -->
 
       <header class="event-header">
-        <span class="section-subtitle"> TRÂN TRỌNG KÍNH MỜI </span>
+        
         <h2 class="event-title">
           THÔNG TIN TIỆC CƯỚI
         </h2>
@@ -170,12 +170,23 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  recipientName:{
+    type: Object,
+    default: ()=>{}
+  }
 });
 
 /* =========================================================
    WEDDING DATE
 ========================================================= */
+const recipient = computed(() => {
 
+  const firstRecipient =
+    props.recipientName?.[0];
+
+  return firstRecipient?.Name || null;
+
+});
 const mainEvent = computed(() => {
   return props.events?.[0] || null;
 });
@@ -770,6 +781,8 @@ const weddingLunar = computed(() => {
 
   font-size: 8px;
 }
+
+
 
 /* =========================================================
    EVENT TIME

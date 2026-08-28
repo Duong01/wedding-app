@@ -33,6 +33,25 @@
         </div>
       </div>
 
+      <div
+        v-if="recipient"
+        class="red-card__guest"
+      >
+        <span class="red-card__guest-label">
+          Trân trọng kính mời
+        </span>
+
+        <div class="red-card__guest-name">
+          <span class="guest-line"></span>
+
+          <strong>
+            {{ recipient }}
+          </strong>
+
+          <span class="guest-line"></span>
+        </div>
+      </div>
+
       <!-- =========================================
            ORNAMENT
       ========================================== -->
@@ -50,7 +69,7 @@
       ========================================== -->
 
       <p class="subtitle">
-        Sự hiện diện của các bạn là niềm vui lớn nhất của chúng mình
+        Sự hiện diện của bạn là niềm vui lớn nhất của chúng mình
       </p>
 
       <!-- =========================================
@@ -99,14 +118,18 @@
 
 <script setup>
 import dayjs from "dayjs";
-
+import {computed} from 'vue'
 import HeroCountdown from "./HeroCountdown.vue";
 import crossImage from "@/assets/chu-hy.webp";
-defineProps({
+const props = defineProps({
   hero: {
     type: Object,
     required: true,
   },
+  recipientName:{
+    type: Object,
+    default: ()=>{}
+  }
 });
 
 function formatDate(date) {
@@ -114,6 +137,15 @@ function formatDate(date) {
 
   return dayjs(date).format("DD.MM.YYYY");
 }
+
+const recipient = computed(() => {
+
+  const firstRecipient =
+    props.recipientName?.[0];
+
+  return firstRecipient?.Name || null;
+
+});
 </script>
 
 
@@ -171,6 +203,124 @@ function formatDate(date) {
 /* =========================================================
    EYEBROW
 ========================================================= */
+
+
+
+.red-card__guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  margin: 4px 0 11px;
+
+  position: relative;
+
+  z-index: 15;
+}
+
+/* Trân trọng kính mời */
+
+.red-card__guest-label {
+  color: rgba(248, 223, 173, .82);
+
+  font-size: var(--text-sm);
+
+  line-height: 1.3;
+
+  margin-bottom: 5px;
+
+  letter-spacing: .04em;
+
+  text-shadow:
+    0 1px 5px rgba(0, 0, 0, .5);
+}
+
+
+/* Tên khách */
+
+.red-card__guest-name {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  gap: 8px;
+}
+
+
+/* Đường trang trí */
+
+.guest-line {
+  width: 24px;
+  height: 1px;
+
+  flex-shrink: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #f1d18b
+    );
+
+  opacity: .85;
+}
+
+.guest-line:last-child {
+  transform: rotate(180deg);
+}
+
+
+/* Tên người được mời */
+
+.red-card__guest-name strong {
+  position: relative;
+
+  display: inline-block;
+
+  max-width: 82%;
+
+  padding: 5px 16px 6px;
+
+  border-radius: 999px;
+
+  color: #fff1c5;
+
+  font-family: var(--font-heading);
+
+  font-size: clamp(17px, 4vw, 24px);
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: .025em;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(104, 12, 17, .95),
+      rgba(125, 19, 20, .8),
+      rgba(91, 8, 13, .95)
+    );
+
+  border: 1px solid rgba(239, 204, 125, .72);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+
 
 .eyebrow {
   margin-bottom: clamp(14px, 2vh, 22px);

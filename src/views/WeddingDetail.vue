@@ -74,6 +74,9 @@ import RomanticPink from "@/themes/RomanticPink.vue";
 import ElegantGold from "@/themes/ElegantGold.vue";
 import ModernWhite from "@/themes/ModernWhite.vue";
 import NhatBinhDo from "@/themes/NhatBinhDo.vue";
+import IvoryGold from "@/themes/IvoryGold.vue";
+import RoyalRed from "@/themes/RoyalRed.vue";
+import DongSon from "@/themes/DongSon.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -88,6 +91,9 @@ const themes = {
   "elegant-gold": ElegantGold,
   "modern-white": ModernWhite,
   "nhat-binh-do": NhatBinhDo,
+  "ivory-gold": IvoryGold,
+  "royal-red": RoyalRed,
+  "dong-son": DongSon,
 };
 
 const currentTheme = computed(() => {

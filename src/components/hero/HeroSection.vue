@@ -26,7 +26,7 @@
 
     <!-- Nội dung -->
     <div class="hero-content-wrapper">
-      <HeroContent :hero="hero" />
+      <HeroContent :hero="hero" :recipientName="recipientName" />
     </div>
 
     <!-- Decorative bottom -->
@@ -45,6 +45,10 @@ defineProps({
     type: Object,
     required: true,
   },
+  recipientName:{
+    type: Object,
+    default: ()=>{}
+  }
 });
 </script>
 
