@@ -5,6 +5,9 @@ import https from "./https"
  export const GetWedding = (slug, token) => {
   return https.Get( `/wedding/${encodeURIComponent(slug)}/${encodeURIComponent(token)}` );
 };
+export const Confirm= (param, success, error) =>{
+  return https.Post(`/wedding/confirm`, param, success, error);
+}
 
 
  

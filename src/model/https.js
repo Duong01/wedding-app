@@ -54,8 +54,23 @@ function Get(url, params = {}) {
     params,
   });
 }
-function Post(url, params = {}) {
-  return api.post(url, params);
+function Post(url, params = {}, success, error) {
+  return api
+    .post(url, params)
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
 }
 
 function GetNew(url, params = {}) {

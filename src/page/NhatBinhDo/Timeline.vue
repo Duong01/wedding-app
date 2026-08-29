@@ -39,7 +39,7 @@
 
         <!-- TIME -->
         <div class="timeline-time">
-          {{ item.time }}
+          {{ item.Time }}
         </div>
 
 
@@ -47,7 +47,7 @@
         <div class="timeline-center">
 
           <span class="timeline-dot">
-            <span>{{ item.icon }}</span>
+            <span>{{ item.Icon }}</span>
           </span>
 
           <span
@@ -66,18 +66,18 @@
           </div>
 
           <p
-            v-if="item.description"
+            v-if="item.Description"
             class="timeline-description"
           >
-            {{ item.description }}
+            {{ item.Description }}
           </p>
 
           <div
-            v-if="item.location"
+            v-if="item.Location"
             class="timeline-location"
           >
             <span>⌖</span>
-            {{ item.location }}
+            {{ item.Location }}
           </div>
 
         </div>
@@ -140,40 +140,40 @@ const items = computed(() => {
     props.timeline?.length
       ? props.timeline
       : props.events;
-
+  
   return (source || [])
     .map((item, index) => {
 
       const data = item || {};
 
       return {
-        id: data.Id || index,
+        Id: data.Id || index,
 
-        time:
+        Time:
           data.Time ||
           data.StartTime ||
           data.EventTime ||
           "",
 
-        title:
+        Title:
           data.Title ||
           data.Name ||
           data.TypeLabel ||
           "Lịch trình",
 
-        description:
+        Description:
           data.Description ||
           data.Content ||
           data.Text ||
           "",
 
-        location:
+        Location:
           data.Location ||
           data.Address ||
           data.Venue ||
           "",
 
-        icon:
+        Icon:
           data.Icon ||
           getDefaultIcon(data.ype),
       };
@@ -188,7 +188,6 @@ const items = computed(() => {
     });
 
 });
-
 
 function getDefaultIcon(type) {
 

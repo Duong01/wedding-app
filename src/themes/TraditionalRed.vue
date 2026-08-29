@@ -49,7 +49,7 @@
             </section>
 
             <section v-if="wedding?.settings?.ShowEvents" class="section-reveal">
-              <EventSection :events="wedding.events" />
+              <EventSection :events="wedding.events" :recipientName="wedding.recipientName" />
             </section>
           </div>
           <section

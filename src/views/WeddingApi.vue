@@ -22,7 +22,7 @@
       <div class="error-content">
         <div class="error-icon">♥</div>
 
-        <h1>Không tìm thấy thiệp</h1>
+        <h1>Thiệp này chưa được đăng ký</h1>
 
         <p>Thiệp cưới bạn đang tìm kiếm không tồn tại hoặc đã được thay đổi.</p>
 
@@ -49,7 +49,7 @@
         <p>
           Theme
           <strong>
-            {{ wedding?.theme?.name || "unknown" }}
+            {{ wedding?.theme?.Name || "unknown" }}
           </strong>
           chưa được đăng ký.
         </p>
@@ -136,37 +136,18 @@ const currentTheme = computed(() => {
 
 async function loadWedding() {
   const slug = route.params.slug;
-
   const token = route.params.token;
 
-  /* ---------------------------------------------------------
-     Kiểm tra URL
-  --------------------------------------------------------- */
-
+  // Kiểm tra slug
   if (typeof slug !== "string" || !slug.trim()) {
     store.wedding = null;
-
     store.error = "Đường dẫn thiệp không hợp lệ.";
-
     return;
   }
 
-  if (typeof token !== "string" || !token.trim()) {
-    store.wedding = null;
-
-    store.error = "Đường dẫn thiệp không hợp lệ.";
-
-    return;
-  }
-
-  /* ---------------------------------------------------------
-     Reset dữ liệu cũ
-  --------------------------------------------------------- */
-
+  // Reset dữ liệu cũ
   store.wedding = null;
-
   store.error = null;
-
   store.loading = true;
 
   try {
@@ -175,33 +156,25 @@ async function loadWedding() {
       token,
     });
 
-    /* -------------------------------------------------------
-       Gọi API
-       
-       /api/wedding/{slug}/{token}
-    ------------------------------------------------------- */
+    let response;
 
-    const response = await GetWedding(slug, token);
+    if (typeof token === "string" && token.trim()) {
+      // Có token
+      response = await GetWedding(slug, token);
+    } else {
+      // Không có token
+      response = await GetWedding(slug);
+    }
 
     console.log("Wedding API response:", response);
 
     const result = response?.data;
 
-    /* -------------------------------------------------------
-       Kiểm tra response
-    ------------------------------------------------------- */
-
     if (!result || result.status !== "success" || !result.data) {
       store.wedding = null;
-
-      store.error = result?.Message || "Không tìm thấy thiệp.";
-
+      store.error = result?.message || "Thiệp này chưa được đăng ký.";
       return;
     }
-
-    /* -------------------------------------------------------
-       Gán dữ liệu wedding
-    ------------------------------------------------------- */
 
     store.wedding = result.data;
   } catch (error) {
@@ -209,45 +182,27 @@ async function loadWedding() {
 
     store.wedding = null;
 
-    /* -------------------------------------------------------
-       HTTP 404
-    ------------------------------------------------------- */
-
     if (error?.response?.status === 404) {
-      store.error = "Không tìm thấy thiệp.";
-
+      store.error = "Thiệp này chưa được đăng ký.";
       return;
     }
-
-    /* -------------------------------------------------------
-       HTTP 400
-    ------------------------------------------------------- */
 
     if (error?.response?.status === 400) {
       store.error = "Đường dẫn thiệp không hợp lệ.";
-
       return;
     }
-
-    /* -------------------------------------------------------
-       HTTP 500
-    ------------------------------------------------------- */
 
     if (error?.response?.status >= 500) {
       store.error = "Máy chủ đang gặp sự cố. Vui lòng thử lại sau.";
-
       return;
     }
-
-    /* -------------------------------------------------------
-       Lỗi khác
-    ------------------------------------------------------- */
 
     store.error = "Không thể tải dữ liệu thiệp.";
   } finally {
     store.loading = false;
   }
 }
+
 
 /* =========================================================
    WATCH URL
