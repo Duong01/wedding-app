@@ -1,0 +1,1 @@
+﻿<template><ThemeSection kind='events' :wedding="wedding" :label="label" @open="$emit('open')" /></template><script setup>import ThemeSection from '@/page/ThemeBase/ThemeSection.vue'; defineEmits(['open']); defineProps({ wedding: { type: Object, required: true }, label: { type: String, default: 'The wedding day' } });</script>

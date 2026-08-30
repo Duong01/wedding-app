@@ -1,10 +1,10 @@
-export default [
+﻿export default [
   {
     path: "/",
     name: "Home",
     component: () => import("@/views/Home.vue"),
     meta: {
-      title: "Ngày chung đôi",
+      title: "Ngày chung ",
     },
   },
 
@@ -23,3 +23,4 @@ export default [
   },
 
 ];
+
