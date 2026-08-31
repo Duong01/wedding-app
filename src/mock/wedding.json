@@ -261,10 +261,10 @@
   {
     "Id": 2,
     "slug": "minh-anh-quoc-huy",
-    "GroomName": "Quốc Huy",
-    "BrideName": "Minh Anh",
+    "groomName": "Quốc Huy",
+    "brideName": "Minh Anh",
     "language": "vi",
-    "WeddingDate": "2026-12-06T17:00:00",
+    "weddingDate": "2026-12-06T17:00:00",
     "coverImage": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80",
     "theme": {
       "Name": "romantic-pink",
@@ -477,8 +477,8 @@
   {
     "Id": 3,
     "slug": "ngoc-linh-hai-dang",
-    "GroomName": "Hải Đăng",
-    "BrideName": "Ngọc Linh",
+    "groomName": "Hải Đăng",
+    "brideName": "Ngọc Linh",
     "language": "vi",
     "WeddingDate": "2027-01-09T18:30:00",
     "coverImage": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=1600&q=80",
@@ -693,10 +693,10 @@
   {
     "Id": 4,
     "slug": "thu-ha-minh-quan",
-    "GroomName": "Minh Quân",
-    "BrideName": "Thu Hà",
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà",
     "language": "vi",
-    "WeddingDate": "2026-11-28T11:00:00",
+    "weddingDate": "2026-11-28T11:00:00",
     "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
     "theme": {
       "Name": "modern-white",
@@ -908,10 +908,10 @@
   {
     "Id": 5,
     "slug": "thu-ha-minh-quan1",
-    "GroomName": "Minh Quân",
-    "BrideName": "Thu Hà",
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà",
     "language": "vi",
-    "WeddingDate": "2026-11-28T11:00:00",
+    "weddingDate": "2026-11-28T11:00:00",
     "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
     "theme": {
       "Name": "nhat-binh-do",
@@ -1138,10 +1138,10 @@
   {
     "Id": 6,
     "slug": "royal-red",
-    "GroomName": "Minh Quân",
-    "BrideName": "Thu Hà",
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà",
     "language": "vi",
-    "WeddingDate": "2026-11-28T11:00:00",
+    "weddingDate": "2026-11-28T11:00:00",
     "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
     "theme": {
       "Name": "royal-red",
@@ -1203,9 +1203,10 @@
     },
 
     "story": {
-      "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
-    },
+    "Title": "Chuyện tình chúng mình",
+    "Description": "Chúng mình gặp nhau giữa những ngày tháng bình thường, rồi từ lúc nào chẳng hay, một người trở thành điều đặc biệt trong cuộc đời người kia. Cùng nhau đi qua những ngày vui, những lúc khó khăn, cùng sẻ chia những ước mơ và bình dị vun đắp cho tương lai. Sau tất cả những chặng đường đã qua, chúng mình chọn nắm tay nhau bước tiếp — không chỉ trong một ngày, mà là cùng nhau đi qua cả một đời."
+  },
+
 
     "events": [
       {
@@ -1247,47 +1248,48 @@
     ],
 
     "timeline": [
-      {
-        "Id": 1,
-        "Time": "08:00",
-        "Title": "Chuẩn bị đón khách",
-        "Description": "Cô dâu chú rể chuẩn bị những khoảnh khắc đầu tiên.",
-        "Location": "Tư gia nhà gái",
-        "Icon": "♡"
-      },
-      {
-        "Id": 2,
-        "Time": "09:30",
-        "Title": "Làm lễ gia tiên",
-        "Description": "Nghi thức gia tiên và trao gửi lời chúc phúc.",
-        "Location": "Tư gia",
-        "Icon": "囍"
-      },
-      {
-        "Id": 3,
-        "Time": "11:00",
-        "Title": "Đón khách",
-        "Description": "Trân trọng đón tiếp quý khách đến chung vui.",
-        "Location": "Sảnh tiệc cưới",
-        "Icon": "♡"
-      },
-      {
-        "Id": 4,
-        "Time": "11:30",
-        "Title": "Khai tiệc",
-        "Description": "Cùng nhau nâng ly chúc mừng hạnh phúc đôi uyên ương.",
-        "Location": "Nhà hàng tiệc cưới",
-        "Icon": "✦"
-      },
-      {
-        "Id": 5,
-        "Time": "12:00",
-        "Title": "Chụp ảnh lưu niệm",
-        "Description": "Lưu lại những khoảnh khắc đáng nhớ cùng gia đình và bạn bè.",
-        "Location": "Sảnh tiệc",
-        "Icon": "✧"
-      }
-    ],
+  {
+    "Id": 1,
+    "Time": "14/02/2021",
+    "Title": "Gặp Gỡ",
+    "Description": "Giữa những ngày tháng bình dị, chúng mình tình cờ gặp nhau và bắt đầu một câu chuyện mà chẳng ai biết sẽ đi xa đến đâu.",
+    "Location": "Ngày đầu tiên",
+    "Icon": "♡"
+  },
+  {
+    "Id": 2,
+    "Time": "20/03/2021",
+    "Title": "Thương Nhau",
+    "Description": "Từ những cuộc trò chuyện đầu tiên, chúng mình dần trở thành một phần đặc biệt trong cuộc sống của nhau.",
+    "Location": "Những ngày đầu yêu thương",
+    "Icon": "♥"
+  },
+  {
+    "Id": 3,
+    "Time": "14/02/2024",
+    "Title": "Nên Duyên",
+    "Description": "Sau những tháng ngày cùng nhau sẻ chia vui buồn, chúng mình quyết định nắm tay nhau bước tiếp trên một hành trình dài hơn.",
+    "Location": "Lời hẹn trăm năm",
+    "Icon": "囍"
+  },
+  {
+    "Id": 4,
+    "Time": "08/08/2026",
+    "Title": "Chung Vui",
+    "Description": "Ngày hôm nay, tình yêu của chúng mình được sẻ chia cùng gia đình, bạn bè và những người thân yêu nhất.",
+    "Location": "Ngày trọng đại",
+    "Icon": "✦"
+  },
+  {
+    "Id": 5,
+    "Time": "08/08/2026",
+    "Title": "Mãi Bên Nhau",
+    "Description": "Từ hôm nay và mãi về sau, chúng mình sẽ cùng nhau viết tiếp những chương đẹp nhất của câu chuyện mang tên hạnh phúc.",
+    "Location": "Một đời yêu thương",
+    "Icon": "✧"
+  }
+],
+
     "recipientName": {
       "token": "X7kP92mQa",
       "Name": "Dương"
@@ -1363,10 +1365,10 @@
   {
     "Id": 7,
     "slug": "dong-son",
-    "GroomName": "Minh Quân",
-    "BrideName": "Thu Hà",
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà",
     "language": "vi",
-    "WeddingDate": "2026-11-28T11:00:00",
+    "weddingDate": "2026-11-28T11:00:00",
     "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
     "theme": {
       "Name": "dong-son",
@@ -1588,10 +1590,10 @@
   {
     "Id": 8,
     "slug": "ivory-gold",
-    "GroomName": "Minh Quân",
-    "BrideName": "Thu Hà",
+    "groomName": "Minh Quân",
+    "brideName": "Thu Hà",
     "language": "vi",
-    "WeddingDate": "2026-11-28T11:00:00",
+    "weddingDate": "2026-11-28T11:00:00",
     "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
     "theme": {
       "Name": "ivory-gold",
