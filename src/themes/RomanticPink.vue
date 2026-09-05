@@ -1,10 +1,5 @@
-﻿<template>
-  <div class="nb-wedding">
-
-    <!-- =====================================================
-         OPENING
-    ====================================================== -->
-
+<template>
+  <div class="romantic-pink">
     <OpeningScreen
       v-if="!opened"
       :wedding="wedding"
@@ -13,348 +8,78 @@
       @open="handleOpen"
     />
 
-    <template v-else>
+    <main v-else class="romantic-invitation">
+      <!-- Lời mời chính: luôn là phần đầu sau khi mở thiệp. -->
+      <WeddingHero
+        v-if="showHero"
+        :wedding="wedding"
+        :monogram="monogram"
+        :date-label="heroDateLabel"
+        :event="primaryEvent"
+        :guest-name="guestName"
+      />
 
-      <main class="invitation">
-
-        <!-- =================================================
-             HERO DECORATION
-             Không khung
-        ================================================== -->
-
-        <img
-          :src="assets.mayTo"
-          class="art hero-cloud hero-cloud-left"
-          alt=""
-        />
-
-        <img
-          :src="assets.may"
-          class="art hero-cloud-small hero-cloud-small-right"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art hero-flower hero-flower-left"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art hero-flower hero-flower-right"
-          alt=""
-        />
-
-
-        <!-- =================================================
-             HERO
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showHero"
-          class="section hero-section"
-        >
-          <WeddingHero
-            :wedding="wedding"
-            :monogram="monogram"
-            :date-label="heroDateLabel"
+      <!-- Các mục chi tiết được giữ đúng thứ tự trong RomanticPink. -->
+      <div class="romantic-content">
+        <div class="content-flower content-flower--top"></div>
+        <div class="content-flower content-flower--bottom"></div>
+        <section v-if="showCouple" class="romantic-section">
+          <WeddingCouple :wedding="wedding" :guest-name="guestName" />
+        </section>
+        <section v-if="showStory && wedding?.story">
+          <WeddingStory :story="wedding.story" />
+        </section>
+        <section v-if="showEvents && events.length" class="romantic-section">
+          <WeddingEvents
+            :events="events"
+            :recipient-name="wedding?.recipientName"
           />
         </section>
-
-
-        <!-- =================================================
-             THÔNG TIN LỄ CƯỚI
-             CÓ KHUNG
-        ================================================== -->
-
         <section
-          v-if="showCouple"
-          class="framed-section wedding-info-frame"
+          v-if="showTimeline && timeline.length"
+          class="romantic-section"
         >
-
-          <div class="frame-decoration">
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tr"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-bl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-br"
-              alt=""
-            />
-
-          </div>
-
-          <div class="framed-content">
-
-            <WeddingCouple
-              :wedding="wedding"
-            />
-
-          </div>
-
+          <Timeline :timeline="timeline" :events="events" />
         </section>
-
-
-        <!-- =================================================
-             STORY
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showStory && wedding?.story"
-          class="section story-section"
-        >
-
-          <WeddingStory
-            :story="wedding.story"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             ALBUM
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGallery && gallery.length"
-          class="section gallery-section"
-        >
-
-          <WeddingGallery
-            :gallery="gallery"
-            @open="openGallery"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             THÔNG TIN TIỆC CƯỚI
-             CÓ KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showEvents && events.length"
-          class="framed-section party-info-frame"
-        >
-
-          <div class="frame-decoration">
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tr"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-bl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-br"
-              alt=""
-            />
-
-          </div>
-
-          <div class="framed-content">
-
-            <WeddingEvents
-              :events="events"
-            />
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             COUNTDOWN
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showCountdown"
-          class="section countdown-section"
-        >
-
+        <section v-if="showCountdown" class="romantic-section">
           <WeddingCountdown
-            :countdown="wedding?.countdown"
+            :countdown="countdownTarget"
+            :wedding-date="wedding?.weddingDate"
           />
-
         </section>
-
-
-        <!-- =================================================
-             MAP
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showMap && events.length"
-          class="section map-section"
-        >
-
-          <WeddingMap
-            :events="events"
-          />
-
+        <section v-if="showGallery && gallery.length" class="romantic-section">
+          <WeddingGallery :gallery="gallery" />
         </section>
+      </div>
+      <section v-if="showMap && events.length" class="romantic-section">
+        <WeddingMap :events="events" />
+      </section>
+      <section v-if="showGift && gifts.length" class="romantic-section">
+        <WeddingGifts :gifts="gifts" />
+      </section>
+      <section v-if="showGuestBook" class="romantic-section">
+        <WeddingWishes :wishes="wishes" :wedding="wedding" />
+      </section>
 
-        <!-- =================================================
-             TIMELINE
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showTimeLine && events.length"
-          class="section map-section"
-        >
-
-          <Timeline
-            :timeline="timeline"
-            :events="events"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             HỘP QUÀ MỪNG
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGift && gifts.length"
-          class="section gift-section"
-        >
-
-          <WeddingGifts
-            :gifts="gifts"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             SỔ LƯU BÚT
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGuestBook"
-          class="section guestbook-section"
-        >
-
-          <WeddingWishes
-            :wishes="wishes"
-            :wedding="wedding"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             FOOTER
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showFooter"
-          class="section footer-section"
-        >
-
-          <WeddingFooter
-            :wedding="wedding"
-            :monogram="monogram"
-            :current-year="currentYear"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             BOTTOM DECORATION
-        ================================================== -->
-
-        <img
-          :src="assets.mayTo"
-          class="art cloud-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.longDen"
-          class="art lantern-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.quat"
-          class="art fan-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art flower-bottom"
-          alt=""
-        />
-
-      </main>
-
-
-      <!-- =================================================
-           MUSIC
-      ================================================== -->
-
+      <WeddingFooter
+        v-if="showFooter"
+        :wedding="wedding"
+        :monogram="monogram"
+        :current-year="currentYear"
+      />
       <FloatingMusic
         v-if="showMusic"
         ref="floatingMusicRef"
         :music="wedding?.music"
       />
-
-    </template>
-
+    </main>
   </div>
 </template>
-
 
 <script setup>
 import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
-
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
-
 import OpeningScreen from "@/page/RomanticPink/OpeningScreen.vue";
 import WeddingHero from "@/page/RomanticPink/WeddingHero.vue";
 import WeddingCouple from "@/page/RomanticPink/WeddingCouple.vue";
@@ -369,840 +94,511 @@ import WeddingWishes from "@/page/RomanticPink/WeddingWishes.vue";
 import WeddingFooter from "@/page/RomanticPink/WeddingFooter.vue";
 
 import {
-  paper,
-  chineseHappiness,
-  chuHy,
-  dauRe,
+  icon,
   hoa,
-  longDen,
-  mayTo,
   may,
-  quat,
-  corner,
-} from "@/page/NhatBinhDo/nhatBinhDoAssets";
+  bgFull,
+  royalDecor,
+  blossomDecor,
+} from "@/page/RomanticPink/romaticpink";
 
-
-/* ==========================================================
-   PROPS
-========================================================== */
-
-const props = defineProps({
-  wedding: {
-    type: Object,
-    required: true,
-  },
-});
-
-
-/* ==========================================================
-   WEDDING
-========================================================== */
-
-const wedding = computed(() => props.wedding);
-
-
-/* ==========================================================
-   STATE
-========================================================== */
-
+const props = defineProps({ wedding: { type: Object, required: true } });
+const wedding = computed(() => props.wedding || {});
 const opened = ref(false);
-
 const floatingMusicRef = ref(null);
-
-const galleryIndex = ref(0);
-
 const currentYear = new Date().getFullYear();
-
-
-/* ==========================================================
-   ASSETS
-========================================================== */
-
-const assets = {
-  paper,
-  chineseHappiness,
-  chuHy,
-  dauRe,
-  hoa,
-  longDen,
-  mayTo,
-  may,
-  quat,
-  corner,
-};
-
-
-/* ==========================================================
-   DATA
-========================================================== */
-
-const events = computed(() => {
-  return Array.isArray(wedding.value?.events)
-    ? wedding.value.events
-    : [];
-});
-const timeline = computed(() => {
-  return Array.isArray(wedding.value?.timeline)
-    ? wedding.value.timeline
-    : [];
-});
-
-const gallery = computed(() => {
-  return Array.isArray(wedding.value?.gallery)
-    ? wedding.value.gallery
-    : [];
-});
-
-
-const gifts = computed(() => {
-  return Array.isArray(wedding.value?.gifts)
-    ? wedding.value.gifts
-    : [];
-});
-
-
-const wishes = computed(() => {
-  return Array.isArray(
-    wedding.value?.guestBook?.Guest,
-  )
+const settings = computed(() => wedding.value?.settings || {});
+const events = computed(() =>
+  Array.isArray(wedding.value?.events) ? wedding.value.events : []
+);
+const timeline = computed(() =>
+  Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []
+);
+const gallery = computed(() =>
+  Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []
+);
+const gifts = computed(() =>
+  Array.isArray(wedding.value?.gifts) ? wedding.value.gifts : []
+);
+const wishes = computed(() =>
+  Array.isArray(wedding.value?.guestBook?.Guest)
     ? wedding.value.guestBook.Guest
-    : [];
-});
-
-
-/* ==========================================================
-   SETTINGS
-========================================================== */
-
-const settings = computed(() => {
-  return wedding.value?.settings || {};
-});
-
-
-const showHero = computed(() => {
-  return settings.value.ShowHero !== false;
-});
-
-
-const showCouple = computed(() => {
-  return settings.value.ShowCouple !== false;
-});
-
-
-const showStory = computed(() => {
-  return settings.value.ShowStory !== false;
-});
-
-
-const showEvents = computed(() => {
-  return settings.value.ShowEvents !== false;
-});
-
-
-const showCountdown = computed(() => {
-  return settings.value.ShowCountdown === true;
-});
-
-
-const showGallery = computed(() => {
-  return settings.value.ShowGallery === true;
-});
-
-
-const showMap = computed(() => {
-  return settings.value.ShowMap === true;
-});
-
-
-const showGift = computed(() => {
-  return settings.value.ShowGift === true;
-});
-
-
-const showGuestBook = computed(() => {
-  return settings.value.ShowGuestBook === true;
-});
-
-
-const showMusic = computed(() => {
-  return (
-    wedding.value?.music?.Enabled === true &&
-    settings.value.ShowMusic === true
-  );
-});
-
-
-const showFooter = computed(() => {
-  return settings.value.ShowFooter !== false;
-});
-const showTimeLine = computed(() => {
-  return settings.value.ShowTimeline !== false;
-});
-
-
-/* ==========================================================
-   MONOGRAM
-========================================================== */
-
+    : []
+);
+const primaryEvent = computed(() => events.value[0] || {});
+const countdownTarget = computed(
+  () =>
+    wedding.value?.countdown?.Target ||
+    wedding.value?.countdown ||
+    wedding.value?.weddingDate
+);
+const guestName = computed(
+  () =>
+    (Array.isArray(wedding.value?.recipientName)
+      ? wedding.value.recipientName[0]?.Name
+      : wedding.value?.recipientName?.Name) ||
+    wedding.value?.guestName ||
+    "Quý khách"
+);
+const showHero = computed(() => settings.value.ShowHero !== false);
+const showCouple = computed(() => settings.value.ShowCouple !== false);
+const showStory = computed(() => settings.value.ShowStory !== false);
+const showEvents = computed(() => settings.value.ShowEvents !== false);
+const showTimeline = computed(() => settings.value.ShowTimeline !== false);
+const showCountdown = computed(() => settings.value.ShowCountdown === true);
+const showGallery = computed(() => settings.value.ShowGallery === true);
+const showMap = computed(() => settings.value.ShowMap === true);
+const showGift = computed(() => settings.value.ShowGift === true);
+const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
+const showFooter = computed(() => settings.value.ShowFooter !== false);
+const showMusic = computed(
+  () =>
+    wedding.value?.music?.Enabled === true && settings.value.ShowMusic === true
+);
 const monogram = computed(() => {
   const groom =
-    (wedding.value?.GroomName || "G")
-      .trim()
-      .charAt(0);
-
+    wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.hero?.GroomName ||
+    wedding.value?.couple?.Groom?.Name ||
+    "G";
   const bride =
-    (wedding.value?.BrideName || "B")
-      .trim()
-      .charAt(0);
-
-  return `${groom}&${bride}`.toUpperCase();
+    wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.hero?.BrideName ||
+    wedding.value?.couple?.Bride?.Name ||
+    "B";
+  return `${groom.trim().charAt(0)}&${bride.trim().charAt(0)}`.toUpperCase();
 });
-
-
-/* ==========================================================
-   DATE
-========================================================== */
-
-function formatDate(date) {
-  if (!date) {
-    return "";
-  }
-
-  const parsed = dayjs(date);
-
-  if (!parsed.isValid()) {
-    return "";
-  }
-
-  return parsed.format("DD · MM · YYYY");
+function formatDate(value) {
+  const date = dayjs(value);
+  return date.isValid() ? date.format("DD · MM · YYYY") : "";
 }
-
-
-const openDateLabel = computed(() => {
-  return formatDate(
-    wedding.value?.weddingDate,
-  );
-});
-
-
-const heroDateLabel = computed(() => {
-  return formatDate(
-    wedding.value?.hero?.weddingDate ||
-    wedding.value?.weddingDate,
-  );
-});
-
-
-/* ==========================================================
-   OPEN
-========================================================== */
-
+const openDateLabel = computed(() => formatDate(wedding.value?.weddingDate));
+const heroDateLabel = computed(() =>
+  formatDate(wedding.value?.hero?.weddingDate || wedding.value?.weddingDate)
+);
 async function handleOpen() {
   opened.value = true;
-
   await nextTick();
-
   floatingMusicRef.value?.play?.();
-}
-
-
-/* ==========================================================
-   GALLERY
-========================================================== */
-
-function openGallery(index) {
-  galleryIndex.value = index;
 }
 </script>
 
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap");
 
-<style scoped>
+.romantic-pink {
+  --pink-deep: #9b4b61;
+  --pink: #c56f88;
+  --pink-soft: #e5b2c0;
+  --pink-pale: #f9e8ec;
+  --rose-white: #fffaf9;
+  --gold: #c6a06a;
+  --gold-light: #e4cda5;
+  --text: #805363;
 
-/* ==========================================================
-   ROOT
-========================================================== */
-
-.nb-wedding {
-  --red: #971519;
-  --red-dark: #720e12;
-
-  --gold: #b58a45;
-  --gold-light: #d7bb82;
-
-  --paper: #f6ecd9;
-
-  width: 100%;
   min-height: 100vh;
+  width: 100%;
 
-  overflow-x: hidden;
+  color: var(--text);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 
-  background: #fff;
+  background: radial-gradient(
+    circle at 50% 10%,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(249, 232, 236, 0.94) 45%,
+    rgba(229, 194, 205, 0.9) 100%
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-
-/* ==========================================================
-   RESET
-========================================================== */
-
-.nb-wedding *,
-.nb-wedding *::before,
-.nb-wedding *::after {
+.romantic-pink * {
   box-sizing: border-box;
 }
 
+/* =========================================================
+   TẤM THIỆP
+   ========================================================= */
 
-.nb-wedding img {
-  display: block;
-  max-width: 100%;
-}
-
-
-.nb-wedding button,
-.nb-wedding input,
-.nb-wedding textarea {
-  font: inherit;
-}
-
-
-/* ==========================================================
-   MAIN
-========================================================== */
-
-.invitation {
+.romantic-invitation {
   position: relative;
 
-  width: min(48rem, 100%);
-
+  width: min(620px, 100%);
   min-height: 100vh;
 
   margin: 0 auto;
-
   overflow: hidden;
 
-  color: var(--red);
+  color: rgb(174, 76, 81);
 
-  background: var(--paper);
+  background: linear-gradient(
+      180deg,
+      rgba(255, 250, 249, 0.16),
+      rgba(255, 250, 249, 0.05) 35%,
+      rgba(255, 250, 249, 0.12)
+    ),
+    url("/src/assets/romatic-pink/bg-full.jpg");
 
-  box-shadow:
-    0 15px 60px rgba(64, 35, 15, 0.16);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: repeat-y;
+
+  box-shadow: 0 0 0 1px rgba(170, 94, 110, 0.1),
+    0 20px 65px rgba(116, 55, 70, 0.2);
 }
 
-
-/* ==========================================================
-   PAPER
-   CHỈ PAPER OPACITY 0.15
-========================================================== */
-
-.invitation::before {
+/* Lớp ánh sáng mềm */
+.romantic-invitation::before {
   content: "";
 
   position: absolute;
-
   inset: 0;
 
+  background: radial-gradient(
+      circle at 50% 15%,
+      rgba(255, 255, 255, 0.28),
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 250, 249, 0.06),
+      transparent 30%,
+      rgba(255, 250, 249, 0.08)
+    );
+
+  pointer-events: none;
   z-index: 0;
-
-  pointer-events: none;
-
-  background-image:
-    url("@/assets/nhat-binh-do-red/paper.webp");
-
-  background-repeat: repeat-y;
-
-  background-position: center top;
-
-  background-size: 100% auto;
-
-  opacity: 0.15;
 }
 
+/* =========================================================
+   KHUNG NỘI DUNG CHÍNH
+   ========================================================= */
 
-/* ==========================================================
-   GENERIC SECTION
-========================================================== */
-
-.section {
+.romantic-content {
   position: relative;
-
   z-index: 2;
 
-  width: 100%;
+  width: calc(100% - 30px);
 
-  padding:
-    40px 25px;
+  overflow: hidden;
+
+  border: 1px solid rgba(198, 160, 106, 0.38);
+  border-radius: 28px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 250, 249, 0.52),
+    rgba(255, 248, 248, 0.22)
+  );
+
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45),
+    0 8px 28px rgba(142, 75, 91, 0.07);
+
+  backdrop-filter: blur(1.5px);
 }
 
+/* =========================================================
+   VIỀN VÀNG BÊN TRONG
+   ========================================================= */
 
-/* ==========================================================
-   HERO
-   KHÔNG KHUNG
-========================================================== */
-
-.hero-section {
-  position: relative;
-
-  min-height: 650px;
-
-  padding: 0;
-
-  z-index: 2;
-}
-
-
-/* ==========================================================
-   2 KHUNG CHÍNH
-========================================================== */
-
-.framed-section {
-  position: relative;
-
-  z-index: 5;
-
-  width: calc(100% - 36px);
-
-  margin:
-    25px auto;
-
-  padding:
-    48px 24px;
-
-  border:
-    1px solid
-    rgba(151, 21, 25, 0.38);
-
-  background:
-    rgba(255, 249, 235, 0.28);
-
-  box-shadow:
-    inset 0 0 35px
-    rgba(151, 21, 25, 0.025);
-}
-
-
-/* ==========================================================
-   KHUNG THÔNG TIN LỄ CƯỚI
-========================================================== */
-
-.wedding-info-frame {
-
-  margin-top: 10px;
-
-  border-radius:
-    18px 18px 4px 4px;
-
-}
-
-
-/* ==========================================================
-   KHUNG THÔNG TIN TIỆC CƯỚI
-========================================================== */
-
-.party-info-frame {
-
-  margin-top: 35px;
-
-  margin-bottom: 35px;
-
-  border-radius: 4px 4px 18px 18px;
-
-}
-
-
-/* ==========================================================
-   FRAME CONTENT
-========================================================== */
-
-.framed-content {
-  position: relative;
-
-  z-index: 3;
-
-  width: 100%;
-}
-
-
-/* ==========================================================
-   FRAME CORNERS
-========================================================== */
-
-.frame-decoration {
+.romantic-content::after {
+  content: "";
   position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(198, 160, 106, 0.34);
+  border-radius: 21px;
+  pointer-events: none;
+  z-index: 20;
+}
 
-  inset: 0;
+/* Viền trang trí thứ hai */
+.romantic-content::before {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 1px solid rgba(197, 111, 136, 0.12);
+  border-radius: 17px;
 
   pointer-events: none;
-
-  z-index: 8;
+  z-index: 20;
 }
 
+/* =========================================================
+   HOA TRANG TRÍ
+   ========================================================= */
 
-.frame-corner {
+.content-flower {
   position: absolute;
-
-  width: 78px;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.frame-corner-tl {
-  top: -1px;
-  left: -1px;
-}
-
-
-.frame-corner-tr {
-  top: -1px;
-  right: -1px;
-
-  transform: scaleX(-1);
-}
-
-
-.frame-corner-bl {
-  bottom: -1px;
-  left: -1px;
-
-  transform: scaleY(-1);
-}
-
-
-.frame-corner-br {
-  right: -1px;
-  bottom: -1px;
-
-  transform: scale(-1);
-}
-
-
-/* ==========================================================
-   HERO CLOUD
-========================================================== */
-
-.hero-cloud {
-  position: absolute;
-
-  z-index: 3;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.hero-cloud-left {
-  top: -15px;
-
-  left: -45px;
-
   width: 230px;
+  height: 230px;
+  background-repeat: no-repeat;
+  background-size: contain;
 
-  opacity: .9;
+  pointer-events: none;
+
+  z-index: 1;
 }
 
+/* Hoa góc trên trái */
+.content-flower--top {
+  top: -42px;
+  left: -135px;
+  background-image: url("/src/assets/romatic-pink/1.webp");
+  transform: scaleX(-1) rotate(-8deg);
+  opacity: 0.48;
+  filter: saturate(0.88);
+}
 
-.hero-cloud-small {
-  position: absolute;
+/* Hoa góc dưới phải */
+.content-flower--bottom {
+  right: -138px;
+  bottom: -55px;
+  background-image: url("/src/assets/romatic-pink/2.webp");
+  transform: rotate(7deg);
+  opacity: 0.4;
+  filter: saturate(0.9);
+}
 
+/* =========================================================
+   CÁC SECTION
+   ========================================================= */
+
+.romantic-content > section {
+  position: relative;
   z-index: 3;
-
-  pointer-events: none;
+  border-bottom: 1px solid rgba(198, 160, 106, 0.18);
 }
 
+/* =========================================================
+   HIỆU ỨNG TIÊU ĐỀ SECTION
+   ========================================================= */
 
-.hero-cloud-small-right {
-  top: 105px;
-
-  right: -35px;
-
-  width: 135px;
-
-  opacity: .7;
-
-  transform:
-    scaleX(-1);
+h1,
+h2,
+h3 {
+  position: relative;
+  color: var(--pink-deep);
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-align: center;
+  font-size: 35px;
 }
 
-
-/* ==========================================================
-   HERO FLOWER
-========================================================== */
-
-.hero-flower {
-  position: absolute;
-
-  z-index: 4;
-
-  pointer-events: none;
-
-  user-select: none;
+.eyebrow {
+  margin: 0;
+  color: var(--pink);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-align: center;
+}
+/* Đường trang trí dưới tiêu đề */
+.romantic-content section h2::after,
+.romantic-content section h3::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin: 10px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
+/* =========================================================
+   CHỮ SCRIPT
+   Có thể dùng class này trong component con
+   ========================================================= */
 
-.hero-flower-left {
-  top: 20px;
-
-  left: 10px;
-
-  width: 105px;
-
-  opacity: .8;
-
-  transform:
-    rotate(-10deg);
+.romantic-script {
+  font-family: "Great Vibes", cursive;
+  color: var(--pink-deep);
+  font-weight: 400;
 }
 
+/* =========================================================
+   HOA / ORNAMENT TRANG TRÍ
+   ========================================================= */
 
-.hero-flower-right {
-  top: 30px;
-
-  right: 10px;
-
-  width: 100px;
-
-  opacity: .8;
-
-  transform:
-    scaleX(-1)
-    rotate(-10deg);
+.romantic-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gold);
 }
 
-
-/* ==========================================================
-   STORY
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   ALBUM
-   KHÔNG KHUNG
-========================================================== */
-
-
-
-/* ==========================================================
-   COUNTDOWN
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   MAP
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   GIFT
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   GUESTBOOK
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   FOOTER
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   BOTTOM DECORATION
-========================================================== */
-
-.cloud-bottom {
-  position: absolute;
-
-  right: -45px;
-
-  bottom: 10px;
-
-  width: 250px;
-
-  z-index: 3;
-
-  opacity: .9;
-
-  pointer-events: none;
-
-  transform:
-    scaleX(-1);
+.romantic-ornament::before,
+.romantic-ornament::after {
+  content: "";
+  width: 65px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(198, 160, 106, 0.7));
 }
 
-
-.lantern-bottom {
-  position: absolute;
-
-  right: 35px;
-
-  bottom: 55px;
-
-  width: 70px;
-
-  z-index: 4;
-
-  opacity: .9;
-
-  pointer-events: none;
+.romantic-ornament::after {
+  transform: rotate(180deg);
 }
 
-
-.fan-bottom {
-  position: absolute;
-
-  left: 15px;
-
-  bottom: 55px;
-
-  width: 90px;
-
-  z-index: 4;
-
-  opacity: .85;
-
-  pointer-events: none;
-
-  transform:
-    rotate(-8deg);
+.romantic-ornament span {
+  font-size: 15px;
+  color: var(--gold);
 }
 
+/* =========================================================
+   CARD NHỎ BÊN TRONG
+   Nếu component con có class card
+   ========================================================= */
 
-.flower-bottom {
-  position: absolute;
+.romantic-pink .card,
+.romantic-pink .wedding-card,
+.romantic-pink .event-card {
+  border: 1px solid rgba(198, 160, 106, 0.25);
+  border-radius: 18px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.72),
+    rgba(255, 244, 246, 0.45)
+  );
 
-  left: 55px;
-
-  bottom: 15px;
-
-  width: 110px;
-
-  z-index: 4;
-
-  opacity: .8;
-
-  pointer-events: none;
+  box-shadow: 0 8px 25px rgba(141, 70, 88, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45);
 }
 
+/* =========================================================
+   ẢNH
+   ========================================================= */
 
-/* ==========================================================
+.romantic-pink img {
+  max-width: 100%;
+}
+
+.romantic-pink img:not([class*="icon"]) {
+  border-radius: 10px;
+}
+
+/* =========================================================
+   NÚT
+   ========================================================= */
+
+.romantic-pink button {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  border-radius: 999px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.romantic-pink button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 18px rgba(154, 72, 93, 0.18);
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.romantic-pink::-webkit-scrollbar {
+  width: 7px;
+}
+
+.romantic-pink::-webkit-scrollbar-track {
+  background: rgba(249, 232, 236, 0.6);
+}
+
+.romantic-pink::-webkit-scrollbar-thumb {
+  background: rgba(197, 111, 136, 0.45);
+  border-radius: 10px;
+}
+
+.romantic-pink::-webkit-scrollbar-thumb:hover {
+  background: rgba(169, 77, 98, 0.65);
+}
+
+/* =========================================================
    MOBILE
-========================================================== */
+   ========================================================= */
 
-@media (max-width: 768px) {
-
-  .invitation {
+@media (max-width: 620px) {
+  .romantic-invitation {
     width: 100%;
-
     box-shadow: none;
   }
 
-
-  .section {
-    padding-left: 18px;
-
-    padding-right: 18px;
+  .romantic-content {
+    width: calc(100% - 14px);
+    border-radius: 22px;
   }
 
-
-  .framed-section {
-    width: calc(100% - 24px);
-
-    padding:
-      42px 18px;
+  .romantic-content::after {
+    inset: 6px;
+    border-radius: 17px;
   }
 
-
-  .frame-corner {
-    width: 68px;
+  .romantic-content::before {
+    inset: 11px;
+    border-radius: 14px;
+  }
+  .content-flower {
+    width: 185px;
+    height: 185px;
   }
 
-
-  .hero-section {
-    min-height: 620px;
+  .content-flower--top {
+    top: -32px;
+    left: -105px;
+    opacity: 0.38;
   }
 
-
-  .hero-cloud-left {
-    width: 190px;
-
-    left: -45px;
+  .content-flower--bottom {
+    right: -108px;
+    bottom: -38px;
+    opacity: 0.32;
   }
-
-
-  .hero-cloud-small-right {
-    width: 110px;
-
-    right: -30px;
-  }
-
-
-  .hero-flower-left {
-    width: 85px;
-  }
-
-
-  .hero-flower-right {
-    width: 80px;
-  }
-
 }
 
+/* =========================================================
+   MÀN HÌNH RẤT NHỎ
+   ========================================================= */
 
-/* ==========================================================
-   SMALL MOBILE
-========================================================== */
-
-@media (max-width: 420px) {
-
-  .hero-section {
-    min-height: 580px;
+@media (max-width: 380px) {
+  .romantic-content {
+    width: calc(100% - 10px);
   }
 
-
-  .framed-section {
-    width: calc(100% - 18px);
-
-    padding:
-      38px 14px;
+  .content-flower {
+    width: 160px;
+    height: 160px;
   }
 
-
-  .frame-corner {
-    width: 60px;
+  .content-flower--top {
+    left: -92px;
   }
 
+  .content-flower--bottom {
+    right: -92px;
+  }
+}
 
-  .hero-cloud-left {
-    width: 165px;
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 621px) {
+  .romantic-invitation {
+    min-height: 100vh;
+    border-left: 1px solid rgba(198, 160, 106, 0.12);
+    border-right: 1px solid rgba(198, 160, 106, 0.12);
   }
 
-
-  .hero-cloud-small-right {
-    width: 95px;
+  .romantic-content {
+    margin-top: 28px;
   }
-
-
-  .hero-flower-left {
-    width: 72px;
-  }
-
-
-  .hero-flower-right {
-    width: 70px;
-  }
-
-
-  .cloud-bottom {
-    width: 200px;
-  }
-
 }
 </style>
 

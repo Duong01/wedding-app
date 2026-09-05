@@ -1,51 +1,94 @@
 <template>
   <footer class="footer">
-
-    <div class="footer-cloud cloud-1"></div>
-    <div class="footer-cloud cloud-2"></div>
-
-    <div class="footer-inner">
-
-      <div class="footer-symbol">
-        囍
-      </div>
-
-      <div class="footer-monogram">
-        {{ monogram }}
-      </div>
-
-      <h2>
-        {{ groomName }}
-        <span>&</span>
-        {{ brideName }}
-      </h2>
-
-      <div class="footer-line">
-        <span></span>
-        <i>❖</i>
-        <span></span>
-      </div>
-
-      <p>
-        CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI
-        CÙNG CHÚNG MÌNH
-      </p>
-
-      <div class="footer-date">
-        {{ weddingDate }}
-      </div>
-
-      <small>
-        © {{ currentYear }}
-      </small>
-
+    <!-- =========================
+         DECORATIVE FLOWERS
+    ========================== -->
+    <div class="footer-flower footer-flower--left">
+      <img :src="hoa" alt="" />
     </div>
 
+    <div class="footer-flower footer-flower--right">
+      <img :src="hoa" alt="" />
+    </div>
+
+    <!-- Soft glow -->
+    <div class="footer-glow"></div>
+
+    <div class="footer-content">
+      <!-- Top ornament -->
+      <div class="footer-ornament">
+        <span></span>
+
+        <v-icon size="14">mdi-heart</v-icon>
+
+        <span></span>
+      </div>
+
+      <!-- Thank you -->
+      <div class="footer-eyebrow">THANK YOU</div>
+
+      <p class="footer-subtitle">CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI</p>
+
+      <!-- Monogram -->
+      <div class="monogram">
+        <div class="monogram-ring"></div>
+
+        <span>{{ monogram }}</span>
+      </div>
+
+      <!-- Names -->
+      <h2 class="couple-name">
+        <span>{{ groom }}</span>
+
+        <i>&amp;</i>
+
+        <span>{{ bride }}</span>
+      </h2>
+
+      <!-- Date -->
+      <div class="wedding-date">
+        <span></span>
+
+        <b>{{ formattedDate }}</b>
+
+        <span></span>
+      </div>
+
+      <!-- Message -->
+      <p class="footer-message">
+        {{ footerMessage }}
+      </p>
+
+      <!-- Bottom quote -->
+      <div class="footer-quote">
+        <v-icon size="13">mdi-flower-outline</v-icon>
+
+        <span>
+          Một ngày thật đẹp<br />
+          một tình yêu thật đẹp
+        </span>
+
+        <v-icon size="13">mdi-flower-outline</v-icon>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-bottom">
+        <span></span>
+
+        <small>
+          © {{ currentYear }} · Cảm ơn bạn đã chung vui cùng chúng mình
+        </small>
+
+        <span></span>
+      </div>
+    </div>
   </footer>
 </template>
 
 <script setup>
 import { computed } from "vue";
+import dayjs from "dayjs";
+import { hoa } from "./romaticpink";
 
 const props = defineProps({
   wedding: {
@@ -64,617 +107,495 @@ const props = defineProps({
   },
 });
 
-const wedding = computed(() => props.wedding || {});
+/* =========================================================
+   COUPLE
+   ========================================================= */
 
-const groomName = computed(() => {
-  return wedding.value?.GroomName ||
-    wedding.value?.groom?.name ||
-    "Chú Rể";
-});
-
-const brideName = computed(() => {
-  return wedding.value?.BrideName ||
-    wedding.value?.bride?.name ||
-    "Cô Dâu";
-});
-
-const weddingDate = computed(() => {
+const groom = computed(() => {
   return (
-    wedding.value?.weddingDate ||
-    wedding.value?.hero?.weddingDate ||
-    ""
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.footer?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    "Chú rể"
+  );
+});
+
+const bride = computed(() => {
+  return (
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.footer?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    "Cô dâu"
+  );
+});
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+const date = computed(() => {
+  return props.wedding?.weddingDate || props.wedding?.hero?.weddingDate || "";
+});
+
+const formattedDate = computed(() => {
+  if (!date.value) return "";
+
+  const parsed = dayjs(date.value);
+
+  if (!parsed.isValid()) {
+    return date.value;
+  }
+
+  return parsed.format("DD · MM · YYYY");
+});
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+const footerMessage = computed(() => {
+  return (
+    props.wedding?.footer?.Message ||
+    props.wedding?.footer?.Content ||
+    "Sự hiện diện của Quý khách là niềm vui lớn nhất của chúng mình."
   );
 });
 </script>
 
 <style scoped>
-
-/* =====================================================
+/* =========================================================
    FOOTER
-===================================================== */
+   ========================================================= */
 
 .footer {
   position: relative;
 
-  width: 100%;
-  min-height: 390px;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  color: #711519;
-
-  text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fffaf0 0%,
-      #f8edd9 52%,
-      #f0dfc1 100%
-    );
-
-}
-
-
-/* =====================================================
-   DECORATIVE FRAME
-===================================================== */
-
-.footer::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 14px;
-
-  border:
-    1px solid
-    rgba(169, 126, 61, .35);
-
-  pointer-events: none;
-}
-
-
-.footer::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 20px;
-
-  border:
-    1px solid
-    rgba(169, 126, 61, .14);
-
-  pointer-events: none;
-}
-
-
-/* =====================================================
-   INNER
-===================================================== */
-
-.footer-inner {
-  position: relative;
-
-  z-index: 3;
+  min-height: 460px;
 
   display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  box-sizing: border-box;
-
-  min-height: 390px;
-
-  padding:
-    48px
-    24px
-    28px;
-}
-
-
-/* =====================================================
-   DOUBLE HAPPINESS
-===================================================== */
-
-.footer-symbol {
-  position: relative;
-
-  display: flex;
-
   align-items: center;
   justify-content: center;
 
-  width: 66px;
-  height: 66px;
+  padding: 72px 22px 42px;
 
-  color: #9a171b;
+  overflow: hidden;
 
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 55px;
-
-  font-weight: 700;
-
-  line-height: 1;
-
-  border:
-    1px solid
-    rgba(164, 117, 52, .5);
-
-  background:
-    rgba(255,250,238,.72);
-
-  box-shadow:
-    0 5px 18px
-    rgba(112, 53, 24, .07);
 }
 
+/* =========================================================
+   SOFT LIGHT
+   ========================================================= */
 
-/*
- * Góc trang trí nhỏ
- */
-
-.footer-symbol::before,
-.footer-symbol::after {
-  content: "";
-
+.footer-glow {
   position: absolute;
 
-  width: 7px;
-  height: 7px;
+  width: 320px;
+  height: 320px;
 
-  border:
-    1px solid
-    #b58a48;
+  top: 50%;
+  left: 50%;
 
-  transform: rotate(45deg);
+  transform: translate(-50%, -50%);
 
-  background: #fff8e9;
+  border-radius: 50%;
+
+  pointer-events: none;
 }
 
+/* =========================================================
+   FLOWERS
+   ========================================================= */
 
-.footer-symbol::before {
-  top: -5px;
-  left: -5px;
+.footer-flower {
+  position: absolute;
+
+  width: 270px;
+
+  pointer-events: none;
+
+  opacity: 0.17;
+
+  filter: brightness(1.25) saturate(0.7);
+
+  animation: footerFlowerFloat 7s ease-in-out infinite;
 }
 
+.footer-flower img {
+  display: block;
 
-.footer-symbol::after {
-  right: -5px;
-  bottom: -5px;
+  width: 100%;
+  height: auto;
 }
 
+.footer-flower--left {
+  left: -145px;
+  bottom: -90px;
 
-/* =====================================================
-   MONOGRAM
-===================================================== */
+  transform: rotate(-15deg);
+}
 
-.footer-monogram {
-  margin-top: 15px;
+.footer-flower--right {
+  right: -145px;
+  top: -95px;
 
-  color: #a77c3e;
+  transform: scaleX(-1) rotate(-12deg);
 
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
+  animation-delay: -3s;
+}
 
-  font-size: 9px;
+/* =========================================================
+   CONTENT
+   ========================================================= */
 
+.footer-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(520px, 100%);
+
+  text-align: center;
+}
+
+/* =========================================================
+   ORNAMENT
+   ========================================================= */
+
+.footer-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-bottom: 17px;
+}
+
+.footer-ornament span {
+  width: 52px;
+  height: 1px;
+}
+
+.footer-ornament span:last-child {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.footer-eyebrow {
+  font-size: 10px;
   font-weight: 700;
 
-  letter-spacing: 4px;
+  letter-spacing: 0.38em;
 
-  text-transform: uppercase;
+  text-indent: 0.38em;
 }
 
+.footer-subtitle {
+  margin: 7px 0 0;
 
-/* =====================================================
-   NAMES
-===================================================== */
+  font-size: 8px;
+  font-weight: 500;
 
-.footer h2 {
-  margin:
-    13px
-    0
-    0;
-
-  color: #761519;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 22px;
-
-  font-weight: 800;
-
-  letter-spacing: .8px;
-
-  line-height: 1.4;
+  letter-spacing: 0.2em;
 }
 
+/* =========================================================
+   MONOGRAM
+   ========================================================= */
 
-.footer h2 span {
-  display: inline-block;
+.monogram {
+  position: relative;
 
-  margin:
-    0
-    7px;
+  width: 78px;
+  height: 78px;
 
-  color: #b28a4c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  font-family:
-    Georgia,
-    serif;
+  margin: 25px auto 20px;
 
-  font-size: 17px;
+  border: 1px solid rgba(241, 208, 158, 0.7);
+
+  border-radius: 50%;
+
+  box-shadow: 0 0 0 5px rgba(198, 160, 106, 0.07),
+    0 12px 30px rgba(49, 13, 25, 0.16);
+}
+
+/* Inner ring */
+
+.monogram-ring {
+  position: absolute;
+
+  inset: 6px;
+
+  border: 1px solid rgba(255, 232, 194, 0.35);
+
+  border-radius: 50%;
+}
+
+.monogram span {
+  position: relative;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: 28px;
+
+  line-height: 1;
+}
+
+/* =========================================================
+   COUPLE NAME
+   ========================================================= */
+
+.couple-name {
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: clamp(26px, 7vw, 36px);
+
+  font-weight: 500;
+
+  line-height: 1.15;
+}
+
+.couple-name i {
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: 28px;
 
   font-weight: 400;
 }
 
+/* =========================================================
+   DATE
+   ========================================================= */
 
-/* =====================================================
-   DECORATION
-===================================================== */
-
-.footer-line {
+.wedding-date {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 9px;
+  gap: 11px;
 
-  width: 100%;
-
-  margin:
-    16px
-    0
-    15px;
+  margin-top: 18px;
 }
 
-
-.footer-line span {
-  width: 42px;
+.wedding-date span {
+  width: 35px;
   height: 1px;
 
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b58a49
-    );
 }
 
-
-.footer-line span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b58a49
-    );
+.wedding-date span:last-child {
+  transform: rotate(180deg);
 }
 
+.wedding-date b {
 
-.footer-line i {
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+}
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.footer-message {
+  max-width: 390px;
+
+  margin: 22px auto 0;
+
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 15px;
+
+  font-style: italic;
+
+  line-height: 1.7;
+}
+
+/* =========================================================
+   QUOTE
+   ========================================================= */
+
+.footer-quote {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  width: 19px;
-  height: 19px;
+  gap: 13px;
 
-  color: #a0171b;
+  margin-top: 24px;
 
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 12px;
-
-  font-style: normal;
-
-  border:
-    1px solid
-    rgba(181, 138, 73, .45);
-
-  transform: rotate(45deg);
 }
 
-
-.footer-line i::first-letter {
-  transform: rotate(-45deg);
+.footer-quote .v-icon {
+  opacity: 0.8;
 }
 
+.footer-quote span {
 
-/* =====================================================
-   THANK YOU
-===================================================== */
+  font-size: 9px;
 
-.footer p {
-  max-width: 280px;
+  font-style: italic;
 
-  margin: 0 auto;
+  line-height: 1.5;
 
-  color: #78614b;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-  line-height: 1.8;
-
-  letter-spacing: 1.5px;
+  letter-spacing: 0.06em;
 }
 
+/* =========================================================
+   BOTTOM
+   ========================================================= */
 
-/* =====================================================
-   WEDDING DATE
-===================================================== */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.footer-date {
-  margin-top: 18px;
+  gap: 10px;
 
-  padding:
-    7px
-    15px;
-
-  color: #861519;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-
-  border-top:
-    1px solid
-    rgba(181, 138, 73, .35);
-
-  border-bottom:
-    1px solid
-    rgba(181, 138, 73, .35);
+  margin-top: 34px;
 }
 
-
-/* =====================================================
-   COPYRIGHT
-===================================================== */
-
-.footer small {
-  display: block;
-
-  margin-top: auto;
-
-  padding-top: 23px;
-
-  color: #a68b66;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 8px;
-
-  font-weight: 500;
-
-  letter-spacing: 1px;
+.footer-bottom span {
+  width: 28px;
+  height: 1px;
 }
 
+.footer-bottom small {
 
-/* =====================================================
-   CLOUD
-===================================================== */
+  font-size: 7px;
 
-.footer-cloud {
-  position: absolute;
-
-  z-index: 1;
-
-  width: 190px;
-  height: 90px;
-
-  opacity: .13;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 22% 70%,
-      #9d743a 0 18%,
-      transparent 19%
-    ),
-    radial-gradient(
-      circle at 45% 42%,
-      #9d743a 0 28%,
-      transparent 29%
-    ),
-    radial-gradient(
-      circle at 68% 67%,
-      #9d743a 0 22%,
-      transparent 23%
-    ),
-    radial-gradient(
-      circle at 88% 55%,
-      #9d743a 0 14%,
-      transparent 15%
-    );
+  letter-spacing: 0.08em;
 }
 
+/* =========================================================
+   ANIMATION
+   ========================================================= */
 
-.cloud-1 {
-  left: -75px;
-  bottom: 12px;
+@keyframes footerFlowerFloat {
+  0%,
+  100% {
+    margin-top: 0;
+  }
 
-  transform:
-    rotate(-4deg);
+  50% {
+    margin-top: -8px;
+  }
 }
 
-
-.cloud-2 {
-  right: -75px;
-  bottom: 72px;
-
-  transform:
-    scaleX(-1)
-    rotate(-4deg);
-}
-
-
-/* =====================================================
-   SMALL DECORATIVE DIAMONDS
-===================================================== */
-
-.footer-inner::before,
-.footer-inner::after {
-  content: "✦";
-
-  position: absolute;
-
-  z-index: -1;
-
-  color: rgba(165, 122, 59, .35);
-
-  font-size: 18px;
-}
-
-
-.footer-inner::before {
-  top: 32px;
-  left: 25px;
-}
-
-
-.footer-inner::after {
-  top: 32px;
-  right: 25px;
-}
-
-
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+   ========================================================= */
 
-@media (max-width: 420px) {
-
+@media (max-width: 620px) {
   .footer {
-    min-height: 370px;
+    min-height: 440px;
+
+    padding: 62px 17px 35px;
   }
 
+  .footer-flower {
+    width: 230px;
 
-  .footer::before {
-    inset: 10px;
+    opacity: 0.14;
   }
 
-
-  .footer::after {
-    inset: 15px;
+  .footer-flower--left {
+    left: -135px;
+    bottom: -80px;
   }
 
-
-  .footer-inner {
-    min-height: 370px;
-
-    padding:
-      42px
-      20px
-      24px;
+  .footer-flower--right {
+    right: -135px;
+    top: -80px;
   }
 
+  .monogram {
+    width: 70px;
+    height: 70px;
 
-  .footer-symbol {
-    width: 60px;
-    height: 60px;
-
-    font-size: 50px;
+    margin-top: 22px;
   }
 
+  .couple-name {
+    gap: 7px;
 
-  .footer-monogram {
-    margin-top: 13px;
-
-    font-size: 8px;
-
-    letter-spacing: 3px;
+    font-size: 27px;
   }
 
-
-  .footer h2 {
-    margin-top: 11px;
-
-    font-size: 19px;
-
-    letter-spacing: .5px;
+  .couple-name i {
+    font-size: 25px;
   }
 
+  .footer-message {
+    padding: 0 10px;
 
-  .footer h2 span {
-    margin:
-      0
-      5px;
-
-    font-size: 15px;
+    font-size: 14px;
   }
 
-
-  .footer-line {
-    margin:
-      14px
-      0;
+  .footer-bottom {
+    gap: 7px;
   }
 
-
-  .footer-line span {
-    width: 34px;
+  .footer-bottom span {
+    width: 18px;
   }
 
+  .footer-bottom small {
+    font-size: 6px;
+  }
+}
 
-  .footer p {
-    max-width: 250px;
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
 
+@media (max-width: 380px) {
+  .footer {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .couple-name {
+    font-size: 24px;
+  }
+
+  .footer-eyebrow {
     font-size: 9px;
-
-    line-height: 1.8;
-
-    letter-spacing: 1.2px;
   }
 
-
-  .footer-date {
-    margin-top: 16px;
-
-    font-size: 10px;
-
-    letter-spacing: 1.5px;
+  .footer-message {
+    font-size: 13px;
   }
+}
 
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
 
-  .footer small {
-    font-size: 7px;
+@media (prefers-reduced-motion: reduce) {
+  .footer-flower {
+    animation: none;
   }
-
 }
 </style>

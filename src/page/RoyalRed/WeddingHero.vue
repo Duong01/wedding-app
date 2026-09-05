@@ -69,7 +69,7 @@ const heroImage = computed(
   letter-spacing: 0.2em;
 }
 .hero-names {
-  font-family: "Great Vibes", cursive;
+  /* font-family: "Great Vibes", cursive; */
   font-size: 68px;
   line-height: 0.9;
   color: #efd18b;

@@ -41,7 +41,6 @@ defineProps({
 .heading-line span {
   width: 45px;
   height: 1px;
-  background: #c9a45c;
 }
 
 .heading-line i {

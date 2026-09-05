@@ -619,24 +619,559 @@ function openGallery(index) {
 <style scoped>
 
 /* ==========================================================
-   ROOT
+   ROOT - MODERNWHITE THEME (Clean Minimal Design)
 ========================================================== */
 
 .nb-wedding {
-  --red: #971519;
-  --red-dark: #720e12;
-
-  --gold: #b58a45;
-  --gold-light: #d7bb82;
-
-  --paper: #f6ecd9;
+  --white: #ffffff;
+  --light-gray: #f8f8f8;
+  --medium-gray: #e0e0e0;
+  --dark-gray: #2a2a2a;
+  --accent-gray: #666666;
+  --silver: #c0c0c0;
 
   width: 100%;
   min-height: 100vh;
 
   overflow-x: hidden;
 
-  background: #fff;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #fafafa 100%);
+}
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+.nb-wedding *,
+.nb-wedding *::before,
+.nb-wedding *::after {
+  box-sizing: border-box;
+}
+
+
+.nb-wedding img {
+  display: block;
+  max-width: 100%;
+}
+
+
+.nb-wedding button,
+.nb-wedding input,
+.nb-wedding textarea {
+  font: inherit;
+}
+
+
+/* ==========================================================
+   MAIN INVITATION - MINIMALIST
+========================================================== */
+
+.invitation {
+  position: relative;
+
+  width: min(48rem, 100%);
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  color: var(--dark-gray);
+
+  background: var(--white);
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ==========================================================
+   PAPER TEXTURE - MINIMAL
+========================================================== */
+
+.invitation::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background-image:
+    url("@/assets/nhat-binh-do-red/paper.webp");
+
+  background-repeat: repeat-y;
+
+  background-position: center top;
+
+  background-size: 100% auto;
+
+  opacity: 0.03;
+}
+
+
+/* ==========================================================
+   GENERIC SECTION - CLEAN ANIMATION
+========================================================== */
+
+.section {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  padding: 40px 25px;
+  
+  animation: fadeInUp 0.6s cubic-bezier(0.42, 0, 0.58, 1) both;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.section:nth-child(2) { animation-delay: 0.08s; }
+.section:nth-child(3) { animation-delay: 0.16s; }
+.section:nth-child(4) { animation-delay: 0.24s; }
+.section:nth-child(5) { animation-delay: 0.32s; }
+
+.section:last-child {
+  border-bottom: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ==========================================================
+   HERO SECTION
+========================================================== */
+
+.hero-section {
+  position: relative;
+
+  min-height: 650px;
+
+  padding: 0;
+
+  z-index: 2;
+  
+  animation: fadeIn 0.7s ease-out both;
+  border-bottom: 2px solid var(--medium-gray);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+/* ==========================================================
+   FRAMED SECTIONS - SUBTLE BORDERS
+========================================================== */
+
+.framed-section {
+  position: relative;
+
+  z-index: 5;
+
+  width: calc(100% - 36px);
+
+  margin: 25px auto;
+
+  padding: 48px 24px;
+
+  border: 1px solid var(--medium-gray);
+
+  background: var(--white);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    
+  border-radius: 0;
+  
+  transition: all 0.3s ease;
+}
+
+.framed-section:hover {
+  border-color: var(--accent-gray);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   FRAME DECORATION - MINIMAL LINES
+========================================================== */
+
+.frame-decoration {
+  position: relative;
+}
+
+
+/* ==========================================================
+   FRAME CORNERS - GEOMETRIC
+========================================================== */
+
+.frame-corner {
+  position: absolute;
+
+  width: 82px;
+
+  pointer-events: none;
+  
+  opacity: 0.5;
+  
+  transition: opacity 0.3s ease;
+}
+
+.framed-section:hover .frame-corner {
+  opacity: 0.8;
+}
+
+
+.frame-corner-tl {
+  top: 0;
+  left: 0;
+}
+
+
+.frame-corner-tr {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+
+.frame-corner-bl {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+
+.frame-corner-br {
+  bottom: 0;
+  right: 0;
+  transform: scaleX(-1) scaleY(-1);
+}
+
+
+/* ==========================================================
+   ORNAMENTS - MINIMAL
+========================================================== */
+
+.ornament {
+  position: absolute;
+
+  width: 60px;
+
+  opacity: 0.4;
+
+  pointer-events: none;
+  
+  transition: opacity 0.3s ease;
+}
+
+.framed-section:hover .ornament {
+  opacity: 0.7;
+}
+
+
+/* ==========================================================
+   HERO DECORATIONS - SUBTLE
+========================================================== */
+
+.art {
+  position: absolute;
+
+  pointer-events: none;
+  
+  opacity: 0.3;
+}
+
+
+.hero-cloud {
+  width: 280px;
+
+  opacity: 0.25;
+  
+  animation: subtleShift 10s ease-in-out infinite;
+}
+
+@keyframes subtleShift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+
+.hero-cloud-left {
+  top: 20px;
+
+  left: -50px;
+}
+
+
+.hero-cloud-small-right {
+  width: 140px;
+
+  top: 280px;
+
+  right: -40px;
+  
+  animation: subtleShift 12s ease-in-out infinite reverse;
+}
+
+
+.hero-flower {
+  width: 120px;
+
+  opacity: 0.2;
+  
+  animation: subtleRotate 12s ease-in-out infinite;
+}
+
+@keyframes subtleRotate {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1deg); }
+}
+
+
+.hero-flower-left {
+  top: 100px;
+
+  left: -35px;
+}
+
+
+.hero-flower-right {
+  bottom: 120px;
+
+  right: -40px;
+
+  transform: scaleX(-1);
+  
+  animation-delay: -2s;
+}
+
+
+/* ==========================================================
+   BOTTOM DECORATIONS - MINIMAL
+========================================================== */
+
+.cloud-bottom {
+  position: absolute;
+
+  right: -45px;
+
+  bottom: 10px;
+
+  width: 250px;
+
+  z-index: 3;
+
+  opacity: 0.2;
+
+  pointer-events: none;
+
+  transform: scaleX(-1);
+  
+  animation: subtleShift 11s ease-in-out infinite;
+}
+
+
+.lantern-bottom {
+  position: absolute;
+
+  right: 35px;
+
+  bottom: 55px;
+
+  width: 70px;
+
+  z-index: 4;
+
+  opacity: 0.3;
+
+  pointer-events: none;
+  
+  animation: microWave 3s ease-in-out infinite;
+}
+
+@keyframes microWave {
+  0%, 100% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+}
+
+
+.fan-bottom {
+  position: absolute;
+
+  left: 15px;
+
+  bottom: 55px;
+
+  width: 90px;
+
+  z-index: 4;
+
+  opacity: 0.25;
+
+  pointer-events: none;
+
+  transform: rotate(-8deg);
+  
+  animation: verySlowSpin 20s linear infinite;
+}
+
+@keyframes verySlowSpin {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(352deg); }
+}
+
+
+.flower-bottom {
+  position: absolute;
+
+  left: 55px;
+
+  bottom: 15px;
+
+  width: 110px;
+
+  z-index: 4;
+
+  opacity: 0.2;
+
+  pointer-events: none;
+  
+  animation: microPulse 6s ease-in-out infinite;
+}
+
+@keyframes microPulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+
+/* ==========================================================
+   WEDDING INFO FRAME
+========================================================== */
+
+.wedding-info-frame {
+  margin-top: 10px;
+  border-radius: 0;
+}
+
+
+/* ==========================================================
+   PARTY INFO FRAME  
+========================================================== */
+
+.party-info-frame {
+  margin-top: 15px;
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 768px) {
+
+  .invitation {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .section {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .framed-section {
+    width: calc(100% - 24px);
+    padding: 42px 18px;
+  }
+
+  .frame-corner {
+    width: 68px;
+  }
+
+  .hero-section {
+    min-height: 620px;
+  }
+
+  .hero-cloud-left {
+    width: 190px;
+    left: -45px;
+  }
+
+  .hero-cloud-small-right {
+    width: 110px;
+    right: -30px;
+  }
+
+  .hero-flower-left {
+    width: 85px;
+  }
+
+  .hero-flower-right {
+    width: 80px;
+  }
+
+}
+
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width: 420px) {
+
+  .hero-section {
+    min-height: 580px;
+  }
+
+  .framed-section {
+    width: calc(100% - 18px);
+    padding: 38px 14px;
+  }
+
+  .frame-corner {
+    width: 60px;
+  }
+
+  .hero-cloud-left {
+    width: 165px;
+  }
+
+  .hero-cloud-small-right {
+    width: 95px;
+  }
+
+  .hero-flower-left {
+    width: 72px;
+  }
+
+  .hero-flower-right {
+    width: 70px;
+  }
+
+  .cloud-bottom {
+    width: 200px;
+  }
+
 }
 
 

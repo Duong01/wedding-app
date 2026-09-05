@@ -38,11 +38,6 @@ export function useMusic() {
       return;
     }
 
-    console.log(
-      "🎵 Khởi tạo nhạc:",
-      src
-    );
-
     audio.value.src = src;
     audio.value.load();
 

@@ -72,11 +72,6 @@ onMounted(() => {
     return;
   }
 
-  console.log(
-    "🎵 FloatingMusic init:",
-    props.music
-  );
-
   init(
     audio.value,
     props.music

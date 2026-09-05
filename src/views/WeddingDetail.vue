@@ -124,13 +124,6 @@ async function loadWedding(slug) {
 watch(
   () => route.params.slug,
   (slug, oldSlug) => {
-    console.log(
-      "Slug changed:",
-      oldSlug,
-      "=>",
-      slug
-    );
-
     loadWedding(slug);
   },
   {

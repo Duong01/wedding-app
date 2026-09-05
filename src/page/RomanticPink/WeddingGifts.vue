@@ -1,229 +1,308 @@
 <template>
   <section class="gifts">
-
-    <!-- =========================================
+    <!-- =========================
          HEADER
-    ========================================== -->
-
-    <div class="gift-heading">
-
-      <span class="gift-kicker">
-        MỘT CHÚT TẤM LÒNG
-      </span>
-
-      <h2>
-        MỪNG CƯỚI
-      </h2>
-
-      <div class="gift-decoration">
-        <span></span>
-        <b>囍</b>
-        <span></span>
-      </div>
-
-      <p>
-        Sự hiện diện và lời chúc phúc của bạn
-        đã là món quà quý giá nhất dành cho
-        chúng mình.
-      </p>
-
+    ========================== -->
+    <div class="gift-ornament">
+      <span></span>
+      <v-icon size="15">mdi-flower-outline</v-icon>
+      <span></span>
     </div>
 
+    <div class="eyebrow">GỬI YÊU THƯƠNG</div>
 
-    <!-- =========================================
-         LÌ XÌ
-    ========================================== -->
+    <h2>Hộp mừng cưới</h2>
 
-    <div
-  v-if="normalizedGifts.length"
-  class="gift-list"
->
+    <p class="gift-intro">
+      Những lời chúc và tình cảm của bạn<br />
+      là món quà quý giá nhất dành cho chúng mình
+    </p>
 
-  <button
-    v-for="(gift, index) in normalizedGifts"
-    :key="gift.Id || index"
-    type="button"
-    class="lixi"
-    :class="{
-      'lixi-left': index === 0,
-      'lixi-right': index === 1,
-    }"
-    @click="openGift(index)"
-  >
-
-    <div class="lixi-image-wrap">
-
-      <img
-        :src="lixi"
-        :alt="gift.Title"
-        class="lixi-image"
-      />
-
-      <!-- ánh sáng -->
-
-      <span class="lixi-shine"></span>
-
-      <!-- nút mở -->
-
-      <span class="lixi-open">
-        +
-      </span>
-
-    </div>
-
-
-  </button>
-
-</div>
-
-
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div
-      v-else
-      class="gift-empty"
-    >
-      Chưa có thông tin mừng cưới
-    </div>
-
-
-    <!-- =========================================
-         QR DIALOG
-    ========================================== -->
-
-    <Teleport to="body">
-
-      <Transition name="gift-dialog">
-
-        <div
-          v-if="dialog"
-          class="gift-modal"
-          @click.self="closeGift"
+    <!-- =========================
+         GIFT BOXES
+    ========================== -->
+    <div class="gift-list">
+      <article
+        v-for="(item, index) in gifts"
+        :key="item.Id || index"
+        class="gift-item"
+      >
+        <button
+          type="button"
+          class="gift-box-button"
+          aria-label="Mở hộp mừng cưới"
+          @click="openGift(index)"
         >
+          <div class="gift-glow"></div>
 
-          <div class="gift-modal-card">
+          <div class="gift-box">
+            <img :src="gift" alt="Hộp mừng cưới" />
 
-            <!-- close -->
-
-            <button
-              type="button"
-              class="modal-close"
-              aria-label="Đóng"
-              @click="closeGift"
-            >
-              ×
-            </button>
-
-
-            <!-- decoration -->
-
-            <div class="modal-symbol">
-              囍
-            </div>
-
-
-            <span class="modal-kicker">
-              MỪNG CƯỚI
-            </span>
-
-
-            <h3>
-              {{ selectedGift?.Title }}
-            </h3>
-
-
-            <div class="modal-line">
-              <span></span>
-              <b>♥</b>
-              <span></span>
-            </div>
-
-
-            <!-- BANK -->
-
-            <div class="bank-info">
-
-              <div
-                v-if="selectedGift?.bankName"
-                class="bank-name"
-              >
-                {{ selectedGift.bankName }}
-              </div>
-
-
-              <div
-                v-if="selectedGift?.accountName"
-                class="account-name"
-              >
-                {{ selectedGift.accountName }}
-              </div>
-
-
-              <div
-                v-if="selectedGift?.accountNumber"
-                class="account-number"
-              >
-                {{ selectedGift.accountNumber }}
-              </div>
-
-            </div>
-
-
-            <!-- QR -->
-
-            <div
-              v-if="selectedGift?.qr"
-              class="qr-wrapper"
-            >
-
-              <div class="qr-frame">
-
-                <span class="qr-corner qr-tl"></span>
-                <span class="qr-corner qr-tr"></span>
-                <span class="qr-corner qr-bl"></span>
-                <span class="qr-corner qr-br"></span>
-
-                <img
-                  :src="selectedGift.qr"
-                  alt="QR mừng cưới"
-                />
-
-              </div>
-
-            </div>
-
-
-            <p class="modal-note">
-              Quét mã QR để gửi lời chúc mừng
-            </p>
-
-
-            <button
-              type="button"
-              class="modal-button"
-              @click="closeGift"
-            >
-              ĐÓNG
-            </button>
-
+            <span class="gift-sparkle sparkle-1">✦</span>
+            <span class="gift-sparkle sparkle-2">✧</span>
+            <span class="gift-sparkle sparkle-3">✦</span>
+            <span class="gift-sparkle sparkle-4">✧</span>
           </div>
 
-        </div>
+          <div class="gift-shadow"></div>
 
+          <div class="gift-hint">
+            <span>CHẠM ĐỂ MỞ</span>
+            <v-icon size="14">mdi-heart-outline</v-icon>
+          </div>
+        </button>
+      </article>
+    </div>
+
+    <!-- =========================
+         BOTTOM ORNAMENT
+    ========================== -->
+    <div class="gift-bottom-ornament">
+      <span></span>
+      <v-icon size="13">mdi-heart</v-icon>
+      <span></span>
+    </div>
+
+    <!-- =====================================================
+         GIFT DIALOG
+    ====================================================== -->
+    <Teleport to="body">
+      <Transition name="gift-dialog">
+        <div
+          v-if="selectedGift"
+          class="gift-dialog"
+          @click.self="closeGift"
+        >
+          <!-- Overlay -->
+          <div class="gift-dialog-backdrop"></div>
+
+          <!-- Dialog -->
+          <div
+            class="gift-dialog-card"
+            role="dialog"
+            aria-modal="true"
+          >
+            <!-- Decorative light -->
+            <div class="dialog-glow"></div>
+
+            <!-- Top decoration -->
+            <div class="dialog-decoration">
+              <span></span>
+
+              <div class="dialog-heart">
+                <v-icon size="17">mdi-heart</v-icon>
+              </div>
+
+              <span></span>
+            </div>
+
+            <!-- Close -->
+            <button
+              type="button"
+              class="dialog-close"
+              aria-label="Đóng hộp mừng cưới"
+              @click="closeGift"
+            >
+              <v-icon size="18">mdi-close</v-icon>
+            </button>
+
+            <!-- Header -->
+            <div class="dialog-eyebrow">
+              MỘT CHÚT YÊU THƯƠNG
+            </div>
+
+            <h3>
+              Hộp mừng cưới
+            </h3>
+
+            <p class="dialog-description">
+              {{ gifts.length > 1
+                ? "Bạn có thể gửi lời chúc đến cô dâu chú rể qua tài khoản bên dưới"
+                : (
+                  selectedGift.Description ||
+                  "Gửi lời chúc tốt lành đến đôi uyên ương"
+                )
+              }}
+            </p>
+
+            <!-- =================================================
+                 ACCOUNTS
+            ================================================== -->
+            <div class="account-grid">
+              <article
+                v-for="(item, index) in gifts"
+                :key="item.Id || index"
+                class="account-card"
+              >
+                <!-- Account heading -->
+                <div class="account-heading">
+                  <div class="account-icon">
+                    <v-icon size="17">mdi-bank-outline</v-icon>
+                  </div>
+
+                  <div>
+                    <div class="account-label">
+                      {{ item.Name || item.BankName || `TÀI KHOẢN ${index + 1}` }}
+                    </div>
+
+                    <div v-if="item.BankName" class="account-bank">
+                      {{ item.BankName }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- QR -->
+                <button
+                  v-if="item.QrCode"
+                  type="button"
+                  class="qr-button"
+                  aria-label="Xem QR lớn"
+                  @click="openQr(item)"
+                >
+                  <div class="qr-frame">
+                    <div class="qr-corner qr-corner--tl"></div>
+                    <div class="qr-corner qr-corner--tr"></div>
+                    <div class="qr-corner qr-corner--bl"></div>
+                    <div class="qr-corner qr-corner--br"></div>
+
+                    <div class="qr-inner">
+                      <img
+                        :src="item.QrCode"
+                        :alt="item.Name || 'QR mừng cưới'"
+                        class="qr-code"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="qr-hint">
+                    <v-icon size="12">
+                      mdi-download-outline
+                    </v-icon>
+
+                    CHẠM VÀO QR ĐỂ XEM / LƯU
+                  </div>
+                </button>
+
+                <!-- Account information -->
+                <div class="account-info">
+                  <div class="info-row">
+                    <div class="info-left">
+                      <span class="info-label">
+                        CHỦ TÀI KHOẢN
+                      </span>
+
+                      <span class="info-value">
+                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="info-divider"></div>
+
+                  <div class="info-row">
+                    <div class="info-left">
+                      <span class="info-label">
+                        SỐ TÀI KHOẢN
+                      </span>
+
+                      <span class="info-value account-number">
+                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                      </span>
+                    </div>
+
+                    <!-- Copy -->
+                    <button
+                      type="button"
+                      class="copy-button"
+                      title="Sao chép số tài khoản"
+                      @click="copyAccount(item)"
+                    >
+                      <v-icon size="14">
+                        mdi-content-copy
+                      </v-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  v-if="item.Description"
+                  class="account-description"
+                >
+                  {{ item.Description }}
+                </div>
+              </article>
+            </div>
+
+            <!-- Footer -->
+            <div class="dialog-footer">
+              <span></span>
+
+              <v-icon size="13">
+                mdi-flower-outline
+              </v-icon>
+
+              <span></span>
+            </div>
+          </div>
+        </div>
       </Transition>
 
-    </Teleport>
+      <!-- =====================================================
+           QR PREVIEW
+      ====================================================== -->
+      <Transition name="qr-preview">
+        <div
+          v-if="previewQr"
+          class="qr-preview"
+          @click.self="closeQr"
+        >
+          <div class="qr-preview-backdrop"></div>
 
+          <div class="qr-preview-card">
+            <button
+              type="button"
+              class="qr-preview-close"
+              aria-label="Đóng QR"
+              @click="closeQr"
+            >
+              <v-icon size="18">mdi-close</v-icon>
+            </button>
+
+            <div class="qr-preview-title">
+              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+            </div>
+
+            <div class="qr-preview-image">
+              <img
+                :src="previewQr.QrCode"
+                :alt="previewQr.Name || 'QR mừng cưới'"
+              />
+            </div>
+
+            <p>
+              Nhấn giữ vào ảnh để lưu QR về điện thoại
+            </p>
+
+            <a
+              :href="previewQr.QrCode"
+              target="_blank"
+              rel="noopener"
+              download
+              class="qr-save-button"
+            >
+              <v-icon size="15">mdi-download</v-icon>
+              MỞ / LƯU ẢNH QR
+            </a>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </section>
 </template>
 
-
 <script setup>
-import { computed, ref } from "vue";
-import  lixi  from "@/assets/nhat-binh-do-red/nhat_binh_red.webp";
-
+import { computed, onBeforeUnmount, ref } from "vue";
+import gift from "@/assets/romatic-pink/gift.webp";
 
 const props = defineProps({
   gifts: {
@@ -232,278 +311,826 @@ const props = defineProps({
   },
 });
 
-
-/* =========================================
-   NORMALIZE
-========================================= */
-
-const normalizedGifts = computed(() => {
-
-  return (props.gifts || [])
-    .map((gift, index) => {
-
-      const item = gift || {};
-
-      return {
-        ...item,
-
-        id:
-          item.Id ||
-          index,
-
-        title:
-          item.Title ||
-          item.Name ||
-          (
-            index === 0
-              ? "MỪNG CƯỚI NHÀ TRAI"
-              : "MỪNG CƯỚI NHÀ GÁI"
-          ),
-
-        bankName:
-          item.BankName ||
-          item.bank_name ||
-          "",
-
-        accountName:
-          item.AccountName ||
-          item.account_name ||
-          "",
-
-        accountNumber:
-          item.AccountNumber ||
-          item.account_number ||
-          "",
-
-        qr:
-          item.qr ||
-          item.QrCode ||
-          item.qr_url ||
-          "",
-
-      };
-
-    })
-    .slice(0, 2);
-
-});
-
-
-/* =========================================
-   DIALOG
-========================================= */
-
-const dialog = ref(false);
-
-const currentIndex = ref(0);
-
+const selectedIndex = ref(null);
+const previewQr = ref(null);
 
 const selectedGift = computed(() => {
+  if (
+    selectedIndex.value === null ||
+    selectedIndex.value === undefined
+  ) {
+    return null;
+  }
 
-  return (
-    normalizedGifts.value[
-      currentIndex.value
-    ] || null
-  );
-
+  return props.gifts[selectedIndex.value] || null;
 });
 
-
 function openGift(index) {
+  selectedIndex.value = index;
 
-  currentIndex.value = index;
-
-  dialog.value = true;
-
-  document.body.classList.add(
-    "gift-modal-open"
-  );
+  document.body.classList.add("gift-dialog-open");
 }
-
 
 function closeGift() {
+  previewQr.value = null;
+  selectedIndex.value = null;
 
-  dialog.value = false;
-
-  document.body.classList.remove(
-    "gift-modal-open"
-  );
+  document.body.classList.remove("gift-dialog-open");
 }
+
+function openQr(item) {
+  previewQr.value = item;
+}
+
+function closeQr() {
+  previewQr.value = null;
+}
+
+async function copyAccount(item) {
+  const number = item.AccountNumber || item.Number;
+
+  if (!number) return;
+
+  try {
+    await navigator.clipboard.writeText(number);
+  } catch (error) {
+    console.warn("Không thể sao chép số tài khoản", error);
+  }
+}
+
+function handleEscape(event) {
+  if (event.key === "Escape") {
+    if (previewQr.value) {
+      closeQr();
+    } else if (selectedGift.value) {
+      closeGift();
+    }
+  }
+}
+
+document.addEventListener("keydown", handleEscape);
+
+onBeforeUnmount(() => {
+  document.removeEventListener("keydown", handleEscape);
+  document.body.classList.remove("gift-dialog-open");
+});
 </script>
 
-
 <style scoped>
-
-/* =====================================================
-   ROOT
-===================================================== */
+/* =========================================================
+   MAIN
+========================================================= */
 
 .gifts {
   position: relative;
 
-  width: 100%;
+  width: min(590px, calc(100% - 24px));
 
-  padding:
-    10px
-    4px
-    25px;
-
-  color: #641417;
+  margin: 24px auto 35px;
+  padding: 38px 18px 32px;
 
   text-align: center;
 
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
+  color: #805363;
+
+  border: 1px solid rgba(198, 160, 106, 0.38);
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 250, 249, 0.32),
+      rgba(250, 230, 237, 0.18)
+    );
+
+  box-shadow:
+    0 12px 35px rgba(137, 67, 84, 0.09),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+
+  overflow: hidden;
 }
 
+.gifts::before {
+  content: "";
 
-/* =====================================================
+  position: absolute;
+  inset: 8px;
+
+  border: 1px solid rgba(198, 160, 106, 0.25);
+  border-radius: 22px;
+
+  pointer-events: none;
+}
+
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
-.gift-heading {
-  max-width: 340px;
+.gift-ornament {
+  position: relative;
 
-  margin:
-    0
-    auto
-    28px;
-}
-
-
-.gift-kicker {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: #a37a3d;
-
-  font-size: 8px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.gift-heading h2 {
-  margin: 0;
-
-  color: #821419;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 23px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-
-.gift-decoration {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  gap: 9px;
 
-  margin:
-    9px
-    auto
-    13px;
+  margin-bottom: 12px;
+
+  color: #c6a06a;
 }
 
-
-.gift-decoration span {
-  width: 40px;
+.gift-ornament span {
+  width: 45px;
   height: 1px;
 
   background:
     linear-gradient(
-      to right,
+      90deg,
       transparent,
-      #b58a45
+      rgba(198, 160, 106, 0.7)
     );
 }
 
-
-.gift-decoration span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b58a45
-    );
+.gift-ornament span:last-child {
+  transform: rotate(180deg);
 }
 
+.eyebrow {
+  position: relative;
 
-.gift-decoration b {
-  color: #9b161a;
+  color: #b17486;
 
-  font-family:
-    "Times New Roman",
-    serif;
+  font-size: 10px;
+  font-weight: 700;
 
-  font-size: 16px;
+  letter-spacing: 0.28em;
 }
 
+.gifts h2 {
+  position: relative;
 
-.gift-heading p {
-  margin: 0 auto;
+  margin: 5px 0 4px;
 
-  max-width: 300px;
+  color: #9b4b61;
 
-  color: #75604e;
+  font-family: "Cormorant Garamond", Georgia, serif;
 
-  font-size: 11px;
-  font-weight: 500;
-
-  line-height: 1.8;
+  font-size: clamp(27px, 7vw, 34px);
+  font-weight: 600;
 }
 
+.gift-intro {
+  position: relative;
 
-/* =====================================================
-   LIXI LIST
-===================================================== */
+  margin: 0 0 27px;
+
+  color: #956476;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   GIFT LIST
+========================================================= */
 
 .gift-list {
   position: relative;
 
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
+  gap: 18px;
+}
+
+.gift-item {
+  position: relative;
+
+  width: 100%;
+  min-height: 315px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   GIFT BUTTON
+========================================================= */
+
+.gift-box-button {
+  position: relative;
+
+  width: 100%;
+  min-height: 315px;
+
+  display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  border: 1px solid rgba(198, 160, 106, 0.28);
+  border-radius: 23px;
 
-  height: 245px;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.65),
+      rgba(250, 229, 236, 0.2)
+    );
 
-  margin:
-    5px
-    auto
-    15px;
+  cursor: pointer;
+
+  appearance: none;
+
+  font-family: inherit;
+
+  overflow: hidden;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* =========================================================
+   GLOW
+========================================================= */
 
-/* =====================================================
-   LIXI BUTTON
-===================================================== */
-
-.lixi {
+.gift-glow {
   position: absolute;
 
-  display: flex;
+  width: 230px;
+  height: 230px;
 
-  flex-direction: column;
+  left: 50%;
+  top: 35px;
 
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(230, 183, 197, 0.42),
+      rgba(230, 183, 197, 0.12) 45%,
+      transparent 72%
+    );
+
+  filter: blur(4px);
+
+  animation: giftGlow 3.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   GIFT IMAGE
+========================================================= */
+
+.gift-box {
+  position: relative;
+
+  z-index: 3;
+
+  width: 210px;
+
+  animation: giftFloat 3.5s ease-in-out infinite;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease;
+}
+
+.gift-box img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 18px 15px rgba(105, 44, 61, 0.17));
+}
+
+.gift-box-button:hover .gift-box {
+  animation-play-state: paused;
+
+  transform:
+    translateY(-10px)
+    rotate(-2deg)
+    scale(1.035);
+
+  filter: brightness(1.05);
+}
+
+.gift-box-button:active .gift-box {
+  transform:
+    translateY(2px)
+    scale(0.93)
+    rotate(2deg);
+}
+
+/* =========================================================
+   SHADOW
+========================================================= */
+
+.gift-shadow {
+  position: absolute;
+
+  z-index: 2;
+
+  left: 50%;
+  bottom: 58px;
+
+  width: 135px;
+  height: 22px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(91, 40, 55, 0.16);
+
+  filter: blur(8px);
+
+  animation: giftShadow 3.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   SPARKLES
+========================================================= */
+
+.gift-sparkle {
+  position: absolute;
+
+  z-index: 6;
+
+  color: #c6a06a;
+
+  font-family: Georgia, serif;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.95),
+    0 0 14px rgba(198, 160, 106, 0.25);
+
+  pointer-events: none;
+
+  animation: sparkle 2.6s ease-in-out infinite;
+}
+
+.sparkle-1 {
+  top: 58px;
+  left: calc(50% - 108px);
+
+  font-size: 15px;
+}
+
+.sparkle-2 {
+  top: 91px;
+  right: calc(50% - 116px);
+
+  font-size: 11px;
+
+  animation-delay: 0.6s;
+}
+
+.sparkle-3 {
+  bottom: 105px;
+  left: calc(50% - 125px);
+
+  font-size: 10px;
+
+  animation-delay: 1.2s;
+}
+
+.sparkle-4 {
+  right: calc(50% - 124px);
+  bottom: 93px;
+
+  font-size: 12px;
+
+  animation-delay: 1.7s;
+}
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.gift-hint {
+  position: absolute;
+
+  z-index: 8;
+
+  left: 50%;
+  bottom: 21px;
+
+  display: inline-flex;
   align-items: center;
 
-  width: 145px;
+  gap: 7px;
+
+  transform: translateX(-50%);
+
+  color: #a8566c;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.2em;
+
+  white-space: nowrap;
+}
+
+.gift-hint::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -7px;
+
+  width: 34px;
+  height: 1px;
+
+  transform: translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c6a06a,
+      transparent
+    );
+}
+
+/* =========================================================
+   DIALOG
+========================================================= */
+
+.gift-dialog {
+  position: fixed;
+
+  z-index: 99999;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  overflow-y: auto;
+}
+
+.gift-dialog-backdrop {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 246, 248, 0.52),
+      rgba(72, 37, 47, 0.58)
+    );
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+/* =========================================================
+   DIALOG CARD
+========================================================= */
+
+.gift-dialog-card {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(760px, 100%);
+
+  max-height: min(90vh, 850px);
+
+  padding: 31px 28px 24px;
+
+  overflow-y: auto;
+
+  text-align: center;
+
+  border: 1px solid rgba(198, 160, 106, 0.45);
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 252, 251, 0.98),
+      rgba(250, 232, 237, 0.97)
+    );
+
+  box-shadow:
+    0 30px 90px rgba(64, 29, 42, 0.32),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(198, 160, 106, 0.35) transparent;
+}
+
+.gift-dialog-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 8px;
+
+  border: 1px solid rgba(198, 160, 106, 0.22);
+  border-radius: 21px;
+
+  pointer-events: none;
+}
+
+.dialog-glow {
+  position: absolute;
+
+  width: 300px;
+  height: 180px;
+
+  top: -100px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(231, 185, 199, 0.38),
+      transparent 70%
+    );
+
+  filter: blur(5px);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   DIALOG DECORATION
+========================================================= */
+
+.dialog-decoration {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-bottom: 8px;
+}
+
+.dialog-decoration span {
+  width: 60px;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(198, 160, 106, 0.65)
+    );
+}
+
+.dialog-decoration span:last-child {
+  transform: rotate(180deg);
+}
+
+.dialog-heart {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #cf8198,
+      #a84f68
+    );
+
+  box-shadow:
+    0 7px 18px rgba(160, 73, 97, 0.2);
+
+  animation: heartPulse 2.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   CLOSE
+========================================================= */
+
+.dialog-close {
+  position: absolute;
+
+  z-index: 10;
+
+  top: 15px;
+  right: 15px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #9e6274;
+
+  border: 1px solid rgba(198, 160, 106, 0.28);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.68);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.dialog-close:hover {
+  transform: rotate(90deg);
+
+  background: white;
+}
+
+/* =========================================================
+   DIALOG HEADER
+========================================================= */
+
+.dialog-eyebrow {
+  position: relative;
+
+  margin-top: 6px;
+
+  color: #b17486;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.24em;
+}
+
+.gift-dialog-card h3 {
+  position: relative;
+
+  margin: 3px 0 2px;
+
+  color: #954e63;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 29px;
+  font-weight: 600;
+}
+
+.dialog-description {
+  position: relative;
+
+  max-width: 450px;
+
+  margin: 0 auto 22px;
+
+  color: #956476;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   ACCOUNT GRID
+========================================================= */
+
+.account-grid {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
+
+  gap: 16px;
+
+  text-align: left;
+}
+
+/* =========================================================
+   ACCOUNT CARD
+========================================================= */
+
+.account-card {
+  position: relative;
+
+  padding: 17px;
+
+  border: 1px solid rgba(198, 160, 106, 0.3);
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.84),
+      rgba(255, 247, 248, 0.72)
+    );
+
+  box-shadow:
+    0 8px 25px rgba(118, 55, 72, 0.07);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.account-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 13px 30px rgba(118, 55, 72, 0.11);
+}
+
+/* =========================================================
+   ACCOUNT HEADING
+========================================================= */
+
+.account-heading {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 13px;
+}
+
+.account-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: #a6536b;
+
+  border: 1px solid rgba(198, 160, 106, 0.3);
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff,
+      #f8e4e9
+    );
+}
+
+.account-label {
+  color: #9b4b61;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.09em;
+}
+
+.account-bank {
+  margin-top: 2px;
+
+  color: #ad7a88;
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   QR
+========================================================= */
+
+.qr-button {
+  position: relative;
+
+  width: 100%;
+
+  display: block;
 
   padding: 0;
 
@@ -513,970 +1140,721 @@ function closeGift() {
 
   cursor: pointer;
 
-  -webkit-tap-highlight-color: transparent;
-
-  transition:
-    transform .35s cubic-bezier(.2,.8,.2,1);
+  font-family: inherit;
 }
-
-.lixi-left {
-
-  left: calc(50% - 130px);
-
-  z-index: 1;
-
-  transform:
-    rotate(-12deg)
-    translateY(8px);
-}
-
-
-/* =====================================================
-   LÌ XÌ BÊN PHẢI
-===================================================== */
-
-.lixi-right {
-
-  right: calc(50% - 130px);
-
-  z-index: 2;
-
-  transform:
-    rotate(12deg)
-    translateY(-5px);
-}
-
-
-/* =====================================================
-   HOVER
-===================================================== */
-
-.lixi-left:hover {
-
-  z-index: 5;
-
-  transform:
-    rotate(-7deg)
-    translateY(-5px)
-    scale(1.04);
-}
-
-
-.lixi-right:hover {
-
-  z-index: 5;
-
-  transform:
-    rotate(7deg)
-    translateY(-10px)
-    scale(1.04);
-}
-
-
-/* =====================================================
-   IMAGE WRAPPER
-===================================================== */
-
-.lixi-image-wrap {
-  position: relative;
-
-  width: 100%;
-
-  filter:
-    drop-shadow(
-      0 12px 15px
-      rgba(88, 14, 18, .22)
-    );
-
-  animation:
-    lixi-float
-    4s
-    ease-in-out
-    infinite;
-}
-
-
-.lixi-right
-.lixi-image-wrap {
-  animation-delay:
-    -1.5s;
-}
-
-
-.lixi-image {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-
-/* =====================================================
-   ÁNH SÁNG CHẠY TRÊN LÌ XÌ
-===================================================== */
-
-.lixi-shine {
-  position: absolute;
-
-  top: 0;
-  left: -90%;
-
-  width: 38%;
-  height: 100%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.5),
-      transparent
-    );
-
-  transform:
-    skewX(-18deg);
-
-  animation:
-    lixi-shine
-    5s
-    ease-in-out
-    infinite;
-}
-
-
-/* =====================================================
-   NÚT +
-===================================================== */
-
-.lixi-open {
-  position: absolute;
-
-  right: 8px;
-  bottom: 18px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  color: #8b1116;
-
-  background:
-    rgba(255,249,232,.96);
-
-  border:
-    1px solid
-    rgba(153,110,44,.6);
-
-  border-radius: 50%;
-
-  box-shadow:
-    0 3px 10px
-    rgba(70,15,15,.2);
-
-  font-size: 18px;
-  font-weight: 300;
-
-  line-height: 1;
-}
-
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.lixi-label {
-  margin-top: 4px;
-
-  color: #7d1519;
-
-  font-size: 9px;
-  font-weight: 900;
-
-  letter-spacing: .6px;
-
-  line-height: 1.4;
-}
-
-
-/* =====================================================
-   HINT
-===================================================== */
-
-.lixi-hint {
-  display: block;
-
-  margin-top: 3px;
-
-  color: #a17a40;
-
-  font-size: 6px;
-  font-weight: 900;
-
-  letter-spacing: 1.7px;
-}
-
-
-/* =====================================================
-   FLOAT
-===================================================== */
-
-@keyframes lixi-float {
-
-  0%,
-  100% {
-    transform:
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translateY(-5px);
-  }
-
-}
-
-
-/* =====================================================
-   SHINE
-===================================================== */
-
-@keyframes lixi-shine {
-
-  0% {
-    left: -90%;
-  }
-
-  35%,
-  100% {
-    left: 130%;
-  }
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .gift-list {
-    height: 220px;
-  }
-
-
-  .lixi {
-    width: 132px;
-  }
-
-
-  .lixi-left {
-    left: calc(50% - 118px);
-  }
-
-
-  .lixi-right {
-    right: calc(50% - 118px);
-  }
-
-
-  .lixi-label {
-    font-size: 8px;
-  }
-
-
-  .lixi-hint {
-    font-size: 5.5px;
-  }
-
-}
-
-/* =====================================================
-   LIXI IMAGE
-===================================================== */
-
-.lixi-image-wrap {
-  position: relative;
-
-  width: 100%;
-
-  filter:
-    drop-shadow(
-      0 10px 14px
-      rgba(104, 20, 20, .18)
-    );
-
-  animation:
-    lixi-float
-    4s
-    ease-in-out
-    infinite;
-}
-
-
-.lixi:nth-child(2)
-.lixi-image-wrap {
-  animation-delay:
-    -1.5s;
-}
-
-
-.lixi-image {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-
-/* =====================================================
-   SHINE
-===================================================== */
-
-.lixi-shine {
-  position: absolute;
-
-  top: 0;
-  left: -80%;
-
-  width: 35%;
-  height: 100%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.42),
-      transparent
-    );
-
-  transform:
-    skewX(-18deg);
-
-  animation:
-    lixi-shine
-    5s
-    ease-in-out
-    infinite;
-}
-
-
-/* =====================================================
-   OPEN ICON
-===================================================== */
-
-.lixi-open {
-  position: absolute;
-
-  right: 9px;
-  bottom: 17px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  color: #8c1116;
-
-  background:
-    rgba(255,248,228,.94);
-
-  border:
-    1px solid
-    rgba(154, 111, 48, .55);
-
-  border-radius: 50%;
-
-  box-shadow:
-    0 3px 9px
-    rgba(90,20,20,.16);
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 18px;
-  font-weight: 300;
-
-  line-height: 1;
-}
-
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.lixi-label {
-  margin-top: 6px;
-
-  color: #7c1519;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: .7px;
-
-  line-height: 1.4;
-}
-
-
-.lixi-hint {
-  display: block;
-
-  margin-top: 4px;
-
-  color: #a27a40;
-
-  font-size: 7px;
-  font-weight: 800;
-
-  letter-spacing: 1.8px;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.gift-empty {
-  color: #8a7159;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.gift-modal {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 9999;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-
-  background:
-    rgba(48, 8, 10, .72);
-
-  backdrop-filter:
-    blur(7px);
-
-  -webkit-backdrop-filter:
-    blur(7px);
-}
-
-
-.gift-modal-card {
-  position: relative;
-
-  width: min(100%, 360px);
-
-  max-height: 90vh;
-
-  overflow-y: auto;
-
-  padding:
-    27px
-    22px
-    23px;
-
-  color: #671317;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fffaf0,
-      #f8ead0
-    );
-
-  border:
-    1px solid
-    rgba(169, 123, 55, .65);
-
-  box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.3);
-}
-
-
-/* inner border */
-
-.gift-modal-card::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 7px;
-
-  pointer-events: none;
-
-  border:
-    1px solid
-    rgba(169, 123, 55, .25);
-}
-
-
-/* =====================================================
-   CLOSE
-===================================================== */
-
-.modal-close {
-  position: absolute;
-
-  z-index: 3;
-
-  top: 11px;
-  right: 12px;
-
-  width: 30px;
-  height: 30px;
-
-  border: 0;
-
-  color: #7e181c;
-
-  background:
-    rgba(145, 104, 43, .08);
-
-  border-radius: 50%;
-
-  font-size: 23px;
-  font-weight: 300;
-
-  line-height: 1;
-
-  cursor: pointer;
-}
-
-
-/* =====================================================
-   MODAL HEADER
-===================================================== */
-
-.modal-symbol {
-  position: relative;
-
-  color: #a1171c;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 35px;
-  font-weight: 700;
-
-  line-height: 1;
-}
-
-
-.modal-kicker {
-  position: relative;
-
-  display: block;
-
-  margin-top: 6px;
-
-  color: #a0793e;
-
-  font-size: 8px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.gift-modal-card h3 {
-  position: relative;
-
-  margin:
-    7px
-    0
-    0;
-
-  color: #771317;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  letter-spacing: .7px;
-}
-
-
-.modal-line {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  margin:
-    10px
-    auto
-    17px;
-}
-
-
-.modal-line span {
-  width: 35px;
-  height: 1px;
-
-  background: #b88b47;
-}
-
-
-.modal-line b {
-  color: #a1171c;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   BANK INFO
-===================================================== */
-
-.bank-info {
-  position: relative;
-
-  margin-bottom: 16px;
-}
-
-
-.bank-name {
-  color: #8b661f;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  letter-spacing: 1px;
-}
-
-
-.account-name {
-  margin-top: 5px;
-
-  color: #765c48;
-
-  font-size: 11px;
-  font-weight: 600;
-}
-
-
-.account-number {
-  margin-top: 7px;
-
-  color: #821419;
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-
-/* =====================================================
-   QR
-===================================================== */
-
-.qr-wrapper {
-  position: relative;
-
-  display: flex;
-
-  justify-content: center;
-}
-
 
 .qr-frame {
   position: relative;
 
-  width: 178px;
-  height: 178px;
+  width: fit-content;
 
-  padding: 9px;
+  margin: 0 auto;
 
-  background: #fff;
-
-  border:
-    1px solid
-    #b48a47;
-
-  box-shadow:
-    0 8px 20px
-    rgba(91, 24, 24, .12);
+  padding: 8px;
 }
 
+.qr-inner {
+  padding: 7px;
 
-.qr-frame img {
+  border: 1px solid rgba(198, 160, 106, 0.32);
+
+  background: white;
+
+  box-shadow:
+    0 7px 20px rgba(80, 37, 50, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.qr-button:hover .qr-inner {
+  transform: scale(1.025);
+
+  box-shadow:
+    0 10px 25px rgba(80, 37, 50, 0.13);
+}
+
+.qr-code {
   display: block;
 
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
 
   object-fit: contain;
 }
 
-
-/* =====================================================
-   QR CORNERS
-===================================================== */
+/* QR corners */
 
 .qr-corner {
   position: absolute;
 
-  width: 14px;
-  height: 14px;
-
   z-index: 2;
 
-  border-color: #a7191e;
+  width: 18px;
+  height: 18px;
+
+  border-color: #c6a06a;
   border-style: solid;
+
+  pointer-events: none;
 }
 
+.qr-corner--tl {
+  top: 0;
+  left: 0;
 
-.qr-tl {
-  top: -4px;
-  left: -4px;
-
-  border-width:
-    2px
-    0
-    0
-    2px;
+  border-width: 1px 0 0 1px;
 }
 
+.qr-corner--tr {
+  top: 0;
+  right: 0;
 
-.qr-tr {
-  top: -4px;
-  right: -4px;
-
-  border-width:
-    2px
-    2px
-    0
-    0;
+  border-width: 1px 1px 0 0;
 }
 
+.qr-corner--bl {
+  bottom: 0;
+  left: 0;
 
-.qr-bl {
-  bottom: -4px;
-  left: -4px;
-
-  border-width:
-    0
-    0
-    2px
-    2px;
+  border-width: 0 0 1px 1px;
 }
 
+.qr-corner--br {
+  right: 0;
+  bottom: 0;
 
-.qr-br {
-  right: -4px;
-  bottom: -4px;
-
-  border-width:
-    0
-    2px
-    2px
-    0;
+  border-width: 0 1px 1px 0;
 }
 
+.qr-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-/* =====================================================
-   NOTE
-===================================================== */
+  gap: 5px;
 
-.modal-note {
-  position: relative;
+  margin-top: 7px;
 
-  margin:
-    14px
-    0
-    17px;
+  color: #ad7081;
 
-  color: #866c53;
+  font-size: 7px;
+  font-weight: 700;
 
-  font-size: 10px;
-
-  line-height: 1.5;
+  letter-spacing: 0.11em;
 }
 
+/* =========================================================
+   ACCOUNT INFO
+========================================================= */
 
-/* =====================================================
-   BUTTON
-===================================================== */
+.account-info {
+  margin-top: 13px;
 
-.modal-button {
-  position: relative;
+  padding: 11px 12px;
 
-  min-width: 110px;
-  min-height: 36px;
+  border: 1px solid rgba(198, 160, 106, 0.18);
+  border-radius: 12px;
 
-  padding:
-    8px
-    20px;
+  background: rgba(255, 255, 255, 0.52);
+}
 
-  color: #fff9ed;
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.info-left {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.info-label {
+  color: #b17486;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.info-value {
+  color: #714b5a;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+.account-number {
+  color: #994d64;
+
+  letter-spacing: 0.06em;
+}
+
+.info-divider {
+  height: 1px;
+
+  margin: 8px 0;
 
   background:
     linear-gradient(
-      135deg,
-      #98171c,
-      #771115
+      90deg,
+      transparent,
+      rgba(198, 160, 106, 0.25),
+      transparent
+    );
+}
+
+/* =========================================================
+   COPY
+========================================================= */
+
+.copy-button {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: #a45b70;
+
+  border: 1px solid rgba(198, 160, 106, 0.27);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.copy-button:hover {
+  transform: scale(1.08);
+
+  background: white;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.account-description {
+  margin-top: 9px;
+
+  color: #986779;
+
+  font-size: 10px;
+  font-style: italic;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+/* =========================================================
+   DIALOG FOOTER
+========================================================= */
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  margin-top: 20px;
+
+  color: #c6a06a;
+}
+
+.dialog-footer span {
+  width: 55px;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(198, 160, 106, 0.5)
+    );
+}
+
+.dialog-footer span:last-child {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   QR PREVIEW
+========================================================= */
+
+.qr-preview {
+  position: fixed;
+
+  z-index: 100000;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.qr-preview-backdrop {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(45, 24, 31, 0.72);
+
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.qr-preview-card {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(380px, 100%);
+
+  padding: 27px 22px 23px;
+
+  text-align: center;
+
+  border: 1px solid rgba(198, 160, 106, 0.45);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffdfc,
+      #fae9ee
     );
 
-  border:
-    1px solid
-    #a42b2e;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.3);
+}
 
-  font-size: 9px;
-  font-weight: 900;
+.qr-preview-close {
+  position: absolute;
 
-  letter-spacing: 1.8px;
+  top: 11px;
+  right: 11px;
+
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #986073;
+
+  border: 1px solid rgba(198, 160, 106, 0.25);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.8);
 
   cursor: pointer;
 }
 
+.qr-preview-title {
+  margin-bottom: 15px;
 
-/* =====================================================
-   ANIMATION
-===================================================== */
+  color: #9b4b61;
 
-@keyframes lixi-float {
+  font-size: 11px;
+  font-weight: 700;
 
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(0deg);
-  }
-
-  50% {
-    transform:
-      translateY(-5px)
-      rotate(-1deg);
-  }
-
+  letter-spacing: 0.15em;
 }
 
+.qr-preview-image {
+  width: fit-content;
 
-@keyframes lixi-shine {
+  margin: 0 auto;
 
-  0% {
-    left: -80%;
-  }
+  padding: 12px;
 
-  35%,
-  100% {
-    left: 130%;
-  }
+  border: 1px solid rgba(198, 160, 106, 0.35);
 
+  background: white;
+
+  box-shadow:
+    0 10px 30px rgba(83, 37, 51, 0.12);
 }
 
+.qr-preview-image img {
+  display: block;
 
-/* =====================================================
-   MODAL TRANSITION
-===================================================== */
+  width: min(280px, 70vw);
+  height: min(280px, 70vw);
+
+  object-fit: contain;
+}
+
+.qr-preview-card p {
+  margin: 14px 0;
+
+  color: #976879;
+
+  font-size: 11px;
+  font-style: italic;
+}
+
+.qr-save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 9px 15px;
+
+  color: white;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c87891,
+      #a9516b
+    );
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 7px 18px rgba(160, 73, 97, 0.18);
+}
+
+/* =========================================================
+   DIALOG ANIMATION
+========================================================= */
 
 .gift-dialog-enter-active,
 .gift-dialog-leave-active {
   transition:
-    opacity .3s ease;
+    opacity 0.35s ease;
 }
 
-
-.gift-dialog-enter-active
-.gift-modal-card,
-.gift-dialog-leave-active
-.gift-modal-card {
+.gift-dialog-enter-active .gift-dialog-card,
+.gift-dialog-leave-active .gift-dialog-card {
   transition:
-    transform .35s ease,
-    opacity .3s ease;
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.gift-dialog-enter-from {
+  opacity: 0;
+}
 
-.gift-dialog-enter-from,
+.gift-dialog-enter-from .gift-dialog-card {
+  opacity: 0;
+
+  transform:
+    translateY(35px)
+    scale(0.88)
+    rotateX(8deg);
+}
+
 .gift-dialog-leave-to {
   opacity: 0;
 }
 
-
-.gift-dialog-enter-from
-.gift-modal-card,
-.gift-dialog-leave-to
-.gift-modal-card {
+.gift-dialog-leave-to .gift-dialog-card {
   opacity: 0;
 
   transform:
-    translateY(30px)
-    scale(.94);
+    translateY(20px)
+    scale(0.94);
 }
 
+/* =========================================================
+   QR PREVIEW ANIMATION
+========================================================= */
 
-/* =====================================================
+.qr-preview-enter-active,
+.qr-preview-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.qr-preview-enter-active .qr-preview-card,
+.qr-preview-leave-active .qr-preview-card {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.qr-preview-enter-from {
+  opacity: 0;
+}
+
+.qr-preview-enter-from .qr-preview-card {
+  opacity: 0;
+
+  transform:
+    scale(0.85)
+    translateY(20px);
+}
+
+.qr-preview-leave-to {
+  opacity: 0;
+}
+
+.qr-preview-leave-to .qr-preview-card {
+  opacity: 0;
+
+  transform: scale(0.92);
+}
+
+/* =========================================================
+   GIFT ANIMATIONS
+========================================================= */
+
+@keyframes giftFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes giftShadow {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 0.16;
+  }
+
+  50% {
+    transform: translateX(-50%) scaleX(0.76);
+    opacity: 0.08;
+  }
+}
+
+@keyframes giftGlow {
+  0%,
+  100% {
+    opacity: 0.65;
+
+    transform:
+      translateX(-50%)
+      scale(0.94);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      scale(1.08);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.2;
+
+    transform:
+      scale(0.65)
+      rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      scale(1.2)
+      rotate(20deg);
+  }
+}
+
+@keyframes heartPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 620px) {
+  .gifts {
+    width: calc(100% - 16px);
 
-  .gift-list {
+    margin: 18px auto 28px;
+
+    padding: 32px 12px 26px;
+
+    border-radius: 23px;
+  }
+
+  .gifts::before {
+    inset: 6px;
+
+    border-radius: 18px;
+  }
+
+  .gift-intro {
+    margin-bottom: 22px;
+
+    font-size: 13px;
+  }
+
+  .gift-item {
+    min-height: 295px;
+  }
+
+  .gift-box-button {
+    min-height: 295px;
+  }
+
+  .gift-box {
+    width: 185px;
+  }
+
+  .gift-glow {
+    width: 190px;
+    height: 190px;
+  }
+
+  .gift-dialog {
+    align-items: flex-end;
+
+    padding: 10px;
+  }
+
+  .gift-dialog-card {
+    width: 100%;
+
+    max-height: 92vh;
+
+    padding: 27px 13px 19px;
+
+    border-radius: 25px 25px 20px 20px;
+  }
+
+  .gift-dialog-card::before {
+    inset: 6px;
+
+    border-radius: 19px 19px 15px 15px;
+  }
+
+  .gift-dialog-card h3 {
+    font-size: 26px;
+  }
+
+  .dialog-description {
+    margin-bottom: 18px;
+
+    padding: 0 10px;
+
+    font-size: 11px;
+  }
+
+  .account-grid {
+    grid-template-columns: 1fr;
+
     gap: 12px;
   }
 
-
-  .lixi {
-    width: 44%;
+  .account-card {
+    padding: 14px;
   }
 
+  .qr-code {
+    width: 135px;
+    height: 135px;
+  }
 
-  .lixi-label {
+  .account-info {
+    margin-top: 11px;
+  }
+
+  .qr-preview {
+    padding: 14px;
+  }
+
+  .qr-preview-card {
+    padding: 25px 15px 19px;
+  }
+}
+
+@media (max-width: 380px) {
+  .gift-box {
+    width: 165px;
+  }
+
+  .gift-item,
+  .gift-box-button {
+    min-height: 280px;
+  }
+
+  .qr-code {
+    width: 125px;
+    height: 125px;
+  }
+
+  .account-label {
     font-size: 9px;
   }
 
+  .info-value {
+    font-size: 10px;
+  }
+}
 
-  .lixi-hint {
-    font-size: 6px;
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .gift-box,
+  .gift-shadow,
+  .gift-glow,
+  .gift-sparkle,
+  .dialog-heart {
+    animation: none;
   }
 
-
-  .qr-frame {
-    width: 165px;
-    height: 165px;
+  .gift-dialog-enter-active,
+  .gift-dialog-leave-active,
+  .qr-preview-enter-active,
+  .qr-preview-leave-active {
+    transition: none;
   }
-
 }
 </style>

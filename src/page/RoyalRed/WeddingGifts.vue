@@ -385,7 +385,6 @@ async function copy(value) {
 .gift-section {
   position: relative;
   width: 100%;
-  padding: 90px 16px;
   color: #f5e6c5;
 }
 
@@ -1280,10 +1279,7 @@ async function copy(value) {
 
 @media (max-width: 650px) {
 
-  .gift-section {
-    padding: 70px 12px;
-  }
-
+ 
   .intro {
     margin-bottom: 45px;
 

@@ -1,330 +1,145 @@
 import { defineStore } from "pinia";
 
-// import defaults from "./../utils/defaultData";
 import weddingData from "./../mock/wedding.json";
 
-
 export const useWeddingStore = defineStore("wedding", {
-
   state: () => ({
-
-    /*
-     * ============================================================
-     * DANH SÁCH TẤT CẢ THIỆP
-     * ============================================================
-     *
-     * Dùng cho Home
-     */
     weddings: [],
-
-
-    /*
-     * ============================================================
-     * THIỆP HIỆN TẠI
-     * ============================================================
-     *
-     * Dùng cho WeddingDetail
-     */
     wedding: null,
-
-
-    /*
-     * ============================================================
-     * LOADING
-     * ============================================================
-     */
     loading: false,
-
-
-    /*
-     * ============================================================
-     * ERROR
-     * ============================================================
-     */
     error: null,
-
-
-    /*
-     * ============================================================
-     * CACHE
-     * ============================================================
-     *
-     * cache theo slug
-     *
-     * Ví dụ:
-     *
-     * cache: {
-     *   "ha-uyen-tran-hieu": {...},
-     *   "minh-anh-quoc-huy": {...}
-     * }
-     */
     cache: {},
-
   }),
 
-
   getters: {
-
     weddingList: (state) => {
       return state.weddings;
     },
 
-
     currentWedding: (state) => {
       return state.wedding;
     },
-
   },
 
-
   actions: {
-
     async loadWeddings() {
-
       this.loading = true;
       this.error = null;
 
-
       try {
-
         if (!Array.isArray(weddingData)) {
-
-          throw new Error(
-            "wedding.json phải có dạng Array []"
-          );
-
+          throw new Error("wedding.json phải có dạng Array []");
         }
 
-        this.weddings = weddingData.map(
-          (item) => {
+        this.weddings = weddingData.map((item) => {
+          return {
+            id: item.Id,
 
-            return {
-              id: item.Id,
+            slug: item.slug,
 
-              slug: item.slug,
+            theme: item.theme,
 
-              theme: item.theme,
+            language: item.language,
 
-              language: item.language,
+            weddingDate: item.weddingDate,
 
-              weddingDate:
-                item.weddingDate,
+            coverImage: item.coverImage,
 
-              coverImage:
-                item.coverImage,
+            /*
+             * Thông tin cô dâu chú rể
+             */
+            couple: {
+              Bride: {
+                Name: item.couple?.Bride?.Name || "",
 
+                Nickname: item.couple?.Bride?.Nickname || "",
 
-              /*
-               * Thông tin cô dâu chú rể
-               */
-              couple: {
-
-                Bride: {
-
-                  Name:
-                    item.couple?.Bride?.Name ||
-                    "",
-
-                  Nickname:
-                    item.couple?.Bride?.Nickname ||
-                    "",
-
-                  Rle:
-                    item.couple?.Bride?.Role ||
-                    "Cô dâu",
-
-                },
-
-
-                Groom: {
-
-                  Name:
-                    item.couple?.Groom?.Name ||
-                    "",
-
-                  Nickname:
-                    item.couple?.Groom?.Nickname ||
-                    "",
-
-                  Role:
-                    item.couple?.Groom?.Role ||
-                    "Chú rể",
-
-                },
-
+                Rle: item.couple?.Bride?.Role || "Cô dâu",
               },
 
-            };
+              Groom: {
+                Name: item.couple?.Groom?.Name || "",
 
-          }
-        );
+                Nickname: item.couple?.Groom?.Nickname || "",
 
-
-        console.log(
-          "Danh sách thiệp:",
-          this.weddings
-        );
-
+                Role: item.couple?.Groom?.Role || "Chú rể",
+              },
+            },
+          };
+        });
 
         return this.weddings;
-
-
       } catch (error) {
+        console.error("loadWeddings error:", error);
 
-        console.error(
-          "loadWeddings error:",
-          error
-        );
-
-
-        this.error =
-          error?.Message ||
-          "Không thể tải danh sách thiệp.";
-
+        this.error = error?.Message || "Không thể tải danh sách thiệp.";
 
         this.weddings = [];
 
-
         throw error;
-
-
       } finally {
-
         this.loading = false;
-
       }
-
     },
 
     async loadWedding(slug) {
-
       this.loading = true;
       this.error = null;
 
-
       try {
         if (!slug) {
-
-          throw new Error(
-            "Thiếu slug của thiệp cưới."
-          );
-
+          throw new Error("Thiếu slug của thiệp cưới.");
         }
-
         if (this.cache[slug]) {
-
-          console.log(
-            "Lấy wedding từ cache:",
-            slug
-          );
-
-
-          this.wedding =
-            this.cache[slug];
-
+          this.wedding = this.cache[slug];
 
           return this.wedding;
-
         }
         if (!Array.isArray(weddingData)) {
-
-          throw new Error(
-            "wedding.json phải có dạng Array []"
-          );
-
+          throw new Error("wedding.json phải có dạng Array []");
         }
 
-        const foundWedding =
-          weddingData.find(
-            (item) =>
-              item?.slug === slug
-          );
+        const foundWedding = weddingData.find((item) => item?.slug === slug);
 
         if (!foundWedding) {
-
-          throw new Error(
-            `Không tìm thấy thiệp với slug: ${slug}`
-          );
-
+          throw new Error(`Không tìm thấy thiệp với slug: ${slug}`);
         }
-
         const data = {
-          // ...structuredClone(defaults),
-
           ...structuredClone(foundWedding),
-
         };
 
         this.cache[slug] = data;
 
         this.wedding = data;
 
-
-        console.log(
-          "Wedding hiện tại:",
-          this.wedding
-        );
-
+        console.log("Wedding hiện tại:", this.wedding);
 
         return data;
-
-
       } catch (error) {
+        console.error("loadWedding error:", error);
 
-        console.error(
-          "loadWedding error:",
-          error
-        );
-
-
-        this.error =
-          error?.Message ||
-          "Không thể tải thiệp cưới.";
-
+        this.error = error?.Message || "Không thể tải thiệp cưới.";
 
         this.wedding = null;
 
-
         throw error;
-
-
       } finally {
-
         this.loading = false;
-
       }
-
     },
-
 
     setWedding(data) {
-
       this.wedding = {
-
-        // ...structuredClone(defaults),
-
         ...structuredClone(data),
-
       };
-
     },
-
 
     reset() {
-
-      this.wedding =
-        // structuredClone(defaults);
-        structuredClone(weddingData);
-
+      this.wedding = structuredClone(weddingData);
     },
-
 
     clearCache() {
-
       this.cache = {};
-
     },
-
   },
-
 });

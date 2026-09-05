@@ -251,7 +251,7 @@ function openGallery(index) {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  background: #24100e;
+  background: linear-gradient(135deg, #1a0a08 0%, #24100e 50%, #1a0a08 100%);
 }
 
 .dong-son-wedding *,
@@ -280,12 +280,19 @@ function openGallery(index) {
 
   background: radial-gradient(
       circle at 50% 0,
-      rgba(201, 149, 82, 0.08),
+      rgba(201, 149, 82, 0.12),
       transparent 35%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(139, 36, 28, 0.08),
+      transparent 40%
     ),
     var(--dong-paper);
 
-  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    0 20px 70px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(169, 107, 50, 0.2);
 }
 
 .section {
@@ -296,6 +303,7 @@ function openGallery(index) {
 
 .hero-section {
   padding: 0;
+  border-bottom: 2px solid rgba(169, 107, 50, 0.3);
 }
 
 .couple-section,
@@ -309,42 +317,79 @@ function openGallery(index) {
 .guestbook-section,
 .footer-section {
   padding: 0;
+  border-bottom: 1px solid rgba(169, 107, 50, 0.2);
 }
 
-/* Hoa văn trống đồng chạy rất nhẹ giữa các section */
+.footer-section {
+  border-bottom: none;
+}
 
+/* Decorative separator with traditional pattern */
 .section:not(.hero-section)::before {
+  content: "◆ ◇ ◆ ◇ ◆";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: rgba(169, 107, 50, 0.3);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  padding: 12px 0;
+  pointer-events: none;
+}
+
+.section:not(.hero-section)::after {
   content: "";
   position: absolute;
   top: 0;
   left: 50%;
-  width: 100%;
+  width: 85%;
   height: 1px;
   transform: translateX(-50%);
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(169, 107, 50, 0.4),
-    transparent
+    transparent 0%,
+    rgba(169, 107, 50, 0.3) 20%,
+    rgba(169, 107, 50, 0.3) 80%,
+    transparent 100%
   );
   pointer-events: none;
 }
 
-/* Mobile */
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.section {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+/* Mobile */
 @media (max-width: 600px) {
   .invitation {
     width: 100%;
     box-shadow: none;
+    border-radius: 0;
   }
 }
 
 /* Desktop */
-
 @media (min-width: 768px) {
   .invitation {
     margin-top: 20px;
     margin-bottom: 20px;
+    border-radius: 4px;
   }
 }
 </style>

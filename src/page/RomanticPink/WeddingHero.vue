@@ -1,927 +1,280 @@
 <template>
-  <div class="hero">
-
-    <!-- =========================
-         DECORATION
-    ========================== -->
-
-    <img
-      :src="may"
-      class="hero-art hero-cloud-left"
-      alt=""
-    />
-
-    <img
-      :src="may"
-      class="hero-art hero-cloud-right"
-      alt=""
-    />
-
-    <img
-      :src="quat"
-      class="hero-art hero-fan-right"
-      alt=""
-    />
-
-    <img
-      :src="hoa"
-      class="hero-art hero-flower-left"
-      alt=""
-    />
-
-    <img
-      :src="hoa"
-      class="hero-art hero-flower-right"
-      alt=""
-    />
-
-
-    <!-- =========================
-         HERO CONTENT
-    ========================== -->
-
-    <div class="hero-content">
-
-      <!-- TOP LABEL -->
-
-      <div class="top-label">
-        <span class="top-line"></span>
-
-        <span>
-          THIỆP HỒNG BÁO HỶ
-        </span>
-
-        <span class="top-line"></span>
-      </div>
-
-
-      <!-- DOUBLE HAPPINESS -->
-
-      <div class="happiness-wrap">
-
-        <img
-          :src="chineseHappiness"
-          class="happiness"
-          alt="囍"
-        />
-
-        <div class="happiness-glow"></div>
-
-      </div>
-
-
-      <!-- SMALL INTRO -->
-
-      <div class="hero-intro">
-        HỶ KẾT LƯƠNG DUYÊN
-      </div>
-
-
-      <!-- COUPLE IMAGE -->
-
-      <div class="couple-image-wrap">
-
-        <div class="image-decoration image-decoration-left"></div>
-
-        <div class="image-decoration image-decoration-right"></div>
-
-        <img
-          :src="coupleImage"
-          class="couple"
-          alt="Cô dâu chú rể"
-        />
-
-      </div>
-
-
-      <!-- NAMES -->
-
-      <div class="names">
-
-        <div class="name groom-name">
-          {{ groomName }}
+  <section class="invitation-hero">
+    <img :src="hoa" class="floral floral--top" alt="" />
+    <img :src="hoa" class="floral floral--bottom" alt="" />
+    <div class="hero-frame">
+      <div class="hero-content">
+        <p class="save-date">SAVE THE DATE</p>
+        <div class="motif">
+          <span></span><img :src="icon" alt="" /><span></span>
         </div>
-
-        <div class="name-symbol">
-          <span></span>
-
-          <b>囍</b>
-
-          <span></span>
+        <h1>{{ groomName }}<br> <i>&amp;</i><br> {{ brideName }}</h1>
+        <p class="announce">TRÂN TRỌNG KÍNH MỜI</p>
+        <p class="guest">{{ guestName }}</p>
+        <p class="intro">
+          Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+        </p>
+        <p class="place">{{ location }}</p>
+        <div class="schedule">
+          <p>VÀO LÚC {{ time }}</p>
+          <p>{{ dateText }}</p>
         </div>
-
-        <div class="name bride-name">
-          {{ brideName }}
+        <p class="message">
+          Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+        </p>
+        <div class="hero-footer">
+          <span></span><b>{{ monogram }}</b
+          ><span></span>
         </div>
-
       </div>
-
-
-      <!-- DATE -->
-
-      <div class="date-block">
-
-        <div class="date-label">
-          NGÀY VUI
-        </div>
-
-        <div class="date">
-          {{ dateLabel || "DD · MM · YYYY" }}
-        </div>
-
-      </div>
-
-
-      <!-- BOTTOM MESSAGE -->
-
-      <div class="subtitle">
-        TRĂM NĂM HẠNH PHÚC
-      </div>
-
-
-      <div class="bottom-symbol">
-        <span></span>
-
-        <b>✦</b>
-
-        <span></span>
-      </div>
-
     </div>
-
-  </div>
+  </section>
 </template>
-
-
 <script setup>
 import { computed } from "vue";
-
-import {
-  dauRe,
-  chineseHappiness,
-  hoa,
-  may,
-  quat,
-} from "./nhatBinhDoAssets";
-
-
+import { hoa, icon } from "@/page/RomanticPink/romaticpink";
+import dayjs from "dayjs";
 const props = defineProps({
-  wedding: {
-    type: Object,
-    default: () => ({}),
-  },
-
-  monogram: {
-    type: String,
-    default: "G&B",
-  },
-
-  dateLabel: {
-    type: String,
-    default: "",
-  },
+  wedding: { type: Object, default: () => ({}) },
+  event: { type: Object, default: () => ({}) },
+  guestName: { type: String, default: "Quý khách" },
+  monogram: { type: String, default: "G&B" },
+  dateLabel: { type: String, default: "" },
 });
-
-
-const wedding = computed(() => props.wedding || {});
-
-
-/* ==========================================================
-   NAMES
-========================================================== */
-
-const groomName = computed(() => {
-  return (
-    wedding.value?.GroomName ||
-    wedding.value?.groom?.name ||
-    "CHÚ RỂ"
-  );
-});
-
-
-const brideName = computed(() => {
-  return (
-    wedding.value?.BrideName ||
-    wedding.value?.bride?.name ||
-    "CÔ DÂU"
-  );
-});
-
-
-/* ==========================================================
-   COUPLE IMAGE
-========================================================== */
-
-const coupleImage = computed(() => {
-  return (
-    wedding.value?.hero?.Image ||
-    dauRe
-  );
+const groomName = computed(
+  () => props.wedding?.GroomName || props.wedding?.groomName || props.wedding?.hero?.GroomName || props.wedding?.couple?.Groom?.Name || "Nguyễn Huy"
+);
+const brideName = computed(
+  () => props.wedding?.BrideName || props.wedding?.brideName || props.wedding?.hero?.BrideName || props.wedding?.couple?.Bride?.Name || "Nguyễn Mai"
+);
+const location = computed(
+  () =>
+    props.event?.Location ||
+    props.event?.Address ||
+    props.wedding?.hero?.Location ||
+    "Địa điểm tổ chức tiệc cưới"
+);
+const time = computed(
+  () =>
+    props.event?.EventTime ||
+    props.event?.Time ||
+    props.event?.StartTime ||
+    props.wedding?.hero?.Time ||
+    "16:00"
+);
+const dateText = computed(() => {
+  const raw =
+    props.event?.EventDate ||
+    props.event?.Date ||
+    props.wedding?.hero?.weddingDate ||
+    props.wedding?.weddingDate;
+  const date = dayjs(raw);
+  if (date.isValid())
+    return `${
+      date.day() === 0 ? "CHỦ NHẬT" : date.day() + 1
+    }, NGÀY ${date.format("DD/MM/YYYY")}`;
+  return props.dateLabel || "NGÀY VUI CỦA CHÚNG MÌNH";
 });
 </script>
-
-
 <style scoped>
-
-/* ==========================================================
-   HERO
-========================================================== */
-
-.hero {
+.invitation-hero {
   position: relative;
-
-  width: 100%;
-  min-height: 650px;
-
+  isolation: isolate;
   overflow: hidden;
-
-  color: #8b1418;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 250, 239, 0.18),
-      rgba(255, 248, 232, 0.04)
-    );
+  padding: 12px;
+  min-height: 690px;
 }
-
-
-/* ==========================================================
-   CONTENT
-========================================================== */
-
+.invitation-hero:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.hero-frame {
+  position: relative;
+  min-height: 666px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(168, 67, 101, 0.45);
+}
+.hero-frame:before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(168, 67, 101, 0.16);
+  pointer-events: none;
+}
 .hero-content {
   position: relative;
-
-  z-index: 10;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  width: 100%;
-
-  padding:
-    54px
-    28px
-    70px;
-
+  z-index: 2;
+  width: min(100%, 440px);
+  padding: 55px 28px 45px;
   text-align: center;
+  animation: fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-
-
-/* ==========================================================
-   TOP LABEL
-========================================================== */
-
-.top-label {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 10px;
-
-  color: #8e171a;
-
-  font-size: 9px;
-
-  font-weight: 700;
-
-  letter-spacing: 3px;
-
-  white-space: nowrap;
-}
-
-
-.top-line {
-  width: 28px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #b58a45
-    );
-}
-
-
-.top-line:last-child {
-  background:
-    linear-gradient(
-      90deg,
-      #b58a45,
-      transparent
-    );
-}
-
-
-/* ==========================================================
-   DOUBLE HAPPINESS
-========================================================== */
-
-.happiness-wrap {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 82px;
-  height: 82px;
-
-  margin-top: 7px;
-}
-
-
-.happiness {
-  position: relative;
-
-  z-index: 3;
-
-  width: 64px;
-  height: 64px;
-
-  object-fit: contain;
-
-  filter:
-    drop-shadow(
-      0 3px 5px
-      rgba(126, 18, 22, .12)
-    );
-}
-
-
-.happiness-glow {
+.floral {
   position: absolute;
-
-  width: 65px;
-  height: 65px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(181, 138, 69, .13),
-      transparent 70%
-    );
-}
-
-
-/* ==========================================================
-   INTRO
-========================================================== */
-
-.hero-intro {
-  margin-top: -2px;
-
-  color: #a17b43;
-
-  font-size: 8px;
-
-  font-weight: 600;
-
-  letter-spacing: 3px;
-}
-
-
-/* ==========================================================
-   COUPLE IMAGE
-========================================================== */
-
-.couple-image-wrap {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 265px;
-
-  margin-top: 12px;
-
-  padding: 5px;
-}
-
-
-.couple {
-  position: relative;
-
-  z-index: 4;
-
-  display: block;
-
-  width: 235px;
-  height: 275px;
-
-  object-fit: contain;
-
-  filter:
-    drop-shadow(
-      0 12px 18px
-      rgba(100, 20, 15, .12)
-    );
-}
-
-
-/* ==========================================================
-   IMAGE DECORATION
-========================================================== */
-
-.Image-decoration {
-  position: absolute;
-
-  width: 40px;
-  height: 40px;
-
-  border-color: rgba(181, 138, 69, .65);
-
-  z-index: 2;
-}
-
-
-.Image-decoration-left {
-  left: 0;
-  top: 20px;
-
-  border-top: 1px solid;
-  border-left: 1px solid;
-}
-
-
-.Image-decoration-right {
-  right: 0;
-  bottom: 20px;
-
-  border-right: 1px solid;
-  border-bottom: 1px solid;
-}
-
-
-/* ==========================================================
-   NAMES
-========================================================== */
-
-.names {
-  position: relative;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  margin-top: 3px;
-}
-
-
-.name {
-  color: #861317;
-
-  font-family:
-    "Cormorant Garamond",
-    "Times New Roman",
-    serif;
-
-  font-size: 26px;
-
-  font-weight: 600;
-
-  line-height: 1.15;
-
-  letter-spacing: 2px;
-
-  text-transform: uppercase;
-
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.4);
-}
-
-
-.groom-name {
-  margin-bottom: 3px;
-}
-
-
-.bride-name {
-  margin-top: 3px;
-}
-
-
-/* ==========================================================
-   NAME SYMBOL
-========================================================== */
-
-.name-symbol {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  color: #b58a45;
-}
-
-
-.name-symbol span {
-  width: 34px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #b58a45
-    );
-}
-
-
-.name-symbol span:last-child {
-  background:
-    linear-gradient(
-      90deg,
-      #b58a45,
-      transparent
-    );
-}
-
-
-.name-symbol b {
-  color: #9a171b;
-
-  font-family: serif;
-
-  font-size: 16px;
-
-  font-weight: 400;
-}
-
-
-/* ==========================================================
-   DATE
-========================================================== */
-
-.date-block {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  margin-top: 20px;
-}
-
-
-.date-label {
-  color: #a17b43;
-
-  font-size: 7px;
-
-  font-weight: 700;
-
-  letter-spacing: 3px;
-}
-
-
-.date {
-  margin-top: 5px;
-
-  color: #8d1418;
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  letter-spacing: 3px;
-}
-
-
-/* ==========================================================
-   SUBTITLE
-========================================================== */
-
-.subtitle {
-  margin-top: 18px;
-
-  color: #a17b43;
-
-  font-size: 8px;
-
-  font-weight: 600;
-
-  letter-spacing: 3px;
-}
-
-
-/* ==========================================================
-   BOTTOM SYMBOL
-========================================================== */
-
-.bottom-symbol {
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin-top: 17px;
-}
-
-
-.bottom-symbol span {
-  width: 45px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(181,138,69,.7)
-    );
-}
-
-
-.bottom-symbol span:last-child {
-  background:
-    linear-gradient(
-      90deg,
-      rgba(181,138,69,.7),
-      transparent
-    );
-}
-
-
-.bottom-symbol b {
-  color: #b58a45;
-
-  font-size: 8px;
-
-  font-weight: 400;
-}
-
-
-/* ==========================================================
-   DECORATION BASE
-========================================================== */
-
-.hero-art {
-  position: absolute;
-
+  z-index: 1;
+  width: min(74vw, 390px);
+  opacity: 0.52;
   pointer-events: none;
-
-  user-select: none;
+  filter: sepia(0.2) saturate(0.82);
 }
-
-
-/* ==========================================================
-   CLOUD LEFT
-========================================================== */
-
-.hero-cloud-left {
-  top: 5px;
-  left: -52px;
-
-  z-index: 2;
-
-  width: 205px;
-
-  opacity: .72;
+.floral--top {
+  top: -105px;
+  left: -128px;
+  transform: rotate(-34deg);
 }
-
-
-/* ==========================================================
-   CLOUD RIGHT
-========================================================== */
-
-.hero-cloud-right {
-  top: 185px;
-  right: -55px;
-
-  z-index: 2;
-
-  width: 145px;
-
-  opacity: .48;
-
+.floral--bottom {
+  right: -135px;
+  bottom: -110px;
+  transform: scale(-1) rotate(-34deg);
+}
+.save-date,
+.announce,
+.intro,
+.place,
+.schedule p {
+  letter-spacing: 0.14em;
+}
+.save-date {
+  margin: 0;
+  color: #a34568;
+  font-size: 11px;
+  font-weight: 700;
+}
+.motif {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  margin: 12px auto;
+}
+.motif span {
+  width: 48px;
+  height: 1px;
+}
+.motif span:last-child {
   transform: scaleX(-1);
 }
-
-
-/* ==========================================================
-   FAN
-========================================================== */
-
-.hero-fan-right {
-  top: 75px;
-  right: -10px;
-
-  z-index: 3;
-
-  width: 82px;
-
-  opacity: .65;
-
-  transform: rotate(9deg);
+.motif img {
+  width: 43px;
+  height: 43px;
+  object-fit: contain;
+  opacity: 0.66;
 }
-
-
-/* ==========================================================
-   FLOWER LEFT
-========================================================== */
-
-.hero-flower-left {
-  left: -25px;
-  bottom: -5px;
-
-  z-index: 3;
-
-  width: 150px;
-
-  opacity: .75;
-
-  transform:
-    rotate(-7deg);
+.invitation-hero h1 {
+  margin: 0;
+  color: #a53f65;
+  font-family: "Great Vibes", "Brush Script MT", cursive;
+  font-size: clamp(42px, 11vw, 62px);
+  font-weight: 400;
+  line-height: 1.05;
+  text-shadow: 0 1px #fff;
 }
-
-
-/* ==========================================================
-   FLOWER RIGHT
-========================================================== */
-
-.hero-flower-right {
-  right: -35px;
-  bottom: 25px;
-
-  z-index: 3;
-
-  width: 125px;
-
-  opacity: .55;
-
-  transform:
-    scaleX(-1)
-    rotate(-5deg);
+.invitation-hero h1 i {
+  padding: 0 4px;
+  color: #b8788d;
+  font-family: Georgia;
+  font-size: 0.55em;
+  font-style: normal;
 }
-
-
-/* ==========================================================
-   TABLET
-========================================================== */
-
-@media (min-width: 521px) {
-
-  .hero-content {
-    padding-top: 60px;
-  }
-
-  .couple {
-    width: 250px;
-    height: 290px;
-  }
-
+.announce {
+  margin: 30px 0 8px;
+  color: #a45a73;
+  font-size: 10px;
+  font-weight: 700;
 }
-
-
-/* ==========================================================
-   MOBILE
-========================================================== */
-
-@media (max-width: 520px) {
-
-  .hero {
-    min-height: 620px;
-  }
-
-
-  .hero-content {
-    padding:
-      45px
-      20px
-      60px;
-  }
-
-
-  .top-label {
-    font-size: 8px;
-    letter-spacing: 2.5px;
-  }
-
-
-  .happiness-wrap {
-    width: 72px;
-    height: 72px;
-  }
-
-
-  .happiness {
-    width: 57px;
-    height: 57px;
-  }
-
-
-  .couple-image-wrap {
-    width: 235px;
-  }
-
-
-  .couple {
-    width: 215px;
-    height: 250px;
-  }
-
-
-  .name {
-    font-size: 23px;
-  }
-
-
-  .hero-cloud-left {
-    width: 175px;
-
-    left: -50px;
-  }
-
-
-  .hero-cloud-right {
-    width: 120px;
-
-    right: -50px;
-  }
-
-
-  .hero-fan-right {
-    width: 70px;
-
-    right: -15px;
-  }
-
-
-  .hero-flower-left {
-    width: 125px;
-
-    left: -30px;
-  }
-
-
-  .hero-flower-right {
-    width: 105px;
-
-    right: -35px;
-  }
-
+.guest {
+  margin: 0;
+  color: #a43e64;
+  font-size: 27px;
+  font-weight: 700;
 }
-
-
-/* ==========================================================
-   SMALL MOBILE
-========================================================== */
-
+.intro {
+  max-width: 325px;
+  margin: 14px auto 8px;
+  color: #84445c;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.place {
+  max-width: 350px;
+  margin: 0 auto;
+  color: #9d3d61;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.38;
+}
+.schedule {
+  margin: 24px auto 0;
+  padding: 14px 0;
+  border-top: 1px solid rgba(176, 74, 107, 0.36);
+  border-bottom: 1px solid rgba(176, 74, 107, 0.36);
+}
+.schedule p {
+  margin: 4px 0;
+  color: #9d3d61;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+.message {
+  max-width: 295px;
+  margin: 24px auto 20px;
+  color: #805167;
+  font-size: 15px;
+  line-height: 1.45;
+  font-style: italic;
+}
+.hero-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #b25676;
+}
+.hero-footer span {
+  width: 50px;
+  height: 1px;
+}
+.hero-footer span:last-child {
+  transform: scaleX(-1);
+}
+.hero-footer b {
+  font: 400 14px Georgia;
+  letter-spacing: 0.14em;
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 @media (max-width: 380px) {
-
-  .hero {
-    min-height: 590px;
-  }
-
-
   .hero-content {
-    padding:
-      38px
-      15px
-      55px;
+    padding: 43px 20px 35px;
   }
-
-
-  .couple-image-wrap {
-    width: 215px;
+  .hero-frame {
+    min-height: 640px;
   }
-
-
-  .couple {
-    width: 195px;
-    height: 225px;
+  .invitation-hero h1 {
+    font-size: 43px;
   }
-
-
-  .name {
-    font-size: 21px;
+  .guest {
+    font-size: 24px;
   }
-
-
-  .date {
-    font-size: 10px;
-
-    letter-spacing: 2.5px;
+  .intro {
+    font-size: 11px;
   }
-
 }
-
+@media (prefers-reduced-motion: reduce) {
+  .hero-content {
+    animation: none;
+  }
+}
 </style>
