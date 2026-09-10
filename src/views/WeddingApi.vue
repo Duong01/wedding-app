@@ -83,6 +83,11 @@ import NhatBinhDo from "@/themes/NhatBinhDo.vue";
 import IvoryGold from "@/themes/IvoryGold.vue";
 import RoyalRed from "@/themes/RoyalRed.vue";
 import DongSon from "@/themes/DongSon.vue";
+import SereneGreen from "@/themes/SereneGreen.vue";
+import SunsetPeach from "@/themes/SunsetPeach.vue";
+import ChampagneBlush from "@/themes/ChampagneBlush.vue";
+import MidnightGold from "@/themes/MidnightGold.vue";
+import LavenderCream from "@/themes/LavenderCream.vue";
 
 /* =========================================================
    ROUTER
@@ -114,6 +119,11 @@ const themes = {
   "ivory-gold": IvoryGold,
   "royal-red": RoyalRed,
   "dong-son": DongSon,
+  "serene-green": SereneGreen,
+  "sunset-peach": SunsetPeach,
+  "champagne-blush": ChampagneBlush,
+  "midnight-gold": MidnightGold,
+  "lavender-cream": LavenderCream,
 };
 
 /* =========================================================
@@ -139,6 +149,23 @@ async function loadWedding() {
   const token = route.params.token;
 
   // Kiểm tra slug
+  // Support editor preview draft: if query.draft=1 and a draft exists in sessionStorage
+  if (route.query && route.query.draft === "1") {
+    try {
+      const draft = sessionStorage.getItem("wedding-draft");
+
+      if (draft) {
+        store.wedding = JSON.parse(draft);
+        store.loading = false;
+        store.error = null;
+
+        return;
+      }
+    } catch (e) {
+      console.warn("Could not read wedding draft from sessionStorage", e);
+    }
+  }
+
   if (typeof slug !== "string" || !slug.trim()) {
     store.wedding = null;
     store.error = "Đường dẫn thiệp không hợp lệ.";

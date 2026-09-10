@@ -229,7 +229,7 @@ function formatDate(dateString) {
 .map-card {
   position: relative;
 
-  border: 1px solid rgba(198, 160, 106, 0.38);
+  border: 1px solid rgba(248, 164, 47, 0.38);
   border-radius: 21px;
 
   background: #fffaf9;
@@ -260,7 +260,7 @@ function formatDate(dateString) {
   width: 100%;
   height: 100%;
 
-  border: 0;
+  border: 1px solid #ccc;
 
   filter: saturate(0.72) sepia(0.08) contrast(0.94);
 }

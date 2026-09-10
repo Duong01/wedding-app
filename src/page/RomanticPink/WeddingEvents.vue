@@ -4,24 +4,7 @@
     <!-- =========================================
          HEADER
     ========================================== -->
-    <div class="events-header reveal">
-      <div class="eyebrow">THE CELEBRATION</div>
-
-      <h2>
-        Sự kiện trong ngày
-      </h2>
-
-      <div class="gold-divider">
-        <span></span>
-        <i>✦</i>
-        <span></span>
-      </div>
-
-      <p>
-        Trân trọng kính mời bạn đến chung vui
-        cùng chúng tôi trong ngày trọng đại.
-      </p>
-    </div>
+    
 
     <!-- =========================================
          EVENTS
@@ -35,34 +18,14 @@
         :style="{ '--delay': `${index * 120}ms` }"
       >
 
-        <!-- GOLD BORDER -->
-        <div class="event-border"></div>
-
-        <!-- TOP ORNAMENT -->
-        <div class="event-top-ornament">
-          <span></span>
-          <i>✦</i>
-          <span></span>
-        </div>
-
         <!-- =====================================
              EVENT TITLE
         ====================================== -->
         <div class="event-heading">
 
-          <div class="event-icon">
-            <span>
-              {{ eventIcon(index) }}
-            </span>
-          </div>
-
-          <span class="event-kicker">
-            {{ event.typeLabel || `SỰ KIỆN ${index + 1}` }}
-          </span>
-
-          <h3>
+          <h2>
             {{ event.Title || "TIỆC CƯỚI" }}
-          </h3>
+          </h2>
 
           <div class="mini-divider">
             <span></span>
@@ -117,8 +80,6 @@
           v-if="event.time"
           class="event-time-box"
         >
-          <span class="time-icon">◷</span>
-
           <div>
             <small>THỜI GIAN</small>
             <strong>{{ event.time }}</strong>
@@ -793,14 +754,10 @@ onBeforeUnmount(() => {
 /* =====================================================
    ROOT
 ===================================================== */
-
 .events-section {
   position: relative;
   width: 100%;
-  padding: 110px 20px;
   overflow: hidden;
-
-  
 }
 
 
@@ -810,17 +767,12 @@ onBeforeUnmount(() => {
 
 .events-header {
   max-width: 620px;
-  margin: 0 auto 55px;
   text-align: center;
 }
 
 .events-header p {
   max-width: 430px;
-
-  margin: 20px auto 0;
-
   font-size: 18px;
-
   line-height: 1.6;
 }
 
@@ -833,10 +785,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 13px;
-
-  margin: 20px auto;
 }
 
 .gold-divider span {
@@ -856,19 +805,16 @@ onBeforeUnmount(() => {
   font-style: normal;
 }
 
-
 /* =====================================================
    EVENTS LIST
 ===================================================== */
 
 .events-list {
   width: min(100%, 680px);
-
-  margin: auto;
-
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   gap: 34px;
 }
 
@@ -879,63 +825,299 @@ onBeforeUnmount(() => {
 
 .event-card {
   position: relative;
-
+  width: 100%;
+  max-width: 520px;
   overflow: hidden;
-}
 
-.event-card:hover {
-  transform: translateY(-6px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-}
-
-
-/* =====================================================
-   BORDER
-===================================================== */
-
-.event-border {
-  position: absolute;
-
-  inset: 10px;
-
-  pointer-events: none;
+  text-align: center;
 }
 
 
 /* =====================================================
-   ORNAMENT
+   EVENT HEADING
 ===================================================== */
 
-.event-top-ornament,
-.event-bottom-ornament {
+.event-heading {
+  width: 100%;
+  text-align: center;
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.event-date-area {
+  width: 100%;
+  text-align: center;
+}
+
+.event-main-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin: 8px 0;
+}
+
+
+/* =====================================================
+   TIME
+===================================================== */
+
+.event-time-box {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  gap: 10px;
+  margin: 10px auto 0;
+  padding: 15px 0;
+
+  border-bottom: 1px solid rgba(190, 151, 78, .22);
 }
 
-.event-top-ornament {
-  margin-bottom: 27px;
+.event-time-box div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
+
+
+/* =====================================================
+   SCHEDULE - CĂN GIỮA
+===================================================== */
+
+.event-schedule {
+  position: relative;
+
+  width: min(100%, 380px);
+
+  margin: 20px auto 0;
+  padding-left: 28px;
+
+  text-align: left;
+}
+
+.event-schedule::before {
+  content: "";
+
+  position: absolute;
+
+  left: 6px;
+  top: 12px;
+  bottom: 12px;
+
+  width: 1px;
+
+  background: rgba(190, 151, 78, .35);
+}
+
+.schedule-row {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  min-height: 42px;
+}
+
+.schedule-dot {
+  position: absolute;
+  left: -28px;
+  width: 13px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #c8a45e;
+  background: var(--background, transparent);
+  z-index: 2;
+}
+
+.schedule-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.schedule-content span {
+  font-size: 12px;
+  letter-spacing: .14em;
+}
+
+.schedule-content strong {
+  font-size: 21px;
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   CALENDAR - CĂN GIỮA
+===================================================== */
+
+.calendar {
+  width: min(100%, 400px);
+
+  margin: 25px auto 0;
+
+  text-align: center;
+}
+
+.calendar-header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  text-align: center;
+}
+
+.calendar-weekdays {
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid rgba(190, 151, 78, .15);
+}
+
+.calendar-cell {
+  min-height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 15px;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+
+  text-decoration: none;
+}
+
+
+/* =====================================================
+   RSVP
+===================================================== */
+
+.rsvp-button {
+  width: min(100%, 400px);
+
+  margin: 25px auto 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 13px;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+
+  cursor: pointer;
+}
+
+
+/* =====================================================
+   BOTTOM ORNAMENT
+===================================================== */
 
 .event-bottom-ornament {
-  margin-top: 35px;
+  width: 100%;
+
+  margin-top: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
 }
 
-.event-top-ornament span,
 .event-bottom-ornament span {
   width: 60px;
   height: 1px;
-
 }
 
-.event-top-ornament i,
 .event-bottom-ornament i {
-
   font-size: 12px;
-
   font-style: normal;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .events-list {
+    width: 100%;
+    padding: 0 18px;
+    gap: 28px;
+  }
+
+  .event-card {
+    width: 100%;
+    max-width: 430px;
+  }
+
+  .event-main-date {
+    gap: 14px;
+  }
+
+  .date-number {
+    font-size: 65px;
+  }
+
+  .date-side strong {
+    font-size: 16px;
+  }
+
+  .event-schedule {
+    width: min(100%, 340px);
+  }
+
+  .schedule-content strong {
+    font-size: 19px;
+  }
+
+  .calendar {
+    width: min(100%, 360px);
+  }
+
+  .rsvp-button {
+    width: min(100%, 360px);
+  }
 }
 
 
@@ -947,38 +1129,8 @@ onBeforeUnmount(() => {
   text-align: center;
 }
 
-.event-icon {
-  width: 58px;
-  height: 58px;
-
-  margin: 0 auto 15px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  border: 1px solid rgba(185,147,76,.45);
-
-
-}
-
-.event-icon span {
-  font-size: 20px;
-}
-
-.event-kicker {
-  display: block;
-  font-size: 9px;
-  font-weight: 700;
-
-  letter-spacing: .28em;
-}
-
-.event-heading h3 {
-  margin: 8px 0 12px;
-
+.event-heading h2 {
+  margin-top: 20px;
   font-size: 31px;
 
   font-weight: 500;
@@ -1013,7 +1165,6 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .event-date-area {
-  margin: 34px 0 27px;
 
   text-align: center;
 }
@@ -1075,29 +1226,16 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 13px;
-
-  margin: 25px auto;
-
-  padding: 13px 22px;
-
-  width: fit-content;
-
-  border-top: 1px solid rgba(190,151,78,.22);
   border-bottom: 1px solid rgba(190,151,78,.22);
 }
 
-.time-icon {
-
-  font-size: 19px;
-}
 
 .event-time-box div {
   display: flex;
   flex-direction: column;
 
-  text-align: left;
+  text-align: center;
 }
 
 .event-time-box small {
@@ -1119,11 +1257,7 @@ onBeforeUnmount(() => {
 
 .event-schedule {
   position: relative;
-
-  margin: 28px auto;
-
   width: min(100%, 400px);
-
   padding-left: 26px;
 }
 
@@ -1142,13 +1276,10 @@ onBeforeUnmount(() => {
 
 .schedule-row {
   position: relative;
-
   display: flex;
   align-items: center;
-
   gap: 16px;
 
-  margin: 18px 0;
 }
 
 .schedule-dot {
@@ -1203,18 +1334,12 @@ onBeforeUnmount(() => {
 .calendar {
   max-width: 400px;
 
-  margin: 35px auto 0;
-
-  padding: 18px;
-
 }
 
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  margin-bottom: 14px;
 }
 
 .calendar-header span {
@@ -1262,7 +1387,7 @@ onBeforeUnmount(() => {
 }
 
 .normal-day {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .active-day {
@@ -1289,8 +1414,7 @@ onBeforeUnmount(() => {
 
 .calendar-button {
   display: block;
-  margin: 17px auto 0;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .16em;
   text-decoration: none;
@@ -1302,9 +1426,6 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .event-location {
-  margin-top: 35px;
-
-  padding-top: 27px;
 
   border-top: 1px solid rgba(190,151,78,.2);
 
@@ -1362,22 +1483,12 @@ onBeforeUnmount(() => {
 .map-button {
   display: inline-flex;
   align-items: center;
-
   gap: 7px;
-
-  margin-top: 14px;
-
-  padding: 8px 14px;
-
   border: 1px solid rgba(190,151,78,.3);
-
   font-size: 8px;
   font-weight: 700;
-
   letter-spacing: .14em;
-
   text-decoration: none;
-
   transition: .3s ease;
 }
 
@@ -1388,11 +1499,6 @@ onBeforeUnmount(() => {
 
 .rsvp-button {
   width: 100%;
-
-  margin-top: 32px;
-
-  padding: 15px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1482,8 +1588,6 @@ onBeforeUnmount(() => {
 
 .modal-header {
   text-align: center;
-
-  margin-bottom: 25px;
 }
 
 .modal-symbol {
@@ -1701,13 +1805,6 @@ onBeforeUnmount(() => {
 
 @media (max-width: 600px) {
 
-  .events-section {
-    padding: 80px 14px;
-  }
-
-  .events-header {
-    margin-bottom: 40px;
-  }
 
   .events-header p {
     font-size: 16px;
@@ -1715,11 +1812,6 @@ onBeforeUnmount(() => {
 
   .events-list {
     gap: 25px;
-  }
-
-
-  .event-border {
-    inset: 7px;
   }
 
   .event-heading h3 {

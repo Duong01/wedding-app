@@ -19,24 +19,23 @@
     </p>
 
     <!-- =========================
-         GIFT BOXES
+         ONLY ONE GIFT BOX
     ========================== -->
     <div class="gift-list">
-      <article
-        v-for="(item, index) in gifts"
-        :key="item.Id || index"
-        class="gift-item"
-      >
+      <article class="gift-item">
         <button
           type="button"
           class="gift-box-button"
           aria-label="Mở hộp mừng cưới"
-          @click="openGift(index)"
+          @click="openGift"
         >
           <div class="gift-glow"></div>
 
           <div class="gift-box">
-            <img :src="gift" alt="Hộp mừng cưới" />
+            <img
+              :src="gift"
+              alt="Hộp mừng cưới"
+            />
 
             <span class="gift-sparkle sparkle-1">✦</span>
             <span class="gift-sparkle sparkle-2">✧</span>
@@ -64,25 +63,26 @@
     </div>
 
     <!-- =====================================================
-         GIFT DIALOG
+         BANK INFORMATION DIALOG
     ====================================================== -->
     <Teleport to="body">
       <Transition name="gift-dialog">
         <div
-          v-if="selectedGift"
+          v-if="showGiftDialog"
           class="gift-dialog"
           @click.self="closeGift"
         >
-          <!-- Overlay -->
-          <div class="gift-dialog-backdrop"></div>
+          <div
+            class="gift-dialog-backdrop"
+            @click="closeGift"
+          ></div>
 
-          <!-- Dialog -->
           <div
             class="gift-dialog-card"
             role="dialog"
             aria-modal="true"
+            aria-labelledby="gift-dialog-title"
           >
-            <!-- Decorative light -->
             <div class="dialog-glow"></div>
 
             <!-- Top decoration -->
@@ -111,24 +111,23 @@
               MỘT CHÚT YÊU THƯƠNG
             </div>
 
-            <h3>
+            <h3 id="gift-dialog-title">
               Hộp mừng cưới
             </h3>
 
             <p class="dialog-description">
-              {{ gifts.length > 1
-                ? "Bạn có thể gửi lời chúc đến cô dâu chú rể qua tài khoản bên dưới"
-                : (
-                  selectedGift.Description ||
-                  "Gửi lời chúc tốt lành đến đôi uyên ương"
-                )
-              }}
+              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến
+              cô dâu chú rể, bạn có thể chuyển khoản qua
+              các tài khoản bên dưới.
             </p>
 
             <!-- =================================================
-                 ACCOUNTS
+                 BANK ACCOUNTS
             ================================================== -->
-            <div class="account-grid">
+            <div
+              v-if="gifts.length"
+              class="account-grid"
+            >
               <article
                 v-for="(item, index) in gifts"
                 :key="item.Id || index"
@@ -137,15 +136,24 @@
                 <!-- Account heading -->
                 <div class="account-heading">
                   <div class="account-icon">
-                    <v-icon size="17">mdi-bank-outline</v-icon>
+                    <v-icon size="17">
+                      mdi-bank-outline
+                    </v-icon>
                   </div>
 
                   <div>
                     <div class="account-label">
-                      {{ item.Name || item.BankName || `TÀI KHOẢN ${index + 1}` }}
+                      {{
+                        item.Name ||
+                        item.BankName ||
+                        `TÀI KHOẢN ${index + 1}`
+                      }}
                     </div>
 
-                    <div v-if="item.BankName" class="account-bank">
+                    <div
+                      v-if="item.BankName"
+                      class="account-bank"
+                    >
                       {{ item.BankName }}
                     </div>
                   </div>
@@ -176,15 +184,16 @@
 
                   <div class="qr-hint">
                     <v-icon size="12">
-                      mdi-download-outline
+                      mdi-magnify-plus-outline
                     </v-icon>
 
-                    CHẠM VÀO QR ĐỂ XEM / LƯU
+                    CHẠM VÀO QR ĐỂ XEM LỚN
                   </div>
                 </button>
 
                 <!-- Account information -->
                 <div class="account-info">
+                  <!-- Account owner -->
                   <div class="info-row">
                     <div class="info-left">
                       <span class="info-label">
@@ -192,13 +201,18 @@
                       </span>
 
                       <span class="info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                        {{
+                          item.AccountName ||
+                          item.Owner ||
+                          "Chưa cập nhật"
+                        }}
                       </span>
                     </div>
                   </div>
 
                   <div class="info-divider"></div>
 
+                  <!-- Account number -->
                   <div class="info-row">
                     <div class="info-left">
                       <span class="info-label">
@@ -206,15 +220,19 @@
                       </span>
 
                       <span class="info-value account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                        {{
+                          item.AccountNumber ||
+                          item.Number ||
+                          "Chưa cập nhật"
+                        }}
                       </span>
                     </div>
 
-                    <!-- Copy -->
                     <button
                       type="button"
                       class="copy-button"
                       title="Sao chép số tài khoản"
+                      aria-label="Sao chép số tài khoản"
                       @click="copyAccount(item)"
                     >
                       <v-icon size="14">
@@ -224,6 +242,7 @@
                   </div>
                 </div>
 
+                <!-- Description -->
                 <div
                   v-if="item.Description"
                   class="account-description"
@@ -231,6 +250,14 @@
                   {{ item.Description }}
                 </div>
               </article>
+            </div>
+
+            <!-- Empty state -->
+            <div
+              v-else
+              class="account-description"
+            >
+              Thông tin chuyển khoản đang được cập nhật.
             </div>
 
             <!-- Footer -->
@@ -256,7 +283,10 @@
           class="qr-preview"
           @click.self="closeQr"
         >
-          <div class="qr-preview-backdrop"></div>
+          <div
+            class="qr-preview-backdrop"
+            @click="closeQr"
+          ></div>
 
           <div class="qr-preview-card">
             <button
@@ -290,7 +320,10 @@
               download
               class="qr-save-button"
             >
-              <v-icon size="15">mdi-download</v-icon>
+              <v-icon size="15">
+                mdi-download
+              </v-icon>
+
               MỞ / LƯU ẢNH QR
             </a>
           </div>
@@ -300,8 +333,9 @@
   </section>
 </template>
 
+
 <script setup>
-import { computed, onBeforeUnmount, ref } from "vue";
+import { onBeforeUnmount, ref } from "vue";
 import gift from "@/assets/romatic-pink/gift.webp";
 
 const props = defineProps({
@@ -311,68 +345,98 @@ const props = defineProps({
   },
 });
 
-const selectedIndex = ref(null);
+const showGiftDialog = ref(false);
 const previewQr = ref(null);
 
-const selectedGift = computed(() => {
-  if (
-    selectedIndex.value === null ||
-    selectedIndex.value === undefined
-  ) {
-    return null;
-  }
-
-  return props.gifts[selectedIndex.value] || null;
-});
-
-function openGift(index) {
-  selectedIndex.value = index;
+/**
+ * Mở hộp quà
+ */
+function openGift() {
+  showGiftDialog.value = true;
 
   document.body.classList.add("gift-dialog-open");
 }
 
+/**
+ * Đóng hộp quà
+ */
 function closeGift() {
   previewQr.value = null;
-  selectedIndex.value = null;
+  showGiftDialog.value = false;
 
   document.body.classList.remove("gift-dialog-open");
 }
 
+/**
+ * Mở QR lớn
+ */
 function openQr(item) {
+  if (!item?.QrCode) return;
+
   previewQr.value = item;
 }
 
+/**
+ * Đóng QR
+ */
 function closeQr() {
   previewQr.value = null;
 }
 
+/**
+ * Copy số tài khoản
+ */
 async function copyAccount(item) {
-  const number = item.AccountNumber || item.Number;
+  const number =
+    item?.AccountNumber ||
+    item?.Number;
 
   if (!number) return;
 
   try {
-    await navigator.clipboard.writeText(number);
+    await navigator.clipboard.writeText(
+      String(number)
+    );
+
+    console.log("Đã sao chép số tài khoản");
   } catch (error) {
-    console.warn("Không thể sao chép số tài khoản", error);
+    console.warn(
+      "Không thể sao chép số tài khoản",
+      error
+    );
   }
 }
 
+/**
+ * ESC để đóng popup
+ */
 function handleEscape(event) {
-  if (event.key === "Escape") {
-    if (previewQr.value) {
-      closeQr();
-    } else if (selectedGift.value) {
-      closeGift();
-    }
+  if (event.key !== "Escape") return;
+
+  if (previewQr.value) {
+    closeQr();
+    return;
+  }
+
+  if (showGiftDialog.value) {
+    closeGift();
   }
 }
 
-document.addEventListener("keydown", handleEscape);
+document.addEventListener(
+  "keydown",
+  handleEscape
+);
 
 onBeforeUnmount(() => {
-  document.removeEventListener("keydown", handleEscape);
-  document.body.classList.remove("gift-dialog-open");
+  document.removeEventListener(
+    "keydown",
+    handleEscape
+  );
+
+  document.body.classList.remove(
+    "gift-dialog-open"
+  );
 });
 </script>
 
@@ -1856,5 +1920,8 @@ onBeforeUnmount(() => {
   .qr-preview-leave-active {
     transition: none;
   }
+}
+:global(body.gift-dialog-open) {
+  overflow: hidden;
 }
 </style>

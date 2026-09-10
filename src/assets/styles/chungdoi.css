@@ -1,0 +1,96 @@
+/* ChungDoi vibe overrides - lightweight theme layer */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&display=swap');
+
+:root.theme-chungdoi,
+:root.theme-chungdoi * {
+  box-sizing: border-box;
+}
+
+/* Color & surface overrides */
+:root.theme-chungdoi {
+  --primary: #0f1720;
+  --primary-dark: #0b1115;
+  --primary-light: #26303a;
+
+  --accent: #c9a659;
+  --accent-light: #e8d6a6;
+
+  --background: #fbfaf8;
+  --background-secondary: #f1efe9;
+  --surface: #ffffff;
+
+  --text: #0f1720;
+  --text-secondary: rgba(15,23,32,0.56);
+  --heading: #111827;
+  --text-gold: var(--accent);
+
+  --white: #ffffff;
+  --black: #0b0f12;
+
+  /* Typography */
+  --font-main: "Georgia", serif;
+  --font-heading: "Playfair Display", serif;
+  --font-script: "Great Vibes", cursive;
+  --font-wedding: var(--font-heading);
+
+  /* Slightly larger display for dramatic hero */
+  --text-display: clamp(56px, 14vw, 96px);
+  --text-4xl: clamp(36px, 10vw, 64px);
+
+  --section-padding: 64px;
+  --content-width: 1100px;
+}
+
+/* HERO TREATMENT */
+.theme-chungdoi .hero-section {
+  background: linear-gradient(180deg, rgba(250,248,244,0.6), transparent 35%);
+  padding: 6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.theme-chungdoi .bride-name,
+.theme-chungdoi .groom-name {
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.theme-chungdoi .role {
+  color: var(--text-secondary);
+}
+
+.theme-chungdoi .section-title {
+  color: var(--primary);
+  font-family: var(--font-heading);
+}
+
+.theme-chungdoi .invitation {
+  background: var(--background);
+}
+
+/* Subtle ornament for framed sections */
+.theme-chungdoi .framed-section .framed-content {
+  border: 1px solid rgba(0,0,0,0.04);
+  background: var(--surface);
+  box-shadow: 0 12px 36px rgba(16,24,32,0.06);
+}
+
+/* Make script names pop where used */
+.theme-chungdoi .wedding-signature {
+  font-family: var(--font-script);
+  font-size: var(--text-4xl);
+  color: var(--primary-dark);
+}
+
+/* Small responsive tweaks */
+@media (max-width: 768px) {
+  :root.theme-chungdoi {
+    --text-display: clamp(40px, 18vw, 64px);
+    --section-padding: 44px;
+  }
+  .theme-chungdoi .hero-section { padding: 4rem 1rem; }
+}

@@ -452,7 +452,6 @@ const footerMessage = computed(() => {
 }
 
 .footer-quote span {
-
   font-size: 9px;
 
   font-style: italic;

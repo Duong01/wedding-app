@@ -26,7 +26,7 @@ const storyTitle = computed(() =>
 </script>
 <style scoped>
 .story {
-  padding: 38px 26px;
+
   text-align: center;
   color: #764158;
 }

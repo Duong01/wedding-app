@@ -284,7 +284,7 @@ async function handleOpen() {
 .romantic-content {
   position: relative;
   z-index: 2;
-
+  margin: auto;
   width: calc(100% - 30px);
 
   overflow: hidden;
@@ -292,16 +292,16 @@ async function handleOpen() {
   border: 1px solid rgba(198, 160, 106, 0.38);
   border-radius: 28px;
 
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(255, 250, 249, 0.52),
     rgba(255, 248, 248, 0.22)
-  );
+  ); */
 
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45),
     0 8px 28px rgba(142, 75, 91, 0.07);
 
-  backdrop-filter: blur(1.5px);
+  /* backdrop-filter: blur(1.5px); */
 }
 
 /* =========================================================
@@ -336,7 +336,7 @@ async function handleOpen() {
 
 .content-flower {
   position: absolute;
-  width: 230px;
+  width: 100%;
   height: 230px;
   background-repeat: no-repeat;
   background-size: contain;
@@ -373,7 +373,7 @@ async function handleOpen() {
 .romantic-content > section {
   position: relative;
   z-index: 3;
-  border-bottom: 1px solid rgba(198, 160, 106, 0.18);
+    padding: 18px 26px;
 }
 
 /* =========================================================

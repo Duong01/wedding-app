@@ -158,8 +158,8 @@ const dateText = computed(() => {
   transform: scaleX(-1);
 }
 .motif img {
-  width: 43px;
-  height: 43px;
+  width: 60px;
+  /* height: 43px; */
   object-fit: contain;
   opacity: 0.66;
 }

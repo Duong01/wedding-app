@@ -106,10 +106,7 @@
            TIME
       ========================== -->
       <div v-if="weddingTime" class="rr-wedding-time">
-        <div class="time-icon">
-          <span></span>
-        </div>
-
+        
         <div class="time-content">
           <span class="time-label"> THỜI GIAN </span>
 
@@ -549,7 +546,7 @@ const weddingTime = computed(() => {
   color: #a43e65;
   font-size: 66px;
 
-  font-weight: 600;
+  font-weight: 800;
 
   line-height: 0.95;
 }
@@ -585,60 +582,19 @@ const weddingTime = computed(() => {
 
   margin-top: 18px;
 
-  padding: 10px 22px;
+  /* padding: 10px 22px; */
 
   border-radius: 999px;
 }
 
-/* =====================================================
-   CLOCK ICON - CSS/SVG-LIKE
-===================================================== */
-
-.time-icon {
-  position: relative;
-
-  width: 27px;
-  height: 27px;
-
-  border: 1.5px solid #c26a89;
-
-  border-radius: 50%;
-}
-
-.time-icon::before {
-  content: "";
-
-  position: absolute;
-
-  left: 50%;
-  top: 5px;
-
-  width: 1px;
-  height: 8px;
-  transform-origin: bottom;
-}
-
-.time-icon::after {
-  content: "";
-
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 7px;
-  height: 1px;
-  transform-origin: left center;
-}
-
 .time-content {
   display: flex;
-
+  font-weight: 600;
   flex-direction: column;
 
-  align-items: flex-start;
+  align-items: center;
 
-  text-align: left;
+  text-align: center;
 }
 
 .time-label {
@@ -730,8 +686,6 @@ const weddingTime = computed(() => {
     font-size: 52px;
   }
 
-  .rr-wedding-time {
-    padding: 9px 16px;
-  }
+
 }
 </style>

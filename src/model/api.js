@@ -1,14 +1,8 @@
-import https from "./https"
+import https from "./https";
 
-
- // api GetWedding
- export const GetWedding = (slug, token) => {
-  return https.Get( `/wedding/${encodeURIComponent(slug)}/${encodeURIComponent(token)}` );
+// api GetWedding
+export const GetWedding = (slug, token) => {
+  return https.Get( `/wedding/${encodeURIComponent(slug)}/${encodeURIComponent(token)}`,);
 };
-export const Confirm= (param, success, error) =>{
-  return https.Post(`/wedding/confirm`, param, success, error);
-}
-
-
- 
-
+export const Confirm = (param, success, error) => {return https.Post(`/wedding/confirm`, param, success, error);};
+export const AddDataWedding = (param, success, error) => {return https.Post(`/wedding/AddDataWedding`, param, success, error);};

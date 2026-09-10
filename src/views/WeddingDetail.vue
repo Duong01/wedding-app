@@ -77,6 +77,11 @@ import NhatBinhDo from "@/themes/NhatBinhDo.vue";
 import IvoryGold from "@/themes/IvoryGold.vue";
 import RoyalRed from "@/themes/RoyalRed.vue";
 import DongSon from "@/themes/DongSon.vue";
+import SereneGreen from "@/themes/SereneGreen.vue";
+import SunsetPeach from "@/themes/SunsetPeach.vue";
+import ChampagneBlush from "@/themes/ChampagneBlush.vue";
+import MidnightGold from "@/themes/MidnightGold.vue";
+import LavenderCream from "@/themes/LavenderCream.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -94,6 +99,11 @@ const themes = {
   "ivory-gold": IvoryGold,
   "royal-red": RoyalRed,
   "dong-son": DongSon,
+  "serene-green": SereneGreen,
+  "sunset-peach": SunsetPeach,
+  "champagne-blush": ChampagneBlush,
+  "midnight-gold": MidnightGold,
+  "lavender-cream": LavenderCream,
 };
 
 const currentTheme = computed(() => {

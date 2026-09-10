@@ -47,7 +47,6 @@ const values = computed(() => {
 </script>
 <style scoped>
 .countdown {
-  padding: 38px 18px;
   text-align: center;
 }
 
