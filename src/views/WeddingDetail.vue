@@ -82,6 +82,10 @@ import SunsetPeach from "@/themes/SunsetPeach.vue";
 import ChampagneBlush from "@/themes/ChampagneBlush.vue";
 import MidnightGold from "@/themes/MidnightGold.vue";
 import LavenderCream from "@/themes/LavenderCream.vue";
+import DoubleHappiness from "@/themes/DoubleHappiness.vue";
+import BohoTerracotta from "@/themes/BohoTerracotta.vue";
+import VintageSepia from "@/themes/VintageSepia.vue";
+import OceanBreeze from "@/themes/OceanBreeze.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -104,6 +108,10 @@ const themes = {
   "champagne-blush": ChampagneBlush,
   "midnight-gold": MidnightGold,
   "lavender-cream": LavenderCream,
+  "double-happiness": DoubleHappiness,
+  "boho-terracotta": BohoTerracotta,
+  "vintage-sepia": VintageSepia,
+  "ocean-breeze": OceanBreeze,
 };
 
 const currentTheme = computed(() => {

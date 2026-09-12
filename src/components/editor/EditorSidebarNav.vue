@@ -8,8 +8,10 @@
         :key="item.id"
         type="button"
         class="editor-menu"
-        :class="{ active: activeMenu === item.id }"
-        @click="$emit('select-menu', item.id)"
+        :class="{
+          active: activeMenu === item.id,
+        }"
+        @click="emit('select', item.id)"
       >
         <span class="menu-icon">
           <v-icon size="18">
@@ -35,8 +37,10 @@
       <button
         type="button"
         class="editor-menu"
-        :class="{ active: activeMenu === 'settings' }"
-        @click="$emit('select-menu', 'settings')"
+        :class="{
+          active: activeMenu === 'settings',
+        }"
+        @click="emit('select', 'settings')"
       >
         <span class="menu-icon">
           <v-icon size="18"> mdi-tune-variant </v-icon>
@@ -52,8 +56,10 @@
       <button
         type="button"
         class="editor-menu"
-        :class="{ active: activeMenu === 'theme' }"
-        @click="$emit('select-menu', 'theme')"
+        :class="{
+          active: activeMenu === 'theme',
+        }"
+        @click="emit('select', 'theme')"
       >
         <span class="menu-icon">
           <v-icon size="18"> mdi-palette-outline </v-icon>
@@ -70,12 +76,10 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  menus: { type: Array, default: () => [] },
-  activeMenu: { type: [String, Number], default: 'general' },
+defineProps({
+  menus: { type: Array, required: true },
+  activeMenu: { type: String, required: true },
 });
-</script>
 
-<style scoped>
-/* Presentation handled by parent styles */
-</style>
+const emit = defineEmits(["select"]);
+</script>

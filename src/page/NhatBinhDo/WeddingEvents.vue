@@ -332,16 +332,14 @@
              RSVP
         ====================================== -->
 
-        <a
-          v-if="event.rsvpUrl"
-          :href="event.rsvpUrl"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           class="rsvp-button"
+          @click="openConfirmModal"
         >
           <span>♡</span>
           XÁC NHẬN THAM DỰ
-        </a>
+        </button>
 
 
         <!-- =====================================
@@ -605,20 +603,11 @@ async function submitConfirmation() {
   /* =========================
      PAYLOAD
   ========================== */
-  const slug = computed(() => {
-
-    // /wedding/:slug
-    if (route.params.slug) {
-        return route.params.slug;
-    }
-
-    // /:slug/:token
-    if (route.params.slug && route.params.token) {
-        return `${route.params.slug}/${route.params.token}`;
-    }
-
-    return "";
-});
+  const slug = route.params.slug
+    ? route.params.token
+      ? `${route.params.slug}/${route.params.token}`
+      : route.params.slug
+    : "";
   const payload = {
     Slug: slug,
     RecipientToken: route.params.token || null,
@@ -635,8 +624,8 @@ async function submitConfirmation() {
 
   try {
     Confirm(payload, (result) =>{
-      if (!result.ok || result.data.status !== "success") {
-        throw new Error(result.data?.message || "Không thể gửi xác nhận.");
+      if (!result || result.status !== "success") {
+        throw new Error(result?.message || "Không thể gửi xác nhận.");
       }
       successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
       setTimeout(() => {
@@ -646,7 +635,7 @@ async function submitConfirmation() {
       errorMessage.value = error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
     })
 
-    
+
 
   } catch (error) {
     errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
@@ -758,57 +747,6 @@ const normalizedEvents = computed(() => {
   });
 
 });
-
-
-
-const slug = computed(() => {
-
-    // /wedding/:slug
-    if (route.params.slug) {
-        return route.params.slug;
-    }
-
-    // /:slug/:token
-    if (route.params.slug && route.params.token) {
-        return `${route.params.slug}/${route.params.token}`;
-    }
-
-    return "";
-});
-  const payload = {
-    Slug: slug,
-    RecipientToken: route.params.token || null,
-    GuestName: form.name,
-    Attendance: form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
-    NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0
-  };
-
-  /* =========================
-     REQUEST
-  ========================== */
-
-  submitting.value = true;
-
-  try {
-    Confirm(payload, (result) =>{
-      if (!result.ok || result.status.error !== "success") {
-        throw new Error(result.message || "Không thể gửi xác nhận.");
-      }
-      successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
-      setTimeout(() => {
-        showConfirmModal.value = false;
-      }, 2000);
-    },(error) =>{
-      errorMessage.value = error?.status?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
-    })
-
-    
-
-  } catch (error) {
-    errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
-  } finally {
-    submitting.value = false;
-  }
 
 
 

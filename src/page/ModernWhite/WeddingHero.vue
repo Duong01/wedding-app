@@ -492,7 +492,7 @@ const coupleImage = computed(() => {
     "Times New Roman",
     serif;
 
-  font-size: 26px;
+  font-size: clamp(21px, 6vw, 26px);
 
   font-weight: 600;
 

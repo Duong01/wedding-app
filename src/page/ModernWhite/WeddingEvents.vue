@@ -332,16 +332,14 @@
              RSVP
         ====================================== -->
 
-        <a
-          v-if="event.rsvpUrl"
-          :href="event.rsvpUrl"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           class="rsvp-button"
+          @click="openConfirmModal"
         >
           <span>♡</span>
           XÁC NHẬN THAM DỰ
-        </a>
+        </button>
 
 
         <!-- =====================================
@@ -395,7 +393,7 @@
               <div class="recipient-label">TRÂN TRỌNG KÍNH MỜI</div>
 
               <div class="recipient-name">
-                {{ recipientName }}
+                {{ recipientDisplayName }}
               </div>
             </div>
           </template>
@@ -518,6 +516,29 @@ const errorMessage = ref("");
 
 const successMessage = ref("");
 
+/* =========================================================
+   RECIPIENT
+   recipientName có thể là Array (store),
+   Object hoặc String.
+========================================================= */
+
+const recipientDisplayName = computed(() => {
+  const value = props.recipientName;
+
+  if (Array.isArray(value)) {
+    return value[0]?.Name || "";
+  }
+
+  if (value && typeof value === "object") {
+    return value.Name || "";
+  }
+
+  return typeof value === "string" ? value : "";
+});
+
+const hasRecipient = computed(() => {
+  return Boolean(recipientDisplayName.value);
+});
 
 /* =========================================================
    FORM
@@ -540,7 +561,7 @@ function openConfirmModal() {
    * thì tự động dùng tên người nhận.
    */
   if (hasRecipient.value) {
-    form.name = props.recipientName.Name;
+    form.name = recipientDisplayName.value;
   } else {
     form.name = "";
   }
@@ -605,20 +626,10 @@ async function submitConfirmation() {
   /* =========================
      PAYLOAD
   ========================== */
-  const slug = computed(() => {
+  const slug = route.params.token
+    ? `${route.params.slug}/${route.params.token}`
+    : route.params.slug || "";
 
-    // /wedding/:slug
-    if (route.params.slug) {
-        return route.params.slug;
-    }
-
-    // /:slug/:token
-    if (route.params.slug && route.params.token) {
-        return `${route.params.slug}/${route.params.token}`;
-    }
-
-    return "";
-});
   const payload = {
     Slug: slug,
     RecipientToken: route.params.token || null,
@@ -635,8 +646,8 @@ async function submitConfirmation() {
 
   try {
     Confirm(payload, (result) =>{
-      if (!result.ok || result.data.status !== "success") {
-        throw new Error(result.data?.message || "Không thể gửi xác nhận.");
+      if (!result || result.status !== "success") {
+        throw new Error(result?.message || "Không thể gửi xác nhận.");
       }
       successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
       setTimeout(() => {
@@ -646,7 +657,7 @@ async function submitConfirmation() {
       errorMessage.value = error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
     })
 
-    
+
 
   } catch (error) {
     errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
@@ -758,57 +769,6 @@ const normalizedEvents = computed(() => {
   });
 
 });
-
-
-
-const slug = computed(() => {
-
-    // /wedding/:slug
-    if (route.params.slug) {
-        return route.params.slug;
-    }
-
-    // /:slug/:token
-    if (route.params.slug && route.params.token) {
-        return `${route.params.slug}/${route.params.token}`;
-    }
-
-    return "";
-});
-  const payload = {
-    Slug: slug,
-    RecipientToken: route.params.token || null,
-    GuestName: form.name,
-    Attendance: form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
-    NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0
-  };
-
-  /* =========================
-     REQUEST
-  ========================== */
-
-  submitting.value = true;
-
-  try {
-    Confirm(payload, (result) =>{
-      if (!result.ok || result.status.error !== "success") {
-        throw new Error(result.message || "Không thể gửi xác nhận.");
-      }
-      successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
-      setTimeout(() => {
-        showConfirmModal.value = false;
-      }, 2000);
-    },(error) =>{
-      errorMessage.value = error?.status?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
-    })
-
-    
-
-  } catch (error) {
-    errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
-  } finally {
-    submitting.value = false;
-  }
 
 
 
@@ -1313,8 +1273,6 @@ const firstEvent = computed(() => {
   gap: 9px;
 
   width: 100%;
-
-  white-space: nowrap;
 }
 
 .weekday {
@@ -1339,7 +1297,7 @@ const firstEvent = computed(() => {
     "Times New Roman",
     serif;
 
-  font-size: 58px;
+  font-size: clamp(40px, 11vw, 58px);
   font-weight: 900;
 
   line-height: .8;
@@ -1837,6 +1795,10 @@ const firstEvent = computed(() => {
   letter-spacing: 1.3px;
 
   text-decoration: none;
+
+  font-family: inherit;
+
+  cursor: pointer;
 
   transition:
     transform .2s ease,

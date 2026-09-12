@@ -619,7 +619,9 @@ function openGallery(index) {
 <style scoped>
 
 /* ==========================================================
-   ROOT - MODERNWHITE THEME (Clean Minimal Design)
+   MODERNWHITE — LAYER 1: ROOT + ANIMATION/INTERACTION
+   Root vars, keyframes, hover, hiệu ứng trang trí.
+   Màu sắc & vị trí trang trí nằm ở bộ red/paper bên dưới.
 ========================================================== */
 
 .nb-wedding {
@@ -636,83 +638,6 @@ function openGallery(index) {
   overflow-x: hidden;
 
   background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #fafafa 100%);
-}
-
-
-/* ==========================================================
-   RESET
-========================================================== */
-
-.nb-wedding *,
-.nb-wedding *::before,
-.nb-wedding *::after {
-  box-sizing: border-box;
-}
-
-
-.nb-wedding img {
-  display: block;
-  max-width: 100%;
-}
-
-
-.nb-wedding button,
-.nb-wedding input,
-.nb-wedding textarea {
-  font: inherit;
-}
-
-
-/* ==========================================================
-   MAIN INVITATION - MINIMALIST
-========================================================== */
-
-.invitation {
-  position: relative;
-
-  width: min(48rem, 100%);
-
-  min-height: 100vh;
-
-  margin: 0 auto;
-
-  overflow: hidden;
-
-  color: var(--dark-gray);
-
-  background: var(--white);
-
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
-}
-
-
-/* ==========================================================
-   PAPER TEXTURE - MINIMAL
-========================================================== */
-
-.invitation::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 0;
-
-  pointer-events: none;
-
-  background-image:
-    url("@/assets/nhat-binh-do-red/paper.webp");
-
-  background-repeat: repeat-y;
-
-  background-position: center top;
-
-  background-size: 100% auto;
-
-  opacity: 0.03;
 }
 
 
@@ -811,15 +736,6 @@ function openGallery(index) {
 
 
 /* ==========================================================
-   FRAME DECORATION - MINIMAL LINES
-========================================================== */
-
-.frame-decoration {
-  position: relative;
-}
-
-
-/* ==========================================================
    FRAME CORNERS - GEOMETRIC
 ========================================================== */
 
@@ -837,33 +753,6 @@ function openGallery(index) {
 
 .framed-section:hover .frame-corner {
   opacity: 0.8;
-}
-
-
-.frame-corner-tl {
-  top: 0;
-  left: 0;
-}
-
-
-.frame-corner-tr {
-  top: 0;
-  right: 0;
-  transform: scaleX(-1);
-}
-
-
-.frame-corner-bl {
-  bottom: 0;
-  left: 0;
-  transform: scaleY(-1);
-}
-
-
-.frame-corner-br {
-  bottom: 0;
-  right: 0;
-  transform: scaleX(-1) scaleY(-1);
 }
 
 
@@ -915,13 +804,6 @@ function openGallery(index) {
 }
 
 
-.hero-cloud-left {
-  top: 20px;
-
-  left: -50px;
-}
-
-
 .hero-cloud-small-right {
   width: 140px;
 
@@ -944,13 +826,6 @@ function openGallery(index) {
 @keyframes subtleRotate {
   0%, 100% { transform: rotate(0deg); }
   50% { transform: rotate(1deg); }
-}
-
-
-.hero-flower-left {
-  top: 100px;
-
-  left: -35px;
 }
 
 
@@ -1065,115 +940,9 @@ function openGallery(index) {
 
 
 /* ==========================================================
-   WEDDING INFO FRAME
+   MODERNWHITE — LAYER 2: RED/PAPER (bộ đang thắng)
+   Màu sắc, vị trí trang trí, responsive.
 ========================================================== */
-
-.wedding-info-frame {
-  margin-top: 10px;
-  border-radius: 0;
-}
-
-
-/* ==========================================================
-   PARTY INFO FRAME  
-========================================================== */
-
-.party-info-frame {
-  margin-top: 15px;
-}
-
-
-/* ==========================================================
-   MOBILE
-========================================================== */
-
-@media (max-width: 768px) {
-
-  .invitation {
-    width: 100%;
-    box-shadow: none;
-  }
-
-  .section {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .framed-section {
-    width: calc(100% - 24px);
-    padding: 42px 18px;
-  }
-
-  .frame-corner {
-    width: 68px;
-  }
-
-  .hero-section {
-    min-height: 620px;
-  }
-
-  .hero-cloud-left {
-    width: 190px;
-    left: -45px;
-  }
-
-  .hero-cloud-small-right {
-    width: 110px;
-    right: -30px;
-  }
-
-  .hero-flower-left {
-    width: 85px;
-  }
-
-  .hero-flower-right {
-    width: 80px;
-  }
-
-}
-
-
-/* ==========================================================
-   SMALL MOBILE
-========================================================== */
-
-@media (max-width: 420px) {
-
-  .hero-section {
-    min-height: 580px;
-  }
-
-  .framed-section {
-    width: calc(100% - 18px);
-    padding: 38px 14px;
-  }
-
-  .frame-corner {
-    width: 60px;
-  }
-
-  .hero-cloud-left {
-    width: 165px;
-  }
-
-  .hero-cloud-small-right {
-    width: 95px;
-  }
-
-  .hero-flower-left {
-    width: 72px;
-  }
-
-  .hero-flower-right {
-    width: 70px;
-  }
-
-  .cloud-bottom {
-    width: 200px;
-  }
-
-}
-
 
 /* ==========================================================
    RESET

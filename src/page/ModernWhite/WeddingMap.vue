@@ -1052,5 +1052,12 @@ const normalizedEvents = computed(() => {
 
   }
 
+
+  .map-frame {
+
+    height: 280px;
+
+  }
+
 }
 </style>

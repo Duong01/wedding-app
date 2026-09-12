@@ -20,10 +20,10 @@
          CHẠY LỜI CHÚC NGANG
     ========================================== -->
 
-    <div v-if="wishes.length" class="wish-marquee">
+    <div v-if="allWishes.length" class="wish-marquee">
       <div class="wish-marquee-track">
         <div
-          v-for="(wish, index) in wishes"
+          v-for="(wish, index) in allWishes"
           :key="wish?.Id || index"
           class="wish-marquee-item"
         >
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <button type="button" :disabled="!canSubmit" class="submit-button" @click="submitWish">
+      <button type="button" :disabled="!canSubmit || submitting" class="submit-button" @click="submitWish">
         <span> ♡ </span>
 
         GỬI LỜI CHÚC
@@ -92,7 +92,7 @@
          DANH SÁCH LỜI CHÚC
     ========================================== -->
 
-    <div v-if="wishes.length" class="wish-list-wrapper">
+    <div v-if="allWishes.length" class="wish-list-wrapper">
       <div class="list-heading">
         <span></span>
 
@@ -103,7 +103,7 @@
 
       <div class="wish-list">
         <article
-          v-for="(wish, index) in wishes"
+          v-for="(wish, index) in allWishes"
           :key="wish?.Id || index"
           class="wish"
         >
@@ -133,9 +133,8 @@
 </template>
 
 <script setup>
-import { computed, reactive } from "vue";
-import { Confirm } from "@/model/api";
-import { useRoute } from "vue-router";
+import { computed, reactive, ref } from "vue";
+import { addWish, getAllWishes } from "@/model/api";import { useRoute } from "vue-router";
 const props = defineProps({
   wishes: {
     type: Array,
@@ -159,6 +158,18 @@ const form = reactive({
   message: "",
 });
 
+const submitting = ref(false);
+
+const localWishes = ref([]);
+
+const allWishes = computed(() => {
+  if (localWishes.value.length) {
+    return localWishes.value;
+  }
+
+  return props.wishes || [];
+});
+
 const canSubmit = computed(() => {
   return form.name.trim().length > 0 && form.message.trim().length > 0;
 });
@@ -180,15 +191,36 @@ function getMessage(wish) {
 }
 
 /* =========================================
+   LOAD WISHES
+========================================= */
+
+async function loadWishes() {
+  const slug = route.params.slug;
+
+  if (!slug) {
+    return;
+  }
+
+  try {
+    const response = await getAllWishes({ slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      localWishes.value = result.data;
+    }
+  } catch (error) {
+    console.warn("[WeddingWishes] Không tải được lời chúc:", error);
+  }
+}
+
+loadWishes();
+
+/* =========================================
    SUBMIT
 ========================================= */
-const param = {
-    slug: route.params.slug,
-    guestName: form.name,
-    message: form.message
-  };
-  
-function submitWish() {
+
+async function submitWish() {
   if (!form.name || !form.name.trim()) {
     alert("Vui lòng nhập tên của bạn");
     return;
@@ -197,21 +229,45 @@ function submitWish() {
     alert("Vui lòng nhập lời chúc");
     return;
   }
-  console.log("Before Confirm:", param);
+
+  const slug = route.params.slug
+    ? route.params.token
+      ? `${route.params.slug}/${route.params.token}`
+      : route.params.slug
+    : "";
+
+  const param = {
+    slug: slug,
+    guestName: form.name.trim(),
+    message: form.message.trim(),
+  };
+
+  submitting.value = true;
+
   try {
-    Confirm(param, (result) => {
-      console.log("Confirm callback:", result);
-      if (result.status == "success") {
-        alert("Gửi lời chúc thành công ❤️");
-        form.name = "";
-        form.message = "";
-      } else {
-        alert(result.message);
-      }
-    });
+    const response = await addWish(param);
+
+    const result = response?.data;
+
+    if (result && result.status === "success") {
+      alert("Gửi lời chúc thành công ❤️");
+      form.name = "";
+      form.message = "";
+
+      emit("submit", param);
+
+      await loadWishes();
+    } else {
+      alert(result?.message || "Không thể gửi lời chúc.");
+    }
   } catch (error) {
     console.error(error);
-    alert("Có lỗi xảy ra, vui lòng thử lại.");
+    alert(
+      error?.response?.data?.message ||
+        "Có lỗi xảy ra, vui lòng thử lại."
+    );
+  } finally {
+    submitting.value = false;
   }
 }
 </script>

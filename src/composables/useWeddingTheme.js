@@ -16,11 +16,22 @@ export function useWeddingTheme(wedding) {
 
     const data = theme.value;
 
-    const colors = data.colors || {};
+    /*
+     * Model / Editor Store lưu PascalCase
+     * (Colors, Fonts, Layout) — xem
+     * src/stores/weddingEditor.js.
+     *
+     * Vẫn chấp nhận lowercase để tương thích
+     * ngược với dữ liệu cũ.
+     */
+    const colors =
+      data.Colors || data.colors || {};
 
-    const fonts = data.fonts || {};
+    const fonts =
+      data.Fonts || data.fonts || {};
 
-    const layout = data.layout || {};
+    const layout =
+      data.Layout || data.layout || {};
 
 
     return {
@@ -30,31 +41,33 @@ export function useWeddingTheme(wedding) {
       ==================================================== */
 
       "--primary":
-        colors.primary || "#7b0d0d",
+        colors.Primary || colors.primary || "#7b0d0d",
 
       "--secondary":
-        colors.secondary || "#9d2525",
+        colors.Secondary || colors.secondary || "#9d2525",
 
       "--accent":
-        colors.accent || "#c79d5c",
+        colors.Accent || colors.accent || "#c79d5c",
 
       "--accent-light":
-        colors.accentLight || "#f7d8a3",
+        colors.AccentLight || colors.accentLight || "#f7d8a3",
 
       "--background":
-        colors.background || "#f8f5ed",
+        colors.Background || colors.background || "#f8f5ed",
 
       "--background-secondary":
-        colors.backgroundSecondary || "#eee8dc",
+        colors.BackgroundSecondary ||
+        colors.backgroundSecondary ||
+        "#eee8dc",
 
       "--text":
-        colors.text || "#5c4d46",
+        colors.Text || colors.text || "#5c4d46",
 
       "--text-secondary":
-        colors.textSecondary || "#806f66",
+        colors.TextSecondary || colors.textSecondary || "#806f66",
 
       "--white":
-        colors.white || "#fffaf4",
+        colors.White || colors.white || "#fffaf4",
 
 
       /* ====================================================
@@ -62,10 +75,10 @@ export function useWeddingTheme(wedding) {
       ==================================================== */
 
       "--surface":
-        colors.white || "#fffdf9",
+        colors.White || colors.white || "#fffdf9",
 
       "--heading":
-        colors.primary || "#5d1717",
+        colors.Primary || colors.primary || "#5d1717",
 
 
       /* ====================================================
@@ -73,18 +86,18 @@ export function useWeddingTheme(wedding) {
       ==================================================== */
 
       "--font-main":
-        fonts.main
-          ? `"${fonts.main}", Georgia, serif`
+        fonts.Main || fonts.main
+          ? `"${fonts.Main || fonts.main}", Georgia, serif`
           : '"Cormorant Garamond", Georgia, serif',
 
       "--font-heading":
-        fonts.heading
-          ? `"${fonts.heading}", Georgia, serif`
+        fonts.Heading || fonts.heading
+          ? `"${fonts.Heading || fonts.heading}", Georgia, serif`
           : '"Cormorant Garamond", Georgia, serif',
 
       "--font-script":
-        fonts.script
-          ? `"${fonts.script}", cursive`
+        fonts.Script || fonts.script
+          ? `"${fonts.Script || fonts.script}", cursive`
           : '"Allura", cursive',
 
 
@@ -93,18 +106,18 @@ export function useWeddingTheme(wedding) {
       ==================================================== */
 
       "--font-wedding":
-        fonts.heading
-          ? `"${fonts.heading}", Georgia, serif`
+        fonts.Heading || fonts.heading
+          ? `"${fonts.Heading || fonts.heading}", Georgia, serif`
           : '"Cormorant Garamond", Georgia, serif',
 
       "--gold":
-        colors.accent || "#c79d5c",
+        colors.Accent || colors.accent || "#c79d5c",
 
       "--paper":
-        colors.white || "#fffdf9",
+        colors.White || colors.white || "#fffdf9",
 
       "--sub-text":
-        colors.textSecondary || "#806f66",
+        colors.TextSecondary || colors.textSecondary || "#806f66",
 
 
       /* ====================================================
@@ -112,10 +125,10 @@ export function useWeddingTheme(wedding) {
       ==================================================== */
 
       "--content-width":
-        layout.maxWidth || "900px",
+        layout.MaxWidth || layout.maxWidth || "900px",
 
       "--section-padding":
-        layout.sectionPadding || "80px",
+        layout.SectionPadding || layout.sectionPadding || "80px",
 
     };
 

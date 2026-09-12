@@ -27,19 +27,18 @@
 import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
-import OpeningScreen from "@/page/IvoryGold/OpeningScreen.vue";
-import WeddingHero from "@/page/IvoryGold/WeddingHero.vue";
-import WeddingCouple from "@/page/IvoryGold/WeddingCouple.vue";
-import WeddingStory from "@/page/IvoryGold/WeddingStory.vue";
-import WeddingEvents from "@/page/IvoryGold/WeddingEvents.vue";
-import WeddingCountdown from "@/page/IvoryGold/WeddingCountdown.vue";
-import WeddingGallery from "@/page/IvoryGold/WeddingGallery.vue";
-import WeddingMap from "@/page/IvoryGold/WeddingMap.vue";
-import Timeline from "@/page/IvoryGold/Timeline.vue";
-import WeddingGifts from "@/page/IvoryGold/WeddingGifts.vue";
-import WeddingWishes from "@/page/IvoryGold/WeddingWishes.vue";
-import WeddingFooter from "@/page/IvoryGold/WeddingFooter.vue";
-import { softBg } from "@/page/MidnightGold/midnightGoldAssets";
+import OpeningScreen from "@/page/MidnightGold/OpeningScreen.vue";
+import WeddingHero from "@/page/MidnightGold/WeddingHero.vue";
+import WeddingCouple from "@/page/MidnightGold/WeddingCouple.vue";
+import WeddingStory from "@/page/MidnightGold/WeddingStory.vue";
+import WeddingEvents from "@/page/MidnightGold/WeddingEvents.vue";
+import WeddingCountdown from "@/page/MidnightGold/WeddingCountdown.vue";
+import WeddingGallery from "@/page/MidnightGold/WeddingGallery.vue";
+import WeddingMap from "@/page/MidnightGold/WeddingMap.vue";
+import Timeline from "@/page/MidnightGold/Timeline.vue";
+import WeddingGifts from "@/page/MidnightGold/WeddingGifts.vue";
+import WeddingWishes from "@/page/MidnightGold/WeddingWishes.vue";
+import WeddingFooter from "@/page/MidnightGold/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true } });
 const wedding = computed(() => props.wedding || {});
@@ -90,35 +89,19 @@ async function handleOpen() {
   --theme-primary: #261d23;
   --theme-secondary: #9b7d4d;
   --theme-accent: #d8b676;
-  --theme-bg: #f9f5f0;
-  --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #322a2f;
+  --theme-bg: #17121b;
+  --theme-panel: rgba(38, 29, 35, 0.72);
+  --theme-text: #f0e6d2;
   min-height: 100vh;
   width: 100%;
-  background: var(--theme-bg);
+  background:
+    radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),
+    linear-gradient(180deg, #1d1622 0%, #17121b 45%, #120e15 100%);
   color: var(--theme-text);
   font-family: "Cormorant Garamond", Georgia, serif;
 }
 
 .midnight-invitation { width: 100%; }
-.midnight-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(241,235,224,0.82)); }
+.midnight-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(216, 182, 118, 0.05), rgba(18, 14, 21, 0.55)); }
 .midnight-section { max-width: 1100px; margin: 0 auto 22px; }
-.midnight-gold-theme :deep(.opening-screen),
-.midnight-gold-theme :deep(.wedding-hero) { background: v-bind("softBg"); }
-.midnight-gold-theme :deep(.opening-screen .opening-title),
-.midnight-gold-theme :deep(.wedding-hero .hero-name),
-.midnight-gold-theme :deep(.story-header),
-.midnight-gold-theme :deep(.section-heading) { color: var(--theme-primary); }
-.midnight-gold-theme :deep(.event-pill),
-.midnight-gold-theme :deep(.gift-card .gift-badge),
-.midnight-gold-theme :deep(.ring-badge) { background: rgba(155,125,77,0.12); color: var(--theme-primary); border-color: rgba(38,29,35,0.16); border-radius: 999px; }
-.midnight-gold-theme :deep(.story-card::before),
-.midnight-gold-theme :deep(.guest-message::before) {
-  content: "✧";
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  color: rgba(38,29,35,0.45);
-  font-size: 18px;
-}
 </style>

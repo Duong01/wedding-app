@@ -12,48 +12,113 @@ const api = axios.create({
 /* ======================
    REQUEST – GẮN JWT
 ====================== */
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
 );
 
 /* ======================
-   RESPONSE – 401 LOGOUT
+   RESPONSE – XỬ LÝ LỖI TẬP TRUNG
+
+   Backend trả lỗi theo envelope CusResponse:
+   { status: "success" | "error", message, data }
+
+   - 401: chưa đăng nhập / token hết hạn hoặc sai
+     → thông báo + xóa token + về /login.
+   - 403: đã đăng nhập nhưng không đủ quyền
+     (vd API Admin) → KHÔNG logout, để component
+     tự hiển thị message từ response.
 ====================== */
+
+function extractApiMessage(data, fallback) {
+  if (!data) {
+    return fallback;
+  }
+
+  if (typeof data === "object" && typeof data.message === "string" && data.message) {
+    return data.message;
+  }
+
+  if (typeof data === "string" && data.trim()) {
+    return data;
+  }
+
+  return fallback;
+}
+
 api.interceptors.response.use(
   (response) => response,
+
   (error) => {
-    if (error.response && error.response.status === 401) {
-        alert(error.response.data || "Unauthorized. Please log in again.");
-        localStorage.removeItem("token");
-        localStorage.removeItem("favoriteMovies");
-        localStorage.removeItem("user");
-        localStorage.removeItem("name");
-        localStorage.removeItem("nameShow");
+    const status = error.response?.status;
+
+    if (status === 401) {
+      alert(
+        extractApiMessage(
+          error.response?.data,
+          "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại."
+        )
+      );
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("role");
+      localStorage.removeItem("favoriteMovies");
+      localStorage.removeItem("name");
+      localStorage.removeItem("nameShow");
+
+      if (router.currentRoute.value.path !== "/login") {
         router.push({
           path: "/login",
-          query: { redirect: router.currentRoute.value.fullPath }
+          query: {
+            redirect: router.currentRoute.value.fullPath,
+          },
         });
+      }
     }
+
     return Promise.reject(error);
   }
 );
 
 /* ======================
-   COMMON METHODS
+   GET
 ====================== */
 
-function Get(url, params = {}) {
-  return api.get(url, {
-    params,
-  });
+function Get(url, params = {}, success, error) {
+  return api
+    .get(url, {
+      params,
+    })
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
 }
+
+/* ======================
+   POST
+====================== */
+
 function Post(url, params = {}, success, error) {
   return api
     .post(url, params)
@@ -73,24 +138,116 @@ function Post(url, params = {}, success, error) {
     });
 }
 
-function GetNew(url, params = {}) {
-  return api.get(url, {
-    params,
-  });
+/* ======================
+   PUT
+====================== */
+
+function Put(url, params = {}, success, error) {
+  return api
+    .put(url, params)
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
 }
 
-function PostFile(url, form) {
-  return api.post(url, form, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+/* ======================
+   DELETE
+====================== */
+
+function Delete(url, params = {}, success, error) {
+  return api
+    .delete(url, {
+      params,
+    })
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
 }
+
+/* ======================
+   GET NEW
+====================== */
+
+function GetNew(url, params = {}, success, error) {
+  return api
+    .get(url, {
+      params,
+    })
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
+}
+
+/* ======================
+   POST FILE
+====================== */
+
+function PostFile(url, form, success, error) {
+  return api
+    .post(url, form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
+}
+
+/* ======================
+   EXPORT
+====================== */
 
 const https = {
-  Post,
   Get,
   GetNew,
+  Post,
+  Put,
+  Delete,
   PostFile,
 };
 

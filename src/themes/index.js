@@ -11,6 +11,10 @@ import SunsetPeach from "./SunsetPeach.vue";
 import ChampagneBlush from "./ChampagneBlush.vue";
 import MidnightGold from "./MidnightGold.vue";
 import LavenderCream from "./LavenderCream.vue";
+import DoubleHappiness from "./DoubleHappiness.vue";
+import BohoTerracotta from "./BohoTerracotta.vue";
+import VintageSepia from "./VintageSepia.vue";
+import OceanBreeze from "./OceanBreeze.vue";
 
 
 const themes = {
@@ -39,17 +43,15 @@ const themes = {
   "midnight-gold": MidnightGold,
 
   "lavender-cream": LavenderCream,
+
+  "double-happiness": DoubleHappiness,
+
+  "boho-terracotta": BohoTerracotta,
+
+  "vintage-sepia": VintageSepia,
+
+  "ocean-breeze": OceanBreeze,
 };
-
-
-export function getWeddingTheme(theme) {
-
-  return (
-    themes[theme] ||
-    themes["traditional-red"]
-  );
-
-}
 
 
 export default themes;

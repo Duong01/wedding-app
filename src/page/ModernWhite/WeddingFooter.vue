@@ -195,8 +195,8 @@ const weddingDate = computed(() => {
   align-items: center;
   justify-content: center;
 
-  width: 66px;
-  height: 66px;
+  width: clamp(52px, 16vw, 66px);
+  height: clamp(52px, 16vw, 66px);
 
   color: #9a171b;
 
@@ -204,7 +204,7 @@ const weddingDate = computed(() => {
     "Times New Roman",
     serif;
 
-  font-size: 55px;
+  font-size: clamp(42px, 13vw, 55px);
 
   font-weight: 700;
 

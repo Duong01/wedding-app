@@ -208,28 +208,23 @@ import {
 } from "@/stores/weddingEditor";
 
 import {
+  useAuthStore,
+} from "@/stores/auth";
+
+import {
   AddDataWedding,
 } from "@/model/api";
+
+import { addEntry as addRegistryEntry } from "@/model/weddingRegistry";
 
 /*
  * =========================================================
  * THEMES
+ * Dùng chung map theme với toàn app.
  * =========================================================
  */
 
-import TraditionalRed from "@/themes/TraditionalRed.vue";
-import RomanticPink from "@/themes/RomanticPink.vue";
-import ElegantGold from "@/themes/ElegantGold.vue";
-import ModernWhite from "@/themes/ModernWhite.vue";
-import NhatBinhDo from "@/themes/NhatBinhDo.vue";
-import IvoryGold from "@/themes/IvoryGold.vue";
-import RoyalRed from "@/themes/RoyalRed.vue";
-import DongSon from "@/themes/DongSon.vue";
-import SereneGreen from "@/themes/SereneGreen.vue";
-import SunsetPeach from "@/themes/SunsetPeach.vue";
-import ChampagneBlush from "@/themes/ChampagneBlush.vue";
-import MidnightGold from "@/themes/MidnightGold.vue";
-import LavenderCream from "@/themes/LavenderCream.vue";
+import themes from "@/themes";
 
 defineOptions({
   name: "WeddingPreview",
@@ -251,6 +246,9 @@ const editorStore =
 
 const weddingStore =
   useWeddingStore();
+
+const auth =
+  useAuthStore();
 
 /* =========================================================
    STATE
@@ -281,9 +279,20 @@ const wedding = computed(() => {
 ========================================================= */
 
 const themeName = computed(() => {
+  /*
+   * Ưu tiên theme trên URL (?theme=...) — đây là
+   * theme mà Editor chủ động yêu cầu xem trước.
+   *
+   * Chỉ dùng theme trong dữ liệu khi URL không có.
+   */
+  const queryTheme = route.query.theme;
+
+  if (typeof queryTheme === "string" && queryTheme.trim()) {
+    return queryTheme.trim();
+  }
+
   return (
     wedding.value?.theme?.Name ||
-    route.query.theme ||
     "traditional-red"
   );
 });
@@ -291,22 +300,6 @@ const themeName = computed(() => {
 /* =========================================================
    THEME MAP
 ========================================================= */
-
-const themes = {
-  "traditional-red": TraditionalRed,
-  "romantic-pink": RomanticPink,
-  "elegant-gold": ElegantGold,
-  "modern-white": ModernWhite,
-  "nhat-binh-do": NhatBinhDo,
-  "ivory-gold": IvoryGold,
-  "royal-red": RoyalRed,
-  "dong-son": DongSon,
-  "serene-green": SereneGreen,
-  "sunset-peach": SunsetPeach,
-  "champagne-blush": ChampagneBlush,
-  "midnight-gold": MidnightGold,
-  "lavender-cream": LavenderCream,
-};
 
 const currentTheme = computed(() => {
   return themes[themeName.value] || null;
@@ -320,9 +313,7 @@ async function backToEditor() {
   await router.push({
     path: "/editor",
     query: {
-      theme:
-        wedding.value?.theme?.Name ||
-        themeName.value,
+      theme: themeName.value,
     },
   });
 }
@@ -354,6 +345,25 @@ function saveWedding() {
     return;
   }
 
+  /*
+   * Chưa đăng nhập (hoặc không đủ quyền) → sang
+   * trang đăng nhập, redirect quay lại đúng trang
+   * preview này. Dữ liệu vẫn nằm trong Editor Store
+   * nên không mất.
+   */
+  if (!auth.canSaveWedding()) {
+    showSaveMessage("Vui lòng đăng nhập để lưu thiệp.", true);
+
+    router.push({
+      name: "Login",
+      query: {
+        redirect: route.fullPath,
+      },
+    });
+
+    return;
+  }
+
   try {
     AddDataWedding(
       wedding.value,
@@ -365,21 +375,37 @@ function saveWedding() {
         );
 
         /*
-         * Nếu API trả dữ liệu,
-         * đồng bộ lại Editor Store.
+         * API trả về envelope { status, message, data }.
          */
         if (
           result &&
-          typeof result === "object"
+          result.status === "success" &&
+          result.data &&
+          typeof result.data === "object"
         ) {
           try {
-            editorStore.setWedding(result);
+            editorStore.setWedding({
+              ...wedding.value,
+              ...result.data,
+            });
           } catch (e) {
             console.warn(
               "[WeddingPreview] Không thể đồng bộ:",
               e
             );
           }
+        }
+
+        /*
+         * Ghi nhận thiệp vào registry quản lý.
+         */
+        try {
+          addRegistryEntry(wedding.value);
+        } catch (e) {
+          console.warn(
+            "[WeddingPreview] Không thể ghi registry:",
+            e
+          );
         }
 
         showSaveMessage(

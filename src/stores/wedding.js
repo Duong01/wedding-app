@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import weddingData from "./../mock/wedding.json";
+import { GetWedding } from "@/model/api";
 
 export const useWeddingStore = defineStore("wedding", {
   state: () => ({
@@ -22,6 +23,12 @@ export const useWeddingStore = defineStore("wedding", {
   },
 
   actions: {
+    /*
+     * Danh sách mẫu thiệp hiển thị ở Home / Templates.
+     *
+     * Backend hiện chưa có endpoint "lấy tất cả thiệp"
+     * nên dùng mock làm danh sách mẫu.
+     */
     async loadWeddings() {
       this.loading = true;
       this.error = null;
@@ -41,7 +48,7 @@ export const useWeddingStore = defineStore("wedding", {
 
             language: item.language,
 
-            weddingDate: item.weddingDate,
+            weddingDate: item.weddingDate || item.WeddingDate,
 
             coverImage: item.coverImage,
 
@@ -82,6 +89,12 @@ export const useWeddingStore = defineStore("wedding", {
       }
     },
 
+    /*
+     * Load 1 thiệp theo slug.
+     *
+     * Ưu tiên API thật (GetWedding), nếu API lỗi
+     * (thiệp chưa lưu trên server) thì fallback về mock.
+     */
     async loadWedding(slug) {
       this.loading = true;
       this.error = null;
@@ -90,11 +103,40 @@ export const useWeddingStore = defineStore("wedding", {
         if (!slug) {
           throw new Error("Thiếu slug của thiệp cưới.");
         }
+
         if (this.cache[slug]) {
           this.wedding = this.cache[slug];
 
           return this.wedding;
         }
+
+        /*
+         * Gọi API thật.
+         */
+        try {
+          const response = await GetWedding(slug);
+
+          const result = response?.data;
+
+          if (result && result.status === "success" && result.data) {
+            const data = result.data;
+
+            this.cache[slug] = data;
+
+            this.wedding = data;
+
+            return data;
+          }
+        } catch (apiError) {
+          console.warn(
+            `[wedding store] API không có thiệp "${slug}", fallback về mock.`,
+            apiError?.response?.status || apiError?.message
+          );
+        }
+
+        /*
+         * Fallback về mock (mẫu thiệp demo).
+         */
         if (!Array.isArray(weddingData)) {
           throw new Error("wedding.json phải có dạng Array []");
         }
@@ -104,6 +146,7 @@ export const useWeddingStore = defineStore("wedding", {
         if (!foundWedding) {
           throw new Error(`Không tìm thấy thiệp với slug: ${slug}`);
         }
+
         const data = {
           ...structuredClone(foundWedding),
         };
@@ -111,8 +154,6 @@ export const useWeddingStore = defineStore("wedding", {
         this.cache[slug] = data;
 
         this.wedding = data;
-
-        console.log("Wedding hiện tại:", this.wedding);
 
         return data;
       } catch (error) {
@@ -135,7 +176,7 @@ export const useWeddingStore = defineStore("wedding", {
     },
 
     reset() {
-      this.wedding = structuredClone(weddingData);
+      this.wedding = structuredClone(weddingData[0]);
     },
 
     clearCache() {

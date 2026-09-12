@@ -65,7 +65,7 @@ const values = computed(() => {
 .countdown-item b {
   display: block;
   color: #a43e65;
-  font-size: 28px;
+  font-size: clamp(22px, 7vw, 28px);
   margin-bottom: 4px;
 }
 

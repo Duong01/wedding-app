@@ -40,7 +40,7 @@ const storyTitle = computed(() =>
 .story p {
   max-width: 400px;
   margin: 0 auto;
-  font-size: 18px;
+  font-size: clamp(15px, 4.2vw, 18px);
   line-height: 1.7;
   font-style: italic;
 }

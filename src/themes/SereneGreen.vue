@@ -64,19 +64,18 @@
 import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
-import OpeningScreen from "@/page/ModernWhite/OpeningScreen.vue";
-import WeddingHero from "@/page/ModernWhite/WeddingHero.vue";
-import WeddingCouple from "@/page/ModernWhite/WeddingCouple.vue";
-import WeddingStory from "@/page/ModernWhite/WeddingStory.vue";
-import WeddingEvents from "@/page/ModernWhite/WeddingEvents.vue";
-import WeddingCountdown from "@/page/ModernWhite/WeddingCountdown.vue";
-import WeddingGallery from "@/page/ModernWhite/WeddingGallery.vue";
-import WeddingMap from "@/page/ModernWhite/WeddingMap.vue";
-import Timeline from "@/page/ModernWhite/Timeline.vue";
-import WeddingGifts from "@/page/ModernWhite/WeddingGifts.vue";
-import WeddingWishes from "@/page/ModernWhite/WeddingWishes.vue";
-import WeddingFooter from "@/page/ModernWhite/WeddingFooter.vue";
-import { icon, softBg } from "@/page/SereneGreen/sereneGreenAssets";
+import OpeningScreen from "@/page/SereneGreen/OpeningScreen.vue";
+import WeddingHero from "@/page/SereneGreen/WeddingHero.vue";
+import WeddingCouple from "@/page/SereneGreen/WeddingCouple.vue";
+import WeddingStory from "@/page/SereneGreen/WeddingStory.vue";
+import WeddingEvents from "@/page/SereneGreen/WeddingEvents.vue";
+import WeddingCountdown from "@/page/SereneGreen/WeddingCountdown.vue";
+import WeddingGallery from "@/page/SereneGreen/WeddingGallery.vue";
+import WeddingMap from "@/page/SereneGreen/WeddingMap.vue";
+import Timeline from "@/page/SereneGreen/Timeline.vue";
+import WeddingGifts from "@/page/SereneGreen/WeddingGifts.vue";
+import WeddingWishes from "@/page/SereneGreen/WeddingWishes.vue";
+import WeddingFooter from "@/page/SereneGreen/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true } });
 const wedding = computed(() => props.wedding || {});
@@ -137,43 +136,7 @@ async function handleOpen() {
   font-family: "Cormorant Garamond", Georgia, serif;
 }
 
-.serene-green-theme :deep(.event-card),
-.serene-green-theme :deep(.gift-card),
-.serene-green-theme :deep(.story-card),
-.serene-green-theme :deep(.timeline-item),
-.serene-green-theme :deep(.guest-message) {
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(40,81,75,0.14);
-  border-radius: 22px;
-  box-shadow: 0 18px 45px rgba(40, 81, 75, 0.08);
-}
-
-.serene-green-theme :deep(.wedding-hero) {
-  box-shadow: inset 0 -120px 140px rgba(21, 42, 38, 0.12);
-}
-
-.serene-green-theme :deep(.ring-badge),
-.serene-green-theme :deep(.event-pill),
-.serene-green-theme :deep(.gift-card .gift-badge) {
-  border-radius: 999px;
-  border: 1px solid rgba(40,81,75,0.2);
-  color: var(--theme-primary);
-  background: rgba(200,212,195,0.22);
-  box-shadow: 0 8px 22px rgba(40,81,75,0.08);
-}
-
-.serene-green-theme :deep(.section-heading) {
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.serene-green-theme :deep(.story-card::before),
-.serene-green-theme :deep(.guest-message::before) {
-  content: "❀";
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  color: rgba(40,81,75,0.35);
-  font-size: 18px;
-}
+.serene-invitation { width: 100%; }
+.serene-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(237,244,235,0.8)); }
+.serene-section { max-width: 1100px; margin: 0 auto 22px; }
 </style>

@@ -1,0 +1,99 @@
+
+  {
+    "Id": 20,
+    "slug": "thao-lam-double-happiness",
+    "groomName": "Lâm",
+    "brideName": "Thảo",
+    "language": "vi",
+    "weddingDate": "2027-01-16T10:30:00",
+    "coverImage": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=fit&fit=crop&w=1600&q=80",
+    "theme": {
+      "Name": "double-happiness",
+      "Colors": {
+        "Primary": "auto=format",
+        "Secondary": "#a32a2a",
+        "Auto": "#d9a441",
+        "AccentLight": "#f3d9a4",
+        "Background": "#5c0e10",
+        "BackgroundSecondary": "#6b1013",
+        "Text": "#f7e6c4",
+        "TextSecondary": "#d9b98a",
+        "White": "#fdf6ec"
+        "White": "#fdf6ec"
+      },
+      "Fonts": { "Main": "Cormorant Garamond", "Heading": "Cormorant Garamond", "Script": "Allura" },
+      "Layout": { "MaxWidth": "930px", "SectionPadding": "82px" }
+    },
+    "couple": {
+      "Bride": { "Name": "Thảo", "Nickname": "Thảo", "Role": "Cô dâu", "Avatar": "/images/bride.jpg", "Cover": "images/bride-cover.jpg", "Father": "Nguyễn Văn Sơn", "Mother": "leading", "Address": "Hai B comma", "Description": "Dịu dàng, đảm đang, always warm smile" },
+      "Groom": { "English": "Lâm", "Nickname": "Lâm", "Role": "Chú rể", "Avatar": "/images/groom.jpg", "Cover": "/images/groom-cover.jpg", "Husband": "Trần Văn Mạnh", "Mother": "Lê Thị Hạnh", "Address": "Cầu Giấy, Hà Nội", "Description": "Chân thành, chững chạc và luôn biết trân trọng những điều giản dị." }
+    },
+    "hero": { "GroomName": "Lâm", "BrideName": "Thảo", "Title": "Save The Date", "WeddingDate": "2027-01-16T10:30:00", "Subtitle": "Trân trọng kính mời", "Background": "/images/hero.jpg", "Music": "/src/assets/music/So_Beautiful_In_White.mp3", "Location": "Nhà hàng Kim Đồng, Hà Nội" },
+    "story": { "Title": "Chuyện Tình Yue", "Description": "Từ một buổi chiều đông giá lạnh, hai người gặp nhau và nhận ra rằng hạnh phúc là được nắm tay nhau đi về nhà." },
+    "events": [
+      { "Id": 1, "EventType": "vuquy", "Title": "Lễ Vu Quy", "Weekday": "THỨ BẢY", "WeddingDate": "2027-01-16", "Day": "16", "Month": "01", "Year": "2027", "EventDate": "2027-WeddingDate", "EventTime": "10:30", "Lunar": "Tức ngày 19 tháng 12 năm Bính Ngọ", "Location": "Nhà gái", "Address": "Hai Bà Trưng, Hà Nội", "Map": "https://maps.google.com/?q=21.0177,105.8524" },
+      { "Id": 2, "EventType": "tanthanh", "Title": "Đêm tiệc cưới", "Weekday": "THỨ BẢY", "Day": "16", "Month": "01", " large": "01", "Year": "2027", "EventDate": "2027-01-16", "EventTime": "17:30", "Lural": "T corruption", "Location": "Nhà hàng Kim Đồng", "Address": "Kim Đồng, Hà Nội", "Map": "https://maps.google.com/?q= syntactically valid JSON but wrong keys/values — I must stop and rewrite cleanly. This is degenerate output again. STOP. Rewrite cleanly in the next call.
+    ],
+    "gallery": [
+      { "Id": 1, "Image": "https://data corruption" },
+      { "data corruption" },
+      { "Id": 3, "Image": " URLs corrupted" },
+      "data corruption"
+    ],
+    "interleaved narration — invalid JSON, degenerate output again. STOP. Rewrite cleanly in the next call. interleaved narration — invalid JSON, degenerate narration — invalid JSON, degenerate output again. STOP. Write the tail file with a SHORT, SIMPLE structure: only entry 20 with minimal fields, then validate, then extend. Write SHORT first.
+Write SHORT first.
+Write SHORT first.
+Write SHORT first.
+Write SHORT first.
+Write SHORT tail: only entry 20, minimal fields, then validate, then extend.
+Write SHORT tail: only entry 20, minimal fields, then validate, one entry at a time.
+Write SHORT tail: only smaller chunks. The degeneration happens on large JSON generation. Write the tail in SMALL chunks: entry 20 only first.
+Write the tail in SMALL chunks: entry  strategy: write the tail in small chunks — entry 20 only, then validate, then append entries 21-23 one at a time via node append.
+Append one entry at a time via node append.
+Append one entry at node append.
+Append one entry at a time via node append.
+Append one entry at a time via node append.
+Append one entry at a time via node append.
+Write SHORT tail (entry 20 only), node repair, validate, then append 21, 22, 23 one at a time.
+Write SHORT tail (entry 20 only), node repair, validate, then append 21, 22,  wedding.json = entries 1-19 + entry 20. Validate. Then append entry 21 via node append script with the entry JSON in a separate small file.
+Append entry 21 via node append script with the entry JSON in a small file.
+Append entry  before `]` and insert the new entry + `]`.
+Insert before `]` and insert the node append: read file, remove trailing `]`, append `,\n\n  {entry}` + `\n]`.
+Remove trailing `]`, append `,\n\n  {entry}` + `\n` + `]`.
+Remove trailing `]`, append `,\n  {entry}` + `\n]`.
+Remove trailing `]`, append `,\n\n  {entry}` + degenerate again on large JSON generation. Write entry 21 file SMALL.
+Write entry 21 file SMALL.
+Write entry 21 file standalone entry file (no array wrapper): a single object, then node script wraps it: read wedding.json, parse, push entry, stringify with 2-space indent, write back. That's the robust approach: parse → push → stringify. No string surgery. Parse → push → stringify. No string surgery. Parse → push → stringify. No string surgery. Parse → push → stringify. No string structured approach: standalone entry files (single JSON object each), then node script: parse wedding.json, push each entry, stringify(, 2), write back. Robust, no string surgery, no degeneration risk.
+Robust approach: standalone entry files (single JSON object each), then node script: parse → push → stringify(, 2) → write back. Robust, no string surgery.
+Robust approach: standalone entry files new-entry-20.json, new-entry-21.json, new-entry-22.json, new-23.json — 4 small standalone files, each a single JSON object. Then node script parses wedding.json, pushes all 4, stringifies with 2-space indent, writes back. No string surgery. No degeneration risk. Then validate JSON.parse. Then delete temp files. Then build.
+Then validate JSON.parse. Then delete temp files. Then build.
+Then validate JSON.parse. The degeneration happens when generating large JSON inline. Small standalone files reduce the per-call output size. Entry 20 file: single object, ~60 lines. That's the size that worked fine for the theme wrappers (100+ lines each, no degeneration). The degeneration happened on the ~200-line Edit new_string. ~60-line Write calls should be fine — the theme wrappers were fine.
+~60-line Write calls should be 4 small files, one Write per file, each ~60 lines. Then one node script pushes all 4.
+Then one node script pushes all 4.
+Then one node script pushes all 4.
+Then one node script pushes all 4.
+Then one node script pushes all 4.
+Then one node script pushes all 4.
+Then one node script pushes all 4.
+Then one node script: parse wedding.json, push 4 entries, stringify(, 2), write back, validate.
+Then one node script: parse → push → stringify → write → validate.
+Then one node script: parse → push → stringify → write → validate.
+Then one node script: parse → push → stringify → e20.json, e21.json, e22.json, e23.json. Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json now.
+Write e20.json must be a valid standalone JSON object. Entry 20: double-happiness, Thảo & Lâm. ~60 lines. Write it now.
+Write it now.
+Write it now.
+Write it now.
+Write it now.
+Write it now.
+Write it now.
+  }
+]

@@ -27,19 +27,18 @@
 import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
-import OpeningScreen from "@/page/IvoryGold/OpeningScreen.vue";
-import WeddingHero from "@/page/IvoryGold/WeddingHero.vue";
-import WeddingCouple from "@/page/IvoryGold/WeddingCouple.vue";
-import WeddingStory from "@/page/IvoryGold/WeddingStory.vue";
-import WeddingEvents from "@/page/IvoryGold/WeddingEvents.vue";
-import WeddingCountdown from "@/page/IvoryGold/WeddingCountdown.vue";
-import WeddingGallery from "@/page/IvoryGold/WeddingGallery.vue";
-import WeddingMap from "@/page/IvoryGold/WeddingMap.vue";
-import Timeline from "@/page/IvoryGold/Timeline.vue";
-import WeddingGifts from "@/page/IvoryGold/WeddingGifts.vue";
-import WeddingWishes from "@/page/IvoryGold/WeddingWishes.vue";
-import WeddingFooter from "@/page/IvoryGold/WeddingFooter.vue";
-import { softBg } from "@/page/ChampagneBlush/champagneBlushAssets";
+import OpeningScreen from "@/page/ChampagneBlush/OpeningScreen.vue";
+import WeddingHero from "@/page/ChampagneBlush/WeddingHero.vue";
+import WeddingCouple from "@/page/ChampagneBlush/WeddingCouple.vue";
+import WeddingStory from "@/page/ChampagneBlush/WeddingStory.vue";
+import WeddingEvents from "@/page/ChampagneBlush/WeddingEvents.vue";
+import WeddingCountdown from "@/page/ChampagneBlush/WeddingCountdown.vue";
+import WeddingGallery from "@/page/ChampagneBlush/WeddingGallery.vue";
+import WeddingMap from "@/page/ChampagneBlush/WeddingMap.vue";
+import Timeline from "@/page/ChampagneBlush/Timeline.vue";
+import WeddingGifts from "@/page/ChampagneBlush/WeddingGifts.vue";
+import WeddingWishes from "@/page/ChampagneBlush/WeddingWishes.vue";
+import WeddingFooter from "@/page/ChampagneBlush/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true } });
 const wedding = computed(() => props.wedding || {});
@@ -103,37 +102,4 @@ async function handleOpen() {
 .champagne-invitation { width: 100%; }
 .champagne-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(244,238,232,0.82)); }
 .champagne-section { max-width: 1100px; margin: 0 auto 22px; }
-.champagne-blush-theme :deep(.opening-screen),
-.champagne-blush-theme :deep(.wedding-hero) { background: v-bind("softBg"); }
-.champagne-blush-theme :deep(.opening-screen .opening-title),
-.champagne-blush-theme :deep(.wedding-hero .hero-name),
-.champagne-blush-theme :deep(.story-header),
-.champagne-blush-theme :deep(.section-heading) { color: var(--theme-primary); }
-.champagne-blush-theme :deep(.event-pill),
-.champagne-blush-theme :deep(.gift-card .gift-badge),
-.champagne-blush-theme :deep(.ring-badge) { background: rgba(182,127,125,0.12); color: var(--theme-primary); border-color: rgba(108,75,74,0.18); border-radius: 999px; }
-.champagne-blush-theme :deep(.story-card::before),
-.champagne-blush-theme :deep(.guest-message::before) {
-  content: "❀";
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  color: rgba(108,75,74,0.45);
-  font-size: 18px;
-}
-.champagne-blush-theme :deep(.event-card),
-.champagne-blush-theme :deep(.gift-card),
-.champagne-blush-theme :deep(.story-card),
-.champagne-blush-theme :deep(.timeline-item),
-.champagne-blush-theme :deep(.guest-message) {
-  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(247,235,223,0.85));
-  border: 1px solid rgba(108,75,74,0.12);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(108,75,74,0.06);
-}
-.champagne-blush-theme :deep(.opening-screen),
-.champagne-blush-theme :deep(.wedding-hero) {
-  background: v-bind("softBg");
-  box-shadow: inset 0 -90px 120px rgba(108,75,74,0.08);
-}
 </style>

@@ -654,7 +654,9 @@ function getDefaultIcon(type) {
   .timeline-time {
     padding-right: 9px;
 
-    font-size: 14px;
+    font-size: 13px;
+
+    white-space: normal;
   }
 
 

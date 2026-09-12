@@ -9,54 +9,51 @@ export const useWeddingDetailStore = defineStore("weddingDetail", {
   }),
 
   actions: {
-    loadWedding(slug, token) {
+    /*
+     * GetWedding(slug, token) — positional args.
+     * Promise trả về axios response; data thật nằm ở response.data.
+     */
+    async loadWedding(slug, token) {
       this.loading = true;
       this.error = null;
       this.wedding = null;
 
-      return new Promise((resolve, reject) => {
-        GetWedding(
-          {
-            slug: slug,
-            token: token,
-          },
-
-          // success
-          (response) => {
-            this.loading = false;
-
-            if (
-              response &&
-              response.status === "success" &&
-              response.data
-            ) {
-              this.wedding = response.data;
-
-              resolve(response.data);
-            } else {
-              this.wedding = null;
-
-              this.error =
-                response?.Message ||
-                "Không tìm thấy thiệp.";
-
-              reject(new Error(this.error));
-            }
-          },
-
-          // error
-          (error) => {
-            this.loading = false;
-            this.wedding = null;
-
-            this.error =
-              error?.response?.data?.Message ||
-              "Không thể tải thông tin thiệp.";
-
-            reject(error);
-          }
+      try {
+        const response = await GetWedding(
+          slug,
+          typeof token === "string" && token.trim() ? token : ""
         );
-      });
+
+        const result = response?.data;
+
+        if (result && result.status === "success" && result.data) {
+          this.wedding = result.data;
+
+          return this.wedding;
+        }
+
+        this.wedding = null;
+
+        this.error =
+          result?.message ||
+          result?.Message ||
+          "Không tìm thấy thiệp.";
+
+        throw new Error(this.error);
+      } catch (error) {
+        this.loading = false;
+        this.wedding = null;
+
+        this.error =
+          error?.response?.data?.message ||
+          error?.response?.data?.Message ||
+          error?.message ||
+          "Không thể tải thông tin thiệp.";
+
+        throw error;
+      } finally {
+        this.loading = false;
+      }
     },
 
     clearWedding() {

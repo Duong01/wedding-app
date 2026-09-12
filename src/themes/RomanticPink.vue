@@ -185,7 +185,7 @@ async function handleOpen() {
 }
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap");
 
 .romantic-pink {
@@ -378,11 +378,13 @@ async function handleOpen() {
 
 /* =========================================================
    HIỆU ỨNG TIÊU ĐỀ SECTION
+   Chỉ áp dụng cho heading bên trong theme này
+   (tránh đè heading toàn app).
    ========================================================= */
 
-h1,
-h2,
-h3 {
+.romantic-pink :deep(h1),
+.romantic-pink :deep(h2),
+.romantic-pink :deep(h3) {
   position: relative;
   color: var(--pink-deep);
   font-family: "Great Vibes", cursive;

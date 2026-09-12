@@ -763,17 +763,19 @@ function closeGift() {
 
 /* =====================================================
    MOBILE
+   (Gộp 2 block @media 420px — giá trị bộ sau thắng)
 ===================================================== */
 
 @media (max-width: 420px) {
 
   .gift-list {
+    gap: 12px;
     height: 220px;
   }
 
 
   .lixi {
-    width: 132px;
+    width: 44%;
   }
 
 
@@ -788,12 +790,18 @@ function closeGift() {
 
 
   .lixi-label {
-    font-size: 8px;
+    font-size: 9px;
   }
 
 
   .lixi-hint {
-    font-size: 5.5px;
+    font-size: 6px;
+  }
+
+
+  .qr-frame {
+    width: 165px;
+    height: 165px;
   }
 
 }
@@ -1444,39 +1452,5 @@ function closeGift() {
   transform:
     translateY(30px)
     scale(.94);
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .gift-list {
-    gap: 12px;
-  }
-
-
-  .lixi {
-    width: 44%;
-  }
-
-
-  .lixi-label {
-    font-size: 9px;
-  }
-
-
-  .lixi-hint {
-    font-size: 6px;
-  }
-
-
-  .qr-frame {
-    width: 165px;
-    height: 165px;
-  }
-
 }
 </style>

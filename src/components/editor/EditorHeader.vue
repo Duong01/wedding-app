@@ -66,6 +66,24 @@ const props = defineProps({
   routeTheme: { type: String, default: "" },
   saving: { type: Boolean, default: false },
 });
+
+/*
+ * Header không tự điều hướng / gọi API —
+ * phát sự kiện cho Editor.vue xử lý.
+ */
+const emit = defineEmits(["back", "preview", "save"]);
+
+function backToTemplates() {
+  emit("back");
+}
+
+function previewWedding() {
+  emit("preview");
+}
+
+function saveWedding() {
+  emit("save");
+}
 </script>
 
 <style scoped>

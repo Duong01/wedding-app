@@ -27,19 +27,18 @@
 import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
-import OpeningScreen from "@/page/RomanticPink/OpeningScreen.vue";
-import WeddingHero from "@/page/RomanticPink/WeddingHero.vue";
-import WeddingCouple from "@/page/RomanticPink/WeddingCouple.vue";
-import WeddingStory from "@/page/RomanticPink/WeddingStory.vue";
-import WeddingEvents from "@/page/RomanticPink/WeddingEvents.vue";
-import WeddingCountdown from "@/page/RomanticPink/WeddingCountdown.vue";
-import WeddingGallery from "@/page/RomanticPink/WeddingGallery.vue";
-import WeddingMap from "@/page/RomanticPink/WeddingMap.vue";
-import Timeline from "@/page/RomanticPink/Timeline.vue";
-import WeddingGifts from "@/page/RomanticPink/WeddingGifts.vue";
-import WeddingWishes from "@/page/RomanticPink/WeddingWishes.vue";
-import WeddingFooter from "@/page/RomanticPink/WeddingFooter.vue";
-import { softBg } from "@/page/LavenderCream/lavenderCreamAssets";
+import OpeningScreen from "@/page/LavenderCream/OpeningScreen.vue";
+import WeddingHero from "@/page/LavenderCream/WeddingHero.vue";
+import WeddingCouple from "@/page/LavenderCream/WeddingCouple.vue";
+import WeddingStory from "@/page/LavenderCream/WeddingStory.vue";
+import WeddingEvents from "@/page/LavenderCream/WeddingEvents.vue";
+import WeddingCountdown from "@/page/LavenderCream/WeddingCountdown.vue";
+import WeddingGallery from "@/page/LavenderCream/WeddingGallery.vue";
+import WeddingMap from "@/page/LavenderCream/WeddingMap.vue";
+import Timeline from "@/page/LavenderCream/Timeline.vue";
+import WeddingGifts from "@/page/LavenderCream/WeddingGifts.vue";
+import WeddingWishes from "@/page/LavenderCream/WeddingWishes.vue";
+import WeddingFooter from "@/page/LavenderCream/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true } });
 const wedding = computed(() => props.wedding || {});
@@ -103,37 +102,4 @@ async function handleOpen() {
 .lavender-invitation { width: 100%; }
 .lavender-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(241,235,244,0.8)); }
 .lavender-section { max-width: 1100px; margin: 0 auto 22px; }
-.lavender-cream-theme :deep(.opening-screen),
-.lavender-cream-theme :deep(.wedding-hero) { background: v-bind("softBg"); }
-.lavender-cream-theme :deep(.opening-screen .opening-title),
-.lavender-cream-theme :deep(.wedding-hero .hero-name),
-.lavender-cream-theme :deep(.story-header),
-.lavender-cream-theme :deep(.section-heading) { color: var(--theme-primary); }
-.lavender-cream-theme :deep(.event-card),
-.lavender-cream-theme :deep(.gift-card),
-.lavender-cream-theme :deep(.story-card),
-.lavender-cream-theme :deep(.timeline-item),
-.lavender-cream-theme :deep(.guest-message) {
-  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(242,231,246,0.82));
-  border: 1px solid rgba(88,74,91,0.1);
-  border-radius: 22px;
-  box-shadow: 0 18px 42px rgba(88,74,91,0.07);
-}
-.lavender-cream-theme :deep(.event-pill),
-.lavender-cream-theme :deep(.gift-card .gift-badge),
-.lavender-cream-theme :deep(.ring-badge) {
-  background: rgba(160,134,180,0.12);
-  color: var(--theme-primary);
-  border-color: rgba(88,74,91,0.18);
-  border-radius: 999px;
-}
-.lavender-cream-theme :deep(.story-card::before),
-.lavender-cream-theme :deep(.guest-message::before) {
-  content: "✦";
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  color: rgba(88,74,91,0.45);
-  font-size: 18px;
-}
 </style>

@@ -202,7 +202,6 @@
              RSVP
         ====================================== -->
         <button
-          v-if="event.rsvpUrl"
           type="button"
           class="rsvp-button"
           @click="openConfirmModal(event)"
@@ -414,13 +413,21 @@ import {
   ref
 } from "vue";
 import dayjs from "dayjs";
+import { useRoute } from "vue-router";
+import { Confirm } from "@/model/api";
 
 const props = defineProps({
   events: {
     type: Array,
     default: () => []
+  },
+  recipientName: {
+    type: [Object, Array, String],
+    default: null
   }
 });
+
+const route = useRoute();
 
 const sectionRef = ref(null);
 
@@ -437,7 +444,24 @@ const submitting = ref(false);
 const errorMessage = ref("");
 const successMessage = ref("");
 
-const recipientName = ref("");
+const recipientName = computed(() => {
+  const value = props.recipientName;
+
+  if (!value) {
+    return "";
+  }
+
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  if (Array.isArray(value)) {
+    return value[0]?.Name || "";
+  }
+
+  return value.Name || "";
+});
+
 const hasRecipient = computed(() => !!recipientName.value);
 
 
@@ -610,8 +634,8 @@ function openConfirmModal(event) {
   selectedEvent.value = event;
 
   form.value = {
-    name: "",
-    attendance: "",
+    name: recipientName.value || "",
+    attendance: "attending",
     numberOfPeople: 1
   };
 
@@ -668,24 +692,33 @@ async function submitConfirmation() {
   submitting.value = true;
 
   try {
+    const slug = route.params.slug
+      ? route.params.token
+        ? `${route.params.slug}/${route.params.token}`
+        : route.params.slug
+      : "";
 
-    /*
-      TODO:
-      Gọi API RSVP của bạn tại đây.
+    const payload = {
+      Slug: slug,
+      RecipientToken: route.params.token || null,
+      GuestName: form.value.name,
+      Attendance:
+        form.value.attendance === "attending"
+          ? "Có tham dự"
+          : "Không tham dự",
+      NumberOfPeople:
+        form.value.attendance === "attending"
+          ? form.value.numberOfPeople
+          : 0
+    };
 
-      Ví dụ:
+    const response = await Confirm(payload);
 
-      await api.post("/wedding/rsvp", {
-        eventId: selectedEvent.value.Id,
-        name: form.value.name,
-        attendance: form.value.attendance,
-        numberOfPeople: form.value.numberOfPeople
-      });
-    */
+    const result = response?.data;
 
-    await new Promise(resolve =>
-      setTimeout(resolve, 700)
-    );
+    if (!result || result.status !== "success") {
+      throw new Error(result?.message || "Không thể gửi xác nhận.");
+    }
 
     successMessage.value =
       "Cảm ơn bạn đã xác nhận tham dự ❤️";
@@ -697,6 +730,8 @@ async function submitConfirmation() {
   } catch (error) {
 
     errorMessage.value =
+      error?.response?.data?.message ||
+      error?.message ||
       "Có lỗi xảy ra. Vui lòng thử lại.";
 
   } finally {
@@ -958,7 +993,6 @@ onBeforeUnmount(() => {
 
 .schedule-content strong {
   font-size: 21px;
-  white-space: nowrap;
 }
 
 
@@ -1076,19 +1110,28 @@ onBeforeUnmount(() => {
 
 /* =====================================================
    MOBILE
+   (Gộp 2 block @media 600px — giá trị bộ sau thắng)
 ===================================================== */
 
 @media (max-width: 600px) {
 
+  .events-header p {
+    font-size: 16px;
+  }
+
   .events-list {
     width: 100%;
     padding: 0 18px;
-    gap: 28px;
+    gap: 25px;
   }
 
   .event-card {
     width: 100%;
     max-width: 430px;
+  }
+
+  .event-heading h3 {
+    font-size: 27px;
   }
 
   .event-main-date {
@@ -1113,11 +1156,24 @@ onBeforeUnmount(() => {
 
   .calendar {
     width: min(100%, 360px);
+    padding: 13px;
+  }
+
+  .location-content strong {
+    font-size: 20px;
   }
 
   .rsvp-button {
     width: min(100%, 360px);
   }
+
+  .confirm-modal {
+    padding:
+      35px
+      20px
+      25px;
+  }
+
 }
 
 
@@ -1188,7 +1244,7 @@ onBeforeUnmount(() => {
 }
 
 .date-number {
-  font-size: 76px;
+  font-size: clamp(44px, 13vw, 76px);
 
   font-weight: 500;
 
@@ -1796,59 +1852,6 @@ onBeforeUnmount(() => {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 600px) {
-
-
-  .events-header p {
-    font-size: 16px;
-  }
-
-  .events-list {
-    gap: 25px;
-  }
-
-  .event-heading h3 {
-    font-size: 27px;
-  }
-
-  .date-number {
-    font-size: 65px;
-  }
-
-  .event-main-date {
-    gap: 14px;
-  }
-
-  .date-side strong {
-    font-size: 16px;
-  }
-
-  .schedule-content strong {
-    font-size: 19px;
-  }
-
-  .calendar {
-    padding: 13px;
-  }
-
-  .location-content strong {
-    font-size: 20px;
-  }
-
-  .confirm-modal {
-    padding:
-      35px
-      20px
-      25px;
-  }
-
 }
 
 

@@ -736,7 +736,7 @@ const address = computed(() =>
 
   font-family: Georgia, "Times New Roman", serif;
 
-  font-size: 47px;
+  font-size: clamp(34px, 9vw, 47px);
   font-weight: 900;
 
   line-height: .9;
