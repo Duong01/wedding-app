@@ -46,18 +46,19 @@
         <h1>Chào mừng trở lại</h1>
 
         <p class="auth-sub">
-          Đăng nhập để quản lý thiệp cưới của bạn.
+          Đăng nhập bằng tên đăng nhập hoặc email để quản lý thiệp cưới
+          của bạn.
         </p>
 
         <div class="field">
-          <label for="login-email">Email</label>
+          <label for="login-email">Tên đăng nhập hoặc Email</label>
 
           <input
             id="login-email"
             v-model.trim="loginForm.email"
-            type="email"
-            autocomplete="email"
-            placeholder="you@example.com"
+            type="text"
+            autocomplete="username"
+            placeholder="username hoặc you@example.com"
             required
           />
         </div>
@@ -240,37 +241,24 @@
         <h1>Tạo tài khoản mới</h1>
 
         <p class="auth-sub">
-          Đăng ký để tạo và chỉnh sửa thiệp cưới riêng của bạn.
+          Chỉ cần tên đăng nhập và mật khẩu — các thông tin khác tùy chọn.
         </p>
 
-        <div class="field-row">
-          <div class="field">
-            <label for="reg-first">Họ</label>
+        <div class="field">
+          <label for="reg-username">Tên đăng nhập</label>
 
-            <input
-              id="reg-first"
-              v-model.trim="registerForm.firstName"
-              type="text"
-              placeholder="Nguyễn"
-              required
-            />
-          </div>
-
-          <div class="field">
-            <label for="reg-last">Tên</label>
-
-            <input
-              id="reg-last"
-              v-model.trim="registerForm.lastName"
-              type="text"
-              placeholder="Văn A"
-              required
-            />
-          </div>
+          <input
+            id="reg-username"
+            v-model.trim="registerForm.username"
+            type="text"
+            autocomplete="username"
+            placeholder="ten_dang_nhap"
+            required
+          />
         </div>
 
         <div class="field">
-          <label for="reg-email">Email</label>
+          <label for="reg-email">Email <span class="optional">(không bắt buộc)</span></label>
 
           <input
             id="reg-email"
@@ -278,29 +266,28 @@
             type="email"
             autocomplete="email"
             placeholder="you@example.com"
-            required
           />
         </div>
 
         <div class="field">
-          <label for="reg-phone">Số điện thoại</label>
+          <label for="reg-fullname">Họ và tên <span class="optional">(không bắt buộc)</span></label>
+
+          <input
+            id="reg-fullname"
+            v-model.trim="registerForm.fullName"
+            type="text"
+            placeholder="Nguyễn Văn A"
+          />
+        </div>
+
+        <div class="field">
+          <label for="reg-phone">Số điện thoại <span class="optional">(không bắt buộc)</span></label>
 
           <input
             id="reg-phone"
             v-model.trim="registerForm.phone"
             type="tel"
             placeholder="0912 345 678"
-            required
-          />
-        </div>
-
-        <div class="field">
-          <label for="reg-birthday">Ngày sinh</label>
-
-          <input
-            id="reg-birthday"
-            v-model="registerForm.birthDay"
-            type="date"
           />
         </div>
 
@@ -425,11 +412,10 @@ const loginForm = reactive({
 });
 
 const registerForm = reactive({
-  firstName: "",
-  lastName: "",
+  username: "",
   email: "",
+  fullName: "",
   phone: "",
-  birthDay: "",
   password: "",
 });
 
@@ -506,19 +492,23 @@ async function submitRegister() {
 
   try {
     await auth.register({
-      FirstName: registerForm.firstName,
-      LastName: registerForm.lastName,
-      Email: registerForm.email,
-      Phone: registerForm.phone,
-      BirthDay: registerForm.birthDay || null,
+      Username: registerForm.username,
+      Email: registerForm.email || null,
+      FullName: registerForm.fullName || null,
+      Phone: registerForm.phone || null,
       Password: registerForm.password,
     });
 
     /*
-     * Đăng ký thành công → đăng nhập luôn
-     * cho tiện (dùng cùng email/password).
+     * Đăng ký thành công → đăng nhập luôn cho tiện.
+     * Lưu ý: backend cho phép đăng nhập bằng Username
+     * hoặc Email — nếu không nhập Email thì đăng nhập
+     * bằng Username.
      */
-    await auth.login(registerForm.email, registerForm.password);
+    await auth.login(
+      registerForm.email || registerForm.username,
+      registerForm.password
+    );
 
     redirectAfterAuth();
   } catch (e) {
@@ -863,6 +853,12 @@ async function submitForgot() {
 /* ==================================================
    ERROR / SUBMIT
 ================================================== */
+
+.optional {
+  color: #9a8484;
+
+  font-weight: 400;
+}
 
 .auth-error {
   display: flex;

@@ -8,9 +8,10 @@ import {
 } from "@/model/api";
 
 /*
- * 3 quyền của hệ thống:
- *  - Admin: toàn quyền (quản lý tài khoản, phân quyền)
- *  - User:  tạo / chỉnh sửa thiệp của mình
+ * 3 quyền của hệ thống (DB lưu 'ADMIN'/'USER' hoa —
+ * normalizeRole so khớp không phân biệt hoa thường):
+ *  - ADMIN: toàn quyền (quản lý tài khoản, phân quyền)
+ *  - USER:  tạo / chỉnh sửa thiệp của mình
  *  - Guest: chỉ xem thiệp
  */
 export const ROLES = {
@@ -184,14 +185,16 @@ export const useAuthStore = defineStore("auth", {
 
     displayName: (state) => {
       return (
+        state.user?.FullName ||
         state.user?.EmpName ||
+        state.user?.Username ||
         state.user?.Email ||
         "Người dùng"
       );
     },
 
     avatar: (state) => {
-      return state.user?.Avartar || state.user?.Avatar || "";
+      return state.user?.Avatar || state.user?.Avartar || "";
     },
   },
 
@@ -217,8 +220,9 @@ export const useAuthStore = defineStore("auth", {
     },
 
     /*
-     * Đăng nhập bằng email + password.
-     * Backend trả { token, user: {..., Role_User} }.
+     * Đăng nhập bằng Username hoặc Email (frontend
+     * vẫn gửi field Email — backend so khớp cả hai).
+     * Backend trả { token, user: { Id, Username, Email, FullName, Avatar, Role } }.
      */
     async login(email, password) {
       const response = await Login({
@@ -238,13 +242,13 @@ export const useAuthStore = defineStore("auth", {
       this.user = result.data.user || null;
 
       /*
-       * Ưu tiên Role_User trong user object,
+       * Ưu tiên Role trong user object,
        * fallback về claim Role trong token.
        */
       const payload = decodeJwtPayload(this.token);
 
       this.role =
-        this.user?.Role_User || payload?.Role || ROLES.GUEST;
+        this.user?.Role || payload?.Role || ROLES.GUEST;
 
       this.sessionVerified = true;
 
@@ -255,9 +259,8 @@ export const useAuthStore = defineStore("auth", {
 
     /*
      * Đăng ký tài khoản mới.
-     * Backend Register không gán Role_User → tài khoản mới
-     * mặc định là Guest cho đến khi Admin phân quyền
-     * qua trang /admin (UpdateRole).
+     * Backend Register bắt buộc Username + Password,
+     * Role mặc định 'USER', IsActive = 1.
      */
     async register(payload) {
       const response = await RegisterAccount(payload);
@@ -296,7 +299,7 @@ export const useAuthStore = defineStore("auth", {
         }
 
         /*
-         * Giữ dữ liệu user cũ (có Role_User),
+         * Giữ dữ liệu user cũ (có Role),
          * chỉ bổ sung thông tin từ server.
          */
         this.user = {
@@ -307,7 +310,7 @@ export const useAuthStore = defineStore("auth", {
         const payload = decodeJwtPayload(this.token);
 
         this.role =
-          this.user?.Role_User || payload?.Role || this.role || ROLES.GUEST;
+          this.user?.Role || payload?.Role || this.role || ROLES.GUEST;
 
         this.persist();
 
@@ -355,7 +358,7 @@ export const useAuthStore = defineStore("auth", {
       if (this.user) {
         this.user = {
           ...this.user,
-          Role_User: this.role,
+          Role: this.role,
         };
       }
 
@@ -380,7 +383,9 @@ export const useAuthStore = defineStore("auth", {
 
     /*
      * Được phép lưu thiệp lên server không
-     * (phải đăng nhập + có quyền User/Admin).
+     * (phải đăng nhập + có quyền USER/ADMIN —
+     * backend lưu Role 'USER'/'ADMIN' hoa, so sánh
+     * không phân biệt hoa thường).
      */
     canSaveWedding() {
       return (

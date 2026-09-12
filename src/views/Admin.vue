@@ -166,14 +166,14 @@
       <div v-else class="account-list">
         <article
           v-for="account in filteredAccounts"
-          :key="account.ID"
+          :key="account.Id"
           class="account-card"
         >
           <!-- AVATAR -->
           <div class="avatar-wrap">
             <img
-              v-if="account.Avartar"
-              :src="account.Avartar"
+              v-if="account.Avatar"
+              :src="account.Avatar"
               :alt="getAccountName(account)"
               @error="onAvatarError"
             />
@@ -190,23 +190,30 @@
 
               <span
                 class="role-badge"
-                :class="roleClass(account.Role_User)"
+                :class="roleClass(account.Role)"
               >
-                {{ roleLabel(account.Role_User) }}
+                {{ roleLabel(account.Role) }}
               </span>
             </div>
 
-            <p class="account-email">{{ account.Email }}</p>
+            <p class="account-email">
+              {{ account.Email || account.Username }}
+            </p>
 
             <p class="account-meta">
+              <span v-if="account.Username">
+                <v-icon size="13"> mdi-account-outline </v-icon>
+                {{ account.Username }}
+              </span>
+
               <span v-if="account.Phone">
                 <v-icon size="13"> mdi-phone-outline </v-icon>
                 {{ account.Phone }}
               </span>
 
-              <span v-if="account.TimeLogin">
+              <span v-if="account.LastLoginAt">
                 <v-icon size="13"> mdi-clock-outline </v-icon>
-                Đăng nhập {{ formatDate(account.TimeLogin) }}
+                Đăng nhập {{ formatDate(account.LastLoginAt) }}
               </span>
             </p>
           </div>
@@ -217,8 +224,8 @@
               <span class="control-icon">◈</span>
 
               <select
-                :value="normalizeRole(account.Role_User)"
-                :disabled="updatingId === account.ID || isSelf(account)"
+                :value="normalizeRole(account.Role)"
+                :disabled="updatingId === account.Id || isSelf(account)"
                 @change="changeRole(account, $event.target.value)"
               >
                 <option
@@ -236,12 +243,12 @@
             <button
               type="button"
               class="action-btn danger"
-              :disabled="deletingId === account.ID || isSelf(account)"
+              :disabled="deletingId === account.Id || isSelf(account)"
               :title="isSelf(account) ? 'Không thể thao tác trên chính mình' : ''"
               @click="confirmDelete(account)"
             >
               <v-progress-circular
-                v-if="deletingId === account.ID"
+                v-if="deletingId === account.Id"
                 indeterminate
                 size="13"
                 width="2"
@@ -271,12 +278,14 @@
               <v-icon size="26"> mdi-alert-outline </v-icon>
             </div>
 
-            <h3>Xóa tài khoản này?</h3>
+            <h3>Vô hiệu hóa tài khoản này?</h3>
 
             <p>
               Tài khoản
               <strong>{{ getAccountName(deleteTarget) }}</strong>
-              ({{ deleteTarget.Email }}) sẽ bị xóa vĩnh viễn.
+              ({{ deleteTarget.Email || deleteTarget.Username }}) sẽ bị vô
+              hiệu hóa — không thể đăng nhập, dữ liệu thiệp liên quan được
+              giữ lại.
             </p>
 
             <div class="confirm-actions">
@@ -291,24 +300,23 @@
               <button
                 type="button"
                 class="action-btn danger"
-                :disabled="deletingId === deleteTarget.ID"
+                :disabled="deletingId === deleteTarget.Id"
                 @click="doDelete"
               >
                 <v-progress-circular
-                  v-if="deletingId === deleteTarget.ID"
+                  v-if="deletingId === deleteTarget.Id"
                   indeterminate
                   size="13"
                   width="2"
                 />
 
-                Xóa tài khoản
+                Vô hiệu hóa
               </button>
             </div>
           </div>
         </div>
       </Transition>
     </Teleport>
-
     <!-- =====================================================
          TOAST
     ====================================================== -->
@@ -406,7 +414,7 @@ async function loadAccounts() {
 
 function countByRole(role) {
   return accounts.value.filter(
-    (a) => normalizeRole(a.Role_User) === role
+    (a) => normalizeRole(a.Role) === role
   ).length;
 }
 
@@ -431,13 +439,15 @@ function roleClass(value) {
 }
 
 function getAccountName(account) {
-  if (account.EmpName) {
-    return account.EmpName;
+  if (account.FullName) {
+    return account.FullName;
   }
 
-  const full = `${account.FirstName || ""} ${account.LastName || ""}`.trim();
+  if (account.Username) {
+    return account.Username;
+  }
 
-  return full || account.Email || "Tài khoản";
+  return account.Email || "Tài khoản";
 }
 
 function getInitial(account) {
@@ -471,7 +481,7 @@ function formatDate(value) {
 function isSelf(account) {
   return (
     auth.user &&
-    (String(account.ID) === String(auth.user.ID) ||
+    (String(account.Id) === String(auth.user.Id) ||
       (account.Email &&
         auth.user.Email &&
         account.Email.toLowerCase() === auth.user.Email.toLowerCase()))
@@ -482,7 +492,7 @@ const filteredAccounts = computed(() => {
   const keyword = q.value.trim().toLowerCase();
 
   return accounts.value.filter((account) => {
-    if (roleFilter.value && normalizeRole(account.Role_User) !== roleFilter.value) {
+    if (roleFilter.value && normalizeRole(account.Role) !== roleFilter.value) {
       return false;
     }
 
@@ -492,8 +502,13 @@ const filteredAccounts = computed(() => {
 
     const name = getAccountName(account).toLowerCase();
     const email = (account.Email || "").toLowerCase();
+    const username = (account.Username || "").toLowerCase();
 
-    return name.includes(keyword) || email.includes(keyword);
+    return (
+      name.includes(keyword) ||
+      email.includes(keyword) ||
+      username.includes(keyword)
+    );
   });
 });
 
@@ -508,18 +523,19 @@ async function changeRole(account, newRole) {
     return;
   }
 
-  const oldRole = normalizeRole(account.Role_User);
+  const oldRole = normalizeRole(account.Role);
 
   if (oldRole === newRole) {
     return;
   }
 
-  updatingId.value = account.ID;
+  updatingId.value = account.Id;
 
   try {
     const response = await UpdateAccountRole({
-      ID: account.ID,
-      Role_User: newRole,
+      Id: account.Id,
+      // DB lưu 'ADMIN'/'USER' hoa — gửi chuẩn hóa để đồng nhất
+      Role: newRole.toUpperCase(),
     });
 
     const result = response?.data;
@@ -528,7 +544,7 @@ async function changeRole(account, newRole) {
       throw new Error(result?.message || "Không thể cập nhật quyền.");
     }
 
-    account.Role_User = newRole;
+    account.Role = newRole.toUpperCase();
 
     showToast(
       `Đã gán quyền ${ROLE_LABELS[newRole] || newRole} cho ${getAccountName(account)}.`
@@ -536,7 +552,7 @@ async function changeRole(account, newRole) {
   } catch (e) {
     console.error("[Admin] changeRole error:", e);
 
-    account.Role_User = oldRole;
+    account.Role = oldRole;
 
     showToast(
       e?.response?.data?.message ||
@@ -570,10 +586,10 @@ async function doDelete() {
     return;
   }
 
-  deletingId.value = target.ID;
+  deletingId.value = target.Id;
 
   try {
-    const response = await DeleteAccount({ ID: target.ID });
+    const response = await DeleteAccount({ Id: target.Id });
 
     const result = response?.data;
 
@@ -581,11 +597,11 @@ async function doDelete() {
       throw new Error(result?.message || "Không thể xóa tài khoản.");
     }
 
-    accounts.value = accounts.value.filter((a) => a.ID !== target.ID);
+    accounts.value = accounts.value.filter((a) => a.Id !== target.Id);
 
     deleteTarget.value = null;
 
-    showToast(`Đã xóa tài khoản ${getAccountName(target)}.`);
+    showToast(`Đã vô hiệu hóa tài khoản ${getAccountName(target)}.`);
   } catch (e) {
     console.error("[Admin] deleteAccount error:", e);
 

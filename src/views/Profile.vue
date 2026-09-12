@@ -11,8 +11,8 @@
         <div class="profile-head">
           <div class="avatar-wrap">
             <img
-              v-if="form.Avartar && !avatarBroken"
-              :src="form.Avartar"
+              v-if="form.Avatar && !avatarBroken"
+              :src="form.Avatar"
               :alt="auth.displayName"
               @error="avatarBroken = true"
             />
@@ -32,7 +32,7 @@
               {{ auth.roleLabel }}
             </span>
 
-            <p class="head-email">{{ auth.user?.Email }}</p>
+            <p class="head-email">{{ auth.user?.Email || auth.user?.Username }}</p>
           </div>
         </div>
 
@@ -44,22 +44,23 @@
 
           <div class="field-row">
             <div class="field">
-              <label for="pf-first">Họ</label>
+              <label for="pf-fullname">Họ và tên</label>
 
               <input
-                id="pf-first"
-                v-model.trim="form.FirstName"
+                id="pf-fullname"
+                v-model.trim="form.FullName"
                 type="text"
               />
             </div>
 
             <div class="field">
-              <label for="pf-last">Tên</label>
+              <label for="pf-username">Tên đăng nhập</label>
 
               <input
-                id="pf-last"
-                v-model.trim="form.LastName"
+                id="pf-username"
+                :value="auth.user?.Username || ''"
                 type="text"
+                disabled
               />
             </div>
           </div>
@@ -72,7 +73,6 @@
                 id="pf-email"
                 v-model.trim="form.Email"
                 type="email"
-                required
               />
             </div>
 
@@ -89,21 +89,11 @@
 
           <div class="field-row">
             <div class="field">
-              <label for="pf-birthday">Ngày sinh</label>
-
-              <input
-                id="pf-birthday"
-                v-model="form.BirthDay"
-                type="date"
-              />
-            </div>
-
-            <div class="field">
               <label for="pf-avatar">Link ảnh đại diện</label>
 
               <input
                 id="pf-avatar"
-                v-model.trim="form.Avartar"
+                v-model.trim="form.Avatar"
                 type="url"
                 placeholder="https://..."
               />
@@ -113,8 +103,8 @@
           <h2>Đổi mật khẩu</h2>
 
           <p class="hint">
-            Để trống mật khẩu mới nếu không muốn đổi. Cần nhập mật khẩu
-            hiện tại để lưu thay đổi.
+            Để trống mật khẩu mới nếu không muốn đổi. Chỉ cần nhập mật khẩu
+            hiện tại khi muốn đổi mật khẩu.
           </p>
 
           <div class="field-row">
@@ -190,12 +180,10 @@ const message = ref("");
 const messageError = ref(false);
 
 const form = reactive({
-  FirstName: auth.user?.FirstName || "",
-  LastName: auth.user?.LastName || "",
+  FullName: auth.user?.FullName || "",
   Email: auth.user?.Email || "",
   Phone: auth.user?.Phone || "",
-  BirthDay: (auth.user?.BirthDay || "").slice(0, 10),
-  Avartar: auth.user?.Avartar || "",
+  Avatar: auth.user?.Avatar || "",
   Password: "",
   PasswordOld: "",
 });
@@ -227,8 +215,8 @@ async function submitProfile() {
     return;
   }
 
-  if (!form.PasswordOld) {
-    showMessage("Vui lòng nhập mật khẩu hiện tại để lưu.", true);
+  if (form.Password && !form.PasswordOld) {
+    showMessage("Vui lòng nhập mật khẩu hiện tại để đổi mật khẩu.", true);
 
     return;
   }
@@ -237,14 +225,10 @@ async function submitProfile() {
 
   try {
     const response = await UpdateProfile({
-      ID: auth.user?.ID,
-      FirstName: form.FirstName,
-      LastName: form.LastName,
-      EmpName: `${form.FirstName} ${form.LastName}`.trim(),
+      FullName: form.FullName,
       Email: form.Email,
       Phone: form.Phone,
-      BirthDay: form.BirthDay || null,
-      Avartar: form.Avartar,
+      Avatar: form.Avatar,
       Password: form.Password,
       PasswordOld: form.PasswordOld,
     });
@@ -260,13 +244,10 @@ async function submitProfile() {
      */
     auth.user = {
       ...auth.user,
-      FirstName: form.FirstName,
-      LastName: form.LastName,
-      EmpName: `${form.FirstName} ${form.LastName}`.trim(),
+      FullName: form.FullName,
       Email: form.Email,
       Phone: form.Phone,
-      BirthDay: form.BirthDay,
-      Avartar: form.Avartar,
+      Avatar: form.Avatar,
     };
 
     auth.persist();
