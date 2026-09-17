@@ -176,12 +176,12 @@ const props = defineProps({
 
   groomName: {
     type: String,
-    default: "Chú rể"
+    default: ""
   },
 
   brideName: {
     type: String,
-    default: "Cô dâu"
+    default: ""
   },
 
   groomImage: {
@@ -204,7 +204,7 @@ const props = defineProps({
     default: ""
   },
   recipientName:{
-    type: Object,
+    type: [Object, Array, String],
     default: ()=>{}
   },
   events:{

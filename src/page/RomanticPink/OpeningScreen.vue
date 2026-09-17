@@ -201,14 +201,14 @@ const groomName = computed(
   () =>
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
-    "Chú rể"
+    ""
 );
 
 const brideName = computed(
   () =>
     props.wedding?.BrideName ||
     props.wedding?.brideName ||
-    "Cô dâu"
+    ""
 );
 
 const guestName = computed(

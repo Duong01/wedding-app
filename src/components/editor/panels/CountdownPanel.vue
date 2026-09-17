@@ -27,13 +27,37 @@
     <div class="editor-field">
       <label>Ngày kết thúc</label>
 
-      <input v-model="wedding.countdown.Target" type="datetime-local" />
+      <input
+        :value="datetimeLocalValue"
+        type="datetime-local"
+        @input="onTargetInput"
+      />
     </div>
   </section>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+import {
+  fromDatetimeLocal,
+  toDatetimeLocal,
+} from "@/utils/datetime";
+
+const props = defineProps({
   wedding: { type: Object, required: true },
 });
+
+/*
+ * Input datetime-local không nhận phần giây còn hệ
+ * thống lưu "2026-11-14T08:00:00" (ISO) — chuyển đổi
+ * 2 chiều qua utils/datetime.
+ */
+const datetimeLocalValue = computed(() => {
+  return toDatetimeLocal(props.wedding.countdown?.Target);
+});
+
+function onTargetInput(event) {
+  props.wedding.countdown.Target = fromDatetimeLocal(event.target.value);
+}
 </script>

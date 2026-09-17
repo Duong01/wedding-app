@@ -265,6 +265,15 @@
 
 <script setup>
 import { computed, reactive, ref } from "vue";
+import { useRoute } from "vue-router";
+import { Confirm } from "@/model/api";
+
+/* =========================================================
+   ROUTE
+========================================================= */
+
+const route = useRoute();
+
 /* =========================================================
    PROPS
 ========================================================= */
@@ -431,20 +440,14 @@ async function submitConfirmation() {
   /* =========================
      PAYLOAD
   ========================== */
-  const slug = computed(() => {
 
-    // /wedding/:slug
-    if (route.params.slug) {
-        return route.params.slug;
-    }
+  // /wedding/:slug hoặc /:slug/:token
+  const slug = route.params.slug
+    ? route.params.token
+      ? `${route.params.slug}/${route.params.token}`
+      : route.params.slug
+    : "";
 
-    // /:slug/:token
-    if (route.params.slug && route.params.token) {
-        return `${route.params.slug}/${route.params.token}`;
-    }
-
-    return "";
-});
   const payload = {
     Slug: slug,
     RecipientToken: recipientToken.value || null,
@@ -460,10 +463,12 @@ async function submitConfirmation() {
   submitting.value = true;
 
   try {
-      successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
-      setTimeout(() => {
-        showConfirmModal.value = false;
-      }, 2000);
+    await Confirm(payload);
+
+    successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+    setTimeout(() => {
+      showConfirmModal.value = false;
+    }, 2000);
   } catch (error) {
     errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
   } finally {

@@ -5,6 +5,20 @@
 
     <div class="auth-card">
       <!-- =========================================
+           BACK
+      ========================================== -->
+      <button
+        v-if="!isEmbedded"
+        type="button"
+        class="back-btn"
+        @click="goBack"
+      >
+        <v-icon size="16"> mdi-arrow-left </v-icon>
+
+        Quay lại
+      </button>
+
+      <!-- =========================================
            BRAND
       ========================================== -->
       <router-link to="/" class="auth-brand">
@@ -355,29 +369,12 @@
       <!-- =========================================
            ROLE HINT
       ========================================== -->
-      <div class="role-hint">
-        <span class="role-hint-title">Quyền tài khoản</span>
-
-        <ul>
-          <li>
-            <strong>Admin</strong> — quản lý tài khoản, phân quyền
-          </li>
-
-          <li>
-            <strong>User</strong> — tạo và chỉnh sửa thiệp cưới
-          </li>
-
-          <li>
-            <strong>Guest</strong> — xem thiệp
-          </li>
-        </ul>
-      </div>
     </div>
   </main>
 </template>
 
 <script setup>
-import { reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
@@ -400,6 +397,25 @@ const editorStore = useWeddingEditorStore();
 ========================================================= */
 
 const mode = ref("login");
+
+/*
+ * Đến từ nút "Lưu thiệp" trong Editor (có redirect)
+ * → không hiện nút quay lại để tránh vòng lặp
+ * Editor → Login → Editor.
+ */
+const isEmbedded = computed(() => {
+  return Boolean(route.query.redirect);
+});
+
+function goBack() {
+  if (window.history.length > 1) {
+    router.back();
+
+    return;
+  }
+
+  router.push({ name: "Home" });
+}
 
 const showPassword = ref(false);
 const submitting = ref(false);
@@ -577,7 +593,10 @@ async function submitForgot() {
 
   padding: 40px 16px;
 
-  background: #faf7f2;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(201, 166, 89, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 92%, rgba(143, 77, 67, 0.1), transparent 36%),
+    #faf7f2;
 
   overflow: hidden;
 }
@@ -603,7 +622,7 @@ async function submitForgot() {
 
   left: -120px;
 
-  background: rgba(201, 166, 107, 0.35);
+  background: rgba(201, 166, 89, 0.3);
 }
 
 .page-glow-2 {
@@ -611,7 +630,7 @@ async function submitForgot() {
 
   right: -140px;
 
-  background: rgba(180, 80, 100, 0.22);
+  background: rgba(143, 77, 67, 0.18);
 }
 
 /* ==================================================
@@ -632,6 +651,45 @@ async function submitForgot() {
   background: #fff;
 
   box-shadow: 0 30px 80px rgba(80, 50, 50, 0.12);
+}
+
+.back-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-bottom: 18px;
+
+  padding: 8px 15px;
+
+  border: 1px solid rgba(78, 53, 53, 0.14);
+
+  border-radius: 999px;
+
+  background: #fff;
+
+  color: #5c4646;
+
+  font-size: 12.5px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #f7f0ec;
+
+  border-color: rgba(143, 77, 67, 0.35);
+
+  color: #8f4d43;
 }
 
 .auth-brand {
@@ -659,7 +717,7 @@ async function submitForgot() {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #d7b779, #8d4e4d);
+  background: linear-gradient(135deg, #c9a659, #8f4d43);
 
   color: #fff;
 
@@ -671,7 +729,7 @@ async function submitForgot() {
 }
 
 .brand-text {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 22px;
 
@@ -727,7 +785,7 @@ async function submitForgot() {
 
   color: #8f4d43;
 
-  box-shadow: 0 4px 14px rgba(80, 50, 50, 0.1);
+  box-shadow: 0 4px 14px rgba(80, 50, 50, 0.12);
 }
 
 /* ==================================================
@@ -739,7 +797,7 @@ async function submitForgot() {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 24px;
 }
@@ -985,54 +1043,9 @@ async function submitForgot() {
    ROLE HINT
 ================================================== */
 
-.role-hint {
-  margin-top: 26px;
-
-  padding: 14px 16px;
-
-  border: 1px dashed rgba(143, 77, 67, 0.3);
-
-  border-radius: 14px;
-
-  background: rgba(143, 77, 67, 0.04);
-}
-
-.role-hint-title {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: #8f4d43;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-  text-transform: uppercase;
-}
-
-.role-hint ul {
-  margin: 0;
-
-  padding: 0;
-
-  list-style: none;
-}
-
-.role-hint li {
-  color: #6d5a5a;
-
-  font-size: 12.5px;
-
-  line-height: 1.8;
-}
-
-.role-hint strong {
-  color: #4e3636;
-}
-
+/* ==================================================
+   MOBILE
+================================================== */
 /* ==================================================
    MOBILE
 ================================================== */

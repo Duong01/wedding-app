@@ -3,7 +3,7 @@
     <OpeningScreen
       v-if="!opened"
       :wedding="wedding"
-      :guestName="wedding.recipientName.Name"
+      :guestName="guestName"
       :monogram="monogram"
       :date-label="openDateLabel"
       @open="handleOpen"
@@ -72,14 +72,14 @@
           }"
         />
         <div class="bg-border__content">
-          <WeddingCouple v-if="showCouple" :wedding="wedding" :guestName="wedding.recipientName.Name" />
+          <WeddingCouple v-if="showCouple" :wedding="wedding" :guestName="guestName" />
 
           <WeddingStory
             v-if="showStory && wedding?.story"
             :story="wedding.story"
           />
 
-          <WeddingEvents v-if="showEvents && events.length" :events="events" />
+          <WeddingEvents v-if="showEvents && events.length" :events="events" :recipient-name="wedding?.recipientName" />
 
           <Timeline
             v-if="showTimeline && timeline.length"
@@ -101,7 +101,11 @@
 
       <WeddingMap v-if="showMap && events.length" :events="events" />
 
-      <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" />
+      <WeddingGifts
+        v-if="showGift && gifts.length"
+        :gifts="gifts"
+        :wedding="wedding"
+      />
 
       <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" />
 
@@ -115,7 +119,7 @@
       <FloatingMusic
         v-if="showMusic"
         ref="floatingMusicRef"
-        :music="wedding?.music"
+        :music="heroMusic"
       />
     </main>
   </div>
@@ -139,21 +143,47 @@ import WeddingWishes from "@/page/RoyalRed/WeddingWishes.vue";
 import WeddingFooter from "@/page/RoyalRed/WeddingFooter.vue";
 
 import {
-  backgroud,
-  flower,
   frame_corner_top_left,
   frame_middle_horizontal,
   frame_middle_vertical,
 } from "@/page/RoyalRed/royalRedAssets";
 
 const props = defineProps({ wedding: { type: Object, required: true } });
-const wedding = computed(() => props.wedding || {});
+const wedding = computed(() => props.wedding || {})
+
+/*
+ * Ưu tiên nhạc từ wedding.music (panel Nhạc).
+ * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
+ */
+const heroMusic = computed(() => {
+  const music = wedding.value?.music || {};
+  const heroUrl = wedding.value?.hero?.Music;
+
+  if (music.Url || !heroUrl) {
+    return music;
+  }
+
+  return { ...music, Url: heroUrl };
+});;
 const opened = ref(false);
 const floatingMusicRef = ref(null);
 const currentYear = new Date().getFullYear();
 
 const events = computed(() =>
   Array.isArray(wedding.value?.events) ? wedding.value.events : []
+);
+
+/*
+ * recipientName từ API là mảng [{ Token, Name }]
+ * (GetWeddingByToken) — lấy tên khách đầu tiên.
+ */
+const guestName = computed(
+  () =>
+    (Array.isArray(wedding.value?.recipientName)
+      ? wedding.value.recipientName[0]?.Name
+      : wedding.value?.recipientName?.Name) ||
+    wedding.value?.guestName ||
+    "Quý khách"
 );
 const timeline = computed(() =>
   Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []
@@ -202,7 +232,7 @@ function formatDate(date) {
 }
 const openDateLabel = computed(() => formatDate(wedding.value?.weddingDate));
 const heroDateLabel = computed(() =>
-  formatDate(wedding.value?.hero?.weddingDate || wedding.value?.weddingDate)
+  formatDate(wedding.value?.hero?.WeddingDate || wedding.value?.hero?.weddingDate || wedding.value?.weddingDate)
 );
 
 async function handleOpen() {

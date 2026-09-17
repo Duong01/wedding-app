@@ -40,6 +40,28 @@
   },
 
   {
+    path: "/admin/weddings",
+    name: "AdminWeddings",
+    component: () => import("@/views/AdminWeddings.vue"),
+    meta: {
+      title: "Quản lý thiệp",
+      requiresAuth: true,
+      roles: ["Admin"],
+    },
+  },
+
+  {
+    path: "/manage/:slug/payment",
+    name: "WeddingPayment",
+    component: () => import("@/views/WeddingPayment.vue"),
+    meta: {
+      title: "Kích hoạt thiệp",
+      requiresAuth: true,
+      roles: ["Admin", "User"],
+    },
+  },
+
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/Login.vue"),

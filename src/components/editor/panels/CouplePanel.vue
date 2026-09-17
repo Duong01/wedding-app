@@ -49,13 +49,21 @@
           <div class="editor-field">
             <label>Avatar</label>
 
-            <input v-model="wedding.couple.Bride.Avatar" type="text" />
+            <UploadField
+              v-model="wedding.couple.Bride.Avatar"
+              kind="image"
+              button-text="Tải avatar lên"
+            />
           </div>
 
           <div class="editor-field full">
             <label>Ảnh cover</label>
 
-            <input v-model="wedding.couple.Bride.Cover" type="text" />
+            <UploadField
+              v-model="wedding.couple.Bride.Cover"
+              kind="image"
+              button-text="Tải ảnh cover lên"
+            />
           </div>
 
           <div class="editor-field">
@@ -125,13 +133,21 @@
           <div class="editor-field">
             <label>Avatar</label>
 
-            <input v-model="wedding.couple.Groom.Avatar" type="text" />
+            <UploadField
+              v-model="wedding.couple.Groom.Avatar"
+              kind="image"
+              button-text="Tải avatar lên"
+            />
           </div>
 
           <div class="editor-field full">
             <label>Ảnh cover</label>
 
-            <input v-model="wedding.couple.Groom.Cover" type="text" />
+            <UploadField
+              v-model="wedding.couple.Groom.Cover"
+              kind="image"
+              button-text="Tải ảnh cover lên"
+            />
           </div>
 
           <div class="editor-field">
@@ -167,6 +183,8 @@
 </template>
 
 <script setup>
+import UploadField from "@/components/editor/UploadField.vue";
+
 defineProps({
   wedding: { type: Object, required: true },
 });

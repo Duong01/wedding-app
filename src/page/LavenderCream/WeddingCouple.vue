@@ -90,7 +90,7 @@ const groom = computed(
     props.wedding?.groomName ||
     props.wedding?.hero?.GroomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Chú rể"
+    ""
 );
 
 const bride = computed(
@@ -99,7 +99,7 @@ const bride = computed(
     props.wedding?.brideName ||
     props.wedding?.hero?.BrideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Cô dâu"
+    ""
 );
 
 const groomDescription = computed(

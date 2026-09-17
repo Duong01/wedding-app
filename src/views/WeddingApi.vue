@@ -16,6 +16,27 @@
     </div>
 
     <!-- =========================================================
+         LOCKED — thiệp chưa được admin kích hoạt
+         (đặt trước nhánh error để khóa ưu tiên hơn)
+    ========================================================== -->
+    <div v-else-if="isLocked" class="wedding-error">
+      <div class="error-content">
+        <div class="error-icon">🔒</div>
+
+        <h1>Thiệp chưa được kích hoạt</h1>
+
+        <p>
+          Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ
+          với cô dâu chú rể hoặc quay lại sau.
+        </p>
+
+        <button type="button" class="back-button" @click="goHome">
+          Quay lại trang chủ
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================
          ERROR
     ========================================================== -->
     <div v-else-if="store.error || !wedding" class="wedding-error">
@@ -35,7 +56,11 @@
     <!-- =========================================================
          WEDDING
     ========================================================== -->
-    <component v-else-if="currentTheme" :is="currentTheme" :wedding="wedding" />
+    <component
+      v-else-if="currentTheme"
+      :is="currentTheme"
+      :wedding="wedding"
+    />
 
     <!-- =========================================================
          THEME ERROR
@@ -63,35 +88,23 @@
 </template>
 
 <script setup>
-import { computed, watch, onBeforeUnmount } from "vue";
+import { computed, ref, watch, onBeforeUnmount } from "vue";
 
 import { useRoute, useRouter } from "vue-router";
 
-import { GetWedding } from "@/model/api";
+import { GetWedding, getWeddingStatus } from "@/model/api";
 
 import { useWeddingDetailStore } from "@/stores/weddingDetail";
 
+import { WEDDING_STATUS } from "@/model/weddingAdmin";
+
 /* =========================================================
    THEMES
+   Dùng map lazy-load từ @/themes — chỉ tải đúng theme
+   mà thiệp đang dùng, không tải 17 theme cùng lúc.
 ========================================================= */
 
-import TraditionalRed from "@/themes/TraditionalRed.vue";
-import RomanticPink from "@/themes/RomanticPink.vue";
-import ElegantGold from "@/themes/ElegantGold.vue";
-import ModernWhite from "@/themes/ModernWhite.vue";
-import NhatBinhDo from "@/themes/NhatBinhDo.vue";
-import IvoryGold from "@/themes/IvoryGold.vue";
-import RoyalRed from "@/themes/RoyalRed.vue";
-import DongSon from "@/themes/DongSon.vue";
-import SereneGreen from "@/themes/SereneGreen.vue";
-import SunsetPeach from "@/themes/SunsetPeach.vue";
-import ChampagneBlush from "@/themes/ChampagneBlush.vue";
-import MidnightGold from "@/themes/MidnightGold.vue";
-import LavenderCream from "@/themes/LavenderCream.vue";
-import DoubleHappiness from "@/themes/DoubleHappiness.vue";
-import BohoTerracotta from "@/themes/BohoTerracotta.vue";
-import VintageSepia from "@/themes/VintageSepia.vue";
-import OceanBreeze from "@/themes/OceanBreeze.vue";
+import themes from "@/themes";
 
 /* =========================================================
    ROUTER
@@ -111,33 +124,41 @@ const wedding = computed(() => {
 });
 
 /* =========================================================
-   DANH SÁCH THEME
+   KHÓA THIỆP — trạng thái lấy từ API getWeddingStatus
+   (server là nguồn duy nhất; khách mời không cần đăng nhập)
 ========================================================= */
 
-const themes = {
-  "traditional-red": TraditionalRed,
-  "romantic-pink": RomanticPink,
-  "elegant-gold": ElegantGold,
-  "modern-white": ModernWhite,
-  "nhat-binh-do": NhatBinhDo,
-  "ivory-gold": IvoryGold,
-  "royal-red": RoyalRed,
-  "dong-son": DongSon,
-  "serene-green": SereneGreen,
-  "sunset-peach": SunsetPeach,
-  "champagne-blush": ChampagneBlush,
-  "midnight-gold": MidnightGold,
-  "lavender-cream": LavenderCream,
-  "double-happiness": DoubleHappiness,
-  "boho-terracotta": BohoTerracotta,
-  "vintage-sepia": VintageSepia,
-  "ocean-breeze": OceanBreeze,
-};
+const isLocked = ref(false);
+
+async function checkWeddingStatus(slug) {
+  isLocked.value = false;
+
+  if (typeof slug !== "string" || !slug.trim()) {
+    return;
+  }
+
+  try {
+    const response = await getWeddingStatus({ slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && result.data) {
+      const status = result.data.Status || result.data.status;
+
+      isLocked.value = status === WEDDING_STATUS.LOCKED;
+    }
+  } catch (error) {
+    /*
+     * Không lấy được trạng thái (mạng lỗi, API chưa có...)
+     * → mặc định cho xem thiệp, không chặn khách.
+     */
+    console.warn("[WeddingApi] getWeddingStatus error:", error);
+  }
+}
 
 /* =========================================================
    THEME HIỆN TẠI
 ========================================================= */
-console.log("aaaa:" +wedding)
 const currentTheme = computed(() => {
   const themeName = wedding.value?.theme?.Name;
 
@@ -186,11 +207,6 @@ async function loadWedding() {
   store.loading = true;
 
   try {
-    console.log("Loading wedding:", {
-      slug,
-      token,
-    });
-
     let response;
 
     if (typeof token === "string" && token.trim()) {
@@ -201,11 +217,24 @@ async function loadWedding() {
       response = await GetWedding(slug);
     }
 
-    console.log("Wedding API response:", response);
-
     const result = response?.data;
 
     if (!result || result.status !== "success" || !result.data) {
+      /*
+       * Server trả "không tìm thấy" — có thể thiệp chưa
+       * kích hoạt (Pending/Locked, IsActive = 0). Hỏi trạng
+       * thái để hiển thị đúng màn hình khóa thay vì lỗi.
+       */
+      await checkWeddingStatus(slug);
+
+      if (isLocked.value) {
+        store.wedding = null;
+
+        store.error = null;
+
+        return;
+      }
+
       store.wedding = null;
       store.error = result?.message || "Thiệp này chưa được đăng ký.";
       return;
@@ -218,6 +247,18 @@ async function loadWedding() {
     store.wedding = null;
 
     if (error?.response?.status === 404) {
+      /*
+       * Có thể thiệp chưa kích hoạt — hỏi trạng thái
+       * để phân biệt "không tồn tại" với "đang khóa".
+       */
+      await checkWeddingStatus(slug);
+
+      if (isLocked.value) {
+        store.error = null;
+
+        return;
+      }
+
       store.error = "Thiệp này chưa được đăng ký.";
       return;
     }

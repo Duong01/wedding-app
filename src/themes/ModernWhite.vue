@@ -190,6 +190,7 @@
 
             <WeddingEvents
               :events="events"
+              :recipient-name="wedding?.recipientName"
             />
 
           </div>
@@ -340,7 +341,7 @@
       <FloatingMusic
         v-if="showMusic"
         ref="floatingMusicRef"
-        :music="wedding?.music"
+        :music="heroMusic"
       />
 
     </template>
@@ -398,7 +399,22 @@ const props = defineProps({
    WEDDING
 ========================================================== */
 
-const wedding = computed(() => props.wedding);
+const wedding = computed(() => props.wedding)
+
+/*
+ * Ưu tiên nhạc từ wedding.music (panel Nhạc).
+ * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
+ */
+const heroMusic = computed(() => {
+  const music = wedding.value?.music || {};
+  const heroUrl = wedding.value?.hero?.Music;
+
+  if (music.Url || !heroUrl) {
+    return music;
+  }
+
+  return { ...music, Url: heroUrl };
+});;
 
 
 /* ==========================================================
@@ -545,13 +561,28 @@ const showTimeLine = computed(() => {
 ========================================================== */
 
 const monogram = computed(() => {
+  /*
+   * Fallback chain: hero.GroomName (panel Hero) →
+   * GroomName (API) → groomName (editor General) →
+   * couple.Groom.Name (panel Couple).
+   */
   const groom =
-    (wedding.value?.GroomName || "G")
+    (
+      wedding.value?.GroomName ||
+      wedding.value?.groomName ||
+      wedding.value?.couple?.Groom?.Name ||
+      "G"
+    )
       .trim()
       .charAt(0);
 
   const bride =
-    (wedding.value?.BrideName || "B")
+    (
+      wedding.value?.BrideName ||
+      wedding.value?.brideName ||
+      wedding.value?.couple?.Bride?.Name ||
+      "B"
+    )
       .trim()
       .charAt(0);
 
@@ -580,14 +611,15 @@ function formatDate(date) {
 
 const openDateLabel = computed(() => {
   return formatDate(
-    wedding.value?.weddingDate,
+    wedding.value?.weddingDate ||
+    wedding.value?.hero?.WeddingDate,
   );
 });
 
 
 const heroDateLabel = computed(() => {
   return formatDate(
-    wedding.value?.hero?.weddingDate ||
+    wedding.value?.hero?.WeddingDate ||
     wedding.value?.weddingDate,
   );
 });

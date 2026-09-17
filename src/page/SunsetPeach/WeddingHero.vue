@@ -4,6 +4,11 @@
     <div class="sp-hero__frame">
       <div class="sp-hero__frame-inner"></div>
 
+      <!-- Soft photo backdrop -->
+      <div class="sp-hero__photo" aria-hidden="true">
+        <img :src="heroSunset" alt="" draggable="false" />
+      </div>
+
       <!-- Corner blooms -->
       <span class="sp-bloom sp-bloom--tl">❁</span>
       <span class="sp-bloom sp-bloom--tr">❁</span>
@@ -11,7 +16,7 @@
       <span class="sp-bloom sp-bloom--br">❁</span>
 
       <div class="sp-hero__content">
-        <p class="sp-hero__save-date">SAVE THE DATE</p>
+        <p class="sp-hero__save-date">{{ heroTitle }}</p>
 
         <div class="sp-hero__motif">
           <span></span>
@@ -25,7 +30,7 @@
           {{ brideName }}
         </h1>
 
-        <p class="sp-hero__announce">TRÂN TRỌNG KÍNH MỜI</p>
+        <p class="sp-hero__announce">{{ heroSubtitle }}</p>
 
         <p class="sp-hero__guest">{{ guestName }}</p>
 
@@ -62,6 +67,7 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
+import { heroSunset } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -71,13 +77,21 @@ const props = defineProps({
   dateLabel: { type: String, default: "" },
 });
 
+const heroTitle = computed(
+  () => props.wedding?.hero?.Title || "SAVE THE DATE"
+);
+
+const heroSubtitle = computed(
+  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+);
+
 const groomName = computed(
   () =>
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
     props.wedding?.hero?.GroomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Nguyễn Huy"
+    ""
 );
 
 const brideName = computed(
@@ -86,7 +100,7 @@ const brideName = computed(
     props.wedding?.brideName ||
     props.wedding?.hero?.BrideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Nguyễn Mai"
+    ""
 );
 
 const location = computed(
@@ -94,7 +108,8 @@ const location = computed(
     props.event?.Location ||
     props.event?.Address ||
     props.wedding?.hero?.Location ||
-    "Địa điểm tổ chức tiệc cưới"
+    props.wedding?.events?.[0]?.Location ||
+    ""
 );
 
 const time = computed(
@@ -103,13 +118,15 @@ const time = computed(
     props.event?.Time ||
     props.event?.StartTime ||
     props.wedding?.hero?.Time ||
-    "16:00"
+    props.wedding?.events?.[0]?.EventTime ||
+    ""
 );
 
 const dateText = computed(() => {
   const raw =
     props.event?.EventDate ||
     props.event?.Date ||
+    props.wedding?.hero?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
     props.wedding?.weddingDate;
 
@@ -119,7 +136,7 @@ const dateText = computed(() => {
     return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
   }
 
-  return props.dateLabel || "NGÀY VUI CỦA CHÚNG MÌNH";
+  return props.dateLabel || "";
 });
 </script>
 
@@ -172,6 +189,46 @@ const dateText = computed(() => {
   border-radius: 202px 202px 18px 18px;
 
   pointer-events: none;
+}
+
+/* =========================================================
+   PHOTO BACKDROP
+========================================================= */
+
+.sp-hero__photo {
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.sp-hero__photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0.3;
+
+  filter: saturate(0.95) sepia(0.08);
+}
+
+.sp-hero__photo::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 246, 236, 0.6),
+    rgba(253, 238, 228, 0.35) 55%,
+    rgba(255, 246, 236, 0.6)
+  );
 }
 
 /* =========================================================

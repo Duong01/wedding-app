@@ -128,7 +128,7 @@
             <div class="red-card__names">
 
               <div class="red-card__name">
-                {{ wedding?.GroomName || "Chú Rể" }}
+                {{ wedding?.GroomName || wedding?.groomName || wedding?.hero?.GroomName || wedding?.couple?.Groom?.Name || "" }}
               </div>
 
               <div class="red-card__amp">
@@ -136,7 +136,7 @@
               </div>
 
               <div class="red-card__name">
-                {{ wedding?.BrideName || "Cô Dâu" }}
+                {{ wedding?.BrideName || wedding?.brideName || wedding?.hero?.BrideName || wedding?.couple?.Bride?.Name || "" }}
               </div>
 
             </div>

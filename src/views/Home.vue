@@ -19,6 +19,11 @@
             </button>
           </div>
 
+          <p class="trial-hint">
+            <span class="trial-hint-icon">✦</span>
+            Dùng thử 3 ngày miễn phí — ưng thì mới thanh toán
+          </p>
+
           <div class="hero-stats">
             <div>
               <strong>12+</strong>
@@ -70,6 +75,100 @@
       </div>
     </section>
 
+    <section class="trial-section container">
+      <div class="trial-box">
+        <div class="trial-badge">
+          <span class="trial-badge-icon">✦</span>
+
+          Dùng thử 3 ngày
+        </div>
+
+        <h2>
+          Dùng thử 3 ngày —
+          <span>ưng thì mới thanh toán.</span>
+        </h2>
+
+        <p class="trial-desc">
+          Tạo thiệp, chỉnh sửa thoải mái và xem trước toàn bộ thiệp trong 3
+          ngày. Chỉ khi bạn thực sự ưng ý, thiệp mới được kích hoạt vĩnh viễn
+          và chia sẻ cho khách mời. Không ràng buộc, không trả trước.
+        </p>
+
+        <div class="trial-steps">
+          <div class="trial-step">
+            <span class="trial-step-num">1</span>
+
+            <div>
+              <strong>Tạo & chỉnh sửa</strong>
+
+              <p>
+                Chọn mẫu, nhập nội dung — mọi tính năng đều mở trong thời gian
+                dùng thử.
+              </p>
+            </div>
+          </div>
+
+          <div class="trial-step">
+            <span class="trial-step-num">2</span>
+
+            <div>
+              <strong>Xem trước 3 ngày</strong>
+
+              <p>
+                Kiểm tra thiệp trên điện thoại, máy tính, gửi cho người thân
+                góp ý trước khi quyết định.
+              </p>
+            </div>
+          </div>
+
+          <div class="trial-step">
+            <span class="trial-step-num">3</span>
+
+            <div>
+              <strong>Ưng thì thanh toán</strong>
+
+              <p>
+                Chỉ thanh toán khi bạn hài lòng. Thiệp được kích hoạt vĩnh
+                viễn, không phát sinh chi phí.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="trial-note">
+          <span class="trial-note-icon">♡</span>
+
+          Miễn phí hoàn toàn trong 3 ngày đầu — không cần thẻ, không cần đặt
+          cọc.
+        </div>
+      </div>
+    </section>
+
+    <section class="perks-section container">
+      <div class="section-heading">
+        <span class="eyebrow muted">Đãi ngộ</span>
+
+        <h2>
+          Tất cả những gì bạn nhận được
+          <span class="heading-accent">khi tạo thiệp tại đây.</span>
+        </h2>
+      </div>
+
+      <div class="perks-grid">
+        <article
+          v-for="perk in perks"
+          :key="perk.title"
+          class="perk-card"
+        >
+          <div class="perk-icon">{{ perk.icon }}</div>
+
+          <h3>{{ perk.title }}</h3>
+
+          <p>{{ perk.text }}</p>
+        </article>
+      </div>
+    </section>
+
     <section class="steps-section container">
       <div class="section-heading align-left">
         <span class="eyebrow muted">Cách sử dụng</span>
@@ -86,28 +185,10 @@
     </section>
 
     <section id="gallery" class="templates-section container">
-      <div class="section-heading split">
+      <div class="section-heading">
         <div>
           <span class="eyebrow muted">Mẫu thiệp</span>
           <h2>Chọn một phong cách phù hợp với ngày trọng đại của bạn.</h2>
-        </div>
-
-        <div class="controls">
-          <div class="filter-theme">
-            <label>Chủ đề</label>
-            <select v-model="selectedTheme">
-              <option value="">Tất cả</option>
-              <option v-for="t in themes" :key="t" :value="t">{{ t }}</option>
-            </select>
-          </div>
-
-          <div class="search">
-            <input
-              type="search"
-              placeholder="Tìm theo tên"
-              v-model="q"
-            />
-          </div>
         </div>
       </div>
 
@@ -115,47 +196,50 @@
       <div v-else-if="store.error" class="error-message">{{ store.error }}</div>
       <div v-else-if="weddings.length === 0" class="empty-message">Chưa có mẫu thiệp cưới nào.</div>
 
-      <v-row v-else class="template-grid">
-        <v-col
-          v-for="wedding in filteredWeddings"
+      <div v-else class="template-grid">
+        <article
+          v-for="wedding in featuredWeddings"
           :key="wedding.id || wedding.slug || wedding.Id"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
+          class="wedding-card"
+          @click="openWedding(wedding)"
         >
-          <article class="wedding-card" @click="openWedding(wedding)">
-            <div class="wedding-cover">
-              <img
-                :src="wedding.coverImage"
-                :alt="getCoupleName(wedding)"
-                loading="lazy"
-                @error="handleImageError"
-              />
+          <div class="wedding-cover">
+            <img
+              :src="wedding.coverImage"
+              :alt="getCoupleName(wedding)"
+              loading="lazy"
+              @error="handleImageError"
+            />
 
-              <div class="cover-overlay">
-                <span>Xem thiệp</span>
-              </div>
+            <div class="cover-overlay">
+              <span>Xem thiệp</span>
+            </div>
+          </div>
+
+          <div class="wedding-info">
+            <div class="badge-row">
+              <span class="theme-badge">{{ getThemeLabel(wedding) }}</span>
             </div>
 
-            <div class="wedding-info">
-              <div class="badge-row">
-                <span class="theme-badge">{{ getThemeLabel(wedding) }}</span>
-              </div>
+            <h3>
+              {{ wedding.couple?.Bride?.Name || "" }}
+              &
+              {{ wedding.couple?.Groom?.Name || "" }}
+            </h3>
 
-              <h3>
-                {{ wedding.couple?.Bride?.Name || "" }}
-                &
-                {{ wedding.couple?.Groom?.Name || "" }}
-              </h3>
+            <p>{{ formatDate(wedding.weddingDate) }}</p>
 
-              <p>{{ formatDate(wedding.weddingDate) }}</p>
+            <button type="button" @click.stop="openWedding(wedding)">Xem thiệp</button>
+          </div>
+        </article>
+      </div>
 
-              <button type="button" @click.stop="openWedding(wedding)">Xem thiệp</button>
-            </div>
-          </article>
-        </v-col>
-      </v-row>
+      <div v-if="!store.loading && weddings.length > 0" class="templates-more">
+        <button type="button" class="view-all-button" @click="goTemplates">
+          Xem tất cả {{ weddings.length }} mẫu thiệp
+          <span>→</span>
+        </button>
+      </div>
     </section>
 
     <section class="cta-section container">
@@ -163,6 +247,9 @@
         <div>
           <span class="eyebrow muted">Tạo thiệp của riêng bạn</span>
           <h2>Thiết kế thiệp cưới theo cá tính của hai bạn.</h2>
+          <p class="cta-sub">
+            Dùng thử 3 ngày miễn phí — chỉ thanh toán khi bạn thực sự ưng ý.
+          </p>
         </div>
 
         <button type="button" class="primary" @click="openCreateFlow">Bắt đầu ngay</button>
@@ -172,15 +259,19 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useWeddingStore } from "@/stores/wedding";
 
 const router = useRouter();
 const store = useWeddingStore();
 
-const q = ref("");
-const selectedTheme = ref("");
+/*
+ * Trang Home chỉ hiển thị đại diện (8 mẫu đầu) —
+ * danh sách đầy đủ + bộ lọc/tìm kiếm nằm ở trang
+ * "Mẫu thiệp" để trang chủ tải nhẹ và gọn gàng.
+ */
+const FEATURED_COUNT = 8;
 
 const features = [
   {
@@ -220,39 +311,53 @@ const steps = [
   },
 ];
 
+const perks = [
+  {
+    icon: "💌",
+    title: "Miễn phí 3 ngày",
+    text: "Dùng thử toàn bộ tính năng 3 ngày, ưng thì mới thanh toán — không ràng buộc.",
+  },
+  {
+    icon: "🎨",
+    title: "17+ mẫu thiệp",
+    text: "Từ truyền thống đỏ vàng đến hiện đại tối giản, luôn có mẫu hợp với gu của hai bạn.",
+  },
+  {
+    icon: "✍️",
+    title: "Chỉnh sửa dễ dàng",
+    text: "Nhập tên, ngày cưới, sự kiện một lần — hiển thị đồng bộ khắp thiệp, không nhập lại.",
+  },
+  {
+    icon: "📱",
+    title: "Hiển thị mọi thiết bị",
+    text: "Thiệp tự động chuẩn trên điện thoại, tablet và máy tính — khách mời mở là đẹp.",
+  },
+  {
+    icon: "🗺️",
+    title: "Bản đồ & lịch nhắc",
+    text: "Chỉ đường đến địa điểm lễ và thêm sự kiện vào lịch điện thoại chỉ với một chạm.",
+  },
+  {
+    icon: "🎁",
+    title: "Mừng cưới online",
+    text: "Quét QR chuyển khoản mừng cưới tiện lợi, khách mời không lo chuẩn bị phong bì.",
+  },
+  {
+    icon: "📖",
+    title: "Sổ lưu bút số",
+    text: "Khách mời gửi lời chúc trực tiếp trên thiệp, hai bạn đọc lại mãi về sau.",
+  },
+  {
+    icon: "🎵",
+    title: "Nhạc nền thiệp",
+    text: "Thêm bài hát ý nghĩa mở ra cùng thiệp, cảm xúc thêm phần trọn vẹn.",
+  },
+];
+
 const weddings = computed(() => store.weddings || []);
 
-const themes = computed(() => {
-  const set = new Set();
-
-  (store.weddings || []).forEach((w) => {
-    const t = w.theme?.Name || w.theme || "";
-    if (t) set.add(t);
-  });
-
-  return Array.from(set).sort();
-});
-
-const filteredWeddings = computed(() => {
-  let list = weddings.value || [];
-
-  if (selectedTheme.value) {
-    list = list.filter((w) => {
-      const t = w.theme?.Name || w.theme || "";
-      return t === selectedTheme.value;
-    });
-  }
-
-  if (q.value && q.value.trim()) {
-    const keyword = q.value.trim().toLowerCase();
-    list = list.filter((w) => {
-      const bride = (w.couple?.Bride?.Name || "").toLowerCase();
-      const groom = (w.couple?.Groom?.Name || "").toLowerCase();
-      return bride.includes(keyword) || groom.includes(keyword);
-    });
-  }
-
-  return list;
+const featuredWeddings = computed(() => {
+  return weddings.value.slice(0, FEATURED_COUNT);
 });
 
 onMounted(async () => {
@@ -260,11 +365,23 @@ onMounted(async () => {
 });
 
 function scrollToGallery() {
+  const target = document.getElementById("gallery");
+
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+
+    return;
+  }
+
+  router.push({ name: "Templates" });
+}
+
+function goTemplates() {
   router.push({ name: "Templates" });
 }
 
 function openCreateFlow() {
-  router.push({ name: "Editor" });
+  router.push({ name: "Templates" });
 }
 
 function getCoupleName(wedding) {
@@ -308,13 +425,14 @@ function formatDate(date) {
 
 .landing-page {
   background:
-    radial-gradient(circle at top left, rgba(201, 166, 107, 0.12), transparent 28%),
-    linear-gradient(180deg, #fffaf7 0%, #fffdfb 38%, #fff7f1 100%);
+    radial-gradient(circle at top left, rgba(201, 166, 89, 0.14), transparent 30%),
+    radial-gradient(circle at 85% 12%, rgba(143, 77, 67, 0.08), transparent 32%),
+    linear-gradient(180deg, #fffaf7 0%, #fffdfb 38%, #faf5ef 100%);
   color: #2f1d1d;
 }
 
 .hero-shell {
-  padding: 72px 0 24px;
+  padding: 84px 0 32px;
 }
 
 .hero-content {
@@ -325,34 +443,44 @@ function formatDate(date) {
 }
 
 .eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 18px;
-  color: #a76d37;
+  color: #a3702f;
   font-size: 12px;
   letter-spacing: 0.24em;
   font-weight: 700;
   text-transform: uppercase;
 }
 
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, #c9a659, transparent);
+}
+
 .eyebrow.muted {
-  color: #7d5a52;
+  color: #8a6a55;
 }
 
 .hero-copy h1 {
   margin: 0;
   max-width: 600px;
-  color: #1d1717;
+  color: #241a1a;
   font-family: var(--font-heading);
-  font-size: clamp(44px, 6vw, 72px);
-  line-height: 0.98;
-  letter-spacing: -0.04em;
+  font-size: clamp(42px, 5.6vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
 }
 
 .hero-copy p {
   max-width: 620px;
   margin-top: 20px;
   color: #5d4b4b;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.8;
 }
 
@@ -367,22 +495,24 @@ button.primary,
 button.secondary {
   border: none;
   border-radius: 999px;
-  padding: 15px 26px;
+  padding: 15px 28px;
+  font-size: 14.5px;
   font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 button.primary {
-  background: linear-gradient(135deg, #1f1a1a, #5f3a3d);
+  background: linear-gradient(135deg, #8f4d43, #6d3a34);
   color: #fff;
-  box-shadow: 0 18px 36px rgba(72, 44, 44, 0.22);
+  box-shadow: 0 16px 34px rgba(109, 58, 52, 0.28);
 }
 
 button.secondary {
-  background: rgba(255, 255, 255, 0.7);
-  color: #3f2a2a;
-  border: 1px solid rgba(70, 48, 48, 0.1);
+  background: rgba(255, 255, 255, 0.75);
+  color: #6d3a34;
+  border: 1px solid rgba(109, 58, 52, 0.22);
 }
 
 button.primary:hover,
@@ -404,8 +534,9 @@ button.secondary:hover {
 }
 
 .hero-stats strong {
-  font-size: 28px;
-  color: #201718;
+  font-family: var(--font-heading);
+  font-size: 30px;
+  color: #241a1a;
 }
 
 .hero-stats span {
@@ -413,6 +544,24 @@ button.secondary:hover {
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.trial-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(201, 166, 89, 0.14);
+  color: #8a6a2f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.trial-hint-icon {
+  color: #c9a659;
+  font-size: 12px;
 }
 
 .hero-visual {
@@ -425,7 +574,7 @@ button.secondary:hover {
   width: min(440px, 100%);
   min-height: 520px;
   border-radius: 32px;
-  background: linear-gradient(160deg, rgba(255,255,255,0.74), rgba(250,243,235,0.82));
+  background: linear-gradient(160deg, rgba(255,255,255,0.78), rgba(250,243,235,0.85));
   border: 1px solid rgba(94, 68, 68, 0.08);
   box-shadow: 0 28px 90px rgba(59, 34, 30, 0.14);
   overflow: hidden;
@@ -438,7 +587,7 @@ button.secondary:hover {
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,166,107,0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(201,166,89,0.24), transparent 70%);
 }
 
 .glass-card {
@@ -497,8 +646,8 @@ button.secondary:hover {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #d7b576, #a86b40);
-  box-shadow: 0 0 0 7px rgba(215, 181, 118, 0.14);
+  background: linear-gradient(135deg, #c9a659, #8f4d43);
+  box-shadow: 0 0 0 7px rgba(201, 166, 89, 0.16);
 }
 
 .bottom-card span {
@@ -512,6 +661,8 @@ button.secondary:hover {
 }
 
 .features-section,
+.trial-section,
+.perks-section,
 .steps-section,
 .templates-section,
 .cta-section {
@@ -531,14 +682,6 @@ button.secondary:hover {
   text-align: left;
 }
 
-.section-heading.split {
-  align-items: end;
-  justify-content: space-between;
-  flex-direction: row;
-  text-align: left;
-  gap: 16px;
-}
-
 .section-heading h2 {
   max-width: 760px;
   margin: 0;
@@ -548,8 +691,195 @@ button.secondary:hover {
   line-height: 1.05;
 }
 
-.feature-grid,
+/* ==================================================
+   TRIAL POLICY (3 ngày dùng thử)
+================================================== */
+
+.trial-section {
+  padding-top: 30px;
+}
+
+.trial-box {
+  position: relative;
+  overflow: hidden;
+  padding: 44px 40px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(201, 166, 89, 0.2), transparent 42%),
+    linear-gradient(135deg, #fffaf5, #fdf3e9);
+  border: 1px solid rgba(201, 166, 89, 0.35);
+  box-shadow: 0 24px 60px rgba(109, 58, 52, 0.1);
+  text-align: center;
+}
+
+.trial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c9a659, #8f4d43);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(143, 77, 67, 0.28);
+}
+
+.trial-badge-icon {
+  font-size: 13px;
+}
+
+.trial-box h2 {
+  max-width: 640px;
+  margin: 20px auto 0;
+  color: #241a1a;
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.12;
+}
+
+.trial-box h2 span {
+  color: #8f4d43;
+}
+
+.trial-desc {
+  max-width: 620px;
+  margin: 16px auto 0;
+  color: #5d4b4b;
+  font-size: 15.5px;
+  line-height: 1.8;
+}
+
+.trial-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+  text-align: left;
+}
+
+.trial-step {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(143, 77, 67, 0.1);
+}
+
+.trial-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a659, #8f4d43);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trial-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #2a1d1d;
+  font-size: 15px;
+}
+
+.trial-step p {
+  margin: 0;
+  color: #6d5a5a;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.trial-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 28px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(143, 77, 67, 0.08);
+  color: #6d3a34;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.trial-note-icon {
+  color: #8f4d43;
+  font-size: 15px;
+}
+
+/* ==================================================
+   PERKS (đãi ngộ)
+================================================== */
+
+.perks-section .heading-accent {
+  display: block;
+  color: #8f4d43;
+}
+
+.perks-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.perk-card {
+  padding: 26px 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(102, 74, 74, 0.06);
+  box-shadow: 0 18px 40px rgba(88, 64, 58, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.perk-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(88, 64, 58, 0.12);
+}
+
+.perk-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(201, 166, 89, 0.22), rgba(143, 77, 67, 0.14));
+  font-size: 24px;
+}
+
+.perk-card h3 {
+  margin: 0 0 8px;
+  color: #1d1919;
+  font-family: var(--font-heading);
+  font-size: 20px;
+}
+
+.perk-card p {
+  margin: 0;
+  color: #5f4d4c;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ==================================================
+   STEPS
+================================================== */
+
 .steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.feature-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
@@ -571,8 +901,8 @@ button.secondary:hover {
   width: 52px;
   height: 52px;
   margin-bottom: 18px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(201,166,107,0.2), rgba(157,91,80,0.12));
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(201,166,89,0.22), rgba(143,77,67,0.14));
   font-size: 24px;
 }
 
@@ -591,56 +921,76 @@ button.secondary:hover {
   line-height: 1.7;
 }
 
-.steps-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .step-index {
   display: inline-flex;
   margin-bottom: 14px;
-  color: #a36c48;
+  color: #a3702f;
   font-size: 12px;
   letter-spacing: 0.14em;
   font-weight: 700;
 }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 12px;
-  align-items: center;
-}
-
-.filter-theme,
-.search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.filter-theme label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #5c4b4d;
-}
-
-.controls select,
-.controls input[type="search"] {
-  min-height: 42px;
-  padding: 9px 14px;
-  border: 1px solid rgba(82, 53, 53, 0.08);
-  border-radius: 999px;
-  background: rgba(255,255,255,0.8);
-  color: #2f1d1d;
-}
-
-.controls input[type="search"] {
-  min-width: 220px;
-}
-
 .template-grid {
   margin-top: 24px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+.templates-more {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 34px;
+}
+
+.view-all-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 14px 30px;
+
+  border: 1px solid rgba(109, 58, 52, 0.22);
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  color: #6d3a34;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.view-all-button span {
+  transition: transform 0.25s ease;
+}
+
+.view-all-button:hover {
+  transform: translateY(-2px);
+
+  background: #fff;
+
+  box-shadow: 0 14px 30px rgba(109, 58, 52, 0.16);
+}
+
+.view-all-button:hover span {
+  transform: translateX(4px);
 }
 
 .wedding-card {
@@ -717,9 +1067,9 @@ button.secondary:hover {
   display: inline-flex;
   align-items: center;
   padding: 7px 10px;
-  background: rgba(201,166,107,0.12);
+  background: rgba(201,166,89,0.14);
   border-radius: 999px;
-  color: #7d5a2b;
+  color: #8a6a2f;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -748,10 +1098,16 @@ button.secondary:hover {
   border: 0;
   border-radius: 999px;
   color: #fff;
-  background: linear-gradient(135deg, #c97885, #ad5d6d);
+  background: linear-gradient(135deg, #8f4d43, #6d3a34);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wedding-info button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(109, 58, 52, 0.28);
 }
 
 .loading,
@@ -783,19 +1139,38 @@ button.secondary:hover {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 32px 36px;
+  padding: 36px 40px;
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(34, 20, 20, 1), rgba(76, 52, 46, 0.96));
+  background:
+    radial-gradient(circle at 85% 20%, rgba(201, 166, 89, 0.22), transparent 45%),
+    linear-gradient(135deg, #3a2320, #6d3a34);
   color: #fff;
-  box-shadow: 0 28px 60px rgba(29, 19, 19, 0.18);
+  box-shadow: 0 28px 60px rgba(29, 19, 19, 0.2);
 }
 
 .cta-box h2 {
   margin: 0;
   color: #fff;
   font-family: var(--font-heading);
-  font-size: clamp(30px, 3vw, 48px);
+  font-size: clamp(30px, 3vw, 46px);
   line-height: 1.1;
+}
+
+.cta-box .eyebrow.muted {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.cta-sub {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.cta-box button.primary {
+  background: #fff;
+  color: #6d3a34;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
 }
 
 @media (max-width: 980px) {
@@ -809,40 +1184,417 @@ button.secondary:hover {
     grid-template-columns: 1fr;
   }
 
-  .section-heading.split {
-    flex-direction: column;
-    align-items: flex-start;
+  .perks-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .controls {
-    justify-content: flex-start;
+  .trial-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .template-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 700px) {
   .hero-shell {
-    padding-top: 48px;
+    padding-top: 40px;
   }
 
-  .feature-grid,
+  .hero-copy h1 {
+    font-size: clamp(30px, 8vw, 38px);
+  }
+
+  .hero-copy p {
+    margin-top: 14px;
+
+    font-size: 15px;
+
+    line-height: 1.65;
+  }
+
+  .eyebrow {
+    margin-bottom: 12px;
+
+    font-size: 11px;
+  }
+
+  .cta-row {
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .cta-row button {
+    width: 100%;
+
+    padding: 13px 22px;
+  }
+
+  .trial-hint {
+    align-items: flex-start;
+    border-radius: 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .hero-stats {
+    gap: 12px;
+
+    margin-top: 26px;
+  }
+
+  .hero-stats div {
+    min-width: 0;
+
+    flex: 1;
+  }
+
+  .hero-stats strong {
+    font-size: 22px;
+  }
+
+  .hero-stats span {
+    font-size: 11px;
+  }
+
+  /*
+   * Hero card ẩn trên mobile — chỉ là trang trí,
+   * bỏ bớt để trang ngắn hơn, không phải vuốt nhiều.
+   */
+  .hero-visual {
+    display: none;
+  }
+
+  /*
+   * Thu gọn khoảng cách các section trên mobile.
+   */
+  .features-section,
+  .trial-section,
+  .perks-section,
+  .steps-section,
+  .templates-section,
+  .cta-section {
+    padding: 30px 0 18px;
+  }
+
+  .section-heading {
+    margin-bottom: 18px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(22px, 6vw, 30px);
+
+    line-height: 1.15;
+  }
+
+  /*
+   * Tính năng: lưới 2 cột gọn, card nhỏ lại.
+   */
+  .feature-grid {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+  }
+
+  .feature-card,
+  .step-card {
+    padding: 16px 14px;
+
+    border-radius: 18px;
+  }
+
+  .feature-icon {
+    width: 40px;
+
+    height: 40px;
+
+    margin-bottom: 10px;
+
+    font-size: 19px;
+  }
+
+  .feature-card h3,
+  .step-card h3 {
+    margin-bottom: 6px;
+
+    font-size: 15.5px;
+  }
+
+  .feature-card p,
+  .step-card p {
+    font-size: 12.5px;
+
+    line-height: 1.55;
+  }
+
+  /*
+   * Đãi ngộ: 2 cột gọn thay vì 1 cột dài.
+   */
+  .perks-grid {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+  }
+
+  .perk-card {
+    padding: 16px 14px;
+
+    border-radius: 18px;
+  }
+
+  .perk-icon {
+    width: 40px;
+
+    height: 40px;
+
+    margin-bottom: 10px;
+
+    font-size: 19px;
+  }
+
+  .perk-card h3 {
+    margin-bottom: 6px;
+
+    font-size: 15px;
+  }
+
+  .perk-card p {
+    font-size: 12.5px;
+
+    line-height: 1.55;
+  }
+
+  /*
+   * 3 bước: dồn thành 1 cột nhưng card nhỏ gọn.
+   */
   .steps-grid {
-    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
+  .step-index {
+    margin-bottom: 8px;
+
+    font-size: 11px;
+  }
+
+  /*
+   * Dùng thử 3 ngày: box + steps thu gọn.
+   */
+  .trial-box {
+    padding: 26px 16px;
+    border-radius: 20px;
+  }
+
+  .trial-box h2 {
+    font-size: clamp(21px, 5.6vw, 28px);
+  }
+
+  .trial-desc {
+    margin-top: 12px;
+
+    font-size: 13.5px;
+
+    line-height: 1.65;
+  }
+
+  .trial-steps {
+    gap: 10px;
+
+    margin-top: 20px;
+  }
+
+  .trial-step {
+    padding: 14px 12px;
+
+    gap: 10px;
+
+    border-radius: 14px;
+  }
+
+  .trial-step-num {
+    width: 28px;
+
+    height: 28px;
+
+    font-size: 12.5px;
+  }
+
+  .trial-step strong {
+    margin-bottom: 4px;
+
+    font-size: 13.5px;
+  }
+
+  .trial-step p {
+    font-size: 12px;
+
+    line-height: 1.55;
+  }
+
+  .trial-note {
+    margin-top: 18px;
+
+    padding: 10px 14px;
+
+    font-size: 12px;
+
+    text-align: left;
+  }
+
+  .trial-badge {
+    padding: 7px 14px;
+
+    font-size: 11px;
+  }
+
+  /*
+   * Mẫu thiệp: 2 cột, ảnh thấp hơn, bớt khoảng trống.
+   */
+  .template-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 14px;
+  }
+
+  .wedding-card {
+    border-radius: 16px;
+  }
+
+  .wedding-cover {
+    aspect-ratio: 3 / 4;
+  }
+
+  .wedding-info {
+    padding: 10px 12px 12px;
+  }
+
+  .badge-row {
+    margin-bottom: 6px;
+  }
+
+  .theme-badge {
+    padding: 4px 8px;
+
+    font-size: 9.5px;
+  }
+
+  .wedding-info h3 {
+    margin-bottom: 4px;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+  .wedding-info p {
+    margin-bottom: 10px;
+
+    font-size: 11.5px;
+  }
+
+  .wedding-info button {
+    padding: 9px 12px;
+
+    font-size: 12px;
+  }
+
+  .templates-more {
+    margin-top: 20px;
+  }
+
+  .view-all-button {
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 12px 20px;
+
+    font-size: 13px;
+  }
+
+  /*
+   * CTA cuối trang thu gọn.
+   */
   .cta-box {
     flex-direction: column;
     align-items: flex-start;
+    padding: 24px 18px;
+
+    border-radius: 20px;
   }
 
-  .controls {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
+  .cta-box h2 {
+    font-size: clamp(20px, 5.4vw, 26px);
   }
 
-  .controls select,
-  .controls input[type="search"] {
+  .cta-sub {
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+  }
+
+  .cta-box button.primary {
     width: 100%;
+
+    margin-top: 4px;
+
+    padding: 13px 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-stats {
+    gap: 10px;
+  }
+
+  .hero-stats div {
+    min-width: 0;
+  }
+
+  .trial-step {
+    padding: 12px 10px;
+    gap: 9px;
+  }
+
+  /*
+   * Màn nhỏ: vẫn giữ 2 cột cho mẫu thiệp + perk
+   * để trang không bị dài — card đã đủ nhỏ.
+   */
+  .template-grid,
+  .perks-grid,
+  .feature-grid {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+  }
+
+  .wedding-info button {
+    padding: 9px 10px;
+
+    font-size: 11.5px;
+  }
+}
+
+/* ==================================================
+   REDUCE MOTION
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .perk-card,
+  .wedding-card {
+    transition: none;
   }
 }
 </style>

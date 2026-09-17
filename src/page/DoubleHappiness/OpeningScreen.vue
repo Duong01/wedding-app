@@ -98,11 +98,21 @@ const emit = defineEmits(["open"]);
 const opening = ref(false);
 
 const groomName = computed(
-  () => props.wedding?.GroomName || props.wedding?.groomName || "Chú rể"
+  () =>
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    ""
 );
 
 const brideName = computed(
-  () => props.wedding?.BrideName || props.wedding?.brideName || "Cô dâu"
+  () =>
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    ""
 );
 
 const guestName = computed(

@@ -41,10 +41,13 @@
         </div>
 
         <div class="gallery-input">
-          <input
+          <UploadField
             v-model="image.Image"
-            type="text"
-            placeholder="URL hình ảnh"
+            kind="image"
+            button-text="Tải ảnh"
+            icon="mdi-image-plus-outline"
+            :show-preview="false"
+            compact
           />
 
           <button
@@ -68,6 +71,8 @@
 </template>
 
 <script setup>
+import UploadField from "@/components/editor/UploadField.vue";
+
 const props = defineProps({
   wedding: { type: Object, required: true },
 });

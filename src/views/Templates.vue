@@ -7,6 +7,17 @@
     <div class="page-glow page-glow-2"></div>
 
     <!-- =====================================================
+         BACK TO HOME
+    ====================================================== -->
+    <div class="container back-row">
+      <button type="button" class="back-btn" @click="goHome">
+        <v-icon size="16"> mdi-arrow-left </v-icon>
+
+        Trang chủ
+      </button>
+    </div>
+
+    <!-- =====================================================
          HERO
     ====================================================== -->
     <section class="page-hero">
@@ -705,6 +716,10 @@ import { useWeddingStore } from "@/stores/wedding";
 const router = useRouter();
 const store = useWeddingStore();
 
+function goHome() {
+  router.push({ name: "Home" });
+}
+
 // ======================================================
 // State
 // ======================================================
@@ -1063,20 +1078,20 @@ watch(
 ========================================================= */
 
 .templates-page {
-  --wine: #7f1730;
-  --wine-dark: #4d0e1d;
-  --wine-soft: #a84a61;
+  --wine: #8f4d43;
+  --wine-dark: #6d3a34;
+  --wine-soft: #b07a6e;
 
-  --gold: #bd9458;
-  --gold-light: #d8bd8a;
+  --gold: #c9a659;
+  --gold-light: #e0c98f;
 
   --cream: #faf7f2;
   --cream-dark: #f2ebe3;
 
-  --text: #261b1d;
+  --text: #2a1d1d;
   --muted: #76676a;
 
-  --border: rgba(63, 37, 42, 0.09);
+  --border: rgba(78, 53, 53, 0.09);
 
   min-height: 100vh;
   position: relative;
@@ -1085,12 +1100,12 @@ watch(
   background:
     radial-gradient(
       circle at 10% 10%,
-      rgba(191, 148, 88, 0.08),
+      rgba(201, 166, 89, 0.1),
       transparent 25%
     ),
     radial-gradient(
       circle at 90% 30%,
-      rgba(127, 23, 48, 0.06),
+      rgba(143, 77, 67, 0.07),
       transparent 25%
     ),
     linear-gradient(
@@ -1134,10 +1149,10 @@ watch(
   left: -350px;
 
   background: rgba(
-    189,
-    148,
-    88,
-    0.08
+    201,
+    166,
+    89,
+    0.1
   );
 }
 
@@ -1146,11 +1161,43 @@ watch(
   right: -350px;
 
   background: rgba(
-    127,
-    23,
-    48,
-    0.06
+    143,
+    77,
+    67,
+    0.07
   );
+}
+
+/* =========================================================
+   BACK ROW
+========================================================= */
+
+.back-row {
+  padding-top: 20px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border: 1px solid rgba(78, 53, 53, 0.14);
+  border-radius: 999px;
+  background: #fff;
+  color: #5c4646;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #f7f0ec;
+  border-color: rgba(143, 77, 67, 0.35);
+  color: #8f4d43;
 }
 
 /* =========================================================
@@ -1173,7 +1220,7 @@ watch(
 
   color: var(--gold);
 
-  font-family: serif;
+  font-family: var(--font-heading);
 
   opacity: 0.45;
 
@@ -1415,11 +1462,11 @@ watch(
 .filter-control:focus-within,
 .search-control:focus-within {
   border-color:
-    rgba(127, 23, 48, 0.3);
+    rgba(143, 77, 67, 0.35);
 
   box-shadow:
     0 8px 24px
-      rgba(127, 23, 48, 0.06);
+      rgba(143, 77, 67, 0.08);
 }
 
 .filter-control {
@@ -1477,7 +1524,7 @@ watch(
 
   flex: 0 0 auto;
 
-  color: #88777b;
+  color: #8a7a76;
 }
 
 .search-icon svg {
@@ -1503,7 +1550,7 @@ watch(
 }
 
 .search-control input::placeholder {
-  color: #9b8b8e;
+  color: #9a8a86;
 }
 
 .clear-search {
@@ -1519,9 +1566,9 @@ watch(
 
   border-radius: 50%;
 
-  background: #eee7e4;
+  background: #eee7e2;
 
-  color: #67585b;
+  color: #675853;
 
   cursor: pointer;
 }
@@ -1579,7 +1626,7 @@ watch(
     translateY(-10px);
 
   border-color:
-    rgba(127, 23, 48, 0.14);
+    rgba(143, 77, 67, 0.18);
 
   box-shadow:
     0 28px 65px
@@ -1627,7 +1674,7 @@ watch(
       180deg,
       rgba(0,0,0,0.05) 0%,
       transparent 42%,
-      rgba(30,15,18,0.28) 100%
+      rgba(30,15,15,0.28) 100%
     );
 
   pointer-events: none;
@@ -1656,8 +1703,8 @@ watch(
   background:
     linear-gradient(
       180deg,
-      rgba(45, 16, 23, 0.08),
-      rgba(45, 16, 23, 0.52)
+      rgba(58, 30, 26, 0.08),
+      rgba(58, 30, 26, 0.52)
     );
 
   opacity: 0;
@@ -1819,7 +1866,7 @@ watch(
   transform: scale(1.1);
 
   background:
-    rgba(127, 23, 48, 0.75);
+    rgba(143, 77, 67, 0.85);
 }
 
 .favorite-btn svg {
@@ -1881,7 +1928,7 @@ watch(
 
   margin-bottom: 7px;
 
-  color: #9a898d;
+  color: #9a8a86;
 
   font-size: 10px;
 
@@ -1929,7 +1976,7 @@ watch(
 }
 
 .view-detail {
-  color: #8b777b;
+  color: #8a7a76;
 
   font-size: 11px;
 
@@ -1960,12 +2007,12 @@ watch(
   padding: 9px 12px;
 
   border: 1px solid
-    rgba(127,23,48,0.16);
+    rgba(143,77,67,0.2);
 
   border-radius: 999px;
 
   background:
-    rgba(127,23,48,0.045);
+    rgba(143,77,67,0.05);
 
   color: var(--wine);
 
@@ -2009,9 +2056,9 @@ watch(
   background:
     linear-gradient(
       100deg,
-      #eee7e3 20%,
-      #f8f4f1 40%,
-      #eee7e3 60%
+      #eee7e2 20%,
+      #f8f4f0 40%,
+      #eee7e2 60%
     );
 
   background-size: 200% 100%;
@@ -2031,7 +2078,7 @@ watch(
 
   border-radius: 6px;
 
-  background: #eee7e3;
+  background: #eee7e2;
 
   margin-bottom: 12px;
 }
@@ -2096,7 +2143,7 @@ watch(
   border-radius: 50%;
 
   background:
-    rgba(127,23,48,0.07);
+    rgba(143,77,67,0.08);
 
   color: var(--wine);
 
@@ -2125,8 +2172,8 @@ watch(
 }
 
 .state-box.error .state-icon {
-  background: #fff0f1;
-  color: #c43d52;
+  background: #fdf1f1;
+  color: #c62828;
 }
 
 .retry-btn {
@@ -2202,8 +2249,8 @@ watch(
   background:
     linear-gradient(
       135deg,
-      #272022 0%,
-      #1d1719 100%
+      #3a2c28 0%,
+      #241a18 100%
     );
 
   color: #fff;
@@ -2240,7 +2287,7 @@ watch(
   border-radius: 50%;
 
   background:
-    rgba(30, 22, 24, 0.6);
+    rgba(42, 29, 26, 0.6);
 
   backdrop-filter: blur(12px);
 
@@ -2291,13 +2338,13 @@ watch(
   background:
     radial-gradient(
       circle at 50% 40%,
-      rgba(180,120,90,0.18),
+      rgba(201,166,89,0.16),
       transparent 38%
     ),
     linear-gradient(
       145deg,
-      #302629,
-      #20191b
+      #3a2c28,
+      #241a18
     );
 }
 
@@ -2339,11 +2386,11 @@ watch(
 
   border-radius: 50%;
 
-  background: #9c7a5d;
+  background: #c9a659;
 
   box-shadow:
     0 0 10px
-      rgba(200,160,110,0.8);
+      rgba(201,166,89,0.8);
 }
 
 .preview-stage {
@@ -2374,7 +2421,7 @@ watch(
 
   border:
     7px solid
-    #0e0c0d;
+    #1a1210;
 
   border-radius: 34px;
 
@@ -2417,7 +2464,7 @@ watch(
   border-radius:
     0 0 14px 14px;
 
-  background: #0e0c0d;
+  background: #1a1210;
 }
 
 .phone-top span {
@@ -2434,7 +2481,7 @@ watch(
 
   border-radius: 999px;
 
-  background: #272124;
+  background: #2c211e;
 }
 
 .phone-screen {
@@ -2477,9 +2524,9 @@ watch(
   position: absolute;
 
   color:
-    rgba(210,170,115,0.65);
+    rgba(201,166,89,0.65);
 
-  font-family: Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 24px;
 
@@ -2572,14 +2619,14 @@ watch(
 
   border:
     1px solid
-    rgba(194,153,96,0.3);
+    rgba(201,166,89,0.35);
 
   border-radius: 999px;
 
-  color: #d6b47b;
+  color: #c9a659;
 
   background:
-    rgba(194,153,96,0.07);
+    rgba(201,166,89,0.08);
 
   font-size: 9px;
 
@@ -2647,11 +2694,11 @@ watch(
   height: 1px;
 
   background:
-    rgba(201,164,106,0.45);
+    rgba(201,166,89,0.45);
 }
 
 .gold-rule i {
-  color: #caa56d;
+  color: #c9a659;
 
   font-size: 10px;
 
@@ -2706,7 +2753,7 @@ watch(
 .information-icon {
   flex: 0 0 auto;
 
-  color: #c7a06a;
+  color: #c9a659;
 
   font-size: 15px;
 }
@@ -2807,7 +2854,7 @@ watch(
 .feature-item > span {
   width: 15px;
 
-  color: #d09cbe;
+  color: #c9a659;
 
   font-size: 10px;
 
@@ -2955,15 +3002,15 @@ watch(
   background:
     linear-gradient(
       135deg,
-      #a20b50,
-      #ff087b
+      #8f4d43,
+      #6d3a34
     );
 
   color: #fff;
 
   box-shadow:
     0 8px 25px
-      rgba(225,0,100,0.18);
+      rgba(109, 58, 52, 0.3);
 }
 
 .primary-btn span {
@@ -3065,7 +3112,7 @@ watch(
   border-radius: 999px;
 
   background:
-    rgba(35,24,27,0.92);
+    rgba(42,29,26,0.92);
 
   backdrop-filter: blur(15px);
 
@@ -3079,7 +3126,7 @@ watch(
 }
 
 .toast-message span {
-  color: #d4ad76;
+  color: #c9a659;
 }
 
 /* =========================================================
@@ -3638,6 +3685,12 @@ watch(
   .state-box {
     min-height: 250px;
   }
+
+  .back-btn {
+    padding: 8px 14px;
+
+    font-size: 12px;
+  }
 }
 
 /* =========================================================
@@ -3675,6 +3728,12 @@ watch(
 
   .detail-content h2 {
     font-size: 30px;
+  }
+
+  .back-btn {
+    padding: 7px 12px;
+
+    font-size: 11.5px;
   }
 }
 

@@ -115,8 +115,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import GalleryModal from "@/components/gallery/GalleryModal.vue";
+import { ref, onMounted, onUnmounted, defineAsyncComponent } from "vue";
+const GalleryModal = defineAsyncComponent(() =>
+  import("@/components/gallery/GalleryModal.vue")
+);
 
 const props = defineProps({
   gallery: {

@@ -24,7 +24,7 @@ const content = computed(() =>
 );
 
 const storyTitle = computed(() =>
-  typeof props.story === "object" ? props.story?.Title || "Love story" : "Love story"
+  typeof props.story === "object" ? props.story?.Title || "" : ""
 );
 </script>
 

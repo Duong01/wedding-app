@@ -1,6 +1,6 @@
 <template>
   <section class="hero">
-    <div class="hero-top">THE WEDDING OF</div>
+    <div class="hero-top">{{ heroTitle }}</div>
     <div class="hero-flourish">❧ ✦ ❧</div>
     <div class="hero-names">
       <span>{{ groom }}</span
@@ -8,7 +8,7 @@
     </div>
     <div class="hero-date">{{ dateLabel }}</div>
     <div v-if="heroImage" class="hero-photo">
-      <img :src="heroImage" alt="Ảnh cưới" />
+      <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" />
     </div>
     <div class="hero-seal">{{ monogram }}</div>
     <div class="scroll">SCROLL<br /><b>⌄</b></div>
@@ -16,23 +16,40 @@
 </template>
 <script setup>
 import { computed } from "vue";
+import { heroRoyal } from "@/assets/decor/decorAssets";
+
 const props = defineProps({
   wedding: Object,
   monogram: String,
   dateLabel: String,
 });
+
+const heroTitle = computed(
+  () => props.wedding?.hero?.Title || "THE WEDDING OF"
+);
+
 const groom = computed(
-  () => props.wedding?.GroomName || props.wedding?.groomName || "Quốc Anh"
+  () =>
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    ""
 );
 const bride = computed(
-  () => props.wedding?.BrideName || props.wedding?.brideName || "Cát Tường"
+  () =>
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    ""
 );
 const heroImage = computed(
   () =>
     props.wedding?.hero?.Image ||
     props.wedding?.hero?.Background ||
     props.wedding?.coverImage ||
-    ""
+    heroRoyal
 );
 </script>
 <style scoped>

@@ -10,14 +10,13 @@ import "vuetify/styles";
 import '@mdi/font/css/materialdesignicons.css';
 
 // Components
-
+// KHÔNG import toàn bộ "vuetify/components" — vite-plugin-vuetify
+// sẽ tự tree-shake, chỉ gói những component thực sự dùng trong template
+// (v-icon, v-dialog, v-btn, v-switch...). Giảm bundle chính ~500kB.
 import "./assets/styles/theme.css";
-// Vuetify
-import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
 const vuetify = createVuetify({
-    components,
     directives,
     icons: {
         defaultSet: 'mdi'
@@ -30,14 +29,14 @@ const vuetify = createVuetify({
                 dark: false,
 
                 colors: {
-                    primary: "#E8B4B8",
-                    secondary: "#D4AF37",
-                    background: "#FFF8F6",
+                    primary: "#8f4d43",
+                    secondary: "#c9a659",
+                    background: "#faf7f2",
                     surface: "#FFFFFF",
-                    success: "#4CAF50",
-                    error: "#F44336",
+                    success: "#2e7d32",
+                    error: "#c62828",
                     info: "#2196F3",
-                    warning: "#FFC107"
+                    warning: "#e9a13b"
                 }
             }
         }

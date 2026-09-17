@@ -671,7 +671,7 @@ function showToast(message, isError = false) {
 
   left: -120px;
 
-  background: rgba(201, 166, 107, 0.35);
+  background: rgba(201, 166, 89, 0.3);
 }
 
 .page-glow-2 {
@@ -679,7 +679,7 @@ function showToast(message, isError = false) {
 
   right: -140px;
 
-  background: rgba(180, 80, 100, 0.22);
+  background: rgba(143, 77, 67, 0.18);
 }
 
 .container {
@@ -731,7 +731,7 @@ function showToast(message, isError = false) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: clamp(30px, 4.4vw, 46px);
 
@@ -779,7 +779,7 @@ function showToast(message, isError = false) {
 .hero-stat strong {
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 26px;
 }
@@ -1037,7 +1037,7 @@ function showToast(message, isError = false) {
 .avatar-fallback {
   color: #8f4d43;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 20px;
 
@@ -1065,7 +1065,7 @@ function showToast(message, isError = false) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 17px;
 }
@@ -1089,9 +1089,9 @@ function showToast(message, isError = false) {
 }
 
 .role-badge.role-user {
-  background: rgba(46, 125, 50, 0.12);
+  background: rgba(201, 166, 89, 0.16);
 
-  color: #2e7d32;
+  color: #8a6a2f;
 }
 
 .role-badge.role-guest {
@@ -1294,7 +1294,7 @@ function showToast(message, isError = false) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 20px;
 }
@@ -1456,7 +1456,7 @@ function showToast(message, isError = false) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 20px;
 }

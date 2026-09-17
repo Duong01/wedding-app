@@ -4,12 +4,12 @@
     <img :src="hoa" class="floral floral--bottom" alt="" />
     <div class="hero-frame">
       <div class="hero-content">
-        <p class="save-date">SAVE THE DATE</p>
+        <p class="save-date">{{ heroTitle }}</p>
         <div class="motif">
           <span></span><img :src="icon" alt="" /><span></span>
         </div>
         <h1>{{ groomName }}<br> <i>&amp;</i><br> {{ brideName }}</h1>
-        <p class="announce">TRÂN TRỌNG KÍNH MỜI</p>
+        <p class="announce">{{ heroSubtitle }}</p>
         <p class="guest">{{ guestName }}</p>
         <p class="intro">
           Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
@@ -41,18 +41,27 @@ const props = defineProps({
   monogram: { type: String, default: "G&B" },
   dateLabel: { type: String, default: "" },
 });
+
+const heroTitle = computed(
+  () => props.wedding?.hero?.Title || "SAVE THE DATE"
+);
+
+const heroSubtitle = computed(
+  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+);
 const groomName = computed(
-  () => props.wedding?.GroomName || props.wedding?.groomName || props.wedding?.hero?.GroomName || props.wedding?.couple?.Groom?.Name || "Nguyễn Huy"
+  () => props.wedding?.GroomName || props.wedding?.groomName || props.wedding?.hero?.GroomName || props.wedding?.couple?.Groom?.Name || ""
 );
 const brideName = computed(
-  () => props.wedding?.BrideName || props.wedding?.brideName || props.wedding?.hero?.BrideName || props.wedding?.couple?.Bride?.Name || "Nguyễn Mai"
+  () => props.wedding?.BrideName || props.wedding?.brideName || props.wedding?.hero?.BrideName || props.wedding?.couple?.Bride?.Name || ""
 );
 const location = computed(
   () =>
     props.event?.Location ||
     props.event?.Address ||
     props.wedding?.hero?.Location ||
-    "Địa điểm tổ chức tiệc cưới"
+    props.wedding?.events?.[0]?.Location ||
+    ""
 );
 const time = computed(
   () =>
@@ -60,12 +69,14 @@ const time = computed(
     props.event?.Time ||
     props.event?.StartTime ||
     props.wedding?.hero?.Time ||
-    "16:00"
+    props.wedding?.events?.[0]?.EventTime ||
+    ""
 );
 const dateText = computed(() => {
   const raw =
     props.event?.EventDate ||
     props.event?.Date ||
+    props.wedding?.hero?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
     props.wedding?.weddingDate;
   const date = dayjs(raw);
@@ -73,7 +84,7 @@ const dateText = computed(() => {
     return `${
       date.day() === 0 ? "CHỦ NHẬT" : date.day() + 1
     }, NGÀY ${date.format("DD/MM/YYYY")}`;
-  return props.dateLabel || "NGÀY VUI CỦA CHÚNG MÌNH";
+  return props.dateLabel || "";
 });
 </script>
 <style scoped>
@@ -89,6 +100,17 @@ const dateText = computed(() => {
   position: absolute;
   inset: 0;
   z-index: -2;
+
+  background-image: linear-gradient(
+      180deg,
+      rgba(255, 248, 244, 0.72),
+      rgba(255, 240, 236, 0.45) 55%,
+      rgba(255, 248, 244, 0.75)
+    ),
+    url("@/assets/decor/hero-romantic.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.55;
 }
 .hero-frame {
   position: relative;

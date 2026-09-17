@@ -13,6 +13,13 @@ export default defineConfig({
         secure: false,
 
         rewrite: (path) => path
+      },
+
+      // Ảnh / nhạc upload lên server API (trả về URL /Uploads/...)
+      '/Uploads': {
+        target: 'http://localhost:51763',
+        changeOrigin: true,
+        secure: false
       }
     },
 

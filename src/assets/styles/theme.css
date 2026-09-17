@@ -74,18 +74,25 @@
      Quy ước:
      - --font-script : chữ ký, dấu &, từ ngữ trang trí  -> Allura
      - --font-heading: tiêu đề, tên, ngày tháng         -> Cormorant Garamond
-     - --font-main   : nội dung thân bài                -> Cormorant Garamond
+     - --font-main   : nội dung thân bài thiệp          -> Lora
+     - --font-ui     : giao diện ứng dụng (UI sans)     -> Be Vietnam Pro
      - --font-symbol : ký tự trang trí CJK (囍)        -> Noto Serif SC / SimSun
      Không dùng font-family literal trong component.
   ========================================================= */
 
-  /* Nội dung */
-  /* --font-main:
-    "Cormorant Garamond",
+  /* Nội dung thiệp — serif hiện đại, hỗ trợ tiếng Việt */
+  --font-main:
+    "Lora",
     Georgia,
-    serif; */
+    serif;
 
-    --font-main: "Times New Roman", Times, serif;
+  /* Giao diện ứng dụng (Home, Templates, Manage, Admin,
+     Profile, Login, header) — sans hiện đại cho UI */
+  --font-ui:
+    "Be Vietnam Pro",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
 
   /* Heading */
   --font-heading:
@@ -247,6 +254,17 @@ body {
 /* Vuetify shell dùng chung font hệ thống thiệp */
 .v-application {
   font-family: var(--font-main);
+}
+
+/* Giao diện ứng dụng dùng font UI sans */
+.site-header,
+.landing-page,
+.templates-page,
+.manage-page,
+.admin-page,
+.profile-page,
+.auth-page {
+  font-family: var(--font-ui);
 }
 
 button,

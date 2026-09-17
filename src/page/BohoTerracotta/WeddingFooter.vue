@@ -59,7 +59,7 @@ const groomName = computed(() => {
     wedding.value?.groomName ||
     wedding.value?.hero?.GroomName ||
     wedding.value?.couple?.Groom?.Name ||
-    "Chú Rể"
+    ""
   );
 });
 
@@ -70,7 +70,7 @@ const brideName = computed(() => {
     wedding.value?.brideName ||
     wedding.value?.hero?.BrideName ||
     wedding.value?.couple?.Bride?.Name ||
-    "Cô Dâu"
+    ""
   );
 });
 
@@ -86,7 +86,7 @@ const copyrightText = computed(() => {
 });
 
 const weddingDate = computed(() => {
-  return wedding.value?.weddingDate || wedding.value?.hero?.weddingDate || "";
+  return wedding.value?.weddingDate || wedding.value?.hero?.WeddingDate || wedding.value?.hero?.weddingDate || "";
 });
 </script>
 

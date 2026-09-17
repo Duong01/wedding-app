@@ -183,8 +183,10 @@
 
 
 <script setup>
-import { computed, ref } from "vue";
-import GalleryModal from "@/components/gallery/GalleryModal.vue";
+import { computed, ref, defineAsyncComponent } from "vue";
+const GalleryModal = defineAsyncComponent(() =>
+  import("@/components/gallery/GalleryModal.vue")
+);
 
 
 /* =====================================================

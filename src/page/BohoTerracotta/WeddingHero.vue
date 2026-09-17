@@ -21,7 +21,7 @@
       </div>
 
       <div class="bt-hero__content">
-        <p class="bt-hero__save-date">SAVE THE DATE</p>
+        <p class="bt-hero__save-date">{{ heroTitle }}</p>
 
         <div class="bt-hero__motif">
           <span></span>
@@ -35,7 +35,7 @@
           {{ brideName }}
         </h1>
 
-        <p class="bt-hero__announce">TRÂN TRỌNG KÍNH MỜI</p>
+        <p class="bt-hero__announce">{{ heroSubtitle }}</p>
 
         <p class="bt-hero__guest">{{ guestName }}</p>
 
@@ -67,6 +67,7 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
+import { heroBoho } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -76,13 +77,21 @@ const props = defineProps({
   dateLabel: { type: String, default: "" },
 });
 
+const heroTitle = computed(
+  () => props.wedding?.hero?.Title || "SAVE THE DATE"
+);
+
+const heroSubtitle = computed(
+  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+);
+
 const groomName = computed(
   () =>
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
     props.wedding?.hero?.GroomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Nguyễn Huy"
+    ""
 );
 
 const brideName = computed(
@@ -91,7 +100,7 @@ const brideName = computed(
     props.wedding?.brideName ||
     props.wedding?.hero?.BrideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Nguyễn Mai"
+    ""
 );
 
 const heroImage = computed(
@@ -100,7 +109,7 @@ const heroImage = computed(
     props.wedding?.hero?.background ||
     props.wedding?.coverImage ||
     props.wedding?.CoverImage ||
-    ""
+    heroBoho
 );
 
 const location = computed(
@@ -108,7 +117,8 @@ const location = computed(
     props.event?.Location ||
     props.event?.Address ||
     props.wedding?.hero?.Location ||
-    "Địa điểm tổ chức tiệc cưới"
+    props.wedding?.events?.[0]?.Location ||
+    ""
 );
 
 const time = computed(
@@ -117,13 +127,15 @@ const time = computed(
     props.event?.Time ||
     props.event?.StartTime ||
     props.wedding?.hero?.Time ||
-    "16:00"
+    props.wedding?.events?.[0]?.EventTime ||
+    ""
 );
 
 const dateText = computed(() => {
   const raw =
     props.event?.EventDate ||
     props.event?.Date ||
+    props.wedding?.hero?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
     props.wedding?.weddingDate;
 
@@ -133,7 +145,7 @@ const dateText = computed(() => {
     return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
   }
 
-  return props.dateLabel || "NGÀY VUI CỦA CHÚNG MÌNH";
+  return props.dateLabel || "";
 });
 </script>
 

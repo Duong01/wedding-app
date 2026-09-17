@@ -150,7 +150,7 @@
       ====================================================== -->
 
       <section
-        v-if="wishes && wishes.length"
+        v-if="allWishes && allWishes.length"
         class="wishes-section"
       >
 
@@ -182,7 +182,7 @@
         <div class="wishes-list">
 
           <article
-            v-for="(w, i) in wishes"
+            v-for="(w, i) in allWishes"
             :key="w.Id || w.id || i"
             class="wish-item"
           >
@@ -300,7 +300,11 @@
 
 
 <script setup>
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
+
+import { useRoute } from "vue-router";
+
+import { addWish, getAllWishes } from "@/model/api";
 
 
 /* =========================================================
@@ -340,6 +344,45 @@ const form = reactive({
 ========================================================= */
 
 const submitting = ref(false);
+
+/*
+ * Lời chúc lấy từ API (getAllWishes) — dữ liệu thật
+ * khách mời đã gửi. Fallback về props.wishes
+ * (guestBook.Guest lưu trong thiệp) khi API trống.
+ */
+const route = useRoute();
+
+const localWishes = ref([]);
+
+const allWishes = computed(() => {
+  if (localWishes.value.length) {
+    return localWishes.value;
+  }
+
+  return props.wishes || [];
+});
+
+async function loadWishes() {
+  const slug = route.params.slug;
+
+  if (!slug) {
+    return;
+  }
+
+  try {
+    const response = await getAllWishes({ slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      localWishes.value = result.data;
+    }
+  } catch (error) {
+    console.warn("[WeddingWishes] Không tải được lời chúc:", error);
+  }
+}
+
+loadWishes();
 
 
 /* =========================================================
@@ -390,23 +433,26 @@ async function submit() {
   try {
 
     /*
-     * Nếu sau này bạn có API gửi lời chúc,
-     * đặt request tại đây.
-     *
-     * Ví dụ:
-     *
-     * await GuestWish({
-     *   WeddingId: props.wedding?.Id,
-     *   Name: name,
-     *   Message: message,
-     * });
+     * Gửi lời chúc lên API (addWish).
+     * Slug kèm token để ghi đúng thiệp của khách mời.
      */
+    const slug = route.params.slug
+      ? route.params.token
+        ? `${route.params.slug}/${route.params.token}`
+        : route.params.slug
+      : "";
 
+    const response = await addWish({
+      slug,
+      guestName: name,
+      message,
+    });
 
-    await new Promise(resolve =>
-      setTimeout(resolve, 500)
-    );
+    const result = response?.data;
 
+    if (!result || result.status !== "success") {
+      throw new Error(result?.message || "Gửi lời chúc thất bại.");
+    }
 
     /* =========================
        SUCCESS
@@ -424,6 +470,8 @@ async function submit() {
     form.name = "";
 
     form.message = "";
+
+    await loadWishes();
 
 
   } catch (error) {

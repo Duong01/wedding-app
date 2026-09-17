@@ -189,14 +189,14 @@ const groom = computed(
   () =>
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
-    "Chú Rể"
+    ""
 );
 
 const bride = computed(
   () =>
     props.wedding?.BrideName ||
     props.wedding?.brideName ||
-    "Cô Dâu"
+    ""
 );
 </script>
 

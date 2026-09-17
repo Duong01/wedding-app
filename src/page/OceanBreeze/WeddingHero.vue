@@ -6,6 +6,11 @@
     <!-- Sky-to-sea gradient layers -->
     <div class="ob-hero__sea"></div>
 
+    <!-- Ocean photo backdrop -->
+    <div class="ob-hero__photo" aria-hidden="true">
+      <img :src="heroOcean" alt="" draggable="false" />
+    </div>
+
     <!-- Rising bubbles -->
     <div class="ob-hero__bubbles" aria-hidden="true">
       <span v-for="n in 10" :key="n" class="ob-hero__bubble" :class="`ob-hero__bubble--${n}`"></span>
@@ -13,7 +18,7 @@
 
     <!-- Content -->
     <div class="ob-hero__content">
-      <p class="ob-hero__save-date">SAVE THE DATE</p>
+      <p class="ob-hero__save-date">{{ heroTitle }}</p>
 
       <div class="ob-hero__motif">
         <span></span>
@@ -27,7 +32,7 @@
         {{ brideName }}
       </h1>
 
-      <p class="ob-hero__announce">TRÂN TRỌNG KÍNH MỜI</p>
+      <p class="ob-hero__announce">{{ heroSubtitle }}</p>
 
       <p class="ob-hero__guest">{{ guestName }}</p>
 
@@ -61,6 +66,7 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
+import { heroOcean } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -70,13 +76,21 @@ const props = defineProps({
   dateLabel: { type: String, default: "" },
 });
 
+const heroTitle = computed(
+  () => props.wedding?.hero?.Title || "SAVE THE DATE"
+);
+
+const heroSubtitle = computed(
+  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+);
+
 const groomName = computed(
   () =>
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
     props.wedding?.hero?.GroomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Nguyễn Huy"
+    ""
 );
 
 const brideName = computed(
@@ -85,7 +99,7 @@ const brideName = computed(
     props.wedding?.brideName ||
     props.wedding?.hero?.BrideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Nguyễn Mai"
+    ""
 );
 
 const location = computed(
@@ -93,7 +107,8 @@ const location = computed(
     props.event?.Location ||
     props.event?.Address ||
     props.wedding?.hero?.Location ||
-    "Địa điểm tổ chức tiệc cưới"
+    props.wedding?.events?.[0]?.Location ||
+    ""
 );
 
 const time = computed(
@@ -102,13 +117,15 @@ const time = computed(
     props.event?.Time ||
     props.event?.StartTime ||
     props.wedding?.hero?.Time ||
-    "16:00"
+    props.wedding?.events?.[0]?.EventTime ||
+    ""
 );
 
 const dateText = computed(() => {
   const raw =
     props.event?.EventDate ||
     props.event?.Date ||
+    props.wedding?.hero?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
     props.wedding?.weddingDate;
 
@@ -118,7 +135,7 @@ const dateText = computed(() => {
     return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
   }
 
-  return props.dateLabel || "NGÀY VUI CỦA CHÚNG MÌNH";
+  return props.dateLabel || "";
 });
 </script>
 
@@ -183,6 +200,45 @@ const dateText = computed(() => {
     linear-gradient(180deg, transparent 55%, rgba(29, 106, 142, 0.18) 100%);
 
   pointer-events: none;
+}
+
+/* =========================================================
+   OCEAN PHOTO BACKDROP
+========================================================= */
+
+.ob-hero__photo {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.ob-hero__photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0.32;
+
+  filter: saturate(0.95);
+}
+
+.ob-hero__photo::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(234, 246, 249, 0.75),
+    rgba(207, 232, 239, 0.3) 45%,
+    rgba(111, 176, 198, 0.45)
+  );
 }
 
 /* =========================================================

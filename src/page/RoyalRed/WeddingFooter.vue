@@ -3,9 +3,9 @@
     <div class="mark">{{ monogram }}</div>
     <div class="names">{{ groom }} <span>&</span> {{ bride }}</div>
     <div class="date">{{ date }}</div>
-    <p>Cảm ơn bạn đã dành thời gian đến với ngày vui của chúng tôi.</p>
+    <p>{{ thanksMessage }}</p>
     <div class="ornament">❧ ✦ ❧</div>
-    <small>© {{ currentYear }} · WEDDING INVITATION</small>
+    <small>{{ copyrightText }}</small>
   </footer>
 </template>
 <script setup>
@@ -22,6 +22,20 @@ const groom = computed(
 const bride = computed(
   () => p.wedding?.BrideName || p.wedding?.brideName || ""
 );
+
+const thanksMessage = computed(() => {
+  return (
+    p.wedding?.footer?.Message ||
+    "Cảm ơn bạn đã dành thời gian đến với ngày vui của chúng tôi."
+  );
+});
+
+const copyrightText = computed(() => {
+  return (
+    p.wedding?.footer?.Copyright ||
+    `© ${p.currentYear ?? ""} · WEDDING INVITATION`
+  );
+});
 const date = computed(() => {
   const d = dayjs(p.wedding?.weddingDate);
   return d.isValid() ? d.format("DD · MM · YYYY") : "";

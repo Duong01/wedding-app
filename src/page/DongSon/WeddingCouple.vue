@@ -83,14 +83,18 @@ const groomName = computed(() =>
   props.wedding?.GroomName ||
   props.wedding?.groomName ||
   groom.value?.name ||
-  "Chú Rể"
+  props.wedding?.couple?.Groom?.Name ||
+  props.wedding?.hero?.GroomName ||
+  ""
 );
 
 const brideName = computed(() =>
   props.wedding?.BrideName ||
   props.wedding?.brideName ||
   bride.value?.name ||
-  "Cô Dâu"
+  props.wedding?.couple?.Bride?.Name ||
+  props.wedding?.hero?.BrideName ||
+  ""
 );
 
 const groomImage = computed(() =>

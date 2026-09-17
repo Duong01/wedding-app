@@ -127,7 +127,7 @@ const props = defineProps({
     required: true,
   },
   recipientName:{
-    type: Object,
+    type: [Object, Array, String],
     default: ()=>{}
   }
 });

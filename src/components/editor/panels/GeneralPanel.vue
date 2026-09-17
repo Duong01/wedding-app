@@ -58,16 +58,20 @@
       <div class="editor-field">
         <label>Ngày cưới</label>
 
-        <input v-model="wedding.weddingDate" type="datetime-local" />
+        <input
+          :value="datetimeLocalValue"
+          type="datetime-local"
+          @input="onDateInput"
+        />
       </div>
 
       <div class="editor-field full">
         <label>Ảnh bìa</label>
 
-        <input
+        <UploadField
           v-model="wedding.coverImage"
-          type="text"
-          placeholder="https://..."
+          kind="image"
+          button-text="Tải ảnh bìa lên"
         />
       </div>
     </div>
@@ -75,7 +79,29 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+import UploadField from "@/components/editor/UploadField.vue";
+
+import {
+  fromDatetimeLocal,
+  toDatetimeLocal,
+} from "@/utils/datetime";
+
+const props = defineProps({
   wedding: { type: Object, required: true },
 });
+
+/*
+ * Input datetime-local không nhận phần giây còn hệ
+ * thống lưu "2026-11-14T08:00:00" (ISO) — chuyển đổi
+ * 2 chiều qua utils/datetime.
+ */
+const datetimeLocalValue = computed(() => {
+  return toDatetimeLocal(props.wedding.weddingDate);
+});
+
+function onDateInput(event) {
+  props.wedding.weddingDate = fromDatetimeLocal(event.target.value);
+}
 </script>

@@ -52,7 +52,7 @@
           <span class="family-role"> NHÀ GÁI </span>
 
           <h3>
-            {{ couple?.Bride?.Name || "Cô dâu" }}
+            {{ couple?.Bride?.Name || "" }}
           </h3>
 
           <div class="family-divider"></div>
@@ -92,7 +92,7 @@
           <span class="family-role"> NHÀ TRAI </span>
 
           <h3>
-            {{ couple?.Groom?.Name || "Chú rể" }}
+            {{ couple?.Groom?.Name || "" }}
           </h3>
 
           <div class="family-divider"></div>

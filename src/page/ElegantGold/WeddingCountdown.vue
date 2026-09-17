@@ -1,85 +1,29 @@
 <template>
-  <section class="countdown">
-    <div class="countdown-disc">
-      <div class="title">
-        <small>THE BIG DAY</small>
-        <h2>Đếm ngược ngày vui</h2>
-      </div>
+  <section class="eg-countdown">
+    <p class="eg-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
 
-      <div class="timer">
-        <div
-          v-for="item in timerItems"
-          :key="item.label"
-          class="time-box"
-        >
-          <strong>{{ String(item.value).padStart(2, "0") }}</strong>
-          <span>{{ item.label }}</span>
-        </div>
-      </div>
+    <h2>Đếm ngược</h2>
 
-      <div class="countdown-bottom">
-        <span />
-        <b>✦</b>
-        <span />
-      </div>
+    <div class="eg-countdown__grid">
+      <article v-for="item in values" :key="item.label" class="eg-countdown__item">
+        <b>{{ item.value }}</b>
+        <span>{{ item.label }}</span>
+      </article>
     </div>
   </section>
 </template>
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import dayjs from "dayjs";
 
 const props = defineProps({
-  countdown: {
-    type: [Object, String],
-    default: null,
-  },
+  countdown: { type: [String, Date, Object], default: "" },
+  weddingDate: { type: [String, Date], default: "" },
 });
 
 const now = ref(Date.now());
-let timer = null;
-
-const target = computed(() => {
-  if (!props.countdown) return null;
-
-  if (typeof props.countdown === "string") {
-    return new Date(props.countdown).getTime();
-  }
-
-  return new Date(
-    props.countdown.date ||
-    props.countdown.targetDate ||
-    props.countdown.weddingDate ||
-    Date.now()
-  ).getTime();
-});
-
-const remaining = computed(() => {
-  if (!target.value) {
-    return {
-      days: 0,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-    };
-  }
-
-  const diff = Math.max(0, target.value - now.value);
-
-  return {
-    days: Math.floor(diff / 86400000),
-    hours: Math.floor(diff / 3600000) % 24,
-    minutes: Math.floor(diff / 60000) % 60,
-    seconds: Math.floor(diff / 1000) % 60,
-  };
-});
-
-const timerItems = computed(() => [
-  { label: "NGÀY", value: remaining.value.days },
-  { label: "GIỜ", value: remaining.value.hours },
-  { label: "PHÚT", value: remaining.value.minutes },
-  { label: "GIÂY", value: remaining.value.seconds },
-]);
+let timer;
 
 onMounted(() => {
   timer = window.setInterval(() => {
@@ -87,99 +31,135 @@ onMounted(() => {
   }, 1000);
 });
 
-onUnmounted(() => {
-  clearInterval(timer);
+onUnmounted(() => window.clearInterval(timer));
+
+const target = computed(() => props.countdown?.Target || props.countdown || props.weddingDate);
+
+const values = computed(() => {
+  const seconds = Math.max(0, dayjs(target.value).diff(dayjs(now.value), "second"));
+
+  return [
+    ["NGÀY", Math.floor(seconds / 86400)],
+    ["GIỜ", Math.floor((seconds % 86400) / 3600)],
+    ["PHÚT", Math.floor((seconds % 3600) / 60)],
+    ["GIÂY", seconds % 60],
+  ].map(([label, value]) => ({
+    label,
+    value: String(value).padStart(2, "0"),
+  }));
 });
 </script>
 
 <style scoped>
-.countdown {
-  padding: 65px 20px;
-  background: #641914;
-  color: #e9d7b5;
-  text-align: center;
-}
-
-.countdown-disc {
+.eg-countdown {
   position: relative;
-  max-width: 580px;
-  margin: auto;
-  padding: 50px 20px;
-  border: 1px solid rgba(201,149,82,.4);
+
+  text-align: center;
+
+  color: #5f4f38;
+
+  padding: 6px 18px;
 }
 
-.countdown-disc::before {
+/* Fine gold lattice texture */
+.eg-countdown::before {
   content: "";
   position: absolute;
-  inset: 12px;
-  border: 1px dashed rgba(201,149,82,.28);
+  inset: 0;
+
+  opacity: 0.05;
+
+  background-image:
+    repeating-linear-gradient(45deg, rgba(181, 138, 69, 0.7) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(-45deg, rgba(181, 138, 69, 0.7) 0 1px, transparent 1px 18px);
+
+  pointer-events: none;
 }
 
-.title,
-.timer,
-.countdown-bottom {
+.eg-eyebrow {
   position: relative;
-  z-index: 2;
+
+  margin: 0;
+
+  color: #8a7a52;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
 }
 
-.title small {
-  font-size: 8px;
-  letter-spacing: .4em;
-  color: #c99552;
-}
+.eg-countdown h2 {
+  position: relative;
 
-h2 {
-  margin: 8px 0 35px;
-  font-family: Georgia, serif;
-  font-size: 29px;
+  margin: 6px 0 18px;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
+
+  color: #5d452a;
 }
 
-.timer {
+.eg-countdown__grid {
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
-.time-box {
-  padding: 13px 3px;
-  border-left: 1px solid rgba(201,149,82,.35);
+.eg-countdown__item {
+  padding: 16px 2px;
+
+  border: 1px solid rgba(181, 138, 69, 0.55);
+  border-radius: 999px 999px 16px 16px;
+
+  background: linear-gradient(172deg, rgba(255, 255, 255, 0.92), rgba(246, 236, 217, 0.72));
+
+  box-shadow: 0 8px 22px rgba(93, 69, 42, 0.1);
+
+  transition: transform 0.25s ease;
 }
 
-.time-box:first-child {
-  border-left: 0;
+.eg-countdown__item:nth-child(odd) {
+  transform: rotate(-1.2deg);
 }
 
-.time-box strong {
+.eg-countdown__item:nth-child(even) {
+  transform: rotate(1.2deg);
+}
+
+.eg-countdown__item:hover {
+  transform: rotate(0deg) translateY(-3px);
+}
+
+.eg-countdown__item b {
   display: block;
-  font-family: Georgia, serif;
-  font-size: clamp(28px, 8vw, 43px);
-  font-weight: 400;
-  color: #d4a35f;
+
+  font-family: "Playfair Display", Georgia, serif;
+
+  color: #5d452a;
+
+  font-size: clamp(22px, 7vw, 30px);
+  font-weight: 600;
+
+  margin-bottom: 4px;
 }
 
-.time-box span {
-  display: block;
-  margin-top: 5px;
-  font-size: 7px;
-  letter-spacing: .2em;
+.eg-countdown__item span {
+  font-size: 8px;
+
+  letter-spacing: 0.14em;
+
+  color: #8a7a52;
 }
 
-.countdown-bottom {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 180px;
-  margin: 32px auto 0;
-}
-
-.countdown-bottom span {
-  flex: 1;
-  height: 1px;
-  background: rgba(201,149,82,.4);
-}
-
-.countdown-bottom b {
-  color: #c99552;
+@media (prefers-reduced-motion: reduce) {
+  .eg-countdown__item {
+    transition: none;
+  }
 }
 </style>

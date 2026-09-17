@@ -115,9 +115,12 @@
 import {
   computed,
   ref,
+  defineAsyncComponent,
 } from "vue";
 
-import GalleryModal from "./GalleryModal.vue";
+const GalleryModal = defineAsyncComponent(() =>
+  import("./GalleryModal.vue")
+);
 
 
 /* =========================================================

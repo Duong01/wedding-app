@@ -1,145 +1,86 @@
 <template>
   <div class="wedding-preview-page">
-
     <!-- =====================================================
          LOADING
     ====================================================== -->
-    <div
-      v-if="loading"
-      class="preview-loading"
-    >
+    <div v-if="loading" class="preview-loading">
       <div class="preview-loading-card">
-        <v-progress-circular
-          indeterminate
-          size="42"
-        />
+        <v-progress-circular indeterminate size="42" />
 
-        <strong>
-          Đang chuẩn bị thiệp...
-        </strong>
+        <strong> Đang chuẩn bị thiệp... </strong>
 
-        <span>
-          Vui lòng chờ một chút
-        </span>
+        <span> Vui lòng chờ một chút </span>
       </div>
     </div>
 
     <!-- =====================================================
          ERROR
     ====================================================== -->
-    <div
-      v-else-if="!wedding"
-      class="preview-error"
-    >
+    <div v-else-if="!wedding" class="preview-error">
       <div class="preview-error-card">
-
         <div class="preview-error-icon">
-          <v-icon size="32">
-            mdi-card-account-details-outline
-          </v-icon>
+          <v-icon size="32"> mdi-card-account-details-outline </v-icon>
         </div>
 
-        <h2>
-          Chưa có dữ liệu thiệp
-        </h2>
+        <h2>Chưa có dữ liệu thiệp</h2>
 
         <p>
-          Thiệp xem trước chưa được khởi tạo.
-          Hãy quay lại trình chỉnh sửa và thử lại.
+          Thiệp xem trước chưa được khởi tạo. Hãy quay lại trình chỉnh sửa và
+          thử lại.
         </p>
 
-        <button
-          type="button"
-          class="preview-back-button"
-          @click="backToEditor"
-        >
-          <v-icon size="18">
-            mdi-arrow-left
-          </v-icon>
+        <button type="button" class="preview-back-button" @click="backToEditor">
+          <v-icon size="18"> mdi-arrow-left </v-icon>
 
           Quay lại chỉnh sửa
         </button>
-
       </div>
     </div>
 
     <!-- =====================================================
          PREVIEW
     ====================================================== -->
-    <div
-      v-else
-      class="preview-page"
-    >
-
+    <div v-else class="preview-page">
       <!-- ===================================================
            TOP BAR
       ==================================================== -->
       <header class="preview-topbar">
+        <button type="button" class="preview-back" @click="backToEditor">
+          <v-icon size="19"> mdi-arrow-left </v-icon>
 
-        <button
-          type="button"
-          class="preview-back"
-          @click="backToEditor"
-        >
-          <v-icon size="19">
-            mdi-arrow-left
-          </v-icon>
-
-          <span>
-            Chỉnh sửa
-          </span>
+          <span> Chỉnh sửa </span>
         </button>
 
         <div class="preview-title">
-          <span>
-            XEM TRƯỚC THIỆP
-          </span>
+          <span> XEM TRƯỚC THIỆP </span>
 
           <strong>
             {{ wedding.theme?.Name || "traditional-red" }}
           </strong>
         </div>
 
-        <button
-          type="button"
-          class="preview-save"
-          @click="saveWedding"
-        >
-          <v-icon size="18">
-            mdi-content-save-outline
-          </v-icon>
+        <button type="button" class="preview-save" @click="saveWedding">
+          <v-icon size="18"> mdi-content-save-outline </v-icon>
 
-          <span>
-            Lưu
-          </span>
+          <span> Lưu </span>
         </button>
-
       </header>
 
       <!-- ===================================================
            THEME PREVIEW
       ==================================================== -->
       <main class="preview-content">
-
         <div class="preview-device">
-
           <component
             v-if="currentTheme"
             :is="currentTheme"
             :wedding="wedding"
           />
 
-          <div
-            v-else
-            class="theme-error"
-          >
-            <v-icon size="34">
-              mdi-palette-outline
-            </v-icon>
+          <div v-else class="theme-error">
+            <v-icon size="34"> mdi-palette-outline </v-icon>
 
-            <h2>
-              Không tìm thấy giao diện
-            </h2>
+            <h2>Không tìm thấy giao diện</h2>
 
             <p>
               Theme:
@@ -148,16 +89,9 @@
               </strong>
             </p>
 
-            <button
-              type="button"
-              @click="backToEditor"
-            >
-              Quay lại Editor
-            </button>
+            <button type="button" @click="backToEditor">Quay lại Editor</button>
           </div>
-
         </div>
-
       </main>
 
       <!-- ===================================================
@@ -182,40 +116,22 @@
           </span>
         </div>
       </Transition>
-
     </div>
   </div>
 </template>
 
 <script setup>
-import {
-  computed,
-  onMounted,
-  ref,
-} from "vue";
+import { computed, onMounted, ref } from "vue";
 
-import {
-  useRouter,
-  useRoute,
-} from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
-import {
-  useWeddingStore,
-} from "@/stores/wedding";
+import { useWeddingStore } from "@/stores/wedding";
 
-import {
-  useWeddingEditorStore,
-} from "@/stores/weddingEditor";
+import { useWeddingEditorStore } from "@/stores/weddingEditor";
 
-import {
-  useAuthStore,
-} from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth";
 
-import {
-  AddDataWedding,
-} from "@/model/api";
-
-import { addEntry as addRegistryEntry } from "@/model/weddingRegistry";
+import { AddDataWedding } from "@/model/api";
 
 /*
  * =========================================================
@@ -241,14 +157,11 @@ const route = useRoute();
    STORE
 ========================================================= */
 
-const editorStore =
-  useWeddingEditorStore();
+const editorStore = useWeddingEditorStore();
 
-const weddingStore =
-  useWeddingStore();
+const weddingStore = useWeddingStore();
 
-const auth =
-  useAuthStore();
+const auth = useAuthStore();
 
 /* =========================================================
    STATE
@@ -291,10 +204,7 @@ const themeName = computed(() => {
     return queryTheme.trim();
   }
 
-  return (
-    wedding.value?.theme?.Name ||
-    "traditional-red"
-  );
+  return wedding.value?.theme?.Name || "traditional-red";
 });
 
 /* =========================================================
@@ -322,22 +232,16 @@ async function backToEditor() {
    SAVE
 ========================================================= */
 
-function showSaveMessage(
-  message,
-  isError = false
-) {
+function showSaveMessage(message, isError = false) {
   saveMessage.value = message;
   saveError.value = isError;
 
-  window.clearTimeout(
-    showSaveMessage.timer
-  );
+  window.clearTimeout(showSaveMessage.timer);
 
-  showSaveMessage.timer =
-    window.setTimeout(() => {
-      saveMessage.value = "";
-      saveError.value = false;
-    }, 2800);
+  showSaveMessage.timer = window.setTimeout(() => {
+    saveMessage.value = "";
+    saveError.value = false;
+  }, 2800);
 }
 
 function saveWedding() {
@@ -369,10 +273,7 @@ function saveWedding() {
       wedding.value,
 
       (result) => {
-        console.log(
-          "[WeddingPreview] saved:",
-          result
-        );
+        console.log("[WeddingPreview] saved:", result);
 
         /*
          * API trả về envelope { status, message, data }.
@@ -389,54 +290,29 @@ function saveWedding() {
               ...result.data,
             });
           } catch (e) {
-            console.warn(
-              "[WeddingPreview] Không thể đồng bộ:",
-              e
-            );
+            console.warn("[WeddingPreview] Không thể đồng bộ:", e);
           }
         }
 
         /*
-         * Ghi nhận thiệp vào registry quản lý.
+         * Danh sách thiệp giờ lấy trực tiếp từ API
+         * (getAllWeddings / Manage) — không cần ghi
+         * registry localStorage nữa.
          */
-        try {
-          addRegistryEntry(wedding.value);
-        } catch (e) {
-          console.warn(
-            "[WeddingPreview] Không thể ghi registry:",
-            e
-          );
-        }
 
-        showSaveMessage(
-          "Đã lưu thiệp thành công."
-        );
+        showSaveMessage("Đã lưu thiệp thành công.");
       },
 
       (err) => {
-        console.error(
-          "[WeddingPreview] save error:",
-          err
-        );
+        console.error("[WeddingPreview] save error:", err);
 
-        showSaveMessage(
-          err?.message ||
-            "Không thể lưu thiệp.",
-          true
-        );
+        showSaveMessage(err?.message || "Không thể lưu thiệp.", true);
       }
     );
   } catch (err) {
-    console.error(
-      "[WeddingPreview] save exception:",
-      err
-    );
+    console.error("[WeddingPreview] save exception:", err);
 
-    showSaveMessage(
-      err?.message ||
-        "Không thể lưu thiệp.",
-      true
-    );
+    showSaveMessage(err?.message || "Không thể lưu thiệp.", true);
   }
 }
 
@@ -445,19 +321,11 @@ function saveWedding() {
 ========================================================= */
 
 onMounted(() => {
-  console.log(
-    "[WeddingPreview] mounted"
-  );
+  console.log("[WeddingPreview] mounted");
 
-  console.log(
-    "[WeddingPreview] wedding:",
-    editorStore.wedding
-  );
+  console.log("[WeddingPreview] wedding:", editorStore.wedding);
 
-  console.log(
-    "[WeddingPreview] theme:",
-    themeName.value
-  );
+  console.log("[WeddingPreview] theme:", themeName.value);
 
   /*
    * Preview được mở trực tiếp bằng URL
@@ -472,9 +340,7 @@ onMounted(() => {
     typeof route.query.slug === "string" &&
     route.query.slug.trim()
   ) {
-    loadFromApi(
-      route.query.slug.trim()
-    );
+    loadFromApi(route.query.slug.trim());
   }
 });
 
@@ -486,24 +352,14 @@ async function loadFromApi(slug) {
   loading.value = true;
 
   try {
-    console.log(
-      "[WeddingPreview] Load API:",
-      slug
-    );
+    console.log("[WeddingPreview] Load API:", slug);
 
-    const result =
-      await weddingStore.loadWedding(
-        slug
-      );
+    const result = await weddingStore.loadWedding(slug);
 
-    const data =
-      result ||
-      weddingStore.wedding;
+    const data = result || weddingStore.wedding;
 
     if (!data) {
-      throw new Error(
-        "Không tìm thấy dữ liệu thiệp."
-      );
+      throw new Error("Không tìm thấy dữ liệu thiệp.");
     }
 
     let copy;
@@ -511,33 +367,18 @@ async function loadFromApi(slug) {
     try {
       copy = structuredClone(data);
     } catch (cloneError) {
-      console.warn(
-        "[WeddingPreview] structuredClone failed:",
-        cloneError
-      );
+      console.warn("[WeddingPreview] structuredClone failed:", cloneError);
 
-      copy = JSON.parse(
-        JSON.stringify(data)
-      );
+      copy = JSON.parse(JSON.stringify(data));
     }
 
     editorStore.setWedding(copy);
 
-    console.log(
-      "[WeddingPreview] API wedding:",
-      editorStore.wedding
-    );
+    console.log("[WeddingPreview] API wedding:", editorStore.wedding);
   } catch (err) {
-    console.error(
-      "[WeddingPreview] API error:",
-      err
-    );
+    console.error("[WeddingPreview] API error:", err);
 
-    showSaveMessage(
-      err?.message ||
-        "Không thể tải dữ liệu thiệp.",
-      true
-    );
+    showSaveMessage(err?.message || "Không thể tải dữ liệu thiệp.", true);
   } finally {
     loading.value = false;
   }
@@ -597,10 +438,7 @@ async function loadFromApi(slug) {
 
   cursor: pointer;
 
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .preview-back {
@@ -625,8 +463,7 @@ async function loadFromApi(slug) {
 
   background: var(--primary, #7b0d0d);
 
-  border: 1px solid
-    var(--primary, #7b0d0d);
+  border: 1px solid var(--primary, #7b0d0d);
 }
 
 .preview-save:hover {
@@ -682,8 +519,7 @@ async function loadFromApi(slug) {
 
   background: #fff;
 
-  box-shadow:
-    0 20px 70px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.16);
 }
 
 /* =========================================================
@@ -724,9 +560,7 @@ async function loadFromApi(slug) {
 
   border-radius: 22px;
 
-  box-shadow:
-    0 20px 60px
-      rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
 }
 
 .preview-loading-card strong,
@@ -871,9 +705,7 @@ async function loadFromApi(slug) {
 
   border-radius: 12px;
 
-  box-shadow:
-    0 15px 40px
-      rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 
   font-size: 11px;
   font-weight: 600;
@@ -889,9 +721,7 @@ async function loadFromApi(slug) {
 
 .toast-enter-active,
 .toast-leave-active {
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .toast-enter-from,

@@ -190,6 +190,7 @@
 
             <WeddingEvents
               :events="events"
+              :recipient-name="wedding?.recipientName"
             />
 
           </div>
@@ -340,7 +341,7 @@
       <FloatingMusic
         v-if="showMusic"
         ref="floatingMusicRef"
-        :music="wedding?.music"
+        :music="heroMusic"
       />
 
     </template>
@@ -398,7 +399,22 @@ const props = defineProps({
    WEDDING
 ========================================================== */
 
-const wedding = computed(() => props.wedding);
+const wedding = computed(() => props.wedding)
+
+/*
+ * Ưu tiên nhạc từ wedding.music (panel Nhạc).
+ * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
+ */
+const heroMusic = computed(() => {
+  const music = wedding.value?.music || {};
+  const heroUrl = wedding.value?.hero?.Music;
+
+  if (music.Url || !heroUrl) {
+    return music;
+  }
+
+  return { ...music, Url: heroUrl };
+});;
 
 
 /* ==========================================================
@@ -587,6 +603,7 @@ const openDateLabel = computed(() => {
 
 const heroDateLabel = computed(() => {
   return formatDate(
+    wedding.value?.hero?.WeddingDate ||
     wedding.value?.hero?.weddingDate ||
     wedding.value?.weddingDate,
   );

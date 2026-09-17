@@ -99,14 +99,14 @@
       <FloatingMusic
         v-if="wedding?.music?.Enabled && wedding?.settings?.ShowMusic"
         ref="floatingMusicRef"
-        :music="wedding.music"
+        :music="heroMusic"
       />
     </template>
   </div>
 </template>
 
 <script setup>
-import { nextTick, onMounted, onBeforeUnmount, ref } from "vue";
+import { computed, nextTick, onMounted, onBeforeUnmount, ref } from "vue";
 
 import OpenInvitation from "@/components/hero/OpenInvitation.vue";
 import HeroSection from "@/components/hero/HeroSection.vue";
@@ -130,6 +130,23 @@ const props = defineProps({
 });
 
 const { theme, themeStyle } = useWeddingTheme(props.wedding);
+
+const wedding = computed(() => props.wedding || {});
+
+/*
+ * Ưu tiên nhạc từ wedding.music (panel Nhạc).
+ * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
+ */
+const heroMusic = computed(() => {
+  const music = wedding.value?.music || {};
+  const heroUrl = wedding.value?.hero?.Music;
+
+  if (music.Url || !heroUrl) {
+    return music;
+  }
+
+  return { ...music, Url: heroUrl };
+});
 
 const opened = ref(false);
 

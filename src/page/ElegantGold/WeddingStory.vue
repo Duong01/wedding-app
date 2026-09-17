@@ -1,148 +1,142 @@
 <template>
-  <section class="story">
-    <div class="story-circle">
-      <span>✦</span>
-    </div>
+  <section class="eg-story">
+    <p class="eg-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
 
-    <div class="story-content">
-      <div class="section-title">
-        <small>OUR STORY</small>
-        <h2>Chuyện chúng mình</h2>
-      </div>
+    <h2>{{ storyTitle }}</h2>
 
-      <div class="story-divider">𓅃</div>
+    <div class="eg-quote">“</div>
 
-      <h3 v-if="story?.title">
-        {{ story.title }}
-      </h3>
+    <p>{{ content }}</p>
 
-      <p v-if="story?.content">
-        {{ story.content }}
-      </p>
-
-      <p v-else>
-        Từ một cuộc gặp gỡ tình cờ, những câu chuyện nhỏ
-        dần trở thành những ký ức lớn. Và hôm nay,
-        chúng mình quyết định viết tiếp câu chuyện ấy
-        bằng một lời hẹn ước trăm năm.
-      </p>
-
-      <div class="quote">
-        <span>“</span>
-        <em>
-          Cảm ơn vì đã đến,
-          <br />
-          ở lại và cùng nhau đi đến hôm nay.
-        </em>
-        <span>”</span>
-      </div>
-    </div>
+    <div class="eg-tail">❦</div>
   </section>
 </template>
 
 <script setup>
-defineProps({
-  story: {
-    type: Object,
-    default: () => ({}),
-  },
-});
+import { computed } from "vue";
+
+const props = defineProps({ story: { type: [String, Object], default: "" } });
+
+const content = computed(() =>
+  typeof props.story === "string"
+    ? props.story
+    : props.story?.Content || props.story?.Description || props.story?.Text || ""
+);
+
+const storyTitle = computed(() =>
+  typeof props.story === "object" ? props.story?.Title || "" : ""
+);
 </script>
 
 <style scoped>
-.story {
+.eg-story {
   position: relative;
-  padding: 75px 25px;
-  overflow: hidden;
-  color: #ead7b5;
-  background:
-    linear-gradient(rgba(84,18,15,.96), rgba(84,18,15,.96)),
-    #54120f;
+
+  text-align: center;
+
+  color: #5f4f38;
+
+  padding: 10px 22px;
 }
 
-.story-circle {
-  position: absolute;
-  width: 330px;
-  height: 330px;
-  right: -130px;
-  top: -100px;
-  border: 1px solid rgba(201,149,82,.22);
-  border-radius: 50%;
-}
-
-.story-circle::before,
-.story-circle::after {
+/* Soft gold blob backdrop */
+.eg-story::before {
   content: "";
   position: absolute;
-  inset: 35px;
-  border: 1px dashed rgba(201,149,82,.18);
-  border-radius: 50%;
-}
 
-.story-circle::after {
-  inset: 75px;
-}
-
-.story-circle span {
-  position: absolute;
-  left: 50%;
   top: 50%;
-  color: rgba(201,149,82,.4);
+  left: 50%;
+
+  width: min(88%, 420px);
+  height: 78%;
+
+  transform: translate(-50%, -50%) rotate(-2deg);
+
+  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+
+  background: rgba(181, 138, 69, 0.14);
+
+  pointer-events: none;
 }
 
-.story-content {
+.eg-eyebrow {
   position: relative;
-  z-index: 2;
-  max-width: 570px;
-  margin: auto;
-  text-align: center;
+
+  margin: 0;
+
+  color: #8a7a52;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
 }
 
-.section-title small {
-  font-size: 8px;
-  letter-spacing: .4em;
-  color: #c99552;
-}
+.eg-story h2 {
+  position: relative;
 
-h2 {
-  margin: 7px 0 20px;
-  font-family: Georgia, serif;
+  margin: 6px 0 4px;
+
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
-  font-size: 31px;
+
+  color: #5d452a;
 }
 
-.story-divider {
-  color: #c99552;
-  margin-bottom: 25px;
+/* Big decorative quote mark */
+.eg-quote {
+  position: relative;
+
+  height: 35px;
+
+  color: #b58a45;
+
+  font: 64px Georgia, serif;
+  line-height: 1;
+
+  transform: rotate(-4deg);
 }
 
-h3 {
-  font-family: Georgia, serif;
-  font-size: 22px;
-  font-weight: 400;
+.eg-story p {
+  position: relative;
+
+  max-width: 400px;
+  margin: 0 auto;
+
+  font-size: clamp(15px, 4.2vw, 18px);
+  font-style: italic;
+
+  line-height: 1.7;
 }
 
-.story-content > p {
-  font-family: Georgia, serif;
-  line-height: 2;
+.eg-tail {
+  position: relative;
+
+  margin-top: 18px;
+
+  color: #8a7a52;
+
   font-size: 15px;
-  color: #d8c3a1;
+
+  animation: eg-tail-sway 5s ease-in-out infinite;
 }
 
-.quote {
-  margin: 35px auto 0;
-  padding: 25px 15px;
-  border-top: 1px solid rgba(201,149,82,.35);
-  border-bottom: 1px solid rgba(201,149,82,.35);
+@keyframes eg-tail-sway {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
 }
 
-.quote span {
-  color: #c99552;
-  font-size: 24px;
-}
-
-.quote em {
-  font-family: Georgia, serif;
-  line-height: 1.8;
+@media (prefers-reduced-motion: reduce) {
+  .eg-tail {
+    animation: none;
+  }
 }
 </style>

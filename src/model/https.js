@@ -34,6 +34,11 @@ api.interceptors.request.use(
 
    - 401: chưa đăng nhập / token hết hạn hoặc sai
      → thông báo + xóa token + về /login.
+     Ngoại lệ: request đánh dấu skipAuthRedirect
+     (vd kiểm tra trạng thái thiệp từ trang khách
+     mời — khách không đăng nhập, không được
+     văng sang trang login) → bỏ qua, để component
+     tự xử lý.
    - 403: đã đăng nhập nhưng không đủ quyền
      (vd API Admin) → KHÔNG logout, để component
      tự hiển thị message từ response.
@@ -61,7 +66,7 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    if (status === 401) {
+    if (status === 401 && !error.config?.skipAuthRedirect) {
       alert(
         extractApiMessage(
           error.response?.data,
@@ -98,6 +103,34 @@ function Get(url, params = {}, success, error) {
   return api
     .get(url, {
       params,
+    })
+    .then((response) => {
+      if (success) {
+        success(response.data);
+      }
+
+      return response;
+    })
+    .catch((err) => {
+      if (error) {
+        error(err);
+      }
+
+      throw err;
+    });
+}
+
+/*
+ * GetPublic — GET không bắt buộc đăng nhập.
+ * Khi server trả 401 (chưa có token / token hết hạn)
+ * KHÔNG redirect về /login — component tự xử lý
+ * (vd khách mời mở link thiệp, chưa đăng nhập).
+ */
+function GetPublic(url, params = {}, success, error) {
+  return api
+    .get(url, {
+      params,
+      skipAuthRedirect: true,
     })
     .then((response) => {
       if (success) {
@@ -244,6 +277,7 @@ function PostFile(url, form, success, error) {
 
 const https = {
   Get,
+  GetPublic,
   GetNew,
   Post,
   Put,

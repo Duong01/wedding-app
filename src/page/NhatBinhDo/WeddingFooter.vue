@@ -27,8 +27,7 @@
       </div>
 
       <p>
-        CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI
-        CÙNG CHÚNG MÌNH
+        {{ thanksMessage }}
       </p>
 
       <div class="footer-date">
@@ -36,7 +35,7 @@
       </div>
 
       <small>
-        © {{ currentYear }}
+        {{ copyrightText }}
       </small>
 
     </div>
@@ -68,21 +67,44 @@ const wedding = computed(() => props.wedding || {});
 
 const groomName = computed(() => {
   return wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.footer?.GroomName ||
+    wedding.value?.hero?.GroomName ||
+    wedding.value?.couple?.Groom?.Name ||
     wedding.value?.groom?.name ||
-    "Chú Rể";
+    "";
 });
 
 const brideName = computed(() => {
   return wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.footer?.BrideName ||
+    wedding.value?.hero?.BrideName ||
+    wedding.value?.couple?.Bride?.Name ||
     wedding.value?.bride?.name ||
-    "Cô Dâu";
+    "";
 });
 
 const weddingDate = computed(() => {
   return (
     wedding.value?.weddingDate ||
+    wedding.value?.hero?.WeddingDate ||
     wedding.value?.hero?.weddingDate ||
     ""
+  );
+});
+
+const thanksMessage = computed(() => {
+  return (
+    wedding.value?.footer?.Message ||
+    "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
+  );
+});
+
+const copyrightText = computed(() => {
+  return (
+    wedding.value?.footer?.Copyright ||
+    `© ${currentYear}`
   );
 });
 </script>

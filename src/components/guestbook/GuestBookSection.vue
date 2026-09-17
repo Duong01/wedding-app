@@ -1,12 +1,12 @@
 <template>
   <section class="guestbook-section">
-    <h2 class="section-title">SỔ LƯU BÚT</h2>
+    <h2 class="section-title">{{ guestBook?.Title || "SỔ LƯU BÚT" }}</h2>
 
     <!-- Chữ chạy -->
     <div class="wish-marquee">
       <div class="wish-track">
-        <span v-for="item in wishes" :key="item.Id">
-          💛 {{ item.Name }}: "{{ item.Message }}"
+        <span v-for="item in wishes" :key="item.Id || item.id">
+          💛 {{ item.Name || item.name || "Khách" }}: "{{ item.Message || item.message || "" }}"
         </span>
       </div>
     </div>
@@ -22,21 +22,27 @@
       ></textarea>
 
       <div class="action">
-        <button class="primary-btn" @click="submitWish">Gửi lời chúc</button>
+        <button
+          class="primary-btn"
+          :disabled="submitting"
+          @click="submitWish"
+        >
+          {{ submitting ? "Đang gửi..." : "Gửi lời chúc" }}
+        </button>
       </div>
     </div>
 
     <!-- Danh sách -->
     <div class="wish-list">
-      <div class="wish-card" v-for="item in wishes" :key="item.Id">
+      <div class="wish-card" v-for="item in wishes" :key="item.Id || item.id">
         <div class="avatar">
-          {{ item.Name.charAt(0).toUpperCase() }}
+          {{ (item.Name || item.name || "?").charAt(0).toUpperCase() }}
         </div>
 
         <div class="content">
           <div class="head">
             <strong>
-              {{ item.Name }}
+              {{ item.Name || item.name || "Khách" }}
             </strong>
 
             <small>
@@ -45,7 +51,7 @@
           </div>
 
           <p>
-            {{ item.Message }}
+            {{ item.Message || item.message || "" }}
           </p>
         </div>
       </div>
@@ -54,23 +60,73 @@
 </template>
 
 <script setup>
-import { computed, reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+import { addWish, getAllWishes } from "@/model/api";
+
 const props = defineProps({
   guestBook: {
     type: Object,
     required: true,
-    default: () => [],
+    default: () => ({}),
   },
 });
 const route = useRoute();
-const wishes = computed(() => props.guestBook?.Guest ?? []);
+
+/*
+ * Lời chúc ưu tiên lấy từ API (getAllWishes) — dữ liệu thật
+ * khách mời đã gửi. Fallback về guestBook.Guest lưu trong thiệp.
+ */
+const apiWishes = ref([]);
+
+const wishes = computed(() =>
+  apiWishes.value.length ? apiWishes.value : props.guestBook?.Guest ?? []
+);
+
+const submitting = ref(false);
 
 const form = reactive({
   name: "",
   message: "",
 });
-function submitWish() {
+
+function currentSlug() {
+  if (route.params.slug) {
+    return route.params.token
+      ? `${route.params.slug}/${route.params.token}`
+      : route.params.slug;
+  }
+
+  return "";
+}
+
+async function loadWishes() {
+  const slug = route.params.slug;
+
+  if (!slug) {
+    return;
+  }
+
+  try {
+    const response = await getAllWishes({ slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      apiWishes.value = result.data;
+    }
+  } catch (error) {
+    console.warn("[GuestBook] Không tải được lời chúc:", error);
+  }
+}
+
+loadWishes();
+
+async function submitWish() {
+  if (submitting.value) {
+    return;
+  }
+
   if (!form.name || !form.name.trim()) {
     alert("Vui lòng nhập tên của bạn");
     return;
@@ -79,19 +135,32 @@ function submitWish() {
     alert("Vui lòng nhập lời chúc");
     return;
   }
-  const param = {
-    slug: route.params.slug,
-    recipientToken: route.params.token || "",
-    guestName: form.name,
-    message: form.message,
-  };
+
+  submitting.value = true;
+
   try {
+    const response = await addWish({
+      slug: currentSlug(),
+      guestName: form.name.trim(),
+      message: form.message.trim(),
+    });
+
+    const result = response?.data;
+
+    if (!result || result.status !== "success") {
+      throw new Error(result?.message || "Gửi lời chúc thất bại.");
+    }
+
     alert("Gửi lời chúc thành công ❤️");
     form.name = "";
     form.message = "";
+
+    await loadWishes();
   } catch (error) {
     console.error(error);
     alert("Có lỗi xảy ra, vui lòng thử lại.");
+  } finally {
+    submitting.value = false;
   }
 }
 </script>

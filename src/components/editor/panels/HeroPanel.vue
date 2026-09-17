@@ -38,7 +38,11 @@
       <div class="editor-field">
         <label>Ngày cưới</label>
 
-        <input v-model="wedding.hero.WeddingDate" type="text" />
+        <input
+          v-model="wedding.hero.WeddingDate"
+          type="text"
+          placeholder="2026-11-14T08:00:00"
+        />
       </div>
 
       <div class="editor-field">
@@ -50,20 +54,21 @@
       <div class="editor-field full">
         <label>Ảnh nền</label>
 
-        <input
+        <UploadField
           v-model="wedding.hero.Background"
-          type="text"
-          placeholder="/images/hero.jpg"
+          kind="image"
+          button-text="Tải ảnh nền lên"
         />
       </div>
 
       <div class="editor-field full">
         <label>Nhạc</label>
 
-        <input
+        <UploadField
           v-model="wedding.hero.Music"
-          type="text"
-          placeholder="/music/wedding.mp3"
+          kind="audio"
+          button-text="Tải nhạc lên"
+          icon="mdi-music-note-plus"
         />
       </div>
     </div>
@@ -71,6 +76,8 @@
 </template>
 
 <script setup>
+import UploadField from "@/components/editor/UploadField.vue";
+
 defineProps({
   wedding: { type: Object, required: true },
 });

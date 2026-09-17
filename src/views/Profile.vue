@@ -5,6 +5,17 @@
 
     <section class="container profile-content">
       <!-- =====================================================
+           BACK TO MANAGE
+      ====================================================== -->
+      <div class="back-row">
+        <button type="button" class="back-btn" @click="goBack">
+          <v-icon size="16"> mdi-arrow-left </v-icon>
+
+          Quay lại
+        </button>
+      </div>
+
+      <!-- =====================================================
            CARD: AVATAR + INFO
       ====================================================== -->
       <div class="profile-card">
@@ -160,6 +171,7 @@
 
 <script setup>
 import { computed, reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
 import { UpdateProfile } from "@/model/api";
@@ -168,7 +180,19 @@ defineOptions({
   name: "Profile",
 });
 
+const router = useRouter();
+
 const auth = useAuthStore();
+
+function goBack() {
+  if (window.history.length > 1) {
+    router.back();
+
+    return;
+  }
+
+  router.push({ name: "Home" });
+}
 
 /* =========================================================
    STATE
@@ -309,7 +333,7 @@ async function submitProfile() {
 
   left: -120px;
 
-  background: rgba(201, 166, 107, 0.35);
+  background: rgba(201, 166, 89, 0.3);
 }
 
 .page-glow-2 {
@@ -317,13 +341,60 @@ async function submitProfile() {
 
   right: -140px;
 
-  background: rgba(180, 80, 100, 0.22);
+  background: rgba(143, 77, 67, 0.18);
 }
 
 .container {
   width: min(760px, calc(100% - 32px));
 
   margin: 0 auto;
+}
+
+/* ==================================================
+   BACK ROW
+================================================== */
+
+.back-row {
+  padding-top: 20px;
+
+  margin-bottom: 14px;
+}
+
+.back-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 9px 16px;
+
+  border: 1px solid rgba(78, 53, 53, 0.14);
+
+  border-radius: 999px;
+
+  background: #fff;
+
+  color: #5c4646;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #f7f0ec;
+
+  border-color: rgba(143, 77, 67, 0.35);
+
+  color: #8f4d43;
 }
 
 /* ==================================================
@@ -387,7 +458,7 @@ async function submitProfile() {
 .avatar-fallback {
   color: #8f4d43;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 30px;
 
@@ -399,7 +470,7 @@ async function submitProfile() {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 24px;
 }
@@ -423,9 +494,9 @@ async function submitProfile() {
 }
 
 .role-badge.role-user {
-  background: rgba(46, 125, 50, 0.12);
+  background: rgba(201, 166, 89, 0.16);
 
-  color: #2e7d32;
+  color: #8a6a2f;
 }
 
 .role-badge.role-guest {
@@ -451,7 +522,7 @@ async function submitProfile() {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 18px;
 }

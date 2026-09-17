@@ -202,6 +202,10 @@
 <script setup>
 import { computed, ref } from "vue";
 
+import { useRoute } from "vue-router";
+
+import { addWish, getAllWishes } from "@/model/api";
+
 const props = defineProps({
   wishes: {
     type: Array,
@@ -214,12 +218,49 @@ const props = defineProps({
   },
 });
 
+/*
+ * Lời chúc lấy từ API (getAllWishes) — dữ liệu thật
+ * khách mời đã gửi. Fallback về props.wishes
+ * (guestBook.Guest lưu trong thiệp) khi API trống.
+ */
+const route = useRoute();
+
 const name = ref("");
 const message = ref("");
 
 const added = ref([]);
 
-const items = computed(() => [...added.value, ...props.wishes]);
+const localWishes = ref([]);
+
+const items = computed(() => {
+  if (localWishes.value.length) {
+    return localWishes.value;
+  }
+
+  return [...added.value, ...props.wishes];
+});
+
+async function loadWishes() {
+  const slug = route.params.slug;
+
+  if (!slug) {
+    return;
+  }
+
+  try {
+    const response = await getAllWishes({ slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      localWishes.value = result.data;
+    }
+  } catch (error) {
+    console.warn("[WeddingWishes] Không tải được lời chúc:", error);
+  }
+}
+
+loadWishes();
 
 function formatTime(dateString) {
   if (!dateString) return "";
@@ -237,23 +278,61 @@ function formatTime(dateString) {
   });
 }
 
-function add() {
+async function add() {
   const content = message.value?.trim();
 
   if (!content) return;
 
-  added.value.unshift({
-    Id: `local-${Date.now()}`,
+  const slug = route.params.slug
+    ? route.params.token
+      ? `${route.params.slug}/${route.params.token}`
+      : route.params.slug
+    : "";
 
-    Name: name.value?.trim() || "Khách mời",
+  try {
+    const response = await addWish({
+      slug,
+      guestName: name.value?.trim() || "Khách mời",
+      message: content,
+    });
 
-    Content: content,
+    const result = response?.data;
 
-    CreatedAt: new Date().toISOString(),
-  });
+    if (result && result.status === "success") {
+      name.value = "";
+      message.value = "";
 
-  name.value = "";
-  message.value = "";
+      await loadWishes();
+    } else {
+      added.value.unshift({
+        Id: `local-${Date.now()}`,
+
+        Name: name.value?.trim() || "Khách mời",
+
+        Content: content,
+
+        CreatedAt: new Date().toISOString(),
+      });
+
+      name.value = "";
+      message.value = "";
+    }
+  } catch (error) {
+    console.warn("[WeddingWishes] Không gửi được lời chúc:", error);
+
+    added.value.unshift({
+      Id: `local-${Date.now()}`,
+
+      Name: name.value?.trim() || "Khách mời",
+
+      Content: content,
+
+      CreatedAt: new Date().toISOString(),
+    });
+
+    name.value = "";
+    message.value = "";
+  }
 }
 </script>
 

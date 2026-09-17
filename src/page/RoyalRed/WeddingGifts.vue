@@ -76,7 +76,10 @@
                 {{
                   gifts[0].Title ||
                   gifts[0].Name ||
-                  "CÔ DÂU"
+                  props.wedding?.BrideName ||
+                  props.wedding?.brideName ||
+                  props.wedding?.couple?.Bride?.Name ||
+                  ""
                 }}
               </div>
 
@@ -128,7 +131,10 @@
                 {{
                   gifts[1].Title ||
                   gifts[1].Name ||
-                  "CHÚ RỂ"
+                  props.wedding?.GroomName ||
+                  props.wedding?.groomName ||
+                  props.wedding?.couple?.Groom?.Name ||
+                  ""
                 }}
               </div>
 
@@ -180,7 +186,10 @@
                 {{
                   gifts[0].Title ||
                   gifts[0].Name ||
-                  "CÔ DÂU"
+                  props.wedding?.BrideName ||
+                  props.wedding?.brideName ||
+                  props.wedding?.couple?.Bride?.Name ||
+                  ""
                 }}
               </span>
 
@@ -221,7 +230,10 @@
                 {{
                   gifts[1].Title ||
                   gifts[1].Name ||
-                  "CHÚ RỂ"
+                  props.wedding?.GroomName ||
+                  props.wedding?.groomName ||
+                  props.wedding?.couple?.Groom?.Name ||
+                  ""
                 }}
               </span>
 
@@ -353,10 +365,14 @@
 import { ref } from "vue";
 import lixi from "@/assets/royal-red/royal.webp";
 
-defineProps({
+const props = defineProps({
   gifts: {
     type: Array,
     default: () => [],
+  },
+  wedding: {
+    type: Object,
+    default: () => ({}),
   },
 });
 

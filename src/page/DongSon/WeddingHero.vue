@@ -8,8 +8,13 @@
 
     <div class="hero-top-pattern" />
 
+    <!-- Bronze drum photo backdrop -->
+    <div class="hero-photo" aria-hidden="true">
+      <img :src="heroDongson" alt="" draggable="false" />
+    </div>
+
     <div class="hero-content">
-      <p class="label">TRÂN TRỌNG KÍNH MỜI</p>
+      <p class="label">{{ heroTitle }}</p>
 
       <div class="monogram">
         {{ monogram }}
@@ -57,6 +62,7 @@
 
 <script setup>
 import { computed } from "vue";
+import { heroDongson } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: {
@@ -67,18 +73,26 @@ const props = defineProps({
   dateLabel: String,
 });
 
+const heroTitle = computed(
+  () => props.wedding?.hero?.Title || "TRÂN TRỌNG KÍNH MỜI"
+);
+
 const groomName = computed(() =>
   props.wedding?.GroomName ||
   props.wedding?.groomName ||
   props.wedding?.groom?.name ||
-  "Chú Rể"
+  props.wedding?.couple?.Groom?.Name ||
+  props.wedding?.hero?.GroomName ||
+  ""
 );
 
 const brideName = computed(() =>
   props.wedding?.BrideName ||
   props.wedding?.brideName ||
   props.wedding?.bride?.name ||
-  "Cô Dâu"
+  props.wedding?.couple?.Bride?.Name ||
+  props.wedding?.hero?.BrideName ||
+  ""
 );
 </script>
 
@@ -104,6 +118,49 @@ const brideName = computed(() =>
   border: 1px solid rgba(201,149,82,.35);
   pointer-events: none;
 }
+
+/* =========================================================
+   PHOTO BACKDROP
+========================================================= */
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0.24;
+
+  filter: saturate(0.9) brightness(0.95);
+}
+
+.hero-photo::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(116, 28, 23, 0.6),
+    rgba(100, 25, 20, 0.35) 55%,
+    rgba(84, 18, 15, 0.65)
+  );
+}
+
+/* =========================================================
+   SUN
+========================================================= */
 
 .hero-sun {
   position: absolute;

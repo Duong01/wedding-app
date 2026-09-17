@@ -117,7 +117,7 @@ const groom = computed(() => {
     props.wedding?.groomName ||
     props.wedding?.footer?.GroomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Chú rể"
+    ""
   );
 });
 
@@ -127,7 +127,7 @@ const bride = computed(() => {
     props.wedding?.brideName ||
     props.wedding?.footer?.BrideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Cô dâu"
+    ""
   );
 });
 
@@ -136,7 +136,7 @@ const bride = computed(() => {
    ========================================================= */
 
 const date = computed(() => {
-  return props.wedding?.weddingDate || props.wedding?.hero?.weddingDate || "";
+  return props.wedding?.weddingDate || props.wedding?.hero?.WeddingDate || props.wedding?.hero?.weddingDate || "";
 });
 
 const formattedDate = computed(() => {

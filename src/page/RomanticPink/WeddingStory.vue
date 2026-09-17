@@ -20,8 +20,8 @@ const content = computed(() =>
 );
 const storyTitle = computed(() =>
   typeof props.story === "object"
-    ? props.story?.Title || "Love story"
-    : "Love story"
+    ? props.story?.Title || ""
+    : ""
 );
 </script>
 <style scoped>

@@ -18,7 +18,7 @@
       <section v-if="showGuestBook" class="midnight-section"><WeddingWishes :wishes="wishes" :wedding="wedding" /></section>
 
       <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
-      <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="wedding?.music" />
+      <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
   </div>
 </template>
@@ -41,7 +41,22 @@ import WeddingWishes from "@/page/MidnightGold/WeddingWishes.vue";
 import WeddingFooter from "@/page/MidnightGold/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true } });
-const wedding = computed(() => props.wedding || {});
+const wedding = computed(() => props.wedding || {})
+
+/*
+ * Ưu tiên nhạc từ wedding.music (panel Nhạc).
+ * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
+ */
+const heroMusic = computed(() => {
+  const music = wedding.value?.music || {};
+  const heroUrl = wedding.value?.hero?.Music;
+
+  if (music.Url || !heroUrl) {
+    return music;
+  }
+
+  return { ...music, Url: heroUrl };
+});;
 const opened = ref(false);
 const floatingMusicRef = ref(null);
 const currentYear = new Date().getFullYear();
@@ -76,7 +91,7 @@ function formatDate(value) {
   return date.isValid() ? date.format("DD · MM · YYYY") : "";
 }
 const openDateLabel = computed(() => formatDate(wedding.value?.weddingDate));
-const heroDateLabel = computed(() => formatDate(wedding.value?.hero?.weddingDate || wedding.value?.weddingDate));
+const heroDateLabel = computed(() => formatDate(wedding.value?.hero?.WeddingDate || wedding.value?.hero?.weddingDate || wedding.value?.weddingDate));
 async function handleOpen() {
   opened.value = true;
   await nextTick();

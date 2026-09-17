@@ -69,10 +69,10 @@
           <div class="editor-field full">
             <label>QR Code</label>
 
-            <input
+            <UploadField
               v-model="gift.QrCode"
-              type="text"
-              placeholder="/images/qr-bank.png"
+              kind="image"
+              button-text="Tải mã QR lên"
             />
           </div>
 
@@ -94,6 +94,8 @@
 </template>
 
 <script setup>
+import UploadField from "@/components/editor/UploadField.vue";
+
 const props = defineProps({
   wedding: { type: Object, required: true },
 });

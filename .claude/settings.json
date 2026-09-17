@@ -16,7 +16,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5199/editor)",
       "Bash(echo \"editor: $\\(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5199/editor\\)\")",
       "Bash(echo \"login: $\\(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5199/login\\)\")",
-      "Bash(curl -s http://localhost:5199/src/views/Login.vue)"
+      "Bash(curl -s http://localhost:5199/src/views/Login.vue)",
+      "WebFetch(domain:chungdoi.com)",
+      "WebSearch",
+      "Bash(curl -s -x \"http://V0939994:Foxconn123!!@10.220.3.16:3128\" -o /dev/null -w \"unsplash-source: %{http_code}\\\\n\" \"https://source.unsplash.com/featured/?wedding\" --max-time 20)",
+      "Bash(curl -s -x \"http://V0939994:Foxconn123!!@10.220.3.16:3128\" -o /dev/null -w \"unsplash-photo2: %{http_code}\\\\n\" \"https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400\" --max-time 20)",
+      "Bash(curl -s -x \"http://V0939994:Foxconn123!!@10.220.3.16:3128\" -o /dev/null -w \"unsplash-photo3: %{http_code}\\\\n\" \"https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=400\" --max-time 20)"
     ]
   }
 }

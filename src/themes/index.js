@@ -1,57 +1,57 @@
-import TraditionalRed from "./TraditionalRed.vue";
-import RomanticPink from "./RomanticPink.vue";
-import ModernWhite from "./ModernWhite.vue";
-import ElegantGold from "./ElegantGold.vue";
-import NhatBinhDo from "./NhatBinhDo.vue";
-import IvoryGold from "./IvoryGold.vue";
-import RoyalRed from "./RoyalRed.vue";
-import DongSon from "./DongSon.vue";
-import SereneGreen from "./SereneGreen.vue";
-import SunsetPeach from "./SunsetPeach.vue";
-import ChampagneBlush from "./ChampagneBlush.vue";
-import MidnightGold from "./MidnightGold.vue";
-import LavenderCream from "./LavenderCream.vue";
-import DoubleHappiness from "./DoubleHappiness.vue";
-import BohoTerracotta from "./BohoTerracotta.vue";
-import VintageSepia from "./VintageSepia.vue";
-import OceanBreeze from "./OceanBreeze.vue";
+import { defineAsyncComponent } from "vue";
 
+/*
+ * Danh sách theme dạng LAZY-LOAD:
+ * mỗi theme được tách thành 1 chunk riêng, chỉ được tải về
+ * khi trang thiệp cần hiển thị đúng theme đó.
+ *
+ * Giữ nguyên cách dùng cũ ở các nơi gọi `themes[tenTheme]`
+ * (WeddingApi, WeddingDetail, EditorPreview, PreviewRenderer).
+ */
+const loadTheme = (loader) =>
+  defineAsyncComponent({
+    loader,
+
+    // Tránh nhấp nháy khung loading nếu chunk tải quá nhanh
+    delay: 200,
+  });
 
 const themes = {
-  "traditional-red": TraditionalRed,
+  "traditional-red": loadTheme(() => import("./TraditionalRed.vue")),
 
-  "romantic-pink": RomanticPink,
+  "romantic-pink": loadTheme(() => import("./RomanticPink.vue")),
 
-  "modern-white": ModernWhite,
+  "modern-white": loadTheme(() => import("./ModernWhite.vue")),
 
-  "elegant-gold": ElegantGold,
+  "elegant-gold": loadTheme(() => import("./ElegantGold.vue")),
 
-  "nhat-binh-do": NhatBinhDo,
+  "nhat-binh-do": loadTheme(() => import("./NhatBinhDo.vue")),
 
-  "ivory-gold": IvoryGold,
+  "ivory-gold": loadTheme(() => import("./IvoryGold.vue")),
 
-  "royal-red": RoyalRed,
+  "royal-red": loadTheme(() => import("./RoyalRed.vue")),
 
-  "dong-son": DongSon,
+  "dong-son": loadTheme(() => import("./DongSon.vue")),
 
-  "serene-green": SereneGreen,
+  "serene-green": loadTheme(() => import("./SereneGreen.vue")),
 
-  "sunset-peach": SunsetPeach,
+  "sunset-peach": loadTheme(() => import("./SunsetPeach.vue")),
 
-  "champagne-blush": ChampagneBlush,
+  "champagne-blush": loadTheme(() => import("./ChampagneBlush.vue")),
 
-  "midnight-gold": MidnightGold,
+  "midnight-gold": loadTheme(() => import("./MidnightGold.vue")),
 
-  "lavender-cream": LavenderCream,
+  "lavender-cream": loadTheme(() => import("./LavenderCream.vue")),
 
-  "double-happiness": DoubleHappiness,
+  "double-happiness": loadTheme(() => import("./DoubleHappiness.vue")),
 
-  "boho-terracotta": BohoTerracotta,
+  "boho-terracotta": loadTheme(() => import("./BohoTerracotta.vue")),
 
-  "vintage-sepia": VintageSepia,
+  "vintage-sepia": loadTheme(() => import("./VintageSepia.vue")),
 
-  "ocean-breeze": OceanBreeze,
+  "ocean-breeze": loadTheme(() => import("./OceanBreeze.vue")),
+
+  "emerald-luxe": loadTheme(() => import("./EmeraldLuxe.vue")),
 };
-
 
 export default themes;

@@ -168,14 +168,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onActivated } from "vue";
+import { ref, computed, onMounted, onActivated, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { useWeddingStore } from "@/stores/wedding";
 import { useWeddingEditorStore } from "@/stores/weddingEditor";
 import { useAuthStore } from "@/stores/auth";
 import { AddDataWedding } from "@/model/api";
-import { addEntry as addRegistryEntry } from "@/model/weddingRegistry";
 import EditorHeader from "@/components/editor/EditorHeader.vue";
 import EditorSidebarNav from "@/components/editor/EditorSidebarNav.vue";
 import EditorPreviewPanel from "@/components/editor/EditorPreviewPanel.vue";
@@ -281,6 +280,64 @@ const { previewUrl } = useWeddingPreviewSync(
   computed(() => overlayRef.value?.iframeEl ?? null)
 );
 
+/*
+ * Đồng bộ các trường dùng chung giữa các panel:
+ * tên cô dâu/chú rể + ngày cưới nhập ở panel
+ * Thông tin chung tự động điền sang Hero/Footer/
+ * Couple/Countdown (và ngược lại) — người dùng
+ * không phải nhập lại.
+ *
+ * syncSharedFields/syncRelatedFields chỉ ghi đè khi
+ * trường đích đang trống hoặc trùng giá trị đã sync
+ * trước đó, nên nội dung người dùng chủ động sửa
+ * khác đi vẫn được giữ nguyên.
+ */
+watch(
+  () => wedding.value?.groomName,
+  (value) => {
+    editorStore.syncSharedFields(
+      { groomName: value },
+      wedding.value?.hero || {}
+    );
+
+    editorStore.syncSharedFields(
+      { groomName: value },
+      wedding.value?.footer || {}
+    );
+
+    editorStore.syncRelatedFields({ groomName: value });
+  }
+);
+
+watch(
+  () => wedding.value?.brideName,
+  (value) => {
+    editorStore.syncSharedFields(
+      { brideName: value },
+      wedding.value?.hero || {}
+    );
+
+    editorStore.syncSharedFields(
+      { brideName: value },
+      wedding.value?.footer || {}
+    );
+
+    editorStore.syncRelatedFields({ brideName: value });
+  }
+);
+
+watch(
+  () => wedding.value?.weddingDate,
+  (value) => {
+    editorStore.syncSharedFields(
+      { weddingDate: value },
+      wedding.value?.hero || {}
+    );
+
+    editorStore.syncRelatedFields({ weddingDate: value });
+  }
+);
+
 /* =========================================================
    MENUS
 ========================================================= */
@@ -354,6 +411,34 @@ const menus = [
     label: "Sổ lưu bút",
     description: "Lời chúc khách mời",
     icon: "mdi-message-heart-outline",
+  },
+
+  {
+    id: "countdown",
+    label: "Đếm ngược",
+    description: "Đếm ngày cưới",
+    icon: "mdi-timer-outline",
+  },
+
+  {
+    id: "footer",
+    label: "Chân thiệp",
+    description: "Lời cảm ơn cuối thiệp",
+    icon: "mdi-page-layout-footer",
+  },
+
+  {
+    id: "map",
+    label: "Bản đồ",
+    description: "Chỉ đường đến sự kiện",
+    icon: "mdi-map-marker-outline",
+  },
+
+  {
+    id: "music",
+    label: "Âm nhạc",
+    description: "Nhạc nền thiệp",
+    icon: "mdi-music-outline",
   },
 ];
 
@@ -448,16 +533,10 @@ function saveWedding() {
         }
 
         /*
-         * Ghi nhận thiệp vào registry quản lý.
+         * Danh sách thiệp giờ lấy trực tiếp từ API
+         * (getAllWeddings / Manage) — không cần ghi
+         * registry localStorage nữa.
          */
-        try {
-          addRegistryEntry(wedding.value);
-        } catch (e) {
-          console.warn(
-            "[WeddingEditor] Không thể ghi registry:",
-            e
-          );
-        }
 
         showSaveMessage("Đã lưu thiệp thành công.");
         saving.value = false;

@@ -4,6 +4,11 @@
     <!-- Nền đỏ -->
     <div class="red-background"></div>
 
+    <!-- Ảnh nền người dùng tải lên (ưu tiên cao nhất) -->
+    <div v-if="background" class="photo-background">
+      <img :src="background" alt="" draggable="false" />
+    </div>
+
     <!-- Hoa văn chìm -->
     <div class="pattern"></div>
 
@@ -17,6 +22,12 @@
 </template>
 
 <script setup>
+defineProps({
+  background: {
+    type: String,
+    default: "",
+  },
+});
 </script>
 
 <style scoped>
@@ -31,6 +42,46 @@
   overflow: hidden;
 
   pointer-events: none;
+}
+
+
+/* =========================================================
+   PHOTO BACKGROUND (ảnh người dùng tải lên)
+========================================================= */
+
+.photo-background {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+}
+
+.photo-background img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0.3;
+
+  filter: saturate(0.9) brightness(0.95);
+}
+
+.photo-background::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(141, 17, 21, 0.55),
+    rgba(123, 13, 13, 0.35) 55%,
+    rgba(105, 9, 12, 0.6)
+  );
 }
 
 

@@ -11,24 +11,24 @@
     </div>
 
     <div
-      v-if="wishes.length"
+      v-if="allWishes.length"
       class="wish-list"
     >
       <article
-        v-for="(wish, index) in wishes"
-        :key="wish.id || index"
+        v-for="(wish, index) in allWishes"
+        :key="wish.Id || wish.id || index"
         class="wish-card"
       >
         <div class="wish-mark">“</div>
 
         <p>
-          {{ wish.content || wish.message || wish.Wish || "" }}
+          {{ wish.Message || wish.content || wish.message || wish.Wish || "" }}
         </p>
 
         <div class="wish-author">
           <span />
           <b>
-            {{ wish.name || wish.GuestName || "Một người bạn" }}
+            {{ wish.Name || wish.name || wish.GuestName || "Một người bạn" }}
           </b>
           <span />
         </div>
@@ -46,7 +46,13 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed, ref } from "vue";
+
+import { useRoute } from "vue-router";
+
+import { getAllWishes } from "@/model/api";
+
+const props = defineProps({
   wishes: {
     type: Array,
     default: () => [],
@@ -56,6 +62,45 @@ defineProps({
     default: () => ({}),
   },
 });
+
+/*
+ * Lời chúc lấy từ API (getAllWishes) — dữ liệu thật
+ * khách mời đã gửi. Fallback về props.wishes
+ * (guestBook.Guest lưu trong thiệp) khi API trống.
+ */
+const route = useRoute();
+
+const localWishes = ref([]);
+
+const allWishes = computed(() => {
+  if (localWishes.value.length) {
+    return localWishes.value;
+  }
+
+  return props.wishes || [];
+});
+
+async function loadWishes() {
+  const slug = route.params.slug;
+
+  if (!slug) {
+    return;
+  }
+
+  try {
+    const response = await getAllWishes({ slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      localWishes.value = result.data;
+    }
+  } catch (error) {
+    console.warn("[WeddingWishes] Không tải được lời chúc:", error);
+  }
+}
+
+loadWishes();
 </script>
 
 <style scoped>

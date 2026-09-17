@@ -1,5 +1,4 @@
 /* ChungDoi vibe overrides - lightweight theme layer */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&display=swap');
 
 :root.theme-chungdoi,
 :root.theme-chungdoi * {
@@ -28,7 +27,8 @@
   --black: #0b0f12;
 
   /* Typography */
-  --font-main: "Georgia", serif;
+  --font-main: "Lora", Georgia, serif;
+  --font-ui: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
   --font-heading: "Playfair Display", serif;
   --font-script: "Great Vibes", cursive;
   --font-wedding: var(--font-heading);

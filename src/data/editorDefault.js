@@ -1,3 +1,18 @@
+/*
+ * Giờ hiện tại theo định dạng lưu trữ của hệ thống:
+ * "2026-11-14T08:00:00" (ISO — dấu "T").
+ */
+function nowIsoFormat() {
+  const now = new Date();
+
+  const pad = (number) => String(number).padStart(2, "0");
+
+  return (
+    `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}` +
+    `T${pad(now.getHours())}:${pad(now.getMinutes())}:00`
+  );
+}
+
 export function createDefaultWedding(themeName = "traditional-red") {
   return {
     Id: null,
@@ -5,7 +20,7 @@ export function createDefaultWedding(themeName = "traditional-red") {
     groomName: "Chú rể",
     brideName: "Cô dâu",
     language: "vi",
-    weddingDate: new Date().toISOString(),
+    weddingDate: nowIsoFormat(),
     coverImage: "",
     theme: {
       Name: themeName,
@@ -58,7 +73,7 @@ export function createDefaultWedding(themeName = "traditional-red") {
       GroomName: "Chú rể",
       BrideName: "Cô dâu",
       Title: "Save The Date",
-      WeddingDate: new Date().toISOString(),
+      WeddingDate: nowIsoFormat(),
       Subtitle: "Trân trọng kính mời",
       Background: "",
       Music: "",
@@ -80,7 +95,7 @@ export function createDefaultWedding(themeName = "traditional-red") {
     },
     countdown: {
       Enabled: true,
-      Target: new Date().toISOString(),
+      Target: nowIsoFormat(),
     },
     footer: {
       Message: "",

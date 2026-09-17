@@ -69,23 +69,7 @@ import { useRoute, useRouter } from "vue-router";
 
 import { useWeddingStore } from "@/stores/wedding";
 
-import TraditionalRed from "@/themes/TraditionalRed.vue";
-import RomanticPink from "@/themes/RomanticPink.vue";
-import ElegantGold from "@/themes/ElegantGold.vue";
-import ModernWhite from "@/themes/ModernWhite.vue";
-import NhatBinhDo from "@/themes/NhatBinhDo.vue";
-import IvoryGold from "@/themes/IvoryGold.vue";
-import RoyalRed from "@/themes/RoyalRed.vue";
-import DongSon from "@/themes/DongSon.vue";
-import SereneGreen from "@/themes/SereneGreen.vue";
-import SunsetPeach from "@/themes/SunsetPeach.vue";
-import ChampagneBlush from "@/themes/ChampagneBlush.vue";
-import MidnightGold from "@/themes/MidnightGold.vue";
-import LavenderCream from "@/themes/LavenderCream.vue";
-import DoubleHappiness from "@/themes/DoubleHappiness.vue";
-import BohoTerracotta from "@/themes/BohoTerracotta.vue";
-import VintageSepia from "@/themes/VintageSepia.vue";
-import OceanBreeze from "@/themes/OceanBreeze.vue";
+import themes from "@/themes";
 
 const route = useRoute();
 const router = useRouter();
@@ -93,26 +77,6 @@ const router = useRouter();
 const store = useWeddingStore();
 
 const wedding = computed(() => store.wedding);
-
-const themes = {
-  "traditional-red": TraditionalRed,
-  "romantic-pink": RomanticPink,
-  "elegant-gold": ElegantGold,
-  "modern-white": ModernWhite,
-  "nhat-binh-do": NhatBinhDo,
-  "ivory-gold": IvoryGold,
-  "royal-red": RoyalRed,
-  "dong-son": DongSon,
-  "serene-green": SereneGreen,
-  "sunset-peach": SunsetPeach,
-  "champagne-blush": ChampagneBlush,
-  "midnight-gold": MidnightGold,
-  "lavender-cream": LavenderCream,
-  "double-happiness": DoubleHappiness,
-  "boho-terracotta": BohoTerracotta,
-  "vintage-sepia": VintageSepia,
-  "ocean-breeze": OceanBreeze,
-};
 
 const currentTheme = computed(() => {
   const themeName = wedding.value?.theme;

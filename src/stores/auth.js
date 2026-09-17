@@ -42,6 +42,7 @@ export const ROLE_PERMISSIONS = {
     "editor",
     "preview",
     "admin",
+    "admin-weddings",
     "profile",
   ],
 

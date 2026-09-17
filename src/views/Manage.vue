@@ -4,6 +4,17 @@
     <div class="page-glow page-glow-2"></div>
 
     <!-- =====================================================
+         BACK TO HOME
+    ====================================================== -->
+    <div class="container back-row">
+      <button type="button" class="back-btn" @click="goHome">
+        <v-icon size="16"> mdi-arrow-left </v-icon>
+
+        Trang chủ
+      </button>
+    </div>
+
+    <!-- =====================================================
          HERO
     ====================================================== -->
     <section class="page-hero">
@@ -51,6 +62,19 @@
         </article>
       </div>
 
+      <!-- ERROR -->
+      <div v-else-if="loadError" class="state-box">
+        <div class="empty-icon">⚠</div>
+
+        <h3>Không tải được danh sách</h3>
+
+        <p>{{ loadError }}</p>
+
+        <button type="button" class="retry-btn" @click="retryLoad">
+          Thử lại
+        </button>
+      </div>
+
       <!-- EMPTY -->
       <div v-else-if="entries.length === 0" class="state-box empty">
         <div class="empty-icon">♡</div>
@@ -93,7 +117,12 @@
 
               <span class="dot"></span>
 
-              <span>Lưu {{ formatSavedAt(entry.savedAt) }}</span>
+              <span
+                class="status-chip"
+                :class="statusChipClass(entry.status)"
+              >
+                {{ statusChipLabel(entry.status) }}
+              </span>
             </div>
 
             <h3>{{ getCoupleName(entry) }}</h3>
@@ -119,6 +148,26 @@
                 <v-icon size="16"> mdi-eye-outline </v-icon>
 
                 Xem
+              </button>
+
+              <button
+                type="button"
+                class="action-btn pay"
+                @click="goPayment(entry)"
+              >
+                <v-icon size="16"> mdi-credit-card-outline </v-icon>
+
+                Thanh toán
+              </button>
+
+              <button
+                type="button"
+                class="action-btn"
+                @click="openGuests(entry)"
+              >
+                <v-icon size="16"> mdi-account-multiple-outline </v-icon>
+
+                Khách mời
               </button>
 
               <button type="button" class="action-btn" @click="copyLink(entry)">
@@ -170,8 +219,8 @@
             <p>
               Thiệp
               <strong>{{ getCoupleName(deleteTarget) }}</strong>
-              ({{ deleteTarget.slug }}) sẽ bị xóa khỏi danh sách quản lý. Dữ
-              liệu trên server có thể vẫn còn nếu backend chưa hỗ trợ xóa.
+              ({{ deleteTarget.slug }}) sẽ bị ẩn khỏi danh sách quản lý.
+              Backend chưa có API xóa thiệp nên dữ liệu trên server vẫn còn.
             </p>
 
             <div class="confirm-actions">
@@ -205,6 +254,162 @@
     </Teleport>
 
     <!-- =====================================================
+         GUESTS MODAL
+    ====================================================== -->
+    <Teleport to="body">
+      <Transition name="detail-modal">
+        <div
+          v-if="guestsTarget"
+          class="detail-modal"
+          @click.self="closeGuests"
+        >
+          <div class="guests-panel">
+            <div class="guests-head">
+              <div>
+                <span class="guests-eyebrow"> QUẢN LÝ KHÁCH MỜI </span>
+
+                <h3>{{ getCoupleName(guestsTarget) }}</h3>
+
+                <p class="guests-slug">/{{ guestsTarget.slug }}</p>
+              </div>
+
+              <button
+                type="button"
+                class="guests-close"
+                @click="closeGuests"
+              >
+                <v-icon size="20"> mdi-close </v-icon>
+              </button>
+            </div>
+
+            <p v-if="guestsMessage" class="guests-message" :class="{ error: guestsError }">
+              {{ guestsMessage }}
+            </p>
+
+            <!-- ADD FORM -->
+            <div class="guest-add-row">
+              <input
+                v-model.trim="newGuestName"
+                type="text"
+                placeholder="Tên khách mời (VD: Chú Minh + Cô Hằng)"
+                maxlength="100"
+                @keyup.enter="addGuest"
+              />
+
+              <button
+                type="button"
+                class="action-btn primary"
+                :disabled="guestsBusy || !newGuestName"
+                @click="addGuest"
+              >
+                <v-progress-circular
+                  v-if="guestsBusy"
+                  indeterminate
+                  size="13"
+                  width="2"
+                />
+
+                <v-icon v-else size="16"> mdi-account-plus-outline </v-icon>
+
+                Thêm
+              </button>
+            </div>
+
+            <!-- LIST -->
+            <div v-if="guestsLoading" class="guests-loading">
+              <v-progress-circular indeterminate size="26" width="2" />
+
+              <span> Đang tải danh sách khách... </span>
+            </div>
+
+            <div v-else-if="guests.length === 0" class="guests-empty">
+              Chưa có khách mời nào. Thêm khách để nhận link thiệp cá nhân.
+            </div>
+
+            <div v-else class="guests-list">
+              <div
+                v-for="guest in guests"
+                :key="guest.Token"
+                class="guest-row"
+              >
+                <template v-if="editingToken === guest.Token">
+                  <input
+                    v-model.trim="editingName"
+                    type="text"
+                    class="guest-edit-input"
+                    maxlength="100"
+                    @keyup.enter="saveGuestEdit(guest)"
+                  />
+
+                  <button
+                    type="button"
+                    class="action-btn primary"
+                    :disabled="guestsBusy"
+                    @click="saveGuestEdit(guest)"
+                  >
+                    Lưu
+                  </button>
+
+                  <button
+                    type="button"
+                    class="action-btn"
+                    @click="cancelGuestEdit"
+                  >
+                    Hủy
+                  </button>
+                </template>
+
+                <template v-else>
+                  <div class="guest-info">
+                    <strong>{{ guest.Name || "Chưa có tên" }}</strong>
+
+                    <code>{{ guest.Token }}</code>
+                  </div>
+
+                  <div class="guest-actions">
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      title="Sao chép link cá nhân"
+                      @click="copyGuestLink(guest)"
+                    >
+                      <v-icon size="16"> mdi-link-variant </v-icon>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      title="Sửa tên"
+                      @click="startGuestEdit(guest)"
+                    >
+                      <v-icon size="16"> mdi-pencil-outline </v-icon>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="icon-btn danger"
+                      title="Xóa khách"
+                      :disabled="guestsBusy"
+                      @click="removeGuest(guest)"
+                    >
+                      <v-icon size="16"> mdi-delete-outline </v-icon>
+                    </button>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <p class="guests-hint">
+              Mỗi khách có 1 link riêng dạng
+              <code>/{{ guestsTarget.slug }}/{token}</code>. Khi khách mở link,
+              thiệp sẽ hiện đúng tên của họ — bấm biểu tượng link để sao chép.
+            </p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- =====================================================
          TOAST
     ====================================================== -->
     <Transition name="toast">
@@ -216,11 +421,16 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { GetWedding } from "@/model/api";
-import { getRegistry, removeEntry } from "@/model/weddingRegistry";
+import {
+  addRecipient as addRecipientApi,
+  deleteRecipient as deleteRecipientApi,
+  getRecipients as getRecipientsApi,
+  updateRecipient as updateRecipientApi,
+  getMyWeddings,
+} from "@/model/api";
 
 const router = useRouter();
 
@@ -230,32 +440,88 @@ const router = useRouter();
 
 const entries = ref([]);
 const loading = ref(false);
+const loadError = ref("");
 const deleting = ref("");
 const deleteTarget = ref(null);
 const toast = ref("");
+
+/* =========================================================
+   GUESTS
+========================================================= */
+
+const guestsTarget = ref(null);
+const guests = ref([]);
+const guestsLoading = ref(false);
+const guestsBusy = ref(false);
+const guestsMessage = ref("");
+const guestsError = ref(false);
+
+const newGuestName = ref("");
+
+const editingToken = ref("");
+const editingName = ref("");
 
 const fallbackImage =
   "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80";
 
 /* =========================================================
-   LOAD
+   LOAD — danh sách thiệp CỦA TÀI KHOẢN từ API
 ========================================================= */
 
-onMounted(async () => {
+async function loadEntries() {
   loading.value = true;
 
-  /*
-   * Registry là nguồn danh sách. Với mỗi entry,
-   * thử gọi GetWedding để kiểm tra thiệp còn
-   * tồn tại trên server — entry lỗi sẽ bị đánh
-   * dấu (vẫn hiển thị để người dùng biết).
-   */
-  const list = getRegistry();
+  loadError.value = "";
 
-  entries.value = list;
+  try {
+    const response = await getMyWeddings();
 
-  loading.value = false;
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      entries.value = result.data.map((item) => ({
+        slug: item.Slug || item.slug,
+
+        groomName: item.GroomName || item.groomName || "",
+
+        brideName: item.BrideName || item.brideName || "",
+
+        weddingDate: item.WeddingDate || item.weddingDate || "",
+
+        theme: item.ThemeName || item.themeName || item.theme || "",
+
+        coverImage: item.CoverImage || item.coverImage || "",
+
+        status: item.Status || item.status || "",
+
+        createdAt: item.CreatedAt || item.createdAt || "",
+      }));
+    } else {
+      loadError.value =
+        result?.message || "Không thể tải danh sách thiệp.";
+    }
+  } catch (error) {
+    console.error("[Manage] getMyWeddings error:", error);
+
+    loadError.value =
+      error?.response?.data?.message ||
+      "Không thể tải danh sách thiệp. Vui lòng thử lại.";
+  } finally {
+    loading.value = false;
+  }
+}
+
+onMounted(() => {
+  loadEntries();
 });
+
+/* =========================================================
+   RETRY
+========================================================= */
+
+function retryLoad() {
+  loadEntries();
+}
 
 /* =========================================================
    HELPERS
@@ -290,23 +556,6 @@ function formatDate(date) {
   }).format(parsed);
 }
 
-function formatSavedAt(iso) {
-  if (!iso) {
-    return "";
-  }
-
-  const parsed = new Date(iso);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return "";
-  }
-
-  return new Intl.DateTimeFormat("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-  }).format(parsed);
-}
-
 function onImageError(event) {
   event.target.src = fallbackImage;
 }
@@ -316,7 +565,7 @@ function onImageError(event) {
 ========================================================= */
 
 function goCreate() {
-  router.push({ name: "Editor" });
+  router.push({ name: "Templates" });
 }
 
 function editWedding(entry) {
@@ -334,6 +583,43 @@ function viewWedding(entry) {
     name: "WeddingBySlug",
     params: { slug: entry.slug },
   });
+}
+
+/* =========================================================
+   THANH TOÁN — chuyển tới trang kích hoạt thiệp
+========================================================= */
+
+function goPayment(entry) {
+  router.push({
+    name: "WeddingPayment",
+    params: { slug: entry.slug },
+  });
+}
+
+/* =========================================================
+   STATUS CHIP
+========================================================= */
+
+function statusChipLabel(status) {
+  if (status === "Active") return "Đã kích hoạt";
+
+  if (status === "Locked") return "Đã khóa";
+
+  if (status === "Pending") return "Chờ duyệt";
+
+  return "Chờ duyệt";
+}
+
+function statusChipClass(status) {
+  if (status === "Active") return "chip-active";
+
+  if (status === "Locked") return "chip-locked";
+
+  return "chip-pending";
+}
+
+function goHome() {
+  router.push({ name: "Home" });
 }
 
 /* =========================================================
@@ -371,25 +657,252 @@ async function doDelete() {
 
   try {
     /*
-     * Thử xóa trên server (nếu backend hỗ trợ).
-     * Không có endpoint delete wedding nên chỉ
-     * cần không lỗi 404 là coi như xóa local.
+     * Backend chưa có API xóa thiệp — chỉ xóa khỏi
+     * danh sách đang hiển thị (server vẫn giữ thiệp).
+     * Khi backend thêm deleteWedding thì gọi tại đây.
      */
-    try {
-      await GetWedding(target.slug);
-    } catch (e) {
-      // Thiệp không còn trên server — vẫn xóa registry.
-    }
-
-    removeEntry(target.slug);
-
-    entries.value = getRegistry();
+    entries.value = entries.value.filter(
+      (item) => item.slug !== target.slug
+    );
 
     deleteTarget.value = null;
 
     showToast("Đã xóa thiệp khỏi danh sách");
   } finally {
     deleting.value = "";
+  }
+}
+
+/* =========================================================
+   GUESTS MANAGEMENT
+========================================================= */
+
+function showGuestsMessage(message, isError = false) {
+  guestsMessage.value = message;
+  guestsError.value = isError;
+
+  window.clearTimeout(showGuestsMessage.timer);
+
+  showGuestsMessage.timer = window.setTimeout(() => {
+    guestsMessage.value = "";
+    guestsError.value = false;
+  }, 2800);
+}
+
+async function openGuests(entry) {
+  guestsTarget.value = entry;
+  guests.value = [];
+  newGuestName.value = "";
+  editingToken.value = "";
+  editingName.value = "";
+  guestsMessage.value = "";
+  guestsError.value = false;
+
+  guestsLoading.value = true;
+
+  try {
+    const response = await getRecipientsApi({ slug: entry.slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      guests.value = result.data;
+    } else {
+      showGuestsMessage(
+        result?.message || "Không thể tải danh sách khách mời.",
+        true
+      );
+    }
+  } catch (error) {
+    console.error("[Manage] getRecipients error:", error);
+
+    showGuestsMessage(
+      error?.response?.data?.message || "Không thể tải danh sách khách mời.",
+      true
+    );
+  } finally {
+    guestsLoading.value = false;
+  }
+}
+
+function closeGuests() {
+  if (guestsBusy.value || guestsLoading.value) {
+    return;
+  }
+
+  guestsTarget.value = null;
+}
+
+function newGuestToken() {
+  return Math.random().toString(36).substring(2, 11);
+}
+
+async function addGuest() {
+  const target = guestsTarget.value;
+
+  if (!target || guestsBusy.value || !newGuestName.value) {
+    return;
+  }
+
+  guestsBusy.value = true;
+
+  try {
+    const response = await addRecipientApi({
+      slug: target.slug,
+      Token: newGuestToken(),
+      Name: newGuestName.value,
+    });
+
+    const result = response?.data;
+
+    if (result && result.status === "success") {
+      newGuestName.value = "";
+
+      await reloadGuests(target.slug);
+
+      showGuestsMessage("Đã thêm khách mời.");
+    } else {
+      showGuestsMessage(
+        result?.message || "Không thể thêm khách mời.",
+        true
+      );
+    }
+  } catch (error) {
+    console.error("[Manage] addRecipient error:", error);
+
+    showGuestsMessage(
+      error?.response?.data?.message || "Không thể thêm khách mời.",
+      true
+    );
+  } finally {
+    guestsBusy.value = false;
+  }
+}
+
+async function reloadGuests(slug) {
+  const response = await getRecipientsApi({ slug });
+
+  const result = response?.data;
+
+  if (result && result.status === "success" && Array.isArray(result.data)) {
+    guests.value = result.data;
+  }
+}
+
+function startGuestEdit(guest) {
+  editingToken.value = guest.Token;
+  editingName.value = guest.Name || "";
+}
+
+function cancelGuestEdit() {
+  editingToken.value = "";
+  editingName.value = "";
+}
+
+async function saveGuestEdit(guest) {
+  const target = guestsTarget.value;
+
+  if (!target || guestsBusy.value) {
+    return;
+  }
+
+  const nextName = editingName.value;
+
+  if ((nextName || "") === (guest.Name || "")) {
+    cancelGuestEdit();
+
+    return;
+  }
+
+  guestsBusy.value = true;
+
+  try {
+    const response = await updateRecipientApi({
+      slug: target.slug,
+      Token: guest.Token,
+      Name: nextName,
+    });
+
+    const result = response?.data;
+
+    if (result && result.status === "success") {
+      guest.Name = nextName;
+
+      cancelGuestEdit();
+
+      showGuestsMessage("Đã cập nhật tên khách mời.");
+    } else {
+      showGuestsMessage(
+        result?.message || "Không thể cập nhật khách mời.",
+        true
+      );
+    }
+  } catch (error) {
+    console.error("[Manage] updateRecipient error:", error);
+
+    showGuestsMessage(
+      error?.response?.data?.message || "Không thể cập nhật khách mời.",
+      true
+    );
+  } finally {
+    guestsBusy.value = false;
+  }
+}
+
+async function removeGuest(guest) {
+  const target = guestsTarget.value;
+
+  if (!target || guestsBusy.value) {
+    return;
+  }
+
+  guestsBusy.value = true;
+
+  try {
+    const response = await deleteRecipientApi({
+      slug: target.slug,
+      token: guest.Token,
+    });
+
+    const result = response?.data;
+
+    if (result && result.status === "success") {
+      guests.value = guests.value.filter((item) => item.Token !== guest.Token);
+
+      showGuestsMessage("Đã xóa khách mời.");
+    } else {
+      showGuestsMessage(
+        result?.message || "Không thể xóa khách mời.",
+        true
+      );
+    }
+  } catch (error) {
+    console.error("[Manage] deleteRecipient error:", error);
+
+    showGuestsMessage(
+      error?.response?.data?.message || "Không thể xóa khách mời.",
+      true
+    );
+  } finally {
+    guestsBusy.value = false;
+  }
+}
+
+async function copyGuestLink(guest) {
+  const target = guestsTarget.value;
+
+  if (!target || !guest.Token) {
+    return;
+  }
+
+  const url = `${window.location.origin}/${target.slug}/${guest.Token}`;
+
+  try {
+    await navigator.clipboard.writeText(url);
+
+    showToast(`Đã sao chép link của ${guest.Name || "khách mời"}`);
+  } catch (error) {
+    showToast("Không thể sao chép link");
   }
 }
 
@@ -446,7 +959,7 @@ function showToast(message) {
 
   left: -120px;
 
-  background: rgba(201, 166, 107, 0.35);
+  background: rgba(201, 166, 89, 0.3);
 }
 
 .page-glow-2 {
@@ -454,13 +967,42 @@ function showToast(message) {
 
   right: -140px;
 
-  background: rgba(180, 80, 100, 0.22);
+  background: rgba(143, 77, 67, 0.18);
 }
 
 .container {
   width: min(1200px, calc(100% - 32px));
 
   margin: 0 auto;
+}
+
+/* ==================================================
+   BACK ROW
+================================================== */
+
+.back-row {
+  padding-top: 20px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border: 1px solid rgba(78, 53, 53, 0.14);
+  border-radius: 999px;
+  background: #fff;
+  color: #5c4646;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #f7f0ec;
+  border-color: rgba(143, 77, 67, 0.35);
+  color: #8f4d43;
 }
 
 /* ==================================================
@@ -506,7 +1048,7 @@ function showToast(message) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: clamp(30px, 4.4vw, 46px);
 
@@ -569,6 +1111,40 @@ function showToast(message) {
   transform: translateY(-2px);
 
   box-shadow: 0 12px 28px rgba(109, 58, 52, 0.28);
+}
+
+/* ==================================================
+   STATUS CHIP
+================================================== */
+
+.status-chip {
+  padding: 3px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+}
+
+.status-chip.chip-active {
+  background: rgba(46, 125, 50, 0.12);
+
+  color: #2e7d32;
+}
+
+.status-chip.chip-pending {
+  background: rgba(233, 161, 59, 0.16);
+
+  color: #a06a1a;
+}
+
+.status-chip.chip-locked {
+  background: rgba(169, 40, 40, 0.12);
+
+  color: #a92828;
 }
 
 /* ==================================================
@@ -698,7 +1274,7 @@ function showToast(message) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 19px;
 
@@ -781,6 +1357,18 @@ function showToast(message) {
   border-color: #a92828;
 }
 
+.action-btn.pay {
+  color: #1a6b3c;
+
+  border-color: rgba(26, 107, 60, 0.35);
+}
+
+.action-btn.pay:hover {
+  background: #eef7f1;
+
+  border-color: #1a6b3c;
+}
+
 .action-btn:disabled {
   opacity: 0.55;
 
@@ -834,7 +1422,7 @@ function showToast(message) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 21px;
 }
@@ -978,7 +1566,7 @@ function showToast(message) {
 
   color: #2a1d1d;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading);
 
   font-size: 20px;
 }
@@ -1054,6 +1642,326 @@ function showToast(message) {
 }
 
 /* ==================================================
+   GUESTS MODAL
+================================================== */
+
+.guests-panel {
+  display: flex;
+
+  flex-direction: column;
+
+  width: min(560px, 100%);
+
+  max-height: min(640px, calc(100vh - 48px));
+
+  padding: 26px 24px;
+
+  border-radius: 22px;
+
+  background: #fff;
+
+  box-shadow: 0 30px 80px rgba(30, 15, 15, 0.3);
+
+  overflow: hidden;
+}
+
+.guests-head {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.guests-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #8f4d43;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+}
+
+.guests-head h3 {
+  margin: 0;
+
+  color: #2a1d1d;
+
+  font-family: var(--font-heading);
+
+  font-size: 20px;
+}
+
+.guests-slug {
+  margin: 2px 0 0;
+
+  color: #a08c8c;
+
+  font-size: 12px;
+
+  font-family: monospace;
+}
+
+.guests-close {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 34px;
+
+  height: 34px;
+
+  flex: 0 0 34px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: #f7f0ec;
+
+  color: #5c4646;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.guests-close:hover {
+  background: #f0e4dd;
+}
+
+.guests-message {
+  margin: 0 0 12px;
+
+  padding: 9px 13px;
+
+  border-radius: 10px;
+
+  background: rgba(46, 125, 50, 0.08);
+
+  color: #2e7d32;
+
+  font-size: 13px;
+}
+
+.guests-message.error {
+  background: rgba(198, 40, 40, 0.08);
+
+  color: #c62828;
+}
+
+.guest-add-row {
+  display: flex;
+
+  gap: 8px;
+
+  margin-bottom: 14px;
+}
+
+.guest-add-row input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 10px 14px;
+
+  border: 1px solid rgba(78, 53, 53, 0.16);
+
+  border-radius: 12px;
+
+  font-size: 13.5px;
+
+  color: #2a1d1d;
+
+  outline: none;
+
+  transition: border-color 0.2s ease;
+}
+
+.guest-add-row input:focus {
+  border-color: #8f4d43;
+}
+
+.guests-loading {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 30px 0;
+
+  color: #8f4d43;
+
+  font-size: 13.5px;
+}
+
+.guests-empty {
+  padding: 26px 16px;
+
+  border: 1px dashed rgba(143, 77, 67, 0.3);
+
+  border-radius: 14px;
+
+  color: #6d5a5a;
+
+  font-size: 13.5px;
+
+  text-align: center;
+}
+
+.guests-list {
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  overflow-y: auto;
+
+  padding-right: 2px;
+}
+
+.guest-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  border: 1px solid rgba(78, 53, 53, 0.1);
+
+  border-radius: 14px;
+
+  background: #faf7f4;
+}
+
+.guest-info {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.guest-info strong {
+  color: #2a1d1d;
+
+  font-size: 14px;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.guest-info code {
+  color: #a08c8c;
+
+  font-size: 11px;
+
+  font-family: monospace;
+}
+
+.guest-actions {
+  display: flex;
+
+  gap: 6px;
+
+  flex: 0 0 auto;
+}
+
+.icon-btn {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 32px;
+
+  height: 32px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: #fff;
+
+  color: #5c4646;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #f7f0ec;
+
+  color: #8f4d43;
+}
+
+.icon-btn.danger {
+  color: #a92828;
+}
+
+.icon-btn.danger:hover {
+  background: #fdf1f1;
+}
+
+.guest-edit-input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 8px 12px;
+
+  border: 1px solid #8f4d43;
+
+  border-radius: 10px;
+
+  font-size: 13.5px;
+
+  color: #2a1d1d;
+
+  outline: none;
+}
+
+.guests-hint {
+  margin: 14px 0 0;
+
+  color: #9a8484;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+/* ==================================================
    MOBILE
 ================================================== */
 
@@ -1064,6 +1972,18 @@ function showToast(message) {
 
   .manage-grid {
     grid-template-columns: 1fr;
+  }
+
+  .guests-panel {
+    padding: 20px 16px;
+  }
+
+  .guest-add-row {
+    flex-direction: column;
+  }
+
+  .guest-row {
+    flex-wrap: wrap;
   }
 }
 </style>

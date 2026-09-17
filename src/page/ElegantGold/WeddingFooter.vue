@@ -24,13 +24,11 @@
       </div>
 
       <p>
-        Cảm ơn bạn đã dành thời gian
-        <br />
-        đến chung vui cùng gia đình chúng mình.
+        {{ thanksMessage }}
       </p>
 
       <div class="copyright">
-        © {{ currentYear }} · {{ monogram }}
+        {{ copyrightText }}
       </div>
     </div>
   </footer>
@@ -51,14 +49,34 @@ const props = defineProps({
 const groomName = computed(() =>
   props.wedding?.GroomName ||
   props.wedding?.groomName ||
-  "Chú Rể"
+  props.wedding?.footer?.GroomName ||
+  props.wedding?.hero?.GroomName ||
+  props.wedding?.couple?.Groom?.Name ||
+  ""
 );
 
 const brideName = computed(() =>
   props.wedding?.BrideName ||
   props.wedding?.brideName ||
-  "Cô Dâu"
+  props.wedding?.footer?.BrideName ||
+  props.wedding?.hero?.BrideName ||
+  props.wedding?.couple?.Bride?.Name ||
+  ""
 );
+
+const thanksMessage = computed(() => {
+  return (
+    props.wedding?.footer?.Message ||
+    "Cảm ơn bạn đã dành thời gian đến chung vui cùng gia đình chúng mình."
+  );
+});
+
+const copyrightText = computed(() => {
+  return (
+    props.wedding?.footer?.Copyright ||
+    `© ${props.currentYear ?? ""} · ${props.monogram ?? ""}`
+  );
+});
 </script>
 
 <style scoped>

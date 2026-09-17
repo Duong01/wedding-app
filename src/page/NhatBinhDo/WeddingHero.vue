@@ -86,6 +86,7 @@
         <div class="image-decoration image-decoration-right"></div>
 
         <img
+          v-if="coupleImage"
           :src="coupleImage"
           class="couple"
           alt="Cô dâu chú rể"
@@ -157,12 +158,13 @@
 import { computed } from "vue";
 
 import {
-  dauRe,
   chineseHappiness,
   hoa,
   may,
   quat,
 } from "./nhatBinhDoAssets";
+
+import { heroNhatbinh } from "@/assets/decor/decorAssets";
 
 
 const props = defineProps({
@@ -193,8 +195,11 @@ const wedding = computed(() => props.wedding || {});
 const groomName = computed(() => {
   return (
     wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.hero?.GroomName ||
+    wedding.value?.couple?.Groom?.Name ||
     wedding.value?.groom?.name ||
-    "CHÚ RỂ"
+    ""
   );
 });
 
@@ -202,8 +207,11 @@ const groomName = computed(() => {
 const brideName = computed(() => {
   return (
     wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.hero?.BrideName ||
+    wedding.value?.couple?.Bride?.Name ||
     wedding.value?.bride?.name ||
-    "CÔ DÂU"
+    ""
   );
 });
 
@@ -215,7 +223,8 @@ const brideName = computed(() => {
 const coupleImage = computed(() => {
   return (
     wedding.value?.hero?.Image ||
-    dauRe
+    wedding.value?.hero?.Background ||
+    heroNhatbinh
   );
 });
 </script>

@@ -154,6 +154,83 @@
 
 
     <!-- ================================
+         HAI HỌ TỪ THÂN
+         (bố mẹ hai bên — chỉ hiện khi có dữ liệu)
+    ================================= -->
+
+    <div
+      v-if="hasFamilyInfo"
+      class="families"
+    >
+
+      <!-- HỌ CHÚ RỂ -->
+
+      <div
+        v-if="hasGroomFamily"
+        class="family"
+      >
+        <div class="family-label">
+          HỌ CHÚ RỂ
+        </div>
+
+        <div
+          v-if="groomFather"
+          class="parent"
+        >
+          <span class="parent-role">BỐ</span>
+
+          <strong>{{ groomFather }}</strong>
+        </div>
+
+        <div
+          v-if="groomMother"
+          class="parent"
+        >
+          <span class="parent-role">MẸ</span>
+
+          <strong>{{ groomMother }}</strong>
+        </div>
+      </div>
+
+
+      <div class="family-divider">
+        囍
+      </div>
+
+
+      <!-- HỌ CÔ DÂU -->
+
+      <div
+        v-if="hasBrideFamily"
+        class="family"
+      >
+        <div class="family-label">
+          HỌ CÔ DÂU
+        </div>
+
+        <div
+          v-if="brideFather"
+          class="parent"
+        >
+          <span class="parent-role">BỐ</span>
+
+          <strong>{{ brideFather }}</strong>
+        </div>
+
+        <div
+          v-if="brideMother"
+          class="parent"
+        >
+          <span class="parent-role">MẸ</span>
+
+          <strong>{{ brideMother }}</strong>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ================================
          ĐỊA CHỈ
     ================================= -->
 
@@ -550,13 +627,12 @@ const address = computed(() =>
   gap: 5px;
 
   padding: 0 8px;
-}
 
-.family-divider span {
-  width: 1px;
-  height: 18px;
+  color: #9b171b;
 
-  background: #c6a66e;
+  font-family: "Times New Roman", serif;
+
+  font-size: 18px;
 }
 
 .family-divider b {

@@ -4947,5 +4947,239 @@
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
+  },
+  {
+    "Id": 23,
+    "slug": "emerald-luxe",
+    "groomName": "Thành Đạt",
+    "brideName": "Khánh Linh",
+    "language": "vi",
+    "weddingDate": "2027-02-06T11:00:00",
+    "coverImage": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80",
+    "theme": {
+      "Name": "emerald-luxe",
+      "Colors": {
+        "Primary": "#123b2e",
+        "Secondary": "#c9a45c",
+        "Accent": "#e8d3a2",
+        "AccentLight": "#f7f1e3",
+        "Background": "#f2ecdc",
+        "BackgroundSecondary": "#e3dcc4",
+        "Text": "#2e3d36",
+        "TextSecondary": "#6b7a70",
+        "White": "#fdfaf2"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Playfair Display",
+        "Script": "Great Vibes"
+      },
+      "Layout": {
+        "MaxWidth": "1100px",
+        "SectionPadding": "80px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Khánh Linh",
+        "Nickname": "Linh",
+        "Role": "Cô dâu",
+        "Avatar": "",
+        "Cover": "",
+        "Father": "Ông Nguyễn Văn Hòa",
+        "Mother": "Bà Trần Thị Mai",
+        "Address": "Số 88 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",
+        "Description": "Cô gái thanh lịch, yêu hoa hồng và những buổi chiều tà bên cửa sổ."
+      },
+      "Groom": {
+        "Name": "Thành Đạt",
+        "Nickname": "Đạt",
+        "Role": "Chú rể",
+        "Avatar": "",
+        "Cover": "",
+        "Father": "Ông Lê Văn Sơn",
+        "Mother": "Bà Nguyễn Thị Hồng",
+        "Address": "Số 12 Phố Huế, Hai Bà Trưng, Hà Nội",
+        "Description": "Chàng trai trầm ấm, tin rằng hạnh phúc được xây từ những điều nhỏ bé."
+      }
+    },
+    "hero": {
+      "GroomName": "Thành Đạt",
+      "BrideName": "Khánh Linh",
+      "Title": "Save The Date",
+      "WeddingDate": "2027-02-06T11:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "",
+      "Music": "",
+      "Location": "Trung tâm Hội nghị Emerald Palace, 123 Nguyễn Chí Thanh, Hà Nội"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Một buổi chiều thu, chúng mình tình cờ gặp nhau tại quán cà phê nhỏ trên phố cổ. Từ một ly cà phê, chúng mình đã cùng nhau đi qua bốn mùa và quyết định nắm tay nhau suốt cuộc đời."
+    },
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "06",
+        "Month": "02",
+        "Year": "2027",
+        "EventDate": "2027-02-06",
+        "EventTime": "11:00",
+        "Lunar": "Tức ngày 30 tháng 12 năm Bính Ngọ",
+        "Location": "Tư gia nhà gái",
+        "Address": "Số 88 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0227,105.8524"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm Tiệc Cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "06",
+        "Month": "02",
+        "Year": "2027",
+        "EventDate": "2027-02-06",
+        "EventTime": "17:30",
+        "Lunar": "Tức ngày 30 tháng 12 năm Bính Ngọ",
+        "Location": "Trung tâm Hội nghị Emerald Palace",
+        "Address": "123 Nguyễn Chí Thanh, Đống Đa, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0278,105.8254"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 5,
+        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "Id": 6,
+        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "11:00",
+        "Title": "Đón khách",
+        "Description": "Trân trọng đón tiếp quý khách đến chung vui cùng chúng mình.",
+        "Location": "Sảnh chính Emerald Palace",
+        "Icon": "❦"
+      },
+      {
+        "Id": 2,
+        "Time": "11:30",
+        "Title": "Lễ thành hôn",
+        "Description": "Nghi thức trao nhẫn và những lời hứa trọn đời.",
+        "Location": "Sảnh Diamond",
+        "Icon": "✦"
+      },
+      {
+        "Id": 3,
+        "Time": "12:00",
+        "Title": "Khai tiệc",
+        "Description": "Cùng nâng ly chúc mừng hạnh phúc đôi uyên ương.",
+        "Location": "Phòng tiệc chính",
+        "Icon": "✧"
+      },
+      {
+        "Id": 4,
+        "Time": "14:00",
+        "Title": "Kết thúc tiệc",
+        "Description": "Tạm biệt và hẹn gặp lại trong những ngày vui sắp tới.",
+        "Location": "Emerald Palace",
+        "Icon": "❦"
+      }
+    ],
+    "recipientName": {
+      "token": "emeraldluxe2027",
+      "Name": "Quý Khách"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Nếu muốn gửi lời chúc bằng món quà nhỏ, bạn có thể chuyển khoản theo thông tin dưới đây.",
+        "BankName": "Techcombank",
+        "AccountName": "LÊ THÀNH ĐẠT",
+        "AccountNumber": "19036123456789",
+        "QrCode": ""
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn cũng có thể gửi lời chúc thông qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "KHÁNH LINH",
+        "AccountNumber": "0912345678",
+        "QrCode": ""
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ Lưu Bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Thanh Hà",
+          "Message": "Chúc hai bạn trăm năm hạnh phúc, mãi mãi yêu thương nhau như ngày đầu! 💚",
+          "CreatedAt": "09:15 10/01/2027"
+        },
+        {
+          "Id": 2,
+          "Name": "Đức Anh",
+          "Message": "Chúc mừng hạnh phúc hai bạn nhé. Hẹn gặp tại ngày vui!",
+          "CreatedAt": "14:30 12/01/2027"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2027-02-06T11:00:00"
+    },
+    "footer": {
+      "Message": "Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi.",
+      "Copyright": "Thành Đạt & Khánh Linh",
+      "GroomName": "Thành Đạt",
+      "BrideName": "Khánh Linh"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    }
   }
 ]

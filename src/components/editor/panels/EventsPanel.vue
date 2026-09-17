@@ -142,6 +142,8 @@
 </template>
 
 <script setup>
+import { watch } from "vue";
+
 const props = defineProps({
   wedding: { type: Object, required: true },
 });
@@ -177,4 +179,52 @@ function removeEvent(index) {
 
   props.wedding.events.splice(index, 1);
 }
+
+/*
+ * Tự điền Weekday/Day/Month/Year từ EventDate —
+ * người dùng chỉ cần chọn ngày là đủ, không phải
+ * nhập lại từng trường.
+ */
+function applyEventDate(event) {
+  if (!event?.EventDate) {
+    return;
+  }
+
+  const date = new Date(event.EventDate);
+
+  if (Number.isNaN(date.getTime())) {
+    return;
+  }
+
+  const weekdays = [
+    "CHỦ NHẬT",
+    "THỨ HAI",
+    "THỨ BA",
+    "THỨ TƯ",
+    "THỨ NĂM",
+    "THỨ SÁU",
+    "THỨ BẢY",
+  ];
+
+  event.Weekday = weekdays[date.getDay()];
+  event.Day = String(date.getDate());
+  event.Month = String(date.getMonth() + 1);
+  event.Year = String(date.getFullYear());
+}
+
+watch(
+  () => props.wedding?.events,
+  (events) => {
+    if (!Array.isArray(events)) {
+      return;
+    }
+
+    events.forEach((event) => {
+      if (event && event.EventDate) {
+        applyEventDate(event);
+      }
+    });
+  },
+  { deep: true }
+);
 </script>
