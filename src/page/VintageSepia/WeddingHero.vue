@@ -66,7 +66,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroVintage } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -143,7 +142,7 @@ const heroImage = computed(
     props.wedding?.hero?.Image ||
     props.wedding?.hero?.Background ||
     props.wedding?.coverImage ||
-    heroVintage
+    ""
 );
 
 const estYear = computed(() => {

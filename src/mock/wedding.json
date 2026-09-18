@@ -5181,5 +5181,200 @@
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
+  },
+  {
+    "Id": 24,
+    "slug": "long-phung-v3",
+    "groomName": "Thành Đạt",
+    "brideName": "Khánh Linh",
+    "language": "vi",
+    "weddingDate": "2026-07-12T18:00:00",
+    "coverImage": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80",
+    "theme": {
+      "Name": "long-phung-v3",
+      "Colors": {
+        "Primary": "#FFBE89",
+        "Secondary": "#D4AF37",
+        "Background": "#7A0014",
+        "Text": "#FFBE89",
+        "White": "#fff4de"
+      },
+      "Fonts": {
+        "Main": "Baskerville",
+        "Heading": "Big Caslon",
+        "Script": "EB Garamond"
+      },
+      "Layout": {
+        "MaxWidth": "720px",
+        "SectionPadding": "60px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Khánh Linh",
+        "Nickname": "Linh",
+        "Role": "Cô dâu",
+        "Avatar": "",
+        "Cover": "",
+        "Father": "Ông Trần Văn Long",
+        "Mother": "Bà Phạm Thị Hoa",
+        "Address": "12 Nguyễn Trãi, Thanh Xuân, Hà Nội",
+        "Description": "Cô gái thanh lịch, yêu hoa hồng và những buổi chiều tà bên cửa sổ.",
+        "BirthOrder": "Trưởng Nữ"
+      },
+      "Groom": {
+        "Name": "Thành Đạt",
+        "Nickname": "Đạt",
+        "Role": "Chú rể",
+        "Avatar": "",
+        "Cover": "",
+        "Father": "Ông Nguyễn Văn Hùng",
+        "Mother": "Bà Lê Thị Thu",
+        "Address": "45 Phố Huế, Hai Bà Trưng, Hà Nội",
+        "Description": "Chàng trai trầm ấm, tin rằng hạnh phúc được xây từ những điều nhỏ bé.",
+        "BirthOrder": "Út Nam"
+      }
+    },
+    "hero": {
+      "GroomName": "Thành Đạt",
+      "BrideName": "Khánh Linh",
+      "Title": "Save The Date",
+      "Subtitle": "Trân Trọng Kính Mời",
+      "WeddingDate": "2026-07-12T18:00:00",
+      "Time": "18:00",
+      "Location": "VinPalace Cổ Loa, Đông Hội, Đông Anh, Hà Nội",
+      "Photo": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80",
+      "ShowPhotos": true
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Một buổi chiều thu, chúng mình tình cờ gặp nhau tại quán cà phê nhỏ trên phố cổ. Từ một ly cà phê, chúng mình đã cùng nhau đi qua bốn mùa và quyết định nắm tay nhau suốt cuộc đời."
+    },
+    "events": [
+      {
+        "Id": 1,
+        "Title": "TIỆC CƯỚI",
+        "EventDate": "2026-07-12T18:00:00",
+        "Time": "18:00",
+        "LunarDate": "12 tháng 5 năm Bính Ngọ",
+        "ReceptionTime": "17:30",
+        "CeremonyTime": "18:30",
+        "Location": "VinPalace Cổ Loa",
+        "Address": "Đông Hội, Đông Anh, Hà Nội",
+        "Map": "https://maps.google.com/?q=VinPalace+Co+Loa+Dong+Anh+Ha+Noi"
+      }
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80"
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "17:30",
+        "Title": "Đón khách",
+        "Description": "Đón tiếp quý khách đến chung vui cùng gia đình"
+      },
+      {
+        "Id": 2,
+        "Time": "18:30",
+        "Title": "Khai tiệc",
+        "Description": "Khai tiệc mừng ngày thành hôn"
+      },
+      {
+        "Id": 3,
+        "Time": "18:45",
+        "Title": "Rót rượu cắt bánh",
+        "Description": "Nghi thức rót rượu chia tay và cắt bánh cưới"
+      },
+      {
+        "Id": 4,
+        "Time": "19:00",
+        "Title": "Phục vụ món chính",
+        "Description": "Quý khách dùng bữa tối thịnh soạn"
+      },
+      {
+        "Id": 5,
+        "Time": "21:00",
+        "Title": "Kết thúc tiệc",
+        "Description": "Tiệc tàn, tri ân quý khách"
+      }
+    ],
+    "recipientName": {
+      "token": "emeraldluxe2027",
+      "Name": "Quý Khách"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "NHÀ TRAI",
+        "BankName": "Ngân hàng BIDV",
+        "AccountName": "Nguyễn Thành Đạt",
+        "AccountNumber": "0399554682",
+        "QrCode": ""
+      },
+      {
+        "Id": 2,
+        "Name": "NHÀ GÁI",
+        "BankName": "Ngân hàng Vietcombank",
+        "AccountName": "Trần Khánh Linh",
+        "AccountNumber": "099996586",
+        "QrCode": ""
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ Lưu Bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Thanh Hà",
+          "Message": "Chúc hai bạn trăm năm hạnh phúc, mãi mãi yêu thương nhau như ngày đầu! 💚",
+          "CreatedAt": "09:15 10/01/2027"
+        },
+        {
+          "Id": 2,
+          "Name": "Đức Anh",
+          "Message": "Chúc mừng hạnh phúc hai bạn nhé. Hẹn gặp tại ngày vui!",
+          "CreatedAt": "14:30 12/01/2027"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2027-02-06T11:00:00"
+    },
+    "footer": {
+      "Message": "Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi.",
+      "Copyright": "Thành Đạt & Khánh Linh",
+      "GroomName": "Thành Đạt",
+      "BrideName": "Khánh Linh"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "weddingLunar": "12 tháng 5 năm Bính Ngọ",
+    "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
   }
 ]

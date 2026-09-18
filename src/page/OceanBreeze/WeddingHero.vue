@@ -8,7 +8,7 @@
 
     <!-- Ocean photo backdrop -->
     <div class="ob-hero__photo" aria-hidden="true">
-      <img :src="heroOcean" alt="" draggable="false" />
+      <!-- <img :src="heroOcean" alt="" draggable="false" /> -->
     </div>
 
     <!-- Rising bubbles -->
@@ -66,7 +66,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroOcean } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

@@ -107,7 +107,8 @@ const dateText = computed(() => {
       rgba(255, 240, 236, 0.45) 55%,
       rgba(255, 248, 244, 0.75)
     ),
-    url("@/assets/decor/hero-romantic.jpg");
+    radial-gradient(circle at 20% 15%, rgba(244, 194, 208, 0.5), transparent 45%),
+    radial-gradient(circle at 82% 80%, rgba(214, 141, 166, 0.4), transparent 48%);
   background-size: cover;
   background-position: center;
   opacity: 0.55;

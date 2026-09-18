@@ -16,7 +16,6 @@
 </template>
 <script setup>
 import { computed } from "vue";
-import { heroRoyal } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: Object,
@@ -49,7 +48,7 @@ const heroImage = computed(
     props.wedding?.hero?.Image ||
     props.wedding?.hero?.Background ||
     props.wedding?.coverImage ||
-    heroRoyal
+    ""
 );
 </script>
 <style scoped>

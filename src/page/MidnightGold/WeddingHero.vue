@@ -6,7 +6,7 @@
 
       <!-- Night photo backdrop -->
       <div class="mg-hero__photo" aria-hidden="true">
-        <img :src="heroMidnight" alt="" draggable="false" />
+        <!-- <img :src="heroMidnight" alt="" draggable="false" /> -->
       </div>
 
       <!-- Corner stars -->
@@ -67,7 +67,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroMidnight } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

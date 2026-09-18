@@ -38,7 +38,6 @@ import { computed } from "vue";
 import HeroBackground from "./HeroBackground.vue";
 import HeroParticles from "./HeroParticles.vue";
 import HeroCard from "./HeroCard.vue";
-import { heroRoyal } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: {
@@ -80,8 +79,7 @@ const backgroundImage = computed(() => {
     props.wedding?.coverImage ||
     props.wedding?.CoverImage ||
     props.wedding?.hero?.Background ||
-    props.wedding?.hero?.background ||
-    heroRoyal
+    props.wedding?.hero?.background 
   );
 });
 

@@ -164,7 +164,6 @@ import {
   quat,
 } from "./nhatBinhDoAssets";
 
-import { heroModern } from "@/assets/decor/decorAssets";
 
 
 const props = defineProps({
@@ -224,7 +223,7 @@ const coupleImage = computed(() => {
   return (
     wedding.value?.hero?.Image ||
     wedding.value?.hero?.Background ||
-    heroModern
+    ""
   );
 });
 </script>

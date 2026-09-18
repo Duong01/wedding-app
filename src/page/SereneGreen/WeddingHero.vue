@@ -6,7 +6,7 @@
 
       <!-- Garden photo backdrop -->
       <div class="sg-hero__photo" aria-hidden="true">
-        <img :src="heroSerene" alt="" draggable="false" />
+        <!-- <img :src="heroSerene" alt="" draggable="false" /> -->
       </div>
 
       <!-- Corner blooms -->
@@ -83,7 +83,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroSerene } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

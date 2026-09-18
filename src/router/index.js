@@ -10,13 +10,19 @@ const router = createRouter({
 
     routes,
 
-    scrollBehavior() {
+    scrollBehavior(to, from, savedPosition) {
+
+        // Quay lại trang trước (back/forward): giữ nguyên vị trí cuộn
+
+        if (savedPosition) {
+
+            return savedPosition;
+
+        }
 
         return {
 
-            top: 0,
-
-            behavior: "smooth"
+            top: 0
 
         };
 

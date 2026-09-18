@@ -169,6 +169,56 @@ export const useWeddingStore = defineStore("wedding", {
       }
     },
 
+    async loadWeddingNoApi(slug) {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        if (!slug) {
+          throw new Error("Thiếu slug của thiệp cưới.");
+        }
+
+        if (this.cache[slug]) {
+          this.wedding = this.cache[slug];
+
+          return this.wedding;
+        }
+
+        /*
+         * Fallback về mock (mẫu thiệp demo).
+         */
+        if (!Array.isArray(weddingData)) {
+          throw new Error("wedding.json phải có dạng Array []");
+        }
+
+        const foundWedding = weddingData.find((item) => item?.slug === slug);
+
+        if (!foundWedding) {
+          throw new Error(`Không tìm thấy thiệp với slug: ${slug}`);
+        }
+
+        const data = {
+          ...structuredClone(foundWedding),
+        };
+
+        this.cache[slug] = data;
+
+        this.wedding = data;
+
+        return data;
+      } catch (error) {
+        console.error("loadWedding error:", error);
+
+        this.error = error?.Message || "Không thể tải thiệp cưới.";
+
+        this.wedding = null;
+
+        throw error;
+      } finally {
+        this.loading = false;
+      }
+    },
+
     setWedding(data) {
       this.wedding = {
         ...structuredClone(data),

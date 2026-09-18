@@ -6,7 +6,7 @@
     <div class="el-opening__bg"></div>
 
     <div class="el-opening__photo" aria-hidden="true">
-      <img :src="accentEmerald" alt="" draggable="false" />
+      <!-- <img :src="accentEmerald" alt="" draggable="false" /> -->
     </div>
 
     <!-- Gold shimmer particles -->
@@ -79,7 +79,6 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import { accentEmerald } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

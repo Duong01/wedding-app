@@ -10,7 +10,7 @@
 
       <!-- Soft photo backdrop -->
       <div class="lc-hero__photo" aria-hidden="true">
-        <img :src="heroLavender" alt="" draggable="false" />
+        <!-- <img :src="heroLavender" alt="" draggable="false" /> -->
       </div>
 
       <!-- Corner blooms -->
@@ -71,7 +71,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroLavender } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

@@ -94,7 +94,7 @@ async function loadWedding(slug) {
   }
 
   try {
-    await store.loadWedding(slug);
+    await store.loadWeddingNoApi(slug);
   } catch (error) {
     console.error(
       "WeddingDetail load error:",

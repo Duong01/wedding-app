@@ -26,7 +26,7 @@
 
     <!-- Red silk photo backdrop -->
     <div class="dh-hero__photo" aria-hidden="true">
-      <img :src="heroDoublehappiness" alt="" draggable="false" />
+      <!-- <img :src="heroDoublehappiness" alt="" draggable="false" /> -->
     </div>
 
     <div class="dh-hero__content">
@@ -72,7 +72,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroDoublehappiness } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

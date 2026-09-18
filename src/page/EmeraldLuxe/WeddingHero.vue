@@ -64,7 +64,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroEmerald } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -106,7 +105,7 @@ const heroImage = computed(
     props.wedding?.hero?.background ||
     props.wedding?.coverImage ||
     props.wedding?.CoverImage ||
-    heroEmerald
+    ""
 );
 
 const location = computed(

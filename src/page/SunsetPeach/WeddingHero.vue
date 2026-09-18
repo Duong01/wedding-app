@@ -6,7 +6,7 @@
 
       <!-- Soft photo backdrop -->
       <div class="sp-hero__photo" aria-hidden="true">
-        <img :src="heroSunset" alt="" draggable="false" />
+        <!-- <img :src="heroSunset" alt="" draggable="false" /> -->
       </div>
 
       <!-- Corner blooms -->
@@ -67,7 +67,6 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { heroSunset } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },

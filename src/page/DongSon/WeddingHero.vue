@@ -10,7 +10,7 @@
 
     <!-- Bronze drum photo backdrop -->
     <div class="hero-photo" aria-hidden="true">
-      <img :src="heroDongson" alt="" draggable="false" />
+      <!-- <img :src="heroDongson" alt="" draggable="false" /> -->
     </div>
 
     <div class="hero-content">
@@ -62,7 +62,6 @@
 
 <script setup>
 import { computed } from "vue";
-import { heroDongson } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: {

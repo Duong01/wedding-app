@@ -6,7 +6,7 @@
     <div class="eg-opening__bg"></div>
 
     <div class="eg-opening__photo" aria-hidden="true">
-      <img :src="accentChampagne" alt="" draggable="false" />
+      <!-- <img :src="accentChampagne" alt="" draggable="false" /> -->
     </div>
 
     <!-- Gold shimmer particles -->
@@ -79,7 +79,6 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import { accentChampagne } from "@/assets/decor/decorAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
