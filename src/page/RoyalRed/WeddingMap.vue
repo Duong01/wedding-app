@@ -7,13 +7,15 @@
         <h3>{{ e.Title || e.Name }}</h3>
         <p>{{  e.Address || e.Location }}</p>
         <iframe
-          :src="e.Map || e.Map"
+          v-if="embedUrl(e)"
+          :src="embedUrl(e)"
           loading="lazy"
           allowfullscreen
-        ></iframe
-        ><a
-          :href="e.Map || e.Map"
+        ></iframe>
+        <a
+          :href="directionUrl(e)"
           target="_blank"
+          rel="noopener noreferrer"
           >MỞ GOOGLE MAPS</a
         >
       </article>
@@ -28,13 +30,48 @@ const eventsWithLocation = computed(() =>
     (e) =>
       e?.Location ||
       e?.Address ||
-      e?.Location ||
-      e?.Map ||
       e?.Map ||
       e?.MapEmbed ||
       e?.EmbedUrl
   )
 );
+
+/*
+ * URL Google Maps thường không nhúng được vào iframe
+ * (X-Frame-Options: sameorigin) → tự tạo link embed
+ * từ tọa độ trong URL hoặc từ địa chỉ.
+ */
+function embedUrl(event) {
+  if (event?.MapEmbed || event?.EmbedUrl) {
+    return event.MapEmbed || event.EmbedUrl;
+  }
+
+  const raw = event?.Map || "";
+
+  if (!raw) return "";
+
+  if (raw.includes("output=embed")) {
+    return raw;
+  }
+
+  const coords = raw.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+
+  if (coords) {
+    return `https://www.google.com/maps?q=${coords[1]},${coords[2]}&output=embed`;
+  }
+
+  const address = event?.Address || event?.Location || "";
+
+  if (address) {
+    return `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+  }
+
+  return "";
+}
+
+function directionUrl(event) {
+  return event?.Map || event?.MapUrl || "";
+}
 </script>
 <style scoped>
 /* =========================================================

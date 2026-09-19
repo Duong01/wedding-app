@@ -109,6 +109,25 @@ const mapSrc = computed(() => {
     return event.MapEmbed;
   }
 
+  /*
+   * URL Google Maps thường không nhúng được vào iframe
+   * (X-Frame-Options: sameorigin) → tự tạo link embed
+   * từ tọa độ trong URL hoặc từ địa chỉ.
+   */
+  const raw = event.Map || event.MapUrl || "";
+
+  if (raw) {
+    if (raw.includes("output=embed")) {
+      return raw;
+    }
+
+    const coords = raw.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+
+    if (coords) {
+      return `https://www.google.com/maps?q=${coords[1]},${coords[2]}&output=embed`;
+    }
+  }
+
   const address = event.Address || event.Location || event.Place || "";
 
   if (!address) return "";

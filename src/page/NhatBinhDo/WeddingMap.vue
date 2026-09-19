@@ -88,11 +88,18 @@
 
             <div class="map-frame">
       <iframe
+        v-if="event.mapUrl"
         :src="event.mapUrl"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen
       ></iframe>
+
+      <div v-else class="map-frame-fallback">
+        <v-icon size="28">mdi-map-outline</v-icon>
+
+        <span>Chưa có bản đồ — dùng nút CHỈ ĐƯỜNG bên dưới</span>
+      </div>
 
       <div class="map-overlay">
         <div class="map-badge">
@@ -217,15 +224,16 @@ const normalizedEvents = computed(() => {
       if (typeof mapValue === "string") {
 
         /*
-         * Nếu API chỉ có một URL Google Maps,
-         * dùng nó cho nút chỉ đường.
-         *
-         * Không dùng trực tiếp URL maps.google.com
-         * làm iframe vì Google Maps thường yêu cầu
-         * URL embed riêng.
+         * URL Google Maps thường không nhúng được vào iframe
+         * (X-Frame-Options: sameorigin) — chỉ dùng làm link
+         * chỉ đường. Nếu là link embed có sẵn thì giữ nguyên.
          */
 
         directionUrl = mapValue;
+
+        if (mapValue.includes("output=embed")) {
+          mapUrl = mapValue;
+        }
 
       }
 
@@ -250,6 +258,29 @@ const normalizedEvents = computed(() => {
       }
 
 
+      /*
+       * Không có link embed sẵn → tự tạo từ tọa độ trong URL
+       * (maps.google.com/?q=lat,lng) hoặc từ địa chỉ.
+       */
+
+      if (!mapUrl && directionUrl) {
+
+        const coords = directionUrl.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+
+        if (coords) {
+          mapUrl = `https://www.google.com/maps?q=${coords[1]},${coords[2]}&output=embed`;
+        }
+
+      }
+
+
+      if (!mapUrl && item.Address) {
+
+        mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(item.Address)}&output=embed`;
+
+      }
+
+
       return {
 
         id:
@@ -269,7 +300,7 @@ const normalizedEvents = computed(() => {
           "",
 
         mapUrl:
-          item.Map ||
+          item.MapEmbed ||
           item.embedUrl ||
           item.map_embed ||
           mapUrl,
@@ -277,7 +308,8 @@ const normalizedEvents = computed(() => {
         directionUrl:
           item.directionUrl ||
           item.googleMapsUrl ||
-          directionUrl,
+          directionUrl ||
+          item.Map,
 
       };
 
@@ -475,6 +507,29 @@ const normalizedEvents = computed(() => {
   height: 100%;
 
   border: 0;
+}
+
+/* Fallback khi không có URL bản đồ embed */
+.map-frame-fallback {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  height: 100%;
+
+  padding: 20px;
+
+  color: #927b62;
+
+  font-size: 11px;
+
+  line-height: 1.6;
 }
 
 

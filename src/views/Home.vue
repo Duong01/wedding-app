@@ -3,16 +3,21 @@
     <section class="hero-shell">
       <div class="hero-content container">
         <div class="hero-copy">
-          <div class="eyebrow">Ngày Chung Đôi</div>
-          <h1>Tạo thiệp cưới đẹp, đúng phong cách, và mang cảm xúc của hai bạn.</h1>
+          <div class="eyebrow">Nền tảng thiệp cưới</div>
+          <h1>
+            Mỗi thiệp là một
+            <em>bản sắc</em>
+            — kể câu chuyện của hai bạn.
+          </h1>
           <p>
-            Khởi đầu từ mẫu thiết kế hiện có, bạn có thể lựa chọn layout, theme,
-            typography và nội dung theo đúng phong cách gia đình, lễ cưới và câu chuyện yêu thương.
+            Bộ sưu tập thiệp cưới lấy cảm hứng Á Đông: đỏ son, lụa ngà, vàng
+            foil, ấn son. Chọn mẫu, nhập nội dung — thiệp hoàn chỉnh trong vài
+            phút.
           </p>
 
           <div class="cta-row">
             <button class="primary" type="button" @click="scrollToGallery">
-              Xem mẫu thiệp
+              Xem bộ sưu tập
             </button>
             <button class="secondary" type="button" @click="openCreateFlow">
               Tạo thiệp ngay
@@ -20,18 +25,18 @@
           </div>
 
           <p class="trial-hint">
-            <span class="trial-hint-icon">✦</span>
+            <span class="trial-hint-icon">囍</span>
             Dùng thử 3 ngày miễn phí — ưng thì mới thanh toán
           </p>
 
           <div class="hero-stats">
             <div>
-              <strong>12+</strong>
+              <strong>20+</strong>
               <span>Mẫu thiệp</span>
             </div>
             <div>
-              <strong>3x</strong>
-              <span>Nhanh hơn</span>
+              <strong>5</strong>
+              <span>Bộ sưu tập</span>
             </div>
             <div>
               <strong>100%</strong>
@@ -41,18 +46,33 @@
         </div>
 
         <div class="hero-visual">
-          <div class="hero-card glass-card">
-            <div class="mini-card top-card">
-              <span class="kicker">Wedding Invitation</span>
-              <h3>Hà Uyên & Trần Hiếu</h3>
-              <p>14.11.2026</p>
+          <div class="hero-card">
+            <div class="hero-card-frame">
+              <span class="hero-card-orn">囍</span>
+
+              <span class="hero-card-kicker">Trân trọng báo hỷ</span>
+
+              <h3>
+                <span class="hero-card-name">Hà Uyên</span>
+                <span class="hero-card-amp">&</span>
+                <span class="hero-card-name">Trần Hiếu</span>
+              </h3>
+
+              <div class="hero-card-rule">
+                <i></i>
+                <span>14 · 11 · 2026</span>
+                <i></i>
+              </div>
+
+              <p class="hero-card-place">Trung tâm Hội nghị Quốc gia — Hà Nội</p>
             </div>
 
-            <div class="mini-card bottom-card">
-              <div class="dot" />
+            <div class="hero-card-tag">
+              <span class="hero-card-tag-orn">✦</span>
+
               <div>
-                <span>Elegant Gold</span>
-                <small>Theme</small>
+                <strong>Á Đông Sang Trọng</strong>
+                <small>Bộ sưu tập · 5 mẫu</small>
               </div>
             </div>
           </div>
@@ -62,8 +82,12 @@
 
     <section class="features-section container">
       <div class="section-heading">
-        <span class="eyebrow muted">Tính năng</span>
-        <h2>Hệ thống thiệp cưới được xây dựng để làm việc thật nhanh, đẹp thật hiệu quả.</h2>
+        <span class="eyebrow muted">Vì sao chọn chúng tôi</span>
+        <h2>
+          Thiệp cưới được thiết kế như một
+          <span class="heading-accent">tác phẩm</span>
+          — không phải một biểu mẫu.
+        </h2>
       </div>
 
       <div class="feature-grid">
@@ -78,7 +102,7 @@
     <section class="trial-section container">
       <div class="trial-box">
         <div class="trial-badge">
-          <span class="trial-badge-icon">✦</span>
+          <span class="trial-badge-icon">囍</span>
 
           Dùng thử 3 ngày
         </div>
@@ -96,7 +120,7 @@
 
         <div class="trial-steps">
           <div class="trial-step">
-            <span class="trial-step-num">1</span>
+            <span class="trial-step-num">壹</span>
 
             <div>
               <strong>Tạo & chỉnh sửa</strong>
@@ -109,7 +133,7 @@
           </div>
 
           <div class="trial-step">
-            <span class="trial-step-num">2</span>
+            <span class="trial-step-num">贰</span>
 
             <div>
               <strong>Xem trước 3 ngày</strong>
@@ -122,7 +146,7 @@
           </div>
 
           <div class="trial-step">
-            <span class="trial-step-num">3</span>
+            <span class="trial-step-num">叁</span>
 
             <div>
               <strong>Ưng thì thanh toán</strong>
@@ -187,8 +211,12 @@
     <section id="gallery" class="templates-section container">
       <div class="section-heading">
         <div>
-          <span class="eyebrow muted">Mẫu thiệp</span>
-          <h2>Chọn một phong cách phù hợp với ngày trọng đại của bạn.</h2>
+          <span class="eyebrow muted">Bộ sưu tập</span>
+          <h2>
+            Chọn một
+            <span class="heading-accent">bản sắc</span>
+            phù hợp với ngày trọng đại của bạn.
+          </h2>
         </div>
       </div>
 
@@ -201,6 +229,7 @@
           v-for="wedding in featuredWeddings"
           :key="wedding.id || wedding.slug || wedding.Id"
           class="wedding-card"
+          :style="getCardStyle(wedding)"
           @click="openWedding(wedding)"
         >
           <div class="wedding-cover">
@@ -218,16 +247,19 @@
 
           <div class="wedding-info">
             <div class="badge-row">
-              <span class="theme-badge">{{ getThemeLabel(wedding) }}</span>
+              <span class="theme-badge">
+                <i class="badge-orn">{{ getWeddingMeta(wedding).orn }}</i>
+                {{ getThemeLabel(wedding) }}
+              </span>
             </div>
 
             <h3>
               {{ wedding.couple?.Bride?.Name || "" }}
-              &
+              <span class="amp">&</span>
               {{ wedding.couple?.Groom?.Name || "" }}
             </h3>
 
-            <p>{{ formatDate(wedding.weddingDate) }}</p>
+            <p>{{ formatDate(wedding.weddingDate) }} · {{ getCollectionLabel(wedding) }}</p>
 
             <button type="button" @click.stop="openWedding(wedding)">Xem thiệp</button>
           </div>
@@ -246,7 +278,11 @@
       <div class="cta-box">
         <div>
           <span class="eyebrow muted">Tạo thiệp của riêng bạn</span>
-          <h2>Thiết kế thiệp cưới theo cá tính của hai bạn.</h2>
+          <h2>
+            Thiết kế thiệp cưới theo
+            <span class="cta-accent">cá tính</span>
+            của hai bạn.
+          </h2>
           <p class="cta-sub">
             Dùng thử 3 ngày miễn phí — chỉ thanh toán khi bạn thực sự ưng ý.
           </p>
@@ -276,22 +312,22 @@ const FEATURED_COUNT = 8;
 
 const features = [
   {
-    icon: "✦",
-    title: "Template đa dạng",
-    text: "Mỗi mẫu thiệp đều theo phong cách riêng, từ cổ điển, sang trọng đến hiện đại và romantics.",
+    icon: "囍",
+    title: "Bộ sưu tập Á Đông",
+    text: "5 bộ sưu tập với bản sắc riêng — từ đỏ son truyền thống, lụa ngà kim tuyến đến tối giản hiện đại.",
   },
   {
-    icon: "⚙️",
+    icon: "✦",
     title: "Editor linh hoạt",
     text: "Cập nhật nội dung, section, font, màu sắc và bố cục theo đúng cảm nhận của bạn.",
   },
   {
-    icon: "📱",
+    icon: "❀",
     title: "Responsive tối ưu",
     text: "Thiệp hiển thị đẹp trên desktop, tablet và điện thoại với trải nghiệm mượt mà.",
   },
   {
-    icon: "🎵",
+    icon: "♪",
     title: "Tùy chọn âm nhạc",
     text: "Thêm nhịp điệu, âm thanh và những chi tiết riêng để thiệp có cảm xúc đậm hơn.",
   },
@@ -319,9 +355,9 @@ const perks = [
     text: "Dùng thử toàn bộ tính năng 3 ngày, ưng thì mới thanh toán — không ràng buộc.",
   },
   {
-    icon: "🎨",
-    title: "17+ mẫu thiệp",
-    text: "Từ truyền thống đỏ vàng đến hiện đại tối giản, luôn có mẫu hợp với gu của hai bạn.",
+    icon: "✦",
+    title: "20+ mẫu thiệp",
+    text: "5 bộ sưu tập — Á Đông, Kim Tuyến, Lãng Mạn, Thiên Nhiên, Tối Giản — luôn có mẫu hợp gu.",
   },
   {
     icon: "✍️",
@@ -349,7 +385,7 @@ const perks = [
     text: "Khách mời gửi lời chúc trực tiếp trên thiệp, hai bạn đọc lại mãi về sau.",
   },
   {
-    icon: "🎵",
+    icon: "♪",
     title: "Nhạc nền thiệp",
     text: "Thêm bài hát ý nghĩa mở ra cùng thiệp, cảm xúc thêm phần trọn vẹn.",
   },
@@ -447,11 +483,51 @@ function formatDate(date) {
 }
 
 .landing-page {
+  position: relative;
+
   background:
-    radial-gradient(circle at top left, rgba(201, 166, 89, 0.14), transparent 30%),
-    radial-gradient(circle at 85% 12%, rgba(143, 77, 67, 0.08), transparent 32%),
-    linear-gradient(180deg, #fffaf7 0%, #fffdfb 38%, #faf5ef 100%);
-  color: #2f1d1d;
+    radial-gradient(circle at 8% 4%, rgba(185, 151, 91, 0.12), transparent 34%),
+    radial-gradient(circle at 92% 10%, rgba(166, 58, 46, 0.05), transparent 30%),
+    linear-gradient(180deg, #faf6ee 0%, #f7f1e6 40%, #f2ead9 100%);
+
+  color: var(--studio-ink);
+}
+
+/* Ấn son trang trí góc phải hero — tiết chế như dấu triện */
+.landing-page::before {
+  content: "囍";
+
+  position: absolute;
+
+  top: 96px;
+
+  right: 4%;
+
+  z-index: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 88px;
+
+  height: 88px;
+
+  border: 2px solid rgba(166, 58, 46, 0.14);
+
+  border-radius: 14px;
+
+  color: rgba(166, 58, 46, 0.2);
+
+  font-family: var(--font-symbol);
+
+  font-size: 44px;
+
+  transform: rotate(6deg);
+
+  pointer-events: none;
 }
 
 .hero-shell {
@@ -470,7 +546,7 @@ function formatDate(date) {
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
-  color: #a3702f;
+  color: var(--studio-foil);
   font-size: 12px;
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -481,17 +557,17 @@ function formatDate(date) {
   content: "";
   width: 28px;
   height: 1px;
-  background: linear-gradient(90deg, #c9a659, transparent);
+  background: linear-gradient(90deg, var(--studio-foil), transparent);
 }
 
 .eyebrow.muted {
-  color: #8a6a55;
+  color: var(--studio-ink-faint);
 }
 
 .hero-copy h1 {
   margin: 0;
-  max-width: 600px;
-  color: #241a1a;
+  max-width: 620px;
+  color: var(--studio-ink);
   font-family: var(--font-heading);
   font-size: clamp(42px, 5.6vw, 68px);
   line-height: 1.02;
@@ -499,10 +575,15 @@ function formatDate(date) {
   font-weight: 600;
 }
 
+.hero-copy h1 em {
+  font-style: italic;
+  color: var(--studio-seal);
+}
+
 .hero-copy p {
   max-width: 620px;
   margin-top: 20px;
-  color: #5d4b4b;
+  color: var(--studio-ink-soft);
   font-size: 17px;
   line-height: 1.8;
 }
@@ -527,15 +608,15 @@ button.secondary {
 }
 
 button.primary {
-  background: linear-gradient(135deg, #8f4d43, #6d3a34);
-  color: #fff;
-  box-shadow: 0 16px 34px rgba(109, 58, 52, 0.28);
+  background: linear-gradient(135deg, var(--studio-seal), #7c2a20);
+  color: #f7f1e6;
+  box-shadow: 0 16px 34px rgba(166, 58, 46, 0.26);
 }
 
 button.secondary {
-  background: rgba(255, 255, 255, 0.75);
-  color: #6d3a34;
-  border: 1px solid rgba(109, 58, 52, 0.22);
+  background: rgba(255, 253, 248, 0.8);
+  color: var(--studio-ink);
+  border: 1px solid var(--studio-line-strong);
 }
 
 button.primary:hover,
@@ -559,11 +640,11 @@ button.secondary:hover {
 .hero-stats strong {
   font-family: var(--font-heading);
   font-size: 30px;
-  color: #241a1a;
+  color: var(--studio-ink);
 }
 
 .hero-stats span {
-  color: #7a605f;
+  color: var(--studio-ink-faint);
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -576,15 +657,16 @@ button.secondary:hover {
   margin: 18px 0 0;
   padding: 9px 16px;
   border-radius: 999px;
-  background: rgba(201, 166, 89, 0.14);
-  color: #8a6a2f;
+  background: var(--studio-foil-soft);
+  color: #7c6234;
   font-size: 13px;
   font-weight: 600;
 }
 
 .trial-hint-icon {
-  color: #c9a659;
-  font-size: 12px;
+  color: var(--studio-seal);
+  font-family: var(--font-symbol);
+  font-size: 13px;
 }
 
 .hero-visual {
@@ -592,95 +674,137 @@ button.secondary:hover {
   justify-content: center;
 }
 
+/*
+ * Thiệp mockup hero — thiệp giấy dó viền foil,
+ * ấn son 囍, tên bằng chữ heading, ngày có kim tuyến.
+ */
 .hero-card {
   position: relative;
-  width: min(440px, 100%);
-  min-height: 520px;
-  border-radius: 32px;
-  background: linear-gradient(160deg, rgba(255,255,255,0.78), rgba(250,243,235,0.85));
-  border: 1px solid rgba(94, 68, 68, 0.08);
-  box-shadow: 0 28px 90px rgba(59, 34, 30, 0.14);
-  overflow: hidden;
+  width: min(400px, 100%);
+  padding: 14px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, #fffdf8, #f6efdf);
+  border: 1px solid var(--studio-line);
+  box-shadow: 0 30px 80px rgba(43, 33, 24, 0.16);
 }
 
-.hero-card::before {
-  content: "";
-  position: absolute;
-  inset: 30px 40px auto auto;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,166,89,0.24), transparent 70%);
-}
-
-.glass-card {
-  padding: 30px;
-}
-
-.mini-card {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(90, 58, 58, 0.05);
-  box-shadow: 0 18px 35px rgba(42, 28, 28, 0.08);
-  backdrop-filter: blur(8px);
-}
-
-.top-card {
-  left: 36px;
-  right: 36px;
-  top: 44px;
-  padding: 30px 22px;
-  border-radius: 30px;
+.hero-card-frame {
+  position: relative;
+  padding: 52px 30px 44px;
+  border: 1px solid rgba(185, 151, 91, 0.45);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(185, 151, 91, 0.1), transparent 55%),
+    #fffdf8;
   text-align: center;
 }
 
-.kicker {
-  color: #8c6a5f;
-  font-size: 11px;
-  letter-spacing: 0.18em;
+.hero-card-orn {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--studio-seal);
+  font-family: var(--font-symbol);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.hero-card-kicker {
+  display: block;
+  margin-top: 26px;
+  color: var(--studio-ink-faint);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
 }
 
-.top-card h3 {
-  margin: 14px 0 6px;
-  font-size: clamp(28px, 3vw, 42px);
-  line-height: 1.1;
-  color: #2a1c1d;
+.hero-card-frame h3 {
+  margin: 14px 0 0;
+  color: var(--studio-ink);
   font-family: var(--font-heading);
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
 }
 
-.top-card p {
-  margin: 0;
-  color: #7a5d58;
+.hero-card-name {
+  display: block;
 }
 
-.bottom-card {
-  left: 52px;
-  right: 52px;
-  bottom: 42px;
+.hero-card-amp {
+  display: block;
+  margin: 2px 0;
+  color: var(--studio-foil);
+  font-family: var(--font-script);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.hero-card-rule {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 20px;
-  border-radius: 18px;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
 }
 
-.dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a659, #8f4d43);
-  box-shadow: 0 0 0 7px rgba(201, 166, 89, 0.16);
+.hero-card-rule i {
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--studio-foil));
 }
 
-.bottom-card span {
-  display: block;
+.hero-card-rule i:last-child {
+  background: linear-gradient(90deg, var(--studio-foil), transparent);
+}
+
+.hero-card-rule span {
+  color: var(--studio-seal);
+  font-size: 13px;
   font-weight: 700;
-  color: #2a1d1d;
+  letter-spacing: 0.22em;
 }
 
-.bottom-card small {
-  color: #7a655d;
+.hero-card-place {
+  margin: 12px 0 0;
+  color: var(--studio-ink-faint);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.hero-card-tag {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--studio-ink);
+  color: #f7f1e6;
+  box-shadow: 0 16px 36px rgba(43, 33, 24, 0.3);
+  white-space: nowrap;
+}
+
+.hero-card-tag strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hero-card-tag small {
+  color: rgba(247, 241, 230, 0.66);
+  font-size: 11px;
+}
+
+.hero-card-tag-orn {
+  color: var(--studio-foil-bright);
+  font-family: var(--font-symbol);
+  font-size: 15px;
 }
 
 .features-section,
@@ -708,10 +832,15 @@ button.secondary:hover {
 .section-heading h2 {
   max-width: 760px;
   margin: 0;
-  color: #221819;
+  color: var(--studio-ink);
   font-family: var(--font-heading);
   font-size: clamp(30px, 4vw, 50px);
   line-height: 1.05;
+}
+
+.heading-accent {
+  color: var(--studio-seal);
+  font-style: italic;
 }
 
 /* ==================================================
@@ -728,10 +857,10 @@ button.secondary:hover {
   padding: 44px 40px;
   border-radius: 30px;
   background:
-    radial-gradient(circle at 88% 12%, rgba(201, 166, 89, 0.2), transparent 42%),
-    linear-gradient(135deg, #fffaf5, #fdf3e9);
-  border: 1px solid rgba(201, 166, 89, 0.35);
-  box-shadow: 0 24px 60px rgba(109, 58, 52, 0.1);
+    radial-gradient(circle at 88% 12%, rgba(185, 151, 91, 0.18), transparent 42%),
+    linear-gradient(135deg, #fffdf8, #f6efdf);
+  border: 1px solid rgba(185, 151, 91, 0.4);
+  box-shadow: 0 24px 60px rgba(43, 33, 24, 0.08);
   text-align: center;
 }
 
@@ -741,36 +870,39 @@ button.secondary:hover {
   gap: 8px;
   padding: 8px 18px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #c9a659, #8f4d43);
-  color: #fff;
+  background: var(--studio-ink);
+  color: #f7f1e6;
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  box-shadow: 0 10px 24px rgba(143, 77, 67, 0.28);
+  box-shadow: 0 10px 24px rgba(43, 33, 24, 0.24);
 }
 
 .trial-badge-icon {
+  color: var(--studio-foil-bright);
+  font-family: var(--font-symbol);
   font-size: 13px;
 }
 
 .trial-box h2 {
   max-width: 640px;
   margin: 20px auto 0;
-  color: #241a1a;
+  color: var(--studio-ink);
   font-family: var(--font-heading);
   font-size: clamp(28px, 3.6vw, 44px);
   line-height: 1.12;
 }
 
 .trial-box h2 span {
-  color: #8f4d43;
+  color: var(--studio-seal);
+  font-style: italic;
 }
 
 .trial-desc {
   max-width: 620px;
   margin: 16px auto 0;
-  color: #5d4b4b;
+  color: var(--studio-ink-soft);
   font-size: 15.5px;
   line-height: 1.8;
 }
@@ -788,8 +920,8 @@ button.secondary:hover {
   gap: 14px;
   padding: 20px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(143, 77, 67, 0.1);
+  background: rgba(255, 253, 248, 0.8);
+  border: 1px solid var(--studio-line);
 }
 
 .trial-step-num {
@@ -797,25 +929,27 @@ button.secondary:hover {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #c9a659, #8f4d43);
-  color: #fff;
-  font-size: 14px;
+  background: var(--studio-foil-soft);
+  border: 1px solid rgba(185, 151, 91, 0.4);
+  color: var(--studio-seal);
+  font-family: var(--font-symbol);
+  font-size: 15px;
   font-weight: 700;
 }
 
 .trial-step strong {
   display: block;
   margin-bottom: 6px;
-  color: #2a1d1d;
+  color: var(--studio-ink);
   font-size: 15px;
 }
 
 .trial-step p {
   margin: 0;
-  color: #6d5a5a;
+  color: var(--studio-ink-soft);
   font-size: 13.5px;
   line-height: 1.65;
 }
@@ -827,14 +961,14 @@ button.secondary:hover {
   margin-top: 28px;
   padding: 12px 22px;
   border-radius: 999px;
-  background: rgba(143, 77, 67, 0.08);
-  color: #6d3a34;
+  background: rgba(166, 58, 46, 0.07);
+  color: var(--studio-seal);
   font-size: 13.5px;
   font-weight: 600;
 }
 
 .trial-note-icon {
-  color: #8f4d43;
+  color: var(--studio-seal);
   font-size: 15px;
 }
 
@@ -844,7 +978,7 @@ button.secondary:hover {
 
 .perks-section .heading-accent {
   display: block;
-  color: #8f4d43;
+  color: var(--studio-seal);
 }
 
 .perks-grid {
@@ -856,15 +990,15 @@ button.secondary:hover {
 .perk-card {
   padding: 26px 22px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(102, 74, 74, 0.06);
-  box-shadow: 0 18px 40px rgba(88, 64, 58, 0.06);
+  background: var(--studio-card);
+  border: 1px solid var(--studio-line);
+  box-shadow: 0 18px 40px rgba(43, 33, 24, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .perk-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 24px 52px rgba(88, 64, 58, 0.12);
+  box-shadow: 0 24px 52px rgba(43, 33, 24, 0.1);
 }
 
 .perk-icon {
@@ -875,20 +1009,21 @@ button.secondary:hover {
   height: 52px;
   margin-bottom: 16px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(201, 166, 89, 0.22), rgba(143, 77, 67, 0.14));
+  background: var(--studio-foil-soft);
+  border: 1px solid rgba(185, 151, 91, 0.28);
   font-size: 24px;
 }
 
 .perk-card h3 {
   margin: 0 0 8px;
-  color: #1d1919;
+  color: var(--studio-ink);
   font-family: var(--font-heading);
   font-size: 20px;
 }
 
 .perk-card p {
   margin: 0;
-  color: #5f4d4c;
+  color: var(--studio-ink-soft);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -910,11 +1045,11 @@ button.secondary:hover {
 
 .feature-card,
 .step-card {
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(102, 74, 74, 0.06);
+  background: var(--studio-card);
+  border: 1px solid var(--studio-line);
   border-radius: 26px;
   padding: 28px 22px;
-  box-shadow: 0 18px 40px rgba(88, 64, 58, 0.06);
+  box-shadow: 0 18px 40px rgba(43, 33, 24, 0.05);
 }
 
 .feature-icon {
@@ -925,14 +1060,17 @@ button.secondary:hover {
   height: 52px;
   margin-bottom: 18px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(201,166,89,0.22), rgba(143,77,67,0.14));
-  font-size: 24px;
+  background: var(--studio-foil-soft);
+  border: 1px solid rgba(185, 151, 91, 0.28);
+  color: var(--studio-seal);
+  font-family: var(--font-symbol);
+  font-size: 22px;
 }
 
 .feature-card h3,
 .step-card h3 {
   margin: 0 0 10px;
-  color: #1d1919;
+  color: var(--studio-ink);
   font-family: var(--font-heading);
   font-size: 26px;
 }
@@ -940,14 +1078,14 @@ button.secondary:hover {
 .feature-card p,
 .step-card p {
   margin: 0;
-  color: #5f4d4c;
+  color: var(--studio-ink-soft);
   line-height: 1.7;
 }
 
 .step-index {
   display: inline-flex;
   margin-bottom: 14px;
-  color: #a3702f;
+  color: var(--studio-foil);
   font-size: 12px;
   letter-spacing: 0.14em;
   font-weight: 700;
@@ -980,13 +1118,13 @@ button.secondary:hover {
 
   padding: 14px 30px;
 
-  border: 1px solid rgba(109, 58, 52, 0.22);
+  border: 1px solid var(--studio-line-strong);
 
   border-radius: 999px;
 
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--studio-card);
 
-  color: #6d3a34;
+  color: var(--studio-ink);
 
   font-size: 14px;
 
@@ -1007,9 +1145,9 @@ button.secondary:hover {
 .view-all-button:hover {
   transform: translateY(-2px);
 
-  background: #fff;
+  background: #fffdf8;
 
-  box-shadow: 0 14px 30px rgba(109, 58, 52, 0.16);
+  box-shadow: 0 14px 30px rgba(43, 33, 24, 0.14);
 }
 
 .view-all-button:hover span {
@@ -1020,16 +1158,17 @@ button.secondary:hover {
   height: 100%;
   overflow: hidden;
   cursor: pointer;
-  background: #fff;
-  border: 1px solid rgba(205, 166, 152, 0.18);
+  background: var(--studio-card);
+  border: 1px solid color-mix(in srgb, var(--card-accent, var(--studio-foil)) 32%, transparent);
   border-radius: 24px;
-  box-shadow: 0 15px 45px rgba(93, 61, 54, 0.08);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 15px 45px rgba(43, 33, 24, 0.07);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .wedding-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 25px 60px rgba(93, 61, 54, 0.15);
+  border-color: color-mix(in srgb, var(--card-accent, var(--studio-foil)) 70%, transparent);
+  box-shadow: 0 25px 60px rgba(43, 33, 24, 0.14);
 }
 
 .wedding-cover {
@@ -1037,7 +1176,7 @@ button.secondary:hover {
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: #f5eeee;
+  background: color-mix(in srgb, var(--card-bg, #f7f1e6) 82%, var(--card-accent, #b9975b));
 }
 
 .wedding-cover img {
@@ -1059,7 +1198,7 @@ button.secondary:hover {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  background: rgba(67, 35, 40, 0.35);
+  background: color-mix(in srgb, var(--card-seal, #a63a2e) 42%, rgba(20, 12, 8, 0.4));
   transition: opacity 0.35s ease;
 }
 
@@ -1089,28 +1228,42 @@ button.secondary:hover {
 .theme-badge {
   display: inline-flex;
   align-items: center;
-  padding: 7px 10px;
-  background: rgba(201,166,89,0.14);
+  gap: 6px;
+  padding: 7px 11px;
+  background: color-mix(in srgb, var(--card-seal, #a63a2e) 12%, transparent);
   border-radius: 999px;
-  color: #8a6a2f;
+  color: var(--card-seal, #a63a2e);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
+.badge-orn {
+  font-family: var(--font-symbol);
+  font-style: normal;
+  font-size: 12px;
+}
+
 .wedding-info h3 {
   margin: 0 0 8px;
-  color: #4d3537;
+  color: var(--card-ink, var(--studio-ink));
   font-family: var(--font-heading);
   font-size: clamp(22px, 2vw, 28px);
   font-weight: 600;
   text-align: left;
 }
 
+.wedding-info h3 .amp {
+  color: var(--card-accent, var(--studio-foil));
+  font-family: var(--font-script);
+  font-size: 0.85em;
+  padding: 0 2px;
+}
+
 .wedding-info p {
   margin: 0 0 18px;
-  color: #a16f76;
+  color: var(--studio-ink-faint);
   font-size: 14px;
   text-align: left;
 }
@@ -1120,8 +1273,8 @@ button.secondary:hover {
   padding: 12px 16px;
   border: 0;
   border-radius: 999px;
-  color: #fff;
-  background: linear-gradient(135deg, #8f4d43, #6d3a34);
+  color: #f7f1e6;
+  background: linear-gradient(135deg, var(--card-seal, #a63a2e), color-mix(in srgb, var(--card-seal, #a63a2e) 78%, #1a1210));
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -1130,7 +1283,7 @@ button.secondary:hover {
 
 .wedding-info button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(109, 58, 52, 0.28);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--card-seal, #a63a2e) 34%, transparent);
 }
 
 .loading,
@@ -1143,18 +1296,18 @@ button.secondary:hover {
 }
 
 .loading {
-  background: rgba(255,255,255,0.5);
-  color: #6d5454;
+  background: rgba(255, 253, 248, 0.6);
+  color: var(--studio-ink-soft);
 }
 
 .error-message {
-  background: #fff0f2;
-  color: #b64c5f;
+  background: rgba(166, 58, 46, 0.08);
+  color: var(--studio-seal);
 }
 
 .empty-message {
-  background: rgba(255,255,255,0.45);
-  color: #6a4c4d;
+  background: rgba(255, 253, 248, 0.55);
+  color: var(--studio-ink-faint);
 }
 
 .cta-box {
@@ -1165,38 +1318,47 @@ button.secondary:hover {
   padding: 36px 40px;
   border-radius: 28px;
   background:
-    radial-gradient(circle at 85% 20%, rgba(201, 166, 89, 0.22), transparent 45%),
-    linear-gradient(135deg, #3a2320, #6d3a34);
-  color: #fff;
-  box-shadow: 0 28px 60px rgba(29, 19, 19, 0.2);
+    radial-gradient(circle at 85% 20%, rgba(185, 151, 91, 0.24), transparent 45%),
+    linear-gradient(135deg, #241b12, #4a3a28);
+  color: #f7f1e6;
+  box-shadow: 0 28px 60px rgba(43, 33, 24, 0.24);
 }
 
 .cta-box h2 {
   margin: 0;
-  color: #fff;
+  color: #f7f1e6;
   font-family: var(--font-heading);
   font-size: clamp(30px, 3vw, 46px);
   line-height: 1.1;
 }
 
+.cta-accent {
+  color: var(--studio-foil-bright);
+  font-style: italic;
+}
+
 .cta-box .eyebrow.muted {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(247, 241, 230, 0.66);
 }
 
 .cta-sub {
   margin: 12px 0 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(247, 241, 230, 0.8);
   font-size: 15px;
   line-height: 1.7;
 }
 
 .cta-box button.primary {
-  background: #fff;
-  color: #6d3a34;
+  background: #f7f1e6;
+  color: var(--studio-ink);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
 }
 
 @media (max-width: 980px) {
+  .landing-page::before {
+    display: none;
+  }
+
   .hero-content,
   .feature-grid,
   .steps-grid {
@@ -1289,6 +1451,10 @@ button.secondary:hover {
    * bỏ bớt để trang ngắn hơn, không phải vuốt nhiều.
    */
   .hero-visual {
+    display: none;
+  }
+
+  .landing-page::before {
     display: none;
   }
 

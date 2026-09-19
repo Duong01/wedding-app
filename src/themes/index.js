@@ -1,62 +1,49 @@
-import TraditionalRed from "./TraditionalRed.vue";
-import RomanticPink from "./RomanticPink.vue";
-import ModernWhite from "./ModernWhite.vue";
-import ElegantGold from "./ElegantGold.vue";
-import NhatBinhDo from "./NhatBinhDo.vue";
-import IvoryGold from "./IvoryGold.vue";
-import RoyalRed from "./RoyalRed.vue";
-import DongSon from "./DongSon.vue";
-import SereneGreen from "./SereneGreen.vue";
-import SunsetPeach from "./SunsetPeach.vue";
-import ChampagneBlush from "./ChampagneBlush.vue";
-import MidnightGold from "./MidnightGold.vue";
-import LavenderCream from "./LavenderCream.vue";
-import DoubleHappiness from "./DoubleHappiness.vue";
-import BohoTerracotta from "./BohoTerracotta.vue";
-import VintageSepia from "./VintageSepia.vue";
-import OceanBreeze from "./OceanBreeze.vue";
-import LongPhungV3 from "./LongPhungV3.vue";
-import EmeraldLuxe from "./EmeraldLuxe.vue";
+import { defineAsyncComponent } from "vue";
 
-
+/*
+ * Lazy-load từng theme: mỗi thiệp chỉ tải đúng component của theme
+ * đang mở thay vì import tĩnh toàn bộ 19 theme (mỗi theme ~12 section
+ * component) ngay từ đầu. Consumer dùng `themes[name]` + `<component :is>`
+ * nên không cần thay đổi gì.
+ */
 const themes = {
-  "traditional-red": TraditionalRed,
+  "traditional-red": defineAsyncComponent(() => import("./TraditionalRed.vue")),
 
-  "romantic-pink": RomanticPink,
+  "romantic-pink": defineAsyncComponent(() => import("./RomanticPink.vue")),
 
-  "modern-white": ModernWhite,
+  "modern-white": defineAsyncComponent(() => import("./ModernWhite.vue")),
 
-  "elegant-gold": ElegantGold,
+  "elegant-gold": defineAsyncComponent(() => import("./ElegantGold.vue")),
 
-  "nhat-binh-do": NhatBinhDo,
+  "nhat-binh-do": defineAsyncComponent(() => import("./NhatBinhDo.vue")),
 
-  "ivory-gold": IvoryGold,
+  "ivory-gold": defineAsyncComponent(() => import("./IvoryGold.vue")),
 
-  "royal-red": RoyalRed,
+  "royal-red": defineAsyncComponent(() => import("./RoyalRed.vue")),
 
-  "dong-son": DongSon,
+  "dong-son": defineAsyncComponent(() => import("./DongSon.vue")),
 
-  "serene-green": SereneGreen,
+  "serene-green": defineAsyncComponent(() => import("./SereneGreen.vue")),
 
-  "sunset-peach": SunsetPeach,
+  "sunset-peach": defineAsyncComponent(() => import("./SunsetPeach.vue")),
 
-  "champagne-blush": ChampagneBlush,
+  "champagne-blush": defineAsyncComponent(() => import("./ChampagneBlush.vue")),
 
-  "midnight-gold": MidnightGold,
+  "midnight-gold": defineAsyncComponent(() => import("./MidnightGold.vue")),
 
-  "lavender-cream": LavenderCream,
+  "lavender-cream": defineAsyncComponent(() => import("./LavenderCream.vue")),
 
-  "double-happiness": DoubleHappiness,
+  "double-happiness": defineAsyncComponent(() => import("./DoubleHappiness.vue")),
 
-  "boho-terracotta": BohoTerracotta,
+  "boho-terracotta": defineAsyncComponent(() => import("./BohoTerracotta.vue")),
 
-  "vintage-sepia": VintageSepia,
+  "vintage-sepia": defineAsyncComponent(() => import("./VintageSepia.vue")),
 
-  "ocean-breeze": OceanBreeze,
-  "long-phung-v3": LongPhungV3,
-  "emerald-luxe": EmeraldLuxe
+  "ocean-breeze": defineAsyncComponent(() => import("./OceanBreeze.vue")),
+
+  "long-phung-v3": defineAsyncComponent(() => import("./LongPhungV3.vue")),
+
+  "emerald-luxe": defineAsyncComponent(() => import("./EmeraldLuxe.vue"))
 };
-
-
 
 export default themes;

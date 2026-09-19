@@ -61,7 +61,7 @@
       "WeddingDate": "2026-11-14T08:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh"
     },
     "story": {
@@ -238,7 +238,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So_Beautiful_In_White",
       "Autoplay": false
     }
@@ -305,7 +305,7 @@
       "WeddingDate": "2026-12-06T17:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Trung tâm Hội nghị White Palace, TP. Hồ Chí Minh"
     },
     "story": {
@@ -448,7 +448,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -515,7 +515,7 @@
       "WeddingDate": "2027-01-09T18:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Khách sạn Metropole, Hà Nội"
     },
     "story": {
@@ -658,7 +658,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -725,7 +725,7 @@
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -871,7 +871,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -938,7 +938,7 @@
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1084,7 +1084,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1151,7 +1151,7 @@
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1297,7 +1297,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1364,7 +1364,7 @@
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1510,7 +1510,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1577,7 +1577,7 @@
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/music/wedding.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1723,7 +1723,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1790,7 +1790,7 @@
       "WeddingDate": "2027-02-20T17:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Rose Hall, Hà Nội"
     },
     "story": {
@@ -1951,7 +1951,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2018,7 +2018,7 @@
       "WeddingDate": "2027-04-16T15:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Maison de L'Art, Hà Nội"
     },
     "story": {
@@ -2163,7 +2163,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2230,7 +2230,7 @@
       "WeddingDate": "2027-06-11T18:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Grand Palace, Hà Nội"
     },
     "story": {
@@ -2375,7 +2375,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -2442,7 +2442,7 @@
       "WeddingDate": "2027-08-13T16:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The White Atelier, Hà Nội"
     },
     "story": {
@@ -2587,7 +2587,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2654,7 +2654,7 @@
       "WeddingDate": "2027-10-09T17:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Golden House, Hà Nội"
     },
     "story": {
@@ -2799,7 +2799,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2866,7 +2866,7 @@
       "WeddingDate": "2027-12-10T17:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Bloom Garden, Hà Nội"
     },
     "story": {
@@ -3011,7 +3011,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3078,7 +3078,7 @@
       "WeddingDate": "2028-01-20T17:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Willow House, Hà Nội"
     },
     "story": {
@@ -3223,7 +3223,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3290,7 +3290,7 @@
       "WeddingDate": "2028-03-17T18:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Amber Villa, Hà Nội"
     },
     "story": {
@@ -3435,7 +3435,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3502,7 +3502,7 @@
       "WeddingDate": "2028-05-19T16:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Moonlight Hall, Hà Nội"
     },
     "story": {
@@ -3647,7 +3647,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3714,7 +3714,7 @@
       "WeddingDate": "2028-07-28T17:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Palace Hall, Hà Nội"
     },
     "story": {
@@ -3859,7 +3859,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3926,7 +3926,7 @@
       "WeddingDate": "2028-09-02T17:00:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Rose & Bloom, Hà Nội"
     },
     "story": {
@@ -4071,7 +4071,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -4138,7 +4138,7 @@
       "WeddingDate": "2027-01-16T10:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Nhà hàng Kim Đồng, Hà Nội"
     },
     "story": {
@@ -4289,7 +4289,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -4356,7 +4356,7 @@
       "WeddingDate": "2027-03-20T10:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -4507,7 +4507,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -4574,7 +4574,7 @@
       "WeddingDate": "2027-04-10T10:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Nhà hàng Sen Vàng, Hà Nội"
     },
     "story": {
@@ -4725,7 +4725,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -4792,7 +4792,7 @@
       "WeddingDate": "2027-06-12T10:30:00",
       "Subtitle": "Trân trọng kính mời",
       "Background": "/images/hero.jpg",
-      "Music": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Music": "/music/So_Beautiful_In_White.mp3",
       "Location": "Khu nghỉ dưỡng Biển Xanh, Đồ Sơn"
     },
     "story": {
@@ -4943,7 +4943,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -5177,7 +5177,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -5370,7 +5370,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/src/assets/music/So_Beautiful_In_White.mp3",
+      "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     },
