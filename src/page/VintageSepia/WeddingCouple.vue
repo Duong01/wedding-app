@@ -13,6 +13,17 @@
     <div class="vs-people">
       <!-- CHÚ RỂ -->
       <article class="vs-person vs-person--groom">
+        <div class="vs-person__portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groom"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="vs-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="vs-person__parents">
           <p v-if="groomParents?.Father" class="vs-parents">Ông {{ groomParents.Father }}</p>
           <p v-if="groomParents?.Mother" class="vs-parents">Bà {{ groomParents.Mother }}</p>
@@ -29,6 +40,17 @@
 
       <!-- CÔ DÂU -->
       <article class="vs-person vs-person--bride">
+        <div class="vs-person__portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="bride"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="vs-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="vs-person__parents">
           <p v-if="brideParents?.Father" class="vs-parents">Ông {{ brideParents.Father }}</p>
           <p v-if="brideParents?.Mother" class="vs-parents">Bà {{ brideParents.Mother }}</p>
@@ -118,6 +140,22 @@ const brideDescription = computed(
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
+
+const groomAvatar = computed(
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
+);
+
+const brideAvatar = computed(
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
+);
 
 const weddingDate = computed(
   () =>
@@ -285,6 +323,41 @@ const weddingTime = computed(() => {
   min-width: 0;
 }
 
+.vs-person__portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(194, 168, 120, 0.6);
+  border-radius: 50%;
+
+  background: rgba(255, 253, 246, 0.9);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vs-person__portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.vs-person__initial {
+  font-family: "Allura", cursive;
+
+  font-size: 38px;
+
+  color: #c2a878;
+}
+
 .vs-person__parents {
   min-height: 38px;
 }
@@ -320,7 +393,7 @@ const weddingTime = computed(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.22em;
   font-weight: 700;
@@ -442,7 +515,7 @@ const weddingTime = computed(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -506,7 +579,7 @@ const weddingTime = computed(() => {
 .vs-time-label {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

@@ -566,7 +566,7 @@ onBeforeUnmount(() => {
 
   color: #5d452a;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -757,7 +757,7 @@ onBeforeUnmount(() => {
 
   color: #8a7a52;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.26em;
@@ -951,7 +951,7 @@ onBeforeUnmount(() => {
 
   color: #8a7657;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -987,7 +987,7 @@ onBeforeUnmount(() => {
 .eg-info-label {
   color: #8a7a52;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1205,7 +1205,7 @@ onBeforeUnmount(() => {
 
   background: linear-gradient(135deg, #efe3c8, #d7bb82);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1456,7 +1456,7 @@ onBeforeUnmount(() => {
   }
 
   .eg-account-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .eg-info-value {

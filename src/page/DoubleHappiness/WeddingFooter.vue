@@ -315,7 +315,7 @@ const weddingDate = computed(() => {
 
   color: var(--dh-gold);
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -447,7 +447,7 @@ const weddingDate = computed(() => {
 
   color: rgba(247, 230, 196, 0.55);
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.12em;
 }
@@ -483,7 +483,7 @@ const weddingDate = computed(() => {
   .dh-footer__monogram-label {
     margin-top: 13px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .dh-footer__names {
@@ -503,7 +503,7 @@ const weddingDate = computed(() => {
   }
 
   .dh-footer__copyright {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 

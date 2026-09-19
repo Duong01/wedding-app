@@ -9,30 +9,40 @@
       :src="may"
       class="hero-art hero-cloud-left"
       alt=""
+      loading="lazy"
+      decoding="async"
     />
 
     <img
       :src="may"
       class="hero-art hero-cloud-right"
       alt=""
+      loading="lazy"
+      decoding="async"
     />
 
     <img
       :src="quat"
       class="hero-art hero-fan-right"
       alt=""
+      loading="lazy"
+      decoding="async"
     />
 
     <img
       :src="hoa"
       class="hero-art hero-flower-left"
       alt=""
+      loading="lazy"
+      decoding="async"
     />
 
     <img
       :src="hoa"
       class="hero-art hero-flower-right"
       alt=""
+      loading="lazy"
+      decoding="async"
     />
 
 
@@ -295,7 +305,7 @@ const coupleImage = computed(() => {
 
   color: #8e171a;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -392,7 +402,7 @@ const coupleImage = computed(() => {
 
   color: #a17b43;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 600;
 
@@ -592,7 +602,7 @@ const coupleImage = computed(() => {
 .date-label {
   color: #a17b43;
 
-  font-size: 7px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -622,7 +632,7 @@ const coupleImage = computed(() => {
 
   color: #a17b43;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 600;
 
@@ -671,7 +681,7 @@ const coupleImage = computed(() => {
 .bottom-symbol b {
   color: #b58a45;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 400;
 }
@@ -819,7 +829,7 @@ const coupleImage = computed(() => {
 
 
   .top-label {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 2.5px;
   }
 

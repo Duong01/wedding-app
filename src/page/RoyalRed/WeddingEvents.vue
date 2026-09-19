@@ -816,7 +816,7 @@ const firstEvent = computed(() => {
   color: #a87532;
 
   font-family: "Montserrat", sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 
   letter-spacing: 0.32em;
@@ -914,7 +914,7 @@ const firstEvent = computed(() => {
 .weekday {
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 
   letter-spacing: 0.18em;
@@ -934,7 +934,7 @@ const firstEvent = computed(() => {
 .month {
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 
   letter-spacing: 0.14em;
@@ -964,7 +964,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.08em;
 }
@@ -1014,7 +1014,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 0.2em;
@@ -1057,7 +1057,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 0.28em;
@@ -1091,7 +1091,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 0.05em;
@@ -1156,7 +1156,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 }
 
@@ -1175,7 +1175,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 0.18em;
@@ -1239,7 +1239,7 @@ const firstEvent = computed(() => {
   margin-top: 14px;
   color: #c39440;
   font-family: "Montserrat", sans-serif;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-decoration: none;
@@ -1270,7 +1270,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 
   letter-spacing: 0.18em;
@@ -1469,7 +1469,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 0.2em;
@@ -1500,7 +1500,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 
   letter-spacing: 0.12em;
@@ -1683,7 +1683,7 @@ const firstEvent = computed(() => {
 
   font-family: "Montserrat", sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
 
   letter-spacing: 0.2em;
@@ -1731,7 +1731,7 @@ const firstEvent = computed(() => {
   }
 
   .heading-subtitle {
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: 0.22em;
   }

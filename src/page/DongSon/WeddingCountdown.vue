@@ -123,7 +123,7 @@ onUnmounted(() => {
 }
 
 .title small {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .4em;
   color: #c99552;
 }
@@ -161,7 +161,7 @@ h2 {
 .time-box span {
   display: block;
   margin-top: 5px;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: .2em;
 }
 

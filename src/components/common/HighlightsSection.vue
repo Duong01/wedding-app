@@ -779,7 +779,7 @@ const weddingLunar = computed(() => {
 .event-icon {
   color: #b27b52;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 

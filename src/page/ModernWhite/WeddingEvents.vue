@@ -1106,7 +1106,7 @@ const firstEvent = computed(() => {
     1px solid
     rgba(169, 123, 54, .35);
 
-  font-size: 9px;
+  font-size: 11px;
 
   line-height: 1;
 }
@@ -1413,7 +1413,7 @@ const firstEvent = computed(() => {
 
   color: #98723d;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 1.2px;
@@ -1478,7 +1478,7 @@ const firstEvent = computed(() => {
 
   color: #a07839;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 2px;
@@ -1520,7 +1520,7 @@ const firstEvent = computed(() => {
 .calendar-weekdays span {
   color: #725c43;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: .3px;
@@ -1661,7 +1661,7 @@ const firstEvent = computed(() => {
 
   color: #89651f;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 1.3px;
@@ -1736,7 +1736,7 @@ const firstEvent = computed(() => {
 
   color: #89651f;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 1.2px;
@@ -1889,7 +1889,7 @@ const firstEvent = computed(() => {
   }
 
   .heading-subtitle {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
   }
 
@@ -1909,7 +1909,7 @@ const firstEvent = computed(() => {
   }
 
   .event-kicker {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .event-title-wrap h3 {
@@ -1942,7 +1942,7 @@ const firstEvent = computed(() => {
   }
 
   .schedule-label {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .schedule-item strong {
@@ -1958,7 +1958,7 @@ const firstEvent = computed(() => {
   }
 
   .calendar-weekdays span {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .normal-day {
@@ -1990,7 +1990,7 @@ const firstEvent = computed(() => {
     min-width: 190px;
     min-height: 42px;
 
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 /* =========================================================

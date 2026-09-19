@@ -302,7 +302,7 @@ const weddingDate = computed(() => {
 
   color: rgba(255, 190, 137, 0.5);
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.12em;
 }
@@ -340,7 +340,7 @@ const weddingDate = computed(() => {
   }
 
   .lp-footer__copyright {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 </style>

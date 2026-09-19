@@ -6,7 +6,7 @@
 
       <!-- Soft photo backdrop -->
       <div class="sp-hero__photo" aria-hidden="true">
-        <!-- <img :src="heroSunset" alt="" draggable="false" /> -->
+        <!-- <img :src="heroSunset" alt="" loading="lazy" decoding="async" draggable="false" /> -->
       </div>
 
       <!-- Corner blooms -->
@@ -463,11 +463,11 @@ const dateText = computed(() => {
 .sp-petal--1 { left: 8%; animation-duration: 12s; animation-delay: 0s; }
 .sp-petal--2 { left: 22%; animation-duration: 15s; animation-delay: 3s; font-size: 10px; }
 .sp-petal--3 { left: 36%; animation-duration: 13s; animation-delay: 1.5s; }
-.sp-petal--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 9px; }
+.sp-petal--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 11px; }
 .sp-petal--5 { left: 63%; animation-duration: 12.5s; animation-delay: 2s; }
 .sp-petal--6 { left: 76%; animation-duration: 14.5s; animation-delay: 4.2s; font-size: 11px; }
 .sp-petal--7 { left: 87%; animation-duration: 13.5s; animation-delay: 0.8s; }
-.sp-petal--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 9px; }
+.sp-petal--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 11px; }
 
 /* =========================================================
    KEYFRAMES

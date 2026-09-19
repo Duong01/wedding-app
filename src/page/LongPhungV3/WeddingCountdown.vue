@@ -126,7 +126,7 @@ const values = computed(() => {
 }
 
 .lp-countdown__item span {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.16em;
 

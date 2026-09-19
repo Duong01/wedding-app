@@ -314,7 +314,7 @@ const mapSrc = computed(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.16em;
@@ -378,7 +378,7 @@ const mapSrc = computed(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

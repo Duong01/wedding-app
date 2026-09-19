@@ -142,7 +142,7 @@ const values = computed(() => {
 .vs-countdown__item span {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 

@@ -295,7 +295,7 @@ const weddingDate = computed(() => {
 
   color: #a086b4;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -425,7 +425,7 @@ const weddingDate = computed(() => {
 
   color: #a99cb0;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.12em;
 }
@@ -465,7 +465,7 @@ const weddingDate = computed(() => {
   .lc-footer__monogram-label {
     margin-top: 13px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .lc-footer__names {
@@ -485,7 +485,7 @@ const weddingDate = computed(() => {
   }
 
   .lc-footer__copyright {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 

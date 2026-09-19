@@ -234,17 +234,17 @@ function openInvitation() {
 }
 
 .lp-spark--1 { top: 12%; left: 12%; }
-.lp-spark--2 { top: 20%; right: 16%; font-size: 9px; animation-delay: -0.5s; }
+.lp-spark--2 { top: 20%; right: 16%; font-size: 11px; animation-delay: -0.5s; }
 .lp-spark--3 { top: 34%; left: 7%; font-size: 10px; animation-delay: -1.1s; }
 .lp-spark--4 { top: 42%; right: 8%; animation-delay: -1.7s; }
-.lp-spark--5 { top: 58%; left: 14%; font-size: 8px; animation-delay: -2.2s; }
+.lp-spark--5 { top: 58%; left: 14%; font-size: 10px; animation-delay: -2.2s; }
 .lp-spark--6 { top: 64%; right: 13%; font-size: 11px; animation-delay: -2.8s; }
 .lp-spark--7 { top: 78%; left: 9%; animation-delay: -3.2s; }
-.lp-spark--8 { top: 82%; right: 18%; font-size: 9px; animation-delay: -0.9s; }
-.lp-spark--9 { top: 8%; right: 34%; font-size: 8px; animation-delay: -1.4s; }
+.lp-spark--8 { top: 82%; right: 18%; font-size: 11px; animation-delay: -0.9s; }
+.lp-spark--9 { top: 8%; right: 34%; font-size: 10px; animation-delay: -1.4s; }
 .lp-spark--10 { top: 90%; left: 30%; font-size: 10px; animation-delay: -2s; }
-.lp-spark--11 { top: 26%; left: 26%; font-size: 8px; animation-delay: -2.6s; }
-.lp-spark--12 { top: 70%; right: 30%; font-size: 8px; animation-delay: -3.4s; }
+.lp-spark--11 { top: 26%; left: 26%; font-size: 10px; animation-delay: -2.6s; }
+.lp-spark--12 { top: 70%; right: 30%; font-size: 10px; animation-delay: -3.4s; }
 
 /* =========================================================
    EYEBROW
@@ -257,7 +257,7 @@ function openInvitation() {
 
   font-family: "Times New Roman", Times, serif;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;
@@ -328,7 +328,7 @@ function openInvitation() {
 
   font-family: "Times New Roman", Times, serif;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.34em;

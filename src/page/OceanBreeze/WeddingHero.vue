@@ -8,7 +8,7 @@
 
     <!-- Ocean photo backdrop -->
     <div class="ob-hero__photo" aria-hidden="true">
-      <!-- <img :src="heroOcean" alt="" draggable="false" /> -->
+      <!-- <img :src="heroOcean" alt="" loading="lazy" decoding="async" draggable="false" /> -->
     </div>
 
     <!-- Rising bubbles -->

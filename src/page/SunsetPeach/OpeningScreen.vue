@@ -270,16 +270,16 @@ function openInvitation() {
 }
 
 .sp-sparkle--1 { left: 6%; font-size: 13px; animation-duration: 11s; animation-delay: 0s; }
-.sp-sparkle--2 { left: 16%; font-size: 9px; color: rgba(214, 122, 99, 0.6); animation-duration: 14s; animation-delay: 2.2s; }
+.sp-sparkle--2 { left: 16%; font-size: 11px; color: rgba(214, 122, 99, 0.6); animation-duration: 14s; animation-delay: 2.2s; }
 .sp-sparkle--3 { left: 27%; font-size: 16px; animation-duration: 12.5s; animation-delay: 1s; }
-.sp-sparkle--4 { left: 38%; font-size: 8px; color: rgba(214, 122, 99, 0.55); animation-duration: 15s; animation-delay: 3.4s; }
+.sp-sparkle--4 { left: 38%; font-size: 10px; color: rgba(214, 122, 99, 0.55); animation-duration: 15s; animation-delay: 3.4s; }
 .sp-sparkle--5 { left: 49%; font-size: 12px; animation-duration: 10.5s; animation-delay: 0.8s; }
 .sp-sparkle--6 { left: 60%; font-size: 10px; color: rgba(214, 122, 99, 0.6); animation-duration: 13.5s; animation-delay: 2.8s; }
 .sp-sparkle--7 { left: 70%; font-size: 15px; animation-duration: 12s; animation-delay: 1.6s; }
-.sp-sparkle--8 { left: 80%; font-size: 8px; color: rgba(214, 122, 99, 0.55); animation-duration: 14.5s; animation-delay: 4s; }
+.sp-sparkle--8 { left: 80%; font-size: 10px; color: rgba(214, 122, 99, 0.55); animation-duration: 14.5s; animation-delay: 4s; }
 .sp-sparkle--9 { left: 89%; font-size: 12px; animation-duration: 11.5s; animation-delay: 0.4s; }
 .sp-sparkle--10 { left: 95%; font-size: 10px; color: rgba(214, 122, 99, 0.6); animation-duration: 15.5s; animation-delay: 3s; }
-.sp-sparkle--11 { left: 44%; font-size: 7px; animation-duration: 16s; animation-delay: 5s; }
+.sp-sparkle--11 { left: 44%; font-size: 11px; animation-duration: 16s; animation-delay: 5s; }
 .sp-sparkle--12 { left: 33%; font-size: 11px; color: rgba(214, 122, 99, 0.6); animation-duration: 13s; animation-delay: 6s; }
 
 /* =========================================================
@@ -320,7 +320,7 @@ function openInvitation() {
 
   color: var(--sp-coral);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;
@@ -375,7 +375,7 @@ function openInvitation() {
 
   color: var(--sp-gold);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.34em;

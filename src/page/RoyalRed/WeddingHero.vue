@@ -134,7 +134,7 @@ const heroImage = computed(
   position: absolute;
   bottom: 22px;
   right: 20px;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.16em;
   opacity: 0.55;
 }

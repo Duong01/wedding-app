@@ -565,7 +565,7 @@ onBeforeUnmount(() => {
 
   color: #b85c48;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -754,7 +754,7 @@ onBeforeUnmount(() => {
 
   color: #d67a63;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.26em;
@@ -954,7 +954,7 @@ onBeforeUnmount(() => {
 
   color: #a3806f;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -993,7 +993,7 @@ onBeforeUnmount(() => {
 .sp-info-label {
   color: #d67a63;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1209,7 +1209,7 @@ onBeforeUnmount(() => {
 
   background: linear-gradient(135deg, #d67a63, #b85c48);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1477,7 +1477,7 @@ onBeforeUnmount(() => {
   }
 
   .sp-account-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .sp-info-value {

@@ -140,10 +140,7 @@
           class="section gallery-section"
         >
 
-          <WeddingGallery
-            :gallery="gallery"
-            @open="openGallery"
-          />
+          <WeddingGallery :gallery="gallery" />
 
         </section>
 
@@ -370,7 +367,6 @@ import WeddingWishes from "@/page/NhatBinhDo/WeddingWishes.vue";
 import WeddingFooter from "@/page/NhatBinhDo/WeddingFooter.vue";
 
 import {
-  paper,
   chineseHappiness,
   chuHy,
   dauRe,
@@ -425,8 +421,6 @@ const opened = ref(false);
 
 const floatingMusicRef = ref(null);
 
-const galleryIndex = ref(0);
-
 const currentYear = new Date().getFullYear();
 
 
@@ -435,7 +429,6 @@ const currentYear = new Date().getFullYear();
 ========================================================== */
 
 const assets = {
-  paper,
   chineseHappiness,
   chuHy,
   dauRe,
@@ -627,9 +620,6 @@ async function handleOpen() {
    GALLERY
 ========================================================== */
 
-function openGallery(index) {
-  galleryIndex.value = index;
-}
 </script>
 
 

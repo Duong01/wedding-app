@@ -13,6 +13,17 @@
     <div class="ob-people">
       <!-- CHÚ RỂ -->
       <article class="ob-person ob-person--groom">
+        <div class="ob-person__portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groom"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="ob-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="ob-person__parents">
           <p v-if="groomParents?.Father" class="ob-parents">Ông {{ groomParents.Father }}</p>
           <p v-if="groomParents?.Mother" class="ob-parents">Bà {{ groomParents.Mother }}</p>
@@ -29,6 +40,17 @@
 
       <!-- CÔ DÂU -->
       <article class="ob-person ob-person--bride">
+        <div class="ob-person__portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="bride"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="ob-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="ob-person__parents">
           <p v-if="brideParents?.Father" class="ob-parents">Ông {{ brideParents.Father }}</p>
           <p v-if="brideParents?.Mother" class="ob-parents">Bà {{ brideParents.Mother }}</p>
@@ -118,6 +140,22 @@ const brideDescription = computed(
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
+
+const groomAvatar = computed(
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
+);
+
+const brideAvatar = computed(
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
+);
 
 const weddingDate = computed(
   () =>
@@ -292,6 +330,41 @@ const weddingTime = computed(() => {
   box-shadow: 0 10px 28px rgba(29, 106, 142, 0.08);
 }
 
+.ob-person__portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(74, 154, 184, 0.55);
+  border-radius: 50%;
+
+  background: rgba(240, 250, 253, 0.9);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ob-person__portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.ob-person__initial {
+  font-family: "Allura", cursive;
+
+  font-size: 38px;
+
+  color: #4a9ab8;
+}
+
 .ob-person__parents {
   min-height: 38px;
 }
@@ -325,7 +398,7 @@ const weddingTime = computed(() => {
 
   color: #e8927c;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -428,7 +501,7 @@ const weddingTime = computed(() => {
 .ob-date-side span {
   color: #e8927c;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -484,7 +557,7 @@ const weddingTime = computed(() => {
 }
 
 .ob-time-label {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

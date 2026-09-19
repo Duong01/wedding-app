@@ -490,7 +490,7 @@ onBeforeUnmount(() => {
 
   color: rgba(255, 190, 137, 0.85);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -774,7 +774,7 @@ onBeforeUnmount(() => {
 
   color: rgba(255, 190, 137, 0.6);
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -813,7 +813,7 @@ onBeforeUnmount(() => {
 .lp-info-label {
   color: rgba(255, 190, 137, 0.6);
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1034,7 +1034,7 @@ onBeforeUnmount(() => {
 
   background: #ffbe89;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;

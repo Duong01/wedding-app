@@ -120,7 +120,9 @@ async function loadWishes() {
   }
 }
 
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 async function submitWish() {
   if (submitting.value) {
@@ -547,7 +549,7 @@ async function submitWish() {
   }
 
   .head small {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .content p {
@@ -582,7 +584,7 @@ async function submitWish() {
   }
 
   .head small {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .content p {

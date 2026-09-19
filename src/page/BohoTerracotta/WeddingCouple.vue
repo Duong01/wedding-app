@@ -13,6 +13,17 @@
     <div class="bt-people">
       <!-- CHÚ RỂ -->
       <article class="bt-person bt-person--groom">
+        <div class="bt-person__portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groom"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="bt-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="bt-person__parents">
           <p v-if="groomParents?.Father" class="bt-parents">Ông {{ groomParents.Father }}</p>
           <p v-if="groomParents?.Mother" class="bt-parents">Bà {{ groomParents.Mother }}</p>
@@ -29,6 +40,17 @@
 
       <!-- CÔ DÂU -->
       <article class="bt-person bt-person--bride">
+        <div class="bt-person__portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="bride"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="bt-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="bt-person__parents">
           <p v-if="brideParents?.Father" class="bt-parents">Ông {{ brideParents.Father }}</p>
           <p v-if="brideParents?.Mother" class="bt-parents">Bà {{ brideParents.Mother }}</p>
@@ -118,6 +140,22 @@ const brideDescription = computed(
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
+
+const groomAvatar = computed(
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
+);
+
+const brideAvatar = computed(
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
+);
 
 const weddingDate = computed(
   () =>
@@ -313,6 +351,41 @@ const weddingTime = computed(() => {
   background: rgba(255, 251, 245, 0.6);
 }
 
+.bt-person__portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(156, 91, 63, 0.55);
+  border-radius: 50%;
+
+  background: rgba(255, 251, 245, 0.9);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bt-person__portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.bt-person__initial {
+  font-family: "Allura", cursive;
+
+  font-size: 38px;
+
+  color: #c97b5d;
+}
+
 .bt-person__parents {
   min-height: 38px;
 }
@@ -346,7 +419,7 @@ const weddingTime = computed(() => {
 
   color: #8a9b7c;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -447,7 +520,7 @@ const weddingTime = computed(() => {
 .bt-date-side span {
   color: #8a9b7c;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -503,7 +576,7 @@ const weddingTime = computed(() => {
 }
 
 .bt-time-label {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

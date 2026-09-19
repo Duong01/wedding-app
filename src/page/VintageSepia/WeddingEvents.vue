@@ -649,7 +649,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 
@@ -699,7 +699,7 @@ onBeforeUnmount(() => {
 .vs-event-time small {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.2em;
 
@@ -773,7 +773,7 @@ onBeforeUnmount(() => {
 }
 
 .vs-schedule-dot span {
-  font-size: 7px;
+  font-size: 11px;
 
   color: #97745a;
 }
@@ -790,7 +790,7 @@ onBeforeUnmount(() => {
 .vs-schedule-content span {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.16em;
 
@@ -831,7 +831,7 @@ onBeforeUnmount(() => {
 .vs-calendar__header span {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -842,7 +842,7 @@ onBeforeUnmount(() => {
 .vs-calendar__header strong {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.1em;
 
@@ -868,7 +868,7 @@ onBeforeUnmount(() => {
 .vs-calendar__weekdays span {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   color: #97745a;
@@ -929,7 +929,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -1125,7 +1125,7 @@ onBeforeUnmount(() => {
 .vs-modal-header > span {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.28em;
 
@@ -1301,7 +1301,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.22em;
 

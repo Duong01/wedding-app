@@ -577,7 +577,7 @@ onBeforeUnmount(() => {
 
   color: #1d6a8e;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -766,7 +766,7 @@ onBeforeUnmount(() => {
 
   color: #e8927c;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.26em;
@@ -966,7 +966,7 @@ onBeforeUnmount(() => {
 
   color: #5b8296;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1005,7 +1005,7 @@ onBeforeUnmount(() => {
 .ob-info-label {
   color: #e8927c;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1221,7 +1221,7 @@ onBeforeUnmount(() => {
 
   background: linear-gradient(135deg, #4a9ab8, #1d6a8e);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1483,7 +1483,7 @@ onBeforeUnmount(() => {
   }
 
   .ob-account-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .ob-info-value {

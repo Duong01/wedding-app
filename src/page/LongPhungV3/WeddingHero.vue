@@ -4,13 +4,15 @@
     <div class="lp-hero__bg" aria-hidden="true">
       <div ref="parallaxRef" class="lp-hero__bg-track">
         <img
-          v-for="n in 12"
+          v-for="n in 6"
           :key="n"
           :src="n % 2 === 1 ? phung : rong"
           alt=""
           class="lp-hero__bg-img"
           :class="{ 'lp-hero__bg-img--first': n === 1 }"
           draggable="false"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
@@ -33,8 +35,8 @@
 
       <!-- Khung SVG + ảnh cưới + 2 chim én -->
       <div v-if="showPhotos" class="lp-hero__frame-wrap">
-        <img :src="chimEn" alt="" aria-hidden="true" class="lp-hero__bird lp-hero__bird--left" draggable="false" />
-        <img :src="chimEn" alt="" aria-hidden="true" class="lp-hero__bird lp-hero__bird--right" draggable="false" />
+        <img :src="chimEn" alt="" loading="lazy" decoding="async" aria-hidden="true" class="lp-hero__bird lp-hero__bird--left" draggable="false" />
+        <img :src="chimEn" alt="" loading="lazy" decoding="async" aria-hidden="true" class="lp-hero__bird lp-hero__bird--right" draggable="false" />
 
         <svg
           class="lp-hero__frame"
@@ -129,7 +131,7 @@ function onScroll() {
   ticking = true;
 
   window.requestAnimationFrame(() => {
-    if (parallaxRef.value) {
+    if (parallaxRef.value && window.innerWidth >= 768) {
       parallaxRef.value.style.transform = `translateY(${window.scrollY * 0.08}px)`;
     }
 
@@ -281,6 +283,15 @@ const dateText = computed(() => {
   height: auto;
 
   opacity: 0.4;
+}
+
+/* Mobile: tắt parallax transform để cuộn mượt hơn */
+@media (max-width: 767px) {
+  .lp-hero__bg-track {
+    transform: translateX(-50%) !important;
+
+    will-change: auto;
+  }
 }
 
 .lp-hero__bg-img--first {
@@ -577,6 +588,8 @@ const dateText = computed(() => {
 
 @media (prefers-reduced-motion: reduce) {
   .lp-hero__bg-track {
+    transform: translateX(-50%) !important;
+
     will-change: auto;
   }
 }

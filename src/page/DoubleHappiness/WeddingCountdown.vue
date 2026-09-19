@@ -136,7 +136,7 @@ const values = computed(() => {
 .dh-countdown__item span {
   position: relative;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 

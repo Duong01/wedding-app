@@ -84,7 +84,7 @@ const date = computed(() => {
   display: block;
   margin-top: 20px;
   opacity: 0.4;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.14em;
 }
 </style>

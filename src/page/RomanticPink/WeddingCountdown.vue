@@ -70,7 +70,7 @@ const values = computed(() => {
 }
 
 .countdown-item span {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.1em;
   color: #b56882;
 }

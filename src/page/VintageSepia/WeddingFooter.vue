@@ -314,7 +314,7 @@ const weddingDate = computed(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -452,7 +452,7 @@ const weddingDate = computed(() => {
 
   color: #a89478;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.12em;
 }
@@ -492,7 +492,7 @@ const weddingDate = computed(() => {
   .vs-footer__monogram-label {
     margin-top: 13px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .vs-footer__names {
@@ -512,7 +512,7 @@ const weddingDate = computed(() => {
   }
 
   .vs-footer__copyright {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 

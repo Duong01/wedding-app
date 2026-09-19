@@ -36,6 +36,17 @@
 
       <div class="person">
 
+        <div class="person-portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groomName"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="person-initial">{{ groomName.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="person-role">
           CHÚ RỂ
         </div>
@@ -69,6 +80,17 @@
       <!-- CÔ DÂU -->
 
       <div class="person">
+
+        <div class="person-portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="brideName"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="person-initial">{{ brideName.charAt(0) || "♥" }}</span>
+        </div>
 
         <div class="person-role">
           CÔ DÂU
@@ -284,6 +306,20 @@ const groomName = computed(() =>
 const brideName = computed(() =>
   wedding.value?.BrideName ||
   wedding.value?.couple?.Bride?.Name ||
+  "",
+);
+
+const groomAvatar = computed(() =>
+  wedding.value?.couple?.Groom?.Avatar ||
+  wedding.value?.groom?.avatar ||
+  wedding.value?.groom?.image ||
+  "",
+);
+
+const brideAvatar = computed(() =>
+  wedding.value?.couple?.Bride?.Avatar ||
+  wedding.value?.bride?.avatar ||
+  wedding.value?.bride?.image ||
   "",
 );
 
@@ -514,7 +550,7 @@ const address = computed(() =>
 
   color: #b08748;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 
   letter-spacing: 3px;
@@ -585,7 +621,7 @@ const address = computed(() =>
 
   color: #ad8446;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
 
   letter-spacing: 1.7px;
@@ -608,7 +644,7 @@ const address = computed(() =>
 .parent-role {
   color: #9a7847;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -668,12 +704,48 @@ const address = computed(() =>
   min-width: 0;
 }
 
+.person-portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(181, 138, 69, 0.65);
+  border-radius: 50%;
+
+  background: rgba(246, 236, 217, 0.92);
+
+  box-shadow: 0 8px 22px rgba(114, 14, 18, 0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.person-portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.person-initial {
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 40px;
+  font-weight: 600;
+
+  color: #b58a45;
+}
+
 .person-role {
   margin-bottom: 7px;
 
   color: #ae8547;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 
   letter-spacing: 2px;
@@ -712,7 +784,7 @@ const address = computed(() =>
 .name-decoration i {
   color: #b1874a;
 
-  font-size: 7px;
+  font-size: 11px;
 
   font-style: normal;
 }
@@ -759,7 +831,7 @@ const address = computed(() =>
 
   color: #ae8548;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
 
   letter-spacing: 2.5px;
@@ -812,7 +884,7 @@ const address = computed(() =>
 
   font-family: Georgia, "Times New Roman", serif;
 
-  font-size: 47px;
+  font-size: clamp(34px, 9vw, 47px);
   font-weight: 900;
 
   line-height: .9;
@@ -920,7 +992,7 @@ const address = computed(() =>
   }
 
   .parent-role {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .parent strong {
@@ -940,7 +1012,7 @@ const address = computed(() =>
   }
 
   .weekday {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .month {

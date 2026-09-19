@@ -332,7 +332,7 @@ function formatDate(dateString) {
 
   backdrop-filter: blur(5px);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.15em;
@@ -400,7 +400,7 @@ function formatDate(dateString) {
 
   color: #b17486;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

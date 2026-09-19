@@ -284,7 +284,7 @@ function openInvitation() {
 
   color: var(--bt-clay);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;
@@ -338,7 +338,7 @@ function openInvitation() {
 
   color: var(--bt-sage);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.34em;

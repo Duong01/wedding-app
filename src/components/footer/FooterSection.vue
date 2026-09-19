@@ -197,7 +197,7 @@ const currentYear = new Date().getFullYear();
 }
 
 .ornament-diamond {
-  font-size: 9px;
+  font-size: 11px;
 
   color: var(--footer-gold-light);
 
@@ -503,7 +503,7 @@ const currentYear = new Date().getFullYear();
 
     margin-bottom: 20px;
 
-    font-size: 9px;
+    font-size: 11px;
 
     letter-spacing: 3px;
   }

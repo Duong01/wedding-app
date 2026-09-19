@@ -111,7 +111,7 @@ const values = computed(() => {
 }
 
 .cb-countdown__item span {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 

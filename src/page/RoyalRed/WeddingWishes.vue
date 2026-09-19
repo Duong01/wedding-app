@@ -382,7 +382,9 @@ async function loadWishes() {
   }
 }
 
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 
 /* =========================================================
@@ -603,7 +605,7 @@ async function submit() {
 
   color: #c9a45c;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 600;
 
@@ -798,7 +800,7 @@ async function submit() {
 
   color: #d7b56b;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 600;
 
@@ -1017,7 +1019,7 @@ async function submit() {
   color:
     rgba(201,164,92,.35);
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .08em;
 
@@ -1064,7 +1066,7 @@ async function submit() {
 
   color: #360004;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -1114,7 +1116,7 @@ async function submit() {
 
 .button-icon {
 
-  font-size: 9px;
+  font-size: 11px;
 
 }
 
@@ -1234,7 +1236,7 @@ async function submit() {
 
   color: #b98b45;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .3em;
 
@@ -1344,7 +1346,7 @@ async function submit() {
 
   color: #b98b45;
 
-  font-size: 9px;
+  font-size: 11px;
 
 }
 
@@ -1425,7 +1427,7 @@ async function submit() {
 
   color: #b98b45;
 
-  font-size: 7px;
+  font-size: 11px;
 
   font-style: normal;
 
@@ -1465,7 +1467,7 @@ async function submit() {
 
   color: #c9a45c;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 600;
 
@@ -1550,7 +1552,7 @@ async function submit() {
 
   color: #b98b45;
 
-  font-size: 9px;
+  font-size: 11px;
 
 }
 
@@ -1580,7 +1582,7 @@ async function submit() {
 
   .rr-kicker {
 
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: .34em;
 
@@ -1624,7 +1626,7 @@ async function submit() {
 
   .paper-title {
 
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: .2em;
 

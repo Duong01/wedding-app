@@ -457,7 +457,7 @@ function openInvitation() {
 .sparkle--3 {
   top: 51%;
   left: 8%;
-  font-size: 9px;
+  font-size: 11px;
   animation-delay: 1.4s;
 }
 
@@ -548,7 +548,7 @@ function openInvitation() {
 
   color: rgba(255, 235, 225, 0.8);
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -695,7 +695,7 @@ function openInvitation() {
 .card-eyebrow {
   color: #b17486;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 700;
 
@@ -848,7 +848,7 @@ function openInvitation() {
 
   color: #aa7381;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 700;
 
@@ -1199,7 +1199,7 @@ function openInvitation() {
   color:
     rgba(255, 237, 229, 0.68);
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.08em;
 
@@ -1596,7 +1596,7 @@ function openInvitation() {
   .opening__eyebrow {
     margin-bottom: 14px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .opening__brand > span {
@@ -1643,7 +1643,7 @@ function openInvitation() {
   }
 
   .card-invite {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .envelope__card h1 {
@@ -1682,7 +1682,7 @@ function openInvitation() {
   }
 
   .hint {
-    font-size: 8px;
+    font-size: 10px;
 
     text-align: center;
   }

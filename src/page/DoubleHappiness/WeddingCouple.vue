@@ -13,6 +13,17 @@
     <div class="dh-people">
       <!-- CHÚ RỂ -->
       <article class="dh-person dh-person--groom">
+        <div class="dh-person__portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groom"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="dh-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="dh-person__parents">
           <p v-if="groomParents?.Father" class="dh-parents">Ông {{ groomParents.Father }}</p>
           <p v-if="groomParents?.Mother" class="dh-parents">Bà {{ groomParents.Mother }}</p>
@@ -29,6 +40,17 @@
 
       <!-- CÔ DÂU -->
       <article class="dh-person dh-person--bride">
+        <div class="dh-person__portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="bride"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="dh-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="dh-person__parents">
           <p v-if="brideParents?.Father" class="dh-parents">Ông {{ brideParents.Father }}</p>
           <p v-if="brideParents?.Mother" class="dh-parents">Bà {{ brideParents.Mother }}</p>
@@ -118,6 +140,22 @@ const brideDescription = computed(
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
+
+const groomAvatar = computed(
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
+);
+
+const brideAvatar = computed(
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
+);
 
 const weddingDate = computed(
   () =>
@@ -290,6 +328,41 @@ const weddingTime = computed(() => {
   min-width: 0;
 }
 
+.dh-person__portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(217, 164, 65, 0.65);
+  border-radius: 50%;
+
+  background: rgba(92, 14, 16, 0.6);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dh-person__portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.dh-person__initial {
+  font-family: "Allura", cursive;
+
+  font-size: 38px;
+
+  color: #d9a441;
+}
+
 .dh-person__parents {
   min-height: 38px;
 }
@@ -325,7 +398,7 @@ const weddingTime = computed(() => {
 
   color: var(--dh-gold);
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -447,7 +520,7 @@ const weddingTime = computed(() => {
 .dh-date-side span {
   color: var(--dh-red-bright);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -509,7 +582,7 @@ const weddingTime = computed(() => {
 }
 
 .dh-time-label {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

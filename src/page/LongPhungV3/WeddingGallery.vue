@@ -9,30 +9,16 @@
       được lưu giữ cùng chúng mình
     </p>
 
-    <!-- Lưới 2 cột, tối đa 4 ảnh + đếm ảnh tràn -->
-    <div v-if="gallery.length" class="lp-gallery__grid">
-      <figure
-        v-for="(item, index) in visibleImages"
-        :key="index"
-        class="lp-gallery__item"
-        @click="openLightbox(index)"
-      >
-        <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" draggable="false" />
-      </figure>
-
-      <figure
-        v-if="overflowCount > 0"
-        class="lp-gallery__item lp-gallery__item--overflow"
-        @click="openLightbox(maxVisible)"
-      >
-        <img :src="src(gallery[maxVisible])" alt="" loading="lazy" draggable="false" />
-
-        <div class="lp-gallery__overflow">
-          <strong>+{{ overflowCount }}</strong>
-          <span>XEM THÊM</span>
-        </div>
-      </figure>
-    </div>
+    <!-- CAROUSEL VÒNG -->
+    <ModernGalleryCarousel
+      v-if="gallery.length"
+      :images="gallery"
+      accent="#ffbe89"
+      text-color="#ffbe89"
+      frame-bg="rgba(255, 190, 137, 0.08)"
+      :radius="8"
+      @open="openLightbox"
+    />
 
     <div v-else class="lp-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
@@ -56,7 +42,10 @@
 </template>
 
 <script setup>
-import { computed, ref, defineAsyncComponent } from "vue";
+import { ref, defineAsyncComponent } from "vue";
+
+import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
@@ -64,22 +53,6 @@ const GalleryModal = defineAsyncComponent(() =>
 const props = defineProps({
   gallery: { type: Array, default: () => [] },
 });
-
-const maxVisible = 4;
-
-function src(item) {
-  if (typeof item === "string") {
-    return item;
-  }
-
-  return item?.Url || item?.Image || item?.Src || item?.ImageUrl || "";
-}
-
-const visibleImages = computed(() => props.gallery.slice(0, maxVisible));
-
-const overflowCount = computed(() =>
-  props.gallery.length > maxVisible ? props.gallery.length - maxVisible - 1 : 0
-);
 
 const currentIndex = ref(0);
 const dialog = ref(false);
@@ -153,96 +126,6 @@ function closeLightbox() {
   line-height: 1.7;
 
   color: rgba(255, 190, 137, 0.7);
-}
-
-/* =====================================================
-   LƯỚI ẢNH 2 CỘT
-===================================================== */
-
-.lp-gallery__grid {
-  width: min(100%, 550px);
-
-  margin: 0 auto;
-
-  padding: 0 16px;
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-@media (min-width: 768px) {
-  .lp-gallery__grid {
-    gap: 16px;
-
-    padding: 0 24px;
-  }
-}
-
-.lp-gallery__item {
-  position: relative;
-
-  margin: 0;
-
-  aspect-ratio: 1 / 1;
-
-  overflow: hidden;
-
-  cursor: pointer;
-
-  border: 1px solid rgba(255, 190, 137, 0.25);
-  border-radius: 8px;
-
-  -webkit-tap-highlight-color: transparent;
-}
-
-.lp-gallery__item img {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.lp-gallery__item:hover img {
-  transform: scale(1.05);
-}
-
-/* Ô đếm ảnh tràn */
-.lp-gallery__item--overflow img {
-  filter: brightness(0.5);
-}
-
-.lp-gallery__overflow {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-
-  background: rgba(0, 0, 0, 0.55);
-}
-
-.lp-gallery__overflow strong {
-  font-family: "Big Caslon", "Baskerville", "Times New Roman", serif;
-
-  font-size: 30px;
-
-  color: #ffbe89;
-}
-
-.lp-gallery__overflow span {
-  font-size: 9px;
-
-  letter-spacing: 0.2em;
-
-  color: rgba(255, 190, 137, 0.8);
 }
 
 /* =====================================================

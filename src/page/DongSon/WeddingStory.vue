@@ -99,7 +99,7 @@ defineProps({
 }
 
 .section-title small {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .4em;
   color: #c99552;
 }

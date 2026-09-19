@@ -348,7 +348,7 @@ const normalizedEvents = computed(() => {
 
   color: #a47b3f;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 800;
 
@@ -829,7 +829,7 @@ const normalizedEvents = computed(() => {
     0 5px 14px
     rgba(117, 17, 22, .16);
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 800;
 
@@ -992,7 +992,7 @@ const normalizedEvents = computed(() => {
 
   .heading-kicker {
 
-    font-size: 7px;
+    font-size: 11px;
 
     letter-spacing: 2.2px;
 
@@ -1046,7 +1046,7 @@ const normalizedEvents = computed(() => {
 
     min-height: 39px;
 
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: 1.5px;
 

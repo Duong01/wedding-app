@@ -9,7 +9,7 @@
     <div class="event-list">
       <article
         v-for="(event, index) in events"
-        :key="event.id || index"
+        :key="event.id || event.Id || index"
         class="event-card"
       >
         <div class="event-number">
@@ -23,17 +23,17 @@
 
         <div class="event-content">
           <span class="event-type">
-            {{ event.type || event.title || "LỄ CƯỚI" }}
+            {{ event.type || event.Type || event.title || "LỄ CƯỚI" }}
           </span>
 
           <h3>
-            {{ event.name || event.title || "Lễ thành hôn" }}
+            {{ event.name || event.Name || event.title || "Lễ thành hôn" }}
           </h3>
 
           <div class="event-row">
             <b>THỜI GIAN</b>
             <span>
-              {{ event.time || event.Time || "" }}
+              {{ event.time || event.Time || event.EventTime || "" }}
             </span>
           </div>
 
@@ -45,9 +45,10 @@
           </div>
 
           <a
-            v-if="event.mapUrl || event.map"
-            :href="event.mapUrl || event.map"
+            v-if="event.mapUrl || event.MapUrl || event.map"
+            :href="event.mapUrl || event.MapUrl || event.map"
             target="_blank"
+            rel="noopener noreferrer"
             class="map-button"
           >
             XEM BẢN ĐỒ
@@ -80,7 +81,7 @@ defineProps({
 }
 
 .title small {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .4em;
   color: #a96b32;
 }
@@ -145,7 +146,7 @@ h2 {
 }
 
 .event-type {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .3em;
   color: #a96b32;
 }
@@ -164,7 +165,7 @@ h3 {
 }
 
 .event-row b {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: .2em;
   color: #9b6257;
 }
@@ -173,6 +174,8 @@ h3 {
   font-family: Georgia, serif;
   font-size: 13px;
   line-height: 1.5;
+
+  overflow-wrap: anywhere;
 }
 
 .map-button {
@@ -182,7 +185,31 @@ h3 {
   border: 1px solid #a96b32;
   color: #641914;
   text-decoration: none;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .2em;
+
+  transition: background .2s ease, color .2s ease;
+}
+
+.map-button:hover {
+  background: #a96b32;
+  color: #fffaf0;
+}
+
+@media (max-width: 480px) {
+  .events {
+    padding: 54px 14px;
+  }
+
+  .event-card {
+    grid-template-columns: 34px 46px 1fr;
+    gap: 11px;
+    padding: 18px 14px;
+  }
+
+  .event-icon {
+    width: 42px;
+    height: 42px;
+  }
 }
 </style>

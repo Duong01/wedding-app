@@ -6,7 +6,7 @@
 
       <!-- Garden photo backdrop -->
       <div class="sg-hero__photo" aria-hidden="true">
-        <!-- <img :src="heroSerene" alt="" draggable="false" /> -->
+        <!-- <img :src="heroSerene" alt="" loading="lazy" decoding="async" draggable="false" /> -->
       </div>
 
       <!-- Corner blooms -->
@@ -507,11 +507,11 @@ const dateText = computed(() => {
 .sg-sparkle--1 { left: 8%; animation-duration: 12s; animation-delay: 0s; }
 .sg-sparkle--2 { left: 22%; animation-duration: 15s; animation-delay: 3s; font-size: 10px; }
 .sg-sparkle--3 { left: 36%; animation-duration: 13s; animation-delay: 1.5s; }
-.sg-sparkle--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 9px; }
+.sg-sparkle--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 11px; }
 .sg-sparkle--5 { left: 63%; animation-duration: 12.5s; animation-delay: 2s; }
 .sg-sparkle--6 { left: 76%; animation-duration: 14.5s; animation-delay: 4.2s; font-size: 11px; }
 .sg-sparkle--7 { left: 87%; animation-duration: 13.5s; animation-delay: 0.8s; }
-.sg-sparkle--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 9px; }
+.sg-sparkle--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 11px; }
 
 /* =========================================================
    KEYFRAMES

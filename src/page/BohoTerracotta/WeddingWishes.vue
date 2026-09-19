@@ -261,8 +261,9 @@ async function loadWishes() {
     console.warn("[BohoTerracotta][Wishes] Không tải được lời chúc:", error);
   }
 }
-
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 /* =========================================
    SUBMIT
@@ -527,7 +528,7 @@ async function submitWish() {
 
   color: #8a9b7c;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -605,7 +606,7 @@ async function submitWish() {
 
   color: #bda394;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -748,7 +749,7 @@ async function submitWish() {
 
   white-space: nowrap;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.1em;
@@ -869,7 +870,7 @@ async function submitWish() {
 .bt-wish-header span {
   color: #b09a8c;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .bt-wish-header > .v-icon {
@@ -1003,7 +1004,7 @@ async function submitWish() {
 }
 
 .bt-marquee-label span {
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -1058,7 +1059,7 @@ async function submitWish() {
 .bt-wish-marquee-item i {
   color: #c97b5d;
 
-  font-size: 9px;
+  font-size: 11px;
   font-style: normal;
 
   animation: bt-marquee-flower 1.8s ease-in-out infinite;
@@ -1081,7 +1082,7 @@ async function submitWish() {
 .bt-marquee-dot {
   color: #c97b5d;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 400;
 }
 
@@ -1183,7 +1184,7 @@ async function submitWish() {
   }
 
   .bt-marquee-label span {
-    font-size: 5px;
+    font-size: 11px;
   }
 }
 

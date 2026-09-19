@@ -294,7 +294,7 @@ const copyrightText = computed(() => {
     "Helvetica Neue",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -499,7 +499,7 @@ const copyrightText = computed(() => {
     "Helvetica Neue",
     sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 500;
 
@@ -638,7 +638,7 @@ const copyrightText = computed(() => {
   .footer-monogram {
     margin-top: 13px;
 
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: 3px;
   }
@@ -677,7 +677,7 @@ const copyrightText = computed(() => {
   .footer p {
     max-width: 250px;
 
-    font-size: 9px;
+    font-size: 11px;
 
     line-height: 1.8;
 
@@ -695,7 +695,7 @@ const copyrightText = computed(() => {
 
 
   .footer small {
-    font-size: 7px;
+    font-size: 11px;
   }
 
 }

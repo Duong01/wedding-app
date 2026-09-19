@@ -1050,7 +1050,7 @@ onBeforeUnmount(() => {
 
   margin-top: 15px;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: .16em;
 
@@ -1073,7 +1073,7 @@ onBeforeUnmount(() => {
 
   gap: 13px;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: .18em;
 
@@ -1256,7 +1256,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 3px;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .14em;
 }
@@ -1295,7 +1295,7 @@ onBeforeUnmount(() => {
 }
 
 .event-time-box small {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .18em;
 }
@@ -1358,7 +1358,7 @@ onBeforeUnmount(() => {
 
 .schedule-dot span {
 
-  font-size: 7px;
+  font-size: 11px;
 }
 
 .schedule-content {
@@ -1373,7 +1373,7 @@ onBeforeUnmount(() => {
 
 .schedule-content span {
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: .14em;
 }
@@ -1399,7 +1399,7 @@ onBeforeUnmount(() => {
 }
 
 .calendar-header span {
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -1407,7 +1407,7 @@ onBeforeUnmount(() => {
 }
 
 .calendar-header strong {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: .1em;
 }
@@ -1429,7 +1429,7 @@ onBeforeUnmount(() => {
 }
 
 .calendar-weekdays span {
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 700;
 }
@@ -1514,7 +1514,7 @@ onBeforeUnmount(() => {
 
 .location-label {
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: .2em;
@@ -1541,7 +1541,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 7px;
   border: 1px solid rgba(190,151,78,.3);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: .14em;
   text-decoration: none;
@@ -1561,7 +1561,7 @@ onBeforeUnmount(() => {
 
   gap: 13px;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -1655,7 +1655,7 @@ onBeforeUnmount(() => {
 
 .modal-header > span {
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .25em;
 }
@@ -1767,7 +1767,7 @@ onBeforeUnmount(() => {
   display: block;
 
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .2em;
 }

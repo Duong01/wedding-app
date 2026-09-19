@@ -664,7 +664,7 @@ const bride = computed(
 .royal-symbol b {
   color: var(--gold-1);
 
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .title {
@@ -681,7 +681,7 @@ const bride = computed(
 
   font-family: Arial, sans-serif;
 
-  font-size: 7px;
+  font-size: 11px;
 
   letter-spacing: .35em;
 
@@ -748,7 +748,7 @@ const bride = computed(
 }
 
 .guest-label {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: .28em;
 
@@ -874,7 +874,7 @@ const bride = computed(
 .date-label {
   font-family: Arial, sans-serif;
 
-  font-size: 7px;
+  font-size: 11px;
 
   letter-spacing: .32em;
 
@@ -1085,7 +1085,7 @@ const bride = computed(
 .open-hint {
   margin-top: 10px;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: .08em;
 
@@ -1140,13 +1140,13 @@ const bride = computed(
   color:
     rgba(240,213,139,.7);
 
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .footer-center small {
   font-family: Arial, sans-serif;
 
-  font-size: 5px;
+  font-size: 11px;
 
   letter-spacing: .25em;
 

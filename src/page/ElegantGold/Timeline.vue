@@ -280,7 +280,7 @@ function formatTime(index) {
 
   color: #8a7a52;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -468,7 +468,7 @@ function formatTime(index) {
   .eg-timeline__date {
     margin-bottom: 7px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .eg-date-icon {

@@ -260,7 +260,9 @@ async function loadWishes() {
   }
 }
 
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 /* =========================================
    SUBMIT
@@ -514,7 +516,7 @@ async function submitWish() {
 
   color: #6c8e7a;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -591,7 +593,7 @@ async function submitWish() {
 
   color: #9db3a6;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -734,7 +736,7 @@ async function submitWish() {
 
   white-space: nowrap;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.1em;
@@ -855,7 +857,7 @@ async function submitWish() {
 .sg-wish-header span {
   color: #7a8a80;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .sg-wish-header > .v-icon {
@@ -984,7 +986,7 @@ async function submitWish() {
 }
 
 .sg-marquee-label span {
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -1039,7 +1041,7 @@ async function submitWish() {
 .sg-wish-marquee-item i {
   color: #6c8e7a;
 
-  font-size: 9px;
+  font-size: 11px;
   font-style: normal;
 
   animation: sg-marquee-heart 1.8s ease-in-out infinite;
@@ -1062,7 +1064,7 @@ async function submitWish() {
 .sg-marquee-dot {
   color: #8fae9b;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 400;
 }
 
@@ -1172,7 +1174,7 @@ async function submitWish() {
   }
 
   .sg-marquee-label span {
-    font-size: 5px;
+    font-size: 11px;
   }
 }
 

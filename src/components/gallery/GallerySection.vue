@@ -1,15 +1,9 @@
-﻿<template>
-  <section id="gallery" class="gallery-section">
+<template>
+  <section class="gallery-section">
     <!-- =====================================================
-         DECORATIVE BACKGROUND
+         HEADER
     ====================================================== -->
-
-    <div class="gallery-inner">
-
-      <!-- =====================================================
-           HEADER
-      ====================================================== -->
-      <header class="album-heading">
+    <header class="album-heading">
       <h2 class="album-title">
         KHOẢNH KHẮC CỦA CHÚNG MÌNH
       </h2>
@@ -24,68 +18,29 @@
         Lưu giữ những khoảnh khắc đẹp nhất trong hành trình
         yêu thương của chúng mình.
       </p>
-
     </header>
-      
 
 
-      <!-- =====================================================
-           ALBUM
-      ====================================================== -->
+    <!-- =====================================================
+         ALBUM - CAROUSEL VÒNG
+    ====================================================== -->
 
-      <div class="album-grid">
-
-        <!-- ẢNH 1 -->
-        <div
-          v-for="(item, index) in previewImages.slice(0, 3)"
-          :key="item.Id ?? index"
-          class="album-item"
-          @click="openGallery(index)"
-        >
-          <img
-            :src="item.Image"
-            :alt="item.Title || 'Ảnh cưới'"
-            loading="lazy"
-          />
-
-          <div class="image-shine"></div>
-        </div>
+    <ModernGalleryCarousel
+      v-if="gallery.length"
+      :images="gallery"
+      accent="#c9a06a"
+      text-color="#4c2416"
+      :radius="4"
+      @open="openGallery"
+    />
 
 
-        <!-- =================================================
-             XEM THÊM
-        ================================================== -->
+    <!-- =====================================================
+         EMPTY
+    ====================================================== -->
 
-        <div
-          v-if="gallery.length > 3"
-          class="album-item more-item"
-          @click="openGallery(3)"
-        >
-          <img
-            :src="gallery[3]?.Image"
-            :alt="gallery[3]?.Title || 'Xem thêm ảnh'"
-            loading="lazy"
-          />
-
-          <div class="more-dark"></div>
-
-          <div class="more-overlay">
-            <span class="more-count">
-              +{{ Math.max(gallery.length - 4, 0) }}
-            </span>
-
-            <span class="more-text">
-              Xem tất cả
-            </span>
-
-            <span class="more-arrow">
-              →
-            </span>
-          </div>
-        </div>
-
-      </div>
-
+    <div v-else class="album-empty">
+      Chưa có hình ảnh
     </div>
 
 
@@ -112,11 +67,9 @@
 
 
 <script setup>
-import {
-  computed,
-  ref,
-  defineAsyncComponent,
-} from "vue";
+import { ref, defineAsyncComponent } from "vue";
+
+import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("./GalleryModal.vue")
@@ -141,28 +94,7 @@ const props = defineProps({
 
 const dialog = ref(false);
 
-const selectedIndex = ref(0);
-
-
-/* =========================================================
-   COMPUTED
-========================================================= */
-
-const gallery = computed(() => {
-  return Array.isArray(props.gallery)
-    ? props.gallery
-    : [];
-});
-
-
-const previewImages = computed(() => {
-  return gallery.value.slice(0, 4);
-});
-
-
-const currentIndex = computed(() => {
-  return selectedIndex.value;
-});
+const currentIndex = ref(0);
 
 
 /* =========================================================
@@ -170,11 +102,11 @@ const currentIndex = computed(() => {
 ========================================================= */
 
 function openGallery(index) {
-  if (!gallery.value.length) {
+  if (!props.gallery.length) {
     return;
   }
 
-  selectedIndex.value = index;
+  currentIndex.value = index;
 
   dialog.value = true;
 
@@ -193,7 +125,7 @@ function openGallery(index) {
 function closeLightbox() {
   dialog.value = false;
 
-  selectedIndex.value = 0;
+  currentIndex.value = 0;
 
   document.body.style.overflow = "";
 }
@@ -218,64 +150,7 @@ function closeLightbox() {
 
   color: var(--text);
 
-
   overflow: hidden;
-}
-
-
-/* =========================================================
-   INNER
-========================================================= */
-
-.gallery-inner {
-  position: relative;
-
-  width: 100%;
-
-  padding: 42px 18px 45px;
-
-  border-radius: 4px;
-  box-shadow:
-    0 12px 35px rgba(76, 36, 22, 0.10);
-
-  overflow: hidden;
-
-  isolation: isolate;
-}
-
-
-/* =========================================================
-   TEXTURE
-========================================================= */
-
-.gallery-inner::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: -1;
-
-  opacity: 0.018;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   DECORATIVE BORDER
-========================================================= */
-
-.gallery-inner::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 9px;
-
-  z-index: -1;
-  pointer-events: none;
 }
 
 
@@ -284,630 +159,99 @@ function closeLightbox() {
 ========================================================= */
 
 .album-heading {
-  position: relative;
-
-  width: 100%;
-
-  max-width: 500px;
-
-  margin: 0 auto 28px;
-
   text-align: center;
+
+  margin-bottom: 26px;
 }
 
-
-/* =========================================================
-   KICKER
-========================================================= */
-
-.album-kicker {
-  display: block;
-
-  margin-bottom: 8px;
-
-  font-family: var(--font-main);
-
-  font-size: var(--text-xs);
-
-  font-weight: 600;
-
-  letter-spacing: 3px;
-
-  color: var(--gold, #c79d5c);
-
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
 
 .album-title {
   margin: 0;
 
-  color: var(--primary, #7b0d0d);
+  font-size: 22px;
+  font-weight: 700;
 
-  font-family: var(--font-heading);
+  letter-spacing: 2px;
 
-  font-size: var(--text-2xl);
-
-  font-weight: 600;
-
-  line-height: 1.1;
+  color: var(--title, #4c2416);
 }
 
-
-/* =========================================================
-   ORNAMENT
-========================================================= */
 
 .album-ornament {
   display: flex;
 
   align-items: center;
-
-  justify-content: center;
-
-  gap: 9px;
-
-  margin: 13px auto 12px;
-}
-
-
-.album-ornament span {
-  display: block;
-
-  width: 38px;
-
-  height: 1px;
-background:
-    linear-gradient(
-      135deg,
-      #760b0b,
-      #941919
-    );
-  
-}
-
-
-
-
-.album-ornament i {
-  font-family: var(--font-heading);
-
-  font-size: var(--text-xs);
-
-  font-style: normal;
-
-  color: var(--gold, #c79d5c);
-}
-
-
-/* =========================================================
-   DESCRIPTION
-========================================================= */
-
-.album-description {
-  max-width: 380px;
-
-  margin: 0 auto;
-
-  font-family: var(--font-main);
-
-  font-size: var(--text-sm);
-
-  font-weight: 300;
-
-  line-height: 1.8;
-
-  color: var(
-    --sub-text,
-    #806f66
-  );
-}
-
-
-/* =========================================================
-   ALBUM GRID
-========================================================= */
-
-.album-grid {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 9px;
-
-  width: 100%;
-
-  margin: 24px auto 0;
-}
-
-
-/* =========================================================
-   ALBUM ITEM
-========================================================= */
-
-.album-item {
-  position: relative;
-
-  width: 100%;
-
-  aspect-ratio: 1 / 1;
-
-  overflow: hidden;
-
-  border-radius: 9px;
-
-  box-shadow:
-    0 7px 20px rgba(60, 35, 20, 0.10);
-
-  cursor: pointer;
-
-  isolation: isolate;
-
-  transition:
-    transform 0.4s
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    box-shadow 0.4s ease;
-}
-
-
-/* =========================================================
-   IMAGE
-========================================================= */
-
-.album-item img {
-  display: block;
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  object-position: center;
-
-  transition:
-    transform 0.7s
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    filter 0.5s ease;
-}
-
-
-/* =========================================================
-   IMAGE SHINE
-========================================================= */
-
-.Image-shine {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 2;
-
-  transform:
-    translateX(-120%);
-
-  transition:
-    transform 0.8s ease;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   HOVER
-========================================================= */
-
-.album-item:hover {
-  transform: translateY(-4px);
-
-  box-shadow:
-    0 15px 32px rgba(60, 35, 20, 0.16);
-}
-
-
-.album-item:hover img {
-  transform: scale(1.06);
-
-  filter: brightness(0.94);
-}
-
-
-.album-item:hover .Image-shine {
-  transform:
-    translateX(120%);
-}
-
-
-/* =========================================================
-   MORE ITEM
-========================================================= */
-
-.more-item {
-  position: relative;
-}
-
-
-/* =========================================================
-   DARK OVERLAY
-========================================================= */
-
-.more-dark {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   MORE BUTTON
-========================================================= */
-
-.more-overlay {
-  position: absolute;
-
-  left: 50%;
-
-  bottom: 12px;
-
-  z-index: 4;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 6px;
-
-  transform:
-    translateX(-50%);
-
-  min-height: 34px;
-
-  padding:
-    4px
-    8px
-    4px
-    5px;
-
-  border-radius: 999px;
-
-  color: #fff;
-  
-  backdrop-filter:
-    blur(10px);
-
-  -webkit-backdrop-filter:
-    blur(10px);
-
-  box-shadow:
-    0 7px 18px
-    rgba(0,0,0,0.20);
-
-  white-space: nowrap;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   COUNT
-========================================================= */
-
-.more-count {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  min-width: 26px;
-
-  height: 26px;
-
-  padding: 0 6px;
-
-  border-radius: 50%;
-
-  
-  color: #392914;
-
-  font-family: var(--font-heading);
-
-  font-size: var(--text-xs);
-
-  font-weight: 700;
-
-  line-height: 1;
-}
-
-
-/* =========================================================
-   TEXT
-========================================================= */
-
-.more-text {
-  font-family: var(--font-main);
-
-  font-size: var(--text-xs);
-
-  font-weight: 500;
-
-  letter-spacing: 0.01em;
-}
-
-
-/* =========================================================
-   ARROW
-========================================================= */
-
-.more-arrow {
-  font-size: var(--text-sm);
-
-  color:
-    rgba(255,255,255,0.82);
-
-  transition:
-    transform 0.3s ease;
-}
-
-
-.more-item:hover .more-arrow {
-  transform:
-    translateX(3px);
-}
-
-
-/* =========================================================
-   BOTTOM ORNAMENT
-========================================================= */
-
-.gallery-bottom-ornament {
-  display: flex;
-
-  align-items: center;
-
   justify-content: center;
 
   gap: 10px;
 
-  margin-top: 30px;
+  margin-top: 10px;
+
+  color: var(--accent, #c9a06a);
 }
 
 
-.gallery-bottom-ornament span {
-  width: 50px;
-
+.album-ornament span {
+  width: 44px;
   height: 1px;
 
-  
-}
+  background: currentColor;
 
-.ornament-symbol {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 24px;
-
-  height: 24px;
-
-  border-radius: 50%;
-
-  color:
-    var(--primary, #7b0d0d);
-
-  font-size: var(--text-xs);
+  opacity: 0.6;
 }
 
 
-/* =========================================================
-   TABLET / DESKTOP
-========================================================= */
+.album-ornament i {
+  font-size: 13px;
+  font-style: normal;
+}
 
-@media (min-width: 768px) {
 
-  .gallery-section {
-    width: calc(100% - 42px);
-  }
+.album-description {
+  max-width: 420px;
 
-  .gallery-inner {
-    padding:
-      50px
-      30px
-      50px;
-  }
+  margin: 12px auto 0;
 
-  .album-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+  font-size: 12px;
+  line-height: 1.7;
 
-    gap: 12px;
-  }
+  color: var(--text, #6b5147);
 
-  .album-item {
-    border-radius: 12px;
-  }
-
+  opacity: 0.85;
 }
 
 
 /* =========================================================
-   MOBILE
+   EMPTY
 ========================================================= */
 
-@media (max-width: 600px) {
+.album-empty {
+  padding: 45px 20px;
 
-  .gallery-section {
-    width: calc(100% - 22px);
-  }
+  text-align: center;
 
-  .gallery-inner {
-    padding:
-      34px
-      13px
-      38px;
+  font-size: 12px;
 
-    border-radius: 4px;
-  }
+  color: var(--text, #6b5147);
 
-  .gallery-inner::after {
-    inset: 7px;
-  }
+  opacity: 0.7;
 
-  .album-heading {
-    margin-bottom: 22px;
-  }
-
-  .album-kicker {
-    letter-spacing: 2.5px;
-  }
-
-  .album-description {
-    max-width: 300px;
-  }
-
-  .album-grid {
-    gap: 8px;
-
-    margin-top: 20px;
-  }
-
-  .album-item {
-    border-radius: 8px;
-  }
-
-  .more-overlay {
-    bottom: 8px;
-
-    gap: 5px;
-
-    min-height: 31px;
-
-    padding:
-      3px
-      7px
-      3px
-      4px;
-  }
-
-  .more-count {
-    min-width: 24px;
-
-    height: 24px;
-  }
-
-  .more-arrow {
-    display: none;
-  }
-
-  .gallery-bottom-ornament {
-    margin-top: 24px;
-  }
-
-  .gallery-bottom-ornament span {
-    width: 35px;
-  }
-
+  border: 1px dashed currentColor;
 }
 
 
 /* =========================================================
-   VERY SMALL MOBILE
+   DIALOG
 ========================================================= */
 
-@media (max-width: 360px) {
+:deep(.gallery-dialog) {
+  margin: 0;
 
-  .gallery-section {
-    width: calc(100% - 18px);
-  }
+  max-width: 100%;
 
-  .gallery-inner {
-    padding:
-      30px
-      10px
-      34px;
-  }
-
-
-  .album-grid {
-    gap: 7px;
-  }
-
-  .album-item {
-    border-radius: 7px;
-  }
-
-  .more-text {
-    display: none;
-  }
-
-}
-
-
-/* =========================================================
-   GALLERY DIALOG
-========================================================= */
-
-:global(.gallery-dialog) {
-  margin: 0 !important;
-
-  width: 100vw !important;
-
-  max-width: 100vw !important;
-
-  height: 100dvh !important;
-
-  max-height: 100dvh !important;
+  border-radius: 0;
 
   overflow: hidden;
-
 }
 
-
-:global(.gallery-dialog .v-card),
-:global(.gallery-dialog .v-sheet) {
-  width: 100%;
-
-  height: 100%;
-
-  border-radius: 0 !important;
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .album-item,
-  .album-item img,
-  .Image-shine,
-  .more-arrow {
-    transition: none;
-  }
-
-}
 </style>

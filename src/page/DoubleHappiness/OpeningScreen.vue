@@ -323,7 +323,7 @@ function openInvitation() {
 
   color: var(--dh-gold-light);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;

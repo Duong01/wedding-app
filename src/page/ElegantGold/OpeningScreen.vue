@@ -225,19 +225,19 @@ function openInvitation() {
 }
 
 .eg-spark--1 { top: 12%; left: 12%; }
-.eg-spark--2 { top: 20%; right: 16%; font-size: 9px; animation-delay: -0.5s; }
+.eg-spark--2 { top: 20%; right: 16%; font-size: 11px; animation-delay: -0.5s; }
 .eg-spark--3 { top: 34%; left: 7%; font-size: 10px; animation-delay: -1.1s; }
 .eg-spark--4 { top: 42%; right: 8%; animation-delay: -1.7s; }
-.eg-spark--5 { top: 58%; left: 14%; font-size: 8px; animation-delay: -2.2s; }
+.eg-spark--5 { top: 58%; left: 14%; font-size: 10px; animation-delay: -2.2s; }
 .eg-spark--6 { top: 64%; right: 13%; font-size: 11px; animation-delay: -2.8s; }
 .eg-spark--7 { top: 78%; left: 9%; animation-delay: -3.2s; }
-.eg-spark--8 { top: 82%; right: 18%; font-size: 9px; animation-delay: -0.9s; }
-.eg-spark--9 { top: 8%; right: 34%; font-size: 8px; animation-delay: -1.4s; }
+.eg-spark--8 { top: 82%; right: 18%; font-size: 11px; animation-delay: -0.9s; }
+.eg-spark--9 { top: 8%; right: 34%; font-size: 10px; animation-delay: -1.4s; }
 .eg-spark--10 { top: 90%; left: 30%; font-size: 10px; animation-delay: -2s; }
-.eg-spark--11 { top: 26%; left: 26%; font-size: 8px; animation-delay: -2.6s; }
-.eg-spark--12 { top: 70%; right: 30%; font-size: 8px; animation-delay: -3.4s; }
-.eg-spark--13 { top: 48%; left: 20%; font-size: 7px; animation-delay: -1.9s; }
-.eg-spark--14 { top: 16%; left: 44%; font-size: 9px; animation-delay: -0.3s; }
+.eg-spark--11 { top: 26%; left: 26%; font-size: 10px; animation-delay: -2.6s; }
+.eg-spark--12 { top: 70%; right: 30%; font-size: 10px; animation-delay: -3.4s; }
+.eg-spark--13 { top: 48%; left: 20%; font-size: 11px; animation-delay: -1.9s; }
+.eg-spark--14 { top: 16%; left: 44%; font-size: 11px; animation-delay: -0.3s; }
 
 /* =========================================================
    EYEBROW
@@ -248,7 +248,7 @@ function openInvitation() {
 
   color: var(--eg-gold-light);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;
@@ -302,7 +302,7 @@ function openInvitation() {
 
   color: #8a7a52;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.34em;

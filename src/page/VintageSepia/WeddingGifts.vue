@@ -563,7 +563,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -734,7 +734,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.26em;
@@ -920,7 +920,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -961,7 +961,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1182,7 +1182,7 @@ onBeforeUnmount(() => {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1442,7 +1442,7 @@ onBeforeUnmount(() => {
   }
 
   .vs-account-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .vs-info-value {

@@ -238,16 +238,16 @@ function openInvitation() {
 }
 
 .mg-sparkle--1 { left: 6%; font-size: 12px; animation-duration: 11s; animation-delay: 0s; }
-.mg-sparkle--2 { left: 16%; font-size: 8px; animation-duration: 14s; animation-delay: 2.2s; }
+.mg-sparkle--2 { left: 16%; font-size: 10px; animation-duration: 14s; animation-delay: 2.2s; }
 .mg-sparkle--3 { left: 27%; font-size: 15px; animation-duration: 12.5s; animation-delay: 1s; }
-.mg-sparkle--4 { left: 38%; font-size: 7px; animation-duration: 15s; animation-delay: 3.4s; }
+.mg-sparkle--4 { left: 38%; font-size: 11px; animation-duration: 15s; animation-delay: 3.4s; }
 .mg-sparkle--5 { left: 49%; font-size: 11px; animation-duration: 10.5s; animation-delay: 0.8s; }
-.mg-sparkle--6 { left: 60%; font-size: 9px; animation-duration: 13.5s; animation-delay: 2.8s; }
+.mg-sparkle--6 { left: 60%; font-size: 11px; animation-duration: 13.5s; animation-delay: 2.8s; }
 .mg-sparkle--7 { left: 70%; font-size: 14px; animation-duration: 12s; animation-delay: 1.6s; }
-.mg-sparkle--8 { left: 80%; font-size: 7px; animation-duration: 14.5s; animation-delay: 4s; }
+.mg-sparkle--8 { left: 80%; font-size: 11px; animation-duration: 14.5s; animation-delay: 4s; }
 .mg-sparkle--9 { left: 89%; font-size: 12px; animation-duration: 11.5s; animation-delay: 0.4s; }
-.mg-sparkle--10 { left: 95%; font-size: 9px; animation-duration: 15.5s; animation-delay: 3s; }
-.mg-sparkle--11 { left: 44%; font-size: 6px; animation-duration: 16s; animation-delay: 5s; }
+.mg-sparkle--10 { left: 95%; font-size: 11px; animation-duration: 15.5s; animation-delay: 3s; }
+.mg-sparkle--11 { left: 44%; font-size: 10px; animation-duration: 16s; animation-delay: 5s; }
 .mg-sparkle--12 { left: 33%; font-size: 10px; animation-duration: 13s; animation-delay: 6s; }
 
 /* =========================================================
@@ -288,7 +288,7 @@ function openInvitation() {
 
   color: var(--mg-text-muted);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;
@@ -341,7 +341,7 @@ function openInvitation() {
 
   color: var(--mg-gold);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.34em;

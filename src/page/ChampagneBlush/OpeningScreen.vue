@@ -294,7 +294,7 @@ function openInvitation() {
 
   color: var(--cb-rose);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.42em;
@@ -347,7 +347,7 @@ function openInvitation() {
 
   color: var(--cb-gold);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.34em;

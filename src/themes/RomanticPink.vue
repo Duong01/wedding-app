@@ -93,15 +93,6 @@ import WeddingGifts from "@/page/RomanticPink/WeddingGifts.vue";
 import WeddingWishes from "@/page/RomanticPink/WeddingWishes.vue";
 import WeddingFooter from "@/page/RomanticPink/WeddingFooter.vue";
 
-import {
-  icon,
-  hoa,
-  may,
-  bgFull,
-  royalDecor,
-  blossomDecor,
-} from "@/page/RomanticPink/romaticpink";
-
 const props = defineProps({ wedding: { type: Object, required: true } });
 const wedding = computed(() => props.wedding || {})
 
@@ -259,7 +250,7 @@ async function handleOpen() {
       rgba(255, 250, 249, 0.05) 35%,
       rgba(255, 250, 249, 0.12)
     ),
-    url("/src/assets/romatic-pink/bg-full.jpg");
+    url("@/assets/bg-frame.jpg");
 
   background-size: cover;
   background-position: center top;
@@ -412,7 +403,7 @@ async function handleOpen() {
 .eyebrow {
   margin: 0;
   color: var(--pink);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.28em;
   text-align: center;

@@ -113,11 +113,19 @@ const bride = computed(
 );
 
 const groomAvatar = computed(
-  () => props.wedding?.couple?.Groom?.Avatar || ""
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
 );
 
 const brideAvatar = computed(
-  () => props.wedding?.couple?.Bride?.Avatar || ""
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
 );
 
 const groomDescription = computed(
@@ -414,7 +422,7 @@ const weddingTime = computed(() => {
 
   color: #8a7a52;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -515,7 +523,7 @@ const weddingTime = computed(() => {
 .eg-date-side span {
   color: #8a7a52;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -571,7 +579,7 @@ const weddingTime = computed(() => {
 }
 
 .eg-time-label {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

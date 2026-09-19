@@ -271,7 +271,7 @@ function formatTime(index) {
 
   color: #a086b4;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -467,7 +467,7 @@ function formatTime(index) {
   .lc-timeline__date {
     margin-bottom: 7px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .lc-date-icon {

@@ -23,6 +23,8 @@
             v-if="groomImage"
             :src="groomImage"
             :alt="groomName"
+            loading="lazy"
+            decoding="async"
           />
           <div v-else class="portrait-placeholder">
             {{ initials(groomName) }}
@@ -46,6 +48,8 @@
             v-if="brideImage"
             :src="brideImage"
             :alt="brideName"
+            loading="lazy"
+            decoding="async"
           />
           <div v-else class="portrait-placeholder">
             {{ initials(brideName) }}
@@ -100,6 +104,7 @@ const brideName = computed(() =>
 const groomImage = computed(() =>
   groom.value?.avatar ||
   groom.value?.image ||
+  props.wedding?.couple?.Groom?.Avatar ||
   props.wedding?.GroomImage ||
   ""
 );
@@ -107,6 +112,7 @@ const groomImage = computed(() =>
 const brideImage = computed(() =>
   bride.value?.avatar ||
   bride.value?.image ||
+  props.wedding?.couple?.Bride?.Avatar ||
   props.wedding?.BrideImage ||
   ""
 );
@@ -176,7 +182,7 @@ function initials(name) {
 }
 
 .section-heading small {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .35em;
   color: #a96b32;
 }
@@ -255,7 +261,7 @@ h2 {
 .role {
   display: block;
   margin-top: 28px;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .35em;
   color: #a96b32;
 }
@@ -304,5 +310,19 @@ h3 {
   flex: 1;
   height: 1px;
   background: #a96b32;
+}
+
+@media (max-width: 480px) {
+  .couple {
+    padding: 50px 14px;
+  }
+
+  .couple-grid {
+    grid-template-columns: 1fr 34px 1fr;
+  }
+
+  .between span {
+    font-size: 20px;
+  }
 }
 </style>

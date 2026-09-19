@@ -308,7 +308,7 @@ const storyText = computed(() => {
 
   color: #a27a3c;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 3px;
@@ -535,7 +535,7 @@ const storyText = computed(() => {
 .story-footer b {
   color: #9a161a;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 700;
 }
@@ -587,7 +587,7 @@ const storyText = computed(() => {
 
 
   .story-eyebrow {
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: 2.2px;
   }

@@ -325,7 +325,7 @@ const mapSrc = computed(() => {
 
   backdrop-filter: blur(5px);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.16em;
@@ -392,7 +392,7 @@ const mapSrc = computed(() => {
 
   color: #8a9b7c;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

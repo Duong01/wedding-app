@@ -6,37 +6,69 @@
       <p>Những hình ảnh chúng mình muốn lưu giữ mãi.</p>
     </div>
 
-    <div class="gallery-grid">
-      <button
-        v-for="(item, index) in gallery"
-        :key="item.id || index"
-        class="photo"
-        :class="{ large: index === 0 || index % 5 === 0 }"
-        @click="$emit('open', index)"
-      >
-        <img
-          :src="item.url || item.src || item.image"
-          :alt="item.caption || `Ảnh ${index + 1}`"
-          loading="lazy"
-        />
+    <ModernGalleryCarousel
+      v-if="gallery.length"
+      :images="gallery"
+      accent="#c99552"
+      text-color="#641914"
+      frame-bg="#641914"
+      :radius="2"
+      @open="openLightbox"
+    />
 
-        <span class="photo-number">
-          {{ String(index + 1).padStart(2, "0") }}
-        </span>
-      </button>
+    <div v-else class="gallery-empty">
+      <v-icon size="30">mdi-image-outline</v-icon>
+      <p>Chưa có hình ảnh</p>
     </div>
+
+    <v-dialog
+      v-model="dialog"
+      fullscreen
+      transition="dialog-fade-transition"
+      content-class="gallery-dialog"
+    >
+      <GalleryModal
+        v-if="dialog"
+        :images="gallery"
+        :start-index="currentIndex"
+        @close="closeLightbox"
+      />
+    </v-dialog>
   </section>
 </template>
 
 <script setup>
-defineProps({
+import { ref, defineAsyncComponent } from "vue";
+
+import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+
+const GalleryModal = defineAsyncComponent(() =>
+  import("@/components/gallery/GalleryModal.vue")
+);
+
+const props = defineProps({
   gallery: {
     type: Array,
     default: () => [],
   },
 });
 
-defineEmits(["open"]);
+const currentIndex = ref(0);
+const dialog = ref(false);
+
+function openLightbox(index) {
+  if (!props.gallery.length) return;
+
+  currentIndex.value = index;
+  dialog.value = true;
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  dialog.value = false;
+  document.body.style.overflow = "";
+}
 </script>
 
 <style scoped>
@@ -52,7 +84,8 @@ defineEmits(["open"]);
 }
 
 .gallery-heading small {
-  font-size: 8px;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: .4em;
   color: #a96b32;
 }
@@ -71,55 +104,14 @@ h2 {
   color: #80675f;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  max-width: 650px;
-  margin: auto;
+.gallery-empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #a96b32;
 }
 
-.photo {
-  position: relative;
-  overflow: hidden;
-  min-height: 190px;
-  padding: 0;
-  border: 1px solid rgba(143,36,28,.35);
-  background: #641914;
-  cursor: pointer;
-}
-
-.photo.large {
-  grid-row: span 2;
-  min-height: 388px;
-}
-
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .7s ease;
-}
-
-.photo:hover img {
-  transform: scale(1.06);
-}
-
-.photo::after {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border: 1px solid rgba(255,230,190,.55);
-  pointer-events: none;
-}
-
-.photo-number {
-  position: absolute;
-  right: 13px;
-  bottom: 11px;
-  z-index: 2;
-  color: #f3ead8;
-  font-size: 8px;
-  letter-spacing: .15em;
+.gallery-empty p {
+  margin: 8px 0 0;
+  font-size: 13px;
 }
 </style>

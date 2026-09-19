@@ -140,10 +140,7 @@
           class="section gallery-section"
         >
 
-          <WeddingGallery
-            :gallery="gallery"
-            @open="openGallery"
-          />
+          <WeddingGallery :gallery="gallery" />
 
         </section>
 
@@ -370,7 +367,6 @@ import WeddingWishes from "@/page/ModernWhite/WeddingWishes.vue";
 import WeddingFooter from "@/page/ModernWhite/WeddingFooter.vue";
 
 import {
-  paper,
   chineseHappiness,
   chuHy,
   dauRe,
@@ -425,8 +421,6 @@ const opened = ref(false);
 
 const floatingMusicRef = ref(null);
 
-const galleryIndex = ref(0);
-
 const currentYear = new Date().getFullYear();
 
 
@@ -435,7 +429,6 @@ const currentYear = new Date().getFullYear();
 ========================================================== */
 
 const assets = {
-  paper,
   chineseHappiness,
   chuHy,
   dauRe,
@@ -642,9 +635,6 @@ async function handleOpen() {
    GALLERY
 ========================================================== */
 
-function openGallery(index) {
-  galleryIndex.value = index;
-}
 </script>
 
 
@@ -663,6 +653,8 @@ function openGallery(index) {
   --dark-gray: #2a2a2a;
   --accent-gray: #666666;
   --silver: #c0c0c0;
+  --red: #7f151a;
+  --paper: #fff9eb;
 
   width: 100%;
   min-height: 100vh;

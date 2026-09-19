@@ -114,12 +114,12 @@ const props = defineProps({
 
 /*
  * Bài hát có sẵn trong app (file nằm trong
- * src/assets/music — Vite tự đóng gói khi build).
+ * public/music — giữ nguyên đường dẫn khi build).
  */
 const PRESET_SONGS = [
   {
     label: "Beautiful In White (có sẵn)",
-    url: "/src/assets/music/So_Beautiful_In_White.mp3",
+    url: "/music/So_Beautiful_In_White.mp3",
     title: "Beautiful In White",
   },
 ];

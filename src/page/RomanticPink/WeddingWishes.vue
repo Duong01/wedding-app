@@ -260,7 +260,9 @@ async function loadWishes() {
   }
 }
 
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 function formatTime(dateString) {
   if (!dateString) return "";
@@ -564,7 +566,7 @@ async function add() {
 
   color: #b17486;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.16em;
@@ -643,7 +645,7 @@ async function add() {
 
   color: #c29eaa;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -785,7 +787,7 @@ async function add() {
 
   white-space: nowrap;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.08em;
@@ -918,7 +920,7 @@ async function add() {
 .wish-header span {
   color: #b89ca5;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .wish-header > .v-icon {
@@ -1059,7 +1061,7 @@ async function add() {
 }
 
 .marquee-label span {
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.16em;
@@ -1146,7 +1148,7 @@ async function add() {
 .wish-marquee-item i {
   color: #c36c84;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-style: normal;
 
@@ -1179,7 +1181,7 @@ async function add() {
 .marquee-dot {
   color: #c6a06a;
 
-  font-size: 7px;
+  font-size: 11px;
 
   font-weight: 400;
 }
@@ -1257,7 +1259,7 @@ async function add() {
   }
 
   .marquee-label span {
-    font-size: 5px;
+    font-size: 11px;
   }
 }
 

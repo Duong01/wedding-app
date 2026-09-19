@@ -1,12 +1,12 @@
 <template>
   <section class="invitation-hero">
-    <img :src="hoa" class="floral floral--top" alt="" />
-    <img :src="hoa" class="floral floral--bottom" alt="" />
+    <img :src="hoa" class="floral floral--top" alt="" loading="lazy" decoding="async" />
+    <img :src="hoa" class="floral floral--bottom" alt="" loading="lazy" decoding="async" />
     <div class="hero-frame">
       <div class="hero-content">
         <p class="save-date">{{ heroTitle }}</p>
         <div class="motif">
-          <span></span><img :src="icon" alt="" /><span></span>
+          <span></span><img :src="icon" alt="" loading="lazy" decoding="async" /><span></span>
         </div>
         <h1>{{ groomName }}<br> <i>&amp;</i><br> {{ brideName }}</h1>
         <p class="announce">{{ heroSubtitle }}</p>

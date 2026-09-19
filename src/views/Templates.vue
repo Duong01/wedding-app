@@ -5,6 +5,7 @@
     ====================================================== -->
     <div class="page-glow page-glow-1"></div>
     <div class="page-glow page-glow-2"></div>
+    <div class="page-seal">囍</div>
 
     <!-- =====================================================
          BACK TO HOME
@@ -23,28 +24,29 @@
     <section class="page-hero">
       <div class="container hero-inner">
         <div class="hero-decoration hero-decoration-left">
-          ✦
+          囍
         </div>
 
         <div class="hero-decoration hero-decoration-right">
-          ✦
+          囍
         </div>
 
         <span class="eyebrow">
           <span class="eyebrow-line"></span>
-          Mẫu thiệp cưới
+          Bộ sưu tập thiệp cưới
           <span class="eyebrow-line"></span>
         </span>
 
         <h1>
-          Khám phá những
-          <span>mẫu thiệp</span>
-          dành cho ngày chung đôi.
+          Mỗi mẫu là một
+          <span>bản sắc</span>
+          riêng.
         </h1>
 
         <p>
-          Từ phong cách cổ điển, sang trọng đến hiện đại và dịu dàng,
-          mỗi mẫu đều có thể được tùy chỉnh cho ngày cưới của bạn.
+          Năm bộ sưu tập — từ đỏ son Á Đông, lụa vàng kim tuyến đến tối giản
+          hiện đại — mỗi mẫu mang bảng màu, họa tiết và nhịp điệu riêng.
+          Chọn mẫu bạn thích và tùy chỉnh cho ngày cưới của bạn.
         </p>
 
         <div class="hero-stats">
@@ -76,6 +78,51 @@
     <section class="container templates-content">
 
       <!-- ===================================================
+           COLLECTION STRIP (bộ sưu tập)
+      ==================================================== -->
+      <div class="collection-strip">
+
+        <button
+          type="button"
+          class="collection-chip"
+          :class="{ 'is-active': !selectedCollection }"
+          @click="selectedCollection = ''"
+        >
+          <span class="chip-swatches">
+            <span class="chip-swatch chip-swatch-ink"></span>
+            <span class="chip-swatch chip-swatch-foil"></span>
+            <span class="chip-swatch chip-swatch-paper"></span>
+          </span>
+
+          Tất cả
+        </button>
+
+        <button
+          v-for="col in activeCollections"
+          :key="col.id"
+          type="button"
+          class="collection-chip"
+          :class="{ 'is-active': selectedCollection === col.id }"
+          @click="selectedCollection = col.id"
+        >
+          <span class="chip-swatches">
+            <span
+              v-for="(swatch, swatchIndex) in col.swatches"
+              :key="swatchIndex"
+              class="chip-swatch"
+              :style="{ background: swatch }"
+            ></span>
+          </span>
+
+          <span class="chip-text">
+            <strong>{{ col.name }}</strong>
+            <small>{{ col.sub }}</small>
+          </span>
+        </button>
+
+      </div>
+
+      <!-- ===================================================
            TOOLBAR
       ==================================================== -->
       <div class="toolbar">
@@ -90,6 +137,25 @@
 
         <div class="toolbar-right">
 
+          <!-- Collection -->
+          <div class="filter-control">
+            <span class="control-icon">✦</span>
+
+            <select v-model="selectedCollection">
+              <option value="">Tất cả bộ sưu tập</option>
+
+              <option
+                v-for="col in activeCollections"
+                :key="col.id"
+                :value="col.id"
+              >
+                {{ col.name }}
+              </option>
+            </select>
+
+            <span class="select-arrow">⌄</span>
+          </div>
+
           <!-- Theme -->
           <div class="filter-control">
             <span class="control-icon">◈</span>
@@ -98,11 +164,11 @@
               <option value="">Tất cả phong cách</option>
 
               <option
-                v-for="theme in themes"
-                :key="theme"
-                :value="theme"
+                v-for="theme in themeOptions"
+                :key="theme.value"
+                :value="theme.value"
               >
-                {{ theme }}
+                {{ theme.label }}
               </option>
             </select>
 
@@ -126,7 +192,7 @@
             <input
               v-model="q"
               type="search"
-              placeholder="Tìm tên cô dâu / chú rể"
+              placeholder="Tìm tên cô dâu, chú rể hoặc phong cách"
             />
 
             <button
@@ -193,13 +259,13 @@
         class="state-box empty"
       >
         <div class="empty-icon">
-          ♡
+          囍
         </div>
 
         <h3>Không tìm thấy mẫu phù hợp</h3>
 
         <p>
-          Hãy thử thay đổi từ khóa hoặc chọn một phong cách khác.
+          Hãy thử thay đổi từ khóa, chọn bộ sưu tập hoặc phong cách khác.
         </p>
 
         <button
@@ -225,6 +291,7 @@
           :class="{
             'is-featured': index === 0
           }"
+          :style="getCardStyle(wedding)"
           @click="openTemplateDetail(wedding)"
         >
           <!-- IMAGE -->
@@ -291,7 +358,7 @@
               v-if="index === 0"
               class="featured-label"
             >
-              <span>✦</span>
+              <span>{{ getWeddingMeta(wedding).orn }}</span>
               Được yêu thích
             </div>
           </div>
@@ -307,13 +374,27 @@
               <span class="dot"></span>
 
               <span>
-                Thiệp cưới
+                {{ getCollectionLabel(wedding) }}
               </span>
             </div>
 
             <h3>
               {{ getCoupleName(wedding) }}
             </h3>
+
+            <!-- dải màu nhận diện của mẫu -->
+            <div class="identity-row">
+              <span
+                v-for="(swatch, swatchIndex) in getWeddingMeta(wedding).palette"
+                :key="swatchIndex"
+                class="identity-swatch"
+                :style="{ background: swatch }"
+              ></span>
+
+              <span class="identity-orn">
+                {{ getWeddingMeta(wedding).orn }}
+              </span>
+            </div>
 
             <div class="card-footer">
 
@@ -334,6 +415,14 @@
           </div>
         </article>
       </div>
+
+      <!-- ===================================================
+           COLLECTION FOOTNOTE
+      ==================================================== -->
+      <p class="collection-note">
+        囍 Mỗi mẫu thuộc một bộ sưu tập với bảng màu riêng — chọn
+        <strong>bộ sưu tập</strong> phía trên để xem theo phong cách.
+      </p>
     </section>
 
     <!-- =====================================================
@@ -365,7 +454,10 @@
             <!-- =========================================
                  LEFT PREVIEW
             ========================================== -->
-            <div class="detail-preview">
+            <div
+              class="detail-preview"
+              :style="getCardStyle(selectedWedding)"
+            >
 
               <div class="preview-header">
                 <span>PREVIEW</span>
@@ -399,11 +491,11 @@
 
                 <!-- decoration -->
                 <div class="preview-decoration decoration-1">
-                  ✦
+                  {{ getWeddingMeta(selectedWedding).orn }}
                 </div>
 
                 <div class="preview-decoration decoration-2">
-                  ♡
+                  {{ getWeddingMeta(selectedWedding).orn }}
                 </div>
 
               </div>
@@ -426,7 +518,10 @@
             <!-- =========================================
                  RIGHT CONTENT
             ========================================== -->
-            <div class="detail-content">
+            <div
+              class="detail-content"
+              :style="getCardStyle(selectedWedding)"
+            >
 
               <div class="detail-scroll">
 
@@ -451,9 +546,23 @@
                   {{ formatDate(selectedWedding.weddingDate) }}
                 </p>
 
+                <!-- dải màu bản sắc của mẫu -->
+                <div class="detail-identity">
+                  <span
+                    v-for="(swatch, swatchIndex) in getWeddingMeta(selectedWedding).palette"
+                    :key="swatchIndex"
+                    class="identity-swatch"
+                    :style="{ background: swatch }"
+                  ></span>
+
+                  <span class="detail-collection">
+                    {{ getCollectionLabel(selectedWedding) }}
+                  </span>
+                </div>
+
                 <div class="gold-rule">
                   <span></span>
-                  <i>✦</i>
+                  <i>{{ getWeddingMeta(selectedWedding).orn }}</i>
                   <span></span>
                 </div>
 
@@ -500,6 +609,7 @@
 
                       <strong>
                         {{
+                          formatFullDate(selectedWedding.weddingDate) ||
                           selectedWedding.hero?.Title ||
                           "Save the date"
                         }}
@@ -557,8 +667,8 @@
                     </div>
 
                     <div class="feature-item">
-                      <span>文</span>
-                      <p>Đa ngôn ngữ</p>
+                      <span>♪</span>
+                      <p>Nhạc nền</p>
                     </div>
 
                     <div class="feature-item">
@@ -627,7 +737,7 @@
                     @click="goToEditor(selectedWedding)"
                   >
                     <span>＋</span>
-                    Tạo thiệp
+                    Tạo thiệp theo mẫu này
                   </button>
 
                   <button
@@ -709,6 +819,12 @@ import {
 import { useRouter } from "vue-router";
 import { useWeddingStore } from "@/stores/wedding";
 
+import {
+  COLLECTIONS,
+  getCollection,
+  getThemeMeta,
+} from "@/data/templateCollections";
+
 // ======================================================
 // Router / Store
 // ======================================================
@@ -727,6 +843,7 @@ function goHome() {
 const q = ref("");
 const selectedTheme = ref("");
 const selectedWedding = ref(null);
+const selectedCollection = ref("");
 
 const favorites = ref(
   JSON.parse(
@@ -761,8 +878,54 @@ const themes = computed(() => {
   return Array.from(set).sort();
 });
 
+/*
+ * Danh sách phong cách cho bộ lọc — dùng tên hiển thị
+ * tiếng Việt từ bản sắc theme thay vì key kỹ thuật.
+ */
+const themeOptions = computed(() => {
+  return themes.value
+    .map((theme) => ({
+      value: theme,
+      label: getThemeMeta(theme).name,
+    }))
+    .sort((a, b) =>
+      a.label.localeCompare(b.label, "vi")
+    );
+});
+
+/*
+ * Bộ sưu tập có ít nhất một mẫu trong danh sách —
+ * bộ rỗng không hiển thị.
+ */
+const activeCollections = computed(() => {
+  const present = new Set(
+    themes.value.map(
+      (theme) => getThemeMeta(theme).collection
+    )
+  );
+
+  return COLLECTIONS.filter((col) =>
+    present.has(col.id)
+  );
+});
+
 const filteredWeddings = computed(() => {
   let list = weddings.value;
+
+  // bộ sưu tập
+  if (selectedCollection.value) {
+    list = list.filter((w) => {
+      const themeName =
+        w?.theme?.Name ||
+        w?.theme ||
+        "";
+
+      return (
+        getThemeMeta(themeName).collection ===
+        selectedCollection.value
+      );
+    });
+  }
 
   // theme
   if (selectedTheme.value) {
@@ -790,15 +953,18 @@ const filteredWeddings = computed(() => {
         w?.couple?.Groom?.Name ||
         "";
 
-      const theme =
+      const themeName =
         w?.theme?.Name ||
         w?.theme ||
         "";
 
+      const themeLabel = getThemeMeta(themeName).name;
+
       return (
         bride.toLowerCase().includes(keyword) ||
         groom.toLowerCase().includes(keyword) ||
-        theme.toLowerCase().includes(keyword)
+        themeName.toLowerCase().includes(keyword) ||
+        themeLabel.toLowerCase().includes(keyword)
       );
     });
   }
@@ -849,11 +1015,54 @@ function getCoupleName(wedding) {
 }
 
 function getThemeLabel(wedding) {
-  return (
+  const themeName =
     wedding?.theme?.Name ||
     wedding?.theme ||
+    "";
+
+  return (
+    getThemeMeta(themeName).name ||
+    themeName ||
     "Classic"
   );
+}
+
+/*
+ * Bản sắc màu của mẫu — dùng cho viền card, tag phong
+ * cách và dải màu nhận diện dưới tên cặp đôi.
+ */
+function getWeddingMeta(wedding) {
+  const themeName =
+    wedding?.theme?.Name ||
+    wedding?.theme ||
+    "";
+
+  return getThemeMeta(themeName);
+}
+
+/*
+ * CSS variables theo bản sắc từng mẫu — mỗi card
+ * mang màu riêng của theme (viền, tag, dải màu).
+ */
+function getCardStyle(wedding) {
+  const meta = getWeddingMeta(wedding);
+  const p = meta.palette;
+
+  return {
+    "--card-ink": p.ink,
+    "--card-accent": p.accent,
+    "--card-seal": p.seal,
+    "--card-bg": p.bg,
+  };
+}
+
+/*
+ * Tên bộ sưu tập của mẫu (dùng trong modal chi tiết).
+ */
+function getCollectionLabel(wedding) {
+  const meta = getWeddingMeta(wedding);
+
+  return getCollection(meta.collection).name;
 }
 
 function formatDate(date) {
@@ -875,6 +1084,41 @@ function formatDate(date) {
       year: "numeric"
     }
   ).format(parsed);
+}
+
+/*
+ * Ngày + giờ đầy đủ cho modal chi tiết
+ * (vd: "14/11/2026 · 08:00").
+ */
+function formatFullDate(date) {
+  if (!date) {
+    return "";
+  }
+
+  const parsed = new Date(date);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "";
+  }
+
+  const day = new Intl.DateTimeFormat(
+    "vi-VN",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }
+  ).format(parsed);
+
+  const time = new Intl.DateTimeFormat(
+    "vi-VN",
+    {
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  ).format(parsed);
+
+  return `${day} · ${time}`;
 }
 
 // ======================================================
@@ -1029,6 +1273,7 @@ function getQrUrl(wedding) {
 function resetFilters() {
   q.value = "";
   selectedTheme.value = "";
+  selectedCollection.value = "";
 }
 
 // ======================================================
@@ -1093,26 +1338,34 @@ watch(
 
   --border: rgba(78, 53, 53, 0.09);
 
+  /* Studio tokens (đồng bộ theme.css) */
+  --studio-ink: #2b2118;
+  --studio-paper: #f7f1e6;
+  --studio-card: #fffdf8;
+  --studio-foil: #b9975b;
+  --studio-seal: #a63a2e;
+
   min-height: 100vh;
   position: relative;
   overflow: hidden;
 
+  /* Giấy dó ấm — nền studio thay vì trắng phẳng */
   background:
     radial-gradient(
-      circle at 10% 10%,
-      rgba(201, 166, 89, 0.1),
-      transparent 25%
+      circle at 8% 6%,
+      rgba(185, 151, 91, 0.12),
+      transparent 30%
     ),
     radial-gradient(
-      circle at 90% 30%,
-      rgba(143, 77, 67, 0.07),
-      transparent 25%
+      circle at 92% 24%,
+      rgba(166, 58, 46, 0.05),
+      transparent 28%
     ),
     linear-gradient(
       180deg,
-      #fffdfb 0%,
-      #faf7f2 50%,
-      #fffdfb 100%
+      #faf6ee 0%,
+      #f7f1e6 45%,
+      #f4ecdd 100%
     );
 
   color: var(--text);
@@ -1168,6 +1421,42 @@ watch(
   );
 }
 
+/*
+ * Ấn son lớn mờ ở góc trang — điểm nhấn Á Đông
+ * rất tiết chế, chỉ hiện trên màn hình rộng.
+ */
+.page-seal {
+  position: absolute;
+
+  top: 120px;
+  right: 4%;
+
+  width: 92px;
+  height: 92px;
+
+  display: grid;
+  place-items: center;
+
+  border: 2px solid
+    rgba(166, 58, 46, 0.16);
+
+  border-radius: 14px;
+
+  color: rgba(166, 58, 46, 0.14);
+
+  font-family: var(--font-symbol, serif);
+
+  font-size: 54px;
+
+  font-weight: 700;
+
+  transform: rotate(6deg);
+
+  pointer-events: none;
+
+  user-select: none;
+}
+
 /* =========================================================
    BACK ROW
 ========================================================= */
@@ -1218,13 +1507,13 @@ watch(
 .hero-decoration {
   position: absolute;
 
-  color: var(--gold);
+  color: var(--studio-foil, var(--gold));
 
-  font-family: var(--font-heading);
+  font-family: var(--font-symbol, var(--font-heading));
 
-  opacity: 0.45;
+  opacity: 0.4;
 
-  font-size: 22px;
+  font-size: 26px;
 
   animation: floating 5s ease-in-out infinite;
 }
@@ -1247,7 +1536,7 @@ watch(
   align-items: center;
   gap: 13px;
 
-  color: var(--wine);
+  color: var(--studio-seal, var(--wine));
 
   font-size: 11px;
   font-weight: 700;
@@ -1260,7 +1549,7 @@ watch(
   width: 28px;
   height: 1px;
 
-  background: var(--gold);
+  background: var(--studio-foil, var(--gold));
 }
 
 .page-hero h1 {
@@ -1289,7 +1578,7 @@ watch(
 }
 
 .page-hero h1 span {
-  color: var(--wine);
+  color: var(--studio-seal, var(--wine));
 
   font-style: italic;
 }
@@ -1341,7 +1630,7 @@ watch(
 }
 
 .hero-stat strong {
-  color: var(--wine);
+  color: var(--studio-ink, var(--wine));
 
   font-family:
     var(--font-heading),
@@ -1369,6 +1658,129 @@ watch(
 
   background:
     rgba(70, 45, 49, 0.12);
+}
+
+/* =========================================================
+   COLLECTION STRIP (bộ sưu tập)
+========================================================= */
+
+.collection-strip {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 26px;
+}
+
+.collection-chip {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 9px 16px 9px 12px;
+
+  border: 1px solid var(--studio-line);
+
+  border-radius: 999px;
+
+  background: var(--studio-card);
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 12.5px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.collection-chip:hover {
+  border-color: var(--studio-line-strong);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 22px rgba(43, 33, 24, 0.07);
+}
+
+.collection-chip.is-active {
+  border-color: var(--studio-ink);
+
+  background: var(--studio-ink);
+
+  color: #f7f1e6;
+
+  box-shadow:
+    0 10px 26px rgba(43, 33, 24, 0.18);
+}
+
+.collection-chip.is-active .chip-swatch {
+  border-color: rgba(43, 33, 24, 0.35);
+
+  box-shadow: 0 0 0 1px rgba(247, 241, 230, 0.35);
+}
+
+.chip-swatches {
+  display: inline-flex;
+
+  flex-shrink: 0;
+}
+
+.chip-swatch {
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+
+  box-shadow: 0 0 0 1px rgba(43, 33, 24, 0.12);
+}
+
+.chip-swatch + .chip-swatch {
+  margin-left: -5px;
+}
+
+.chip-swatch-ink {
+  background: var(--studio-ink);
+}
+
+.chip-swatch-foil {
+  background: var(--studio-foil);
+}
+
+.chip-swatch-paper {
+  background: var(--studio-paper);
+}
+
+.chip-text {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  line-height: 1.25;
+}
+
+.chip-text strong {
+  font-size: 12.5px;
+
+  font-weight: 700;
+}
+
+.chip-text small {
+  font-size: 10.5px;
+
+  opacity: 0.72;
 }
 
 /* =========================================================
@@ -1596,16 +2008,16 @@ watch(
   overflow: hidden;
 
   border:
-    1px solid rgba(
-      75,
-      47,
-      52,
-      0.08
+    1px solid
+    color-mix(
+      in srgb,
+      var(--card-accent, #c9a659) 30%,
+      transparent
     );
 
   border-radius: 18px;
 
-  background: #fff;
+  background: var(--studio-card);
 
   cursor: pointer;
 
@@ -1626,7 +2038,7 @@ watch(
     translateY(-10px);
 
   border-color:
-    rgba(143, 77, 67, 0.18);
+    var(--card-accent, rgba(143, 77, 67, 0.18));
 
   box-shadow:
     0 28px 65px
@@ -1817,14 +2229,18 @@ watch(
   border-radius: 999px;
 
   background:
-    rgba(44, 25, 30, 0.32);
+    color-mix(
+      in srgb,
+      var(--card-seal, #2c1e1e) 55%,
+      transparent
+    );
 
   backdrop-filter:
     blur(12px);
 
   color: #fff;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -1866,7 +2282,11 @@ watch(
   transform: scale(1.1);
 
   background:
-    rgba(143, 77, 67, 0.85);
+    color-mix(
+      in srgb,
+      var(--card-seal, #8f4d43) 85%,
+      transparent
+    );
 }
 
 .favorite-btn svg {
@@ -1894,9 +2314,9 @@ watch(
 
   backdrop-filter: blur(12px);
 
-  color: var(--wine);
+  color: var(--card-seal, var(--wine));
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -1908,7 +2328,7 @@ watch(
 }
 
 .featured-label span {
-  color: var(--gold);
+  color: var(--card-accent, var(--gold));
 }
 
 /* =========================================================
@@ -1943,7 +2363,7 @@ watch(
 
   border-radius: 50%;
 
-  background: var(--gold);
+  background: var(--card-accent, var(--gold));
 }
 
 .card-body h3 {
@@ -1961,7 +2381,70 @@ watch(
 
   font-weight: 600;
 
-  color: var(--text);
+  color: var(--card-ink, var(--text));
+}
+
+/* =========================================================
+   IDENTITY ROW (dải màu bản sắc từng mẫu)
+========================================================= */
+
+.identity-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 10px;
+}
+
+.identity-swatch {
+  width: 16px;
+  height: 5px;
+
+  border-radius: 999px;
+
+  box-shadow:
+    inset 0 0 0 1px
+      rgba(43, 33, 24, 0.08);
+
+  opacity: 0.9;
+}
+
+.identity-swatch:first-child {
+  width: 26px;
+}
+
+.identity-orn {
+  margin-left: auto;
+
+  color: var(--card-accent, var(--gold));
+
+  font-family: var(--font-symbol, var(--font-heading));
+
+  font-size: 14px;
+
+  line-height: 1;
+}
+
+/* =========================================================
+   COLLECTION NOTE
+========================================================= */
+
+.collection-note {
+  margin: 34px 0 0;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font-size: 12.5px;
+
+  letter-spacing: 0.02em;
+}
+
+.collection-note strong {
+  color: var(--studio-ink);
 }
 
 .card-footer {
@@ -1993,7 +2476,7 @@ watch(
 
 .template-card:hover
 .view-detail {
-  color: var(--wine);
+  color: var(--card-seal, var(--wine));
 }
 
 .template-card:hover
@@ -2007,14 +2490,22 @@ watch(
   padding: 9px 12px;
 
   border: 1px solid
-    rgba(143,77,67,0.2);
+    color-mix(
+      in srgb,
+      var(--card-seal, #8f4d43) 30%,
+      transparent
+    );
 
   border-radius: 999px;
 
   background:
-    rgba(143,77,67,0.05);
+    color-mix(
+      in srgb,
+      var(--card-seal, #8f4d43) 6%,
+      transparent
+    );
 
-  color: var(--wine);
+  color: var(--card-seal, var(--wine));
 
   font-size: 10px;
 
@@ -2029,7 +2520,7 @@ watch(
 }
 
 .use-template-btn:hover {
-  background: var(--wine);
+  background: var(--card-seal, var(--wine));
 
   color: #fff;
 
@@ -2045,9 +2536,9 @@ watch(
 
   border-radius: 18px;
 
-  background: #fff;
+  background: var(--studio-card);
 
-  border: 1px solid var(--border);
+  border: 1px solid var(--studio-line);
 }
 
 .skeleton-image {
@@ -2056,9 +2547,9 @@ watch(
   background:
     linear-gradient(
       100deg,
-      #eee7e2 20%,
-      #f8f4f0 40%,
-      #eee7e2 60%
+      #ece4d4 20%,
+      #f6f0e3 40%,
+      #ece4d4 60%
     );
 
   background-size: 200% 100%;
@@ -2078,7 +2569,7 @@ watch(
 
   border-radius: 6px;
 
-  background: #eee7e2;
+  background: #ece4d4;
 
   margin-bottom: 12px;
 }
@@ -2122,12 +2613,12 @@ watch(
   padding: 50px 25px;
 
   border:
-    1px solid var(--border);
+    1px solid var(--studio-line);
 
   border-radius: 22px;
 
   background:
-    rgba(255,255,255,0.65);
+    rgba(255, 253, 248, 0.72);
 }
 
 .state-icon,
@@ -2143,9 +2634,11 @@ watch(
   border-radius: 50%;
 
   background:
-    rgba(143,77,67,0.08);
+    var(--studio-foil-soft);
 
-  color: var(--wine);
+  color: var(--studio-seal);
+
+  font-family: var(--font-symbol, serif);
 
   font-size: 22px;
 }
@@ -2185,15 +2678,22 @@ watch(
 
   border-radius: 999px;
 
-  background: var(--wine);
+  background: var(--studio-ink);
 
-  color: #fff;
+  color: #f7f1e6;
 
   font-size: 12px;
 
   font-weight: 700;
 
   cursor: pointer;
+
+  transition:
+    background 0.25s ease;
+}
+
+.retry-btn:hover {
+  background: #443627;
 }
 
 /* =========================================================
@@ -2338,13 +2838,21 @@ watch(
   background:
     radial-gradient(
       circle at 50% 40%,
-      rgba(201,166,89,0.16),
+      color-mix(
+        in srgb,
+        var(--card-accent, #c9a659) 16%,
+        transparent
+      ),
       transparent 38%
     ),
     linear-gradient(
       145deg,
-      #3a2c28,
-      #241a18
+      color-mix(
+        in srgb,
+        var(--card-seal, #3a2c28) 78%,
+        #1a1210
+      ),
+      #1a1210
     );
 }
 
@@ -2364,7 +2872,7 @@ watch(
   color:
     rgba(255,255,255,0.52);
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -2386,11 +2894,15 @@ watch(
 
   border-radius: 50%;
 
-  background: #c9a659;
+  background: var(--card-accent, #c9a659);
 
   box-shadow:
     0 0 10px
-      rgba(201,166,89,0.8);
+      color-mix(
+        in srgb,
+        var(--card-accent, #c9a659) 80%,
+        transparent
+      );
 }
 
 .preview-stage {
@@ -2524,7 +3036,11 @@ watch(
   position: absolute;
 
   color:
-    rgba(201,166,89,0.65);
+    color-mix(
+      in srgb,
+      var(--card-accent, #c9a659) 65%,
+      transparent
+    );
 
   font-family: var(--font-heading);
 
@@ -2562,7 +3078,7 @@ watch(
   color:
     rgba(255,255,255,0.4);
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.04em;
 }
@@ -2619,16 +3135,24 @@ watch(
 
   border:
     1px solid
-    rgba(201,166,89,0.35);
+    color-mix(
+      in srgb,
+      var(--card-accent, #c9a659) 35%,
+      transparent
+    );
 
   border-radius: 999px;
 
-  color: #c9a659;
+  color: var(--card-accent, #c9a659);
 
   background:
-    rgba(201,166,89,0.08);
+    color-mix(
+      in srgb,
+      var(--card-accent, #c9a659) 8%,
+      transparent
+    );
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -2641,7 +3165,7 @@ watch(
   color:
     rgba(255,255,255,0.25);
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.08em;
 }
@@ -2679,6 +3203,52 @@ watch(
   font-size: 13px;
 }
 
+/* =========================================================
+   DETAIL IDENTITY (dải màu + bộ sưu tập trong modal)
+========================================================= */
+
+.detail-identity {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 14px;
+}
+
+.detail-identity .identity-swatch {
+  width: 22px;
+  height: 6px;
+
+  border-radius: 999px;
+
+  opacity: 0.9;
+}
+
+.detail-identity .identity-swatch:first-child {
+  width: 34px;
+}
+
+.detail-collection {
+  margin-left: auto;
+
+  color:
+    color-mix(
+      in srgb,
+      var(--card-accent, #c9a659) 75%,
+      #ffffff
+    );
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
 .gold-rule {
   display: flex;
 
@@ -2694,15 +3264,23 @@ watch(
   height: 1px;
 
   background:
-    rgba(201,166,89,0.45);
+    color-mix(
+      in srgb,
+      var(--card-accent, #c9a659) 45%,
+      transparent
+    );
 }
 
 .gold-rule i {
-  color: #c9a659;
+  color: var(--card-accent, #c9a659);
 
-  font-size: 10px;
+  font-family: var(--font-symbol, var(--font-heading));
+
+  font-size: 13px;
 
   font-style: normal;
+
+  line-height: 1;
 }
 
 .description {
@@ -2753,7 +3331,7 @@ watch(
 .information-icon {
   flex: 0 0 auto;
 
-  color: #c9a659;
+  color: var(--card-accent, #c9a659);
 
   font-size: 15px;
 }
@@ -2770,7 +3348,7 @@ watch(
   color:
     rgba(255,255,255,0.3);
 
-  font-size: 8px;
+  font-size: 10px;
 
   text-transform: uppercase;
 
@@ -2854,7 +3432,7 @@ watch(
 .feature-item > span {
   width: 15px;
 
-  color: #c9a659;
+  color: var(--card-accent, #c9a659);
 
   font-size: 10px;
 
@@ -2936,7 +3514,7 @@ watch(
   color:
     rgba(255,255,255,0.4);
 
-  font-size: 9px;
+  font-size: 11px;
 
   line-height: 1.55;
 }
@@ -2949,7 +3527,7 @@ watch(
   color:
     rgba(255,255,255,0.25);
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -2960,7 +3538,7 @@ watch(
   display: grid;
 
   grid-template-columns:
-    1fr 1fr;
+    1.2fr 1fr;
 
   gap: 9px;
 
@@ -3002,15 +3580,23 @@ watch(
   background:
     linear-gradient(
       135deg,
-      #8f4d43,
-      #6d3a34
+      var(--card-seal, #8f4d43),
+      color-mix(
+        in srgb,
+        var(--card-seal, #6d3a34) 70%,
+        #1a1210
+      )
     );
 
   color: #fff;
 
   box-shadow:
     0 8px 25px
-      rgba(109, 58, 52, 0.3);
+      color-mix(
+        in srgb,
+        var(--card-seal, #6d3a34) 30%,
+        transparent
+      );
 }
 
 .primary-btn span {
@@ -3126,7 +3712,7 @@ watch(
 }
 
 .toast-message span {
-  color: #c9a659;
+  color: var(--studio-foil, #c9a659);
 }
 
 /* =========================================================
@@ -3228,6 +3814,22 @@ watch(
 ========================================================= */
 
 @media (max-width: 900px) {
+  .collection-strip {
+    gap: 8px;
+
+    margin-bottom: 20px;
+  }
+
+  .collection-chip {
+    padding: 7px 13px 7px 10px;
+
+    font-size: 12px;
+  }
+
+  .chip-text small {
+    display: none;
+  }
+
   .container {
     width:
       min(
@@ -3241,6 +3843,10 @@ watch(
   }
 
   .hero-decoration {
+    display: none;
+  }
+
+  .page-seal {
     display: none;
   }
 
@@ -3300,13 +3906,30 @@ watch(
       calc(100% - 24px);
   }
 
+  .collection-strip {
+    gap: 7px;
+
+    margin-bottom: 16px;
+  }
+
+  .collection-chip {
+    padding: 6px 12px 6px 8px;
+
+    font-size: 11.5px;
+  }
+
+  .chip-swatch {
+    width: 12px;
+    height: 12px;
+  }
+
   .page-hero {
     padding:
       52px 0 38px;
   }
 
   .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .eyebrow-line {
@@ -3360,7 +3983,7 @@ watch(
   }
 
   .hero-stat span {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .hero-stat-divider {
@@ -3424,7 +4047,7 @@ watch(
 
     padding: 0 8px;
 
-    font-size: 7px;
+    font-size: 11px;
 
     white-space: nowrap;
 
@@ -3447,7 +4070,7 @@ watch(
 
     padding: 5px 8px;
 
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .card-body {
@@ -3458,11 +4081,33 @@ watch(
   .card-meta {
     margin-bottom: 5px;
 
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .card-body h3 {
     font-size: 20px;
+  }
+
+  .identity-row {
+    margin-top: 7px;
+  }
+
+  .identity-swatch {
+    width: 12px;
+  }
+
+  .identity-swatch:first-child {
+    width: 20px;
+  }
+
+  .identity-orn {
+    font-size: 11px;
+  }
+
+  .collection-note {
+    margin-top: 22px;
+
+    font-size: 11.5px;
   }
 
   .card-footer {
@@ -3470,14 +4115,14 @@ watch(
   }
 
   .view-detail {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .use-template-btn {
     padding:
       7px 8px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   /* ===============================
@@ -3559,7 +4204,7 @@ watch(
   .preview-footer {
     bottom: 10px;
 
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .preview-decoration {
@@ -3577,6 +4222,23 @@ watch(
 
   .detail-date {
     font-size: 11px;
+  }
+
+  .detail-identity {
+    margin-top: 10px;
+  }
+
+  .detail-identity .identity-swatch {
+    width: 16px;
+    height: 5px;
+  }
+
+  .detail-identity .identity-swatch:first-child {
+    width: 26px;
+  }
+
+  .detail-collection {
+    font-size: 9px;
   }
 
   .description {
@@ -3605,11 +4267,11 @@ watch(
   }
 
   .meta-label {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .information-item strong {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .features-section {
@@ -3628,11 +4290,11 @@ watch(
   .feature-item > span {
     width: 11px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .feature-item p {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .demo-section {
@@ -3647,15 +4309,15 @@ watch(
   }
 
   .qr-content strong {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .qr-content p {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .qr-content span {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .detail-actions {
@@ -3665,13 +4327,13 @@ watch(
   .detail-actions button {
     min-height: 42px;
 
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .share-btn {
     min-height: 34px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .close-btn {
@@ -3704,6 +4366,18 @@ watch(
 
   .card-body h3 {
     font-size: 17px;
+  }
+
+  .identity-row {
+    gap: 4px;
+  }
+
+  .identity-swatch {
+    width: 10px;
+  }
+
+  .identity-swatch:first-child {
+    width: 16px;
   }
 
   .card-footer {

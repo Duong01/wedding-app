@@ -168,6 +168,18 @@
                 {{ selectedGift.accountNumber }}
               </div>
 
+              <button
+                v-if="selectedGift?.accountNumber"
+                type="button"
+                class="copy-button"
+                aria-label="Sao chép số tài khoản"
+                @click="copyAccount(selectedGift)"
+              >
+                <v-icon size="14">mdi-content-copy</v-icon>
+
+                <span>SAO CHÉP</span>
+              </button>
+
             </div>
 
 
@@ -198,6 +210,14 @@
             <p class="modal-note">
               Quét mã QR để gửi lời chúc mừng
             </p>
+
+
+            <div
+              v-if="copyState"
+              class="copy-toast"
+            >
+              {{ copyState }}
+            </div>
 
 
             <button
@@ -329,6 +349,44 @@ function closeGift() {
     "gift-modal-open"
   );
 }
+
+
+/* =========================================
+   COPY ACCOUNT
+========================================= */
+
+const copyState = ref("");
+
+let copyTimer = null;
+
+
+async function copyAccount(gift) {
+
+  const number = gift?.accountNumber;
+
+  if (!number) return;
+
+  try {
+
+    await navigator.clipboard.writeText(String(number));
+
+    copyState.value = "Đã sao chép số tài khoản ✓";
+
+  } catch (error) {
+
+    console.warn("Không thể sao chép số tài khoản", error);
+
+    copyState.value = "Không thể sao chép, vui lòng chép thủ công";
+
+  }
+
+  window.clearTimeout(copyTimer);
+
+  copyTimer = window.setTimeout(() => {
+    copyState.value = "";
+  }, 2200);
+
+}
 </script>
 
 
@@ -380,7 +438,7 @@ function closeGift() {
 
   color: #a37a3d;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 900;
 
   letter-spacing: 3px;
@@ -681,7 +739,7 @@ function closeGift() {
     rgba(70,15,15,.2);
 
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
 
   line-height: 1;
 }
@@ -696,7 +754,7 @@ function closeGift() {
 
   color: #7d1519;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
 
   letter-spacing: .6px;
@@ -716,7 +774,7 @@ function closeGift() {
 
   color: #a17a40;
 
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 900;
 
   letter-spacing: 1.7px;
@@ -788,12 +846,12 @@ function closeGift() {
 
 
   .lixi-label {
-    font-size: 8px;
+    font-size: 10px;
   }
 
 
   .lixi-hint {
-    font-size: 5.5px;
+    font-size: 9px;
   }
 
 }
@@ -910,7 +968,7 @@ function closeGift() {
     sans-serif;
 
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
 
   line-height: 1;
 }
@@ -941,7 +999,7 @@ function closeGift() {
 
   color: #a27a40;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 800;
 
   letter-spacing: 1.8px;
@@ -1063,7 +1121,7 @@ function closeGift() {
   border-radius: 50%;
 
   font-size: 23px;
-  font-weight: 300;
+  font-weight: 400;
 
   line-height: 1;
 
@@ -1100,7 +1158,7 @@ function closeGift() {
 
   color: #a0793e;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 900;
 
   letter-spacing: 3px;
@@ -1337,6 +1395,60 @@ function closeGift() {
 
 
 /* =====================================================
+   COPY BUTTON
+===================================================== */
+
+.copy-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 12px;
+
+  padding: 8px 16px;
+
+  color: #fff9ed;
+
+  background:
+    linear-gradient(
+      135deg,
+      #a37a3d,
+      #8b661f
+    );
+
+  border:
+    1px solid
+    #b88b47;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1.6px;
+
+  cursor: pointer;
+
+  transition: filter .2s ease;
+}
+
+
+.copy-button:hover {
+  filter: brightness(1.08);
+}
+
+
+.copy-toast {
+  margin-bottom: 14px;
+
+  color: #7d5a1e;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =====================================================
    BUTTON
 ===================================================== */
 
@@ -1363,7 +1475,7 @@ function closeGift() {
     1px solid
     #a42b2e;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
 
   letter-spacing: 1.8px;
@@ -1464,12 +1576,12 @@ function closeGift() {
 
 
   .lixi-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
 
   .lixi-hint {
-    font-size: 6px;
+    font-size: 10px;
   }
 
 

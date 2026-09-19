@@ -296,7 +296,7 @@ const footerMessage = computed(() => {
 .footer-subtitle {
   margin: 7px 0 0;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
 
   letter-spacing: 0.2em;
@@ -452,7 +452,7 @@ const footerMessage = computed(() => {
 }
 
 .footer-quote span {
-  font-size: 9px;
+  font-size: 11px;
 
   font-style: italic;
 
@@ -482,7 +482,7 @@ const footerMessage = computed(() => {
 
 .footer-bottom small {
 
-  font-size: 7px;
+  font-size: 11px;
 
   letter-spacing: 0.08em;
 }
@@ -561,7 +561,7 @@ const footerMessage = computed(() => {
   }
 
   .footer-bottom small {
-    font-size: 6px;
+    font-size: 10px;
   }
 }
 
@@ -580,7 +580,7 @@ const footerMessage = computed(() => {
   }
 
   .footer-eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .footer-message {

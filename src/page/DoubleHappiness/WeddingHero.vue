@@ -26,7 +26,7 @@
 
     <!-- Red silk photo backdrop -->
     <div class="dh-hero__photo" aria-hidden="true">
-      <!-- <img :src="heroDoublehappiness" alt="" draggable="false" /> -->
+      <!-- <img :src="heroDoublehappiness" alt="" loading="lazy" decoding="async" draggable="false" /> -->
     </div>
 
     <div class="dh-hero__content">
@@ -344,14 +344,14 @@ const dateText = computed(() => {
 }
 
 .dh-petal--1 { left: 8%; animation-duration: 12s; animation-delay: 0s; }
-.dh-petal--2 { left: 20%; animation-duration: 15s; animation-delay: 3s; font-size: 9px; }
+.dh-petal--2 { left: 20%; animation-duration: 15s; animation-delay: 3s; font-size: 11px; }
 .dh-petal--3 { left: 32%; animation-duration: 13s; animation-delay: 1.5s; }
-.dh-petal--4 { left: 44%; animation-duration: 16s; animation-delay: 5s; font-size: 8px; }
+.dh-petal--4 { left: 44%; animation-duration: 16s; animation-delay: 5s; font-size: 10px; }
 .dh-petal--5 { left: 56%; animation-duration: 12.5s; animation-delay: 2s; }
 .dh-petal--6 { left: 68%; animation-duration: 14.5s; animation-delay: 4.2s; font-size: 10px; }
 .dh-petal--7 { left: 80%; animation-duration: 13.5s; animation-delay: 0.8s; }
-.dh-petal--8 { left: 90%; animation-duration: 15.5s; animation-delay: 6s; font-size: 9px; }
-.dh-petal--9 { left: 96%; animation-duration: 14s; animation-delay: 2.6s; font-size: 8px; }
+.dh-petal--8 { left: 90%; animation-duration: 15.5s; animation-delay: 6s; font-size: 11px; }
+.dh-petal--9 { left: 96%; animation-duration: 14s; animation-delay: 2.6s; font-size: 10px; }
 
 /* =========================================================
    CONTENT

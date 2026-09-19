@@ -262,6 +262,7 @@
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useWeddingStore } from "@/stores/wedding";
+import { getThemeMeta, getCollection } from "@/data/templateCollections";
 
 const router = useRouter();
 const store = useWeddingStore();
@@ -391,7 +392,29 @@ function getCoupleName(wedding) {
 }
 
 function getThemeLabel(wedding) {
-  return wedding?.theme?.Name || wedding?.theme || "Classic";
+  const themeName = wedding?.theme?.Name || wedding?.theme || "";
+  return getThemeMeta(themeName).name || themeName || "Classic";
+}
+
+function getWeddingMeta(wedding) {
+  const themeName = wedding?.theme?.Name || wedding?.theme || "";
+  return getThemeMeta(themeName);
+}
+
+function getCardStyle(wedding) {
+  const meta = getWeddingMeta(wedding);
+  const palette = meta.palette;
+
+  return {
+    "--card-ink": palette.ink,
+    "--card-accent": palette.accent,
+    "--card-seal": palette.seal,
+    "--card-bg": palette.bg,
+  };
+}
+
+function getCollectionLabel(wedding) {
+  return getCollection(getWeddingMeta(wedding).collection).name;
 }
 
 function handleImageError(event) {
@@ -1481,7 +1504,7 @@ button.secondary:hover {
   .theme-badge {
     padding: 4px 8px;
 
-    font-size: 9.5px;
+    font-size: 11.5px;
   }
 
   .wedding-info h3 {

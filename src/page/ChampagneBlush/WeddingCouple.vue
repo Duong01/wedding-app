@@ -13,6 +13,17 @@
     <div class="cb-people">
       <!-- CHÚ RỂ -->
       <article class="cb-person cb-person--groom">
+        <div class="cb-person__portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groom"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="cb-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="cb-person__parents">
           <p v-if="groomParents?.Father" class="cb-parents">Ông {{ groomParents.Father }}</p>
           <p v-if="groomParents?.Mother" class="cb-parents">Bà {{ groomParents.Mother }}</p>
@@ -29,6 +40,17 @@
 
       <!-- CÔ DÂU -->
       <article class="cb-person cb-person--bride">
+        <div class="cb-person__portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="bride"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="cb-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="cb-person__parents">
           <p v-if="brideParents?.Father" class="cb-parents">Ông {{ brideParents.Father }}</p>
           <p v-if="brideParents?.Mother" class="cb-parents">Bà {{ brideParents.Mother }}</p>
@@ -118,6 +140,22 @@ const brideDescription = computed(
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
+
+const groomAvatar = computed(
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
+);
+
+const brideAvatar = computed(
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
+);
 
 const weddingDate = computed(
   () =>
@@ -283,6 +321,41 @@ const weddingTime = computed(() => {
   min-width: 0;
 }
 
+.cb-person__portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(201, 160, 106, 0.65);
+  border-radius: 50%;
+
+  background: rgba(255, 250, 244, 0.85);
+
+  box-shadow: 0 8px 22px rgba(108, 75, 74, 0.14);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cb-person__portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.cb-person__initial {
+  font-family: "Allura", cursive;
+
+  font-size: 38px;
+
+  color: #c9a06a;
+}
+
 .cb-person__parents {
   min-height: 38px;
 }
@@ -316,7 +389,7 @@ const weddingTime = computed(() => {
 
   color: #b67f7d;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -410,7 +483,7 @@ const weddingTime = computed(() => {
 .cb-date-side span {
   color: #b67f7d;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -466,7 +539,7 @@ const weddingTime = computed(() => {
 }
 
 .cb-time-label {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

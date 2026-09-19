@@ -6,7 +6,7 @@
 
       <!-- Night photo backdrop -->
       <div class="mg-hero__photo" aria-hidden="true">
-        <!-- <img :src="heroMidnight" alt="" draggable="false" /> -->
+        <!-- <img :src="heroMidnight" alt="" loading="lazy" decoding="async" draggable="false" /> -->
       </div>
 
       <!-- Corner stars -->
@@ -474,11 +474,11 @@ const dateText = computed(() => {
 .mg-particle--1 { left: 8%; animation-duration: 12s; animation-delay: 0s; }
 .mg-particle--2 { left: 22%; animation-duration: 15s; animation-delay: 3s; font-size: 10px; }
 .mg-particle--3 { left: 36%; animation-duration: 13s; animation-delay: 1.5s; }
-.mg-particle--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 9px; }
+.mg-particle--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 11px; }
 .mg-particle--5 { left: 63%; animation-duration: 12.5s; animation-delay: 2s; }
 .mg-particle--6 { left: 76%; animation-duration: 14.5s; animation-delay: 4.2s; font-size: 11px; }
 .mg-particle--7 { left: 87%; animation-duration: 13.5s; animation-delay: 0.8s; }
-.mg-particle--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 9px; }
+.mg-particle--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 11px; }
 
 /* =========================================================
    KEYFRAMES

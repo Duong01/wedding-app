@@ -482,7 +482,7 @@ async function loadFromApi(slug) {
 .preview-title span {
   color: #999fa7;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 750;
 
   letter-spacing: 0.14em;

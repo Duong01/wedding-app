@@ -67,7 +67,7 @@ const items = computed(() => {
 
 .timeline-title small {
   color: #a96b32;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .4em;
 }
 
@@ -112,7 +112,7 @@ h2 {
   border-radius: 50%;
   background: #f3ead8;
   color: #a96b32;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .timeline-content {
@@ -120,7 +120,7 @@ h2 {
 }
 
 .timeline-content > span {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .25em;
   color: #a96b32;
 }

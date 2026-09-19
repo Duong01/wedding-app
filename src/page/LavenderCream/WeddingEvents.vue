@@ -625,7 +625,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 3px;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 
@@ -671,7 +671,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-event-time small {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.2em;
 
@@ -743,7 +743,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-schedule-dot span {
-  font-size: 7px;
+  font-size: 11px;
 
   color: #a086b4;
 }
@@ -758,7 +758,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-schedule-content span {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.16em;
 
@@ -795,7 +795,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-calendar__header span {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -804,7 +804,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-calendar__header strong {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.1em;
 
@@ -828,7 +828,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-calendar__weekdays span {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   color: #a086b4;
@@ -883,7 +883,7 @@ onBeforeUnmount(() => {
 
   margin-top: 15px;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -918,7 +918,7 @@ onBeforeUnmount(() => {
 
   box-shadow: 0 10px 24px rgba(88, 74, 91, 0.24);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -1062,7 +1062,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-modal-header > span {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.28em;
 
@@ -1224,7 +1224,7 @@ onBeforeUnmount(() => {
 .lc-recipient-box span {
   display: block;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.22em;
 

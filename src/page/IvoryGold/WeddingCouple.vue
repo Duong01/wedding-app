@@ -36,6 +36,17 @@
 
       <div class="person">
 
+        <div class="person-portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groomName"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="person-initial">{{ groomName.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="person-role">
           CHÚ RỂ
         </div>
@@ -69,6 +80,17 @@
       <!-- CÔ DÂU -->
 
       <div class="person">
+
+        <div class="person-portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="brideName"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="person-initial">{{ brideName.charAt(0) || "♥" }}</span>
+        </div>
 
         <div class="person-role">
           CÔ DÂU
@@ -287,6 +309,20 @@ const brideName = computed(() =>
   "",
 );
 
+const groomAvatar = computed(() =>
+  wedding.value?.couple?.Groom?.Avatar ||
+  wedding.value?.groom?.avatar ||
+  wedding.value?.groom?.image ||
+  "",
+);
+
+const brideAvatar = computed(() =>
+  wedding.value?.couple?.Bride?.Avatar ||
+  wedding.value?.bride?.avatar ||
+  wedding.value?.bride?.image ||
+  "",
+);
+
 
 // ========================================
 // PARENTS
@@ -462,7 +498,7 @@ const address = computed(() =>
     8px
     20px;
 
-  color: #701216;
+  color: #4a3f38;
 
   text-align: center;
 }
@@ -494,7 +530,7 @@ const address = computed(() =>
     linear-gradient(
       to right,
       transparent,
-      #b78b48
+      #d4af85
     );
 }
 
@@ -503,7 +539,7 @@ const address = computed(() =>
     linear-gradient(
       to left,
       transparent,
-      #b78b48
+      #d4af85
     );
 }
 
@@ -512,9 +548,9 @@ const address = computed(() =>
 
   margin-bottom: 5px;
 
-  color: #b08748;
+  color: #a8875a;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 
   letter-spacing: 3px;
@@ -523,7 +559,7 @@ const address = computed(() =>
 .section-heading h2 {
   margin: 0;
 
-  color: #821419;
+  color: #5a4835;
 
   font-size: 22px;
   font-weight: 800;
@@ -536,7 +572,7 @@ const address = computed(() =>
 .double-happiness {
   margin-top: 7px;
 
-  color: #a3171b;
+  color: #c9a45c;
 
   font-family: "Times New Roman", serif;
 
@@ -583,9 +619,9 @@ const address = computed(() =>
 .family-label {
   margin-bottom: 10px;
 
-  color: #ad8446;
+  color: #a8875a;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
 
   letter-spacing: 1.7px;
@@ -606,9 +642,9 @@ const address = computed(() =>
 }
 
 .parent-role {
-  color: #9a7847;
+  color: #9a8266;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -628,7 +664,7 @@ const address = computed(() =>
 
   padding: 0 8px;
 
-  color: #9b171b;
+  color: #c9a45c;
 
   font-family: "Times New Roman", serif;
 
@@ -636,7 +672,7 @@ const address = computed(() =>
 }
 
 .family-divider b {
-  color: #9b171b;
+  color: #c9a45c;
 
   font-family: "Times New Roman", serif;
 
@@ -668,12 +704,48 @@ const address = computed(() =>
   min-width: 0;
 }
 
+.person-portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(212, 175, 133, 0.7);
+  border-radius: 50%;
+
+  background: rgba(255, 250, 240, 0.92);
+
+  box-shadow: 0 8px 22px rgba(90, 72, 53, 0.14);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.person-portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.person-initial {
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 40px;
+  font-weight: 600;
+
+  color: #c9a45c;
+}
+
 .person-role {
   margin-bottom: 7px;
 
-  color: #ae8547;
+  color: #a8875a;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 
   letter-spacing: 2px;
@@ -682,7 +754,7 @@ const address = computed(() =>
 .person h3 {
   margin: 0;
 
-  color: #811419;
+  color: #5a4835;
 
   font-size: 22px;
   font-weight: 800;
@@ -706,13 +778,13 @@ const address = computed(() =>
   width: 25px;
   height: 1px;
 
-  background: #c09a5d;
+  background: #d4af85;
 }
 
 .name-decoration i {
-  color: #b1874a;
+  color: #c9a45c;
 
-  font-size: 7px;
+  font-size: 11px;
 
   font-style: normal;
 }
@@ -729,11 +801,11 @@ const address = computed(() =>
   width: 1px;
   height: 15px;
 
-  background: #c5a269;
+  background: #d4af85;
 }
 
 .couple-mark strong {
-  color: #9c161a;
+  color: #c9a45c;
 
   font-family: "Times New Roman", serif;
 
@@ -757,9 +829,9 @@ const address = computed(() =>
 .date-label {
   margin-bottom: 9px;
 
-  color: #ae8548;
+  color: #a8875a;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
 
   letter-spacing: 2.5px;
@@ -773,7 +845,7 @@ const address = computed(() =>
 .date-time {
   margin-bottom: 7px;
 
-  color: #7d1318;
+  color: #5a4835;
 
   font-size: 25px;
   font-weight: 800;
@@ -795,7 +867,7 @@ const address = computed(() =>
 
   gap: 8px;
 
-  color: #741317;
+  color: #4a3f38;
 
   white-space: nowrap;
 }
@@ -808,11 +880,11 @@ const address = computed(() =>
 }
 
 .day {
-  color: #9b171b;
+  color: #c9a45c;
 
   font-family: Georgia, "Times New Roman", serif;
 
-  font-size: 47px;
+  font-size: clamp(34px, 9vw, 47px);
   font-weight: 900;
 
   line-height: .9;
@@ -833,7 +905,7 @@ const address = computed(() =>
 .year {
   margin-top: 8px;
 
-  color: #866641;
+  color: #8a7a5e;
 
   font-family: Georgia, "Times New Roman", serif;
 
@@ -864,13 +936,13 @@ const address = computed(() =>
 .location-icon {
   margin-bottom: 5px;
 
-  color: #ae8446;
+  color: #a8875a;
 
   font-size: 14px;
 }
 
 .location strong {
-  color: #761419;
+  color: #5a4835;
 
   font-size: 13px;
   font-weight: 800;
@@ -920,7 +992,7 @@ const address = computed(() =>
   }
 
   .parent-role {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .parent strong {
@@ -940,7 +1012,7 @@ const address = computed(() =>
   }
 
   .weekday {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .month {

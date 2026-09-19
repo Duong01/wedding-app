@@ -634,7 +634,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 3px;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 
@@ -680,7 +680,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-event-time small {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.2em;
 
@@ -755,7 +755,7 @@ onBeforeUnmount(() => {
 .dh-schedule-dot span {
   transform: rotate(-45deg);
 
-  font-size: 7px;
+  font-size: 11px;
 
   color: var(--dh-red-bright);
 }
@@ -770,7 +770,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-schedule-content span {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.16em;
 
@@ -807,7 +807,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-calendar__header span {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -816,7 +816,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-calendar__header strong {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.1em;
 
@@ -840,7 +840,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-calendar__weekdays span {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   color: var(--dh-red-bright);
@@ -895,7 +895,7 @@ onBeforeUnmount(() => {
 
   margin-top: 15px;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -930,7 +930,7 @@ onBeforeUnmount(() => {
 
   box-shadow: 0 10px 24px rgba(60, 10, 12, 0.28);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -1086,7 +1086,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-modal-header > span {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.28em;
 
@@ -1248,7 +1248,7 @@ onBeforeUnmount(() => {
 .dh-recipient-box span {
   display: block;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.22em;
 

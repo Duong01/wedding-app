@@ -262,7 +262,9 @@ async function loadWishes() {
   }
 }
 
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 /* =========================================
    SUBMIT
@@ -505,7 +507,7 @@ async function submitWish() {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -582,7 +584,7 @@ async function submitWish() {
 
   color: #b3a08a;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -729,7 +731,7 @@ async function submitWish() {
 
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.1em;
@@ -850,7 +852,7 @@ async function submitWish() {
 .vs-wish-header span {
   color: #a89478;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .vs-wish-header > .v-icon {
@@ -981,7 +983,7 @@ async function submitWish() {
 .vs-marquee-label span {
   font-family: "Courier New", ui-monospace, monospace;
 
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -1036,7 +1038,7 @@ async function submitWish() {
 .vs-wish-marquee-item i {
   color: #97745a;
 
-  font-size: 9px;
+  font-size: 11px;
   font-style: normal;
 
   animation: vs-marquee-heart 1.8s ease-in-out infinite;
@@ -1059,7 +1061,7 @@ async function submitWish() {
 .vs-marquee-dot {
   color: #c2a878;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 400;
 }
 
@@ -1165,7 +1167,7 @@ async function submitWish() {
   }
 
   .vs-marquee-label span {
-    font-size: 5px;
+    font-size: 11px;
   }
 }
 

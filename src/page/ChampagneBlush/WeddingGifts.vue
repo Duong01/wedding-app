@@ -565,7 +565,7 @@ onBeforeUnmount(() => {
 
   color: #8f5a56;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -754,7 +754,7 @@ onBeforeUnmount(() => {
 
   color: #b67f7d;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.26em;
@@ -954,7 +954,7 @@ onBeforeUnmount(() => {
 
   color: #9a7a72;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -993,7 +993,7 @@ onBeforeUnmount(() => {
 .cb-info-label {
   color: #b67f7d;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1209,7 +1209,7 @@ onBeforeUnmount(() => {
 
   background: linear-gradient(135deg, #c9a06a, #a97f4c);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1477,7 +1477,7 @@ onBeforeUnmount(() => {
   }
 
   .cb-account-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .cb-info-value {

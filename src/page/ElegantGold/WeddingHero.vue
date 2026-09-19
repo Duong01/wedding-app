@@ -183,7 +183,7 @@ const dateText = computed(() => {
 
   background: radial-gradient(circle, rgba(181, 138, 69, 0.32), transparent 68%);
 
-  filter: blur(12px);
+  filter: blur(6px);
 
   pointer-events: none;
 

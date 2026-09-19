@@ -630,7 +630,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 3px;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 
@@ -676,7 +676,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-event-time small {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.2em;
 
@@ -748,7 +748,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-schedule-dot span {
-  font-size: 7px;
+  font-size: 11px;
 
   color: #e8927c;
 }
@@ -763,7 +763,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-schedule-content span {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.16em;
 
@@ -800,7 +800,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-calendar__header span {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -809,7 +809,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-calendar__header strong {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.1em;
 
@@ -833,7 +833,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-calendar__weekdays span {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   color: #4a9ab8;
@@ -888,7 +888,7 @@ onBeforeUnmount(() => {
 
   margin-top: 15px;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -923,7 +923,7 @@ onBeforeUnmount(() => {
 
   box-shadow: 0 10px 24px rgba(29, 106, 142, 0.26);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -1067,7 +1067,7 @@ onBeforeUnmount(() => {
 }
 
 .ob-modal-header > span {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.28em;
 
@@ -1229,7 +1229,7 @@ onBeforeUnmount(() => {
 .ob-recipient-box span {
   display: block;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.22em;
 

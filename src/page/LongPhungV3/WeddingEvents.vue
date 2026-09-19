@@ -1082,7 +1082,7 @@ onBeforeUnmount(() => {
 .lp-recipient-box span {
   display: block;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.2em;
 

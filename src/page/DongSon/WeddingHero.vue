@@ -10,7 +10,7 @@
 
     <!-- Bronze drum photo backdrop -->
     <div class="hero-photo" aria-hidden="true">
-      <!-- <img :src="heroDongson" alt="" draggable="false" /> -->
+      <!-- <img :src="heroDongson" alt="" loading="lazy" decoding="async" draggable="false" /> -->
     </div>
 
     <div class="hero-content">
@@ -320,7 +320,7 @@ h1 small {
   align-items: center;
   gap: 12px;
   width: 80%;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .3em;
   color: #b9823f;
 }

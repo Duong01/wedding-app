@@ -1042,7 +1042,7 @@ async function handleOpen() {
 
   letter-spacing: 0.15em;
 
-  font-size: 8px;
+  font-size: 10px;
 
   color: rgba(243, 217, 156, 0.7);
 }
@@ -1299,7 +1299,7 @@ async function handleOpen() {
 .rr-footer-year {
   margin-top: 18px;
 
-  font-size: 9px;
+  font-size: 11px;
 
   text-transform: uppercase;
 
@@ -1401,7 +1401,7 @@ async function handleOpen() {
   }
 
   .royal-hero-subtitle {
-    font-size: 9px;
+    font-size: 11px;
 
     letter-spacing: 0.22em;
   }
@@ -1442,7 +1442,7 @@ async function handleOpen() {
   }
 
   .rr-countdown-label {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   /* -------------------------------------------------------

@@ -13,6 +13,17 @@
     <div class="sg-people">
       <!-- CHÚ RỂ -->
       <article class="sg-person sg-person--groom">
+        <div class="sg-person__portrait">
+          <img
+            v-if="groomAvatar"
+            :src="groomAvatar"
+            :alt="groom"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="sg-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="sg-person__parents">
           <p v-if="groomParents?.Father" class="sg-parents">Ông {{ groomParents.Father }}</p>
           <p v-if="groomParents?.Mother" class="sg-parents">Bà {{ groomParents.Mother }}</p>
@@ -29,6 +40,17 @@
 
       <!-- CÔ DÂU -->
       <article class="sg-person sg-person--bride">
+        <div class="sg-person__portrait">
+          <img
+            v-if="brideAvatar"
+            :src="brideAvatar"
+            :alt="bride"
+            loading="lazy"
+            decoding="async"
+          />
+          <span v-else class="sg-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
         <div class="sg-person__parents">
           <p v-if="brideParents?.Father" class="sg-parents">Ông {{ brideParents.Father }}</p>
           <p v-if="brideParents?.Mother" class="sg-parents">Bà {{ brideParents.Mother }}</p>
@@ -118,6 +140,22 @@ const brideDescription = computed(
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
+
+const groomAvatar = computed(
+  () =>
+    props.wedding?.couple?.Groom?.Avatar ||
+    props.wedding?.groom?.avatar ||
+    props.wedding?.groom?.image ||
+    ""
+);
+
+const brideAvatar = computed(
+  () =>
+    props.wedding?.couple?.Bride?.Avatar ||
+    props.wedding?.bride?.avatar ||
+    props.wedding?.bride?.image ||
+    ""
+);
 
 const weddingDate = computed(
   () =>
@@ -283,6 +321,41 @@ const weddingTime = computed(() => {
   min-width: 0;
 }
 
+.sg-person__portrait {
+  width: 92px;
+  height: 92px;
+
+  margin: 0 auto 12px;
+
+  border: 2px solid rgba(143, 174, 155, 0.6);
+  border-radius: 50%;
+
+  background: rgba(244, 250, 246, 0.9);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sg-person__portrait img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.sg-person__initial {
+  font-family: "Allura", cursive;
+
+  font-size: 38px;
+
+  color: #8fae9b;
+}
+
 .sg-person__parents {
   min-height: 38px;
 }
@@ -316,7 +389,7 @@ const weddingTime = computed(() => {
 
   color: #6c8e7a;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.24em;
   font-weight: 700;
@@ -410,7 +483,7 @@ const weddingTime = computed(() => {
 .sg-date-side span {
   color: #6c8e7a;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -466,7 +539,7 @@ const weddingTime = computed(() => {
 }
 
 .sg-time-label {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.2em;

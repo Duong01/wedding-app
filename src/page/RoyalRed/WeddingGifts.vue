@@ -417,7 +417,7 @@ async function copy(value) {
 .rr-kicker {
   text-align: center;
   color: #cda45f;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: .42em;
   margin-bottom: 15px;
@@ -701,7 +701,7 @@ async function copy(value) {
 .envelope-small {
   color: #f6dca0;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: .28em;
@@ -724,7 +724,7 @@ async function copy(value) {
 
   color: rgba(250, 225, 166, .8);
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .2em;
 }
@@ -749,7 +749,7 @@ async function copy(value) {
 
   color: rgba(221, 181, 100, .7);
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .25em;
 }
@@ -883,7 +883,7 @@ async function copy(value) {
 
   color: #9a702e;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: .24em;
@@ -1167,7 +1167,7 @@ async function copy(value) {
 
   color: #c69b50;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: .14em;
 
@@ -1275,7 +1275,7 @@ async function copy(value) {
 .gift-bottom i {
   color: #b88a42;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-style: normal;
 }
@@ -1364,7 +1364,7 @@ async function copy(value) {
   }
 
   .qr-label {
-    font-size: 6px;
+    font-size: 10px;
   }
 
   .qr-name {

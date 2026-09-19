@@ -321,7 +321,7 @@ function getImage(item) {
 
   color: #8b948a;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 
   letter-spacing: 2.5px;
@@ -616,7 +616,7 @@ function getImage(item) {
 
   color: rgba(255,255,255,.8);
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 1.2px;

@@ -565,7 +565,7 @@ onBeforeUnmount(() => {
 
   color: #3f6f63;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -754,7 +754,7 @@ onBeforeUnmount(() => {
 
   color: #6c8e7a;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.26em;
@@ -954,7 +954,7 @@ onBeforeUnmount(() => {
 
   color: #7a8a80;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -993,7 +993,7 @@ onBeforeUnmount(() => {
 .sg-info-label {
   color: #6c8e7a;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.14em;
@@ -1209,7 +1209,7 @@ onBeforeUnmount(() => {
 
   background: linear-gradient(135deg, #6c8e7a, #3f6f63);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
@@ -1477,7 +1477,7 @@ onBeforeUnmount(() => {
   }
 
   .sg-account-label {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .sg-info-value {

@@ -262,7 +262,9 @@ async function loadWishes() {
   }
 }
 
-loadWishes();
+if(route.params.slug  && route.name === "WeddingByApi") {
+  loadWishes();
+}
 
 /* =========================================
    SUBMIT
@@ -527,7 +529,7 @@ async function submitWish() {
 
   color: #8a7a52;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -604,7 +606,7 @@ async function submitWish() {
 
   color: #a8a894;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -747,7 +749,7 @@ async function submitWish() {
 
   white-space: nowrap;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.1em;
@@ -868,7 +870,7 @@ async function submitWish() {
 .el-wish-header span {
   color: #9aa398;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .el-wish-header > .v-icon {
@@ -1002,7 +1004,7 @@ async function submitWish() {
 }
 
 .el-marquee-label span {
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -1057,7 +1059,7 @@ async function submitWish() {
 .el-wish-marquee-item i {
   color: #c9a45c;
 
-  font-size: 9px;
+  font-size: 11px;
   font-style: normal;
 
   animation: el-marquee-flower 1.8s ease-in-out infinite;
@@ -1080,7 +1082,7 @@ async function submitWish() {
 .el-marquee-dot {
   color: #c9a45c;
 
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 400;
 }
 
@@ -1182,7 +1184,7 @@ async function submitWish() {
   }
 
   .el-marquee-label span {
-    font-size: 5px;
+    font-size: 11px;
   }
 }
 

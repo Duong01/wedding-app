@@ -367,7 +367,7 @@ function formatTime(index) {
 
   color: #a6536b;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 700;
 
@@ -597,7 +597,7 @@ function formatTime(index) {
   .timeline-date {
     margin-bottom: 7px;
 
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .date-icon {

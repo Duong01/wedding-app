@@ -929,7 +929,7 @@ function openInvitation() {
 
   margin: 0 0 6px;
 
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: .38em;
 
@@ -1010,7 +1010,7 @@ function openInvitation() {
 
   color: var(--gold-dark);
 
-  font-size: 9px;
+  font-size: 11px;
 
 }
 
@@ -1600,7 +1600,7 @@ function openInvitation() {
 
 .red-opening__bottom span {
 
-  font-size: 8px;
+  font-size: 10px;
 
 }
 
@@ -1611,7 +1611,7 @@ function openInvitation() {
     Georgia,
     serif;
 
-  font-size: 7px;
+  font-size: 11px;
 
   letter-spacing: .3em;
 
@@ -1786,7 +1786,7 @@ function openInvitation() {
 
   .red-card__kicker {
 
-    font-size: 8px;
+    font-size: 10px;
 
   }
 

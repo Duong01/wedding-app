@@ -27,6 +27,40 @@
         {{ thanksMessage }}
       </p>
 
+      <div class="footer-actions">
+        <a
+          v-if="facebookUrl"
+          :href="facebookUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+        >
+          <v-icon size="15">mdi-facebook</v-icon>
+
+          <span>Facebook</span>
+        </a>
+
+        <a
+          v-if="phoneUrl"
+          :href="phoneUrl"
+          class="footer-link"
+        >
+          <v-icon size="15">mdi-phone</v-icon>
+
+          <span>{{ phoneDisplay }}</span>
+        </a>
+
+        <a
+          v-if="emailUrl"
+          :href="emailUrl"
+          class="footer-link"
+        >
+          <v-icon size="15">mdi-email-outline</v-icon>
+
+          <span>{{ emailDisplay }}</span>
+        </a>
+      </div>
+
       <div class="copyright">
         {{ copyrightText }}
       </div>
@@ -76,6 +110,46 @@ const copyrightText = computed(() => {
     props.wedding?.footer?.Copyright ||
     `© ${props.currentYear ?? ""} · ${props.monogram ?? ""}`
   );
+});
+
+const facebookUrl = computed(() => {
+  const raw =
+    props.wedding?.footer?.Facebook ||
+    props.wedding?.footer?.FacebookUrl ||
+    props.wedding?.contact?.Facebook ||
+    "";
+
+  if (!raw) return "";
+
+  return raw.startsWith("http") ? raw : `https://${raw}`;
+});
+
+const phoneDisplay = computed(() => {
+  return (
+    props.wedding?.footer?.Phone ||
+    props.wedding?.contact?.Phone ||
+    ""
+  );
+});
+
+const phoneUrl = computed(() => {
+  const raw = phoneDisplay.value;
+
+  return raw ? `tel:${String(raw).replace(/[^\d+]/g, "")}` : "";
+});
+
+const emailDisplay = computed(() => {
+  return (
+    props.wedding?.footer?.Email ||
+    props.wedding?.contact?.Email ||
+    ""
+  );
+});
+
+const emailUrl = computed(() => {
+  const raw = emailDisplay.value;
+
+  return raw ? `mailto:${raw}` : "";
 });
 </script>
 
@@ -133,7 +207,7 @@ const copyrightText = computed(() => {
 }
 
 .footer-content > small {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .4em;
   color: #c99552;
 }
@@ -180,10 +254,59 @@ h2 span {
   color: #cdb99b;
 }
 
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 26px;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 16px;
+
+  border: 1px solid rgba(201,149,82,.45);
+
+  font-size: 11px;
+  letter-spacing: .12em;
+
+  color: #ead7b5;
+  background: rgba(201,149,82,.08);
+
+  text-decoration: none;
+
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.footer-link:hover {
+  border-color: #c99552;
+  background: rgba(201,149,82,.18);
+}
+
 .copyright {
   margin-top: 45px;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: .3em;
   color: #806052;
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 65px 16px 28px;
+  }
+
+  .footer-actions {
+    gap: 8px;
+  }
+
+  .footer-link {
+    padding: 7px 12px;
+  }
 }
 </style>

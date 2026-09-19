@@ -283,7 +283,7 @@ const eventsWithLocation = computed(() =>
 
 
   .rr-kicker {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.28em;
   }
 
@@ -301,7 +301,7 @@ const eventsWithLocation = computed(() =>
 
   .map-card a {
     min-width: 190px;
-    font-size: 9px;
+    font-size: 11px;
   }
 
 }

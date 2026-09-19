@@ -10,7 +10,7 @@
 
       <!-- Soft photo backdrop -->
       <div class="lc-hero__photo" aria-hidden="true">
-        <!-- <img :src="heroLavender" alt="" draggable="false" /> -->
+        <!-- <img :src="heroLavender" alt="" loading="lazy" decoding="async" draggable="false" /> -->
       </div>
 
       <!-- Corner blooms -->
@@ -506,11 +506,11 @@ const dateText = computed(() => {
 .lc-sparkle-fall--1 { left: 8%; animation-duration: 12s; animation-delay: 0s; }
 .lc-sparkle-fall--2 { left: 22%; animation-duration: 15s; animation-delay: 3s; font-size: 10px; }
 .lc-sparkle-fall--3 { left: 36%; animation-duration: 13s; animation-delay: 1.5s; }
-.lc-sparkle-fall--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 9px; }
+.lc-sparkle-fall--4 { left: 50%; animation-duration: 16s; animation-delay: 5s; font-size: 11px; }
 .lc-sparkle-fall--5 { left: 63%; animation-duration: 12.5s; animation-delay: 2s; }
 .lc-sparkle-fall--6 { left: 76%; animation-duration: 14.5s; animation-delay: 4.2s; font-size: 11px; }
 .lc-sparkle-fall--7 { left: 87%; animation-duration: 13.5s; animation-delay: 0.8s; }
-.lc-sparkle-fall--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 9px; }
+.lc-sparkle-fall--8 { left: 95%; animation-duration: 15.5s; animation-delay: 6s; font-size: 11px; }
 
 /* =========================================================
    KEYFRAMES

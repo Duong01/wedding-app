@@ -462,3 +462,40 @@ label {
 
   line-height: 1;
 }
+
+
+/* ===========================================================
+   STUDIO DESIGN SYSTEM (Home / Templates — trang ứng dụng)
+   Ngôn ngữ "Asian-inspired luxury": mực, giấy dó, vàng foil,
+   ấn son — dùng chung cho gallery và landing page.
+=========================================================== */
+
+:root {
+  /* Mực nho ấm — chữ và nền tối */
+  --studio-ink: #2b2118;
+
+  --studio-ink-soft: #5c4f43;
+
+  --studio-ink-faint: #8a7a68;
+
+  /* Giấy dó — nền trang */
+  --studio-paper: #f7f1e6;
+
+  --studio-paper-deep: #efe6d4;
+
+  --studio-card: #fffdf8;
+
+  /* Vàng kim foil */
+  --studio-foil: #b9975b;
+
+  --studio-foil-bright: #d8bc7e;
+
+  --studio-foil-soft: rgba(185, 151, 91, 0.16);
+
+  /* Đỏ ấn son — điểm nhấn rất tiết chế */
+  --studio-seal: #a63a2e;
+
+  --studio-line: rgba(43, 33, 24, 0.14);
+
+  --studio-line-strong: rgba(43, 33, 24, 0.28);
+}

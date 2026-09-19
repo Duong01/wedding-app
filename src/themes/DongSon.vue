@@ -51,7 +51,7 @@
           v-if="showGallery && gallery.length"
           class="section gallery-section"
         >
-          <WeddingGallery :gallery="gallery" @open="openGallery" />
+          <WeddingGallery :gallery="gallery" />
         </section>
 
         <!-- MAP -->
@@ -153,7 +153,6 @@ const heroMusic = computed(() => {
 
 const opened = ref(false);
 const floatingMusicRef = ref(null);
-const galleryIndex = ref(0);
 
 const currentYear = new Date().getFullYear();
 
@@ -242,10 +241,6 @@ async function handleOpen() {
   await nextTick();
 
   floatingMusicRef.value?.play?.();
-}
-
-function openGallery(index) {
-  galleryIndex.value = index;
 }
 </script>
 
@@ -350,7 +345,7 @@ function openGallery(index) {
   height: auto;
   text-align: center;
   color: rgba(169, 107, 50, 0.3);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.3em;
   padding: 12px 0;
   pointer-events: none;

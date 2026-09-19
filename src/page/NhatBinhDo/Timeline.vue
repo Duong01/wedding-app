@@ -244,7 +244,7 @@ function getDefaultIcon(type) {
 
   color: #a57a3d;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 2.5px;
@@ -536,7 +536,7 @@ function getDefaultIcon(type) {
 
   color: #947247;
 
-  font-size: 9px;
+  font-size: 11px;
 
   line-height: 1.5;
 }
@@ -630,7 +630,7 @@ function getDefaultIcon(type) {
 
 
   .heading-kicker {
-    font-size: 8px;
+    font-size: 10px;
 
     letter-spacing: 2px;
   }

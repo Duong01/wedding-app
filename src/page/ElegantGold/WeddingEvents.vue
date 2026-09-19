@@ -632,7 +632,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 3px;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.14em;
 
@@ -678,7 +678,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-event-time small {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.2em;
 
@@ -750,7 +750,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-schedule-dot span {
-  font-size: 7px;
+  font-size: 11px;
 
   color: #8a7a52;
 }
@@ -765,7 +765,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-schedule-content span {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.16em;
 
@@ -801,7 +801,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-event-location small {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.2em;
 
@@ -846,7 +846,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-calendar__header span {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -855,7 +855,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-calendar__header strong {
-  font-size: 9px;
+  font-size: 11px;
 
   letter-spacing: 0.1em;
 
@@ -879,7 +879,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-calendar__weekdays span {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 
   color: #8a7a52;
@@ -934,7 +934,7 @@ onBeforeUnmount(() => {
 
   margin-top: 15px;
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
@@ -969,7 +969,7 @@ onBeforeUnmount(() => {
 
   box-shadow: 0 10px 24px rgba(181, 138, 69, 0.32);
 
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -1113,7 +1113,7 @@ onBeforeUnmount(() => {
 }
 
 .eg-modal-header > span {
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.28em;
 
@@ -1275,7 +1275,7 @@ onBeforeUnmount(() => {
 .eg-recipient-box span {
   display: block;
 
-  font-size: 8px;
+  font-size: 10px;
 
   letter-spacing: 0.22em;
 

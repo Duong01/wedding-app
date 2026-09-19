@@ -62,7 +62,7 @@ onUnmounted(() => clearInterval(timer));
   font-weight: 500;
 }
 .boxes small {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.12em;
 }
 </style>
