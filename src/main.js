@@ -14,6 +14,10 @@ import '@mdi/font/css/materialdesignicons.css';
 // sẽ tự tree-shake, chỉ gói những component thực sự dùng trong template
 // (v-icon, v-dialog, v-btn, v-switch...). Giảm bundle chính ~500kB.
 import "./assets/styles/theme.css";
+
+// Design system cho các trang ứng dụng (Manage/Admin/Payment/Profile/Login)
+// — mở rộng studio tokens, dùng chung thay vì CSS nhân bản từng view.
+import "./assets/styles/app.css";
 import * as directives from "vuetify/directives";
 
 const vuetify = createVuetify({
@@ -29,14 +33,14 @@ const vuetify = createVuetify({
                 dark: false,
 
                 colors: {
-                    primary: "#8f4d43",
-                    secondary: "#c9a659",
-                    background: "#faf7f2",
-                    surface: "#FFFFFF",
-                    success: "#2e7d32",
-                    error: "#c62828",
+                    primary: "#a63a2e",
+                    secondary: "#b9975b",
+                    background: "#f7f1e6",
+                    surface: "#fffdf8",
+                    success: "#2e6b3f",
+                    error: "#a03030",
                     info: "#2196F3",
-                    warning: "#e9a13b"
+                    warning: "#9a6b1f"
                 }
             }
         }

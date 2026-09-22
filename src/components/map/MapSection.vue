@@ -92,7 +92,7 @@ const props = defineProps({
   }
 })
 const firstEvent = computed(() => props.events?.[0] ?? {});
-console.log(firstEvent.value)
+
 const mapSrcLink = computed(() => {
   const query = firstEvent.value;
   return `${query.Map}`;
@@ -139,14 +139,14 @@ const mapSrc = computed(() => {
     linear-gradient(
       145deg,
       rgba(255, 255, 255, 0.96),
-      rgba(255, 248, 246, 0.92)
+      rgba(255, 250, 244, 0.92)
     );
 
-  border: 1px solid rgba(190, 145, 130, 0.16);
+  border: 1px solid rgba(199, 157, 92, 0.22);
 
   box-shadow:
-    0 30px 80px rgba(91, 48, 53, 0.12),
-    0 8px 25px rgba(91, 48, 53, 0.06);
+    0 30px 80px rgba(70, 20, 10, 0.12),
+    0 8px 25px rgba(70, 20, 10, 0.06);
 
   overflow: hidden;
 
@@ -171,11 +171,11 @@ const mapSrc = computed(() => {
 
   border-radius: 18px;
 
-  color: var(--p-primary, #b85c72);
+  color: var(--p-primary, #7b0d0d);
 
-  background: var(--p-accent-soft, linear-gradient(135deg, #fff0f3, #fbe0e6));
+  background: var(--p-accent-soft, linear-gradient(135deg, #fff0e8, #fbe4d6));
 
-  box-shadow: 0 8px 20px rgba(120, 90, 100, 0.12);
+  box-shadow: 0 8px 20px rgba(100, 20, 10, 0.12);
 }
 
 .location-heading {
@@ -192,7 +192,7 @@ const mapSrc = computed(() => {
 
   letter-spacing: 0.22em;
 
-  color: #fff0f3;
+  color: var(--p-gold-light, #ffe3b1);
 }
 
 
@@ -245,7 +245,7 @@ const mapSrc = computed(() => {
 
   border-radius: 999px;
 
-  color: #5c3a40;
+  color: var(--p-ink, #4f4039);
 
   background: rgba(255, 255, 255, 0.92);
 
@@ -299,9 +299,9 @@ const mapSrc = computed(() => {
 
   border-radius: 15px;
 
-  color: var(--p-primary, #b85c72);
+  color: var(--p-primary, #7b0d0d);
 
-  background: var(--p-accent-soft, #fff0f3);
+  background: var(--p-accent-soft, #fff0e8);
 }
 
 .address-content {
@@ -322,13 +322,13 @@ const mapSrc = computed(() => {
 
   text-transform: uppercase;
 
-  color: var(--p-gold, #b88968);
+  color: var(--p-gold, #c79d5c);
 }
 
 .address-content p {
   margin: 0;
 
-  color: var(--p-ink, #5d474b);
+  color: var(--p-ink, #4f4039);
 
   font-family: var(--font-main);
   font-size: var(--text-sm);
@@ -358,12 +358,12 @@ const mapSrc = computed(() => {
   background:
     linear-gradient(
       135deg,
-      var(--p-primary, #d8758d),
-      var(--p-primary-dark, #b95770)
+      var(--p-primary, #7b0d0d),
+      var(--p-primary-dark, #65090c)
     ) !important;
 
   box-shadow:
-    0 10px 24px rgba(120, 80, 90, 0.25) !important;
+    0 10px 24px rgba(100, 20, 10, 0.25) !important;
 
   transition:
     transform 0.25s ease,
@@ -374,7 +374,7 @@ const mapSrc = computed(() => {
   transform: translateY(-2px);
 
   box-shadow:
-    0 14px 30px rgba(120, 80, 90, 0.34) !important;
+    0 14px 30px rgba(100, 20, 10, 0.34) !important;
 }
 
 

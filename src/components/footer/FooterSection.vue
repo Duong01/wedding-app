@@ -1,6 +1,40 @@
 <template>
-    
+  <div class="footer-section">
+
+    <!-- =================================================
+         ẢNH CƯỚI LÀM NỀN
+    ================================================== -->
+
+    <div
+      v-if="photoUrl"
+      class="footer-photo"
+      aria-hidden="true"
+    >
+      <img
+        :src="photoUrl"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Lớp phủ đỏ + ánh kim giữ chữ luôn đọc được -->
+    <div class="footer-veil" aria-hidden="true"></div>
+
+    <!-- Khung viền kép mảnh -->
+    <div class="footer-frame" aria-hidden="true"></div>
+
+
+    <!-- =================================================
+         NỘI DUNG
+    ================================================== -->
+
     <div class="footer-content">
+
+      <!-- Ấn triện -->
+      <div class="footer-seal" aria-hidden="true">
+        <span>囍</span>
+      </div>
 
       <!-- Message -->
       <p
@@ -19,6 +53,25 @@
         </span>
 
         <span class="label-line"></span>
+      </div>
+
+      <!-- =================================================
+           CHÂN DUNG CÔ DÂU - CHÚ RỂ
+      ================================================== -->
+
+      <div
+        v-if="groomAvatar || brideAvatar"
+        class="couple-portraits"
+      >
+        <div v-if="groomAvatar" class="portrait">
+          <img :src="groomAvatar" alt="" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="portrait-heart" aria-hidden="true">♥</div>
+
+        <div v-if="brideAvatar" class="portrait">
+          <img :src="brideAvatar" alt="" loading="lazy" decoding="async" />
+        </div>
       </div>
 
       <!-- =================================================
@@ -54,6 +107,7 @@
           {{ wedding.BrideName }}
         </div>
       </div>
+
       <!-- =================================================
            COPYRIGHT
       ================================================== -->
@@ -67,13 +121,40 @@
       </div>
 
     </div>
+  </div>
 </template>
 
 <script setup>
 import { computed } from "vue";
 
+import fallbackPhoto from "@/assets/photos/couple-veil.jpg";
+
 const props = defineProps({
   footer: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  /* Ảnh cưới dùng làm nền footer */
+  photo: {
+    type: String,
+    default: "",
+  },
+
+  /* Ảnh bìa thiệp */
+  cover: {
+    type: String,
+    default: "",
+  },
+
+  /* Album cưới — lấy ảnh đầu tiên nếu chưa có ảnh bìa */
+  gallery: {
+    type: Array,
+    default: () => [],
+  },
+
+  /* Thông tin cô dâu chú rể (Avatar) */
+  couple: {
     type: Object,
     default: () => ({}),
   },
@@ -82,14 +163,44 @@ const props = defineProps({
 const wedding = computed(() => props.footer ?? {});
 
 const currentYear = new Date().getFullYear();
+
+/* =========================================================
+   ẢNH NỀN
+========================================================= */
+
+const groomAvatar = computed(() => props.couple?.Groom?.Avatar || "");
+
+const brideAvatar = computed(() => props.couple?.Bride?.Avatar || "");
+
+const galleryPhoto = computed(() => {
+  const item = (props.gallery || []).find(
+    (entry) => entry?.Url || entry?.Image || entry?.Src || entry?.ImageUrl
+  );
+
+  if (!item) return "";
+
+  return item.Url || item.Image || item.Src || item.ImageUrl || "";
+});
+
+/*
+ * Thứ tự ưu tiên:
+ * ảnh chỉ định -> ảnh bìa -> ảnh album -> ảnh cưới mặc định.
+ */
+const photoUrl = computed(
+  () =>
+    props.photo ||
+    props.cover ||
+    galleryPhoto.value ||
+    fallbackPhoto
+);
 </script>
 
 <style scoped>
 /* =========================================================
-   FOOTER
+   ROOT
 ========================================================= */
 
-.footer {
+.footer-section {
   --footer-red: var(--p-primary, #7b0d0d);
   --footer-red-dark: var(--p-primary-dark, #65090c);
 
@@ -106,6 +217,9 @@ const currentYear = new Date().getFullYear();
   align-items: center;
   justify-content: center;
 
+  min-height: clamp(520px, 72vh, 720px);
+
+  padding: 90px 24px 70px;
 
   overflow: hidden;
 
@@ -117,35 +231,85 @@ const currentYear = new Date().getFullYear();
 }
 
 
-
 /* =========================================================
-   LIGHT GLOW
+   ẢNH NỀN
 ========================================================= */
 
-.footer-content::before {
-  content: "";
-
+.footer-photo {
   position: absolute;
 
   inset: 0;
 
-  z-index: -2;
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.footer-photo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center 32%;
+
+  filter: saturate(0.82) contrast(1.06) brightness(0.86);
+
+  transform: scale(1.04);
+}
+
+
+/* =========================================================
+   LỚP PHỦ
+========================================================= */
+
+.footer-veil {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
 
   pointer-events: none;
 
   background:
     radial-gradient(
-      ellipse at center top,
-      rgba(199, 157, 92, 0.18),
-      transparent 48%
+      ellipse at center 78%,
+      rgba(199, 157, 92, 0.22),
+      transparent 55%
     ),
-    radial-gradient(
-      ellipse at center bottom,
-      rgba(199, 157, 92, 0.12),
-      transparent 45%
+    linear-gradient(
+      180deg,
+      rgba(101, 9, 12, 0.96) 0%,
+      rgba(123, 13, 13, 0.62) 26%,
+      rgba(101, 9, 12, 0.72) 62%,
+      rgba(58, 3, 5, 0.96) 100%
     );
+}
 
-  opacity: 1;
+
+/* =========================================================
+   KHUNG VIỀN
+========================================================= */
+
+.footer-frame {
+  position: absolute;
+
+  inset: 16px;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  border: 1px solid rgba(231, 193, 119, 0.34);
+
+  border-radius: 4px;
+
+  box-shadow:
+    inset 0 0 0 4px rgba(231, 193, 119, 0.06),
+    inset 0 0 60px rgba(0, 0, 0, 0.28);
 }
 
 
@@ -154,35 +318,9 @@ const currentYear = new Date().getFullYear();
 ========================================================= */
 
 .footer-content {
-
-  --footer-red: var(--p-primary, #7b0d0d);
-  --footer-red-dark: var(--p-primary-dark, #65090c);
-
-  --footer-gold: var(--p-gold, #c79d5c);
-  --footer-gold-light: var(--p-gold-light, #f7d8a3);
-
-  --footer-white: var(--white, #fffaf4);
-
   position: relative;
 
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
-  overflow: hidden;
-
-  color: var(--footer-white);
-
-  text-align: center;
-
-  isolation: isolate;
-
-  padding-top: 50px;
-
-  position: relative;
+  z-index: 3;
 
   width: 100%;
   max-width: 760px;
@@ -192,27 +330,43 @@ const currentYear = new Date().getFullYear();
   align-items: center;
 
   margin: 0 auto;
-
-  z-index: 2;
 }
 
-.ornament-diamond {
-  font-size: 11px;
 
-  color: var(--footer-gold-light);
+/* =========================================================
+   ẤN TRIỆN
+========================================================= */
 
-  text-shadow:
-    0 0 12px rgba(247, 216, 163, 0.45);
+.footer-seal {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 26px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at 35% 30%, #f7e3a9, #cda85d 72%);
+
+  box-shadow:
+    0 0 0 1px rgba(255, 227, 177, 0.5),
+    0 0 0 6px rgba(199, 157, 92, 0.12),
+    0 10px 26px rgba(0, 0, 0, 0.3);
 }
 
-.ornament-flower {
-  font-family: serif;
+.footer-seal span {
+  font-family: var(--font-symbol, "Noto Serif SC", serif);
 
-  font-size: 22px;
+  font-size: 27px;
 
-  color: var(--footer-gold-light);
+  line-height: 1;
 
-  transform: rotate(180deg);
+  color: #7a3d22;
 }
 
 
@@ -236,9 +390,11 @@ const currentYear = new Date().getFullYear();
 
   letter-spacing: 0.35px;
 
-  color: rgba(255, 250, 244, 0.88);
+  color: rgba(255, 250, 244, 0.9);
 
   text-align: center;
+
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 
@@ -266,7 +422,9 @@ const currentYear = new Date().getFullYear();
 
   text-transform: uppercase;
 
-  color: rgba(247, 216, 163, 0.82);
+  color: rgba(247, 216, 163, 0.86);
+
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .label-line {
@@ -274,7 +432,57 @@ const currentYear = new Date().getFullYear();
 
   height: 1px;
 
-  background: rgba(247, 216, 163, 0.45);
+  background: rgba(247, 216, 163, 0.5);
+}
+
+
+/* =========================================================
+   CHÂN DUNG
+========================================================= */
+
+.couple-portraits {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+
+  margin-bottom: 22px;
+}
+
+.portrait {
+  width: 84px;
+  height: 84px;
+
+  flex: 0 0 84px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(231, 193, 119, 0.6);
+
+  box-shadow:
+    0 0 0 4px rgba(199, 157, 92, 0.14),
+    0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.portrait img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.portrait-heart {
+  font-size: 15px;
+
+  color: var(--footer-gold-light);
+
+  text-shadow: 0 0 14px rgba(247, 216, 163, 0.5);
 }
 
 
@@ -296,7 +504,6 @@ const currentYear = new Date().getFullYear();
 }
 
 .couple-name {
-
   font-family: var(
     --font-wedding,
     "Allura",
@@ -316,7 +523,7 @@ const currentYear = new Date().getFullYear();
   white-space: nowrap;
 
   text-shadow:
-    0 2px 12px rgba(0, 0, 0, 0.18);
+    0 2px 16px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -395,6 +602,8 @@ const currentYear = new Date().getFullYear();
 ========================================================= */
 
 .copyright {
+  margin-top: 30px;
+
   font-family: var(--font-main, "Cormorant Garamond", serif);
 
   font-size: 13px;
@@ -409,10 +618,16 @@ const currentYear = new Date().getFullYear();
     255,
     250,
     244,
-    0.62
+    0.66
   );
 
   text-transform: uppercase;
+
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.copyright p {
+  margin: 0 0 4px;
 }
 
 .copyright span {
@@ -430,12 +645,14 @@ const currentYear = new Date().getFullYear();
 ========================================================= */
 
 @media (max-width: 768px) {
-  .footer {
-    min-height: 450px;
+  .footer-section {
+    min-height: 480px;
 
-    padding:
-      75px 24px
-      60px;
+    padding: 76px 24px 60px;
+  }
+
+  .footer-frame {
+    inset: 12px;
   }
 
   .footer-message {
@@ -479,14 +696,26 @@ const currentYear = new Date().getFullYear();
 ========================================================= */
 
 @media (max-width: 600px) {
-  .footer {
-    min-height: 430px;
+  .footer-section {
+    min-height: 440px;
 
-    padding:
-      68px 18px
-      55px;
+    padding: 68px 18px 55px;
   }
 
+  .footer-frame {
+    inset: 9px;
+  }
+
+  .footer-seal {
+    width: 50px;
+    height: 50px;
+
+    margin-bottom: 20px;
+  }
+
+  .footer-seal span {
+    font-size: 23px;
+  }
 
   .footer-message {
     max-width: 330px;
@@ -510,6 +739,19 @@ const currentYear = new Date().getFullYear();
 
   .label-line {
     width: 18px;
+  }
+
+  .portrait {
+    width: 68px;
+    height: 68px;
+
+    flex-basis: 68px;
+  }
+
+  .couple-portraits {
+    gap: 12px;
+
+    margin-bottom: 18px;
   }
 
   .couple-wrapper {
@@ -541,11 +783,12 @@ const currentYear = new Date().getFullYear();
   }
 
   .copyright {
+    margin-top: 24px;
+
     font-size: 11px;
 
     letter-spacing: 1px;
   }
-
 }
 
 
@@ -554,7 +797,7 @@ const currentYear = new Date().getFullYear();
 ========================================================= */
 
 @media (max-width: 380px) {
-  .footer {
+  .footer-section {
     padding-left: 12px;
     padding-right: 12px;
   }
@@ -587,5 +830,4 @@ const currentYear = new Date().getFullYear();
     max-width: 290px;
   }
 }
-
 </style>

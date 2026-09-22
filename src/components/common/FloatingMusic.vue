@@ -110,16 +110,15 @@ audio {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #fff;
+  color: #fdf6ec;
   background:
     linear-gradient(
       135deg,
-      #ff8fab 0%,
-      #ff5d8f 50%,
-      #e94f78 100%
+      var(--studio-foil, #b9975b) 0%,
+      var(--studio-seal, #a63a2e) 100%
     );
   box-shadow:
-    0 10px 30px rgba(232, 80, 120, 0.35),
+    0 10px 30px rgba(166, 58, 46, 0.32),
     0 4px 12px rgba(0, 0, 0, 0.12);
   transition:
     transform 0.3s ease,
@@ -129,7 +128,7 @@ audio {
 .music-btn:hover {
   transform: translateY(-4px) scale(1.06);
   box-shadow:
-    0 16px 38px rgba(232, 80, 120, 0.45),
+    0 16px 38px rgba(166, 58, 46, 0.42),
     0 6px 16px rgba(0, 0, 0, 0.15);
 }
 

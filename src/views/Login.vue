@@ -577,7 +577,8 @@ async function submitForgot() {
 
 <style scoped>
 /* ==================================================
-   PAGE
+   PAGE — chrome chung (page-glow, back-btn) đã gom vào
+   app.css; form giữ style cục bộ.
 ================================================== */
 
 .auth-page {
@@ -594,43 +595,11 @@ async function submitForgot() {
   padding: 40px 16px;
 
   background:
-    radial-gradient(circle at 12% 8%, rgba(201, 166, 89, 0.16), transparent 34%),
-    radial-gradient(circle at 88% 92%, rgba(143, 77, 67, 0.1), transparent 36%),
-    #faf7f2;
+    radial-gradient(circle at 12% 8%, rgba(185, 151, 91, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 92%, rgba(166, 58, 46, 0.08), transparent 36%),
+    var(--studio-paper, #f7f1e6);
 
   overflow: hidden;
-}
-
-.page-glow {
-  position: absolute;
-
-  width: 420px;
-
-  height: 420px;
-
-  border-radius: 50%;
-
-  filter: blur(90px);
-
-  opacity: 0.35;
-
-  pointer-events: none;
-}
-
-.page-glow-1 {
-  top: -160px;
-
-  left: -120px;
-
-  background: rgba(201, 166, 89, 0.3);
-}
-
-.page-glow-2 {
-  bottom: -180px;
-
-  right: -140px;
-
-  background: rgba(143, 77, 67, 0.18);
 }
 
 /* ==================================================
@@ -644,52 +613,21 @@ async function submitForgot() {
 
   padding: 36px 32px 28px;
 
-  border: 1px solid rgba(78, 53, 53, 0.08);
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
 
   border-radius: 24px;
 
-  background: #fff;
+  background: var(--studio-card, #fffdf8);
 
-  box-shadow: 0 30px 80px rgba(80, 50, 50, 0.12);
+  box-shadow: 0 30px 80px rgba(43, 33, 24, 0.12);
 }
 
 .back-btn {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 7px;
-
   margin-bottom: 18px;
 
   padding: 8px 15px;
 
-  border: 1px solid rgba(78, 53, 53, 0.14);
-
-  border-radius: 999px;
-
-  background: #fff;
-
-  color: #5c4646;
-
   font-size: 12.5px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.back-btn:hover {
-  background: #f7f0ec;
-
-  border-color: rgba(143, 77, 67, 0.35);
-
-  color: #8f4d43;
 }
 
 .auth-brand {
@@ -717,9 +655,9 @@ async function submitForgot() {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #c9a659, #8f4d43);
+  background: linear-gradient(135deg, var(--studio-foil, #b9975b), var(--studio-seal, #a63a2e));
 
-  color: #fff;
+  color: #fdf6ec;
 
   font-size: 12px;
 
@@ -735,7 +673,7 @@ async function submitForgot() {
 
   font-weight: 700;
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 }
 
 /* ==================================================
@@ -755,7 +693,7 @@ async function submitForgot() {
 
   border-radius: 14px;
 
-  background: #f5eee9;
+  background: var(--studio-paper-deep, #efe6d4);
 }
 
 .auth-tab {
@@ -767,7 +705,7 @@ async function submitForgot() {
 
   background: transparent;
 
-  color: #6d5a5a;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-size: 13.5px;
 
@@ -781,11 +719,11 @@ async function submitForgot() {
 }
 
 .auth-tab.active {
-  background: #fff;
+  background: var(--studio-card, #fffdf8);
 
-  color: #8f4d43;
+  color: var(--studio-seal, #a63a2e);
 
-  box-shadow: 0 4px 14px rgba(80, 50, 50, 0.12);
+  box-shadow: 0 4px 14px rgba(43, 33, 24, 0.12);
 }
 
 /* ==================================================
@@ -795,7 +733,7 @@ async function submitForgot() {
 .auth-form h1 {
   margin: 0 0 6px;
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 
   font-family: var(--font-heading);
 
@@ -805,7 +743,7 @@ async function submitForgot() {
 .auth-sub {
   margin: 0 0 22px;
 
-  color: #6d5a5a;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-size: 13.5px;
 
@@ -821,7 +759,7 @@ async function submitForgot() {
 
   margin-bottom: 6px;
 
-  color: #4e3636;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-size: 12.5px;
 
@@ -833,13 +771,13 @@ async function submitForgot() {
 
   padding: 11px 14px;
 
-  border: 1px solid rgba(78, 53, 53, 0.16);
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
 
   border-radius: 12px;
 
-  background: #fffdfb;
+  background: var(--studio-card, #fffdf8);
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 
   font-size: 14px;
 
@@ -851,9 +789,9 @@ async function submitForgot() {
 }
 
 .field input:focus {
-  border-color: #8f4d43;
+  border-color: var(--studio-foil, #b9975b);
 
-  box-shadow: 0 0 0 3px rgba(143, 77, 67, 0.12);
+  box-shadow: 0 0 0 3px var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
 }
 
 .field-row {
@@ -897,15 +835,15 @@ async function submitForgot() {
 
   background: transparent;
 
-  color: #9a8484;
+  color: var(--studio-ink-faint, #8a7a68);
 
   cursor: pointer;
 }
 
 .toggle-password:hover {
-  background: #f7f0ec;
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
 
-  color: #8f4d43;
+  color: var(--studio-ink, #2b2118);
 }
 
 /* ==================================================
@@ -913,7 +851,7 @@ async function submitForgot() {
 ================================================== */
 
 .optional {
-  color: #9a8484;
+  color: var(--studio-ink-faint, #8a7a68);
 
   font-weight: 400;
 }
@@ -931,9 +869,9 @@ async function submitForgot() {
 
   border-radius: 10px;
 
-  background: rgba(198, 40, 40, 0.08);
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
 
-  color: #c62828;
+  color: var(--app-danger, #a03030);
 
   font-size: 13px;
 }
@@ -955,9 +893,9 @@ async function submitForgot() {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #8f4d43, #6d3a34);
+  background: linear-gradient(135deg, var(--studio-seal, #a63a2e), #7c2a20);
 
-  color: #fff;
+  color: #fdf6ec;
 
   font-size: 14px;
 
@@ -974,7 +912,7 @@ async function submitForgot() {
 .auth-submit:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 12px 28px rgba(109, 58, 52, 0.28);
+  box-shadow: 0 12px 28px rgba(166, 58, 46, 0.28);
 }
 
 .auth-submit:disabled {
@@ -986,7 +924,7 @@ async function submitForgot() {
 .auth-switch {
   margin: 18px 0 0;
 
-  color: #6d5a5a;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-size: 13px;
 
@@ -1000,7 +938,7 @@ async function submitForgot() {
 
   background: transparent;
 
-  color: #8f4d43;
+  color: var(--studio-seal, #a63a2e);
 
   font-size: 13px;
 
@@ -1016,7 +954,7 @@ async function submitForgot() {
 .link-btn-muted {
   font-weight: 500;
 
-  color: #9a8484;
+  color: var(--studio-ink-faint, #8a7a68);
 }
 
 .auth-success {
@@ -1032,20 +970,13 @@ async function submitForgot() {
 
   border-radius: 10px;
 
-  background: rgba(46, 125, 50, 0.08);
+  background: var(--app-ok-soft, rgba(46, 107, 63, 0.1));
 
-  color: #2e7d32;
+  color: var(--app-ok, #2e6b3f);
 
   font-size: 13px;
 }
 
-/* ==================================================
-   ROLE HINT
-================================================== */
-
-/* ==================================================
-   MOBILE
-================================================== */
 /* ==================================================
    MOBILE
 ================================================== */

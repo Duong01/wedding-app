@@ -17,10 +17,10 @@
       :bride-name="wedding.brideName"
       :events="wedding.events"
       :groom-image="
-        wedding.couple?.Groom?.Avatar || defaultAvatar
+        wedding.couple?.Groom?.Avatar || defaultGroomAvatar
       "
       :bride-image="
-        wedding.couple?.Bride?.Avatar || defaultAvatar
+        wedding.couple?.Bride?.Avatar || defaultBrideAvatar
       "
       :wedding-date="wedding.weddingDate"
       :address="wedding.hero?.Location || getLocation"
@@ -39,6 +39,9 @@ import HeroBackground from "./HeroBackground.vue";
 import HeroParticles from "./HeroParticles.vue";
 import HeroCard from "./HeroCard.vue";
 
+import defaultGroomAvatar from "@/assets/photos/couple-hands.jpg";
+import defaultBrideAvatar from "@/assets/photos/bride-bouquet.jpg";
+
 const props = defineProps({
   wedding: {
     type: Object,
@@ -47,11 +50,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["open"]);
-
-
-
-const defaultAvatar =
-  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80";
 
 
 

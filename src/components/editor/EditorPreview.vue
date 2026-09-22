@@ -712,7 +712,7 @@ async function loadFromApi(slug) {
 }
 
 .preview-toast.error {
-  background: #a92828;
+  background: var(--app-danger, #a03030);
 }
 
 /* =========================================================

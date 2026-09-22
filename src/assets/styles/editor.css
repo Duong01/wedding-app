@@ -4,30 +4,30 @@
 
 .wedding-editor {
   /*
-   * Bảng màu ấm đồng bộ với trang chủ /
-   * trang mẫu thiệp (kem - vàng gold - đỏ vang).
+   * Bảng màu ấm đồng bộ studio tokens
+   * (kem giấy dó - vàng foil - đỏ seal).
    */
-  --editor-bg: #faf6f1;
-  --panel-bg: #ffffff;
+  --editor-bg: #f7f1e6;
+  --panel-bg: #fffdf8;
   --border: #ece4da;
   --border-strong: #e0d4c5;
-  --muted: #9a8d80;
-  --dark: #2a1d1d;
-  --gold: #c9a659;
-  --wine: #8f4d43;
-  --wine-dark: #6d3a34;
+  --muted: #8a7a68;
+  --dark: #2b2118;
+  --gold: #b9975b;
+  --wine: #a63a2e;
+  --wine-dark: #7c2a20;
 
   min-height: 100vh;
 
   background:
     radial-gradient(
       circle at top left,
-      rgba(201, 166, 89, 0.09),
+      rgba(185, 151, 91, 0.1),
       transparent 32%
     ),
     radial-gradient(
       circle at 90% 8%,
-      rgba(143, 77, 67, 0.05),
+      rgba(166, 58, 46, 0.05),
       transparent 30%
     ),
     var(--editor-bg);
@@ -109,7 +109,7 @@
 
   background: linear-gradient(135deg, var(--gold), var(--wine));
 
-  box-shadow: 0 7px 18px rgba(143, 77, 67, 0.22);
+  box-shadow: 0 7px 18px rgba(166, 58, 46, 0.22);
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -117,7 +117,7 @@
 .brand-logo:hover {
   transform: translateY(-1px) rotate(-3deg);
 
-  box-shadow: 0 10px 24px rgba(143, 77, 67, 0.28);
+  box-shadow: 0 10px 24px rgba(166, 58, 46, 0.28);
 }
 
 .brand-text {
@@ -233,19 +233,19 @@
 }
 
 .save-button {
-  color: #fff;
+  color: #fdf6ec;
 
   background: linear-gradient(135deg, var(--wine), var(--wine-dark));
 
   border: 1px solid var(--wine-dark);
 
-  box-shadow: 0 7px 18px rgba(143, 77, 67, 0.24);
+  box-shadow: 0 7px 18px rgba(166, 58, 46, 0.24);
 }
 
 .save-button:hover:not(:disabled) {
   transform: translateY(-1px);
 
-  box-shadow: 0 10px 24px rgba(143, 77, 67, 0.3);
+  box-shadow: 0 10px 24px rgba(166, 58, 46, 0.3);
 }
 
 .save-button:disabled {
@@ -422,7 +422,7 @@
 .editor-menu.active {
   color: var(--wine);
 
-  background: rgba(143, 77, 67, 0.07);
+  background: rgba(166, 58, 46, 0.07);
 }
 
 .menu-icon {
@@ -450,7 +450,7 @@
 .editor-menu.active .menu-icon {
   color: var(--wine);
 
-  background: rgba(143, 77, 67, 0.1);
+  background: rgba(166, 58, 46, 0.1);
 }
 
 .menu-content {
@@ -552,7 +552,7 @@
 .panel-header h1 {
   margin: 0;
 
-  color: #2a1d1d;
+  color: #2b2118;
 
   font-family: var(--font-heading), Georgia, serif;
 
@@ -568,7 +568,7 @@
 .panel-header p {
   margin: 8px 0 0;
 
-  color: #9a8d80;
+  color: #8a7a68;
 
   font-size: 12px;
 
@@ -634,7 +634,7 @@
 
   background: #fffdfb;
 
-  color: #2a1d1d;
+  color: #2b2118;
 
   padding: 11px 12px;
 
@@ -663,7 +663,7 @@
 .editor-field select:focus {
   border-color: var(--wine);
 
-  box-shadow: 0 0 0 3px rgba(143, 77, 67, 0.09);
+  box-shadow: 0 0 0 3px rgba(166, 58, 46, 0.09);
 }
 
 .editor-field textarea {
@@ -907,7 +907,7 @@
 
   background: linear-gradient(135deg, var(--wine), var(--wine-dark));
 
-  color: #fff;
+  color: #fdf6ec;
 
   font-size: 11px;
 
@@ -915,7 +915,7 @@
 
   cursor: pointer;
 
-  box-shadow: 0 5px 15px rgba(143, 77, 67, 0.2);
+  box-shadow: 0 5px 15px rgba(166, 58, 46, 0.2);
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -923,7 +923,7 @@
 .small-primary-button:hover {
   transform: translateY(-1px);
 
-  box-shadow: 0 8px 20px rgba(143, 77, 67, 0.26);
+  box-shadow: 0 8px 20px rgba(166, 58, 46, 0.26);
 }
 
 .add-button {
@@ -959,7 +959,7 @@
 .add-button:hover {
   border-color: var(--wine);
 
-  background: rgba(143, 77, 67, 0.04);
+  background: rgba(166, 58, 46, 0.04);
 
   transform: translateY(-1px);
 }
@@ -1184,7 +1184,7 @@
 
   color: var(--wine);
 
-  background: rgba(143, 77, 67, 0.07);
+  background: rgba(166, 58, 46, 0.07);
 }
 
 .guest-content {
@@ -1280,7 +1280,7 @@
 
   color: var(--wine);
 
-  background: rgba(143, 77, 67, 0.07);
+  background: rgba(166, 58, 46, 0.07);
 }
 
 .setting-info > div:last-child {
@@ -1793,7 +1793,7 @@
 
   border-radius: 999px;
 
-  color: #fff;
+  color: #fdf6ec;
 
   font-size: 12px;
 
@@ -1801,7 +1801,7 @@
 
   background: linear-gradient(135deg, var(--wine), var(--wine-dark));
 
-  box-shadow: 0 10px 26px rgba(143, 77, 67, 0.32);
+  box-shadow: 0 10px 26px rgba(166, 58, 46, 0.32);
 
   cursor: pointer;
 }
@@ -1829,7 +1829,7 @@
 
   align-items: flex-end;
 
-  background: rgba(42, 29, 26, 0.45);
+  background: rgba(43, 33, 24, 0.45);
 
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
@@ -1848,7 +1848,7 @@
 
   border-radius: 22px 22px 0 0;
 
-  box-shadow: 0 -20px 60px rgba(42, 29, 26, 0.22);
+  box-shadow: 0 -20px 60px rgba(43, 33, 24, 0.22);
 }
 
 .sheet-handle {
@@ -1953,7 +1953,7 @@
 
 .mobile-menu-item:hover,
 .mobile-menu-item.active {
-  background: rgba(143, 77, 67, 0.06);
+  background: rgba(166, 58, 46, 0.06);
 }
 
 .mobile-menu-icon {
@@ -1979,7 +1979,7 @@
 .mobile-menu-item.active .mobile-menu-icon {
   color: var(--wine);
 
-  background: rgba(143, 77, 67, 0.1);
+  background: rgba(166, 58, 46, 0.1);
 }
 
 .mobile-menu-item > span:nth-child(2) {
@@ -2041,11 +2041,11 @@
 
   border-radius: 12px;
 
-  color: #fff;
+  color: #fdf6ec;
 
   background: #3a2c26;
 
-  box-shadow: 0 15px 40px rgba(42, 29, 26, 0.24);
+  box-shadow: 0 15px 40px rgba(43, 33, 24, 0.24);
 
   font-size: 11px;
 
@@ -2053,7 +2053,7 @@
 }
 
 .save-toast.error {
-  background: #a92828;
+  background: var(--app-danger, #a03030);
 }
 
 .toast-icon {

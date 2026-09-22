@@ -358,9 +358,9 @@ onBeforeUnmount(() => {
 
   background: radial-gradient(
     circle at center,
-    #fff8f8 0%,
-    #fff1f3 45%,
-    #f9e7ea 100%
+    #fdfaf4 0%,
+    #f7f1e6 45%,
+    #efe6d4 100%
   );
 }
 
@@ -391,19 +391,19 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 253, 248, 0.85);
 
-  color: #c76b7c;
+  color: var(--studio-seal, #a63a2e);
 
   font-size: 32px;
 
-  box-shadow: 0 15px 40px rgba(130, 70, 80, 0.12);
+  box-shadow: 0 15px 40px rgba(43, 33, 24, 0.12);
 
   animation: heartPulse 1.5s ease-in-out infinite;
 }
 
 .loading-title {
-  color: #54363b;
+  color: var(--studio-ink, #2b2118);
 
   font-family: var(--font-heading);
 
@@ -415,7 +415,7 @@ onBeforeUnmount(() => {
 }
 
 .loading-text {
-  color: #95777c;
+  color: var(--studio-ink-faint, #8a7a68);
 
   font-family: var(--font-main);
 
@@ -431,9 +431,9 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  border: 3px solid rgba(199, 107, 124, 0.18);
+  border: 3px solid rgba(185, 151, 91, 0.25);
 
-  border-top-color: #c76b7c;
+  border-top-color: var(--studio-foil, #b9975b);
 
   animation: spinner 0.8s linear infinite;
 }
@@ -454,7 +454,7 @@ onBeforeUnmount(() => {
 
   padding: 30px;
 
-  background: linear-gradient(135deg, #fff8f8, #fff1f3);
+  background: linear-gradient(135deg, #fdfaf4, #f7f1e6);
 }
 
 .error-content,
@@ -467,9 +467,9 @@ onBeforeUnmount(() => {
 
   border-radius: 28px;
 
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 253, 248, 0.85);
 
-  box-shadow: 0 25px 70px rgba(100, 60, 70, 0.1);
+  box-shadow: 0 25px 70px rgba(43, 33, 24, 0.1);
 }
 
 .error-icon,
@@ -488,9 +488,9 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: #fbe7ea;
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
 
-  color: #c76b7c;
+  color: var(--studio-seal, #a63a2e);
 
   font-size: 30px;
 }
@@ -499,7 +499,7 @@ onBeforeUnmount(() => {
 .theme-error-content h1 {
   margin: 0 0 12px;
 
-  color: #54363b;
+  color: var(--studio-ink, #2b2118);
 
   font-family: var(--font-heading);
 
@@ -510,7 +510,7 @@ onBeforeUnmount(() => {
 .theme-error-content p {
   margin: 0 auto 28px;
 
-  color: #806d71;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-family: var(--font-main);
 
@@ -526,9 +526,9 @@ onBeforeUnmount(() => {
 
   border-radius: 999px;
 
-  background: #c76b7c;
+  background: var(--studio-ink, #2b2118);
 
-  color: white;
+  color: var(--studio-paper, #f7f1e6);
 
   font-family: var(--font-main);
 
@@ -546,7 +546,7 @@ onBeforeUnmount(() => {
 .back-button:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 10px 25px rgba(199, 107, 124, 0.25);
+  box-shadow: 0 10px 25px rgba(43, 33, 24, 0.25);
 }
 
 /* =========================================================

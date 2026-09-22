@@ -1,124 +1,163 @@
 <template>
-  <div class="wedding-page" :data-theme="theme.Name" :style="themeStyle">
+  <div class="traditional-red" :data-theme="theme.Name" :style="themeStyle">
     <!-- =====================================================
-         OPEN INVITATION
+         MÀN HÌNH MỞ THIỆP
     ====================================================== -->
 
-    <div v-if="!opened" class="open-wrapper">
-      <OpenInvitation :wedding="wedding" @open="handleOpen" />
-    </div>
+    <OpeningScreen
+      v-if="!opened"
+      :wedding="wedding"
+      :guest-name="guestName"
+      :date-label="openDateLabel"
+      @open="handleOpen"
+    />
 
     <!-- =====================================================
-         WEDDING
+         THIỆP
     ====================================================== -->
 
-    <template v-else>
-      <!--
-        KHUNG THIỆP
-        Desktop: giống màn hình điện thoại
-        Mobile: full width
-      -->
-      <div class="invitation-device">
-        <!-- ================= HERO ================= -->
+    <main v-else class="tr-invitation">
+      <!-- HOA VĂN CHÌM TOÀN THIỆP -->
+      <div
+        class="tr-invitation__pattern"
+        aria-hidden="true"
+        :style="{ backgroundImage: `url(${rongPhuong})` }"
+      ></div>
 
-        <HeroSection
-          v-if="wedding?.hero"
-          :hero="wedding.hero"
-          :recipientName="wedding.recipientName"
-          class="section-reveal hero-reveal"
+      <!-- ============ HERO ============ -->
+
+      <WeddingHero :wedding="wedding" />
+
+      <!-- ============ NỘI DUNG ============ -->
+
+      <div class="tr-invitation__body">
+        <img
+          :src="cloud"
+          alt=""
+          aria-hidden="true"
+          class="tr-invitation__cloud tr-invitation__cloud--1"
+        />
+        <img
+          :src="cloud"
+          alt=""
+          aria-hidden="true"
+          class="tr-invitation__cloud tr-invitation__cloud--2"
+        />
+        <img
+          :src="cloud"
+          alt=""
+          aria-hidden="true"
+          class="tr-invitation__cloud tr-invitation__cloud--3"
+        />
+        <img
+          :src="cloud"
+          alt=""
+          aria-hidden="true"
+          class="tr-invitation__cloud tr-invitation__cloud--4"
+        />
+        <img
+          :src="cloud"
+          alt=""
+          aria-hidden="true"
+          class="tr-invitation__cloud tr-invitation__cloud--5"
+        />
+        <img
+          :src="cloud"
+          alt=""
+          aria-hidden="true"
+          class="tr-invitation__cloud tr-invitation__cloud--6"
         />
 
-        <!-- ================= CONTENT ================= -->
+        <div class="tr-paper">
+          <WeddingInfo :wedding="wedding" />
 
-        <main class="invitation-content">
-          <div class="bg-content">
-            <section class="section-reveal">
-              <HighlightsSection
-                v-if="wedding?.couple"
-                :couple="wedding.couple"
-                :events="wedding.events"
-                
-              />
-            </section>
+          <WeddingGallery
+            v-if="showGallery && gallery.length"
+            :gallery="gallery"
+          />
 
-            <section
-              v-if="wedding?.gallery?.length && wedding?.settings?.ShowGallery"
-              class="section-reveal"
-            >
-              <GallerySection :gallery="wedding.gallery" />
-            </section>
-
-            <section v-if="wedding?.settings?.ShowEvents" class="section-reveal">
-              <EventSection :events="wedding.events" :recipientName="wedding.recipientName" />
-            </section>
-          </div>
-          <section
-            v-if="wedding?.settings?.ShowMap"
-            class="section-reveal"
-          >
-            <MapSection :events="wedding.events" />
-          </section>  
-
-          <section
-          v-if="wedding?.settings?.ShowTimeline && wedding?.events.length"
-          class="section-reveal"
-          >
-
-            <Timeline
-              :timeline="wedding.timeline"
-              :events="wedding.events"
-              :countdown="wedding.countdown"
-              :settings="wedding.settings"
-            />
-
-          </section>
-
-          <section
-            v-if="
-              wedding?.settings?.ShowGuestBook && wedding?.guestBook?.Enabled
-            "
-            class="section-reveal"
-          >
-            <GuestBookSection :guest-book="wedding.guestBook" />
-          </section>
-
-          <section
-            v-if="wedding?.settings?.ShowGift && wedding?.gifts?.length"
-            class="section-reveal"
-          >
-            <GiftSection :gifts="wedding.gifts" />
-          </section>
-
-          <section v-if="wedding?.footer" class="section-reveal">
-            <FooterSection :footer="wedding.footer" />
-          </section>
-        </main>
+          <WeddingEvents
+            v-if="showEvents && events.length"
+            :events="events"
+            :wedding="wedding"
+            :recipient-name="wedding.recipientName"
+            :countdown="wedding.countdown"
+            :settings="settings"
+          />
+        </div>
       </div>
 
-      <!-- Floating music nằm ngoài thiệp -->
+      <!-- ============ BẢN ĐỒ ============ -->
+
+      <div class="tr-invitation__map">
+        <div
+          class="tr-invitation__pattern tr-invitation__pattern--flip"
+          aria-hidden="true"
+          :style="{ backgroundImage: `url(${rongPhuong})` }"
+        ></div>
+
+        <WeddingMap v-if="showMap && events.length" :events="events" />
+
+        <Timeline
+          v-if="showTimeline && timeline.length"
+          :timeline="timeline"
+        />
+
+        <WeddingWishes
+          v-if="showGuestBook"
+          :wishes="wishes"
+          :wedding="wedding"
+        />
+
+        <WeddingGifts
+          v-if="showGift && gifts.length"
+          :gifts="gifts"
+          :wedding="wedding"
+        />
+      </div>
+
+      <!-- ============ FOOTER ============ -->
+
+      <WeddingFooter
+        v-if="showFooter"
+        :wedding="wedding"
+        :monogram="monogram"
+        :current-year="currentYear"
+        :cover="wedding.coverImage || wedding.CoverImage"
+        :gallery="wedding.gallery"
+        :couple="wedding.couple"
+      />
+
+      <!-- ============ NHẠC ============ -->
+
       <FloatingMusic
-        v-if="wedding?.music?.Enabled && wedding?.settings?.ShowMusic"
+        v-if="showMusic"
         ref="floatingMusicRef"
         :music="heroMusic"
       />
-    </template>
+    </main>
   </div>
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onBeforeUnmount, ref } from "vue";
+import { computed, nextTick, ref } from "vue";
 
-import OpenInvitation from "@/components/hero/OpenInvitation.vue";
-import HeroSection from "@/components/hero/HeroSection.vue";
-import HighlightsSection from "@/components/common/HighlightsSection.vue";
-import GallerySection from "@/components/gallery/GallerySection.vue";
-import EventSection from "@/components/event/EventSection.vue";
-import MapSection from "@/components/map/MapSection.vue";
-import Timeline from "@/components/timeline/TimelineSection.vue";
-import GuestBookSection from "@/components/guestbook/GuestBookSection.vue";
-import GiftSection from "@/components/gift/GiftSection.vue";
-import FooterSection from "@/components/footer/FooterSection.vue";
+import dayjs from "dayjs";
+
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+
+import OpeningScreen from "@/page/TraditionalRed/OpeningScreen.vue";
+import WeddingHero from "@/page/TraditionalRed/WeddingHero.vue";
+import WeddingInfo from "@/page/TraditionalRed/WeddingInfo.vue";
+import WeddingGallery from "@/page/TraditionalRed/WeddingGallery.vue";
+import WeddingEvents from "@/page/TraditionalRed/WeddingEvents.vue";
+import WeddingMap from "@/page/TraditionalRed/WeddingMap.vue";
+import Timeline from "@/page/TraditionalRed/Timeline.vue";
+import WeddingWishes from "@/page/TraditionalRed/WeddingWishes.vue";
+import WeddingGifts from "@/page/TraditionalRed/WeddingGifts.vue";
+import WeddingFooter from "@/page/TraditionalRed/WeddingFooter.vue";
+
+import { rongPhuong, cloud } from "@/page/TraditionalRed/traditionalRedAssets";
 
 import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
@@ -133,12 +172,111 @@ const { theme, themeStyle } = useWeddingTheme(props.wedding);
 
 const wedding = computed(() => props.wedding || {});
 
-/*
- * Ưu tiên nhạc từ wedding.music (panel Nhạc).
- * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
- */
+/* =========================================================
+   TRẠNG THÁI
+========================================================= */
+
+const opened = ref(false);
+
+const floatingMusicRef = ref(null);
+
+const currentYear = new Date().getFullYear();
+
+/* =========================================================
+   DỮ LIỆU
+========================================================= */
+
+const events = computed(() =>
+  Array.isArray(wedding.value?.events) ? wedding.value.events : []
+);
+
+const timeline = computed(() =>
+  Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []
+);
+
+const gallery = computed(() =>
+  Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []
+);
+
+const gifts = computed(() =>
+  Array.isArray(wedding.value?.gifts) ? wedding.value.gifts : []
+);
+
+const wishes = computed(() =>
+  Array.isArray(wedding.value?.guestBook?.Guest)
+    ? wedding.value.guestBook.Guest
+    : []
+);
+
+const settings = computed(() => wedding.value?.settings || {});
+
+/* =========================================================
+   CỜ HIỂN THỊ
+========================================================= */
+
+const showEvents = computed(() => settings.value.ShowEvents !== false);
+const showTimeline = computed(() => settings.value.ShowTimeline !== false);
+const showGallery = computed(() => settings.value.ShowGallery === true);
+const showMap = computed(() => settings.value.ShowMap === true);
+const showGift = computed(() => settings.value.ShowGift === true);
+const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
+const showFooter = computed(() => settings.value.ShowFooter !== false);
+
+const showMusic = computed(
+  () =>
+    wedding.value?.music?.Enabled === true && settings.value.ShowMusic === true
+);
+
+/* =========================================================
+   TÊN KHÁCH MỜI
+   recipientName từ API là mảng [{ Token, Name }]
+========================================================= */
+
+const guestName = computed(
+  () =>
+    (Array.isArray(wedding.value?.recipientName)
+      ? wedding.value.recipientName[0]?.Name
+      : wedding.value?.recipientName?.Name) ||
+    wedding.value?.guestName ||
+    "Quý khách"
+);
+
+/* =========================================================
+   MONOGRAM
+========================================================= */
+
+const monogram = computed(() => {
+  const groom = (wedding.value?.GroomName || wedding.value?.groomName || "G")
+    .trim()
+    .charAt(0);
+
+  const bride = (wedding.value?.BrideName || wedding.value?.brideName || "B")
+    .trim()
+    .charAt(0);
+
+  return `${groom}&${bride}`.toUpperCase();
+});
+
+/* =========================================================
+   NGÀY
+========================================================= */
+
+function formatDate(date) {
+  const value = dayjs(date);
+
+  return value.isValid() ? value.format("DD · MM · YYYY") : "";
+}
+
+const openDateLabel = computed(() => formatDate(wedding.value?.weddingDate));
+
+/* =========================================================
+   NHẠC
+   Ưu tiên wedding.music, fallback hero.Music.
+========================================================= */
+
 const heroMusic = computed(() => {
   const music = wedding.value?.music || {};
+
   const heroUrl = wedding.value?.hero?.Music;
 
   if (music.Url || !heroUrl) {
@@ -148,118 +286,25 @@ const heroMusic = computed(() => {
   return { ...music, Url: heroUrl };
 });
 
-const opened = ref(false);
+/* =========================================================
+   MỞ THIỆP
+========================================================= */
 
-const floatingMusicRef = ref(null);
-
-let observer = null;
-
-const initScrollAnimation = () => {
-  const elements = document.querySelectorAll(".wedding-page .section-reveal");
-
-  if (!elements.length) return;
-
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-
-          // Chỉ chạy một lần
-          observer?.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: "0px 0px -60px 0px",
-    }
-  );
-
-  elements.forEach((element) => {
-    observer.observe(element);
-  });
-};
-
-const handleOpen = async () => {
+async function handleOpen() {
   opened.value = true;
 
   await nextTick();
 
-  if (
-    floatingMusicRef.value &&
-    typeof floatingMusicRef.value.play === "function"
-  ) {
-    await floatingMusicRef.value.play();
-  }
-
-  requestAnimationFrame(() => {
-    initScrollAnimation();
-  });
-};
-
-onMounted(() => {
-  if (opened.value) {
-    nextTick(() => {
-      initScrollAnimation();
-    });
-  }
-});
-
-onBeforeUnmount(() => {
-  observer?.disconnect();
-});
+  floatingMusicRef.value?.play?.();
+}
 </script>
 
 <style scoped>
 /* =========================================================
-   PAGE - NỀN TOÀN BỘ THIỆP
+   TRANG
 ========================================================= */
-.bg-content {
-  position: relative;
 
-  background: url("@/assets/bg-frame.jpg") center / cover;
-
-  border: 1px solid rgba(231, 193, 119, .55);
-
-  border-radius: 16px;
-
-  /*
-   * Viền ngoài + viền trong rất nhẹ
-   */
-  box-shadow:
-    0 0 0 1px rgba(123, 13, 13, .65),
-    0 0 0 4px rgba(231, 193, 119, .07),
-    0 10px 35px rgba(35, 5, 5, .18),
-    inset 0 0 0 1px rgba(255, 227, 177, .10);
-
-  overflow: hidden;
-
-}
-
-.wedding-page {
-  /* =====================================================
-     PALETTE - Á ĐÔNG (đỏ son & vàng kim)
-     ===================================================== */
-  --p-primary: #7b0d0d;
-  --p-primary-light: #861313;
-  --p-primary-dark: #65090c;
-  --p-gold: #c79d5c;
-  --p-gold-light: #ffe3b1;
-  --p-paper: #f8f5ed;
-  --p-ink: #4f4039;
-  --p-muted: #80665b;
-  --p-deep: #7b0d0d;
-  --p-line: rgba(123, 13, 13, 0.18);
-  --p-accent-soft: linear-gradient(135deg, #fff0e8, #fbe4d6);
-  --p-on-bg: #fff0f3;
-  --p-on-bg-muted: rgba(255, 240, 243, 0.85);
-  --p-hero-1: #8d1115;
-  --p-hero-2: #7b0d0d;
-  --p-hero-3: #69090c;
-  --p-hero-glow: rgba(174, 43, 43, 0.35);
-  --p-hero-text: #f7d8a3;
-
+.traditional-red {
   position: relative;
 
   width: 100%;
@@ -267,450 +312,237 @@ onBeforeUnmount(() => {
 
   overflow-x: hidden;
 
-  color: var(--text);
-  
-}
+  background-color: #680e0e;
 
-/* =========================================================
-   HOA VĂN TOÀN BỘ THIỆP
-========================================================= */
+  color: #ffe3b1;
 
-/*
- * Đây là lớp hoa văn chính.
- *
- * Nếu rong-phuong.webp chứa cả rồng + phượng:
- * dùng trực tiếp file này.
- */
+  font-family: "Baskerville", "Times New Roman", serif;
 
-.wedding-page::before {
-  content: "";
+  -webkit-font-smoothing: antialiased;
 
-  position: fixed;
-
-  inset: 0;
-
-  z-index: -1;
-
-  pointer-events: none;
-
-  background-image: url("@/assets/rong-phuong.webp");
-
-  background-repeat: repeat-y;
-
-  background-position: center top;
-
-  background-size: 430px auto;
-
-  opacity: 0.1;
-
-  /* Bỏ mix-blend-mode + filter để tránh repaint nặng khi lăn */
-}
-
-/*
- * Lớp ánh sáng nhẹ ở giữa.
- */
-.wedding-page::after {
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: -1;
-
-  pointer-events: none;
-
-  background: radial-gradient(
-      ellipse at center 25%,
-      rgba(190, 60, 55, 0.16),
-      transparent 58%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(45, 0, 0, 0.14),
-      transparent 20%,
-      transparent 80%,
-      rgba(45, 0, 0, 0.14)
-    );
-
-  opacity: 0.9;
-}
-
-/* =========================================================
-   OPEN INVITATION
-========================================================= */
-
-.open-wrapper {
-  position: relative;
-
-  width: 100%;
-  min-height: 100dvh;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
+  text-rendering: optimizeLegibility;
 }
 
 /* =========================================================
    KHUNG THIỆP
 ========================================================= */
 
-.invitation-device {
+.tr-invitation {
   position: relative;
 
-  width: 900px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 480px;
 
-  min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
 
-  /*
-   * KHÔNG padding ở đây
-   *
-   * Padding phải nằm ở invitation-content
-   */
-  padding: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      var(--p-primary) 0%,
-      var(--p-primary-dark) 100%
-    );
-
-  color: var(--text);
-
   overflow: hidden;
 
-  isolation: isolate;
+  background-color: #680e0e;
 
-  box-shadow:
-    0 0 0 1px rgba(100, 45, 20, 0.15),
-    0 12px 35px rgba(50, 20, 10, 0.18),
-    0 35px 100px rgba(50, 20, 10, 0.22);
+  color: #ffe3b1;
 }
 
 /* =========================================================
-   HOA VĂN TRONG THIỆP
+   HOA VĂN CHÌM
 ========================================================= */
 
-.invitation-device::before {
-  content: "";
-
+.tr-invitation__pattern {
   position: absolute;
 
-  inset: 0;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
 
   z-index: 0;
 
   pointer-events: none;
 
-  background-image: url("@/assets/rong-phuong.webp");
+  opacity: 0.06;
 
   background-repeat: repeat-y;
 
   background-position: center top;
 
   background-size: 100% auto;
-
-  opacity: 0.10;
 }
+
+.tr-invitation__pattern--flip {
+  transform: scaleX(-1);
+}
+
 /* =========================================================
-   HERO
-   FULL MÀN HÌNH
+   THÂN THIỆP
 ========================================================= */
 
-.invitation-device > .hero-section {
+.tr-invitation__body {
   position: relative;
 
-  z-index: 1;
+  z-index: 10;
 
-  width: 100%;
-
-  min-height: 100dvh;
-
-  height: 100dvh;
+  padding: 0 12px;
 }
 
 /* =========================================================
-   CONTENT
+   KHỐI GIẤY
+   Bốn góc khoét tròn để lộ nền đỏ phía sau.
 ========================================================= */
 
-.invitation-content {
+.tr-paper {
   position: relative;
 
-  z-index: 1;
+  z-index: 10;
 
-  width: 100%;
+  padding: 40px 16px;
 
-  min-height: 100vh;
+  background: radial-gradient(circle at 0 0, #680e0e 35px, transparent 35px),
+    radial-gradient(circle at 100% 0, #680e0e 35px, transparent 35px),
+    radial-gradient(circle at 0 100%, #680e0e 35px, transparent 35px),
+    radial-gradient(circle at 100% 100%, #680e0e 35px, transparent 35px),
+    url("@/assets/longphung/bg-frame.jpg");
 
-  background: transparent;
+  background-size: 70px 70px, 70px 70px, 70px 70px, 70px 70px, cover;
 
-  color: var(--text);
+  background-position: top left, top right, bottom left, bottom right, center;
 
-  overflow: visible;
+  background-repeat: no-repeat;
 }
 
 /* =========================================================
-   HOA VĂN CONTENT
+   MÂY TRANG TRÍ
 ========================================================= */
 
-.invitation-content::before {
-  content: "";
-
+.tr-invitation__cloud {
   position: absolute;
 
-  inset: 0;
+  width: 150px;
+  height: 70px;
 
-  z-index: -1;
-
-  pointer-events: none;
-
-  background-image: url("@/assets/rong-phuong.webp");
-
-  background-repeat: repeat-y;
-
-  background-position: center top;
-
-  background-size: 430px auto;
-
-  opacity: 0.085;
-}
-
-/* =========================================================
-   LỚP TỐI NHẸ
-========================================================= */
-
-.invitation-content::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: -1;
+  object-fit: contain;
 
   pointer-events: none;
-
-  background: linear-gradient(
-    180deg,
-    rgba(120, 10, 14, 0.15),
-    rgba(80, 4, 7, 0.18)
-  );
 }
 
-/* =========================================================
-   CÁC SECTION
-========================================================= */
+.tr-invitation__cloud--1 {
+  top: 15%;
+  left: -64px;
 
-.invitation-content > section {
+  z-index: 0;
+}
+
+.tr-invitation__cloud--2 {
+  top: 28%;
+  right: -32px;
+
+  z-index: 0;
+}
+
+.tr-invitation__cloud--3 {
+  top: 65%;
+  left: -80px;
+
+  z-index: 20;
+}
+
+.tr-invitation__cloud--4 {
+  top: 72%;
+  right: -32px;
+
+  z-index: 0;
+}
+
+.tr-invitation__cloud--5 {
+  top: 1%;
+  right: -48px;
+
+  z-index: 20;
+}
+
+.tr-invitation__cloud--6 {
+  bottom: -10%;
+  left: -48px;
+
+  z-index: 20;
+}
+
+.tr-invitation__map {
   position: relative;
-
-  z-index: 2;
 
   width: 100%;
-
-  margin: 0 auto 24px;
-
-  /*
-   * Có khoảng trống để nhìn thấy nền phía sau.
-   */
-  padding: 0;
-
-  background: transparent;
 }
 
-/* =========================================================
-   KHỐI NỘI DUNG BÊN TRONG
-========================================================= */
-
-/*
- * Không ép tất cả component thành background đỏ riêng.
- *
- * Đây là điểm rất quan trọng.
- */
-
-.invitation-content > section :deep(.section),
-.invitation-content > section :deep(.wedding-info),
-.invitation-content > section :deep(.invitation-section),
-.invitation-content > section :deep(.gallery-section) {
+.tr-invitation__map > * {
   position: relative;
 
-  background: transparent;
-
-  box-shadow: none;
-
-  border-radius: 0;
+  z-index: 10;
 }
 
 /* =========================================================
-   XÓA NỀN CÁC COMPONENT PHỔ BIẾN
-========================================================= */
-
-.invitation-content > section :deep(.gallery-section),
-.invitation-content > section :deep(.invitation-section),
-.invitation-content > section :deep(.event-section),
-.invitation-content > section :deep(.map-section),
-.invitation-content > section :deep(.guestbook-section),
-.invitation-content > section :deep(.gift-section),
-.invitation-content > section :deep(.footer-section) {
-  background: transparent !important;
-}
-
-/* =========================================================
-   TẠO CHIỀU SÂU
-========================================================= */
-
-/*
- * Mỗi section được "co" vào giữa.
- *
- * Phần nền đỏ xung quanh vẫn nhìn thấy.
- */
-
-.invitation-content > section {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-.section-reveal {
-  opacity: 0;
-
-  transform: translateY(24px);
-
-  /* Chỉ opacity + transform -> chạy GPU, không giật lag */
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.section-reveal.is-visible {
-  opacity: 1;
-
-  transform: translateY(0);
-}
-
-/* =========================================================
-   HERO REVEAL
-========================================================= */
-
-.hero-reveal {
-  opacity: 1;
-
-  transform: none;
-
-  filter: none;
-}
-
-/* =========================================================
-   DESKTOP
+   TABLET / DESKTOP
 ========================================================= */
 
 @media (min-width: 768px) {
+  .tr-invitation {
+    max-width: 900px;
 
-  .invitation-device {
-    width: 900px;
-    padding-inline: 20px;
-    margin: 0 auto;
-
-    border-radius: 0;
+    border-left: 1px solid rgba(255, 227, 177, 0.13);
+    border-right: 1px solid rgba(255, 227, 177, 0.13);
   }
 
-  .invitation-content > section {
-    padding-left: 10px;
-    padding-right: 10px;
-
-  }
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 767px) {
-  .wedding-page {
-    background: linear-gradient(
-      180deg,
-      var(--p-primary) 0%,
-      var(--p-primary-dark) 50%,
-      var(--p-primary-dark) 100%
-    );
-  }
-  .invitation-device {
-    width: 100%;
-
-    max-width: none;
-    padding-inline: 20px;
-    min-height: 100dvh;
-
-    margin: 0;
-
-    box-shadow: none;
-
-    border-radius: 0;
+  .tr-invitation__body {
+    padding: 0 16px;
   }
 
-  .invitation-device > .hero-section {
-    min-height: 100dvh;
-
-    height: 100dvh;
+  .tr-paper {
+    padding: 56px 24px;
   }
 
-  .invitation-content > section {
-    padding-left: 8px;
-
-    padding-right: 8px;
-
-    margin-bottom: 22px;
+  .tr-invitation__cloud {
+    width: 210px;
+    height: 100px;
   }
 
-  .invitation-device::before,
-  .invitation-content::before {
-    background-size: 420px auto;
+  .tr-invitation__cloud--1 {
+    left: -80px;
+  }
 
-    opacity: 0.065;
+  .tr-invitation__cloud--2 {
+    right: -64px;
+  }
+
+  .tr-invitation__cloud--3 {
+    left: -64px;
+  }
+
+  .tr-invitation__cloud--4 {
+    right: -64px;
+  }
+
+  .tr-invitation__cloud--5 {
+    right: -48px;
+  }
+
+  .tr-invitation__cloud--6 {
+    left: -48px;
   }
 }
 
 /* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 380px) {
-  .invitation-content {
-    padding-left: 6px;
-
-    padding-right: 6px;
-  }
-
-  .invitation-content > section {
-    padding-left: 6px;
-
-    padding-right: 6px;
-  }
-
-  .invitation-device::before,
-  .invitation-content::before {
-    background-size: 360px auto;
-  }
-}
-
-/* =========================================================
-   REDUCED MOTION
+   GIẢM CHUYỂN ĐỘNG
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .section-reveal {
-    opacity: 1;
+  .traditional-red *,
+  .traditional-red *::before,
+  .traditional-red *::after {
+    animation-duration: 0.01ms !important;
 
-    transform: none;
+    animation-iteration-count: 1 !important;
 
-    transition: none;
+    transition-duration: 0.01ms !important;
   }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <section class="hero-section">
 
-    <!-- Nền -->
-    <!-- <HeroBackground /> -->
+    <!-- Nền: ảnh cưới + lớp phủ đỏ -->
+    <HeroBackground :background="background" />
 
     <!-- Hiệu ứng -->
     <HeroParticles />
@@ -48,7 +48,12 @@ defineProps({
   recipientName:{
     type: Object,
     default: ()=>{}
-  }
+  },
+  /* Ảnh cưới làm nền hero */
+  background: {
+    type: String,
+    default: "",
+  },
 });
 </script>
 

@@ -90,6 +90,22 @@
 
           </div>
 
+          <!-- Couple portraits -->
+          <div
+            v-if="groomImage || brideImage"
+            class="couple-portraits"
+          >
+            <div v-if="groomImage" class="portrait">
+              <img :src="groomImage" alt="" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="portrait-heart" aria-hidden="true">♥</div>
+
+            <div v-if="brideImage" class="portrait">
+              <img :src="brideImage" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
           <!-- Date -->
           <div class="date">
             Vào lúc: {{ getevents.EventTime }}
@@ -868,6 +884,56 @@ const displayAddress = computed(() => {
 
 
 /* =========================================================
+   COUPLE PORTRAITS
+========================================================= */
+
+.couple-portraits {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 9px;
+}
+
+.portrait {
+  width: 52px;
+  height: 52px;
+
+  flex: 0 0 52px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(233, 195, 119, .75);
+
+  box-shadow:
+    0 0 0 3px rgba(233, 195, 119, .12),
+    0 6px 16px rgba(30, 3, 3, .4);
+}
+
+.portrait img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.portrait-heart {
+  font-size: 11px;
+
+  color: var(--p-gold, #e7c57b);
+
+  text-shadow: 0 0 10px rgba(233, 195, 119, .5);
+}
+
+
+/* =========================================================
    DATE
 ========================================================= */
 
@@ -1323,6 +1389,19 @@ const displayAddress = computed(() => {
     height: 47px;
   }
 
+  .portrait {
+    width: 44px;
+    height: 44px;
+
+    flex-basis: 44px;
+  }
+
+  .couple-portraits {
+    gap: 8px;
+
+    margin-top: 7px;
+  }
+
 
   /* -------------------------
      NAMES / DATE / LOCATION / BUTTON
@@ -1378,6 +1457,17 @@ const displayAddress = computed(() => {
     height: 42px;
   }
 
+  .portrait {
+    width: 38px;
+    height: 38px;
+
+    flex-basis: 38px;
+  }
+
+  .portrait-heart {
+    font-size: 9px;
+  }
+
   .open-button {
     min-width: 135px;
 
@@ -1416,6 +1506,17 @@ const displayAddress = computed(() => {
   .main-symbol {
     width: 40px;
     height: 40px;
+  }
+
+  .portrait {
+    width: 34px;
+    height: 34px;
+
+    flex-basis: 34px;
+  }
+
+  .couple-portraits {
+    margin-top: 5px;
   }
 
   .date {

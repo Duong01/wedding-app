@@ -128,20 +128,15 @@ const weddingEvent = computed(() => {
  * =========================================================
  */
 const showCountdown = computed(() => {
-  console.log(props.settings?.ShowCountdown)
   return (
     props.settings?.ShowCountdown ??
-    props.settings?.ShowCountdown ??
-    props.countdown?.Enabled ??
     props.countdown?.Enabled ??
     false
   );
 });
 
 const countdownTarget = computed(() => {
-  console.log(props.countdown?.Target)
   return (
-    props.countdown?.Target ||
     props.countdown?.Target ||
     weddingEvent.value?.EventDate ||
     null

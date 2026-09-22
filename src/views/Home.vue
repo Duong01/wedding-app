@@ -350,7 +350,7 @@ const steps = [
 
 const perks = [
   {
-    icon: "💌",
+    icon: "囍",
     title: "Miễn phí 3 ngày",
     text: "Dùng thử toàn bộ tính năng 3 ngày, ưng thì mới thanh toán — không ràng buộc.",
   },
@@ -360,27 +360,27 @@ const perks = [
     text: "5 bộ sưu tập — Á Đông, Kim Tuyến, Lãng Mạn, Thiên Nhiên, Tối Giản — luôn có mẫu hợp gu.",
   },
   {
-    icon: "✍️",
+    icon: "❀",
     title: "Chỉnh sửa dễ dàng",
     text: "Nhập tên, ngày cưới, sự kiện một lần — hiển thị đồng bộ khắp thiệp, không nhập lại.",
   },
   {
-    icon: "📱",
+    icon: "✧",
     title: "Hiển thị mọi thiết bị",
     text: "Thiệp tự động chuẩn trên điện thoại, tablet và máy tính — khách mời mở là đẹp.",
   },
   {
-    icon: "🗺️",
+    icon: "❖",
     title: "Bản đồ & lịch nhắc",
     text: "Chỉ đường đến địa điểm lễ và thêm sự kiện vào lịch điện thoại chỉ với một chạm.",
   },
   {
-    icon: "🎁",
+    icon: "✽",
     title: "Mừng cưới online",
     text: "Quét QR chuyển khoản mừng cưới tiện lợi, khách mời không lo chuẩn bị phong bì.",
   },
   {
-    icon: "📖",
+    icon: "❝",
     title: "Sổ lưu bút số",
     text: "Khách mời gửi lời chúc trực tiếp trên thiệp, hai bạn đọc lại mãi về sau.",
   },
@@ -1011,7 +1011,9 @@ button.secondary:hover {
   border-radius: 16px;
   background: var(--studio-foil-soft);
   border: 1px solid rgba(185, 151, 91, 0.28);
-  font-size: 24px;
+  color: var(--studio-seal);
+  font-family: var(--font-symbol);
+  font-size: 22px;
 }
 
 .perk-card h3 {
@@ -1542,7 +1544,7 @@ button.secondary:hover {
 
     margin-bottom: 10px;
 
-    font-size: 19px;
+    font-size: 18px;
   }
 
   .perk-card h3 {

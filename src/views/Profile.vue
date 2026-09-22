@@ -297,7 +297,8 @@ async function submitProfile() {
 
 <style scoped>
 /* ==================================================
-   PAGE
+   PAGE — chrome chung (page-glow, back-btn, role-badge)
+   đã gom vào app.css.
 ================================================== */
 
 .profile-page {
@@ -305,43 +306,11 @@ async function submitProfile() {
 
   min-height: 100vh;
 
-  background: #faf7f2;
+  background: var(--studio-paper, #f7f1e6);
 
   overflow: hidden;
 
   padding: 48px 0 80px;
-}
-
-.page-glow {
-  position: absolute;
-
-  width: 420px;
-
-  height: 420px;
-
-  border-radius: 50%;
-
-  filter: blur(90px);
-
-  opacity: 0.35;
-
-  pointer-events: none;
-}
-
-.page-glow-1 {
-  top: -160px;
-
-  left: -120px;
-
-  background: rgba(201, 166, 89, 0.3);
-}
-
-.page-glow-2 {
-  bottom: -180px;
-
-  right: -140px;
-
-  background: rgba(143, 77, 67, 0.18);
 }
 
 .container {
@@ -360,43 +329,6 @@ async function submitProfile() {
   margin-bottom: 14px;
 }
 
-.back-btn {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 7px;
-
-  padding: 9px 16px;
-
-  border: 1px solid rgba(78, 53, 53, 0.14);
-
-  border-radius: 999px;
-
-  background: #fff;
-
-  color: #5c4646;
-
-  font-size: 13px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.back-btn:hover {
-  background: #f7f0ec;
-
-  border-color: rgba(143, 77, 67, 0.35);
-
-  color: #8f4d43;
-}
-
 /* ==================================================
    CARD
 ================================================== */
@@ -404,13 +336,13 @@ async function submitProfile() {
 .profile-card {
   padding: 34px 34px 30px;
 
-  border: 1px solid rgba(78, 53, 53, 0.08);
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
 
   border-radius: 24px;
 
-  background: #fff;
+  background: var(--studio-card, #fffdf8);
 
-  box-shadow: 0 24px 60px rgba(80, 50, 50, 0.1);
+  box-shadow: 0 24px 60px rgba(43, 33, 24, 0.1);
 }
 
 .profile-head {
@@ -424,7 +356,7 @@ async function submitProfile() {
 
   margin-bottom: 26px;
 
-  border-bottom: 1px solid rgba(78, 53, 53, 0.08);
+  border-bottom: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
 }
 
 .avatar-wrap {
@@ -438,7 +370,7 @@ async function submitProfile() {
 
   overflow: hidden;
 
-  background: #f7e9e4;
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
 
   display: flex;
 
@@ -456,7 +388,7 @@ async function submitProfile() {
 }
 
 .avatar-fallback {
-  color: #8f4d43;
+  color: var(--app-gold-text, #8a6a2f);
 
   font-family: var(--font-heading);
 
@@ -468,47 +400,17 @@ async function submitProfile() {
 .head-info h1 {
   margin: 0 0 6px;
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 
   font-family: var(--font-heading);
 
   font-size: 24px;
 }
 
-.role-badge {
-  display: inline-block;
-
-  padding: 3px 10px;
-
-  border-radius: 999px;
-
-  font-size: 11px;
-
-  font-weight: 700;
-}
-
-.role-badge.role-admin {
-  background: rgba(143, 77, 67, 0.12);
-
-  color: #8f4d43;
-}
-
-.role-badge.role-user {
-  background: rgba(201, 166, 89, 0.16);
-
-  color: #8a6a2f;
-}
-
-.role-badge.role-guest {
-  background: rgba(120, 120, 140, 0.12);
-
-  color: #5c5c70;
-}
-
 .head-email {
   margin: 6px 0 0;
 
-  color: #6d5a5a;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-size: 13.5px;
 }
@@ -520,7 +422,7 @@ async function submitProfile() {
 .profile-form h2 {
   margin: 0 0 14px;
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 
   font-family: var(--font-heading);
 
@@ -530,7 +432,7 @@ async function submitProfile() {
 .hint {
   margin: -6px 0 14px;
 
-  color: #9a8484;
+  color: var(--studio-ink-faint, #8a7a68);
 
   font-size: 12.5px;
 
@@ -554,7 +456,7 @@ async function submitProfile() {
 
   margin-bottom: 6px;
 
-  color: #4e3636;
+  color: var(--studio-ink-soft, #5c4f43);
 
   font-size: 12.5px;
 
@@ -566,13 +468,13 @@ async function submitProfile() {
 
   padding: 11px 14px;
 
-  border: 1px solid rgba(78, 53, 53, 0.16);
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
 
   border-radius: 12px;
 
-  background: #fffdfb;
+  background: var(--studio-card, #fffdf8);
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 
   font-size: 14px;
 
@@ -584,9 +486,17 @@ async function submitProfile() {
 }
 
 .field input:focus {
-  border-color: #8f4d43;
+  border-color: var(--studio-foil, #b9975b);
 
-  box-shadow: 0 0 0 3px rgba(143, 77, 67, 0.12);
+  box-shadow: 0 0 0 3px var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
+}
+
+.field input:disabled {
+  background: var(--studio-paper-deep, #efe6d4);
+
+  color: var(--studio-ink-faint, #8a7a68);
+
+  cursor: not-allowed;
 }
 
 .form-message {
@@ -596,17 +506,17 @@ async function submitProfile() {
 
   border-radius: 10px;
 
-  background: rgba(46, 125, 50, 0.08);
+  background: var(--app-ok-soft, rgba(46, 107, 63, 0.1));
 
-  color: #2e7d32;
+  color: var(--app-ok, #2e6b3f);
 
   font-size: 13px;
 }
 
 .form-message.error {
-  background: rgba(198, 40, 40, 0.08);
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
 
-  color: #c62828;
+  color: var(--app-danger, #a03030);
 }
 
 .save-btn {
@@ -622,9 +532,9 @@ async function submitProfile() {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #8f4d43, #6d3a34);
+  background: linear-gradient(135deg, var(--studio-seal, #a63a2e), #7c2a20);
 
-  color: #fff;
+  color: #fdf6ec;
 
   font-size: 14px;
 
@@ -641,7 +551,7 @@ async function submitProfile() {
 .save-btn:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 12px 28px rgba(109, 58, 52, 0.28);
+  box-shadow: 0 12px 28px rgba(166, 58, 46, 0.28);
 }
 
 .save-btn:disabled {

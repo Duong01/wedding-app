@@ -1323,20 +1323,20 @@ watch(
 ========================================================= */
 
 .templates-page {
-  --wine: #8f4d43;
-  --wine-dark: #6d3a34;
+  --wine: var(--studio-seal, #a63a2e);
+  --wine-dark: #7c2a20;
   --wine-soft: #b07a6e;
 
-  --gold: #c9a659;
-  --gold-light: #e0c98f;
+  --gold: var(--studio-foil, #b9975b);
+  --gold-light: #d8bc7e;
 
-  --cream: #faf7f2;
-  --cream-dark: #f2ebe3;
+  --cream: #f7f1e6;
+  --cream-dark: #efe6d4;
 
-  --text: #2a1d1d;
-  --muted: #76676a;
+  --text: var(--studio-ink, #2b2118);
+  --muted: var(--studio-ink-faint, #8a7a68);
 
-  --border: rgba(78, 53, 53, 0.09);
+  --border: rgba(43, 33, 24, 0.1);
 
   /* Studio tokens (đồng bộ theme.css) */
   --studio-ink: #2b2118;
@@ -1470,10 +1470,10 @@ watch(
   align-items: center;
   gap: 7px;
   padding: 9px 16px;
-  border: 1px solid rgba(78, 53, 53, 0.14);
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
   border-radius: 999px;
-  background: #fff;
-  color: #5c4646;
+  background: var(--studio-card, #fffdf8);
+  color: var(--studio-ink-soft, #5c4f43);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -1484,9 +1484,9 @@ watch(
 }
 
 .back-btn:hover {
-  background: #f7f0ec;
-  border-color: rgba(143, 77, 67, 0.35);
-  color: #8f4d43;
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
+  border-color: rgba(185, 151, 91, 0.5);
+  color: var(--studio-seal, #a63a2e);
 }
 
 /* =========================================================
@@ -1854,16 +1854,16 @@ watch(
   min-height: 44px;
 
   border: 1px solid
-    rgba(72, 47, 52, 0.1);
+    rgba(43, 33, 24, 0.12);
 
   border-radius: 12px;
 
   background:
-    rgba(255, 255, 255, 0.8);
+    rgba(255, 253, 248, 0.85);
 
   box-shadow:
     0 5px 18px
-      rgba(55, 35, 39, 0.025);
+      rgba(43, 33, 24, 0.04);
 
   transition:
     border-color 0.25s ease,
@@ -1874,11 +1874,11 @@ watch(
 .filter-control:focus-within,
 .search-control:focus-within {
   border-color:
-    rgba(143, 77, 67, 0.35);
+    rgba(185, 151, 91, 0.55);
 
   box-shadow:
     0 8px 24px
-      rgba(143, 77, 67, 0.08);
+      rgba(185, 151, 91, 0.14);
 }
 
 .filter-control {
@@ -2011,7 +2011,7 @@ watch(
     1px solid
     color-mix(
       in srgb,
-      var(--card-accent, #c9a659) 30%,
+      var(--card-accent, #b9975b) 30%,
       transparent
     );
 
@@ -2023,7 +2023,7 @@ watch(
 
   box-shadow:
     0 12px 35px
-      rgba(53, 32, 37, 0.055);
+      rgba(43, 33, 24, 0.06);
 
   transition:
     transform 0.45s
@@ -2038,11 +2038,11 @@ watch(
     translateY(-10px);
 
   border-color:
-    var(--card-accent, rgba(143, 77, 67, 0.18));
+    var(--card-accent, rgba(166, 58, 46, 0.18));
 
   box-shadow:
     0 28px 65px
-      rgba(53, 30, 36, 0.13);
+      rgba(43, 33, 24, 0.14);
 }
 
 .image-wrap {
@@ -2284,7 +2284,7 @@ watch(
   background:
     color-mix(
       in srgb,
-      var(--card-seal, #8f4d43) 85%,
+      var(--card-seal, #a63a2e) 85%,
       transparent
     );
 }
@@ -2492,7 +2492,7 @@ watch(
   border: 1px solid
     color-mix(
       in srgb,
-      var(--card-seal, #8f4d43) 30%,
+      var(--card-seal, #a63a2e) 30%,
       transparent
     );
 
@@ -2501,7 +2501,7 @@ watch(
   background:
     color-mix(
       in srgb,
-      var(--card-seal, #8f4d43) 6%,
+      var(--card-seal, #a63a2e) 6%,
       transparent
     );
 
@@ -2787,7 +2787,7 @@ watch(
   border-radius: 50%;
 
   background:
-    rgba(42, 29, 26, 0.6);
+    rgba(43, 33, 24, 0.6);
 
   backdrop-filter: blur(12px);
 
@@ -2840,7 +2840,7 @@ watch(
       circle at 50% 40%,
       color-mix(
         in srgb,
-        var(--card-accent, #c9a659) 16%,
+        var(--card-accent, #b9975b) 16%,
         transparent
       ),
       transparent 38%
@@ -2894,13 +2894,13 @@ watch(
 
   border-radius: 50%;
 
-  background: var(--card-accent, #c9a659);
+  background: var(--card-accent, #b9975b);
 
   box-shadow:
     0 0 10px
       color-mix(
         in srgb,
-        var(--card-accent, #c9a659) 80%,
+        var(--card-accent, #b9975b) 80%,
         transparent
       );
 }
@@ -3038,7 +3038,7 @@ watch(
   color:
     color-mix(
       in srgb,
-      var(--card-accent, #c9a659) 65%,
+      var(--card-accent, #b9975b) 65%,
       transparent
     );
 
@@ -3137,18 +3137,18 @@ watch(
     1px solid
     color-mix(
       in srgb,
-      var(--card-accent, #c9a659) 35%,
+      var(--card-accent, #b9975b) 35%,
       transparent
     );
 
   border-radius: 999px;
 
-  color: var(--card-accent, #c9a659);
+  color: var(--card-accent, #b9975b);
 
   background:
     color-mix(
       in srgb,
-      var(--card-accent, #c9a659) 8%,
+      var(--card-accent, #b9975b) 8%,
       transparent
     );
 
@@ -3236,7 +3236,7 @@ watch(
   color:
     color-mix(
       in srgb,
-      var(--card-accent, #c9a659) 75%,
+      var(--card-accent, #b9975b) 75%,
       #ffffff
     );
 
@@ -3266,13 +3266,13 @@ watch(
   background:
     color-mix(
       in srgb,
-      var(--card-accent, #c9a659) 45%,
+      var(--card-accent, #b9975b) 45%,
       transparent
     );
 }
 
 .gold-rule i {
-  color: var(--card-accent, #c9a659);
+  color: var(--card-accent, #b9975b);
 
   font-family: var(--font-symbol, var(--font-heading));
 
@@ -3331,7 +3331,7 @@ watch(
 .information-icon {
   flex: 0 0 auto;
 
-  color: var(--card-accent, #c9a659);
+  color: var(--card-accent, #b9975b);
 
   font-size: 15px;
 }
@@ -3432,7 +3432,7 @@ watch(
 .feature-item > span {
   width: 15px;
 
-  color: var(--card-accent, #c9a659);
+  color: var(--card-accent, #b9975b);
 
   font-size: 10px;
 
@@ -3580,10 +3580,10 @@ watch(
   background:
     linear-gradient(
       135deg,
-      var(--card-seal, #8f4d43),
+      var(--card-seal, #a63a2e),
       color-mix(
         in srgb,
-        var(--card-seal, #6d3a34) 70%,
+        var(--card-seal, #7c2a20) 70%,
         #1a1210
       )
     );
@@ -3594,7 +3594,7 @@ watch(
     0 8px 25px
       color-mix(
         in srgb,
-        var(--card-seal, #6d3a34) 30%,
+        var(--card-seal, #7c2a20) 30%,
         transparent
       );
 }
@@ -3698,7 +3698,7 @@ watch(
   border-radius: 999px;
 
   background:
-    rgba(42,29,26,0.92);
+    rgba(43,33,24,0.92);
 
   backdrop-filter: blur(15px);
 
@@ -3712,7 +3712,7 @@ watch(
 }
 
 .toast-message span {
-  color: var(--studio-foil, #c9a659);
+  color: var(--studio-foil, #b9975b);
 }
 
 /* =========================================================

@@ -81,7 +81,7 @@ onUnmounted(() => {
 
     border:1px solid rgba(255,255,255,.45);
 
-    color:#ff5d8f !important;
+    color:var(--studio-seal, #a63a2e) !important;
 
     box-shadow:
 
@@ -115,7 +115,7 @@ onUnmounted(() => {
 
     border-radius:50%;
 
-    border:2px solid rgba(255,93,143,.25);
+    border:2px solid rgba(166, 58, 46, 0.25);
 
     animation:pulse 2.5s infinite;
 

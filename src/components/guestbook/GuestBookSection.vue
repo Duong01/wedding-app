@@ -185,8 +185,9 @@ async function submitWish() {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/images/pattern.png") center/cover;
-  opacity: 0.08;
+  background: url("@/assets/rong-phuong.webp") center top / 420px auto repeat-y;
+  opacity: 0.07;
+  pointer-events: none;
 }
 
 .wish-marquee {

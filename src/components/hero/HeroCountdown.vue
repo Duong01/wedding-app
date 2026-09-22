@@ -66,7 +66,6 @@ const props = defineProps({
 /* =========================================================
    TIME
 ========================================================= */
-console.log(props.timeWedding)
 const now = ref(dayjs());
 
 let timer = null;

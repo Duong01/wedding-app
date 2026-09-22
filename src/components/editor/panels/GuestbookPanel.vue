@@ -153,7 +153,7 @@
 
   background: transparent;
 
-  color: #a92828;
+  color: var(--app-danger, #a03030);
 
   cursor: pointer;
 

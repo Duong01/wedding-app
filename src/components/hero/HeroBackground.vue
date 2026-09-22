@@ -64,9 +64,11 @@ defineProps({
 
   object-fit: cover;
 
-  opacity: 0.3;
+  object-position: center 28%;
 
-  filter: saturate(0.9) brightness(0.95);
+  opacity: 0.42;
+
+  filter: saturate(0.86) contrast(1.05) brightness(0.9);
 }
 
 .photo-background::after {
@@ -76,12 +78,19 @@ defineProps({
 
   inset: 0;
 
-  background: linear-gradient(
-    180deg,
-    rgba(141, 17, 21, 0.55),
-    rgba(123, 13, 13, 0.35) 55%,
-    rgba(105, 9, 12, 0.6)
-  );
+  background:
+    radial-gradient(
+      ellipse at center 45%,
+      rgba(77, 5, 8, 0.62) 0%,
+      rgba(77, 5, 8, 0.34) 48%,
+      rgba(77, 5, 8, 0) 76%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(141, 17, 21, 0.72),
+      rgba(123, 13, 13, 0.42) 45%,
+      rgba(105, 9, 12, 0.78)
+    );
 }
 
 

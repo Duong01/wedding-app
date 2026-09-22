@@ -250,7 +250,7 @@ function clearValue() {
 
   white-space: nowrap;
 
-  box-shadow: 0 5px 15px rgba(143, 77, 67, 0.2);
+  box-shadow: 0 5px 15px rgba(166, 58, 46, 0.2);
 
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
@@ -258,7 +258,7 @@ function clearValue() {
 .upload-button:hover:not(:disabled) {
   transform: translateY(-1px);
 
-  box-shadow: 0 8px 20px rgba(143, 77, 67, 0.26);
+  box-shadow: 0 8px 20px rgba(166, 58, 46, 0.26);
 }
 
 .upload-button:disabled {
@@ -280,7 +280,7 @@ function clearValue() {
 
   background: #fffdfb;
 
-  color: #2a1d1d;
+  color: var(--studio-ink, #2b2118);
 
   padding: 11px 12px;
 
@@ -294,7 +294,7 @@ function clearValue() {
 .upload-url-input:focus {
   border-color: var(--wine);
 
-  box-shadow: 0 0 0 3px rgba(143, 77, 67, 0.09);
+  box-shadow: 0 0 0 3px rgba(166, 58, 46, 0.09);
 }
 
 .upload-hidden-input {

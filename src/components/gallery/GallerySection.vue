@@ -28,8 +28,8 @@
     <ModernGalleryCarousel
       v-if="gallery.length"
       :images="gallery"
-      accent="#c9a06a"
-      text-color="#4c2416"
+      :accent="accent"
+      :text-color="textColor"
       :radius="4"
       @open="openGallery"
     />
@@ -84,6 +84,18 @@ const props = defineProps({
   gallery: {
     type: Array,
     default: () => [],
+  },
+
+  /* Màu nhấn của carousel — mỗi theme truyền vào để giữ bản sắc riêng */
+  accent: {
+    type: String,
+    default: "#c9a06a",
+  },
+
+  /* Màu chữ tiêu đề carousel */
+  textColor: {
+    type: String,
+    default: "#4c2416",
   },
 });
 
@@ -168,12 +180,14 @@ function closeLightbox() {
 .album-title {
   margin: 0;
 
+  font-family: var(--font-heading, "Cormorant Garamond", serif);
+
   font-size: 22px;
   font-weight: 700;
 
   letter-spacing: 2px;
 
-  color: var(--title, #4c2416);
+  color: var(--title, var(--p-primary, #4c2416));
 }
 
 
@@ -187,7 +201,7 @@ function closeLightbox() {
 
   margin-top: 10px;
 
-  color: var(--accent, #c9a06a);
+  color: var(--accent, var(--p-gold, #c9a06a));
 }
 
 

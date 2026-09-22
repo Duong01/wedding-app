@@ -76,8 +76,9 @@ async function copy(text){
     content:"";
     position:absolute;
     inset:0;
-    background:url("/images/pattern.png") center;
-    opacity:.06;
+    background:url("@/assets/rong-phuong.webp") center top / 420px auto repeat-y;
+    opacity:.07;
+    pointer-events:none;
 }
 
 .section-title{
