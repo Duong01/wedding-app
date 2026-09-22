@@ -231,6 +231,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -254,20 +255,20 @@
     "theme": {
       "Name": "romantic-pink",
       "Colors": {
-        "Primary": "#b0566b",
-        "Secondary": "#c97387",
-        "Accent": "#c9986a",
-        "AccentLight": "#fbeee6",
-        "Background": "#fdf6f3",
-        "BackgroundSecondary": "#faeef0",
-        "Text": "#5c4448",
-        "TextSecondary": "#a08589",
-        "White": "#fffaf7"
+        "Primary": "#cb5d6c",
+        "Secondary": "#933845",
+        "Accent": "#cb5d6c",
+        "AccentLight": "#f6dfe2",
+        "Background": "#fdf3f4",
+        "BackgroundSecondary": "#f6dfe2",
+        "Text": "#933845",
+        "TextSecondary": "#cb5d6c",
+        "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Baskerville",
+        "Heading": "Times New Roman",
+        "Script": "Alex Brush"
       },
       "Layout": {
         "MaxWidth": "900px",
@@ -441,6 +442,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -464,20 +466,20 @@
     "theme": {
       "Name": "elegant-gold",
       "Colors": {
-        "Primary": "#23201a",
-        "Secondary": "#35301f",
-        "Accent": "#d4af37",
-        "AccentLight": "#f3e5c0",
-        "Background": "#f6f1e6",
-        "BackgroundSecondary": "#efe8d8",
-        "Text": "#3a332a",
-        "TextSecondary": "#8a7d6a",
-        "White": "#fffdf6"
+        "Primary": "#d70c1b",
+        "Secondary": "#a30a15",
+        "Accent": "#d70c1b",
+        "AccentLight": "#fdecee",
+        "Background": "#ffffff",
+        "BackgroundSecondary": "#fdecee",
+        "Text": "#000000",
+        "TextSecondary": "#4a4a4a",
+        "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Patrick Hand",
+        "Heading": "Plus Jakarta Sans",
+        "Script": "Patrick Hand"
       },
       "Layout": {
         "MaxWidth": "900px",
@@ -651,6 +653,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -674,20 +677,20 @@
     "theme": {
       "Name": "modern-white",
       "Colors": {
-        "Primary": "#6b7f6a",
-        "Secondary": "#8ba089",
-        "Accent": "#93a58c",
-        "AccentLight": "#eef2ea",
-        "Background": "#fbfaf7",
-        "BackgroundSecondary": "#f4f5ef",
-        "Text": "#3f4a3e",
-        "TextSecondary": "#8b948a",
+        "Primary": "#486c7d",
+        "Secondary": "#3a5666",
+        "Accent": "#a4c4d4",
+        "AccentLight": "#e8f0f4",
+        "Background": "#ffffff",
+        "BackgroundSecondary": "#e8f0f4",
+        "Text": "#3a5666",
+        "TextSecondary": "#6b8494",
         "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Baskerville",
+        "Heading": "Baskerville",
+        "Script": "Pinyon Script"
       },
       "Layout": {
         "MaxWidth": "900px",
@@ -864,6 +867,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -887,20 +891,20 @@
     "theme": {
       "Name": "nhat-binh-do",
       "Colors": {
-        "Primary": "#6b7f6a",
-        "Secondary": "#8ba089",
-        "Accent": "#93a58c",
-        "AccentLight": "#eef2ea",
-        "Background": "#fbfaf7",
-        "BackgroundSecondary": "#f4f5ef",
-        "Text": "#3f4a3e",
-        "TextSecondary": "#8b948a",
+        "Primary": "#9c1f2c",
+        "Secondary": "#560207",
+        "Accent": "#9c1f2c",
+        "AccentLight": "#f6ecd9",
+        "Background": "#fbf8f3",
+        "BackgroundSecondary": "#f6ecd9",
+        "Text": "#560207",
+        "TextSecondary": "#9c1f2c",
         "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Baskerville",
+        "Heading": "Times New Roman",
+        "Script": "Alex Brush"
       },
       "Layout": {
         "MaxWidth": "900px",
@@ -1077,6 +1081,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -1290,6 +1295,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -1503,6 +1509,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -1716,6 +1723,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -1739,20 +1747,20 @@
     "theme": {
       "Name": "romantic-pink",
       "Colors": {
-        "Primary": "#7a4a54",
-        "Secondary": "#c58e9a",
-        "Accent": "#d9b5af",
-        "AccentLight": "#f9e7e1",
-        "Background": "#fff9f8",
-        "BackgroundSecondary": "#f8efe9",
-        "Text": "#4e2d34",
-        "TextSecondary": "#7d5c63",
-        "White": "#fffdfd"
+        "Primary": "#cb5d6c",
+        "Secondary": "#933845",
+        "Accent": "#cb5d6c",
+        "AccentLight": "#f6dfe2",
+        "Background": "#fdf3f4",
+        "BackgroundSecondary": "#f6dfe2",
+        "Text": "#933845",
+        "TextSecondary": "#cb5d6c",
+        "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Baskerville",
+        "Heading": "Times New Roman",
+        "Script": "Alex Brush"
       },
       "Layout": {
         "MaxWidth": "920px",
@@ -1944,6 +1952,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -2156,6 +2165,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -2368,6 +2378,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -2391,20 +2402,20 @@
     "theme": {
       "Name": "modern-white",
       "Colors": {
-        "Primary": "#473a39",
-        "Secondary": "#a67e67",
-        "Accent": "#d7c3af",
-        "AccentLight": "#f3eae2",
-        "Background": "#fdfcfb",
-        "BackgroundSecondary": "#f2efec",
-        "Text": "#3b2f2d",
-        "TextSecondary": "#72625f",
+        "Primary": "#486c7d",
+        "Secondary": "#3a5666",
+        "Accent": "#a4c4d4",
+        "AccentLight": "#e8f0f4",
+        "Background": "#ffffff",
+        "BackgroundSecondary": "#e8f0f4",
+        "Text": "#3a5666",
+        "TextSecondary": "#6b8494",
         "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Ballet"
+        "Main": "Baskerville",
+        "Heading": "Baskerville",
+        "Script": "Pinyon Script"
       },
       "Layout": {
         "MaxWidth": "930px",
@@ -2580,6 +2591,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -2603,20 +2615,20 @@
     "theme": {
       "Name": "elegant-gold",
       "Colors": {
-        "Primary": "#4d2f2d",
-        "Secondary": "#b88d49",
-        "Accent": "#d9b678",
-        "AccentLight": "#f8e9c6",
-        "Background": "#fffaf5",
-        "BackgroundSecondary": "#f3ebdf",
-        "Text": "#3b2a28",
-        "TextSecondary": "#7a5e58",
-        "White": "#fffefb"
+        "Primary": "#d70c1b",
+        "Secondary": "#a30a15",
+        "Accent": "#d70c1b",
+        "AccentLight": "#fdecee",
+        "Background": "#ffffff",
+        "BackgroundSecondary": "#fdecee",
+        "Text": "#000000",
+        "TextSecondary": "#4a4a4a",
+        "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Patrick Hand",
+        "Heading": "Plus Jakarta Sans",
+        "Script": "Patrick Hand"
       },
       "Layout": {
         "MaxWidth": "930px",
@@ -2792,6 +2804,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -3004,6 +3017,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -3216,6 +3230,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -3428,6 +3443,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -3640,6 +3656,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -3852,6 +3869,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -4064,6 +4082,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -4145,6 +4164,7 @@
       "Title": "Chuyện Tình Yêu",
       "Description": "Từ một buổi chiều đông giá lạnh, hai người gặp nhau và nhận ra rằng hạnh phúc là được nắm tay nhau đi về nhà."
     },
+    "sections": {},
     "events": [
       {
         "Id": 1,
@@ -4282,6 +4302,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -4305,24 +4326,24 @@
     "theme": {
       "Name": "boho-terracotta",
       "Colors": {
-        "Primary": "#9c5b3f",
-        "Secondary": "#c97b5d",
-        "Accent": "#d9b08c",
-        "AccentLight": "#f2e2d0",
-        "Background": "#faf3ec",
-        "BackgroundSecondary": "#f2e2d0",
-        "Text": "#5c4636",
-        "TextSecondary": "#8a7460",
-        "White": "#fffdf9"
+        "Primary": "#511419",
+        "Secondary": "#7a1f24",
+        "Accent": "#ffdfaf",
+        "AccentLight": "#ffe9c9",
+        "Background": "#2b0303",
+        "BackgroundSecondary": "#3a0607",
+        "Text": "#ffefd6",
+        "TextSecondary": "#e8cfa8",
+        "White": "#fff6e6"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Libre Baskerville",
+        "Heading": "Viaoda Libre",
+        "Script": "Ms Madi"
       },
       "Layout": {
-        "MaxWidth": "930px",
-        "SectionPadding": "82px"
+        "MaxWidth": "900px",
+        "SectionPadding": "44px"
       }
     },
     "couple": {
@@ -4363,6 +4384,19 @@
       "Title": "Chuyện Tình Yêu",
       "Description": "Hai người yêu nhau từ những chuyến đi phượt, và quyết định tiếp tục hành trình cùng nhau suốt đời."
     },
+    "dressCode": {
+      "Note": "Trang phục dự tiệc",
+      "Colors": [
+        "#000000",
+        "#ffdfaf",
+        "#ffffff"
+      ],
+      "Suggestions": [
+        "Tông đen – vàng đồng là màu chủ đạo của buổi tiệc",
+        "Ưu tiên trang phục thanh lịch, tối màu",
+        "Hạn chế màu trắng để dành riêng cho cô dâu"
+      ]
+    },
     "events": [
       {
         "Id": 1,
@@ -4389,6 +4423,8 @@
         "Year": "2027",
         "EventDate": "2027-03-20",
         "EventTime": "17:30",
+        "ReceptionTime": "17:00",
+        "CeremonyTime": "18:00",
         "Lunar": "Tức ngày 13 tháng 2 năm Bính Ngọ",
         "Location": "The Garden Studio, Hà Nội",
         "Address": "The Garden Studio, Hà Nội",
@@ -4500,6 +4536,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -4521,22 +4558,22 @@
     "weddingDate": "2027-04-10T10:30:00",
     "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
     "theme": {
-      "Name": "vintage-sepia",
+      "Name": "song-hy-red",
       "Colors": {
-        "Primary": "#6b4f3a",
-        "Secondary": "#97745a",
-        "Accent": "#c2a878",
-        "AccentLight": "#ead9bd",
-        "Background": "#f6efe2",
-        "BackgroundSecondary": "#ead9bd",
-        "Text": "#4a3a2c",
-        "TextSecondary": "#7d6a56",
-        "White": "#fffdf6"
+        "Primary": "#800000",
+        "Secondary": "#a52a2a",
+        "Accent": "#fbbf24",
+        "AccentLight": "#ffeed2",
+        "Background": "#fff7eb",
+        "BackgroundSecondary": "#f7ead9",
+        "Text": "#666666",
+        "TextSecondary": "#800000",
+        "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Baskerville",
+        "Heading": "Times New Roman",
+        "Script": "EB Garamond"
       },
       "Layout": {
         "MaxWidth": "930px",
@@ -4718,6 +4755,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -4739,22 +4777,22 @@
     "weddingDate": "2027-06-12T10:30:00",
     "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
     "theme": {
-      "Name": "ocean-breeze",
+      "Name": "to-duyen-xanh",
       "Colors": {
-        "Primary": "#1d6a8e",
-        "Secondary": "#4a9ab8",
-        "Accent": "#a8d0dc",
-        "AccentLight": "#e2f1f5",
-        "Background": "#f4fafc",
-        "BackgroundSecondary": "#e2f1f5",
-        "Text": "#274b5c",
-        "TextSecondary": "#5d8296",
+        "Primary": "#5e813c",
+        "Secondary": "#1a3500",
+        "Accent": "#d1db9c",
+        "AccentLight": "#f3dfc5",
+        "Background": "#fefbf4",
+        "BackgroundSecondary": "#f7f3e6",
+        "Text": "#1a3500",
+        "TextSecondary": "#5e813c",
         "White": "#ffffff"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Cormorant Garamond",
-        "Script": "Allura"
+        "Main": "Baskerville",
+        "Heading": "Times New Roman",
+        "Script": "Carattere"
       },
       "Layout": {
         "MaxWidth": "930px",
@@ -4936,6 +4974,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -4959,24 +4998,24 @@
     "theme": {
       "Name": "emerald-luxe",
       "Colors": {
-        "Primary": "#123b2e",
-        "Secondary": "#c9a45c",
-        "Accent": "#e8d3a2",
-        "AccentLight": "#f7f1e3",
-        "Background": "#f2ecdc",
-        "BackgroundSecondary": "#e3dcc4",
-        "Text": "#2e3d36",
-        "TextSecondary": "#6b7a70",
-        "White": "#fdfaf2"
+        "Primary": "#4c2d1f",
+        "Secondary": "#e1c490",
+        "Accent": "#e1c490",
+        "AccentLight": "#f3ddb8",
+        "Background": "#fef0e0",
+        "BackgroundSecondary": "#f7e6cd",
+        "Text": "#4c2d1f",
+        "TextSecondary": "#624537",
+        "White": "#fffaf2"
       },
       "Fonts": {
-        "Main": "Cormorant Garamond",
-        "Heading": "Playfair Display",
-        "Script": "Great Vibes"
+        "Main": "Be Vietnam Pro",
+        "Heading": "Viaoda Libre",
+        "Script": "Babylonica"
       },
       "Layout": {
-        "MaxWidth": "1100px",
-        "SectionPadding": "80px"
+        "MaxWidth": "900px",
+        "SectionPadding": "48px"
       }
     },
     "couple": {
@@ -5170,6 +5209,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
@@ -5363,6 +5403,7 @@
       "ShowTimeline": true,
       "ShowGallery": true,
       "ShowMap": true,
+      "ShowDressCode": true,
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,

@@ -1,60 +1,24 @@
 <template>
-  <section class="gallery-section">
+  <section class="mw-gallery">
+    <h2 class="mw-title">Album Ảnh</h2>
 
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+    <div v-if="gallery.length" class="mw-gallery__grid">
+      <button
+        v-for="(image, index) in visibleImages"
+        :key="index"
+        type="button"
+        class="mw-gallery__cell"
+        @click="openGallery(index)"
+      >
+        <img :src="resolveImage(image)" alt="" loading="lazy" decoding="async" />
 
-    <div class="gallery-heading">
-
-      <span class="heading-kicker">
-        NHỮNG KHOẢNH KHẮC
-      </span>
-
-      <h2>
-        KHOẢNH KHẮC CỦA CHÚNG MÌNH
-      </h2>
-
-      <div class="heading-decoration">
-        <span></span>
-
-        <b>囍</b>
-
-        <span></span>
-      </div>
-
+        <span v-if="index === visibleImages.length - 1 && hiddenCount" class="mw-gallery__more">
+          +{{ hiddenCount }}
+        </span>
+      </button>
     </div>
 
-
-    <!-- =========================================
-         GALLERY - CAROUSEL VÒNG
-    ========================================== -->
-
-    <ModernGalleryCarousel
-      v-if="gallery.length"
-      :images="gallery"
-      accent="#93a58c"
-      text-color="#3f4a3e"
-      :radius="2"
-      @open="openGallery"
-    />
-
-
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div
-      v-else
-      class="gallery-empty"
-    >
-      Chưa có hình ảnh
-    </div>
-
-
-    <!-- =========================================
-         FULLSCREEN GALLERY DIALOG
-    ========================================== -->
+    <p v-else class="mw-gallery__empty">Chưa có hình ảnh</p>
 
     <v-dialog
       v-model="dialog"
@@ -63,33 +27,24 @@
       transition="dialog-fade-transition"
       content-class="gallery-dialog"
     >
-
       <GalleryModal
         v-if="dialog"
         :images="gallery"
         :start-index="currentIndex"
         @close="closeLightbox"
       />
-
     </v-dialog>
-
   </section>
 </template>
 
-
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
-
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import { computed, defineAsyncComponent, ref } from "vue";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
-
-/* =====================================================
-   PROPS
-===================================================== */
+const MAX_VISIBLE = 4;
 
 const props = defineProps({
   gallery: {
@@ -98,185 +53,119 @@ const props = defineProps({
   },
 });
 
-
-/* =====================================================
-   DIALOG
-===================================================== */
-
 const dialog = ref(false);
 
 const currentIndex = ref(0);
 
+const visibleImages = computed(() => props.gallery.slice(0, MAX_VISIBLE));
 
-/* =====================================================
-   OPEN GALLERY
-===================================================== */
+const hiddenCount = computed(() =>
+  Math.max(0, props.gallery.length - MAX_VISIBLE)
+);
+
+function resolveImage(image) {
+  if (typeof image === "string") {
+    return image;
+  }
+
+  return image?.Url || image?.url || image?.Image || image?.Src || "";
+}
 
 function openGallery(index = 0) {
-
   if (!props.gallery.length) {
     return;
   }
 
-
-  const safeIndex = Math.min(
-    Math.max(index, 0),
-    props.gallery.length - 1,
-  );
-
-
-  currentIndex.value = safeIndex;
+  currentIndex.value = Math.min(Math.max(index, 0), props.gallery.length - 1);
 
   dialog.value = true;
 }
-
-
-/* =====================================================
-   CLOSE GALLERY
-===================================================== */
 
 function closeLightbox() {
   dialog.value = false;
 }
 </script>
 
-
 <style scoped>
-
-/* =====================================================
-   ROOT
-===================================================== */
-
-.gallery-section {
-  width: 100%;
-
-  color: #3f4a3e;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.gallery-heading {
+.mw-gallery {
   text-align: center;
-
-  margin-bottom: 28px;
 }
 
+.mw-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 
-.heading-kicker {
-  display: block;
+  width: 100%;
+  max-width: 432px;
 
-  margin-bottom: 6px;
-
-  color: #8b948a;
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: 2.5px;
+  margin: 24px auto 0;
 }
 
+.mw-gallery__cell {
+  position: relative;
 
-.gallery-heading h2 {
-  margin: 0;
+  aspect-ratio: 1 / 1;
 
-  color: #3f4a3e;
+  padding: 0;
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  overflow: hidden;
 
-  font-size: 24px;
-  font-weight: 700;
+  border: 1px solid var(--mw-blue-soft);
+  border-radius: 12px;
 
-  line-height: 1.2;
+  background-color: var(--mw-blue-mist);
 
-  letter-spacing: .8px;
+  cursor: pointer;
 }
 
+.mw-gallery__cell img {
+  width: 100%;
+  height: 100%;
 
-.heading-decoration {
+  object-fit: cover;
+
+  transition: transform 0.2s ease;
+}
+
+.mw-gallery__cell:hover img {
+  transform: scale(1.03);
+}
+
+.mw-gallery__more {
+  position: absolute;
+  inset: 0;
+
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 9px;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
 
-  margin-top: 10px;
-}
-
-
-.heading-decoration span {
-  width: 38px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #93a58c
-    );
-}
-
-
-.heading-decoration span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #93a58c
-    );
-}
-
-
-.heading-decoration b {
-  color: #6b7f6a;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
+  font-family: var(--mw-font-serif);
   font-size: 18px;
-
-  line-height: 1;
+  font-weight: 600;
 }
 
+.mw-gallery__empty {
+  margin: 24px 0 0;
 
-/* =====================================================
-   EMPTY
-===================================================== */
+  color: var(--mw-ink-soft);
 
-.gallery-empty {
-  padding: 35px 20px;
-
-  color: #8b948a;
-
-  font-size: 12px;
-
-  text-align: center;
-
-  border:
-    1px solid
-    rgba(107,127,106,.2);
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
 }
 
+/* =========================================================
+   DESKTOP
+========================================================= */
 
-/* =====================================================
-   DIALOG
-===================================================== */
+@media (min-width: 900px) {
+  .mw-gallery__grid {
+    gap: 16px;
 
-:deep(.gallery-dialog) {
-  margin: 0;
-
-  max-width: 100%;
-
-  border-radius: 0;
-
-  overflow: hidden;
+    max-width: 600px;
+  }
 }
-
 </style>

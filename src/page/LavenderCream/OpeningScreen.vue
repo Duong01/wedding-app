@@ -21,7 +21,7 @@
       <span></span>
     </div>
 
-    <p class="lc-opening__eyebrow">WEDDING INVITATION</p>
+    <p class="lc-opening__eyebrow">{{ eyebrow }}</p>
 
     <!-- =====================================================
          INVITATION CARD
@@ -30,13 +30,13 @@
       <div class="lc-card__arch"></div>
 
       <div class="lc-card__inner">
-        <p class="lc-card__kicker">SAVE THE DATE</p>
+        <p class="lc-card__kicker">{{ kicker }}</p>
 
         <div class="lc-card__seal">
           <span>{{ monogram }}</span>
         </div>
 
-        <p class="lc-card__invite">Trân trọng kính mời</p>
+        <p class="lc-card__invite">{{ inviteText }}</p>
 
         <h1>{{ guestName }}</h1>
 
@@ -64,14 +64,14 @@
         <v-icon size="16">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="lc-open-btn__text">CHẠM ĐỂ MỞ THIỆP</span>
+      <span class="lc-open-btn__text">{{ buttonText }}</span>
 
       <span class="lc-open-btn__arrow">↗</span>
     </button>
 
     <p class="lc-hint">
       <span></span>
-      Một lời mời · Một câu chuyện · Một ngày đặc biệt
+      {{ hintText }}
       <span></span>
     </p>
   </section>
@@ -80,15 +80,43 @@
 <script setup>
 import { computed, ref } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },
   dateLabel: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
 });
 
 const emit = defineEmits(["open"]);
 
 const opening = ref(false);
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "opening", "Eyebrow", "WEDDING INVITATION")
+);
+
+const kicker = computed(() =>
+  sectionText(props.sections, "opening", "Kicker", "SAVE THE DATE")
+);
+
+const inviteText = computed(() =>
+  sectionText(props.sections, "opening", "Invite", "Trân trọng kính mời")
+);
+
+const buttonText = computed(() =>
+  sectionText(props.sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP")
+);
+
+const hintText = computed(() =>
+  sectionText(
+    props.sections,
+    "opening",
+    "Hint",
+    "Một lời mời · Một câu chuyện · Một ngày đặc biệt"
+  )
+);
 
 const groomName = computed(
   () =>

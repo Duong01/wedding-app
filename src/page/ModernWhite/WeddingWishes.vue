@@ -1,140 +1,108 @@
 <template>
-  <section class="wishes">
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+  <section class="mw-wishes">
+    <h2 class="mw-title">Sổ lưu bút</h2>
 
-    <div class="wish-heading">
-      <span class="wish-kicker"> LỜI CHÚC YÊU THƯƠNG </span>
+    <p class="mw-lead">Gửi đến chúng mình những lời chúc thật ấm áp nhé</p>
 
-      <h2>GỬI ĐẾN CHÚNG MÌNH</h2>
+    <!-- =====================================================
+         MARQUEE
+    ====================================================== -->
 
-      <div class="wish-decoration">
-        <span></span>
-        <b>囍</b>
-        <span></span>
-      </div>
-    </div>
-
-    <!-- =========================================
-         CHẠY LỜI CHÚC NGANG
-    ========================================== -->
-
-    <div v-if="allWishes.length" class="wish-marquee">
-      <div class="wish-marquee-track">
+    <div v-if="allWishes.length" class="mw-marquee">
+      <div class="mw-marquee__track">
         <div
-          v-for="(wish, index) in allWishes"
-          :key="wish?.Id || index"
-          class="wish-marquee-item"
+          v-for="round in 2"
+          :key="round"
+          class="mw-marquee__content"
+          :aria-hidden="round === 2 ? 'true' : undefined"
         >
-          <span class="marquee-name">
-            {{ getName(wish) }}
-          </span>
+          <span
+            v-for="(wish, index) in allWishes"
+            :key="`${round}-${wish?.Id || index}`"
+            class="mw-marquee__item"
+          >
+            <b>{{ getName(wish) }}</b>
 
-          <span class="marquee-dot"> ♥ </span>
+            <i>♥</i>
 
-          <span class="marquee-message">
             {{ getMessage(wish) }}
           </span>
         </div>
       </div>
     </div>
 
-    <!-- =========================================
+    <!-- =====================================================
          FORM
-    ========================================== -->
+    ====================================================== -->
 
-    <form class="wish-form">
-      <div class="form-title">
-        <span class="form-title-icon">♡</span>
+    <form class="mw-wish-form" @submit.prevent="submitWish">
+      <div class="mw-wish-form__group">
+        <label for="mw-wish-name">Họ và tên</label>
 
-        <span> GỬI LỜI CHÚC ĐẾN CÔ DÂU CHÚ RỂ </span>
-
-        <span class="form-title-icon">♡</span>
+        <input
+          id="mw-wish-name"
+          v-model="form.name"
+          type="text"
+          maxlength="80"
+          placeholder="Nhập tên của bạn"
+        />
       </div>
 
-      <div class="form-group">
-        <label> HỌ VÀ TÊN </label>
+      <div class="mw-wish-form__group">
+        <label for="mw-wish-message">Lời chúc</label>
 
-        <div class="input-wrap">
-          <input
-            v-model="form.name"
-            type="text"
-            maxlength="80"
-            placeholder="Nhập tên của bạn"
-          />
-        </div>
+        <textarea
+          id="mw-wish-message"
+          v-model="form.message"
+          rows="4"
+          maxlength="500"
+          placeholder="Gửi những lời chúc tốt đẹp nhất..."
+        ></textarea>
+
+        <span class="mw-wish-form__count">{{ form.message.length }}/500</span>
       </div>
 
-      <div class="form-group">
-        <label> LỜI CHÚC </label>
-
-        <div class="input-wrap textarea-wrap">
-          <textarea
-            v-model="form.message"
-            rows="4"
-            maxlength="500"
-            placeholder="Gửi những lời chúc tốt đẹp nhất..."
-          ></textarea>
-        </div>
-      </div>
-
-      <button type="button" :disabled="!canSubmit || submitting" class="submit-button" @click="submitWish">
-        <span> ♡ </span>
-
-        GỬI LỜI CHÚC
-
-        <span> ♡ </span>
+      <button
+        type="submit"
+        class="mw-pill mw-wish-form__submit"
+        :disabled="!canSubmit || submitting"
+      >
+        {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
       </button>
     </form>
 
-    <!-- =========================================
-         DANH SÁCH LỜI CHÚC
-    ========================================== -->
+    <!-- =====================================================
+         DANH SÁCH
+    ====================================================== -->
 
-    <div v-if="allWishes.length" class="wish-list-wrapper">
-      <div class="list-heading">
-        <span></span>
+    <div v-if="allWishes.length" class="mw-wish-list">
+      <article
+        v-for="(wish, index) in allWishes"
+        :key="wish?.Id || index"
+        class="mw-wish-card"
+      >
+        <div class="mw-wish-card__head">
+          <strong>{{ getName(wish) }}</strong>
 
-        <strong> NHỮNG LỜI CHÚC </strong>
+          <span v-if="getTime(wish)">{{ getTime(wish) }}</span>
+        </div>
 
-        <span></span>
-      </div>
-
-      <div class="wish-list">
-        <article
-          v-for="(wish, index) in allWishes"
-          :key="wish?.Id || index"
-          class="wish"
-        >
-          <div class="wish-mark">囍</div>
-
-          <div class="wish-content">
-            <div class="wish-name">
-              {{ getName(wish) }}
-            </div>
-
-            <p>
-              {{ getMessage(wish) }}
-            </p>
-          </div>
-        </article>
-      </div>
+        <p>{{ getMessage(wish) }}</p>
+      </article>
     </div>
 
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div v-else class="wish-empty">
-      Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé ♡
-    </div>
+    <p v-else class="mw-wish-empty">
+      Chưa có lời chúc nào. Hãy là người đầu tiên!
+    </p>
   </section>
 </template>
 
 <script setup>
 import { computed, reactive, ref } from "vue";
-import { addWish, getAllWishes } from "@/model/api";import { useRoute } from "vue-router";
+import { useRoute } from "vue-router";
+
+import { addWish, getAllWishes } from "@/model/api";
+
 const props = defineProps({
   wishes: {
     type: Array,
@@ -149,10 +117,8 @@ const props = defineProps({
 
 const emit = defineEmits(["submit"]);
 
-/* =========================================
-   FORM
-========================================= */
 const route = useRoute();
+
 const form = reactive({
   name: "",
   message: "",
@@ -162,37 +128,43 @@ const submitting = ref(false);
 
 const localWishes = ref([]);
 
-const allWishes = computed(() => {
-  if (localWishes.value.length) {
-    return localWishes.value;
-  }
+const allWishes = computed(() =>
+  localWishes.value.length ? localWishes.value : props.wishes || []
+);
 
-  return props.wishes || [];
-});
+const canSubmit = computed(
+  () => form.name.trim().length > 0 && form.message.trim().length > 0
+);
 
-const canSubmit = computed(() => {
-  return form.name.trim().length > 0 && form.message.trim().length > 0;
-});
-
-/* =========================================
-   GET NAME
-========================================= */
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function getName(wish) {
   return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
 }
 
-/* =========================================
-   GET MESSAGE
-========================================= */
-
 function getMessage(wish) {
   return wish?.Message || wish?.Content || wish?.Wish || "";
 }
 
-/* =========================================
-   LOAD WISHES
-========================================= */
+function getTime(wish) {
+  return wish?.CreatedAt || wish?.CreatedDate || wish?.Time || "";
+}
+
+function buildSlug() {
+  if (!route.params.slug) {
+    return "";
+  }
+
+  return route.params.token
+    ? `${route.params.slug}/${route.params.token}`
+    : route.params.slug;
+}
+
+/* =========================================================
+   LOAD
+========================================================= */
 
 async function loadWishes() {
   const slug = route.params.slug;
@@ -214,32 +186,29 @@ async function loadWishes() {
   }
 }
 
-if(route.params.slug  && route.name === "WeddingByApi") {
+if (route.params.slug && route.name === "WeddingByApi") {
   loadWishes();
 }
 
-/* =========================================
+/* =========================================================
    SUBMIT
-========================================= */
+========================================================= */
 
 async function submitWish() {
   if (!form.name || !form.name.trim()) {
     alert("Vui lòng nhập tên của bạn");
+
     return;
   }
+
   if (!form.message || !form.message.trim()) {
     alert("Vui lòng nhập lời chúc");
+
     return;
   }
 
-  const slug = route.params.slug
-    ? route.params.token
-      ? `${route.params.slug}/${route.params.token}`
-      : route.params.slug
-    : "";
-
   const param = {
-    slug: slug,
+    slug: buildSlug(),
     guestName: form.name.trim(),
     message: form.message.trim(),
   };
@@ -253,6 +222,7 @@ async function submitWish() {
 
     if (result && result.status === "success") {
       alert("Gửi lời chúc thành công ❤️");
+
       form.name = "";
       form.message = "";
 
@@ -264,9 +234,9 @@ async function submitWish() {
     }
   } catch (error) {
     console.error(error);
+
     alert(
-      error?.response?.data?.message ||
-        "Có lỗi xảy ra, vui lòng thử lại."
+      error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại."
     );
   } finally {
     submitting.value = false;
@@ -275,636 +245,246 @@ async function submitWish() {
 </script>
 
 <style scoped>
-/* =====================================================
-   ROOT
-===================================================== */
+.mw-wishes {
+  text-align: center;
+}
 
-.wishes {
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.mw-marquee {
   width: 100%;
 
-  color: #641316;
+  margin-top: 24px;
 
-  font-family: Arial, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
 }
 
-/* =====================================================
-   HEADING
-===================================================== */
-
-.wish-heading {
-  text-align: center;
-
-  margin-bottom: 20px;
-}
-
-.wish-kicker {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: #a77b3d;
-
-  font-size: 10px;
-
-  font-weight: 900;
-
-  letter-spacing: 2.5px;
-}
-
-.wish-heading h2 {
-  margin: 0;
-
-  color: #801519;
-
-  font-family: Arial, "Helvetica Neue", sans-serif;
-
-  font-size: 21px;
-  font-weight: 800;
-
-  letter-spacing: 1px;
-}
-
-.wish-decoration {
+.mw-marquee__track {
   display: flex;
 
+  width: max-content;
+
+  animation: mw-marquee 42s linear infinite;
+}
+
+.mw-marquee__content {
+  display: flex;
   align-items: center;
+  gap: 32px;
 
-  justify-content: center;
+  padding-right: 32px;
+}
 
+.mw-marquee__item {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
 
-  margin-top: 8px;
-}
+  color: var(--mw-ink);
 
-.wish-decoration span {
-  width: 36px;
-
-  height: 1px;
-
-  background: linear-gradient(to right, transparent, #b78b4a);
-}
-
-.wish-decoration span:last-child {
-  background: linear-gradient(to left, transparent, #b78b4a);
-}
-
-.wish-decoration b {
-  color: #9a171b;
-
-  font-family: Arial, "Helvetica Neue", sans-serif;
-
-  font-size: 16px;
-}
-
-/* =====================================================
-   MARQUEE
-===================================================== */
-
-.wish-marquee {
-  position: relative;
-
-  width: 100%;
-
-  height: 58px;
-
-  margin-bottom: 22px;
-
-  overflow-x: auto;
-
-  overflow-y: hidden;
-
-  border-top: 1px solid rgba(181, 139, 67, 0.28);
-
-  border-bottom: 1px solid rgba(181, 139, 67, 0.28);
-
-  background: linear-gradient(
-    90deg,
-    rgba(255, 250, 239, 0.95),
-    rgba(250, 240, 218, 0.65),
-    rgba(255, 250, 239, 0.95)
-  );
-
-  scrollbar-width: thin;
-
-  scrollbar-color: rgba(166, 123, 61, 0.45) transparent;
-}
-
-/*
- * Hai lớp mờ ở hai bên
- * tạo cảm giác nội dung chạy vào/ra.
- */
-
-.wish-marquee::before,
-.wish-marquee::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: 3;
-
-  top: 0;
-
-  width: 30px;
-
-  height: 100%;
-
-  pointer-events: none;
-}
-
-.wish-marquee::before {
-  left: 0;
-
-  background: linear-gradient(to right, #fffaf0, transparent);
-}
-
-.wish-marquee::after {
-  right: 0;
-
-  background: linear-gradient(to left, #fffaf0, transparent);
-}
-
-/* =====================================================
-   MARQUEE TRACK
-===================================================== */
-
-.wish-marquee-track {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-  min-width: max-content;
-
-  height: 100%;
-
-  padding: 0 30px;
-}
-
-/* =====================================================
-   MARQUEE ITEM
-===================================================== */
-
-.wish-marquee-item {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  min-height: 34px;
-
-  padding: 7px 13px;
-
-  border: 1px solid rgba(181, 139, 67, 0.3);
-
-  border-radius: 20px;
-
-  background: rgba(255, 255, 255, 0.72);
+  font-family: var(--mw-font-serif);
+  font-size: 13px;
 
   white-space: nowrap;
-
-  box-shadow: 0 3px 10px rgba(104, 57, 25, 0.05);
 }
 
-.marquee-name {
-  color: #8c1519;
+.mw-marquee__item b {
+  color: var(--mw-blue);
 
-  font-family: Arial, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+}
+
+.mw-marquee__item i {
+  color: var(--mw-blue-soft);
 
   font-size: 10px;
-  font-weight: 700;
+  font-style: normal;
 }
 
-.marquee-message {
-  color: #705744;
+@keyframes mw-marquee {
+  from {
+    transform: translateX(0);
+  }
 
-  font-family: Arial, "Helvetica Neue", sans-serif;
-
-  font-size: 10px;
-  font-weight: 400;
-
-  line-height: 1.5;
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-/* =====================================================
+/* =========================================================
    FORM
-===================================================== */
+========================================================= */
 
-.wish-form {
-  width: 100%;
+.mw-wish-form {
+  max-width: 420px;
 
-  padding: 20px 18px 18px;
+  margin: 28px auto 0;
+  padding: 20px;
 
-  border: 1px solid rgba(181, 139, 67, 0.38);
+  border: 1px solid var(--mw-hairline);
+  border-radius: 14px;
 
-  background: linear-gradient(
-    145deg,
-    rgba(255, 251, 242, 0.96),
-    rgba(250, 240, 218, 0.58)
-  );
-
-  box-shadow: 0 8px 24px rgba(100, 48, 24, 0.05);
-}
-
-.form-title,
-.form-group label,
-.form-group input,
-.form-group textarea,
-.submit-button {
-  font-family: Arial, "Helvetica Neue", sans-serif;
-}
-
-/* =====================================================
-   FORM TITLE
-===================================================== */
-
-.form-title {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 8px;
-
-  margin-bottom: 18px;
-
-  color: #8d171b;
-
-  font-size: 10px;
-
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-
-  text-align: center;
-}
-
-.form-title-icon {
-  color: #b18443;
-
-  font-size: 11px;
-}
-
-/* =====================================================
-   FORM GROUP
-===================================================== */
-
-.form-group {
-  margin-bottom: 14px;
-}
-
-.form-group label {
-  display: block;
-
-  margin-bottom: 6px;
-
-  color: #8d171b;
-
-  font-size: 10px;
-
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-/* =====================================================
-   INPUT
-===================================================== */
-
-.input-wrap {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-
-  top: 50%;
-
-  left: 11px;
-
-  z-index: 2;
-
-  color: #b18443;
-
-  font-size: 11px;
-
-  transform: translateY(-50%);
-
-  pointer-events: none;
-}
-
-.input-wrap textarea + .input-icon {
-  top: 13px;
-}
-
-.form-group input,
-.form-group textarea {
-  display: block;
-
-  box-sizing: border-box;
-
-  width: 100%;
-
-  border: 1px solid #d6c39e;
-
-  border-radius: 0;
-
-  outline: none;
-
-  padding: 11px 12px 11px 32px;
-
-  color: #604b39;
-
-  background: rgba(255, 255, 255, 0.72);
-
-  font-family: Arial, "Helvetica Neue", sans-serif;
-
-  font-size: 12px;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-}
-
-.form-group textarea {
-  min-height: 92px;
-
-  resize: vertical;
-
-  line-height: 1.6;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: #ae9a82;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: #a77b3d;
-
-  background: #fffdf7;
-
-  box-shadow: 0 0 0 3px rgba(167, 123, 61, 0.08);
-}
-
-/* =====================================================
-   SUBMIT
-===================================================== */
-
-.submit-button {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 12px;
-
-  width: 100%;
-
-  height: 42px;
-
-  border: 1px solid #8f1519;
-
-  color: #fff9ef;
-
-  background: linear-gradient(135deg, #a51b20, #781115);
-
-  font-size: 11px;
-
-  font-weight: 900;
-
-  letter-spacing: 1.8px;
-
-  cursor: pointer;
-
-  box-shadow: 0 5px 15px rgba(121, 17, 21, 0.15);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.submit-button span {
-  color: #f2d9a7;
-
-  font-size: 12px;
-}
-
-.submit-button:hover:not(:disabled) {
-  transform: translateY(-1px);
-
-  box-shadow: 0 8px 20px rgba(121, 17, 21, 0.22);
-}
-
-.submit-button:disabled {
-  opacity: 0.45;
-
-  cursor: not-allowed;
-}
-
-/* =====================================================
-   LIST WRAPPER
-===================================================== */
-
-.wish-list-wrapper {
-  margin-top: 25px;
-}
-
-/* =====================================================
-   LIST HEADING
-===================================================== */
-
-.list-heading {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 9px;
-
-  margin-bottom: 10px;
-}
-
-.list-heading span {
-  width: 35px;
-
-  height: 1px;
-
-  background: #c19b5d;
-}
-
-.list-heading strong {
-  color: #9a171b;
-
-  font-size: 10px;
-
-  font-weight: 900;
-
-  letter-spacing: 2px;
-}
-
-/* =====================================================
-   SCROLL LIST
-===================================================== */
-
-.wish-list {
-  max-height: 300px;
-
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  padding-right: 5px;
-
-  scrollbar-width: thin;
-
-  scrollbar-color: rgba(166, 123, 61, 0.45) transparent;
-}
-
-/* =====================================================
-   WISH
-===================================================== */
-
-.wish {
-  position: relative;
-
-  display: flex;
-
-  gap: 12px;
-
-  padding: 14px 5px;
-
-  border-bottom: 1px solid rgba(181, 139, 67, 0.2);
-}
-
-.wish:first-child {
-  padding-top: 8px;
-}
-
-.wish-mark {
-  flex: 0 0 28px;
-
-  width: 28px;
-
-  height: 28px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  margin-top: 1px;
-
-  color: #9b171b;
-
-  border: 1px solid rgba(181, 139, 67, 0.4);
-
-  background: rgba(255, 249, 235, 0.8);
-
-  font-family: Arial, "Helvetica Neue", sans-serif;
-
-  font-size: 13px;
-}
-
-/* =====================================================
-   WISH CONTENT
-===================================================== */
-
-.wish-content {
-  min-width: 0;
+  background-color: var(--mw-paper);
 
   text-align: left;
 }
 
-.wish-name {
-  color: #8d1519;
+.mw-wish-form__group + .mw-wish-form__group {
+  margin-top: 14px;
+}
 
-  font-family: Arial, "Helvetica Neue", sans-serif;
+.mw-wish-form__group label {
+  display: block;
 
+  margin-bottom: 6px;
+
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
   font-size: 12px;
-  font-weight: 700;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.wish p {
-  margin: 4px 0 0;
+.mw-wish-form__group input,
+.mw-wish-form__group textarea {
+  width: 100%;
 
-  color: #705947;
+  padding: 10px 14px;
 
-  font-family: Arial, "Helvetica Neue", sans-serif;
+  border: 1px solid var(--mw-hairline);
+  border-radius: 10px;
 
+  background-color: var(--mw-paper);
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+
+  outline: none;
+
+  resize: none;
+}
+
+.mw-wish-form__group input:focus,
+.mw-wish-form__group textarea:focus {
+  border-color: var(--mw-blue);
+}
+
+.mw-wish-form__count {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
   font-size: 11px;
-  font-weight: 400;
 
-  line-height: 1.7;
+  text-align: right;
 }
 
-/* =====================================================
-   EMPTY
-===================================================== */
+.mw-wish-form__submit {
+  width: 100%;
 
-.wish-empty {
-  margin-top: 20px;
+  margin-top: 18px;
+}
 
-  padding: 20px;
+/* =========================================================
+   DANH SÁCH
+========================================================= */
 
-  color: #987b5d;
+.mw-wish-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  border: 1px dashed rgba(181, 139, 67, 0.35);
+  max-width: 420px;
+  max-height: 500px;
 
-  background: rgba(255, 250, 240, 0.45);
+  margin: 28px auto 0;
 
+  overflow-y: auto;
+
+  text-align: left;
+}
+
+.mw-wish-card {
+  padding: 14px 16px;
+
+  border: 1px solid var(--mw-hairline-soft);
+  border-radius: 10px;
+
+  background-color: var(--mw-paper);
+}
+
+.mw-wish-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mw-wish-card__head strong {
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mw-wish-card__head span {
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
   font-size: 11px;
 
-  line-height: 1.7;
+  white-space: nowrap;
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+.mw-wish-card p {
+  margin: 8px 0 0;
 
-@media (max-width: 420px) {
-  .wish-heading h2 {
-    font-size: 19px;
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.mw-wish-empty {
+  margin: 24px 0 0;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 900px) {
+  .mw-wish-form,
+  .mw-wish-list {
+    max-width: 600px;
   }
 
-  .wish-kicker {
-    font-size: 11px;
-
-    letter-spacing: 2px;
-  }
-
-  .wish-marquee {
-    height: 54px;
-  }
-
-  .wish-marquee-item {
-    padding: 6px 11px;
-  }
-
-  .marquee-name {
-    font-size: 11px;
-  }
-
-  .marquee-message {
-    max-width: 210px;
-
-    font-size: 11px;
-  }
-
-  .wish-form {
-    padding: 18px 14px;
-  }
-
-  .wish-list {
-    max-height: 280px;
+  .mw-marquee__item {
+    font-size: 15px;
   }
 }
 </style>

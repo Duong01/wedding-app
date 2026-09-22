@@ -86,6 +86,8 @@
 
         <SettingsPanel v-if="activeMenu === 'settings'" :wedding="wedding" />
 
+        <SectionTitlesPanel v-if="activeMenu === 'sections'" :wedding="wedding" />
+
         <ThemePanel v-if="activeMenu === 'theme'" :wedding="wedding" />
       </section>
 
@@ -198,9 +200,11 @@ import MusicPanel from "@/components/editor/panels/MusicPanel.vue";
 import FooterPanel from "@/components/editor/panels/FooterPanel.vue";
 import MapPanel from "@/components/editor/panels/MapPanel.vue";
 import SettingsPanel from "@/components/editor/panels/SettingsPanel.vue";
+import SectionTitlesPanel from "@/components/editor/panels/SectionTitlesPanel.vue";
 import ThemePanel from "@/components/editor/panels/ThemePanel.vue";
 
 import { useWeddingPreviewSync } from "@/composables/useWeddingPreviewSync";
+import { ensureSections } from "@/data/sectionTitles";
 import "@/assets/styles/editor.css";
 
 defineOptions({
@@ -439,6 +443,13 @@ const menus = [
     label: "Âm nhạc",
     description: "Nhạc nền thiệp",
     icon: "mdi-music-outline",
+  },
+
+  {
+    id: "sections",
+    label: "Tiêu đề mục",
+    description: "Đổi tên các mục",
+    icon: "mdi-format-title",
   },
 ];
 
@@ -762,6 +773,14 @@ async function initializeEditor() {
       err?.message ||
       "Không thể tải dữ liệu thiệp.";
   } finally {
+    /*
+     * Dữ liệu cũ có thể chưa có wedding.sections —
+     * tạo sẵn object rỗng để panel "Tiêu đề mục"
+     * ghi được giá trị (API lưu dạng object lồng nhau
+     * sections[key][field] = value).
+     */
+    ensureSections(editorStore.wedding);
+
     loading.value = false;
   }
 }

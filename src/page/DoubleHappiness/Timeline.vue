@@ -1,9 +1,9 @@
 <template>
   <section class="dh-timeline">
     <div class="dh-timeline__header">
-      <p class="dh-eyebrow">DẤU MỐC YÊU THƯƠNG</p>
+      <p v-if="eyebrow" class="dh-eyebrow">{{ eyebrow }}</p>
 
-      <h2>Hành trình của chúng mình</h2>
+      <h2>{{ heading }}</h2>
 
       <p class="dh-timeline__intro">
         Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
@@ -58,11 +58,22 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   timeline: { type: Array, default: () => [] },
+  sections: { type: Object, default: () => ({}) },
 });
 
 const items = computed(() => props.timeline || []);
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "timeline", "Heading", "Hành trình của chúng mình")
+);
 
 function formatTime(index) {
   return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;

@@ -25,9 +25,17 @@
       ></textarea>
 
       <div class="tr-wishes__actions">
-        <span class="tr-wishes__hint">
-          {{ form.message.length }}/10000
-        </span>
+        <div class="tr-wishes__tools">
+          <button
+            type="button"
+            class="tr-wishes__ai"
+            title="Tạo lời chúc bằng AI"
+            aria-label="Tạo lời chúc bằng AI"
+            @click="generateWish"
+          >
+            🪄
+          </button>
+        </div>
 
         <button
           type="submit"
@@ -53,9 +61,15 @@
         :key="wish.Id || wish.id || index"
         class="tr-wishes__item"
       >
-        <strong class="tr-wishes__author">
-          {{ wish.name || wish.Name || wish.guestName || wish.GuestName || "Một người bạn" }}
-        </strong>
+        <div class="tr-wishes__item-head">
+          <strong class="tr-wishes__author">
+            {{ wish.name || wish.Name || wish.guestName || wish.GuestName || "Một người bạn" }}
+          </strong>
+
+          <span v-if="wishTime(wish)" class="tr-wishes__time">
+            {{ wishTime(wish) }}
+          </span>
+        </div>
 
         <p class="tr-wishes__message">
           {{ wish.message || wish.Message || wish.content || wish.Content || "" }}
@@ -109,6 +123,20 @@ const allWishes = computed(() =>
   localWishes.value.length ? localWishes.value : props.wishes || []
 );
 
+/* =========================================================
+   THỜI GIAN GỬI
+========================================================= */
+
+function wishTime(wish) {
+  return (
+    wish?.CreatedAt ||
+    wish?.createdAt ||
+    wish?.CreatedDate ||
+    wish?.createdDate ||
+    ""
+  );
+}
+
 async function loadWishes() {
   const slug = route.params.slug;
 
@@ -134,6 +162,30 @@ if (route.params.slug && route.name === "WeddingByApi") {
 /* =========================================================
    GỬI LỜI CHÚC
 ========================================================= */
+
+/*
+ * Gợi ý lời chúc.
+ *
+ * Mẫu gốc gọi API AI của hệ thống; repo hiện chưa có endpoint đó
+ * nên dùng danh sách câu chúc soạn sẵn, chọn ngẫu nhiên.
+ * Khi có API, chỉ cần thay thân hàm này bằng lời gọi API.
+ */
+const WISH_TEMPLATES = [
+  "Chúc hai bạn trăm năm hạnh phúc, sớm sinh quý tử!",
+  "Chúc mừng hai bạn về chung một nhà. Mong hai bạn luôn yêu thương nhau như ngày đầu!",
+  "Chúc cô dâu chú rể trăm năm hảo hợp, gia đình luôn đầm ấm.",
+  "Mừng hạnh phúc hai bạn! Chúc hai bạn luôn nắm tay nhau đi hết chặng đường dài.",
+  "Mong rằng cuộc sống hôn nhân sẽ là hành trình tuyệt vời nhất của hai bạn.",
+  "Chúc hai bạn một đời bình an, một nhà hạnh phúc, một lòng son sắt.",
+];
+
+function generateWish() {
+  const current = form.message.trim();
+
+  const options = WISH_TEMPLATES.filter((item) => item !== current);
+
+  form.message = options[Math.floor(Math.random() * options.length)];
+}
 
 async function submit() {
   if (submitting.value) return;
@@ -277,10 +329,36 @@ async function submit() {
   margin-top: 4px;
 }
 
-.tr-wishes__hint {
-  font-size: 11px;
+.tr-wishes__tools {
+  display: flex;
 
-  opacity: 0.6;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.tr-wishes__ai {
+  padding: 8px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  background-color: rgba(255, 227, 177, 0.1);
+
+  color: #ffe3b1;
+
+  font-size: 16px;
+
+  line-height: 1;
+
+  transition: transform 0.2s ease;
+}
+
+.tr-wishes__ai:hover {
+  transform: scale(1.1);
 }
 
 .tr-wishes__submit {
@@ -351,11 +429,28 @@ async function submit() {
 .tr-wishes__item {
   padding: 12px 16px;
 
-  border: 1px solid rgba(255, 227, 177, 0.22);
+  border: 1px solid rgba(255, 227, 177, 0.4);
 
   border-radius: 10px;
 
-  background-color: rgba(255, 227, 177, 0.06);
+  background-color: rgba(255, 227, 177, 0.1);
+}
+
+.tr-wishes__item-head {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.tr-wishes__time {
+  flex-shrink: 0;
+
+  font-size: 12px;
+
+  opacity: 0.7;
 }
 
 .tr-wishes__author {

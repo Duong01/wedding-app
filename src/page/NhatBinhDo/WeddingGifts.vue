@@ -1,235 +1,160 @@
 <template>
-  <section class="gifts">
+  <section class="cfr-gift">
 
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-    <div class="gift-heading">
-
-      <span class="gift-kicker">
-        MỘT CHÚT TẤM LÒNG
-      </span>
-
-      <h2>
-        MỪNG CƯỚI
-      </h2>
-
-      <div class="gift-decoration">
-        <span></span>
-        <b>囍</b>
-        <span></span>
-      </div>
-
-      <p>
-        Sự hiện diện và lời chúc phúc của bạn
-        đã là món quà quý giá nhất dành cho
-        chúng mình.
-      </p>
-
-    </div>
+    <h2 class="cfr-title">
+      {{ heading }}
+    </h2>
 
 
-    <!-- =========================================
-         LÌ XÌ
-    ========================================== -->
+    <!-- =====================================================
+         PHONG BÌ
+    ====================================================== -->
 
-    <div
-  v-if="normalizedGifts.length"
-  class="gift-list"
->
-
-  <button
-    v-for="(gift, index) in normalizedGifts"
-    :key="gift.Id || index"
-    type="button"
-    class="lixi"
-    :class="{
-      'lixi-left': index === 0,
-      'lixi-right': index === 1,
-    }"
-    @click="openGift(index)"
-  >
-
-    <div class="lixi-image-wrap">
-
-      <img
-        :src="lixi"
-        :alt="gift.Title"
-        class="lixi-image"
-      />
-
-      <!-- ánh sáng -->
-
-      <span class="lixi-shine"></span>
-
-      <!-- nút mở -->
-
-      <span class="lixi-open">
-        +
-      </span>
-
-    </div>
-
-
-  </button>
-
-</div>
-
-
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div
-      v-else
-      class="gift-empty"
+    <button
+      type="button"
+      class="cfr-gift__envelope"
+      aria-label="Mở hộp mừng cưới"
+      @click="openGift"
     >
-      Chưa có thông tin mừng cưới
-    </div>
+      <span class="cfr-gift__sparkle cfr-gift__sparkle--1" aria-hidden="true">✦</span>
+      <span class="cfr-gift__sparkle cfr-gift__sparkle--2" aria-hidden="true">✦</span>
+      <span class="cfr-gift__sparkle cfr-gift__sparkle--3" aria-hidden="true">✦</span>
+      <span class="cfr-gift__sparkle cfr-gift__sparkle--4" aria-hidden="true">✦</span>
+
+      <span class="cfr-gift__stage">
+        <span class="cfr-gift__shadow" aria-hidden="true"></span>
+
+        <img
+          :src="envelopeNhatBinhRed"
+          alt=""
+          aria-hidden="true"
+          class="cfr-gift__envelope-back"
+        />
+
+        <img
+          :src="envelopeNhatBinhRed"
+          alt=""
+          aria-hidden="true"
+          class="cfr-gift__envelope-card"
+        />
+      </span>
+
+      <span class="cfr-gift__hint">Nhấn để mở</span>
+    </button>
 
 
-    <!-- =========================================
-         QR DIALOG
-    ========================================== -->
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
 
     <Teleport to="body">
 
-      <Transition name="gift-dialog">
+      <Transition name="cfr-gift-fade">
 
         <div
           v-if="dialog"
-          class="gift-modal"
+          class="cfr-gift__modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Hộp quà mừng"
           @click.self="closeGift"
         >
+          <div class="cfr-gift__box">
 
-          <div class="gift-modal-card">
-
-            <!-- close -->
-
-            <button
-              type="button"
-              class="modal-close"
-              aria-label="Đóng"
-              @click="closeGift"
-            >
-              ×
-            </button>
-
-
-            <!-- decoration -->
-
-            <div class="modal-symbol">
-              囍
-            </div>
-
-
-            <span class="modal-kicker">
-              MỪNG CƯỚI
-            </span>
-
-
-            <h3>
-              {{ selectedGift?.Title }}
-            </h3>
-
-
-            <div class="modal-line">
-              <span></span>
-              <b>♥</b>
-              <span></span>
-            </div>
-
-
-            <!-- BANK -->
-
-            <div class="bank-info">
-
-              <div
-                v-if="selectedGift?.bankName"
-                class="bank-name"
-              >
-                {{ selectedGift.bankName }}
-              </div>
-
-
-              <div
-                v-if="selectedGift?.accountName"
-                class="account-name"
-              >
-                {{ selectedGift.accountName }}
-              </div>
-
-
-              <div
-                v-if="selectedGift?.accountNumber"
-                class="account-number"
-              >
-                {{ selectedGift.accountNumber }}
-              </div>
+            <header class="cfr-gift__box-head">
+              <h2>{{ heading }}</h2>
 
               <button
-                v-if="selectedGift?.accountNumber"
                 type="button"
-                class="copy-button"
-                aria-label="Sao chép số tài khoản"
-                @click="copyAccount(selectedGift)"
+                class="cfr-gift__box-close"
+                aria-label="Đóng"
+                @click="closeGift"
               >
-                <v-icon size="14">mdi-content-copy</v-icon>
-
-                <span>SAO CHÉP</span>
+                ✕
               </button>
+            </header>
 
-            </div>
+            <div class="cfr-gift__box-body">
 
+              <div v-if="!normalizedGifts.length" class="cfr-gift__empty">
+                Chưa có thông tin mừng cưới.
+              </div>
 
-            <!-- QR -->
+              <div v-else class="cfr-gift__cards">
 
-            <div
-              v-if="selectedGift?.qr"
-              class="qr-wrapper"
-            >
+                <div
+                  v-for="gift in normalizedGifts"
+                  :key="gift.id"
+                  class="cfr-gift__card"
+                >
+                  <h3 class="cfr-gift__card-name">
+                    {{ gift.title }}
+                  </h3>
 
-              <div class="qr-frame">
+                  <div v-if="gift.qr" class="cfr-gift__qr">
+                    <img :src="gift.qr" :alt="`QR ${gift.title}`" />
+                  </div>
 
-                <span class="qr-corner qr-tl"></span>
-                <span class="qr-corner qr-tr"></span>
-                <span class="qr-corner qr-bl"></span>
-                <span class="qr-corner qr-br"></span>
+                  <div class="cfr-gift__card-info">
+                    <p v-if="gift.bankName">{{ gift.bankName }}</p>
 
-                <img
-                  :src="selectedGift.qr"
-                  alt="QR mừng cưới"
-                />
+                    <p v-if="gift.accountNumber" class="cfr-gift__account">
+                      {{ gift.accountNumber }}
+                    </p>
+
+                    <p v-if="gift.accountName" class="cfr-gift__holder">
+                      {{ gift.accountName }}
+                    </p>
+                  </div>
+
+                  <div class="cfr-gift__actions">
+                    <button
+                      v-if="gift.qr"
+                      type="button"
+                      class="cfr-gift__action"
+                      @click="saveQr(gift)"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                        ></path>
+                      </svg>
+
+                      Lưu QR
+                    </button>
+
+                    <button
+                      v-if="gift.accountNumber"
+                      type="button"
+                      class="cfr-gift__action"
+                      @click="copyAccount(gift.accountNumber)"
+                    >
+                      Sao chép số tài khoản
+                    </button>
+                  </div>
+
+                  <p v-if="gift.description" class="cfr-gift__note">
+                    {{ gift.description }}
+                  </p>
+                </div>
 
               </div>
 
             </div>
 
-
-            <p class="modal-note">
-              Quét mã QR để gửi lời chúc mừng
-            </p>
-
-
-            <div
-              v-if="copyState"
-              class="copy-toast"
-            >
-              {{ copyState }}
-            </div>
-
-
-            <button
-              type="button"
-              class="modal-button"
-              @click="closeGift"
-            >
-              ĐÓNG
-            </button>
-
           </div>
-
         </div>
 
       </Transition>
@@ -241,779 +166,360 @@
 
 
 <script setup>
-import { computed, ref } from "vue";
-import  lixi  from "@/assets/nhat-binh-do-red/nhat_binh_red.webp";
+import { computed, onUnmounted, ref } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
+import { envelopeNhatBinhRed } from "./nhatBinhDoAssets";
+
+
+/* =====================================================
+   PROPS
+===================================================== */
 
 const props = defineProps({
   gifts: {
     type: Array,
     default: () => [],
   },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 
-/* =========================================
-   NORMALIZE
-========================================= */
+/* =====================================================
+   TIÊU ĐỀ MỤC
+===================================================== */
 
-const normalizedGifts = computed(() => {
+const heading = computed(() =>
+  sectionText(props.sections, "gifts", "Heading")
+);
 
-  return (props.gifts || [])
+
+/* =====================================================
+   CHUẨN HÓA
+===================================================== */
+
+const normalizedGifts = computed(() =>
+  (props.gifts || [])
     .map((gift, index) => {
-
       const item = gift || {};
 
       return {
-        ...item,
-
-        id:
-          item.Id ||
-          index,
+        id: item.Id || index,
 
         title:
           item.Title ||
           item.Name ||
-          (
-            index === 0
-              ? "MỪNG CƯỚI NHÀ TRAI"
-              : "MỪNG CƯỚI NHÀ GÁI"
-          ),
+          (index === 0 ? "MỪNG CƯỚI NHÀ TRAI" : "MỪNG CƯỚI NHÀ GÁI"),
 
-        bankName:
-          item.BankName ||
-          item.bank_name ||
-          "",
+        bankName: item.BankName || item.bank_name || "",
 
-        accountName:
-          item.AccountName ||
-          item.account_name ||
-          "",
+        accountName: item.AccountName || item.account_name || "",
 
-        accountNumber:
-          item.AccountNumber ||
-          item.account_number ||
-          "",
+        accountNumber: item.AccountNumber || item.account_number || "",
 
-        qr:
-          item.qr ||
-          item.QrCode ||
-          item.qr_url ||
-          "",
+        qr: item.QrCode || item.qr || item.qr_url || "",
 
+        description: item.Description || "",
       };
-
     })
-    .slice(0, 2);
+    .slice(0, 2)
+);
 
-});
 
-
-/* =========================================
-   DIALOG
-========================================= */
+/* =====================================================
+   MODAL
+===================================================== */
 
 const dialog = ref(false);
 
-const currentIndex = ref(0);
 
-
-const selectedGift = computed(() => {
-
-  return (
-    normalizedGifts.value[
-      currentIndex.value
-    ] || null
-  );
-
-});
-
-
-function openGift(index) {
-
-  currentIndex.value = index;
-
+function openGift() {
   dialog.value = true;
 
-  document.body.classList.add(
-    "gift-modal-open"
-  );
+  document.body.style.overflow = "hidden";
 }
 
 
 function closeGift() {
-
   dialog.value = false;
 
-  document.body.classList.remove(
-    "gift-modal-open"
-  );
+  document.body.style.overflow = "";
 }
 
 
-/* =========================================
-   COPY ACCOUNT
-========================================= */
-
-const copyState = ref("");
-
-let copyTimer = null;
+onUnmounted(() => {
+  document.body.style.overflow = "";
+});
 
 
-async function copyAccount(gift) {
+/* =====================================================
+   SAO CHÉP SỐ TÀI KHOẢN
+===================================================== */
 
-  const number = gift?.accountNumber;
-
+async function copyAccount(number) {
   if (!number) return;
 
   try {
-
     await navigator.clipboard.writeText(String(number));
 
-    copyState.value = "Đã sao chép số tài khoản ✓";
-
+    alert("Đã sao chép số tài khoản");
   } catch (error) {
-
-    console.warn("Không thể sao chép số tài khoản", error);
-
-    copyState.value = "Không thể sao chép, vui lòng chép thủ công";
-
+    console.warn("[NhatBinhDo] Không thể sao chép:", error);
   }
+}
 
-  window.clearTimeout(copyTimer);
 
-  copyTimer = window.setTimeout(() => {
-    copyState.value = "";
-  }, 2200);
+/* =====================================================
+   LƯU QR
+===================================================== */
 
+/*
+ * Ảnh QR có thể nằm khác origin (CDN) nên thẻ <a download> không
+ * tải trực tiếp được — phải fetch về blob rồi mới lưu.
+ */
+async function saveQr(gift) {
+  const url = gift?.qr;
+
+  if (!url) return;
+
+  const fileName = `qr-${gift.accountName || gift.title || "mung-cuoi"}.png`;
+
+  try {
+    const response = await fetch(url, { mode: "cors" });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const blob = await response.blob();
+
+    const objectUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = objectUrl;
+    link.download = fileName;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(objectUrl);
+  } catch (error) {
+    console.error("[NhatBinhDo] Không tải được QR:", error);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
 }
 </script>
 
 
 <style scoped>
-
 /* =====================================================
-   ROOT
+   SECTION
 ===================================================== */
 
-.gifts {
+.cfr-gift {
   position: relative;
 
-  width: 100%;
+  z-index: 10;
 
-  padding:
-    10px
-    4px
-    25px;
-
-  color: #641417;
-
-  text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.gift-heading {
-  max-width: 340px;
-
-  margin:
-    0
-    auto
-    28px;
-}
-
-
-.gift-kicker {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: #a37a3d;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.gift-heading h2 {
-  margin: 0;
-
-  color: #821419;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 23px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-
-.gift-decoration {
   display: flex;
-
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  gap: 16px;
 
-  margin:
-    9px
-    auto
-    13px;
-}
+  width: 100%;
+  max-width: 248px;
 
-
-.gift-decoration span {
-  width: 40px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b58a45
-    );
-}
-
-
-.gift-decoration span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b58a45
-    );
-}
-
-
-.gift-decoration b {
-  color: #9b161a;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 16px;
-}
-
-
-.gift-heading p {
   margin: 0 auto;
 
-  max-width: 300px;
-
-  color: #75604e;
-
-  font-size: 11px;
-  font-weight: 500;
-
-  line-height: 1.8;
+  color: var(--cfr-red-deep);
 }
 
 
 /* =====================================================
-   LIXI LIST
+   PHONG BÌ
 ===================================================== */
 
-.gift-list {
+.cfr-gift__envelope {
   position: relative;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-
-  height: 245px;
-
-  margin:
-    5px
-    auto
-    15px;
-}
-
-
-/* =====================================================
-   LIXI BUTTON
-===================================================== */
-
-.lixi {
-  position: absolute;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  width: 145px;
+  width: 250px;
+  height: 357px;
 
   padding: 0;
 
-  border: 0;
+  border: none;
 
   background: transparent;
 
   cursor: pointer;
 
-  -webkit-tap-highlight-color: transparent;
-
-  transition:
-    transform .35s cubic-bezier(.2,.8,.2,1);
+  outline: none;
 }
 
-.lixi-left {
-
-  left: calc(50% - 130px);
-
-  z-index: 1;
-
-  transform:
-    rotate(-12deg)
-    translateY(8px);
-}
-
-
-/* =====================================================
-   LÌ XÌ BÊN PHẢI
-===================================================== */
-
-.lixi-right {
-
-  right: calc(50% - 130px);
-
-  z-index: 2;
-
-  transform:
-    rotate(12deg)
-    translateY(-5px);
-}
-
-
-/* =====================================================
-   HOVER
-===================================================== */
-
-.lixi-left:hover {
-
-  z-index: 5;
-
-  transform:
-    rotate(-7deg)
-    translateY(-5px)
-    scale(1.04);
-}
-
-
-.lixi-right:hover {
-
-  z-index: 5;
-
-  transform:
-    rotate(7deg)
-    translateY(-10px)
-    scale(1.04);
-}
-
-
-/* =====================================================
-   IMAGE WRAPPER
-===================================================== */
-
-.lixi-image-wrap {
+.cfr-gift__stage {
   position: relative;
 
-  width: 100%;
-
-  filter:
-    drop-shadow(
-      0 12px 15px
-      rgba(88, 14, 18, .22)
-    );
-
-  animation:
-    lixi-float
-    4s
-    ease-in-out
-    infinite;
-}
-
-
-.lixi-right
-.lixi-image-wrap {
-  animation-delay:
-    -1.5s;
-}
-
-
-.lixi-image {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-
-/* =====================================================
-   ÁNH SÁNG CHẠY TRÊN LÌ XÌ
-===================================================== */
-
-.lixi-shine {
-  position: absolute;
-
-  top: 0;
-  left: -90%;
-
-  width: 38%;
-  height: 100%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.5),
-      transparent
-    );
-
-  transform:
-    skewX(-18deg);
-
-  animation:
-    lixi-shine
-    5s
-    ease-in-out
-    infinite;
-}
-
-
-/* =====================================================
-   NÚT +
-===================================================== */
-
-.lixi-open {
-  position: absolute;
-
-  right: 8px;
-  bottom: 18px;
-
   display: flex;
-
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 
-  width: 25px;
-  height: 25px;
+  width: 100%;
+  height: 100%;
 
-  color: #8b1116;
+  padding-bottom: 48px;
+}
 
-  background:
-    rgba(255,249,232,.96);
+.cfr-gift__shadow {
+  position: absolute;
 
-  border:
-    1px solid
-    rgba(153,110,44,.6);
+  left: 50%;
+  bottom: -6px;
+
+  width: 125px;
+  height: 11px;
+
+  margin-left: -63px;
 
   border-radius: 50%;
 
-  box-shadow:
-    0 3px 10px
-    rgba(70,15,15,.2);
+  background-color: rgba(0, 0, 0, 0.45);
 
-  font-size: 18px;
-  font-weight: 400;
+  filter: blur(4px);
+}
 
-  line-height: 1;
+.cfr-gift__envelope-back,
+.cfr-gift__envelope-card {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  object-position: center bottom;
+
+  pointer-events: none;
+}
+
+.cfr-gift__envelope-back {
+  transform-origin: 50% 100%;
+
+  transform: translateX(20%) translateY(-10%) scale(-0.8, 0.8) rotate(-15deg);
+
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
+
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cfr-gift__envelope-card {
+  transform: rotate(-10deg);
+
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cfr-gift__envelope:hover .cfr-gift__envelope-back {
+  transform: translateX(26%) translateY(-14%) scale(-0.84, 0.84) rotate(-18deg);
+}
+
+.cfr-gift__envelope:hover .cfr-gift__envelope-card {
+  transform: rotate(-7deg) translateY(-6px);
+}
+
+.cfr-gift__hint {
+  position: absolute;
+
+  bottom: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+
+  color: var(--cfr-red-deep);
+
+  font-size: 12px;
+
+  font-weight: 500;
 }
 
 
 /* =====================================================
-   LABEL
+   LẤP LÁNH
 ===================================================== */
 
-.lixi-label {
-  margin-top: 4px;
+.cfr-gift__sparkle {
+  position: absolute;
 
-  color: #7d1519;
+  z-index: 20;
 
-  font-size: 11px;
-  font-weight: 900;
+  color: var(--cfr-red);
 
-  letter-spacing: .6px;
+  pointer-events: none;
 
-  line-height: 1.4;
+  animation: cfr-gift-twinkle 2.4s ease-in-out infinite;
 }
 
+.cfr-gift__sparkle--1 {
+  top: 6%;
+  left: 12%;
 
-/* =====================================================
-   HINT
-===================================================== */
-
-.lixi-hint {
-  display: block;
-
-  margin-top: 3px;
-
-  color: #a17a40;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 1.7px;
+  font-size: 21px;
 }
 
+.cfr-gift__sparkle--2 {
+  top: 14%;
+  right: 8%;
 
-/* =====================================================
-   FLOAT
-===================================================== */
+  font-size: 15px;
 
-@keyframes lixi-float {
+  animation-delay: 0.6s;
+}
 
+.cfr-gift__sparkle--3 {
+  top: 34%;
+  left: 3%;
+
+  font-size: 13px;
+
+  animation-delay: 1.2s;
+}
+
+.cfr-gift__sparkle--4 {
+  top: 24%;
+  right: 3%;
+
+  font-size: 13px;
+
+  animation-delay: 1.8s;
+}
+
+@keyframes cfr-gift-twinkle {
   0%,
   100% {
-    transform:
-      translateY(0);
+    opacity: 0.25;
+
+    transform: scale(0.85);
   }
 
   50% {
-    transform:
-      translateY(-5px);
+    opacity: 1;
+
+    transform: scale(1.1);
   }
-
-}
-
-
-/* =====================================================
-   SHINE
-===================================================== */
-
-@keyframes lixi-shine {
-
-  0% {
-    left: -90%;
-  }
-
-  35%,
-  100% {
-    left: 130%;
-  }
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .gift-list {
-    height: 220px;
-  }
-
-
-  .lixi {
-    width: 132px;
-  }
-
-
-  .lixi-left {
-    left: calc(50% - 118px);
-  }
-
-
-  .lixi-right {
-    right: calc(50% - 118px);
-  }
-
-
-  .lixi-label {
-    font-size: 10px;
-  }
-
-
-  .lixi-hint {
-    font-size: 9px;
-  }
-
-}
-
-/* =====================================================
-   LIXI IMAGE
-===================================================== */
-
-.lixi-image-wrap {
-  position: relative;
-
-  width: 100%;
-
-  filter:
-    drop-shadow(
-      0 10px 14px
-      rgba(104, 20, 20, .18)
-    );
-
-  animation:
-    lixi-float
-    4s
-    ease-in-out
-    infinite;
-}
-
-
-.lixi:nth-child(2)
-.lixi-image-wrap {
-  animation-delay:
-    -1.5s;
-}
-
-
-.lixi-image {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-
-/* =====================================================
-   SHINE
-===================================================== */
-
-.lixi-shine {
-  position: absolute;
-
-  top: 0;
-  left: -80%;
-
-  width: 35%;
-  height: 100%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.42),
-      transparent
-    );
-
-  transform:
-    skewX(-18deg);
-
-  animation:
-    lixi-shine
-    5s
-    ease-in-out
-    infinite;
-}
-
-
-/* =====================================================
-   OPEN ICON
-===================================================== */
-
-.lixi-open {
-  position: absolute;
-
-  right: 9px;
-  bottom: 17px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  color: #8c1116;
-
-  background:
-    rgba(255,248,228,.94);
-
-  border:
-    1px solid
-    rgba(154, 111, 48, .55);
-
-  border-radius: 50%;
-
-  box-shadow:
-    0 3px 9px
-    rgba(90,20,20,.16);
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 18px;
-  font-weight: 400;
-
-  line-height: 1;
-}
-
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.lixi-label {
-  margin-top: 6px;
-
-  color: #7c1519;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: .7px;
-
-  line-height: 1.4;
-}
-
-
-.lixi-hint {
-  display: block;
-
-  margin-top: 4px;
-
-  color: #a27a40;
-
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: 1.8px;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.gift-empty {
-  color: #8a7159;
-
-  font-size: 11px;
 }
 
 
@@ -1021,574 +527,316 @@ async function copyAccount(gift) {
    MODAL
 ===================================================== */
 
-.gift-modal {
+.cfr-gift__modal {
   position: fixed;
 
   inset: 0;
 
-  z-index: 9999;
+  z-index: 2000;
 
   display: flex;
 
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 
-  padding: 20px;
-
-  background:
-    rgba(48, 8, 10, .72);
-
-  backdrop-filter:
-    blur(7px);
-
-  -webkit-backdrop-filter:
-    blur(7px);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-
-.gift-modal-card {
-  position: relative;
-
-  width: min(100%, 360px);
+.cfr-gift__box {
+  width: 100%;
+  max-width: 576px;
 
   max-height: 90vh;
 
   overflow-y: auto;
 
-  padding:
-    27px
-    22px
-    23px;
+  border-radius: 16px 16px 0 0;
 
-  color: #671317;
+  background-color: var(--cfr-cream);
 
-  background:
-    linear-gradient(
-      145deg,
-      #fffaf0,
-      #f8ead0
-    );
-
-  border:
-    1px solid
-    rgba(169, 123, 55, .65);
-
-  box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.3);
+  color: var(--cfr-red-deep);
 }
 
+.cfr-gift__box-head {
+  position: relative;
 
-/* inner border */
+  padding: 24px 24px 16px;
 
-.gift-modal-card::before {
-  content: "";
+  text-align: center;
 
-  position: absolute;
-
-  inset: 7px;
-
-  pointer-events: none;
-
-  border:
-    1px solid
-    rgba(169, 123, 55, .25);
+  background-color: var(--cfr-red);
 }
 
+.cfr-gift__box-head h2 {
+  margin: 0;
 
-/* =====================================================
-   CLOSE
-===================================================== */
+  color: var(--white, #ffffff);
 
-.modal-close {
+  font-family: var(--cfr-font-heading);
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+
+  text-transform: uppercase;
+}
+
+.cfr-gift__box-close {
   position: absolute;
 
-  z-index: 3;
-
-  top: 11px;
+  top: 12px;
   right: 12px;
 
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
 
-  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  color: #7e181c;
-
-  background:
-    rgba(145, 104, 43, .08);
-
+  border: none;
   border-radius: 50%;
 
-  font-size: 23px;
-  font-weight: 400;
+  background-color: rgba(255, 255, 255, 0.2);
 
-  line-height: 1;
+  color: var(--white, #ffffff);
+
+  font-size: 15px;
 
   cursor: pointer;
 }
 
+.cfr-gift__box-body {
+  padding: 16px;
+}
+
+.cfr-gift__empty {
+  padding: 24px 0;
+
+  font-size: 14px;
+
+  text-align: center;
+}
+
 
 /* =====================================================
-   MODAL HEADER
+   THẺ MỪNG CƯỚI
 ===================================================== */
 
-.modal-symbol {
-  position: relative;
+.cfr-gift__cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  color: #a1171c;
+  gap: 16px;
+}
 
-  font-family:
-    "Times New Roman",
-    serif;
+.cfr-gift__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  font-size: 35px;
+  width: 100%;
+  max-width: 180px;
+}
+
+.cfr-gift__card-name {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  min-height: 2rem;
+
+  margin: 0 0 8px;
+
+  color: var(--cfr-red);
+
+  font-family: var(--cfr-font-heading);
+  font-size: 12px;
   font-weight: 700;
 
-  line-height: 1;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+
+  text-align: center;
+
+  text-transform: uppercase;
 }
 
-
-.modal-kicker {
-  position: relative;
-
-  display: block;
-
-  margin-top: 6px;
-
-  color: #a0793e;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.gift-modal-card h3 {
-  position: relative;
-
-  margin:
-    7px
-    0
-    0;
-
-  color: #771317;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  letter-spacing: .7px;
-}
-
-
-.modal-line {
-  position: relative;
-
+.cfr-gift__qr {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  width: 128px;
+  height: 128px;
 
-  margin:
-    10px
-    auto
-    17px;
+  padding: 8px;
+
+  border: 2px solid var(--cfr-hairline-soft);
+  border-radius: 12px;
+
+  background-color: var(--white, #ffffff);
+
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-
-.modal-line span {
-  width: 35px;
-  height: 1px;
-
-  background: #b88b47;
-}
-
-
-.modal-line b {
-  color: #a1171c;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   BANK INFO
-===================================================== */
-
-.bank-info {
-  position: relative;
-
-  margin-bottom: 16px;
-}
-
-
-.bank-name {
-  color: #8b661f;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  letter-spacing: 1px;
-}
-
-
-.account-name {
-  margin-top: 5px;
-
-  color: #765c48;
-
-  font-size: 11px;
-  font-weight: 600;
-}
-
-
-.account-number {
-  margin-top: 7px;
-
-  color: #821419;
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-
-/* =====================================================
-   QR
-===================================================== */
-
-.qr-wrapper {
-  position: relative;
-
-  display: flex;
-
-  justify-content: center;
-}
-
-
-.qr-frame {
-  position: relative;
-
-  width: 178px;
-  height: 178px;
-
-  padding: 9px;
-
-  background: #fff;
-
-  border:
-    1px solid
-    #b48a47;
-
-  box-shadow:
-    0 8px 20px
-    rgba(91, 24, 24, .12);
-}
-
-
-.qr-frame img {
-  display: block;
-
+.cfr-gift__qr img {
   width: 100%;
   height: 100%;
 
   object-fit: contain;
 }
 
+.cfr-gift__card-info {
+  margin-top: 8px;
 
-/* =====================================================
-   QR CORNERS
-===================================================== */
-
-.qr-corner {
-  position: absolute;
-
-  width: 14px;
-  height: 14px;
-
-  z-index: 2;
-
-  border-color: #a7191e;
-  border-style: solid;
+  text-align: center;
 }
 
-
-.qr-tl {
-  top: -4px;
-  left: -4px;
-
-  border-width:
-    2px
-    0
-    0
-    2px;
-}
-
-
-.qr-tr {
-  top: -4px;
-  right: -4px;
-
-  border-width:
-    2px
-    2px
-    0
-    0;
-}
-
-
-.qr-bl {
-  bottom: -4px;
-  left: -4px;
-
-  border-width:
-    0
-    0
-    2px
-    2px;
-}
-
-
-.qr-br {
-  right: -4px;
-  bottom: -4px;
-
-  border-width:
-    0
-    2px
-    2px
-    0;
-}
-
-
-/* =====================================================
-   NOTE
-===================================================== */
-
-.modal-note {
-  position: relative;
-
-  margin:
-    14px
-    0
-    17px;
-
-  color: #866c53;
+.cfr-gift__card-info p {
+  margin: 0;
 
   font-size: 10px;
-
-  line-height: 1.5;
 }
 
+.cfr-gift__account {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 
-/* =====================================================
-   COPY BUTTON
-===================================================== */
+.cfr-gift__holder {
+  font-weight: 600;
+}
 
-.copy-button {
-  display: inline-flex;
-
+.cfr-gift__actions {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 
   gap: 6px;
 
-  margin-top: 12px;
+  margin-top: 6px;
+}
 
-  padding: 8px 16px;
+.cfr-gift__action {
+  display: inline-flex;
+  align-items: center;
 
-  color: #fff9ed;
+  gap: 4px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #a37a3d,
-      #8b661f
-    );
+  padding: 4px 8px;
 
-  border:
-    1px solid
-    #b88b47;
+  border: none;
+  border-radius: 999px;
+
+  background-color: color-mix(in srgb, var(--cfr-red) 8%, transparent);
+
+  color: var(--cfr-red);
 
   font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 1.6px;
-
-  cursor: pointer;
-
-  transition: filter .2s ease;
-}
-
-
-.copy-button:hover {
-  filter: brightness(1.08);
-}
-
-
-.copy-toast {
-  margin-bottom: 14px;
-
-  color: #7d5a1e;
-
-  font-size: 11px;
-  font-weight: 700;
-}
-
-
-/* =====================================================
-   BUTTON
-===================================================== */
-
-.modal-button {
-  position: relative;
-
-  min-width: 110px;
-  min-height: 36px;
-
-  padding:
-    8px
-    20px;
-
-  color: #fff9ed;
-
-  background:
-    linear-gradient(
-      135deg,
-      #98171c,
-      #771115
-    );
-
-  border:
-    1px solid
-    #a42b2e;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  letter-spacing: 1.8px;
+  font-weight: 500;
 
   cursor: pointer;
 }
 
+.cfr-gift__action svg {
+  width: 12px;
+  height: 12px;
 
-/* =====================================================
-   ANIMATION
-===================================================== */
-
-@keyframes lixi-float {
-
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(0deg);
-  }
-
-  50% {
-    transform:
-      translateY(-5px)
-      rotate(-1deg);
-  }
-
+  flex-shrink: 0;
 }
 
+.cfr-gift__note {
+  margin: 8px 0 0;
 
-@keyframes lixi-shine {
+  font-size: 11px;
 
-  0% {
-    left: -80%;
-  }
+  text-align: center;
 
-  35%,
-  100% {
-    left: 130%;
-  }
-
+  opacity: 0.75;
 }
 
 
 /* =====================================================
-   MODAL TRANSITION
+   TRANSITION
 ===================================================== */
 
-.gift-dialog-enter-active,
-.gift-dialog-leave-active {
-  transition:
-    opacity .3s ease;
+.cfr-gift-fade-enter-active,
+.cfr-gift-fade-leave-active {
+  transition: opacity 0.25s ease;
 }
 
-
-.gift-dialog-enter-active
-.gift-modal-card,
-.gift-dialog-leave-active
-.gift-modal-card {
-  transition:
-    transform .35s ease,
-    opacity .3s ease;
-}
-
-
-.gift-dialog-enter-from,
-.gift-dialog-leave-to {
+.cfr-gift-fade-enter-from,
+.cfr-gift-fade-leave-to {
   opacity: 0;
 }
 
 
-.gift-dialog-enter-from
-.gift-modal-card,
-.gift-dialog-leave-to
-.gift-modal-card {
-  opacity: 0;
+/* =====================================================
+   TABLET / DESKTOP
+===================================================== */
 
-  transform:
-    translateY(30px)
-    scale(.94);
+@media (min-width: 640px) {
+  .cfr-gift__modal {
+    align-items: center;
+
+    padding: 24px;
+  }
+
+  .cfr-gift__box {
+    border-radius: 16px;
+  }
+
+  .cfr-gift__box-body {
+    padding: 24px;
+  }
+
+  .cfr-gift__cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .cfr-gift__card {
+    flex: 1;
+
+    max-width: none;
+  }
+
+  .cfr-gift__qr {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .cfr-gift {
+    max-width: none;
+
+    gap: 24px;
+  }
 }
 
 
 /* =====================================================
-   MOBILE
+   GIẢM CHUYỂN ĐỘNG
 ===================================================== */
 
-@media (max-width: 420px) {
+@media (prefers-reduced-motion: reduce) {
+  .cfr-gift__sparkle {
+    animation: none;
 
-  .gift-list {
-    gap: 12px;
+    opacity: 0.6;
   }
 
-
-  .lixi {
-    width: 44%;
+  .cfr-gift__envelope-back,
+  .cfr-gift__envelope-card,
+  .cfr-gift-fade-enter-active,
+  .cfr-gift-fade-leave-active {
+    transition: none;
   }
-
-
-  .lixi-label {
-    font-size: 11px;
-  }
-
-
-  .lixi-hint {
-    font-size: 10px;
-  }
-
-
-  .qr-frame {
-    width: 165px;
-    height: 165px;
-  }
-
 }
 </style>

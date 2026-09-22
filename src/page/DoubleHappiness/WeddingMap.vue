@@ -6,9 +6,9 @@
       <span></span>
     </div>
 
-    <p class="dh-eyebrow">ĐƯỜNG ĐẾN NGÀY VUI</p>
+    <p v-if="eyebrow" class="dh-eyebrow">{{ eyebrow }}</p>
 
-    <h2>Bản đồ địa điểm</h2>
+    <h2>{{ heading }}</h2>
 
     <div class="dh-map__card">
       <div class="dh-map__address">
@@ -82,9 +82,20 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   events: { type: Array, default: () => [] },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "map", "Eyebrow", "ĐƯỜNG ĐẾN NGÀY VUI")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "map", "Heading", "Bản đồ địa điểm")
+);
 
 const firstEvent = computed(() => props.events?.[0] || {});
 

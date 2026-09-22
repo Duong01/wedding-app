@@ -11,7 +11,7 @@
       <h3 class="tr-map__title">Tiệc cưới sẽ tổ chức tại</h3>
 
       <div v-for="(event, index) in eventsWithLocation" :key="index">
-        <p class="tr-map__address">
+        <p v-if="event.Address || event.Location" class="tr-map__address">
           {{ event.Address || event.Location }}
         </p>
 
@@ -51,7 +51,6 @@
     </div>
   </section>
 </template>
-
 <script setup>
 import { computed } from "vue";
 
@@ -64,12 +63,14 @@ const props = defineProps({
   },
 });
 
-const eventsWithLocation = computed(() =>
-  (props.events || []).filter(
+const eventsWithLocation = computed(() => {
+  const list = (props.events || []).filter(
     (event) =>
       event?.Location || event?.Address || event?.Map || event?.MapEmbed || event?.EmbedUrl
-  )
-);
+  );
+
+  return list.length ? list : props.events || [];
+});
 
 /*
  * URL Google Maps thường không nhúng được vào iframe
@@ -105,7 +106,29 @@ function embedUrl(event) {
 }
 
 function directionUrl(event) {
-  return event?.Map || event?.MapUrl || "";
+  const raw = event?.Map || event?.MapUrl || "";
+
+  if (!raw) return "";
+
+  /*
+   * Link dạng ?q=lat,lng là link xem bản đồ, không phải link chỉ
+   * đường. Chuyển sang /maps/dir/ để mở đúng chế độ dẫn đường.
+   */
+  const coords = raw.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+
+  if (coords) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${coords[1]},${coords[2]}`;
+  }
+
+  const address = event?.Address || event?.Location || "";
+
+  if (address) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+      address
+    )}`;
+  }
+
+  return raw;
 }
 </script>
 

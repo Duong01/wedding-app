@@ -1,45 +1,38 @@
 <template>
-  <footer class="footer">
-
-    <div class="footer-cloud cloud-1"></div>
-    <div class="footer-cloud cloud-2"></div>
-
-    <div class="footer-inner">
-
-      <div class="footer-symbol">
-        囍
-      </div>
-
-      <div class="footer-monogram">
-        {{ monogram }}
-      </div>
-
-      <h2>
-        {{ groomName }}
-        <span>&</span>
-        {{ brideName }}
-      </h2>
-
-      <div class="footer-line">
-        <span></span>
-        <i>❖</i>
-        <span></span>
-      </div>
-
-      <p>
-        {{ thanksMessage }}
-      </p>
-
-      <div class="footer-date">
-        {{ weddingDate }}
-      </div>
-
-      <small>
-        {{ copyrightText }}
-      </small>
-
+  <footer class="mw-footer">
+    <div class="mw-footer__card">
+      <p class="mw-footer__message">{{ thanksMessage }}</p>
     </div>
 
+    <div class="mw-footer__names">
+      <span>{{ groomName }}</span>
+
+      <i>&amp;</i>
+
+      <span>{{ brideName }}</span>
+    </div>
+
+    <div class="mw-footer__actions">
+      <a
+        v-if="facebookUrl"
+        :href="facebookUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mw-footer__link"
+      >
+        Facebook
+      </a>
+
+      <a v-if="phoneUrl" :href="phoneUrl" class="mw-footer__link">
+        {{ phoneDisplay }}
+      </a>
+
+      <a v-if="emailUrl" :href="emailUrl" class="mw-footer__link">
+        {{ emailDisplay }}
+      </a>
+    </div>
+
+    <p class="mw-footer__copyright">{{ copyrightText }}</p>
   </footer>
 </template>
 
@@ -65,638 +58,197 @@ const props = defineProps({
 
 const wedding = computed(() => props.wedding || {});
 
-const groomName = computed(() => {
-  return wedding.value?.GroomName ||
+const groomName = computed(
+  () =>
+    wedding.value?.GroomName ||
     wedding.value?.groomName ||
     wedding.value?.footer?.GroomName ||
     wedding.value?.hero?.GroomName ||
     wedding.value?.couple?.Groom?.Name ||
-    wedding.value?.groom?.name ||
-    "";
-});
+    ""
+);
 
-const brideName = computed(() => {
-  return wedding.value?.BrideName ||
+const brideName = computed(
+  () =>
+    wedding.value?.BrideName ||
     wedding.value?.brideName ||
     wedding.value?.footer?.BrideName ||
     wedding.value?.hero?.BrideName ||
     wedding.value?.couple?.Bride?.Name ||
-    wedding.value?.bride?.name ||
-    "";
-});
-
-const weddingDate = computed(() => {
-  return (
-    wedding.value?.weddingDate ||
-    wedding.value?.hero?.WeddingDate ||
-    wedding.value?.hero?.weddingDate ||
     ""
-  );
-});
+);
 
-const thanksMessage = computed(() => {
-  return (
+const thanksMessage = computed(
+  () =>
     wedding.value?.footer?.Message ||
-    "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
-  );
+    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+);
+
+const copyrightText = computed(
+  () =>
+    wedding.value?.footer?.Copyright ||
+    `© ${props.currentYear} · ${props.monogram}`
+);
+
+const facebookUrl = computed(() => {
+  const raw =
+    wedding.value?.footer?.Facebook ||
+    wedding.value?.footer?.FacebookUrl ||
+    wedding.value?.contact?.Facebook ||
+    "";
+
+  if (!raw) {
+    return "";
+  }
+
+  return raw.startsWith("http") ? raw : `https://${raw}`;
 });
 
-const copyrightText = computed(() => {
-  return (
-    wedding.value?.footer?.Copyright ||
-    `© ${currentYear}`
-  );
+const phoneDisplay = computed(
+  () => wedding.value?.footer?.Phone || wedding.value?.contact?.Phone || ""
+);
+
+const phoneUrl = computed(() => {
+  const raw = phoneDisplay.value;
+
+  return raw ? `tel:${String(raw).replace(/[^\d+]/g, "")}` : "";
 });
+
+const emailDisplay = computed(
+  () => wedding.value?.footer?.Email || wedding.value?.contact?.Email || ""
+);
+
+const emailUrl = computed(() => (emailDisplay.value ? `mailto:${emailDisplay.value}` : ""));
 </script>
 
 <style scoped>
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
+.mw-footer {
   position: relative;
-
-  width: 100%;
-  min-height: 390px;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  color: #711519;
-
-  text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fffaf0 0%,
-      #f8edd9 52%,
-      #f0dfc1 100%
-    );
-
-}
-
-
-/* =====================================================
-   DECORATIVE FRAME
-===================================================== */
-
-.footer::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 14px;
-
-  border:
-    1px solid
-    rgba(169, 126, 61, .35);
-
-  pointer-events: none;
-}
-
-
-.footer::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 20px;
-
-  border:
-    1px solid
-    rgba(169, 126, 61, .14);
-
-  pointer-events: none;
-}
-
-
-/* =====================================================
-   INNER
-===================================================== */
-
-.footer-inner {
-  position: relative;
-
-  z-index: 3;
+  z-index: 10;
 
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
-  box-sizing: border-box;
-
-  min-height: 390px;
-
-  padding:
-    48px
-    24px
-    28px;
-}
-
-
-/* =====================================================
-   DOUBLE HAPPINESS
-===================================================== */
-
-.footer-symbol {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: clamp(52px, 16vw, 66px);
-  height: clamp(52px, 16vw, 66px);
-
-  color: #9a171b;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: clamp(42px, 13vw, 55px);
-
-  font-weight: 700;
-
-  line-height: 1;
-
-  border:
-    1px solid
-    rgba(164, 117, 52, .5);
-
-  background:
-    rgba(255,250,238,.72);
-
-  box-shadow:
-    0 5px 18px
-    rgba(112, 53, 24, .07);
-}
-
-
-/*
- * Góc trang trí nhỏ
- */
-
-.footer-symbol::before,
-.footer-symbol::after {
-  content: "";
-
-  position: absolute;
-
-  width: 7px;
-  height: 7px;
-
-  border:
-    1px solid
-    #b58a48;
-
-  transform: rotate(45deg);
-
-  background: #fff8e9;
-}
-
-
-.footer-symbol::before {
-  top: -5px;
-  left: -5px;
-}
-
-
-.footer-symbol::after {
-  right: -5px;
-  bottom: -5px;
-}
-
-
-/* =====================================================
-   MONOGRAM
-===================================================== */
-
-.footer-monogram {
-  margin-top: 15px;
-
-  color: #a77c3e;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 4px;
-
-  text-transform: uppercase;
-}
-
-
-/* =====================================================
-   NAMES
-===================================================== */
-
-.footer h2 {
-  margin:
-    13px
-    0
-    0;
-
-  color: #761519;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 22px;
-
-  font-weight: 800;
-
-  letter-spacing: .8px;
-
-  line-height: 1.4;
-}
-
-
-.footer h2 span {
-  display: inline-block;
-
-  margin:
-    0
-    7px;
-
-  color: #b28a4c;
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 17px;
-
-  font-weight: 400;
-}
-
-
-/* =====================================================
-   DECORATION
-===================================================== */
-
-.footer-line {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
+  gap: 12px;
 
   width: 100%;
-
-  margin:
-    16px
-    0
-    15px;
-}
-
-
-.footer-line span {
-  width: 42px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b58a49
-    );
-}
-
-
-.footer-line span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b58a49
-    );
-}
-
-
-.footer-line i {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 19px;
-  height: 19px;
-
-  color: #a0171b;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 12px;
-
-  font-style: normal;
-
-  border:
-    1px solid
-    rgba(181, 138, 73, .45);
-
-  transform: rotate(45deg);
-}
-
-
-.footer-line i::first-letter {
-  transform: rotate(-45deg);
-}
-
-
-/* =====================================================
-   THANK YOU
-===================================================== */
-
-.footer p {
-  max-width: 280px;
+  max-width: 480px;
 
   margin: 0 auto;
+  padding: 24px 24px 12px;
 
-  color: #78614b;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-  line-height: 1.8;
-
-  letter-spacing: 1.5px;
+  text-align: center;
 }
 
+.mw-footer__card {
+  width: 100%;
+  max-width: 100%;
 
-/* =====================================================
-   WEDDING DATE
-===================================================== */
+  padding: 16px 24px;
 
-.footer-date {
-  margin-top: 18px;
+  border: 1px solid var(--mw-blue-soft);
+  border-radius: 16px;
 
-  padding:
-    7px
-    15px;
+  background-color: var(--mw-blue-mist);
+}
 
-  color: #861519;
+.mw-footer__message {
+  margin: 0;
 
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+
+  letter-spacing: 0.03em;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.mw-footer__names {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 6px;
+
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-script);
+  font-size: 22px;
+}
+
+.mw-footer__names i {
+  color: var(--mw-ink-soft);
+
+  font-size: 16px;
+  font-style: normal;
+}
+
+.mw-footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.mw-footer__link {
+  padding: 6px 14px;
+
+  border: 1px solid var(--mw-hairline);
+  border-radius: 999px;
+
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 12px;
+
+  text-decoration: none;
+
+  transition: background-color 0.25s ease;
+}
+
+.mw-footer__link:hover {
+  background-color: var(--mw-hairline-soft);
+}
+
+.mw-footer__copyright {
+  margin: 6px 0 0;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
   font-size: 11px;
 
-  font-weight: 700;
+  letter-spacing: 0.16em;
 
-  letter-spacing: 2px;
-
-  border-top:
-    1px solid
-    rgba(181, 138, 73, .35);
-
-  border-bottom:
-    1px solid
-    rgba(181, 138, 73, .35);
+  opacity: 0.6;
 }
 
+/* =========================================================
+   DESKTOP
+========================================================= */
 
-/* =====================================================
-   COPYRIGHT
-===================================================== */
+@media (min-width: 900px) {
+  .mw-footer {
+    max-width: 900px;
 
-.footer small {
-  display: block;
-
-  margin-top: auto;
-
-  padding-top: 23px;
-
-  color: #a68b66;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-  letter-spacing: 1px;
-}
-
-
-/* =====================================================
-   CLOUD
-===================================================== */
-
-.footer-cloud {
-  position: absolute;
-
-  z-index: 1;
-
-  width: 190px;
-  height: 90px;
-
-  opacity: .13;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 22% 70%,
-      #9d743a 0 18%,
-      transparent 19%
-    ),
-    radial-gradient(
-      circle at 45% 42%,
-      #9d743a 0 28%,
-      transparent 29%
-    ),
-    radial-gradient(
-      circle at 68% 67%,
-      #9d743a 0 22%,
-      transparent 23%
-    ),
-    radial-gradient(
-      circle at 88% 55%,
-      #9d743a 0 14%,
-      transparent 15%
-    );
-}
-
-
-.cloud-1 {
-  left: -75px;
-  bottom: 12px;
-
-  transform:
-    rotate(-4deg);
-}
-
-
-.cloud-2 {
-  right: -75px;
-  bottom: 72px;
-
-  transform:
-    scaleX(-1)
-    rotate(-4deg);
-}
-
-
-/* =====================================================
-   SMALL DECORATIVE DIAMONDS
-===================================================== */
-
-.footer-inner::before,
-.footer-inner::after {
-  content: "✦";
-
-  position: absolute;
-
-  z-index: -1;
-
-  color: rgba(165, 122, 59, .35);
-
-  font-size: 18px;
-}
-
-
-.footer-inner::before {
-  top: 32px;
-  left: 25px;
-}
-
-
-.footer-inner::after {
-  top: 32px;
-  right: 25px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .footer {
-    min-height: 370px;
+    padding: 32px 40px 16px;
   }
 
+  .mw-footer__card {
+    max-width: 600px;
 
-  .footer::before {
-    inset: 10px;
+    padding: 20px 32px;
   }
 
-
-  .footer::after {
-    inset: 15px;
+  .mw-footer__message {
+    font-size: 18px;
   }
 
-
-  .footer-inner {
-    min-height: 370px;
-
-    padding:
-      42px
-      20px
-      24px;
+  .mw-footer__names {
+    font-size: 26px;
   }
-
-
-  .footer-symbol {
-    width: 60px;
-    height: 60px;
-
-    font-size: 50px;
-  }
-
-
-  .footer-monogram {
-    margin-top: 13px;
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-  }
-
-
-  .footer h2 {
-    margin-top: 11px;
-
-    font-size: 19px;
-
-    letter-spacing: .5px;
-  }
-
-
-  .footer h2 span {
-    margin:
-      0
-      5px;
-
-    font-size: 15px;
-  }
-
-
-  .footer-line {
-    margin:
-      14px
-      0;
-  }
-
-
-  .footer-line span {
-    width: 34px;
-  }
-
-
-  .footer p {
-    max-width: 250px;
-
-    font-size: 11px;
-
-    line-height: 1.8;
-
-    letter-spacing: 1.2px;
-  }
-
-
-  .footer-date {
-    margin-top: 16px;
-
-    font-size: 10px;
-
-    letter-spacing: 1.5px;
-  }
-
-
-  .footer small {
-    font-size: 11px;
-  }
-
 }
 </style>

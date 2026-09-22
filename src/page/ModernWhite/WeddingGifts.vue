@@ -1,249 +1,137 @@
 <template>
-  <section class="gifts">
+  <section class="mw-gifts">
+    <h2 class="mw-title">Hộp Quà Mừng</h2>
 
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+    <div v-if="normalizedGifts.length" class="mw-gift-list">
+      <button
+        v-for="(gift, index) in normalizedGifts"
+        :key="gift.Id || index"
+        type="button"
+        class="mw-gift"
+        :aria-label="`Mở hộp mừng cưới — ${gift.title}`"
+        @click="openGift(index)"
+      >
+        <span class="mw-gift__sparkle mw-gift__sparkle--1" aria-hidden="true">✦</span>
+        <span class="mw-gift__sparkle mw-gift__sparkle--2" aria-hidden="true">✦</span>
+        <span class="mw-gift__sparkle mw-gift__sparkle--3" aria-hidden="true">✦</span>
+        <span class="mw-gift__sparkle mw-gift__sparkle--4" aria-hidden="true">✦</span>
 
-    <div class="gift-heading">
+        <span class="mw-gift__stage">
+          <span class="mw-gift__shadow" aria-hidden="true"></span>
 
-      <span class="gift-kicker">
-        MỘT CHÚT TẤM LÒNG
-      </span>
+          <span class="mw-gift__box">
+            <img :src="envelope" alt="" class="mw-gift__back" />
 
-      <h2>
-        MỪNG CƯỚI
-      </h2>
+            <img :src="envelope" alt="" class="mw-gift__card" />
+          </span>
+        </span>
 
-      <div class="gift-decoration">
-        <span></span>
-        <b>囍</b>
-        <span></span>
-      </div>
-
-      <p>
-        Sự hiện diện và lời chúc phúc của bạn
-        đã là món quà quý giá nhất dành cho
-        chúng mình.
-      </p>
-
+        <span class="mw-gift__hint">Nhấn để mở</span>
+      </button>
     </div>
 
+    <p v-else class="mw-gift-empty">Chưa có thông tin mừng cưới</p>
 
-    <!-- =========================================
-         LÌ XÌ
-    ========================================== -->
-
-    <div
-  v-if="normalizedGifts.length"
-  class="gift-list"
->
-
-  <button
-    v-for="(gift, index) in normalizedGifts"
-    :key="gift.Id || index"
-    type="button"
-    class="lixi"
-    :class="{
-      'lixi-left': index === 0,
-      'lixi-right': index === 1,
-    }"
-    @click="openGift(index)"
-  >
-
-    <div class="lixi-image-wrap">
-
-      <img
-        :src="lixi"
-        :alt="gift.Title"
-        class="lixi-image"
-      />
-
-      <!-- ánh sáng -->
-
-      <span class="lixi-shine"></span>
-
-      <!-- nút mở -->
-
-      <span class="lixi-open">
-        +
-      </span>
-
-    </div>
-
-
-  </button>
-
-</div>
-
-
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div
-      v-else
-      class="gift-empty"
-    >
-      Chưa có thông tin mừng cưới
-    </div>
-
-
-    <!-- =========================================
-         QR DIALOG
-    ========================================== -->
+    <!-- =====================================================
+         GIFT DIALOG
+    ====================================================== -->
 
     <Teleport to="body">
-
-      <Transition name="gift-dialog">
-
-        <div
-          v-if="dialog"
-          class="gift-modal"
-          @click.self="closeGift"
-        >
-
-          <div class="gift-modal-card">
-
-            <!-- close -->
-
-            <button
-              type="button"
-              class="modal-close"
-              aria-label="Đóng"
-              @click="closeGift"
-            >
-              ×
-            </button>
-
-
-            <!-- decoration -->
-
-            <div class="modal-symbol">
-              囍
-            </div>
-
-
-            <span class="modal-kicker">
-              MỪNG CƯỚI
-            </span>
-
-
-            <h3>
-              {{ selectedGift?.Title }}
-            </h3>
-
-
-            <div class="modal-line">
-              <span></span>
-              <b>♥</b>
-              <span></span>
-            </div>
-
-
-            <!-- BANK -->
-
-            <div class="bank-info">
-
-              <div
-                v-if="selectedGift?.bankName"
-                class="bank-name"
-              >
-                {{ selectedGift.bankName }}
-              </div>
-
-
-              <div
-                v-if="selectedGift?.accountName"
-                class="account-name"
-              >
-                {{ selectedGift.accountName }}
-              </div>
-
-
-              <div
-                v-if="selectedGift?.accountNumber"
-                class="account-number"
-              >
-                {{ selectedGift.accountNumber }}
-              </div>
+      <Transition name="mw-gift-dialog">
+        <div v-if="dialog" class="mw-gift-modal" @click.self="closeGift">
+          <div class="mw-gift-modal__card">
+            <div class="mw-gift-modal__head">
+              <h3>Hộp Quà Mừng</h3>
 
               <button
-                v-if="selectedGift?.accountNumber"
                 type="button"
-                class="copy-button"
-                aria-label="Sao chép số tài khoản"
-                @click="copyAccount(selectedGift)"
+                class="mw-gift-modal__close"
+                aria-label="Đóng"
+                @click="closeGift"
               >
-                <v-icon size="14">mdi-content-copy</v-icon>
-
-                <span>SAO CHÉP</span>
+                ×
               </button>
-
             </div>
 
+            <div class="mw-gift-modal__body">
+              <div
+                v-for="(gift, index) in normalizedGifts"
+                :key="gift.Id || index"
+                class="mw-account"
+              >
+                <h4 class="mw-account__title">{{ gift.title }}</h4>
 
-            <!-- QR -->
+                <button
+                  v-if="gift.qr"
+                  type="button"
+                  class="mw-account__qr"
+                  @click="openQr(gift)"
+                >
+                  <img :src="gift.qr" :alt="`QR ${gift.title}`" />
+                </button>
 
-            <div
-              v-if="selectedGift?.qr"
-              class="qr-wrapper"
-            >
+                <div class="mw-account__info">
+                  <p v-if="gift.bankName">{{ gift.bankName }}</p>
 
-              <div class="qr-frame">
+                  <p v-if="gift.accountNumber" class="mw-account__number">
+                    {{ gift.accountNumber }}
+                  </p>
 
-                <span class="qr-corner qr-tl"></span>
-                <span class="qr-corner qr-tr"></span>
-                <span class="qr-corner qr-bl"></span>
-                <span class="qr-corner qr-br"></span>
+                  <p v-if="gift.accountName" class="mw-account__name">
+                    {{ gift.accountName }}
+                  </p>
+                </div>
 
-                <img
-                  :src="selectedGift.qr"
-                  alt="QR mừng cưới"
-                />
-
+                <button
+                  v-if="gift.accountNumber"
+                  type="button"
+                  class="mw-account__save"
+                  @click="copyAccount(gift)"
+                >
+                  Sao chép số tài khoản
+                </button>
               </div>
-
             </div>
 
-
-            <p class="modal-note">
-              Quét mã QR để gửi lời chúc mừng
-            </p>
-
-
-            <div
-              v-if="copyState"
-              class="copy-toast"
-            >
-              {{ copyState }}
-            </div>
-
-
-            <button
-              type="button"
-              class="modal-button"
-              @click="closeGift"
-            >
-              ĐÓNG
-            </button>
-
+            <p v-if="copyState" class="mw-gift-modal__toast">{{ copyState }}</p>
           </div>
-
         </div>
-
       </Transition>
-
     </Teleport>
 
+    <!-- =====================================================
+         QR PREVIEW
+    ====================================================== -->
+
+    <Teleport to="body">
+      <Transition name="mw-gift-dialog">
+        <div v-if="qrDialog" class="mw-gift-modal" @click.self="closeQr">
+          <div class="mw-qr-card">
+            <img v-if="selectedQr" :src="selectedQr.qr" :alt="selectedQr.title" />
+
+            <a
+              v-if="selectedQr"
+              :href="selectedQr.qr"
+              download
+              class="mw-pill mw-qr-card__save"
+            >
+              Lưu ảnh QR
+            </a>
+
+            <button type="button" class="mw-qr-card__close" @click="closeQr">
+              Đóng
+            </button>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </section>
 </template>
 
-
 <script setup>
-import { computed, ref } from "vue";
-import  lixi  from "@/assets/nhat-binh-do-red/nhat_binh_red.webp";
+import { computed, onBeforeUnmount, ref } from "vue";
 
+import envelope from "@/assets/romatic-pink/mini/spring_garden_blue.webp";
 
 const props = defineProps({
   gifts: {
@@ -252,132 +140,126 @@ const props = defineProps({
   },
 });
 
-
-/* =========================================
+/* =========================================================
    NORMALIZE
-========================================= */
+========================================================= */
 
-const normalizedGifts = computed(() => {
-
-  return (props.gifts || [])
+const normalizedGifts = computed(() =>
+  (props.gifts || [])
     .map((gift, index) => {
-
       const item = gift || {};
 
       return {
         ...item,
 
-        id:
-          item.Id ||
-          index,
+        Id: item.Id || index,
 
         title:
           item.Title ||
           item.Name ||
-          (
-            index === 0
-              ? "MỪNG CƯỚI NHÀ TRAI"
-              : "MỪNG CƯỚI NHÀ GÁI"
-          ),
+          (index === 0 ? "Mừng cưới nhà trai" : "Mừng cưới nhà gái"),
 
-        bankName:
-          item.BankName ||
-          item.bank_name ||
-          "",
+        bankName: item.BankName || item.bank_name || "",
 
-        accountName:
-          item.AccountName ||
-          item.account_name ||
-          "",
+        accountName: item.AccountName || item.account_name || "",
 
-        accountNumber:
-          item.AccountNumber ||
-          item.account_number ||
-          "",
+        accountNumber: item.AccountNumber || item.account_number || "",
 
-        qr:
-          item.qr ||
-          item.QrCode ||
-          item.qr_url ||
-          "",
-
+        qr: item.qr || item.QrCode || item.qr_url || "",
       };
-
     })
-    .slice(0, 2);
+    .slice(0, 2)
+);
 
-});
-
-
-/* =========================================
+/* =========================================================
    DIALOG
-========================================= */
+========================================================= */
 
 const dialog = ref(false);
 
+const qrDialog = ref(false);
+
 const currentIndex = ref(0);
 
-
-const selectedGift = computed(() => {
-
-  return (
-    normalizedGifts.value[
-      currentIndex.value
-    ] || null
-  );
-
-});
-
+const selectedQr = computed(
+  () => normalizedGifts.value[currentIndex.value] || null
+);
 
 function openGift(index) {
-
   currentIndex.value = index;
 
   dialog.value = true;
 
-  document.body.classList.add(
-    "gift-modal-open"
-  );
+  document.body.classList.add("mw-gift-dialog-open");
 }
-
 
 function closeGift() {
-
   dialog.value = false;
 
-  document.body.classList.remove(
-    "gift-modal-open"
-  );
+  document.body.classList.remove("mw-gift-dialog-open");
 }
 
+function openQr(gift) {
+  currentIndex.value = normalizedGifts.value.indexOf(gift);
 
-/* =========================================
-   COPY ACCOUNT
-========================================= */
+  qrDialog.value = true;
+}
+
+function closeQr() {
+  qrDialog.value = false;
+}
+
+/* =========================================================
+   ESC
+========================================================= */
+
+function handleEscape(event) {
+  if (event.key !== "Escape") {
+    return;
+  }
+
+  if (qrDialog.value) {
+    closeQr();
+
+    return;
+  }
+
+  if (dialog.value) {
+    closeGift();
+  }
+}
+
+window.addEventListener("keydown", handleEscape);
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleEscape);
+
+  document.body.classList.remove("mw-gift-dialog-open");
+});
+
+/* =========================================================
+   COPY
+========================================================= */
 
 const copyState = ref("");
 
 let copyTimer = null;
 
-
 async function copyAccount(gift) {
-
   const number = gift?.accountNumber;
 
-  if (!number) return;
+  if (!number) {
+    return;
+  }
 
   try {
-
     await navigator.clipboard.writeText(String(number));
 
     copyState.value = "Đã sao chép số tài khoản ✓";
-
   } catch (error) {
-
     console.warn("Không thể sao chép số tài khoản", error);
 
     copyState.value = "Không thể sao chép, vui lòng chép thủ công";
-
   }
 
   window.clearTimeout(copyTimer);
@@ -385,1184 +267,450 @@ async function copyAccount(gift) {
   copyTimer = window.setTimeout(() => {
     copyState.value = "";
   }, 2200);
-
 }
 </script>
 
-
 <style scoped>
-
-/* =====================================================
-   ROOT
-===================================================== */
-
-.gifts {
-  position: relative;
-
-  width: 100%;
-
-  padding:
-    10px
-    4px
-    25px;
-
-  color: #641417;
-
+.mw-gifts {
   text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.gift-heading {
-  max-width: 340px;
-
-  margin:
-    0
-    auto
-    28px;
-}
-
-
-.gift-kicker {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: #a37a3d;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.gift-heading h2 {
-  margin: 0;
-
-  color: #821419;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 23px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-
-.gift-decoration {
+.mw-gift-list {
   display: flex;
-
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: flex-end;
   justify-content: center;
-
   gap: 8px;
 
-  margin:
-    9px
-    auto
-    13px;
+  margin-top: 20px;
 }
 
+/* =========================================================
+   HỘP QUÀ
+========================================================= */
 
-.gift-decoration span {
-  width: 40px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b58a45
-    );
-}
-
-
-.gift-decoration span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b58a45
-    );
-}
-
-
-.gift-decoration b {
-  color: #9b161a;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 16px;
-}
-
-
-.gift-heading p {
-  margin: 0 auto;
-
-  max-width: 300px;
-
-  color: #75604e;
-
-  font-size: 11px;
-  font-weight: 500;
-
-  line-height: 1.8;
-}
-
-
-/* =====================================================
-   LIXI LIST
-===================================================== */
-
-.gift-list {
+.mw-gift {
   position: relative;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-
-  height: 245px;
-
-  margin:
-    5px
-    auto
-    15px;
-}
-
-
-/* =====================================================
-   LIXI BUTTON
-===================================================== */
-
-.lixi {
-  position: absolute;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  width: 145px;
+  width: 250px;
+  height: 357px;
 
   padding: 0;
 
-  border: 0;
+  border: none;
 
-  background: transparent;
+  background: none;
 
   cursor: pointer;
-
-  -webkit-tap-highlight-color: transparent;
-
-  transition:
-    transform .35s cubic-bezier(.2,.8,.2,1);
 }
 
-.lixi-left {
-
-  left: calc(50% - 130px);
-
-  z-index: 1;
-
-  transform:
-    rotate(-12deg)
-    translateY(8px);
-}
-
-
-/* =====================================================
-   LÌ XÌ BÊN PHẢI
-===================================================== */
-
-.lixi-right {
-
-  right: calc(50% - 130px);
-
-  z-index: 2;
-
-  transform:
-    rotate(12deg)
-    translateY(-5px);
-}
-
-
-/* =====================================================
-   HOVER
-===================================================== */
-
-.lixi-left:hover {
-
-  z-index: 5;
-
-  transform:
-    rotate(-7deg)
-    translateY(-5px)
-    scale(1.04);
-}
-
-
-.lixi-right:hover {
-
-  z-index: 5;
-
-  transform:
-    rotate(7deg)
-    translateY(-10px)
-    scale(1.04);
-}
-
-
-/* =====================================================
-   IMAGE WRAPPER
-===================================================== */
-
-.lixi-image-wrap {
+.mw-gift__stage {
   position: relative;
 
-  width: 100%;
-
-  filter:
-    drop-shadow(
-      0 12px 15px
-      rgba(88, 14, 18, .22)
-    );
-
-  animation:
-    lixi-float
-    4s
-    ease-in-out
-    infinite;
-}
-
-
-.lixi-right
-.lixi-image-wrap {
-  animation-delay:
-    -1.5s;
-}
-
-
-.lixi-image {
-  display: block;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
   width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-
-/* =====================================================
-   ÁNH SÁNG CHẠY TRÊN LÌ XÌ
-===================================================== */
-
-.lixi-shine {
-  position: absolute;
-
-  top: 0;
-  left: -90%;
-
-  width: 38%;
   height: 100%;
+
+  padding-bottom: 48px;
+}
+
+.mw-gift__sparkle {
+  position: absolute;
+  z-index: 20;
+
+  color: var(--mw-blue-soft);
 
   pointer-events: none;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.5),
-      transparent
-    );
-
-  transform:
-    skewX(-18deg);
-
-  animation:
-    lixi-shine
-    5s
-    ease-in-out
-    infinite;
+  animation: mw-sparkle 3.2s ease-in-out infinite;
 }
 
+.mw-gift__sparkle--1 {
+  top: 6%;
+  left: 12%;
 
-/* =====================================================
-   NÚT +
-===================================================== */
-
-.lixi-open {
-  position: absolute;
-
-  right: 8px;
-  bottom: 18px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  color: #8b1116;
-
-  background:
-    rgba(255,249,232,.96);
-
-  border:
-    1px solid
-    rgba(153,110,44,.6);
-
-  border-radius: 50%;
-
-  box-shadow:
-    0 3px 10px
-    rgba(70,15,15,.2);
-
-  font-size: 18px;
-  font-weight: 400;
-
-  line-height: 1;
+  font-size: 21px;
 }
 
+.mw-gift__sparkle--2 {
+  top: 14%;
+  right: 8%;
 
-/* =====================================================
-   LABEL
-===================================================== */
+  font-size: 15px;
 
-.lixi-label {
-  margin-top: 4px;
-
-  color: #7d1519;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  letter-spacing: .6px;
-
-  line-height: 1.4;
+  animation-delay: -0.8s;
 }
 
+.mw-gift__sparkle--3 {
+  top: 34%;
+  left: 3%;
 
-/* =====================================================
-   HINT
-===================================================== */
+  font-size: 13px;
 
-.lixi-hint {
-  display: block;
-
-  margin-top: 3px;
-
-  color: #a17a40;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 1.7px;
+  animation-delay: -1.6s;
 }
 
+.mw-gift__sparkle--4 {
+  top: 24%;
+  right: 3%;
 
-/* =====================================================
-   FLOAT
-===================================================== */
+  font-size: 13px;
 
-@keyframes lixi-float {
+  animation-delay: -2.4s;
+}
 
+@keyframes mw-sparkle {
   0%,
   100% {
-    transform:
-      translateY(0);
+    opacity: 0.35;
+    transform: scale(0.85);
   }
 
   50% {
-    transform:
-      translateY(-5px);
+    opacity: 1;
+    transform: scale(1.15);
   }
-
 }
 
-
-/* =====================================================
-   SHINE
-===================================================== */
-
-@keyframes lixi-shine {
-
-  0% {
-    left: -90%;
-  }
-
-  35%,
-  100% {
-    left: 130%;
-  }
-
-}
-
-
-/* =====================================================
-   MOBILE
-   (Gộp 2 block @media 420px — giá trị bộ sau thắng)
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .gift-list {
-    gap: 12px;
-    height: 220px;
-  }
-
-
-  .lixi {
-    width: 44%;
-  }
-
-
-  .lixi-left {
-    left: calc(50% - 118px);
-  }
-
-
-  .lixi-right {
-    right: calc(50% - 118px);
-  }
-
-
-  .lixi-label {
-    font-size: 11px;
-  }
-
-
-  .lixi-hint {
-    font-size: 10px;
-  }
-
-
-  .qr-frame {
-    width: 165px;
-    height: 165px;
-  }
-
-}
-
-/* =====================================================
-   LIXI IMAGE
-===================================================== */
-
-.lixi-image-wrap {
-  position: relative;
-
-  width: 100%;
-
-  filter:
-    drop-shadow(
-      0 10px 14px
-      rgba(104, 20, 20, .18)
-    );
-
-  animation:
-    lixi-float
-    4s
-    ease-in-out
-    infinite;
-}
-
-
-.lixi:nth-child(2)
-.lixi-image-wrap {
-  animation-delay:
-    -1.5s;
-}
-
-
-.lixi-image {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  object-fit: contain;
-}
-
-
-/* =====================================================
-   SHINE
-===================================================== */
-
-.lixi-shine {
+.mw-gift__shadow {
   position: absolute;
+  bottom: -6px;
+  left: 50%;
 
-  top: 0;
-  left: -80%;
+  width: 125px;
+  height: 11px;
 
-  width: 35%;
-  height: 100%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.42),
-      transparent
-    );
-
-  transform:
-    skewX(-18deg);
-
-  animation:
-    lixi-shine
-    5s
-    ease-in-out
-    infinite;
-}
-
-
-/* =====================================================
-   OPEN ICON
-===================================================== */
-
-.lixi-open {
-  position: absolute;
-
-  right: 9px;
-  bottom: 17px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  color: #8c1116;
-
-  background:
-    rgba(255,248,228,.94);
-
-  border:
-    1px solid
-    rgba(154, 111, 48, .55);
+  margin-left: -63px;
 
   border-radius: 50%;
 
-  box-shadow:
-    0 3px 9px
-    rgba(90,20,20,.16);
+  background-color: rgba(0, 0, 0, 0.45);
 
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 18px;
-  font-weight: 400;
-
-  line-height: 1;
+  filter: blur(4px);
 }
 
+.mw-gift__box {
+  position: relative;
 
-/* =====================================================
-   LABEL
-===================================================== */
-
-.lixi-label {
-  margin-top: 6px;
-
-  color: #7c1519;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: .7px;
-
-  line-height: 1.4;
+  width: 190px;
+  height: 275px;
 }
 
-
-.lixi-hint {
-  display: block;
-
-  margin-top: 4px;
-
-  color: #a27a40;
-
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: 1.8px;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.gift-empty {
-  color: #8a7159;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.gift-modal {
-  position: fixed;
-
+.mw-gift__back,
+.mw-gift__card {
+  position: absolute;
   inset: 0;
 
-  z-index: 9999;
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center bottom;
+
+  pointer-events: none;
+
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mw-gift__back {
+  z-index: 1;
+
+  transform-origin: 50% 100%;
+  transform: translateX(20%) translateY(-10%) scale(-0.8, 0.8) rotate(-15deg);
+
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
+}
+
+.mw-gift__card {
+  z-index: 2;
+
+  transform: rotate(-10deg);
+
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+}
+
+.mw-gift:hover .mw-gift__back {
+  transform: translateX(26%) translateY(-14%) scale(-0.86, 0.86) rotate(-18deg);
+}
+
+.mw-gift:hover .mw-gift__card {
+  transform: rotate(-6deg) translateY(-6px);
+}
+
+.mw-gift__hint {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 12px;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+.mw-gift-empty {
+  margin: 24px 0 0;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+}
+
+/* =========================================================
+   GIFT DIALOG
+========================================================= */
+
+.mw-gift-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   padding: 20px;
 
-  background:
-    rgba(48, 8, 10, .72);
-
-  backdrop-filter:
-    blur(7px);
-
-  -webkit-backdrop-filter:
-    blur(7px);
+  background-color: rgba(0, 0, 0, 0.55);
 }
 
-
-.gift-modal-card {
-  position: relative;
-
-  width: min(100%, 360px);
-
+.mw-gift-modal__card {
+  width: min(100%, 560px);
   max-height: 90vh;
 
   overflow-y: auto;
 
-  padding:
-    27px
-    22px
-    23px;
+  border-radius: 18px;
 
-  color: #671317;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fffaf0,
-      #f8ead0
-    );
-
-  border:
-    1px solid
-    rgba(169, 123, 55, .65);
-
-  box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.3);
+  background-color: var(--mw-paper);
 }
 
+.mw-gift-modal__head {
+  position: relative;
 
-/* inner border */
+  padding: 22px 24px 16px;
 
-.gift-modal-card::before {
-  content: "";
+  background-color: var(--mw-blue);
 
-  position: absolute;
-
-  inset: 7px;
-
-  pointer-events: none;
-
-  border:
-    1px solid
-    rgba(169, 123, 55, .25);
+  text-align: center;
 }
 
+.mw-gift-modal__head h3 {
+  margin: 0;
 
-/* =====================================================
-   CLOSE
-===================================================== */
+  color: #ffffff;
 
-.modal-close {
-  position: absolute;
-
-  z-index: 3;
-
-  top: 11px;
-  right: 12px;
-
-  width: 30px;
-  height: 30px;
-
-  border: 0;
-
-  color: #7e181c;
-
-  background:
-    rgba(145, 104, 43, .08);
-
-  border-radius: 50%;
-
-  font-size: 23px;
+  font-family: var(--mw-font-serif);
+  font-size: 20px;
   font-weight: 400;
 
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mw-gift-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+
+  border: none;
+
+  background: none;
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 24px;
   line-height: 1;
 
   cursor: pointer;
 }
 
-
-/* =====================================================
-   MODAL HEADER
-===================================================== */
-
-.modal-symbol {
-  position: relative;
-
-  color: #a1171c;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 35px;
-  font-weight: 700;
-
-  line-height: 1;
-}
-
-
-.modal-kicker {
-  position: relative;
-
-  display: block;
-
-  margin-top: 6px;
-
-  color: #a0793e;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.gift-modal-card h3 {
-  position: relative;
-
-  margin:
-    7px
-    0
-    0;
-
-  color: #771317;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  letter-spacing: .7px;
-}
-
-
-.modal-line {
-  position: relative;
-
+.mw-gift-modal__body {
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
 
+  padding: 24px;
+}
+
+.mw-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  flex: 1 1 180px;
+  max-width: 220px;
+}
+
+.mw-account__title {
+  margin: 0 0 10px;
+
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 1.5;
+  text-align: center;
+}
+
+.mw-account__qr {
+  display: flex;
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  width: 128px;
+  height: 128px;
 
-  margin:
-    10px
-    auto
-    17px;
+  padding: 8px;
+
+  border: 2px solid var(--mw-hairline-soft);
+  border-radius: 12px;
+
+  background-color: #ffffff;
+
+  cursor: pointer;
 }
 
-
-.modal-line span {
-  width: 35px;
-  height: 1px;
-
-  background: #b88b47;
-}
-
-
-.modal-line b {
-  color: #a1171c;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   BANK INFO
-===================================================== */
-
-.bank-info {
-  position: relative;
-
-  margin-bottom: 16px;
-}
-
-
-.bank-name {
-  color: #8b661f;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  letter-spacing: 1px;
-}
-
-
-.account-name {
-  margin-top: 5px;
-
-  color: #765c48;
-
-  font-size: 11px;
-  font-weight: 600;
-}
-
-
-.account-number {
-  margin-top: 7px;
-
-  color: #821419;
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
-}
-
-
-/* =====================================================
-   QR
-===================================================== */
-
-.qr-wrapper {
-  position: relative;
-
-  display: flex;
-
-  justify-content: center;
-}
-
-
-.qr-frame {
-  position: relative;
-
-  width: 178px;
-  height: 178px;
-
-  padding: 9px;
-
-  background: #fff;
-
-  border:
-    1px solid
-    #b48a47;
-
-  box-shadow:
-    0 8px 20px
-    rgba(91, 24, 24, .12);
-}
-
-
-.qr-frame img {
-  display: block;
-
+.mw-account__qr img {
   width: 100%;
   height: 100%;
 
   object-fit: contain;
 }
 
+.mw-account__info {
+  margin-top: 10px;
 
-/* =====================================================
-   QR CORNERS
-===================================================== */
-
-.qr-corner {
-  position: absolute;
-
-  width: 14px;
-  height: 14px;
-
-  z-index: 2;
-
-  border-color: #a7191e;
-  border-style: solid;
+  text-align: center;
 }
 
+.mw-account__info p {
+  margin: 0;
 
-.qr-tl {
-  top: -4px;
-  left: -4px;
+  color: var(--mw-ink);
 
-  border-width:
-    2px
-    0
-    0
-    2px;
-}
-
-
-.qr-tr {
-  top: -4px;
-  right: -4px;
-
-  border-width:
-    2px
-    2px
-    0
-    0;
-}
-
-
-.qr-bl {
-  bottom: -4px;
-  left: -4px;
-
-  border-width:
-    0
-    0
-    2px
-    2px;
-}
-
-
-.qr-br {
-  right: -4px;
-  bottom: -4px;
-
-  border-width:
-    0
-    2px
-    2px
-    0;
-}
-
-
-/* =====================================================
-   NOTE
-===================================================== */
-
-.modal-note {
-  position: relative;
-
-  margin:
-    14px
-    0
-    17px;
-
-  color: #866c53;
-
+  font-family: var(--mw-font-serif);
   font-size: 10px;
-
-  line-height: 1.5;
 }
 
+.mw-account__number {
+  font-family: monospace !important;
+}
 
-/* =====================================================
-   COPY BUTTON
-===================================================== */
+.mw-account__name {
+  font-weight: 600;
+}
 
-.copy-button {
-  display: inline-flex;
+.mw-account__save {
+  margin-top: 8px;
+  padding: 5px 12px;
 
+  border: none;
+  border-radius: 999px;
+
+  background-color: var(--mw-hairline-soft);
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 10px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.mw-gift-modal__toast {
+  margin: 0 0 20px;
+
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   QR PREVIEW
+========================================================= */
+
+.mw-qr-card {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 16px;
 
-  gap: 6px;
+  padding: 24px;
 
-  margin-top: 12px;
+  border-radius: 18px;
 
-  padding: 8px 16px;
-
-  color: #fff9ed;
-
-  background:
-    linear-gradient(
-      135deg,
-      #a37a3d,
-      #8b661f
-    );
-
-  border:
-    1px solid
-    #b88b47;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 1.6px;
-
-  cursor: pointer;
-
-  transition: filter .2s ease;
+  background-color: var(--mw-paper);
 }
 
-
-.copy-button:hover {
-  filter: brightness(1.08);
+.mw-qr-card img {
+  width: min(70vw, 320px);
+  height: auto;
 }
 
+.mw-qr-card__close {
+  border: none;
 
-.copy-toast {
-  margin-bottom: 14px;
+  background: none;
+  color: var(--mw-ink-soft);
 
-  color: #7d5a1e;
-
-  font-size: 11px;
-  font-weight: 700;
-}
-
-
-/* =====================================================
-   BUTTON
-===================================================== */
-
-.modal-button {
-  position: relative;
-
-  min-width: 110px;
-  min-height: 36px;
-
-  padding:
-    8px
-    20px;
-
-  color: #fff9ed;
-
-  background:
-    linear-gradient(
-      135deg,
-      #98171c,
-      #771115
-    );
-
-  border:
-    1px solid
-    #a42b2e;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  letter-spacing: 1.8px;
+  font-family: var(--mw-font-serif);
+  font-size: 13px;
 
   cursor: pointer;
 }
 
+/* =========================================================
+   TRANSITION
+========================================================= */
 
-/* =====================================================
-   ANIMATION
-===================================================== */
-
-@keyframes lixi-float {
-
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(0deg);
-  }
-
-  50% {
-    transform:
-      translateY(-5px)
-      rotate(-1deg);
-  }
-
+.mw-gift-dialog-enter-active,
+.mw-gift-dialog-leave-active {
+  transition: opacity 0.25s ease;
 }
 
-
-@keyframes lixi-shine {
-
-  0% {
-    left: -80%;
-  }
-
-  35%,
-  100% {
-    left: 130%;
-  }
-
-}
-
-
-/* =====================================================
-   MODAL TRANSITION
-===================================================== */
-
-.gift-dialog-enter-active,
-.gift-dialog-leave-active {
-  transition:
-    opacity .3s ease;
-}
-
-
-.gift-dialog-enter-active
-.gift-modal-card,
-.gift-dialog-leave-active
-.gift-modal-card {
-  transition:
-    transform .35s ease,
-    opacity .3s ease;
-}
-
-
-.gift-dialog-enter-from,
-.gift-dialog-leave-to {
+.mw-gift-dialog-enter-from,
+.mw-gift-dialog-leave-to {
   opacity: 0;
 }
 
+/* =========================================================
+   DESKTOP
+========================================================= */
 
-.gift-dialog-enter-from
-.gift-modal-card,
-.gift-dialog-leave-to
-.gift-modal-card {
-  opacity: 0;
+@media (min-width: 900px) {
+  .mw-gift {
+    width: 300px;
+    height: 400px;
+  }
 
-  transform:
-    translateY(30px)
-    scale(.94);
+  .mw-gift__box {
+    width: 228px;
+    height: 330px;
+  }
+
+  .mw-account__qr {
+    width: 160px;
+    height: 160px;
+  }
+
+  .mw-account__info p {
+    font-size: 11px;
+  }
 }
 </style>

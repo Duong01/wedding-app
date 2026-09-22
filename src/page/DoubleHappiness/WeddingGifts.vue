@@ -6,9 +6,9 @@
       <span></span>
     </div>
 
-    <p class="dh-eyebrow">GỬI YÊU THƯƠNG</p>
+    <p v-if="eyebrow" class="dh-eyebrow">{{ eyebrow }}</p>
 
-    <h2>Hộp mừng cưới</h2>
+    <h2>{{ heading }}</h2>
 
     <p class="dh-gifts__intro">
       Những lời chúc và tình cảm của bạn<br />
@@ -214,11 +214,22 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
 
 const props = defineProps({
   gifts: { type: Array, default: () => [] },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "gifts", "Heading", "Hộp mừng cưới")
+);
 
 const showGiftDialog = ref(false);
 const previewQr = ref(null);

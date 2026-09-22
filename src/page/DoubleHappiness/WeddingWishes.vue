@@ -6,9 +6,9 @@
       <span></span>
     </div>
 
-    <p class="dh-eyebrow">LỜI CHÚC TỪ BẠN</p>
+    <p v-if="eyebrow" class="dh-eyebrow">{{ eyebrow }}</p>
 
-    <h2>Sổ lưu bút</h2>
+    <h2>{{ heading }}</h2>
 
     <p class="dh-wishes__intro">
       Mỗi lời chúc là một kỷ niệm đẹp<br />
@@ -182,10 +182,21 @@ import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   wishes: { type: Array, default: () => [] },
   wedding: { type: Object, default: () => ({}) },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "guestbook", "Heading", "Sổ lưu bút")
+);
 
 const route = useRoute();
 

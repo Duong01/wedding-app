@@ -23,11 +23,14 @@
     ====================================================== -->
 
     <div class="tr-hero__pair">
-      <div class="tr-hero__pair-item tr-hero__pair-item--phuong">
+      <div
+        ref="phuongRef"
+        class="tr-hero__pair-item tr-hero__pair-item--phuong"
+      >
         <img :src="phuong" alt="Phượng" />
       </div>
 
-      <div class="tr-hero__pair-item tr-hero__pair-item--rong">
+      <div ref="rongRef" class="tr-hero__pair-item tr-hero__pair-item--rong">
         <img :src="rong" alt="Rồng" />
       </div>
     </div>
@@ -35,7 +38,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 import { chuHy, phuong, rong } from "./traditionalRedAssets";
 
@@ -63,6 +66,44 @@ const brideShort = computed(
     props.wedding?.couple?.Bride?.Name ||
     "Cô dâu"
 );
+
+/* =========================================================
+   PARALLAX PHƯỢNG – RỒNG
+   Hai con trôi ngược chiều nhau theo scroll, đúng như mẫu.
+========================================================= */
+
+const phuongRef = ref(null);
+const rongRef = ref(null);
+
+let ticking = false;
+
+function onScroll() {
+  if (ticking) return;
+
+  ticking = true;
+
+  window.requestAnimationFrame(() => {
+    const offset = window.scrollY;
+
+    if (phuongRef.value) {
+      phuongRef.value.style.transform = `translateY(${-offset * 0.12}px)`;
+    }
+
+    if (rongRef.value) {
+      rongRef.value.style.transform = `translateY(${offset * 0.06}px)`;
+    }
+
+    ticking = false;
+  });
+}
+
+onMounted(() => {
+  window.addEventListener("scroll", onScroll, { passive: true });
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
+});
 </script>
 
 <style scoped>
@@ -165,6 +206,8 @@ const brideShort = computed(
 .tr-hero__pair-item {
   width: 160px;
   height: 240px;
+
+  will-change: transform;
 }
 
 .tr-hero__pair-item img {
@@ -222,6 +265,16 @@ const brideShort = computed(
     width: 230px;
 
     margin-top: 48px;
+  }
+}
+
+/* =========================================================
+   GIẢM CHUYỂN ĐỘNG
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-hero__pair-item {
+    transform: none !important;
   }
 }
 

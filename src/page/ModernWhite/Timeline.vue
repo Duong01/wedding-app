@@ -1,114 +1,30 @@
 <template>
-  <section class="wedding-timeline">
+  <section class="mw-timeline">
+    <h2 class="mw-title">Lịch trình ngày cưới</h2>
 
-    <!-- HEADER -->
-    <div class="timeline-heading">
+    <ol v-if="items.length" class="mw-timeline__list">
+      <li v-for="(item, index) in items" :key="item.Id || index" class="mw-timeline__item">
+        <span class="mw-timeline__time">{{ item.Time }}</span>
 
-      <span class="heading-kicker">
-        NGÀY TRỌNG ĐẠI
-      </span>
-
-      <h2>
-        LỊCH TRÌNH NGÀY CƯỚI
-      </h2>
-
-      <div class="heading-decoration">
-        <span></span>
-        <b>囍</b>
-        <span></span>
-      </div>
-
-      <p>
-        Những khoảnh khắc đặc biệt trong ngày vui của chúng mình
-      </p>
-
-    </div>
-
-
-    <!-- TIMELINE -->
-    <div
-      v-if="items.length"
-      class="timeline-list"
-    >
-
-      <div
-        v-for="(item, index) in items"
-        :key="item.Id || index"
-        class="timeline-item"
-      >
-
-        <!-- TIME -->
-        <div class="timeline-time">
-          {{ item.Time }}
-        </div>
-
-
-        <!-- CENTER -->
-        <div class="timeline-center">
-
-          <span class="timeline-dot">
-            <span>{{ item.Icon }}</span>
-          </span>
-
+        <span class="mw-timeline__axis" aria-hidden="true">
           <span
-            v-if="index < items.length - 1"
-            class="timeline-line"
+            class="mw-timeline__line"
+            :class="{
+              'mw-timeline__line--first': index === 0,
+              'mw-timeline__line--last': index === items.length - 1,
+            }"
           ></span>
 
-        </div>
+          <span class="mw-timeline__dot"></span>
+        </span>
 
+        <span class="mw-timeline__label">{{ item.Title }}</span>
+      </li>
+    </ol>
 
-        <!-- CONTENT -->
-        <div class="timeline-content">
-
-          <div class="timeline-title">
-            {{ item.Title }}
-          </div>
-
-          <p
-            v-if="item.Description"
-            class="timeline-description"
-          >
-            {{ item.Description }}
-          </p>
-
-          <div
-            v-if="item.Location"
-            class="timeline-location"
-          >
-            <span>⌖</span>
-            {{ item.Location }}
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- EMPTY -->
-    <div
-      v-else
-      class="timeline-empty"
-    >
-      Chưa có lịch trình.
-    </div>
-
-
-    <!-- BOTTOM -->
-    <div
-      v-if="items.length"
-      class="timeline-bottom"
-    >
-      <span></span>
-      <b>囍</b>
-      <span></span>
-    </div>
-
+    <p v-else class="mw-timeline__empty">Chưa có lịch trình.</p>
   </section>
 </template>
-
 
 <script setup>
 import { computed } from "vue";
@@ -125,568 +41,168 @@ const props = defineProps({
   },
 });
 
-
-/*
- * Có thể truyền:
- *
- * timeline: [...]
- *
- * hoặc dùng events nếu API hiện tại
- * đang lưu lịch trình trong events.
- */
 const items = computed(() => {
+  const source = props.timeline?.length ? props.timeline : props.events;
 
-  const source =
-    props.timeline?.length
-      ? props.timeline
-      : props.events;
-  
   return (source || [])
     .map((item, index) => {
-
       const data = item || {};
 
       return {
         Id: data.Id || index,
 
-        Time:
-          data.Time ||
-          data.StartTime ||
-          data.EventTime ||
-          "",
+        Time: data.Time || data.StartTime || data.EventTime || "",
 
-        Title:
-          data.Title ||
-          data.Name ||
-          data.TypeLabel ||
-          "Lịch trình",
-
-        Description:
-          data.Description ||
-          data.Content ||
-          data.Text ||
-          "",
-
-        Location:
-          data.Location ||
-          data.Address ||
-          data.Venue ||
-          "",
-
-        Icon:
-          data.Icon ||
-          getDefaultIcon(data.ype),
+        Title: data.Title || data.Name || data.TypeLabel || "Lịch trình",
       };
-
     })
-    .filter(item => {
-      return (
-        item.Time ||
-        item.Title ||
-        item.Description
-      );
-    });
-
+    .filter((item) => item.Time || item.Title);
 });
-
-function getDefaultIcon(type) {
-
-  const icons = {
-    makeup: "♡",
-    preparation: "✦",
-    reception: "♡",
-    ceremony: "囍",
-    party: "❖",
-    dinner: "♢",
-    photo: "✧",
-  };
-
-  return icons[type] || "♡";
-}
 </script>
 
-
 <style scoped>
-
-/* =====================================================
-   ROOT
-===================================================== */
-
-.wedding-timeline {
-  width: 100%;
-
-  padding: 8px 4px 15px;
-
-  color: #681317;
-
+.mw-timeline {
   text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.timeline-heading {
-  margin-bottom: 34px;
-}
-
-
-.heading-kicker {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #a57a3d;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 2.5px;
-}
-
-
-.timeline-heading h2 {
-  margin: 0;
-
-  color: #781419;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 23px;
-  font-weight: 700;
-
-  line-height: 1.25;
-
-  letter-spacing: 1px;
-}
-
-
-.heading-decoration {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  margin-top: 10px;
-}
-
-
-.heading-decoration span {
-  width: 42px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b68a46
-    );
-}
-
-
-.heading-decoration span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b68a46
-    );
-}
-
-
-.heading-decoration b {
-  color: #99171b;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 18px;
-}
-
-
-.timeline-heading p {
-  max-width: 280px;
-
-  margin: 12px auto 0;
-
-  color: #80684f;
-
-  font-size: 10px;
-
-  line-height: 1.7;
-}
-
-
-/* =====================================================
-   TIMELINE
-===================================================== */
-
-.timeline-list {
-  position: relative;
+.mw-timeline__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 32px;
 
   width: 100%;
+  max-width: 460px;
 
-  max-width: 390px;
+  margin: 26px auto 0;
+  padding: 0;
 
-  margin: 0 auto;
+  list-style: none;
 }
 
+.mw-timeline__item {
+  display: contents;
+}
 
-/* =====================================================
-   ITEM
-===================================================== */
+.mw-timeline__time {
+  align-self: start;
 
-.timeline-item {
-  position: relative;
+  padding-top: 2px;
 
-  display: grid;
+  color: var(--mw-blue);
 
-  grid-template-columns:
-    72px
-    42px
-    1fr;
+  font-family: var(--mw-font-serif);
+  font-size: 16px;
+  font-weight: 400;
 
-  min-height: 90px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-align: right;
+}
 
+.mw-timeline__label {
+  align-self: start;
+
+  padding-top: 2px;
+
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 17px;
+  font-weight: 500;
+
+  letter-spacing: 0.05em;
+  line-height: 1.4;
   text-align: left;
 }
 
-
-/* =====================================================
-   TIME
-===================================================== */
-
-.timeline-time {
-  padding-top: 4px;
-
-  padding-right: 12px;
-
-  color: #8c171b;
-
-  font-size: 16px;
-
-  font-weight: 700;
-
-  line-height: 1.2;
-
-  text-align: right;
-
-  white-space: nowrap;
-}
-
-
-/* =====================================================
-   CENTER
-===================================================== */
-
-.timeline-center {
+.mw-timeline__axis {
   position: relative;
 
   display: flex;
-
-  align-items: flex-start;
-  justify-content: center;
-}
-
-
-.timeline-dot {
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
   align-items: center;
   justify-content: center;
 
-  width: 34px;
-  height: 34px;
-
-  border:
-    1px solid
-    rgba(175, 131, 60, .65);
-
-  border-radius: 50%;
-
-  background: #fffaf0;
-
-  box-shadow:
-    0 2px 7px
-    rgba(100, 30, 20, .08);
+  align-self: stretch;
 }
 
-
-.timeline-dot::before {
-  content: "";
-
+.mw-timeline__line {
   position: absolute;
-
-  width: 25px;
-  height: 25px;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #a51b20,
-      #7c1116
-    );
-}
-
-
-.timeline-dot span {
-  position: relative;
-
-  z-index: 2;
-
-  color: #fffaf0;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 12px;
-
-  line-height: 1;
-}
-
-
-/* =====================================================
-   LINE
-===================================================== */
-
-.timeline-line {
-  position: absolute;
-
-  top: 34px;
-
-  bottom: 0;
-
   left: 50%;
+
+  top: -32px;
+  bottom: -32px;
 
   width: 1px;
 
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(181, 139, 67, .65),
-      rgba(181, 139, 67, .18)
-    );
-
   transform: translateX(-50%);
+
+  background-color: rgba(72, 108, 125, 0.4);
 }
 
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.timeline-content {
-  padding:
-    1px
-    0
-    27px
-    8px;
+.mw-timeline__line--first {
+  top: 50%;
 }
 
+.mw-timeline__line--last {
+  bottom: 50%;
+}
 
-.timeline-title {
-  color: #741317;
+.mw-timeline__dot {
+  position: relative;
+  z-index: 2;
 
+  display: block;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background-color: var(--mw-blue);
+
+  box-shadow: 0 0 0 2px rgba(72, 108, 125, 0.13);
+}
+
+.mw-timeline__empty {
+  margin: 24px 0 0;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
   font-size: 14px;
-
-  font-weight: 700;
-
-  line-height: 1.4;
 }
 
+/* =========================================================
+   DESKTOP
+========================================================= */
 
-.timeline-description {
-  margin: 5px 0 0;
-
-  color: #76604c;
-
-  font-size: 10px;
-
-  line-height: 1.7;
-}
-
-
-.timeline-location {
-  display: flex;
-
-  align-items: center;
-
-  gap: 4px;
-
-  margin-top: 7px;
-
-  color: #947247;
-
-  font-size: 11px;
-
-  line-height: 1.5;
-}
-
-
-.timeline-location span {
-  color: #a67b3e;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.timeline-empty {
-  padding: 30px 10px;
-
-  color: #92775b;
-
-  font-size: 11px;
-}
-
-
-/* =====================================================
-   BOTTOM
-===================================================== */
-
-.timeline-bottom {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  margin-top: 5px;
-}
-
-
-.timeline-bottom span {
-  width: 40px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b68a47
-    );
-}
-
-
-.timeline-bottom span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b68a47
-    );
-}
-
-
-.timeline-bottom b {
-  color: #99171b;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 17px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .wedding-timeline {
-    padding-left: 2px;
-    padding-right: 2px;
+@media (min-width: 900px) {
+  .mw-timeline__list {
+    column-gap: 32px;
+    row-gap: 40px;
   }
 
-
-  .timeline-heading h2 {
-    font-size: 20px;
+  .mw-timeline__time {
+    font-size: 17px;
   }
 
-
-  .heading-kicker {
-    font-size: 10px;
-
-    letter-spacing: 2px;
+  .mw-timeline__label {
+    font-size: 19px;
   }
 
-
-  .heading-decoration span {
-    width: 32px;
+  .mw-timeline__line {
+    top: -40px;
+    bottom: -40px;
   }
 
-
-  .timeline-item {
-    grid-template-columns:
-      63px
-      38px
-      1fr;
-
-    min-height: 85px;
+  .mw-timeline__line--first {
+    top: 50%;
   }
 
-
-  .timeline-time {
-    padding-right: 9px;
-
-    font-size: 13px;
-
-    white-space: normal;
+  .mw-timeline__line--last {
+    bottom: 50%;
   }
-
-
-  .timeline-dot {
-    width: 31px;
-    height: 31px;
-  }
-
-
-  .timeline-dot::before {
-    width: 23px;
-    height: 23px;
-  }
-
-
-  .timeline-content {
-    padding-left: 5px;
-
-    padding-bottom: 23px;
-  }
-
-
-  .timeline-title {
-    font-size: 13px;
-  }
-
-
-  .timeline-description {
-    font-size: 10px;
-  }
-
 }
 </style>

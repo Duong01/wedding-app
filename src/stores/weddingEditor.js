@@ -247,6 +247,12 @@ export const useWeddingEditorStore =
             Title: "",
             Autoplay: true,
           },
+
+          /*
+           * Tiêu đề các mục trên thiệp — người dùng đổi ở
+           * panel "Tiêu đề mục". Xem src/data/sectionTitles.js.
+           */
+          sections: {},
         };
 
         this.initialized = true;

@@ -1,5 +1,5 @@
 <template>
-  <div class="nb-wedding">
+  <div class="cfr-theme" :data-theme="theme.Name" :style="themeStyle">
 
     <!-- =====================================================
          OPENING
@@ -10,52 +10,39 @@
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
+      :sections="sections"
       @open="handleOpen"
     />
 
-    <template v-else>
+    <main v-else class="cfr-invitation">
 
-      <main class="invitation">
+      <!-- =================================================
+           NỀN HOA
+      ================================================== -->
 
-        <!-- =================================================
-             HERO DECORATION
-             Không khung
-        ================================================== -->
+      <div class="cfr-garland" aria-hidden="true">
+        <img :src="flower1" alt="" />
+      </div>
 
+      <div class="cfr-blooms" aria-hidden="true">
         <img
-          :src="assets.mayTo"
-          class="art hero-cloud hero-cloud-left"
+          v-for="bloom in blooms"
+          :key="bloom.id"
+          :src="bloom.src"
+          class="cfr-bloom"
+          :class="bloom.side"
+          :style="{ top: bloom.top }"
           alt=""
         />
+      </div>
 
-        <img
-          :src="assets.may"
-          class="art hero-cloud-small hero-cloud-small-right"
-          alt=""
-        />
+      <div class="cfr-content">
 
-        <img
-          :src="assets.hoa"
-          class="art hero-flower hero-flower-left"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art hero-flower hero-flower-right"
-          alt=""
-        />
-
-
-        <!-- =================================================
+        <!-- ===============================================
              HERO
-             KHÔNG KHUNG
-        ================================================== -->
+        ================================================ -->
 
-        <section
-          v-if="showHero"
-          class="section hero-section"
-        >
+        <section v-if="showHero" class="cfr-section cfr-section--hero">
           <WeddingHero
             :wedding="wedding"
             :monogram="monogram"
@@ -63,285 +50,133 @@
           />
         </section>
 
+        <!-- ===============================================
+             THÔNG TIN BUỔI LỄ
+        ================================================ -->
 
-        <!-- =================================================
-             THÔNG TIN LỄ CƯỚI
-             CÓ KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showCouple"
-          class="framed-section wedding-info-frame"
-        >
-
-          <div class="frame-decoration">
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tr"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-bl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-br"
-              alt=""
-            />
-
-          </div>
-
-          <div class="framed-content">
-
-            <WeddingCouple
-              :wedding="wedding"
-            />
-
-          </div>
-
+        <section v-if="showCouple" class="cfr-section">
+          <WeddingCouple :wedding="wedding" :sections="sections" />
         </section>
 
+        <!-- ===============================================
+             ALBUM ẢNH
+        ================================================ -->
 
-        <!-- =================================================
-             STORY
-             KHÔNG KHUNG
-        ================================================== -->
+        <template v-if="showGallery && gallery.length">
+          <div class="cfr-filigree" aria-hidden="true">
+            <img :src="filigree" alt="" />
+          </div>
 
-        <section
-          v-if="showStory && wedding?.story"
-          class="section story-section"
-        >
+          <section class="cfr-section">
+            <WeddingGallery :gallery="gallery" :sections="sections" />
+          </section>
 
-          <WeddingStory
-            :story="wedding.story"
+          <div class="cfr-filigree" aria-hidden="true">
+            <img :src="filigree" alt="" />
+          </div>
+        </template>
+
+        <!-- ===============================================
+             THÔNG TIN TIỆC BÁO HỶ
+        ================================================ -->
+
+        <section v-if="showEvents && events.length" class="cfr-section">
+          <WeddingEvents
+            :events="events"
+            :recipient-name="wedding?.recipientName"
+            :sections="sections"
           />
-
         </section>
 
+        <!-- ===============================================
+             CÙNG ĐẾM NGƯỢC
+        ================================================ -->
 
-        <!-- =================================================
-             ALBUM
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGallery && gallery.length"
-          class="section gallery-section"
-        >
-
-          <WeddingGallery :gallery="gallery" />
-
-        </section>
-
-
-        <!-- =================================================
-             THÔNG TIN TIỆC CƯỚI
-             CÓ KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showEvents && events.length"
-          class="framed-section party-info-frame"
-        >
-
-          <div class="frame-decoration">
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tr"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-bl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-br"
-              alt=""
-            />
-
-          </div>
-
-          <div class="framed-content">
-
-            <WeddingEvents
-              :events="events"
-              :recipient-name="wedding?.recipientName"
-            />
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             COUNTDOWN
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showCountdown"
-          class="section countdown-section"
-        >
-
+        <section v-if="showCountdown" class="cfr-section">
           <WeddingCountdown
-            :countdown="wedding?.countdown"
+            :countdown="countdownTarget"
+            :wedding-date="wedding?.weddingDate"
+            :sections="sections"
           />
-
         </section>
 
+        <!-- ===============================================
+             ĐỊA ĐIỂM
+        ================================================ -->
 
-        <!-- =================================================
-             MAP
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showMap && events.length"
-          class="section map-section"
-        >
-
-          <WeddingMap
-            :events="events"
-          />
-
+        <section v-if="showMap && events.length" class="cfr-section">
+          <WeddingMap :events="events" :sections="sections" />
         </section>
 
-        <!-- =================================================
-             TIMELINE
-             KHÔNG KHUNG
-        ================================================== -->
+        <!-- ===============================================
+             DRESS CODE
+        ================================================ -->
 
-        <section
-          v-if="showTimeLine && events.length"
-          class="section map-section"
-        >
-
-          <Timeline
-            :timeline="timeline"
-            :events="events"
-          />
-
+        <section v-if="showDressCode" class="cfr-section">
+          <DressCode :dress-code="wedding?.dressCode" :sections="sections" />
         </section>
 
+        <!-- ===============================================
+             LỊCH TRÌNH TIỆC BÁO HỶ
+        ================================================ -->
 
-        <!-- =================================================
-             HỘP QUÀ MỪNG
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGift && gifts.length"
-          class="section gift-section"
-        >
-
-          <WeddingGifts
-            :gifts="gifts"
-          />
-
+        <section v-if="showTimeline && timeline.length" class="cfr-section">
+          <Timeline :timeline="timeline" :events="events" :sections="sections" />
         </section>
 
+        <!-- ===============================================
+             CHUYỆN TÌNH YÊU
+        ================================================ -->
 
-        <!-- =================================================
+        <section v-if="showStory && wedding?.story" class="cfr-section">
+          <WeddingStory :story="wedding.story" :sections="sections" />
+        </section>
+
+        <!-- ===============================================
              SỔ LƯU BÚT
-             KHÔNG KHUNG
-        ================================================== -->
+        ================================================ -->
 
-        <section
-          v-if="showGuestBook"
-          class="section guestbook-section"
-        >
-
+        <section v-if="showGuestBook" class="cfr-section">
           <WeddingWishes
             :wishes="wishes"
             :wedding="wedding"
+            :sections="sections"
           />
-
         </section>
 
+        <!-- ===============================================
+             HỘP QUÀ MỪNG
+        ================================================ -->
 
-        <!-- =================================================
-             FOOTER
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showFooter"
-          class="section footer-section"
-        >
-
-          <WeddingFooter
-            :wedding="wedding"
-            :monogram="monogram"
-            :current-year="currentYear"
-          />
-
+        <section v-if="showGift && gifts.length" class="cfr-section">
+          <WeddingGifts :gifts="gifts" :sections="sections" />
         </section>
 
-
-        <!-- =================================================
-             BOTTOM DECORATION
-        ================================================== -->
-
-        <img
-          :src="assets.mayTo"
-          class="art cloud-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.longDen"
-          class="art lantern-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.quat"
-          class="art fan-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art flower-bottom"
-          alt=""
-        />
-
-      </main>
-
+      </div>
 
       <!-- =================================================
-           MUSIC
+           FOOTER
       ================================================== -->
 
-      <FloatingMusic
-        v-if="showMusic"
-        ref="floatingMusicRef"
-        :music="heroMusic"
+      <WeddingFooter
+        v-if="showFooter"
+        :wedding="wedding"
+        :monogram="monogram"
+        :current-year="currentYear"
+        :sections="sections"
       />
 
-    </template>
+    </main>
+
+    <!-- =====================================================
+         MUSIC
+    ====================================================== -->
+
+    <FloatingMusic
+      v-if="showMusic"
+      ref="floatingMusicRef"
+      :music="heroMusic"
+    />
 
   </div>
 </template>
@@ -352,6 +187,7 @@ import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
 import OpeningScreen from "@/page/NhatBinhDo/OpeningScreen.vue";
 import WeddingHero from "@/page/NhatBinhDo/WeddingHero.vue";
@@ -362,21 +198,17 @@ import WeddingCountdown from "@/page/NhatBinhDo/WeddingCountdown.vue";
 import WeddingGallery from "@/page/NhatBinhDo/WeddingGallery.vue";
 import WeddingMap from "@/page/NhatBinhDo/WeddingMap.vue";
 import Timeline from "@/page/NhatBinhDo/Timeline.vue";
+import DressCode from "@/page/NhatBinhDo/DressCode.vue";
 import WeddingGifts from "@/page/NhatBinhDo/WeddingGifts.vue";
 import WeddingWishes from "@/page/NhatBinhDo/WeddingWishes.vue";
 import WeddingFooter from "@/page/NhatBinhDo/WeddingFooter.vue";
 
 import {
-  chineseHappiness,
-  chuHy,
-  dauRe,
-  hoa,
-  longDen,
-  mayTo,
-  may,
-  quat,
-  corner,
-} from "@/page/NhatBinhDo/nhatBinhDoAssets";
+  flower1,
+  flower2,
+  flower3,
+  filigree,
+} from "@/page/NhatBinhDo/crystalFloralAssets";
 
 
 /* ==========================================================
@@ -392,10 +224,17 @@ const props = defineProps({
 
 
 /* ==========================================================
+   THEME
+========================================================== */
+
+const { theme, themeStyle } = useWeddingTheme(props.wedding);
+
+
+/* ==========================================================
    WEDDING
 ========================================================== */
 
-const wedding = computed(() => props.wedding)
+const wedding = computed(() => props.wedding);
 
 /*
  * Ưu tiên nhạc từ wedding.music (panel Nhạc).
@@ -410,7 +249,7 @@ const heroMusic = computed(() => {
   }
 
   return { ...music, Url: heroUrl };
-});;
+});
 
 
 /* ==========================================================
@@ -425,127 +264,111 @@ const currentYear = new Date().getFullYear();
 
 
 /* ==========================================================
-   ASSETS
+   NỀN HOA
+   Mẫu gốc rải hoa so le hai bên suốt chiều dài thiệp.
 ========================================================== */
 
-const assets = {
-  chineseHappiness,
-  chuHy,
-  dauRe,
-  hoa,
-  longDen,
-  mayTo,
-  may,
-  quat,
-  corner,
-};
+const blooms = [
+  { id: 1, src: flower3, side: "is-left", top: "6%" },
+  { id: 2, src: flower2, side: "is-right", top: "12%" },
+  { id: 3, src: flower2, side: "is-left", top: "26%" },
+  { id: 4, src: flower3, side: "is-right", top: "32%" },
+  { id: 5, src: flower3, side: "is-left", top: "46%" },
+  { id: 6, src: flower2, side: "is-right", top: "52%" },
+  { id: 7, src: flower2, side: "is-left", top: "66%" },
+  { id: 8, src: flower3, side: "is-right", top: "72%" },
+  { id: 9, src: flower3, side: "is-left", top: "86%" },
+  { id: 10, src: flower2, side: "is-right", top: "92%" },
+];
 
 
 /* ==========================================================
    DATA
 ========================================================== */
 
-const events = computed(() => {
-  return Array.isArray(wedding.value?.events)
-    ? wedding.value.events
-    : [];
-});
-const timeline = computed(() => {
-  return Array.isArray(wedding.value?.timeline)
-    ? wedding.value.timeline
-    : [];
-});
+const events = computed(() =>
+  Array.isArray(wedding.value?.events) ? wedding.value.events : []
+);
 
-const gallery = computed(() => {
-  return Array.isArray(wedding.value?.gallery)
-    ? wedding.value.gallery
-    : [];
-});
+const timeline = computed(() =>
+  Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []
+);
 
+const gallery = computed(() =>
+  Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []
+);
 
-const gifts = computed(() => {
-  return Array.isArray(wedding.value?.gifts)
-    ? wedding.value.gifts
-    : [];
-});
+const gifts = computed(() =>
+  Array.isArray(wedding.value?.gifts) ? wedding.value.gifts : []
+);
 
-
-const wishes = computed(() => {
-  return Array.isArray(
-    wedding.value?.guestBook?.Guest,
-  )
+const wishes = computed(() =>
+  Array.isArray(wedding.value?.guestBook?.Guest)
     ? wedding.value.guestBook.Guest
-    : [];
-});
+    : []
+);
+
+
+/* ==========================================================
+   TIÊU ĐỀ MỤC
+========================================================== */
+
+const sections = computed(() => wedding.value?.sections || {});
 
 
 /* ==========================================================
    SETTINGS
 ========================================================== */
 
-const settings = computed(() => {
-  return wedding.value?.settings || {};
-});
+const settings = computed(() => wedding.value?.settings || {});
 
+const showHero = computed(() => settings.value.ShowHero !== false);
 
-const showHero = computed(() => {
-  return settings.value.ShowHero !== false;
-});
+const showCouple = computed(() => settings.value.ShowCouple !== false);
 
+const showStory = computed(() => settings.value.ShowStory !== false);
 
-const showCouple = computed(() => {
-  return settings.value.ShowCouple !== false;
-});
+const showEvents = computed(() => settings.value.ShowEvents !== false);
 
+const showTimeline = computed(() => settings.value.ShowTimeline !== false);
 
-const showStory = computed(() => {
-  return settings.value.ShowStory !== false;
-});
+const showCountdown = computed(() => settings.value.ShowCountdown === true);
 
+const showGallery = computed(() => settings.value.ShowGallery === true);
 
-const showEvents = computed(() => {
-  return settings.value.ShowEvents !== false;
-});
+const showMap = computed(() => settings.value.ShowMap === true);
 
+const showDressCode = computed(() => settings.value.ShowDressCode !== false);
 
-const showCountdown = computed(() => {
-  return settings.value.ShowCountdown === true;
-});
+const showGift = computed(() => settings.value.ShowGift === true);
 
+const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
 
-const showGallery = computed(() => {
-  return settings.value.ShowGallery === true;
-});
+const showFooter = computed(() => settings.value.ShowFooter !== false);
 
-
-const showMap = computed(() => {
-  return settings.value.ShowMap === true;
-});
-
-
-const showGift = computed(() => {
-  return settings.value.ShowGift === true;
-});
-
-
-const showGuestBook = computed(() => {
-  return settings.value.ShowGuestBook === true;
-});
-
-
-const showMusic = computed(() => {
-  return (
+const showMusic = computed(
+  () =>
     wedding.value?.music?.Enabled === true &&
     settings.value.ShowMusic === true
+);
+
+
+/* ==========================================================
+   COUNTDOWN TARGET
+========================================================== */
+
+const countdownTarget = computed(() => {
+  const value = wedding.value?.countdown;
+
+  if (value?.Date || value?.Target || value?.WeddingDate) {
+    return value;
+  }
+
+  return (
+    wedding.value?.weddingDate ||
+    wedding.value?.hero?.WeddingDate ||
+    ""
   );
-});
-
-
-const showFooter = computed(() => {
-  return settings.value.ShowFooter !== false;
-});
-const showTimeLine = computed(() => {
-  return settings.value.ShowTimeline !== false;
 });
 
 
@@ -554,15 +377,25 @@ const showTimeLine = computed(() => {
 ========================================================== */
 
 const monogram = computed(() => {
-  const groom =
-    (wedding.value?.GroomName || "G")
-      .trim()
-      .charAt(0);
+  const groom = (
+    wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.hero?.GroomName ||
+    wedding.value?.couple?.Groom?.Name ||
+    "G"
+  )
+    .trim()
+    .charAt(0);
 
-  const bride =
-    (wedding.value?.BrideName || "B")
-      .trim()
-      .charAt(0);
+  const bride = (
+    wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.hero?.BrideName ||
+    wedding.value?.couple?.Bride?.Name ||
+    "B"
+  )
+    .trim()
+    .charAt(0);
 
   return `${groom}&${bride}`.toUpperCase();
 });
@@ -586,21 +419,13 @@ function formatDate(date) {
   return parsed.format("DD · MM · YYYY");
 }
 
+const openDateLabel = computed(() =>
+  formatDate(wedding.value?.weddingDate || wedding.value?.hero?.WeddingDate)
+);
 
-const openDateLabel = computed(() => {
-  return formatDate(
-    wedding.value?.weddingDate,
-  );
-});
-
-
-const heroDateLabel = computed(() => {
-  return formatDate(
-    wedding.value?.hero?.WeddingDate ||
-    wedding.value?.hero?.weddingDate ||
-    wedding.value?.weddingDate,
-  );
-});
+const heroDateLabel = computed(() =>
+  formatDate(wedding.value?.hero?.WeddingDate || wedding.value?.weddingDate)
+);
 
 
 /* ==========================================================
@@ -614,602 +439,323 @@ async function handleOpen() {
 
   floatingMusicRef.value?.play?.();
 }
-
-
-/* ==========================================================
-   GALLERY
-========================================================== */
-
 </script>
 
 
 <style scoped>
-
 /* ==========================================================
-   ROOT
+   NHATBINHDO — CRYSTAL FLORAL RED
+   Bảng màu lấy từ wedding.theme.Colors (ThemePanel),
+   fallback về tông đỏ của mẫu tham chiếu.
 ========================================================== */
 
-.nb-wedding {
-  --red: #971519;
-  --red-dark: #720e12;
-
-  --gold: #b58a45;
-  --gold-light: #d7bb82;
-
-  --paper: #f6ecd9;
+.cfr-theme {
+  --cfr-red: var(--primary, #9c1f2c);
+  --cfr-red-deep: var(--secondary, #560207);
+  --cfr-cream: var(--background, #fbf8f3);
+  --cfr-cream-2: var(--accent-light, #f6ecd9);
+  --cfr-hairline: rgba(156, 31, 44, 0.27);
+  --cfr-hairline-soft: rgba(156, 31, 44, 0.13);
+  --cfr-font-heading: var(
+    --font-heading,
+    "Times New Roman",
+    Times,
+    serif
+  );
+  --cfr-font-body: var(
+    --font-main,
+    Baskerville,
+    "Libre Baskerville",
+    "Times New Roman",
+    serif
+  );
+  --cfr-font-name: "EB Garamond", var(--font-main, serif);
+  --cfr-font-script: var(--font-script, "Alex Brush", cursive);
 
   width: 100%;
   min-height: 100vh;
 
-  overflow-x: hidden;
+  background-color: var(--cfr-cream);
+  color: var(--cfr-red-deep);
 
-  background: #fff;
+  font-family: var(--cfr-font-body);
 }
 
-
-/* ==========================================================
-   RESET
-========================================================== */
-
-.nb-wedding *,
-.nb-wedding *::before,
-.nb-wedding *::after {
+.cfr-theme *,
+.cfr-theme *::before,
+.cfr-theme *::after {
   box-sizing: border-box;
 }
 
-
-.nb-wedding img {
+.cfr-theme img {
   display: block;
   max-width: 100%;
 }
 
-
-.nb-wedding button,
-.nb-wedding input,
-.nb-wedding textarea {
+.cfr-theme button,
+.cfr-theme input,
+.cfr-theme textarea {
   font: inherit;
 }
 
 
 /* ==========================================================
-   MAIN
+   KHUNG THIỆP
 ========================================================== */
 
-.invitation {
+.cfr-invitation {
   position: relative;
+  isolation: isolate;
 
-  width: min(48rem, 100%);
-
+  width: min(480px, 100%);
   min-height: 100vh;
 
   margin: 0 auto;
 
-  overflow: hidden;
+  overflow-x: clip;
 
-  color: var(--red);
-
-  background: var(--paper);
-
-  box-shadow:
-    0 15px 60px rgba(64, 35, 15, 0.16);
+  background-color: var(--cfr-cream);
 }
 
 
 /* ==========================================================
-   PAPER
-   CHỈ PAPER OPACITY 0.15
+   NỀN HOA
 ========================================================== */
 
-.invitation::before {
-  content: "";
-
+.cfr-garland {
   position: absolute;
-
-  inset: 0;
+  top: -20px;
+  left: 50%;
 
   z-index: 0;
 
+  width: 90%;
+
+  transform: translateX(-50%);
+
+  overflow: hidden;
+
   pointer-events: none;
-
-  background-image:
-    url("@/assets/nhat-binh-do-red/paper.webp");
-
-  background-repeat: repeat-y;
-
-  background-position: center top;
-
-  background-size: 100% auto;
-
-  opacity: 0.15;
 }
 
-
-/* ==========================================================
-   GENERIC SECTION
-========================================================== */
-
-.section {
-  position: relative;
-
-  z-index: 2;
-
+.cfr-garland img {
   width: 100%;
-
-  padding:
-    40px 25px;
-}
-
-
-/* ==========================================================
-   HERO
-   KHÔNG KHUNG
-========================================================== */
-
-.hero-section {
-  position: relative;
-
-  min-height: 650px;
-
-  padding: 0;
-
-  z-index: 2;
-}
-
-
-/* ==========================================================
-   2 KHUNG CHÍNH
-========================================================== */
-
-.framed-section {
-  position: relative;
-
-  z-index: 5;
-
-  width: calc(100% - 36px);
-
-  margin:
-    25px auto;
-
-  padding:
-    48px 24px;
-
-  border:
-    1px solid
-    rgba(151, 21, 25, 0.38);
-
-  background:
-    rgba(255, 249, 235, 0.28);
-
-  box-shadow:
-    inset 0 0 35px
-    rgba(151, 21, 25, 0.025);
-}
-
-
-/* ==========================================================
-   KHUNG THÔNG TIN LỄ CƯỚI
-========================================================== */
-
-.wedding-info-frame {
-
-  margin-top: 10px;
-
-  border-radius:
-    18px 18px 4px 4px;
-
-}
-
-
-/* ==========================================================
-   KHUNG THÔNG TIN TIỆC CƯỚI
-========================================================== */
-
-.party-info-frame {
-
-  margin-top: 35px;
-
-  margin-bottom: 35px;
-
-  border-radius: 4px 4px 18px 18px;
-
-}
-
-
-/* ==========================================================
-   FRAME CONTENT
-========================================================== */
-
-.framed-content {
-  position: relative;
-
-  z-index: 3;
-
-  width: 100%;
-}
-
-
-/* ==========================================================
-   FRAME CORNERS
-========================================================== */
-
-.frame-decoration {
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 8;
-}
-
-
-.frame-corner {
-  position: absolute;
-
-  width: 78px;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.frame-corner-tl {
-  top: -1px;
-  left: -1px;
-}
-
-
-.frame-corner-tr {
-  top: -1px;
-  right: -1px;
+  height: auto;
 
   transform: scaleX(-1);
 }
 
+.cfr-blooms {
+  position: absolute;
+  inset: 0;
 
-.frame-corner-bl {
-  bottom: -1px;
-  left: -1px;
+  z-index: 0;
 
-  transform: scaleY(-1);
+  overflow: hidden;
+
+  pointer-events: none;
 }
 
+.cfr-bloom {
+  position: absolute;
 
-.frame-corner-br {
-  right: -1px;
-  bottom: -1px;
+  width: 50%;
+  height: auto;
 
-  transform: scale(-1);
+  object-fit: contain;
+
+  opacity: 0.07;
+}
+
+.cfr-bloom.is-left {
+  left: -10%;
+
+  transform: rotate(20deg);
+}
+
+.cfr-bloom.is-right {
+  right: -10%;
+
+  transform: scaleX(-1) rotate(-20deg);
 }
 
 
 /* ==========================================================
-   HERO CLOUD
+   NỘI DUNG
 ========================================================== */
 
-.hero-cloud {
-  position: absolute;
+.cfr-content {
+  position: relative;
+  z-index: 10;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+
+  padding: 0 12px 40px;
+}
+
+.cfr-section {
+  position: relative;
   z-index: 3;
 
-  pointer-events: none;
-
-  user-select: none;
+  width: 100%;
 }
 
-
-.hero-cloud-left {
-  top: -15px;
-
-  left: -45px;
-
-  width: 230px;
-
-  opacity: .9;
+.cfr-section--hero {
+  padding: 0;
 }
 
-
-.hero-cloud-small {
-  position: absolute;
-
+.cfr-filigree {
+  position: relative;
   z-index: 3;
 
-  pointer-events: none;
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
 }
 
-
-.hero-cloud-small-right {
-  top: 105px;
-
-  right: -35px;
-
-  width: 135px;
-
-  opacity: .7;
-
-  transform:
-    scaleX(-1);
-}
-
-
-/* ==========================================================
-   HERO FLOWER
-========================================================== */
-
-.hero-flower {
-  position: absolute;
-
-  z-index: 4;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.hero-flower-left {
-  top: 20px;
-
-  left: 10px;
-
-  width: 105px;
-
-  opacity: .8;
-
-  transform:
-    rotate(-10deg);
-}
-
-
-.hero-flower-right {
-  top: 30px;
-
-  right: 10px;
-
-  width: 100px;
-
-  opacity: .8;
-
-  transform:
-    scaleX(-1)
-    rotate(-10deg);
-}
-
-
-/* ==========================================================
-   STORY
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   ALBUM
-   KHÔNG KHUNG
-========================================================== */
-
-
-
-/* ==========================================================
-   COUNTDOWN
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   MAP
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   GIFT
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   GUESTBOOK
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   FOOTER
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   BOTTOM DECORATION
-========================================================== */
-
-.cloud-bottom {
-  position: absolute;
-
-  right: -45px;
-
-  bottom: 10px;
-
+.cfr-filigree img {
   width: 250px;
+  height: auto;
 
-  z-index: 3;
-
-  opacity: .9;
-
-  pointer-events: none;
-
-  transform:
-    scaleX(-1);
-}
-
-
-.lantern-bottom {
-  position: absolute;
-
-  right: 35px;
-
-  bottom: 55px;
-
-  width: 70px;
-
-  z-index: 4;
-
-  opacity: .9;
-
-  pointer-events: none;
-}
-
-
-.fan-bottom {
-  position: absolute;
-
-  left: 15px;
-
-  bottom: 55px;
-
-  width: 90px;
-
-  z-index: 4;
-
-  opacity: .85;
-
-  pointer-events: none;
-
-  transform:
-    rotate(-8deg);
-}
-
-
-.flower-bottom {
-  position: absolute;
-
-  left: 55px;
-
-  bottom: 15px;
-
-  width: 110px;
-
-  z-index: 4;
-
-  opacity: .8;
-
-  pointer-events: none;
+  object-fit: contain;
 }
 
 
 /* ==========================================================
-   MOBILE
-========================================================== */
+   TIÊU ĐỀ DÙNG CHUNG
+========================================================= */
 
-@media (max-width: 768px) {
+.cfr-theme :deep(.cfr-title) {
+  margin: 0;
 
-  .invitation {
-    width: 100%;
+  color: var(--cfr-red);
 
-    box-shadow: none;
-  }
+  font-family: var(--cfr-font-heading);
+  font-size: 20px;
+  font-weight: 700;
 
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
 
-  .section {
-    padding-left: 18px;
+.cfr-theme :deep(.cfr-lead) {
+  margin: 6px 0 0;
 
-    padding-right: 18px;
-  }
+  color: var(--cfr-red);
 
+  font-family: var(--cfr-font-body);
+  font-size: 14px;
 
-  .framed-section {
-    width: calc(100% - 24px);
+  line-height: 1.6;
+  text-align: center;
 
-    padding:
-      42px 18px;
-  }
+  opacity: 0.7;
+}
 
+.cfr-theme :deep(.cfr-pill) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  .frame-corner {
-    width: 68px;
-  }
+  min-height: 40px;
 
+  padding: 0 24px;
 
-  .hero-section {
-    min-height: 620px;
-  }
+  border: none;
+  border-radius: 999px;
 
+  background-color: var(--cfr-red);
+  color: #ffffff;
 
-  .hero-cloud-left {
-    width: 190px;
+  font-family: var(--cfr-font-body);
+  font-size: 14px;
+  font-weight: 600;
 
-    left: -45px;
-  }
+  letter-spacing: 0.05em;
 
+  cursor: pointer;
 
-  .hero-cloud-small-right {
-    width: 110px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
 
-    right: -30px;
-  }
+.cfr-theme :deep(.cfr-pill:hover:not(:disabled)) {
+  transform: scale(1.03);
+}
 
+.cfr-theme :deep(.cfr-pill:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-  .hero-flower-left {
-    width: 85px;
-  }
+.cfr-theme :deep(.cfr-link) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
+  color: var(--cfr-red-deep);
 
-  .hero-flower-right {
-    width: 80px;
-  }
+  font-family: var(--cfr-font-body);
+  font-size: 14px;
 
+  letter-spacing: 0.05em;
+
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+
+  transition: opacity 0.2s ease;
+}
+
+.cfr-theme :deep(.cfr-link:hover) {
+  opacity: 0.7;
 }
 
 
 /* ==========================================================
-   SMALL MOBILE
-========================================================== */
+   DESKTOP
+========================================================= */
 
-@media (max-width: 420px) {
+@media (min-width: 900px) {
+  .cfr-invitation {
+    width: min(900px, 100%);
 
-  .hero-section {
-    min-height: 580px;
+    border-left: 1px solid var(--cfr-hairline-soft);
+    border-right: 1px solid var(--cfr-hairline-soft);
   }
 
-
-  .framed-section {
-    width: calc(100% - 18px);
-
-    padding:
-      38px 14px;
+  .cfr-garland {
+    top: -40px;
   }
 
+  .cfr-content {
+    gap: 48px;
 
-  .frame-corner {
-    width: 60px;
+    padding: 0 24px 64px;
   }
 
-
-  .hero-cloud-left {
-    width: 165px;
+  .cfr-filigree img {
+    width: 360px;
   }
 
-
-  .hero-cloud-small-right {
-    width: 95px;
+  .cfr-theme :deep(.cfr-title) {
+    font-size: 24px;
   }
 
-
-  .hero-flower-left {
-    width: 72px;
+  .cfr-theme :deep(.cfr-lead) {
+    font-size: 16px;
   }
 
+  .cfr-theme :deep(.cfr-pill) {
+    min-height: 44px;
 
-  .hero-flower-right {
-    width: 70px;
+    font-size: 16px;
   }
-
-
-  .cloud-bottom {
-    width: 200px;
-  }
-
 }
 </style>
-

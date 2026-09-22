@@ -1,42 +1,27 @@
 <template>
-  <footer class="bt-footer">
-    <div class="bt-footer__glow bt-footer__glow--left"></div>
-    <div class="bt-footer__glow bt-footer__glow--right"></div>
+  <footer class="bq-footer">
+    <img
+      :src="goldenLine"
+      alt=""
+      aria-hidden="true"
+      class="bq-footer__line"
+      draggable="false"
+    />
 
-    <div class="bt-footer__pampas bt-footer__pampas--1">❋</div>
-    <div class="bt-footer__pampas bt-footer__pampas--2">✽</div>
-    <div class="bt-footer__pampas bt-footer__pampas--3">❁</div>
+    <div class="bq-footer__inner">
+      <p class="bq-footer__kicker">SAVE THE DATE</p>
 
-    <div class="bt-footer__inner">
-      <div class="bt-footer__ring">
-        <span class="bt-footer__ring-inner">{{ monogram }}</span>
-      </div>
-
-      <p class="bt-footer__monogram-label">SAVE THE DATE</p>
-
-      <h2 class="bt-footer__names">
-        {{ groomName }}
-
-        <span>&</span>
-
-        {{ brideName }}
+      <h2 class="bq-footer__names">
+        <span>{{ groomName }}</span>
+        <i>&amp;</i>
+        <span>{{ brideName }}</span>
       </h2>
 
-      <div class="bt-footer__line">
-        <span></span>
+      <p class="bq-footer__thanks">{{ thanksMessage }}</p>
 
-        <i>❋</i>
+      <p v-if="weddingDate" class="bq-footer__date">{{ weddingDate }}</p>
 
-        <span></span>
-      </div>
-
-      <p class="bt-footer__thanks">
-        {{ thanksMessage }}
-      </p>
-
-      <div class="bt-footer__date">{{ weddingDate }}</div>
-
-      <small class="bt-footer__copyright">© {{ currentYear }} · {{ copyrightText }}</small>
+      <small class="bq-footer__copyright">© {{ currentYear }} · {{ copyrightText }}</small>
     </div>
   </footer>
 </template>
@@ -44,474 +29,199 @@
 <script setup>
 import { computed } from "vue";
 
+import { goldenLine } from "./bohoTerracottaAssets";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
-  monogram: { type: String, default: "G&B" },
+  monogram: { type: String, default: "&" },
   currentYear: { type: Number, default: 2026 },
 });
 
 const wedding = computed(() => props.wedding || {});
 
-const groomName = computed(() => {
-  return (
+const groomName = computed(
+  () =>
     wedding.value?.footer?.GroomName ||
     wedding.value?.GroomName ||
     wedding.value?.groomName ||
     wedding.value?.hero?.GroomName ||
     wedding.value?.couple?.Groom?.Name ||
     ""
-  );
-});
+);
 
-const brideName = computed(() => {
-  return (
+const brideName = computed(
+  () =>
     wedding.value?.footer?.BrideName ||
     wedding.value?.BrideName ||
     wedding.value?.brideName ||
     wedding.value?.hero?.BrideName ||
     wedding.value?.couple?.Bride?.Name ||
     ""
-  );
-});
+);
 
-const thanksMessage = computed(() => {
-  return (
+const thanksMessage = computed(
+  () =>
     wedding.value?.footer?.Message ||
     "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
-  );
-});
+);
 
-const copyrightText = computed(() => {
-  return wedding.value?.footer?.Copyright || "Made with love";
-});
+const copyrightText = computed(
+  () => wedding.value?.footer?.Copyright || "Made with love"
+);
 
 const weddingDate = computed(() => {
-  return wedding.value?.weddingDate || wedding.value?.hero?.WeddingDate || wedding.value?.hero?.weddingDate || "";
+  const raw =
+    wedding.value?.weddingDate ||
+    wedding.value?.hero?.WeddingDate ||
+    wedding.value?.hero?.weddingDate ||
+    "";
+
+  if (!raw) return "";
+
+  const date = new Date(raw);
+
+  if (Number.isNaN(date.getTime())) return String(raw);
+
+  return date.toLocaleDateString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 });
 </script>
 
 <style scoped>
-.bt-footer {
+.bq-footer {
   position: relative;
+  isolation: isolate;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   width: 100%;
-  min-height: 400px;
 
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  color: #5c4636;
+  padding: 0 24px 40px;
 
   text-align: center;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  background: linear-gradient(180deg, #faf3ec 0%, #f2e2d0 55%, #e3c4a6 100%);
+  color: var(--bq-ink);
 }
 
-/* =====================================================
-   DECORATIVE FRAME
-===================================================== */
+.bq-footer__line {
+  display: block;
 
-.bt-footer::before {
-  content: "";
+  width: 74.5%;
+  max-width: 309px;
+  height: auto;
 
-  position: absolute;
+  margin: 0 auto 24px;
 
-  inset: 14px;
+  object-fit: contain;
 
-  border: 2px dashed rgba(156, 91, 63, 0.4);
-
-  border-radius: 60% 60% 26px 26px / 10% 10% 26px 26px;
-
-  pointer-events: none;
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-footer::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 20px;
-
-  border: 1px solid rgba(156, 91, 63, 0.18);
-
-  border-radius: 60% 60% 20px 20px / 10% 10% 20px 20px;
-
-  pointer-events: none;
-}
-
-/* =====================================================
-   GLOW
-===================================================== */
-
-.bt-footer__glow {
-  position: absolute;
-
-  z-index: 1;
-
-  width: 240px;
-  height: 240px;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  filter: blur(10px);
-}
-
-.bt-footer__glow--left {
-  left: -90px;
-  bottom: -70px;
-
-  background: radial-gradient(circle, rgba(217, 176, 140, 0.55), transparent 70%);
-}
-
-.bt-footer__glow--right {
-  right: -90px;
-  top: -60px;
-
-  background: radial-gradient(circle, rgba(201, 123, 93, 0.22), transparent 70%);
-}
-
-/* =====================================================
-   PAMPAS STROKES
-===================================================== */
-
-.bt-footer__pampas {
-  position: absolute;
-
-  z-index: 1;
-
-  color: rgba(156, 91, 63, 0.28);
-
-  pointer-events: none;
-
-  animation: bt-footer-sway 6s ease-in-out infinite;
-}
-
-.bt-footer__pampas--1 {
-  top: 44px;
-  left: 30px;
-
-  font-size: 20px;
-}
-
-.bt-footer__pampas--2 {
-  top: 90px;
-  right: 38px;
-
-  font-size: 15px;
-
-  animation-delay: 1.4s;
-}
-
-.bt-footer__pampas--3 {
-  bottom: 60px;
-  right: 70px;
-
-  font-size: 12px;
-
-  color: rgba(201, 123, 93, 0.4);
-
-  animation-delay: 2.6s;
-}
-
-@keyframes bt-footer-sway {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-8deg);
-  }
-
-  50% {
-    transform: translateY(-9px) rotate(10deg);
-  }
-}
-
-/* =====================================================
-   INNER
-===================================================== */
-
-.bt-footer__inner {
-  position: relative;
-
-  z-index: 3;
-
+.bq-footer__inner {
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
-  box-sizing: border-box;
-
-  min-height: 400px;
-
-  padding: 50px 24px 28px;
 }
 
-/* =====================================================
-   MONOGRAM RING
-===================================================== */
+.bq-footer__kicker {
+  margin: 0;
 
-.bt-footer__ring {
-  position: relative;
+  color: var(--bq-accent);
 
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.bq-footer__names {
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  width: 84px;
-  height: 84px;
-
-  border: 1px solid rgba(156, 91, 63, 0.55);
-
-  border-radius: 50% 50% 50% 20%;
-
-  background: rgba(255, 251, 245, 0.8);
-
-  box-shadow: 0 8px 24px rgba(92, 70, 54, 0.1);
-
-  transform: rotate(-3deg);
-}
-
-.bt-footer__ring::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 6px;
-
-  border: 1px dashed rgba(201, 123, 93, 0.45);
-
-  border-radius: 50% 50% 50% 20%;
-}
-
-.bt-footer__ring-inner {
-  font-family: "Allura", cursive;
-
-  font-size: 30px;
-
-  color: #9c5b3f;
-
-  line-height: 1;
-}
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.bt-footer__monogram-label {
-  margin: 16px 0 0;
-
-  color: #8a9b7c;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.34em;
-  text-indent: 0.34em;
-}
-
-/* =====================================================
-   NAMES
-===================================================== */
-
-.bt-footer__names {
-  margin: 10px 0 0;
-
-  font-family: "Allura", cursive;
-
-  font-size: clamp(30px, 8vw, 40px);
-
-  font-weight: 400;
-
-  line-height: 1.25;
-
-  color: #9c5b3f;
-}
-
-.bt-footer__names span {
-  display: inline-block;
-
-  margin: 0 8px;
-
-  color: #c97b5d;
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: 0.62em;
-
-  font-style: italic;
-}
-
-/* =====================================================
-   LINE
-===================================================== */
-
-.bt-footer__line {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   gap: 10px;
 
-  width: 100%;
+  margin: 14px 0 0;
 
-  margin: 15px 0 14px;
+  color: var(--bq-accent);
+
+  font-family: "Viaoda Libre", "EB Garamond", serif;
+  font-size: clamp(24px, 7vw, 32px);
+  font-weight: 400;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
 }
 
-.bt-footer__line span {
-  width: 46px;
-  height: 1px;
+.bq-footer__names i {
+  color: var(--bq-accent);
 
-  background: linear-gradient(to right, transparent, rgba(156, 91, 63, 0.8));
-}
-
-.bt-footer__line span:last-child {
-  background: linear-gradient(to left, transparent, rgba(156, 91, 63, 0.8));
-}
-
-.bt-footer__line i {
-  color: #c97b5d;
-
-  font-size: 12px;
-
+  font-family: "Ms Madi", cursive;
+  font-size: 0.8em;
   font-style: normal;
 }
 
-/* =====================================================
-   THANK YOU
-===================================================== */
+.bq-footer__thanks {
+  max-width: 320px;
+  margin: 18px auto 0;
 
-.bt-footer__thanks {
-  max-width: 300px;
-
-  margin: 0 auto;
-
-  color: #8a6f5c;
-
-  font-size: 11px;
-
-  line-height: 1.85;
-
-  letter-spacing: 0.14em;
-
-  white-space: pre-line;
-}
-
-/* =====================================================
-   DATE
-===================================================== */
-
-.bt-footer__date {
-  margin-top: 18px;
-
-  padding: 8px 18px;
-
-  color: #9c5b3f;
+  color: var(--bq-soft);
 
   font-size: 12px;
 
-  font-weight: 600;
-
-  letter-spacing: 0.22em;
-
-  border-top: 1px dashed rgba(156, 91, 63, 0.4);
-
-  border-bottom: 1px dashed rgba(156, 91, 63, 0.4);
+  line-height: 1.7;
 }
 
-/* =====================================================
-   COPYRIGHT
-===================================================== */
+.bq-footer__date {
+  margin: 12px 0 0;
 
-.bt-footer__copyright {
-  display: block;
+  color: var(--bq-ink);
 
-  margin-top: auto;
+  font-size: 12px;
 
-  padding-top: 24px;
-
-  color: #b09a8c;
-
-  font-size: 11px;
-
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+.bq-footer__copyright {
+  margin-top: 20px;
 
-@media (max-width: 420px) {
-  .bt-footer {
-    min-height: 370px;
-  }
+  color: var(--bq-muted);
 
-  .bt-footer::before {
-    inset: 10px;
-  }
+  font-size: 10px;
 
-  .bt-footer::after {
-    inset: 15px;
-  }
-
-  .bt-footer__inner {
-    min-height: 370px;
-
-    padding: 44px 20px 24px;
-  }
-
-  .bt-footer__ring {
-    width: 74px;
-    height: 74px;
-  }
-
-  .bt-footer__ring-inner {
-    font-size: 26px;
-  }
-
-  .bt-footer__monogram-label {
-    margin-top: 13px;
-
-    font-size: 10px;
-  }
-
-  .bt-footer__names {
-    margin-top: 8px;
-  }
-
-  .bt-footer__thanks {
-    max-width: 260px;
-
-    font-size: 10px;
-  }
-
-  .bt-footer__date {
-    margin-top: 15px;
-
-    font-size: 11px;
-  }
-
-  .bt-footer__copyright {
-    font-size: 10px;
-  }
+  letter-spacing: 0.1em;
 }
 
-/* =====================================================
-   REDUCE MOTION
-===================================================== */
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
-  .bt-footer__pampas {
-    animation: none;
+@media (min-width: 768px) {
+  .bq-footer {
+    padding-bottom: 48px;
+  }
+
+  .bq-footer__line {
+    max-width: 420px;
+  }
+
+  .bq-footer__thanks {
+    max-width: 440px;
+
+    font-size: 14px;
+  }
+
+  .bq-footer__date {
+    font-size: 14px;
   }
 }
 </style>

@@ -1,23 +1,23 @@
 <template>
   <div class="double-happiness-theme">
-    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" />
+    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="dh-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
 
       <div class="dh-content">
-        <section v-if="showCouple" class="dh-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" /></section>
-        <section v-if="showStory && wedding?.story" class="dh-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showCouple" class="dh-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" /></section>
+        <section v-if="showStory && wedding?.story" class="dh-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
         <section v-if="showEvents && events.length" class="dh-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" /></section>
-        <section v-if="showTimeline && timeline.length" class="dh-section"><Timeline :timeline="timeline" :events="events" /></section>
-        <section v-if="showCountdown" class="dh-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" /></section>
-        <section v-if="showGallery && gallery.length" class="dh-section"><WeddingGallery :gallery="gallery" /></section>
+        <section v-if="showTimeline && timeline.length" class="dh-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
+        <section v-if="showCountdown" class="dh-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="dh-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
       </div>
 
-      <section v-if="showMap && events.length" class="dh-section"><WeddingMap :events="events" /></section>
-      <section v-if="showGift && gifts.length" class="dh-section"><WeddingGifts :gifts="gifts" /></section>
-      <section v-if="showGuestBook" class="dh-section"><WeddingWishes :wishes="wishes" :wedding="wedding" /></section>
+      <section v-if="showMap && events.length" class="dh-section"><WeddingMap :events="events" :sections="sections" /></section>
+      <section v-if="showGift && gifts.length" class="dh-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
+      <section v-if="showGuestBook" class="dh-section"><WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" /></section>
 
-      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
+      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" :sections="sections" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
   </div>
@@ -61,6 +61,7 @@ const opened = ref(false);
 const floatingMusicRef = ref(null);
 const currentYear = new Date().getFullYear();
 const settings = computed(() => wedding.value?.settings || {});
+const sections = computed(() => wedding.value?.sections || {});
 const events = computed(() => Array.isArray(wedding.value?.events) ? wedding.value.events : []);
 const timeline = computed(() => Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []);
 const gallery = computed(() => Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []);

@@ -67,7 +67,7 @@
     <!-- ============ NGÀY GIỜ ============ -->
 
     <div class="tr-info__when">
-      <p v-if="ceremonyPlace" class="tr-info__when-place">
+      <p class="tr-info__when-place">
         LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />{{ ceremonyPlace }}
       </p>
 
@@ -176,7 +176,7 @@ const ceremonyPlace = computed(
     firstEvent.value?.Location ||
     firstEvent.value?.Address ||
     props.wedding?.hero?.Location ||
-    ""
+    "TƯ GIA"
 );
 
 const ceremonyTime = computed(() => {
@@ -254,7 +254,11 @@ const year = computed(() => {
 });
 
 const lunar = computed(
-  () => firstEvent.value?.Lunar || props.wedding?.weddingLunar || ""
+  () =>
+    firstEvent.value?.Lunar ||
+    props.wedding?.weddingLunar ||
+    props.wedding?.WeddingLunar ||
+    ""
 );
 </script>
 

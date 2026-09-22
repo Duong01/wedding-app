@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <p class="dh-opening__eyebrow">THIỆP MỜI CƯỚI</p>
+    <p class="dh-opening__eyebrow">{{ eyebrow }}</p>
 
     <!-- =====================================================
          INVITATION CARD
@@ -45,7 +45,7 @@
           <span>{{ monogram }}</span>
         </div>
 
-        <p class="dh-card__invite">Trân trọng kính mời</p>
+        <p class="dh-card__invite">{{ inviteText }}</p>
 
         <h1>{{ guestName }}</h1>
 
@@ -73,13 +73,13 @@
         <v-icon size="15">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="dh-open-btn__text">CHẠM ĐỂ MỞ THIỆP</span>
+      <span class="dh-open-btn__text">{{ buttonText }}</span>
     </button>
 
     <p class="dh-hint">
-      <span></span>
-      Một lời mời · Một câu chuyện · Một ngày đặc biệt
-      <span></span>
+      <span class="dh-hint__line"></span>
+      <span class="dh-hint__text">{{ hintText }}</span>
+      <span class="dh-hint__line"></span>
     </p>
   </section>
 </template>
@@ -87,15 +87,39 @@
 <script setup>
 import { computed, ref } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },
   dateLabel: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
 });
 
 const emit = defineEmits(["open"]);
 
 const opening = ref(false);
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "opening", "Eyebrow", "THIỆP MỜI CƯỚI")
+);
+
+const inviteText = computed(() =>
+  sectionText(props.sections, "opening", "Invite", "Trân trọng kính mời")
+);
+
+const buttonText = computed(() =>
+  sectionText(props.sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP")
+);
+
+const hintText = computed(() =>
+  sectionText(
+    props.sections,
+    "opening",
+    "Hint",
+    "Một lời mời · Một câu chuyện · Một ngày đặc biệt"
+  )
+);
 
 const groomName = computed(
   () =>
@@ -328,6 +352,10 @@ function openInvitation() {
 
   letter-spacing: 0.42em;
   text-indent: 0.42em;
+
+  /* Nội dung có thể do người dùng nhập. */
+  text-align: center;
+  white-space: pre-line;
 }
 
 /* =========================================================
@@ -445,6 +473,10 @@ function openInvitation() {
 
   letter-spacing: 0.26em;
   text-indent: 0.26em;
+
+  /* Nội dung có thể do người dùng nhập. */
+  text-align: center;
+  white-space: pre-line;
 }
 
 .dh-card__inner h1 {
@@ -582,6 +614,15 @@ function openInvitation() {
   align-items: center;
 }
 
+/*
+ * Nhãn nút do người dùng nhập — cho phép xuống dòng
+ * thay vì tràn ra ngoài viên thuốc.
+ */
+.dh-open-btn__text {
+  text-align: center;
+  white-space: pre-line;
+}
+
 /* =========================================================
    HINT
 ========================================================= */
@@ -602,14 +643,25 @@ function openInvitation() {
   letter-spacing: 0.06em;
 }
 
-.dh-hint span {
+/*
+ * Nội dung do người dùng nhập có thể dài hơn câu mặc
+ * định nên cho phép xuống dòng, canh giữa.
+ */
+.dh-hint__text {
+  text-align: center;
+  white-space: pre-line;
+}
+
+.dh-hint__line {
+  flex: 0 0 auto;
+
   width: 34px;
   height: 1px;
 
   background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.7));
 }
 
-.dh-hint span:last-child {
+.dh-hint__line:last-child {
   transform: rotate(180deg);
 }
 

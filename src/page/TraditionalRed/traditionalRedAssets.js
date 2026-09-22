@@ -13,4 +13,22 @@ import phuong from "@/assets/longphung/phuong.webp";
 import rong from "@/assets/longphung/rong.webp";
 import rongPhuong from "@/assets/longphung/rong-phuong.webp";
 
-export { bgFrame, chuHy, cloud, envelope, phuong, rong, rongPhuong };
+/*
+ * Ảnh phong bì hộp quà mừng.
+ *
+ * Mẫu gốc dùng /images/envelope/dragon_phoenix_v2.webp — hiện chưa có
+ * trong repo nên tạm dùng chung envelope.webp của bộ long phụng.
+ * Khi có file mới, chỉ cần đổi import này.
+ */
+const envelopeDragonPhoenix = envelope;
+
+export {
+  bgFrame,
+  chuHy,
+  cloud,
+  envelope,
+  envelopeDragonPhoenix,
+  phuong,
+  rong,
+  rongPhuong,
+};

@@ -166,17 +166,16 @@ export const THEME_META = {
   },
 
   "emerald-luxe": {
-    name: "Lục Bảo",
+    name: "Chibi Đỏ",
     collection: "kim-lua",
-    dark: true,
     palette: {
-      bg: "#123b2e",
-      ink: "#e8d3a2",
-      soft: "rgba(232, 211, 162, 0.62)",
-      accent: "#c9a45c",
-      seal: "#c9a45c",
+      bg: "#fef0e0",
+      ink: "#4c2d1f",
+      soft: "rgba(98, 69, 55, 0.72)",
+      accent: "#e1c490",
+      seal: "#4c2d1f",
     },
-    orn: "✦",
+    orn: "❀",
   },
 
   "royal-red": {
@@ -285,42 +284,43 @@ export const THEME_META = {
   },
 
   "boho-terracotta": {
-    name: "Đất Nung Boho",
-    collection: "thien-nhien",
+    name: "Baroque Đỏ Sẫm",
+    collection: "kim-lua",
+    dark: true,
     palette: {
-      bg: "#faf3ec",
-      ink: "#5c4636",
-      soft: "#93826f",
-      accent: "#c97b5d",
-      seal: "#9c5b3f",
-    },
-    orn: "❋",
-  },
-
-  "vintage-sepia": {
-    name: "Sepia Cổ Điển",
-    collection: "thien-nhien",
-    palette: {
-      bg: "#f6efe2",
-      ink: "#4a3a2c",
-      soft: "#8f816d",
-      accent: "#97745a",
-      seal: "#6b4f3a",
+      bg: "#2b0303",
+      ink: "#ffefd6",
+      soft: "rgba(255, 239, 214, 0.65)",
+      accent: "#ffdfaf",
+      seal: "#ffdfaf",
     },
     orn: "❦",
   },
 
-  "ocean-breeze": {
-    name: "Gió Biển",
+  "song-hy-red": {
+    name: "Song Hỷ Đỏ",
     collection: "thien-nhien",
     palette: {
-      bg: "#f4fafc",
-      ink: "#274b5c",
-      soft: "#7d99a5",
-      accent: "#4a9ab8",
-      seal: "#1d6a8e",
+      bg: "#fff7eb",
+      ink: "#666666",
+      soft: "#a52a2a",
+      accent: "#fbbf24",
+      seal: "#800000",
     },
-    orn: "❋",
+    orn: "囍",
+  },
+
+  "to-duyen-xanh": {
+    name: "Tơ Duyên Xanh",
+    collection: "thien-nhien",
+    palette: {
+      bg: "#fefbf4",
+      ink: "#1a3500",
+      soft: "#5e813c",
+      accent: "#d1db9c",
+      seal: "#5e813c",
+    },
+    orn: "❀",
   },
 
   /* =====================================================

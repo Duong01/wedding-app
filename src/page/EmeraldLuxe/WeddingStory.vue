@@ -1,19 +1,39 @@
 <template>
-  <section class="el-story">
-    <p class="el-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+  <section class="cr-story">
+    <img
+      :src="decorativeFlowers"
+      alt=""
+      aria-hidden="true"
+      class="cr-story__flowers"
+      draggable="false"
+    />
 
-    <h2>{{ storyTitle }}</h2>
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">{{ storyTitle || "Chuyện tình yêu" }}</h2>
 
-    <div class="el-quote">“</div>
+      <p class="cr-heading__zh">愛情故事</p>
 
-    <p>{{ content }}</p>
+      <div class="cr-heading__ornament" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
+      </div>
+    </header>
 
-    <div class="el-tail">❦</div>
+    <div class="cr-story__card">
+      <span class="cr-story__quote" aria-hidden="true">“</span>
+
+      <p class="cr-story__content">{{ content }}</p>
+
+      <span class="cr-story__tail" aria-hidden="true">❀</span>
+    </div>
   </section>
 </template>
 
 <script setup>
 import { computed } from "vue";
+
+import { decorativeFlowers } from "./emeraldLuxeAssets";
 
 const props = defineProps({ story: { type: [String, Object], default: "" } });
 
@@ -29,101 +49,152 @@ const storyTitle = computed(() =>
 </script>
 
 <style scoped>
-.el-story {
+.cr-story {
   position: relative;
 
   text-align: center;
 
-  color: #2e3d36;
-
-  padding: 10px 22px;
+  color: var(--cr-ink);
 }
 
-/* Soft gold blob backdrop */
-.el-story::before {
-  content: "";
+.cr-story__flowers {
   position: absolute;
 
-  top: 50%;
-  left: 50%;
+  top: 30px;
+  left: -22px;
 
-  width: min(88%, 420px);
-  height: 78%;
+  width: 100px;
+  height: 100px;
 
-  transform: translate(-50%, -50%) rotate(-2deg);
+  object-fit: contain;
 
-  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
-
-  background: rgba(201, 164, 92, 0.14);
+  opacity: 0.45;
 
   pointer-events: none;
 }
 
-.el-eyebrow {
+/* =========================================================
+   TIÊU ĐỀ
+========================================================= */
+
+.cr-heading {
   position: relative;
 
+  text-align: center;
+}
+
+.cr-heading__vi {
   margin: 0;
 
-  color: #8a7a52;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: 10px;
-  font-weight: 700;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
 
   letter-spacing: 0.3em;
   text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
 }
 
-.el-story h2 {
-  position: relative;
+.cr-heading__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  margin: 6px 0 4px;
+  margin-top: 12px;
 
-  font-family: "Great Vibes", cursive;
-  font-size: clamp(30px, 8vw, 40px);
-  font-weight: 400;
-
-  color: #123b2e;
+  color: var(--cr-accent);
 }
 
-/* Big decorative quote mark */
-.el-quote {
+.cr-heading__ornament span {
+  width: 52px;
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
+}
+
+.cr-heading__ornament span:last-child {
+  transform: rotate(180deg);
+}
+
+.cr-heading__ornament i {
+  font-size: 13px;
+  font-style: normal;
+}
+
+/* =========================================================
+   NỘI DUNG
+========================================================= */
+
+.cr-story__card {
   position: relative;
 
-  height: 35px;
+  margin-top: 22px;
+  padding: 26px 22px 22px;
 
-  color: #c9a45c;
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+  border-radius: 16px;
 
-  font: 64px Georgia, serif;
+  background: rgba(var(--cr-surface-rgb), 0.85);
+}
+
+.cr-story__quote {
+  position: absolute;
+
+  top: 2px;
+  left: 14px;
+
+  color: rgba(var(--cr-accent-rgb), 0.9);
+
+  font: 62px Georgia, serif;
   line-height: 1;
-
-  transform: rotate(-4deg);
 }
 
-.el-story p {
+.cr-story__content {
   position: relative;
 
-  max-width: 400px;
+  max-width: 420px;
   margin: 0 auto;
 
-  font-size: clamp(15px, 4.2vw, 18px);
+  color: var(--cr-soft);
+
+  font-size: clamp(14px, 3.8vw, 16px);
   font-style: italic;
 
-  line-height: 1.7;
+  line-height: 1.85;
 }
 
-.el-tail {
-  position: relative;
+.cr-story__tail {
+  display: block;
 
-  margin-top: 18px;
+  margin-top: 14px;
 
-  color: #8a7a52;
+  color: var(--cr-accent);
 
-  font-size: 15px;
+  font-size: 14px;
 
-  animation: el-tail-sway 5s ease-in-out infinite;
+  animation: cr-story-sway 5s ease-in-out infinite;
 }
 
-@keyframes el-tail-sway {
+@keyframes cr-story-sway {
   0%,
   100% {
     transform: rotate(-8deg);
@@ -135,7 +206,7 @@ const storyTitle = computed(() =>
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .el-tail {
+  .cr-story__tail {
     animation: none;
   }
 }

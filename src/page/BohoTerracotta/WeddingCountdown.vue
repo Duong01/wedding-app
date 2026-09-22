@@ -1,15 +1,11 @@
 <template>
-  <section class="bt-countdown">
-    <p class="bt-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
+  <section class="bq-countdown">
+    <h2 class="bq-countdown__title">CÙNG ĐẾM NGƯỢC</h2>
 
-    <h2>Đếm ngược</h2>
-
-    <div class="bt-countdown__grid">
-      <article v-for="item in values" :key="item.label" class="bt-countdown__item">
-        <b>{{ item.value }}</b>
-        <span>{{ item.label }}</span>
-      </article>
-    </div>
+    <p class="bq-countdown__value">
+      {{ values[0].value }} ngày {{ values[1].value }} giờ
+      {{ values[2].value }} phút {{ values[3].value }} giây
+    </p>
   </section>
 </template>
 
@@ -23,6 +19,7 @@ const props = defineProps({
 });
 
 const now = ref(Date.now());
+
 let timer;
 
 onMounted(() => {
@@ -33,7 +30,9 @@ onMounted(() => {
 
 onUnmounted(() => window.clearInterval(timer));
 
-const target = computed(() => props.countdown?.Target || props.countdown || props.weddingDate);
+const target = computed(
+  () => props.countdown?.Target || props.countdown || props.weddingDate
+);
 
 const values = computed(() => {
   const seconds = Math.max(0, dayjs(target.value).diff(dayjs(now.value), "second"));
@@ -51,115 +50,57 @@ const values = computed(() => {
 </script>
 
 <style scoped>
-.bt-countdown {
+.bq-countdown {
   position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  padding: 0 24px;
 
   text-align: center;
 
-  color: #5c4636;
-
-  padding: 6px 18px;
+  color: var(--bq-ink);
 }
 
-/* Macramé lattice texture */
-.bt-countdown::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  opacity: 0.05;
-
-  background-image:
-    repeating-linear-gradient(45deg, rgba(156, 91, 63, 0.6) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(156, 91, 63, 0.6) 0 1px, transparent 1px 18px);
-
-  pointer-events: none;
-}
-
-.bt-eyebrow {
-  position: relative;
-
+.bq-countdown__title {
   margin: 0;
 
-  color: #8a9b7c;
+  color: var(--bq-ink);
 
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.3em;
-  text-indent: 0.3em;
-}
-
-.bt-countdown h2 {
-  position: relative;
-
-  margin: 6px 0 18px;
-
-  font-family: "Allura", cursive;
-
-  font-size: clamp(30px, 8vw, 40px);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 18px;
   font-weight: 400;
 
-  color: #9c5b3f;
+  letter-spacing: 0.02em;
+
+  text-transform: uppercase;
 }
 
-.bt-countdown__grid {
-  position: relative;
+.bq-countdown__value {
+  margin: 8px 0 0;
 
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
+  color: var(--bq-ink);
 
-.bt-countdown__item {
-  padding: 16px 2px;
-
-  border: 1px dashed rgba(156, 91, 63, 0.45);
-  border-radius: 999px 999px 16px 16px;
-
-  background: linear-gradient(172deg, rgba(255, 251, 245, 0.92), rgba(242, 226, 208, 0.7));
-
-  box-shadow: 0 8px 22px rgba(92, 70, 54, 0.08);
-
-  transition: transform 0.25s ease;
-}
-
-.bt-countdown__item:nth-child(odd) {
-  transform: rotate(-1.2deg);
-}
-
-.bt-countdown__item:nth-child(even) {
-  transform: rotate(1.2deg);
-}
-
-.bt-countdown__item:hover {
-  transform: rotate(0deg) translateY(-3px);
-}
-
-.bt-countdown__item b {
-  display: block;
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  color: #9c5b3f;
-
-  font-size: clamp(22px, 7vw, 30px);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 18px;
   font-weight: 600;
 
-  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
 }
 
-.bt-countdown__item span {
-  font-size: 10px;
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
 
-  letter-spacing: 0.14em;
-
-  color: #8a9b7c;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bt-countdown__item {
-    transition: none;
+@media (min-width: 768px) {
+  .bq-countdown__title,
+  .bq-countdown__value {
+    font-size: 20px;
   }
 }
 </style>

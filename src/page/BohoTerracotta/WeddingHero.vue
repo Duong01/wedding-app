@@ -1,64 +1,81 @@
 <template>
-  <section class="bt-hero">
-    <!-- Sun + rays behind the arch -->
-    <div class="bt-hero__sun" aria-hidden="true">
-      <span v-for="n in 10" :key="n" class="bt-hero__ray" :class="`bt-hero__ray--${n}`"></span>
-      <span class="bt-hero__sun-core"></span>
-    </div>
+  <section class="bq-hero">
+    <img
+      :src="flower5"
+      alt=""
+      aria-hidden="true"
+      class="bq-hero__flower bq-hero__flower--left"
+      draggable="false"
+    />
 
-    <!-- Pampas strokes swaying at the sides -->
-    <span class="bt-hero__pampas bt-hero__pampas--left">❋</span>
-    <span class="bt-hero__pampas bt-hero__pampas--right">✽</span>
+    <img
+      :src="flower5"
+      alt=""
+      aria-hidden="true"
+      class="bq-hero__flower bq-hero__flower--right"
+      draggable="false"
+    />
 
-    <!-- Arch photo frame -->
-    <div class="bt-hero__frame">
-      <div class="bt-hero__frame-inner"></div>
+    <div class="bq-hero__inner">
+      <p class="bq-hero__kicker">{{ heroTitle }}</p>
 
-      <div class="bt-hero__photo">
-        <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" draggable="false" />
+      <!-- KHUNG ẢNH BAROQUE -->
+      <div class="bq-hero__frame">
+        <div class="bq-hero__photo">
+          <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" draggable="false" />
 
-        <div v-else class="bt-hero__photo-fallback"></div>
+          <span v-else class="bq-hero__photo-empty" aria-hidden="true">❦</span>
+        </div>
+
+        <img
+          :src="frame"
+          alt=""
+          aria-hidden="true"
+          class="bq-hero__frame-img"
+          draggable="false"
+        />
       </div>
 
-      <div class="bt-hero__content">
-        <p class="bt-hero__save-date">{{ heroTitle }}</p>
+      <!-- TÊN CÔ DÂU CHÚ RỂ -->
+      <div class="bq-hero__names">
+        <span class="bq-hero__amp" aria-hidden="true">&amp;</span>
 
-        <div class="bt-hero__motif">
-          <span></span>
-          <i>❋</i>
-          <span></span>
-        </div>
+        <span class="bq-hero__name">{{ groomName }}</span>
 
-        <h1>
-          {{ groomName }}
-          <i>&amp;</i>
-          {{ brideName }}
-        </h1>
+        <span class="bq-hero__name">{{ brideName }}</span>
+      </div>
 
-        <p class="bt-hero__announce">{{ heroSubtitle }}</p>
+      <img
+        :src="goldenLine"
+        alt=""
+        aria-hidden="true"
+        class="bq-hero__line"
+        draggable="false"
+      />
 
-        <p class="bt-hero__guest">{{ guestName }}</p>
+      <p class="bq-hero__guest-label">TRÂN TRỌNG KÍNH MỜI</p>
 
-        <p class="bt-hero__intro">
-          Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
-        </p>
+      <p class="bq-hero__guest">{{ guestName }}</p>
 
-        <p class="bt-hero__place">{{ location }}</p>
+      <p class="bq-hero__intro">
+        Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+      </p>
 
-        <div class="bt-hero__schedule">
-          <p>VÀO LÚC {{ time }}</p>
-          <p>{{ dateText }}</p>
-        </div>
+      <p class="bq-hero__place">{{ location }}</p>
 
-        <p class="bt-hero__message">
-          Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
-        </p>
+      <div class="bq-hero__schedule">
+        <p v-if="time">VÀO LÚC {{ time }}</p>
+        <p v-if="dateText">{{ dateText }}</p>
+      </div>
 
-        <div class="bt-hero__footer">
-          <span></span>
-          <b>{{ monogram }}</b>
-          <span></span>
-        </div>
+      <p class="bq-hero__message">
+        Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+      </p>
+
+      <div class="bq-hero__footer" aria-hidden="true">
+        <span></span>
+        <b>{{ monogram }}</b>
+        <span></span>
       </div>
     </div>
   </section>
@@ -68,21 +85,17 @@
 import { computed } from "vue";
 import dayjs from "dayjs";
 
+import { flower5, frame, goldenLine } from "./bohoTerracottaAssets";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
   guestName: { type: String, default: "Quý khách" },
-  monogram: { type: String, default: "G&B" },
+  monogram: { type: String, default: "&" },
   dateLabel: { type: String, default: "" },
 });
 
-const heroTitle = computed(
-  () => props.wedding?.hero?.Title || "SAVE THE DATE"
-);
-
-const heroSubtitle = computed(
-  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
-);
+const heroTitle = computed(() => props.wedding?.hero?.Title || "SAVE THE DATE");
 
 const groomName = computed(
   () =>
@@ -107,7 +120,8 @@ const heroImage = computed(
     props.wedding?.hero?.Background ||
     props.wedding?.hero?.background ||
     props.wedding?.coverImage ||
-    props.wedding?.CoverImage 
+    props.wedding?.CoverImage ||
+    ""
 );
 
 const location = computed(
@@ -140,7 +154,17 @@ const dateText = computed(() => {
   const date = dayjs(raw);
 
   if (date.isValid()) {
-    return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    const weekdays = [
+      "CHỦ NHẬT",
+      "THỨ HAI",
+      "THỨ BA",
+      "THỨ TƯ",
+      "THỨ NĂM",
+      "THỨ SÁU",
+      "THỨ BẢY",
+    ];
+
+    return `${weekdays[date.day()]}, NGÀY ${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";
@@ -148,452 +172,364 @@ const dateText = computed(() => {
 </script>
 
 <style scoped>
-.bt-hero {
-  --bt-terra: #9c5b3f;
-  --bt-clay: #c97b5d;
-  --bt-sand: #d9b08c;
-  --bt-light: #f2e2d0;
-  --bt-bg: #faf3ec;
-  --bt-text: #5c4636;
-  --bt-sage: #8a9b7c;
-
+.bq-hero {
   position: relative;
   isolation: isolate;
+
+  width: 100%;
+
+  padding: 0 0 8px;
+
   overflow: hidden;
 
-  padding: 14px;
+  text-align: center;
 
-  min-height: 690px;
-
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(255, 251, 245, 0.92), transparent 55%),
-    linear-gradient(180deg, #faf3ec 0%, #f0ddc8 100%);
+  color: var(--bq-ink);
 }
 
 /* =========================================================
-   SUN BEHIND THE ARCH
+   HOA VĂN HAI BÊN
 ========================================================= */
 
-.bt-hero__sun {
+.bq-hero__flower {
   position: absolute;
-  z-index: 0;
 
-  top: 40px;
-  left: 50%;
-
-  width: 150px;
-  height: 150px;
-
-  transform: translateX(-50%);
-
-  pointer-events: none;
-
-  animation: bt-hero-sun-spin 46s linear infinite;
-}
-
-.bt-hero__sun-core {
-  position: absolute;
-  inset: 42px;
-
-  border-radius: 50%;
-
-  background: radial-gradient(circle at 36% 32%, #eccfa4, #d9b08c 55%, #c97b5d 100%);
-
-  box-shadow: 0 0 30px rgba(217, 176, 140, 0.7);
-}
-
-.bt-hero__ray {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 2px;
-  height: 62px;
-
-  transform-origin: center 0;
-
-  background: linear-gradient(180deg, rgba(201, 123, 93, 0.6), transparent);
-
-  border-radius: 2px;
-}
-
-.bt-hero__ray--1 { transform: translate(-50%, 0) rotate(0deg) translateY(-80px); }
-.bt-hero__ray--2 { transform: translate(-50%, 0) rotate(36deg) translateY(-80px); }
-.bt-hero__ray--3 { transform: translate(-50%, 0) rotate(72deg) translateY(-80px); }
-.bt-hero__ray--4 { transform: translate(-50%, 0) rotate(108deg) translateY(-80px); }
-.bt-hero__ray--5 { transform: translate(-50%, 0) rotate(144deg) translateY(-80px); }
-.bt-hero__ray--6 { transform: translate(-50%, 0) rotate(180deg) translateY(-80px); }
-.bt-hero__ray--7 { transform: translate(-50%, 0) rotate(216deg) translateY(-80px); }
-.bt-hero__ray--8 { transform: translate(-50%, 0) rotate(252deg) translateY(-80px); }
-.bt-hero__ray--9 { transform: translate(-50%, 0) rotate(288deg) translateY(-80px); }
-.bt-hero__ray--10 { transform: translate(-50%, 0) rotate(324deg) translateY(-80px); }
-
-/* =========================================================
-   PAMPAS STROKES
-========================================================= */
-
-.bt-hero__pampas {
-  position: absolute;
   z-index: 1;
 
-  color: rgba(156, 91, 63, 0.3);
+  width: 32%;
+  max-width: none;
+  height: auto;
 
-  font-size: 30px;
+  object-fit: contain;
 
   pointer-events: none;
 
-  transform-origin: bottom center;
-
-  animation: bt-hero-sway 6.5s ease-in-out infinite;
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-hero__pampas--left {
-  top: 46%;
-  left: 12px;
+.bq-hero__flower--left {
+  top: 30%;
+  left: -19%;
 }
 
-.bt-hero__pampas--right {
-  top: 52%;
-  right: 14px;
+.bq-hero__flower--right {
+  top: 30%;
+  right: -19%;
 
-  font-size: 24px;
-
-  animation-delay: -2.4s;
+  transform: scaleX(-1);
 }
 
 /* =========================================================
-   ARCH FRAME
+   NỘI DUNG
 ========================================================= */
 
-.bt-hero__frame {
+.bq-hero__inner {
   position: relative;
   z-index: 2;
 
-  min-height: 662px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  display: grid;
-  place-items: center;
-
-  border: 2px dashed rgba(156, 91, 63, 0.5);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(175deg, rgba(255, 251, 245, 0.65), rgba(242, 226, 208, 0.4));
-
-  box-shadow: 0 22px 55px rgba(92, 70, 54, 0.12);
-
-  overflow: hidden;
+  padding: 47px 0 27px;
 }
 
-.bt-hero__frame-inner {
-  position: absolute;
-  inset: 8px;
+.bq-hero__kicker {
+  margin: 0;
 
-  border: 1px solid rgba(156, 91, 63, 0.3);
-  border-radius: 999px 999px 20px 20px;
+  color: var(--bq-accent);
 
-  pointer-events: none;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+
+  text-transform: uppercase;
 }
 
 /* =========================================================
-   PHOTO
+   KHUNG ẢNH
 ========================================================= */
 
-.bt-hero__photo {
-  position: absolute;
-  inset: 0;
+.bq-hero__frame {
+  position: relative;
 
-  z-index: 0;
+  width: 126.5%;
+
+  margin: 30px 0 0 -13.25%;
+
+  aspect-ratio: 1237 / 1254;
 }
 
-.bt-hero__photo img {
-  display: block;
+.bq-hero__photo {
+  position: absolute;
 
+  left: 25.8%;
+  top: 11%;
+
+  width: 47.6%;
+  height: 76.5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: rgba(var(--bq-deep-rgb), 0.6);
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.bq-hero__photo img {
   width: 100%;
   height: 100%;
 
   object-fit: cover;
-
-  opacity: 0.32;
-
-  filter: saturate(0.85) sepia(0.12);
 }
 
-.bt-hero__photo-fallback {
+.bq-hero__photo-empty {
+  color: var(--bq-accent);
+
+  font-size: 30px;
+
+  opacity: 0.5;
+}
+
+.bq-hero__frame-img {
+  position: absolute;
+  inset: 0;
+
   width: 100%;
   height: 100%;
 
-  background:
-    radial-gradient(circle at 50% 22%, rgba(217, 176, 140, 0.5), transparent 55%),
-    linear-gradient(180deg, #f2e2d0 0%, #e3c4a6 60%, #d9b08c 100%);
+  object-fit: fill;
+
+  pointer-events: none;
 }
 
 /* =========================================================
-   CONTENT
+   TÊN
 ========================================================= */
 
-.bt-hero__content {
+.bq-hero__names {
   position: relative;
-  z-index: 2;
 
-  width: min(100%, 440px);
-
-  padding: 62px 28px 48px;
-
-  text-align: center;
-
-  animation: bt-hero-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.bt-hero__save-date {
-  margin: 0;
-
-  color: var(--bt-sage);
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.34em;
-  text-indent: 0.34em;
-}
-
-.bt-hero__motif {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 11px;
+  gap: 2px;
 
-  margin: 12px auto;
+  width: 100%;
+  max-width: 340px;
+
+  margin-top: 42px;
 }
 
-.bt-hero__motif span {
-  width: 46px;
-  height: 1px;
+.bq-hero__amp {
+  position: absolute;
 
-  background: linear-gradient(90deg, transparent, rgba(156, 91, 63, 0.75));
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, calc(-50% - 0.16em));
+
+  color: rgba(var(--bq-ink-rgb), 0.2);
+
+  font-family: "The Nautigal", cursive;
+  font-size: 100px;
+  line-height: 1;
+
+  pointer-events: none;
 }
 
-.bt-hero__motif span:last-child {
-  transform: scaleX(-1);
-}
+.bq-hero__name {
+  position: relative;
+  z-index: 1;
 
-.bt-hero__motif i {
-  color: var(--bt-clay);
+  color: var(--bq-accent);
 
-  font-size: 15px;
-  font-style: normal;
-}
-
-.bt-hero h1 {
-  margin: 0;
-
-  font-family: "Allura", cursive;
-
-  font-size: clamp(40px, 10vw, 58px);
+  font-family: "Viaoda Libre", "EB Garamond", serif;
+  font-size: clamp(30px, 9vw, 40px);
   font-weight: 400;
 
-  line-height: 1.12;
+  line-height: 1.1;
 
-  color: var(--bt-terra);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.bt-hero h1 i {
-  padding: 0 6px;
+.bq-hero__line {
+  display: block;
 
-  color: var(--bt-clay);
+  width: 74.5%;
+  max-width: 309px;
 
-  font-family: Georgia, serif;
-  font-size: 0.5em;
-  font-style: normal;
+  margin: 22px auto 0;
+
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-hero__announce {
-  margin: 28px 0 8px;
+/* =========================================================
+   KHÁCH MỜI
+========================================================= */
 
-  color: var(--bt-clay);
+.bq-hero__guest-label {
+  margin: 26px 0 2px;
+
+  color: var(--bq-muted);
 
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
   letter-spacing: 0.28em;
   text-indent: 0.28em;
 }
 
-.bt-hero__guest {
+.bq-hero__guest {
   margin: 0;
 
-  font-family: "Allura", cursive;
+  font-family: "Ms Madi", "The Nautigal", cursive;
+  font-size: clamp(32px, 9vw, 42px);
+  font-weight: 400;
 
-  font-size: 30px;
+  line-height: 1.25;
 
-  color: var(--bt-text);
+  color: var(--bq-accent);
 }
 
-.bt-hero__intro {
-  max-width: 325px;
-  margin: 14px auto 8px;
+.bq-hero__intro {
+  max-width: 320px;
+  margin: 14px auto 6px;
 
-  color: rgba(92, 70, 54, 0.85);
+  color: var(--bq-soft);
 
   font-size: 12px;
 
-  letter-spacing: 0.1em;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
-.bt-hero__place {
-  max-width: 350px;
+.bq-hero__place {
+  max-width: 340px;
   margin: 0 auto;
 
-  color: var(--bt-terra);
+  color: var(--bq-ink);
 
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
 
-  letter-spacing: 0.06em;
-  line-height: 1.4;
-}
-
-.bt-hero__schedule {
-  margin: 24px auto 0;
-  padding: 14px 0;
-
-  border-top: 1px dashed rgba(156, 91, 63, 0.45);
-  border-bottom: 1px dashed rgba(156, 91, 63, 0.45);
-}
-
-.bt-hero__schedule p {
-  margin: 4px 0;
-
-  color: var(--bt-text);
-
-  font-size: 13px;
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
   line-height: 1.45;
 }
 
-.bt-hero__message {
-  max-width: 295px;
-  margin: 24px auto 20px;
+.bq-hero__schedule {
+  margin: 20px auto 0;
+  padding: 12px 0;
 
-  color: rgba(92, 70, 54, 0.8);
+  border-top: 1px solid var(--bq-line);
+  border-bottom: 1px solid var(--bq-line);
+}
 
-  font-size: 14px;
-  font-style: italic;
+.bq-hero__schedule p {
+  margin: 3px 0;
 
+  color: var(--bq-ink);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
   line-height: 1.5;
 }
 
-.bt-hero__footer {
+.bq-hero__message {
+  max-width: 300px;
+  margin: 20px auto 18px;
+
+  color: var(--bq-soft);
+
+  font-size: 13px;
+  font-style: italic;
+
+  line-height: 1.6;
+}
+
+.bq-hero__footer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 
-  color: var(--bt-clay);
+  color: var(--bq-muted);
 }
 
-.bt-hero__footer span {
-  width: 48px;
+.bq-hero__footer span {
+  width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(156, 91, 63, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--bq-accent-rgb), 1));
 }
 
-.bt-hero__footer span:last-child {
-  transform: scaleX(-1);
+.bq-hero__footer span:last-child {
+  transform: rotate(180deg);
 }
 
-.bt-hero__footer b {
-  font-family: "Allura", cursive;
-  font-size: 20px;
+.bq-hero__footer b {
+  font-family: "Viaoda Libre", "EB Garamond", serif;
+  font-size: 15px;
   font-weight: 400;
 
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
 }
 
 /* =========================================================
-   KEYFRAMES
+   TABLET / DESKTOP
 ========================================================= */
 
-@keyframes bt-hero-sun-spin {
-  to {
-    transform: translateX(-50%) rotate(360deg);
-  }
-}
-
-@keyframes bt-hero-sway {
-  0%,
-  100% {
-    transform: rotate(-10deg);
+@media (min-width: 768px) {
+  .bq-hero__inner {
+    padding: 58px 0 34px;
   }
 
-  50% {
-    transform: rotate(12deg);
-  }
-}
+  .bq-hero__frame {
+    width: 112%;
 
-@keyframes bt-hero-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
+    margin: 38px 0 0 -6%;
   }
 
-  to {
-    opacity: 1;
-    transform: none;
+  .bq-hero__names {
+    max-width: 440px;
+
+    margin-top: 52px;
+  }
+
+  .bq-hero__amp {
+    font-size: 118px;
+  }
+
+  .bq-hero__name {
+    font-size: 45px;
+  }
+
+  .bq-hero__line {
+    max-width: 420px;
+  }
+
+  .bq-hero__flower {
+    top: 7%;
   }
 }
 
 /* =========================================================
-   MOBILE
+   MOBILE NHỎ
 ========================================================= */
 
 @media (max-width: 380px) {
-  .bt-hero__content {
-    padding: 48px 20px 38px;
-  }
-
-  .bt-hero__frame {
-    min-height: 640px;
-  }
-
-  .bt-hero h1 {
-    font-size: 42px;
-  }
-
-  .bt-hero__guest {
-    font-size: 26px;
-  }
-
-  .bt-hero__intro {
-    font-size: 11px;
-  }
-
-  .bt-hero__sun {
-    width: 110px;
-    height: 110px;
-  }
-
-  .bt-hero__sun-core {
-    inset: 31px;
-  }
-
-  .bt-hero__ray {
-    height: 48px;
-  }
-}
-
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .bt-hero__content,
-  .bt-hero__pampas,
-  .bt-hero__sun {
-    animation: none;
+  .bq-hero__inner {
+    padding-top: 40px;
   }
 }
 </style>

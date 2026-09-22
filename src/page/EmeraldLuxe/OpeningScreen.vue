@@ -1,88 +1,101 @@
 <template>
-  <section class="el-opening" :class="{ 'el-opening--active': opening }">
+  <section class="cr-opening" :class="{ 'cr-opening--active': opening }">
     <!-- =====================================================
-         BACKGROUND: deep emerald + gold light + botanical photo
+         NỀN
     ====================================================== -->
-    <div class="el-opening__bg"></div>
 
-    <div class="el-opening__photo" aria-hidden="true">
-      <!-- <img :src="accentEmerald" alt="" draggable="false" /> -->
-    </div>
+    <div class="cr-opening__bg" aria-hidden="true"></div>
 
-    <!-- Gold shimmer particles -->
-    <span
-      v-for="n in 14"
-      :key="n"
-      class="el-spark"
-      :class="`el-spark--${n}`"
+    <img
+      :src="decorativeHeader"
+      alt=""
       aria-hidden="true"
-    >✦</span>
+      class="cr-opening__header"
+      draggable="false"
+    />
+
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-opening__blossom cr-opening__blossom--left"
+      draggable="false"
+    />
+
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-opening__blossom cr-opening__blossom--right"
+      draggable="false"
+    />
 
     <!-- =====================================================
-         TOP BRANDING
+         THIỆP MỜI
     ====================================================== -->
-    <p class="el-opening__eyebrow">THIỆP CƯỚI LUXE</p>
 
-    <!-- =====================================================
-         INVITATION CARD
-    ====================================================== -->
-    <div class="el-card">
-      <div class="el-card__frame"></div>
+    <div class="cr-card">
+      <div class="cr-card__frame" aria-hidden="true"></div>
 
-      <div class="el-card__inner">
-        <p class="el-card__kicker">SAVE THE DATE</p>
+      <img
+        :src="doubleHappiness"
+        alt="囍"
+        class="cr-card__happiness"
+        draggable="false"
+      />
 
-        <div class="el-card__monogram">
-          <span>{{ monogram }}</span>
-        </div>
+      <p class="cr-card__kicker">WEDDING INVITATION</p>
 
-        <p class="el-card__invite">Trân trọng kính mời</p>
+      <p class="cr-card__invite">Trân trọng kính mời</p>
 
-        <h1>{{ guestName }}</h1>
+      <h1 class="cr-card__guest">{{ guestName }}</h1>
 
-        <div class="el-card__divider">
-          <span></span>
-          <i>❦</i>
-          <span></span>
-        </div>
-
-        <p class="el-card__names">
-          {{ groomName }}
-          <i>&amp;</i>
-          {{ brideName }}
-        </p>
-
-        <p class="el-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+      <div class="cr-card__divider" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
       </div>
+
+      <p class="cr-card__names">
+        <span>{{ groomName }}</span>
+        <i>&amp;</i>
+        <span>{{ brideName }}</span>
+      </p>
+
+      <p class="cr-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
     </div>
 
     <!-- =====================================================
-         OPEN BUTTON
+         NÚT MỞ THIỆP
     ====================================================== -->
-    <button type="button" class="el-open-btn" :disabled="opening" @click="openInvitation">
-      <span class="el-open-btn__icon">
-        <v-icon size="16">mdi-email-open-outline</v-icon>
+
+    <button type="button" class="cr-open-btn" :disabled="opening" @click="openInvitation">
+      <span class="cr-open-btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2.5" y="5" width="19" height="14" rx="2" />
+          <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </span>
 
-      <span class="el-open-btn__text">MỞ THIỆP</span>
-
-      <span class="el-open-btn__arrow">✦</span>
+      <span class="cr-open-btn__text">MỞ THIỆP</span>
     </button>
 
-    <p class="el-hint">
-      <span></span>
-      Một lời mời · Một lời hẹn · Một đời hạnh phúc
-      <span></span>
-    </p>
+    <p class="cr-hint">Một lời mời · Một lời hẹn · Một đời hạnh phúc</p>
   </section>
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
 
+import {
+  cherryBlossom,
+  decorativeHeader,
+  doubleHappiness,
+} from "./emeraldLuxeAssets";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
-  monogram: { type: String, default: "G & B" },
+  monogram: { type: String, default: "囍" },
   dateLabel: { type: String, default: "" },
 });
 
@@ -124,19 +137,12 @@ function openInvitation() {
 
   window.setTimeout(() => {
     emit("open");
-  }, 1150);
+  }, 1000);
 }
 </script>
 
 <style scoped>
-.el-opening {
-  --el-emerald: #123b2e;
-  --el-emerald-deep: #0c2b21;
-  --el-gold: #c9a45c;
-  --el-gold-light: #e8d3a2;
-  --el-cream: #f7f1e3;
-  --el-text: #2e3d36;
-
+.cr-opening {
   position: relative;
   isolation: isolate;
 
@@ -147,305 +153,239 @@ function openInvitation() {
   align-items: center;
   justify-content: center;
 
-  padding: 34px 18px 28px;
+  padding: 40px 20px 32px;
 
   overflow: hidden;
 
-  color: var(--el-cream);
+  text-align: center;
 
-  background: linear-gradient(168deg, #164636 0%, #123b2e 42%, #0c2b21 100%);
+  color: var(--cr-ink);
+
+  background-color: var(--cr-bg);
 }
 
 /* =========================================================
-   BACKGROUND
+   NỀN
 ========================================================= */
 
-.el-opening__bg {
+.cr-opening__bg {
   position: absolute;
   inset: 0;
   z-index: -10;
 
   background:
-    radial-gradient(ellipse at 50% 8%, rgba(201, 164, 92, 0.16), transparent 48%),
-    radial-gradient(ellipse at 8% 88%, rgba(201, 164, 92, 0.1), transparent 42%),
-    radial-gradient(ellipse at 92% 80%, rgba(232, 211, 162, 0.08), transparent 44%);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--cr-accent-rgb), 0.5), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(var(--cr-accent-rgb), 0.35), transparent 55%);
 }
 
-/* Botanical photo backdrop */
-.el-opening__photo {
+.cr-opening__header {
   position: absolute;
-  inset: 0;
+
+  top: 0;
+  left: 50%;
+
   z-index: -6;
 
-  overflow: hidden;
+  width: min(100%, 420px);
+
+  transform: translateX(-50%);
+
+  object-fit: contain;
+
+  opacity: 0.9;
 
   pointer-events: none;
 }
 
-.el-opening__photo img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  opacity: 0.16;
-
-  filter: saturate(0.85) brightness(0.9);
-}
-
-.el-opening__photo::after {
-  content: "";
-
+.cr-opening__blossom {
   position: absolute;
-  inset: 0;
 
-  background: linear-gradient(
-    180deg,
-    rgba(18, 59, 46, 0.55),
-    rgba(12, 43, 33, 0.35) 55%,
-    rgba(12, 43, 33, 0.6)
-  );
-}
+  z-index: -4;
 
-/* =========================================================
-   GOLD SPARKLES
-========================================================= */
+  width: 120px;
+  height: 120px;
 
-.el-spark {
-  position: absolute;
-  z-index: -2;
+  object-fit: contain;
 
-  color: rgba(232, 211, 162, 0.75);
-
-  font-size: 12px;
+  opacity: 0.55;
 
   pointer-events: none;
 
-  animation: el-spark-twinkle 3.6s ease-in-out infinite;
+  animation: cr-blossom-float 7s ease-in-out infinite;
 }
 
-.el-spark--1 { top: 12%; left: 12%; }
-.el-spark--2 { top: 20%; right: 16%; font-size: 11px; animation-delay: -0.5s; }
-.el-spark--3 { top: 34%; left: 7%; font-size: 10px; animation-delay: -1.1s; }
-.el-spark--4 { top: 42%; right: 8%; animation-delay: -1.7s; }
-.el-spark--5 { top: 58%; left: 14%; font-size: 10px; animation-delay: -2.2s; }
-.el-spark--6 { top: 64%; right: 13%; font-size: 11px; animation-delay: -2.8s; }
-.el-spark--7 { top: 78%; left: 9%; animation-delay: -3.2s; }
-.el-spark--8 { top: 82%; right: 18%; font-size: 11px; animation-delay: -0.9s; }
-.el-spark--9 { top: 8%; right: 34%; font-size: 10px; animation-delay: -1.4s; }
-.el-spark--10 { top: 90%; left: 30%; font-size: 10px; animation-delay: -2s; }
-.el-spark--11 { top: 26%; left: 26%; font-size: 10px; animation-delay: -2.6s; }
-.el-spark--12 { top: 70%; right: 30%; font-size: 10px; animation-delay: -3.4s; }
-.el-spark--13 { top: 48%; left: 20%; font-size: 11px; animation-delay: -1.9s; }
-.el-spark--14 { top: 16%; left: 44%; font-size: 11px; animation-delay: -0.3s; }
+.cr-opening__blossom--left {
+  bottom: 8%;
+  left: -34px;
+}
 
-/* =========================================================
-   EYEBROW
-========================================================= */
+.cr-opening__blossom--right {
+  top: 22%;
+  right: -30px;
 
-.el-opening__eyebrow {
-  margin: 0 0 26px;
+  width: 96px;
+  height: 96px;
 
-  color: var(--el-gold);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.42em;
-  text-indent: 0.42em;
+  animation-delay: -3.2s;
 }
 
 /* =========================================================
-   CARD
+   THIỆP MỜI
 ========================================================= */
 
-.el-card {
+.cr-card {
   position: relative;
   z-index: 2;
 
-  width: min(100%, 360px);
+  width: min(100%, 340px);
 
-  padding: 10px;
+  margin-top: 60px;
+  padding: 34px 24px 30px;
 
-  border: 1px solid rgba(201, 164, 92, 0.65);
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.28);
+  border-radius: 18px;
 
-  background: linear-gradient(172deg, rgba(247, 241, 227, 0.97), rgba(232, 224, 203, 0.95));
+  background: rgba(var(--cr-surface-rgb), 0.92);
 
-  box-shadow:
-    0 26px 60px rgba(5, 20, 15, 0.45),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 46px rgba(var(--cr-ink-rgb), 0.14);
 
-  animation: el-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: cr-card-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.el-card__frame {
+.cr-card__frame {
   position: absolute;
-  inset: 6px;
+  inset: 7px;
 
-  border: 1px solid rgba(18, 59, 46, 0.35);
+  border: 1px solid rgba(var(--cr-accent-rgb), 0.85);
+  border-radius: 12px;
 
   pointer-events: none;
 }
 
-.el-card__inner {
-  position: relative;
+.cr-card__happiness {
+  width: 62px;
+  height: 62px;
 
-  padding: 42px 26px 34px;
+  margin: 0 auto 14px;
 
-  text-align: center;
+  object-fit: contain;
 
-  color: var(--el-text);
+  animation: cr-happiness-pulse 3.6s ease-in-out infinite;
 }
 
-.el-card__kicker {
-  margin: 0 0 18px;
+.cr-card__kicker {
+  margin: 0 0 14px;
 
-  color: #8a7a52;
+  color: var(--cr-muted);
 
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
   letter-spacing: 0.34em;
   text-indent: 0.34em;
 }
 
-/* Monogram inside a gold ring */
-.el-card__monogram {
-  position: relative;
+.cr-card__invite {
+  margin: 0 0 4px;
 
-  width: 78px;
-  height: 78px;
+  color: var(--cr-soft);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 12px;
 
-  margin: 0 auto 20px;
-
-  border: 1px solid rgba(201, 164, 92, 0.8);
-  border-radius: 50%;
-
-  background: linear-gradient(170deg, rgba(201, 164, 92, 0.22), rgba(18, 59, 46, 0.12));
-
-  animation: el-monogram-pulse 3.4s ease-in-out infinite;
+  letter-spacing: 0.08em;
 }
 
-.el-card__monogram::before {
-  content: "";
-
-  position: absolute;
-  inset: 5px;
-
-  border: 1px dashed rgba(201, 164, 92, 0.55);
-  border-radius: 50%;
-}
-
-.el-card__monogram span {
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 24px;
-  font-weight: 600;
-
-  color: var(--el-emerald);
-}
-
-.el-card__invite {
-  margin: 0 0 6px;
-
-  color: #8a7a52;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.26em;
-  text-indent: 0.26em;
-}
-
-.el-card__inner h1 {
+.cr-card__guest {
   margin: 0;
 
-  font-family: "Great Vibes", cursive;
+  font-family: "Babylonica", "Great Vibes", cursive;
 
-  font-size: clamp(38px, 10vw, 48px);
+  font-size: clamp(38px, 11vw, 50px);
   font-weight: 400;
 
-  line-height: 1.15;
+  line-height: 1.2;
 
-  color: var(--el-emerald);
+  color: var(--cr-ink);
 }
 
-.el-card__divider {
+.cr-card__divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 10px;
 
-  margin: 14px 0;
+  margin: 12px 0;
 
-  color: var(--el-gold);
+  color: var(--cr-accent);
 }
 
-.el-card__divider span {
-  width: 42px;
+.cr-card__divider span {
+  width: 44px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.85));
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
 }
 
-.el-card__divider span:last-child {
+.cr-card__divider span:last-child {
   transform: rotate(180deg);
 }
 
-.el-card__divider i {
+.cr-card__divider i {
   font-size: 13px;
   font-style: normal;
 }
 
-.el-card__names {
+.cr-card__names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
   margin: 0 0 16px;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 400;
 
-  color: var(--el-text);
+  letter-spacing: 0.04em;
+
+  color: var(--cr-ink);
 }
 
-.el-card__names i {
-  padding: 0 5px;
-
-  color: var(--el-gold);
+.cr-card__names i {
+  color: var(--cr-accent);
 
   font-family: Georgia, serif;
-  font-size: 18px;
+  font-size: 17px;
   font-style: italic;
 }
 
-.el-card__date {
+.cr-card__date {
   display: inline-block;
 
-  padding: 8px 18px;
+  margin: 0;
+  padding: 7px 18px;
 
-  border: 1px solid rgba(201, 164, 92, 0.6);
+  border: 1px solid rgba(var(--cr-accent-rgb), 0.9);
   border-radius: 999px;
 
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(var(--cr-bg-rgb), 0.8);
 
-  color: var(--el-emerald);
+  color: var(--cr-soft);
 
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
-  letter-spacing: 0.22em;
-  text-indent: 0.22em;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
 }
 
 /* =========================================================
-   OPEN BUTTON
+   NÚT MỞ THIỆP
 ========================================================= */
 
-.el-open-btn {
+.cr-open-btn {
   position: relative;
   z-index: 3;
 
@@ -454,23 +394,23 @@ function openInvitation() {
   justify-content: center;
   gap: 9px;
 
-  margin-top: 30px;
+  margin-top: 28px;
+  padding: 13px 32px;
 
-  padding: 13px 30px;
-
-  border: 1px solid rgba(201, 164, 92, 0.85);
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
   border-radius: 999px;
 
-  color: #10281f;
+  color: var(--cr-ink);
 
-  background: linear-gradient(135deg, #e8d3a2, #c9a45c);
+  background: linear-gradient(135deg, var(--cr-accent-light), var(--cr-accent));
 
-  box-shadow: 0 14px 30px rgba(201, 164, 92, 0.3);
+  box-shadow: 0 12px 26px rgba(var(--cr-accent-rgb), 0.5);
 
-  font-size: 10px;
+  font-family: inherit;
+  font-size: 11px;
   font-weight: 700;
 
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-indent: 0.1em;
 
   cursor: pointer;
@@ -478,156 +418,133 @@ function openInvitation() {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.el-open-btn:hover:not(:disabled) {
+.cr-open-btn:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 18px 36px rgba(201, 164, 92, 0.42);
+  box-shadow: 0 16px 32px rgba(var(--cr-accent-rgb), 0.62);
 }
 
-.el-open-btn:disabled {
-  opacity: 0.75;
+.cr-open-btn:disabled {
+  opacity: 0.7;
   cursor: default;
 }
 
-.el-open-btn__icon {
+.cr-open-btn__icon {
   display: flex;
   align-items: center;
 }
 
-.el-open-btn__arrow {
-  font-size: 12px;
+.cr-open-btn__icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* =========================================================
-   HINT
+   GỢI Ý
 ========================================================= */
 
-.el-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+.cr-hint {
+  position: relative;
+  z-index: 3;
 
-  margin: 22px 0 0;
+  margin: 20px 0 0;
 
-  color: rgba(247, 241, 227, 0.72);
+  color: rgba(var(--cr-soft-rgb), 0.75);
 
-  font-size: 10px;
+  font-size: 11px;
   font-style: italic;
 
-  letter-spacing: 0.06em;
-}
-
-.el-hint span {
-  width: 34px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.7));
-}
-
-.el-hint span:last-child {
-  transform: rotate(180deg);
+  letter-spacing: 0.04em;
 }
 
 /* =========================================================
-   EXIT ANIMATION
+   HIỆU ỨNG ĐÓNG
 ========================================================= */
 
-.el-opening--active .el-card {
-  animation: el-card-out 0.9s cubic-bezier(0.5, 0, 0.75, 0.4) both;
+.cr-opening--active .cr-card {
+  animation: cr-card-out 0.85s cubic-bezier(0.5, 0, 0.75, 0.4) both;
 }
 
-.el-opening--active .el-open-btn,
-.el-opening--active .el-hint,
-.el-opening--active .el-opening__eyebrow,
-.el-opening--active .el-spark {
-  animation: el-fade-out 0.45s ease both;
+.cr-opening--active .cr-open-btn,
+.cr-opening--active .cr-hint,
+.cr-opening--active .cr-opening__blossom {
+  animation: cr-fade-out 0.4s ease both;
 }
 
 /* =========================================================
    KEYFRAMES
 ========================================================= */
 
-@keyframes el-spark-twinkle {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(0.8) rotate(0deg);
+@keyframes cr-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
   }
 
-  50% {
+  to {
     opacity: 1;
-    transform: scale(1.25) rotate(25deg);
+    transform: none;
   }
 }
 
-@keyframes el-monogram-pulse {
+@keyframes cr-card-out {
+  to {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.92);
+  }
+}
+
+@keyframes cr-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes cr-happiness-pulse {
   0%,
   100% {
     transform: scale(1);
   }
 
   50% {
-    transform: scale(1.05);
+    transform: scale(1.07);
   }
 }
 
-@keyframes el-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(34px) scale(0.94);
+@keyframes cr-blossom-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes el-card-out {
-  to {
-    opacity: 0;
-    transform: translateY(-46px) scale(0.9);
-  }
-}
-
-@keyframes el-fade-out {
-  to {
-    opacity: 0;
+  50% {
+    transform: translateY(-12px) rotate(6deg);
   }
 }
 
 /* =========================================================
-   MOBILE
+   MOBILE NHỎ
 ========================================================= */
 
 @media (max-width: 380px) {
-  .el-card {
-    width: 100%;
+  .cr-card {
+    padding: 28px 18px 24px;
   }
 
-  .el-card__inner {
-    padding: 34px 18px 28px;
-  }
-
-  .el-card__monogram {
-    width: 68px;
-    height: 68px;
-  }
-
-  .el-card__monogram span {
-    font-size: 21px;
+  .cr-card__happiness {
+    width: 52px;
+    height: 52px;
   }
 }
 
 /* =========================================================
-   REDUCE MOTION
+   GIẢM CHUYỂN ĐỘNG
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .el-spark,
-  .el-card__monogram,
-  .el-card {
+  .cr-card,
+  .cr-card__happiness,
+  .cr-opening__blossom {
     animation: none;
   }
 }

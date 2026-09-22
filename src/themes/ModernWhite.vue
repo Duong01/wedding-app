@@ -1,5 +1,5 @@
-﻿<template>
-  <div class="nb-wedding">
+<template>
+  <div class="mw-theme" :data-theme="theme.Name" :style="themeStyle">
 
     <!-- =====================================================
          OPENING
@@ -13,49 +13,23 @@
       @open="handleOpen"
     />
 
-    <template v-else>
+    <main v-else class="mw-invitation">
 
-      <main class="invitation">
+      <!-- =================================================
+           NỀN HOA VƯỜN
+      ================================================== -->
 
-        <!-- =================================================
-             HERO DECORATION
-             Không khung
-        ================================================== -->
+      <div class="mw-bg mw-bg--top" aria-hidden="true"></div>
+      <div class="mw-bg mw-bg--mid" aria-hidden="true"></div>
+      <div class="mw-bg mw-bg--bottom" aria-hidden="true"></div>
 
-        <img
-          :src="assets.mayTo"
-          class="art hero-cloud hero-cloud-left"
-          alt=""
-        />
+      <div class="mw-content">
 
-        <img
-          :src="assets.may"
-          class="art hero-cloud-small hero-cloud-small-right"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art hero-flower hero-flower-left"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art hero-flower hero-flower-right"
-          alt=""
-        />
-
-
-        <!-- =================================================
+        <!-- ===============================================
              HERO
-             KHÔNG KHUNG
-        ================================================== -->
+        ================================================ -->
 
-        <section
-          v-if="showHero"
-          class="section hero-section"
-        >
+        <section v-if="showHero" class="mw-section mw-section--hero">
           <WeddingHero
             :wedding="wedding"
             :monogram="monogram"
@@ -63,285 +37,116 @@
           />
         </section>
 
+        <!-- ===============================================
+             ALBUM ẢNH
+        ================================================ -->
 
-        <!-- =================================================
-             THÔNG TIN LỄ CƯỚI
-             CÓ KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showCouple"
-          class="framed-section wedding-info-frame"
-        >
-
-          <div class="frame-decoration">
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tr"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-bl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-br"
-              alt=""
-            />
-
-          </div>
-
-          <div class="framed-content">
-
-            <WeddingCouple
-              :wedding="wedding"
-            />
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             STORY
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showStory && wedding?.story"
-          class="section story-section"
-        >
-
-          <WeddingStory
-            :story="wedding.story"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             ALBUM
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGallery && gallery.length"
-          class="section gallery-section"
-        >
-
+        <section v-if="showGallery && gallery.length" class="mw-section">
           <WeddingGallery :gallery="gallery" />
-
         </section>
 
+        <!-- ===============================================
+             THÔNG TIN LỄ CƯỚI
+        ================================================ -->
 
-        <!-- =================================================
+        <section v-if="showCouple" class="mw-section">
+          <WeddingCouple :wedding="wedding" />
+        </section>
+
+        <!-- ===============================================
+             CHUYỆN TÌNH YÊU
+        ================================================ -->
+
+        <section v-if="showStory && wedding?.story" class="mw-section">
+          <WeddingStory :story="wedding.story" />
+        </section>
+
+        <!-- ===============================================
              THÔNG TIN TIỆC CƯỚI
-             CÓ KHUNG
-        ================================================== -->
+        ================================================ -->
 
-        <section
-          v-if="showEvents && events.length"
-          class="framed-section party-info-frame"
-        >
-
-          <div class="frame-decoration">
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-tr"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-bl"
-              alt=""
-            />
-
-            <img
-              :src="assets.corner"
-              class="frame-corner frame-corner-br"
-              alt=""
-            />
-
-          </div>
-
-          <div class="framed-content">
-
-            <WeddingEvents
-              :events="events"
-              :recipient-name="wedding?.recipientName"
-            />
-
-          </div>
-
+        <section v-if="showEvents && events.length" class="mw-section">
+          <WeddingEvents
+            :events="events"
+            :recipient-name="wedding?.recipientName"
+          />
         </section>
 
+        <!-- ===============================================
+             CÙNG ĐẾM NGƯỢC
+        ================================================ -->
 
-        <!-- =================================================
-             COUNTDOWN
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showCountdown"
-          class="section countdown-section"
-        >
-
+        <section v-if="showCountdown" class="mw-section">
           <WeddingCountdown
-            :countdown="wedding?.countdown"
+            :countdown="countdownTarget"
+            :wedding-date="wedding?.weddingDate"
           />
-
         </section>
 
+        <!-- ===============================================
+             ĐỊA ĐIỂM
+        ================================================ -->
 
-        <!-- =================================================
-             MAP
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showMap && events.length"
-          class="section map-section"
-        >
-
-          <WeddingMap
-            :events="events"
-          />
-
+        <section v-if="showMap && events.length" class="mw-section">
+          <WeddingMap :events="events" />
         </section>
 
-        <!-- =================================================
-             TIMELINE
-             KHÔNG KHUNG
-        ================================================== -->
+        <!-- ===============================================
+             LỊCH TRÌNH NGÀY CƯỚI
+        ================================================ -->
 
-        <section
-          v-if="showTimeLine && events.length"
-          class="section map-section"
-        >
-
-          <Timeline
-            :timeline="timeline"
-            :events="events"
-          />
-
+        <section v-if="showTimeline && timeline.length" class="mw-section">
+          <Timeline :timeline="timeline" :events="events" />
         </section>
 
+        <!-- ===============================================
+             DRESS CODE
+        ================================================ -->
 
-        <!-- =================================================
-             HỘP QUÀ MỪNG
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showGift && gifts.length"
-          class="section gift-section"
-        >
-
-          <WeddingGifts
-            :gifts="gifts"
-          />
-
+        <section v-if="showDressCode" class="mw-section">
+          <DressCode :dress-code="wedding?.dressCode" />
         </section>
 
-
-        <!-- =================================================
+        <!-- ===============================================
              SỔ LƯU BÚT
-             KHÔNG KHUNG
-        ================================================== -->
+        ================================================ -->
 
-        <section
-          v-if="showGuestBook"
-          class="section guestbook-section"
-        >
-
-          <WeddingWishes
-            :wishes="wishes"
-            :wedding="wedding"
-          />
-
+        <section v-if="showGuestBook" class="mw-section">
+          <WeddingWishes :wishes="wishes" :wedding="wedding" />
         </section>
 
+        <!-- ===============================================
+             HỘP QUÀ MỪNG
+        ================================================ -->
 
-        <!-- =================================================
-             FOOTER
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showFooter"
-          class="section footer-section"
-        >
-
-          <WeddingFooter
-            :wedding="wedding"
-            :monogram="monogram"
-            :current-year="currentYear"
-          />
-
+        <section v-if="showGift && gifts.length" class="mw-section">
+          <WeddingGifts :gifts="gifts" />
         </section>
 
-
-        <!-- =================================================
-             BOTTOM DECORATION
-        ================================================== -->
-
-        <img
-          :src="assets.mayTo"
-          class="art cloud-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.longDen"
-          class="art lantern-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.quat"
-          class="art fan-bottom"
-          alt=""
-        />
-
-        <img
-          :src="assets.hoa"
-          class="art flower-bottom"
-          alt=""
-        />
-
-      </main>
-
+      </div>
 
       <!-- =================================================
-           MUSIC
+           FOOTER
       ================================================== -->
 
-      <FloatingMusic
-        v-if="showMusic"
-        ref="floatingMusicRef"
-        :music="heroMusic"
+      <WeddingFooter
+        v-if="showFooter"
+        :wedding="wedding"
+        :monogram="monogram"
+        :current-year="currentYear"
       />
 
-    </template>
+    </main>
+
+    <!-- =====================================================
+         MUSIC
+    ====================================================== -->
+
+    <FloatingMusic
+      v-if="showMusic"
+      ref="floatingMusicRef"
+      :music="heroMusic"
+    />
 
   </div>
 </template>
@@ -352,6 +157,7 @@ import { computed, nextTick, ref } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
 import OpeningScreen from "@/page/ModernWhite/OpeningScreen.vue";
 import WeddingHero from "@/page/ModernWhite/WeddingHero.vue";
@@ -362,21 +168,10 @@ import WeddingCountdown from "@/page/ModernWhite/WeddingCountdown.vue";
 import WeddingGallery from "@/page/ModernWhite/WeddingGallery.vue";
 import WeddingMap from "@/page/ModernWhite/WeddingMap.vue";
 import Timeline from "@/page/ModernWhite/Timeline.vue";
+import DressCode from "@/page/ModernWhite/DressCode.vue";
 import WeddingGifts from "@/page/ModernWhite/WeddingGifts.vue";
 import WeddingWishes from "@/page/ModernWhite/WeddingWishes.vue";
 import WeddingFooter from "@/page/ModernWhite/WeddingFooter.vue";
-
-import {
-  chineseHappiness,
-  chuHy,
-  dauRe,
-  hoa,
-  longDen,
-  mayTo,
-  may,
-  quat,
-  corner,
-} from "@/page/NhatBinhDo/nhatBinhDoAssets";
 
 
 /* ==========================================================
@@ -392,10 +187,17 @@ const props = defineProps({
 
 
 /* ==========================================================
+   THEME
+========================================================== */
+
+const { theme, themeStyle } = useWeddingTheme(props.wedding);
+
+
+/* ==========================================================
    WEDDING
 ========================================================== */
 
-const wedding = computed(() => props.wedding)
+const wedding = computed(() => props.wedding);
 
 /*
  * Ưu tiên nhạc từ wedding.music (panel Nhạc).
@@ -410,7 +212,7 @@ const heroMusic = computed(() => {
   }
 
   return { ...music, Url: heroUrl };
-});;
+});
 
 
 /* ==========================================================
@@ -425,127 +227,85 @@ const currentYear = new Date().getFullYear();
 
 
 /* ==========================================================
-   ASSETS
-========================================================== */
-
-const assets = {
-  chineseHappiness,
-  chuHy,
-  dauRe,
-  hoa,
-  longDen,
-  mayTo,
-  may,
-  quat,
-  corner,
-};
-
-
-/* ==========================================================
    DATA
 ========================================================== */
 
-const events = computed(() => {
-  return Array.isArray(wedding.value?.events)
-    ? wedding.value.events
-    : [];
-});
-const timeline = computed(() => {
-  return Array.isArray(wedding.value?.timeline)
-    ? wedding.value.timeline
-    : [];
-});
+const events = computed(() =>
+  Array.isArray(wedding.value?.events) ? wedding.value.events : []
+);
 
-const gallery = computed(() => {
-  return Array.isArray(wedding.value?.gallery)
-    ? wedding.value.gallery
-    : [];
-});
+const timeline = computed(() =>
+  Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []
+);
 
+const gallery = computed(() =>
+  Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []
+);
 
-const gifts = computed(() => {
-  return Array.isArray(wedding.value?.gifts)
-    ? wedding.value.gifts
-    : [];
-});
+const gifts = computed(() =>
+  Array.isArray(wedding.value?.gifts) ? wedding.value.gifts : []
+);
 
-
-const wishes = computed(() => {
-  return Array.isArray(
-    wedding.value?.guestBook?.Guest,
-  )
+const wishes = computed(() =>
+  Array.isArray(wedding.value?.guestBook?.Guest)
     ? wedding.value.guestBook.Guest
-    : [];
-});
+    : []
+);
 
 
 /* ==========================================================
    SETTINGS
 ========================================================== */
 
-const settings = computed(() => {
-  return wedding.value?.settings || {};
-});
+const settings = computed(() => wedding.value?.settings || {});
 
+const showHero = computed(() => settings.value.ShowHero !== false);
 
-const showHero = computed(() => {
-  return settings.value.ShowHero !== false;
-});
+const showCouple = computed(() => settings.value.ShowCouple !== false);
 
+const showStory = computed(() => settings.value.ShowStory !== false);
 
-const showCouple = computed(() => {
-  return settings.value.ShowCouple !== false;
-});
+const showEvents = computed(() => settings.value.ShowEvents !== false);
 
+const showCountdown = computed(() => settings.value.ShowCountdown === true);
 
-const showStory = computed(() => {
-  return settings.value.ShowStory !== false;
-});
+const showGallery = computed(() => settings.value.ShowGallery === true);
 
+const showMap = computed(() => settings.value.ShowMap === true);
 
-const showEvents = computed(() => {
-  return settings.value.ShowEvents !== false;
-});
+const showTimeline = computed(() => settings.value.ShowTimeline !== false);
 
+const showDressCode = computed(() => settings.value.ShowDressCode !== false);
 
-const showCountdown = computed(() => {
-  return settings.value.ShowCountdown === true;
-});
+const showGift = computed(() => settings.value.ShowGift === true);
 
+const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
 
-const showGallery = computed(() => {
-  return settings.value.ShowGallery === true;
-});
+const showFooter = computed(() => settings.value.ShowFooter !== false);
 
-
-const showMap = computed(() => {
-  return settings.value.ShowMap === true;
-});
-
-
-const showGift = computed(() => {
-  return settings.value.ShowGift === true;
-});
-
-
-const showGuestBook = computed(() => {
-  return settings.value.ShowGuestBook === true;
-});
-
-
-const showMusic = computed(() => {
-  return (
+const showMusic = computed(
+  () =>
     wedding.value?.music?.Enabled === true &&
     settings.value.ShowMusic === true
+);
+
+
+/* ==========================================================
+   COUNTDOWN TARGET
+========================================================== */
+
+const countdownTarget = computed(() => {
+  const value = wedding.value?.countdown;
+
+  if (value?.Date || value?.Target || value?.WeddingDate) {
+    return value;
+  }
+
+  return (
+    wedding.value?.weddingDate ||
+    wedding.value?.hero?.WeddingDate ||
+    ""
   );
-});
-
-
-const showFooter = computed(() => {
-  return settings.value.ShowFooter !== false;
-});
-const showTimeLine = computed(() => {
-  return settings.value.ShowTimeline !== false;
 });
 
 
@@ -554,30 +314,23 @@ const showTimeLine = computed(() => {
 ========================================================== */
 
 const monogram = computed(() => {
-  /*
-   * Fallback chain: hero.GroomName (panel Hero) →
-   * GroomName (API) → groomName (editor General) →
-   * couple.Groom.Name (panel Couple).
-   */
-  const groom =
-    (
-      wedding.value?.GroomName ||
-      wedding.value?.groomName ||
-      wedding.value?.couple?.Groom?.Name ||
-      "G"
-    )
-      .trim()
-      .charAt(0);
+  const groom = (
+    wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.couple?.Groom?.Name ||
+    "G"
+  )
+    .trim()
+    .charAt(0);
 
-  const bride =
-    (
-      wedding.value?.BrideName ||
-      wedding.value?.brideName ||
-      wedding.value?.couple?.Bride?.Name ||
-      "B"
-    )
-      .trim()
-      .charAt(0);
+  const bride = (
+    wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.couple?.Bride?.Name ||
+    "B"
+  )
+    .trim()
+    .charAt(0);
 
   return `${groom}&${bride}`.toUpperCase();
 });
@@ -601,21 +354,13 @@ function formatDate(date) {
   return parsed.format("DD · MM · YYYY");
 }
 
+const openDateLabel = computed(() =>
+  formatDate(wedding.value?.weddingDate || wedding.value?.hero?.WeddingDate)
+);
 
-const openDateLabel = computed(() => {
-  return formatDate(
-    wedding.value?.weddingDate ||
-    wedding.value?.hero?.WeddingDate,
-  );
-});
-
-
-const heroDateLabel = computed(() => {
-  return formatDate(
-    wedding.value?.hero?.WeddingDate ||
-    wedding.value?.weddingDate,
-  );
-});
+const heroDateLabel = computed(() =>
+  formatDate(wedding.value?.hero?.WeddingDate || wedding.value?.weddingDate)
+);
 
 
 /* ==========================================================
@@ -629,908 +374,320 @@ async function handleOpen() {
 
   floatingMusicRef.value?.play?.();
 }
-
-
-/* ==========================================================
-   GALLERY
-========================================================== */
-
 </script>
 
 
 <style scoped>
-
 /* ==========================================================
-   MODERNWHITE — LAYER 1: ROOT + ANIMATION/INTERACTION
-   Root vars, keyframes, hover, hiệu ứng trang trí.
-   Màu sắc & vị trí trang trí nằm ở bộ red/paper bên dưới.
+   MODERNWHITE — VƯỜN XUÂN BLUE
+   Bảng màu lấy từ wedding.theme.Colors (ThemePanel),
+   fallback về tông xanh của mẫu tham chiếu.
 ========================================================== */
 
-.nb-wedding {
-  --white: #ffffff;
-  --light-gray: #f8f8f8;
-  --medium-gray: #e0e0e0;
-  --dark-gray: #2a2a2a;
-  --accent-gray: #666666;
-  --silver: #c0c0c0;
-  --red: #7f151a;
-  --paper: #fff9eb;
+.mw-theme {
+  --mw-blue: var(--primary, #486c7d);
+  --mw-blue-deep: var(--secondary, #3a5666);
+  --mw-blue-soft: var(--accent, #a4c4d4);
+  --mw-blue-mist: var(--accent-light, #e8f0f4);
+  --mw-ink: var(--text, #3a5666);
+  --mw-ink-soft: var(--text-secondary, #6b8494);
+  --mw-paper: var(--white, #ffffff);
+  --mw-cream: var(--background, #ffffff);
+  --mw-hairline: rgba(72, 108, 125, 0.27);
+  --mw-hairline-soft: rgba(72, 108, 125, 0.13);
+  --mw-font-script: var(--font-script, "Pinyon Script", cursive);
+  --mw-font-serif: var(
+    --font-main,
+    Baskerville,
+    "Times New Roman",
+    "Be Vietnam Pro",
+    serif
+  );
 
   width: 100%;
   min-height: 100vh;
 
-  overflow-x: hidden;
+  background-color: var(--mw-paper);
+  color: var(--mw-ink);
 
-  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #fafafa 100%);
+  font-family: var(--mw-font-serif);
 }
 
-
-/* ==========================================================
-   GENERIC SECTION - CLEAN ANIMATION
-========================================================== */
-
-.section {
-  position: relative;
-
-  z-index: 2;
-
-  width: 100%;
-
-  padding: 40px 25px;
-  
-  animation: fadeInUp 0.6s cubic-bezier(0.42, 0, 0.58, 1) both;
-  border-bottom: 1px solid var(--medium-gray);
-}
-
-.section:nth-child(2) { animation-delay: 0.08s; }
-.section:nth-child(3) { animation-delay: 0.16s; }
-.section:nth-child(4) { animation-delay: 0.24s; }
-.section:nth-child(5) { animation-delay: 0.32s; }
-
-.section:last-child {
-  border-bottom: none;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ==========================================================
-   HERO SECTION
-========================================================== */
-
-.hero-section {
-  position: relative;
-
-  min-height: 650px;
-
-  padding: 0;
-
-  z-index: 2;
-  
-  animation: fadeIn 0.7s ease-out both;
-  border-bottom: 2px solid var(--medium-gray);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-
-/* ==========================================================
-   FRAMED SECTIONS - SUBTLE BORDERS
-========================================================== */
-
-.framed-section {
-  position: relative;
-
-  z-index: 5;
-
-  width: calc(100% - 36px);
-
-  margin: 25px auto;
-
-  padding: 48px 24px;
-
-  border: 1px solid var(--medium-gray);
-
-  background: var(--white);
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    
-  border-radius: 0;
-  
-  transition: all 0.3s ease;
-}
-
-.framed-section:hover {
-  border-color: var(--accent-gray);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
-}
-
-
-/* ==========================================================
-   FRAME CORNERS - GEOMETRIC
-========================================================== */
-
-.frame-corner {
-  position: absolute;
-
-  width: 82px;
-
-  pointer-events: none;
-  
-  opacity: 0.5;
-  
-  transition: opacity 0.3s ease;
-}
-
-.framed-section:hover .frame-corner {
-  opacity: 0.8;
-}
-
-
-/* ==========================================================
-   ORNAMENTS - MINIMAL
-========================================================== */
-
-.ornament {
-  position: absolute;
-
-  width: 60px;
-
-  opacity: 0.4;
-
-  pointer-events: none;
-  
-  transition: opacity 0.3s ease;
-}
-
-.framed-section:hover .ornament {
-  opacity: 0.7;
-}
-
-
-/* ==========================================================
-   HERO DECORATIONS - SUBTLE
-========================================================== */
-
-.art {
-  position: absolute;
-
-  pointer-events: none;
-  
-  opacity: 0.3;
-}
-
-
-.hero-cloud {
-  width: 280px;
-
-  opacity: 0.25;
-  
-  animation: subtleShift 10s ease-in-out infinite;
-}
-
-@keyframes subtleShift {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-
-.hero-cloud-small-right {
-  width: 140px;
-
-  top: 280px;
-
-  right: -40px;
-  
-  animation: subtleShift 12s ease-in-out infinite reverse;
-}
-
-
-.hero-flower {
-  width: 120px;
-
-  opacity: 0.2;
-  
-  animation: subtleRotate 12s ease-in-out infinite;
-}
-
-@keyframes subtleRotate {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(1deg); }
-}
-
-
-.hero-flower-right {
-  bottom: 120px;
-
-  right: -40px;
-
-  transform: scaleX(-1);
-  
-  animation-delay: -2s;
-}
-
-
-/* ==========================================================
-   BOTTOM DECORATIONS - MINIMAL
-========================================================== */
-
-.cloud-bottom {
-  position: absolute;
-
-  right: -45px;
-
-  bottom: 10px;
-
-  width: 250px;
-
-  z-index: 3;
-
-  opacity: 0.2;
-
-  pointer-events: none;
-
-  transform: scaleX(-1);
-  
-  animation: subtleShift 11s ease-in-out infinite;
-}
-
-
-.lantern-bottom {
-  position: absolute;
-
-  right: 35px;
-
-  bottom: 55px;
-
-  width: 70px;
-
-  z-index: 4;
-
-  opacity: 0.3;
-
-  pointer-events: none;
-  
-  animation: microWave 3s ease-in-out infinite;
-}
-
-@keyframes microWave {
-  0%, 100% { transform: rotate(-0.5deg); }
-  50% { transform: rotate(0.5deg); }
-}
-
-
-.fan-bottom {
-  position: absolute;
-
-  left: 15px;
-
-  bottom: 55px;
-
-  width: 90px;
-
-  z-index: 4;
-
-  opacity: 0.25;
-
-  pointer-events: none;
-
-  transform: rotate(-8deg);
-  
-  animation: verySlowSpin 20s linear infinite;
-}
-
-@keyframes verySlowSpin {
-  from { transform: rotate(-8deg); }
-  to { transform: rotate(352deg); }
-}
-
-
-.flower-bottom {
-  position: absolute;
-
-  left: 55px;
-
-  bottom: 15px;
-
-  width: 110px;
-
-  z-index: 4;
-
-  opacity: 0.2;
-
-  pointer-events: none;
-  
-  animation: microPulse 6s ease-in-out infinite;
-}
-
-@keyframes microPulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.3; }
-}
-
-
-/* ==========================================================
-   MODERNWHITE — LAYER 2: RED/PAPER (bộ đang thắng)
-   Màu sắc, vị trí trang trí, responsive.
-========================================================== */
-
-/* ==========================================================
-   RESET
-========================================================== */
-
-.nb-wedding *,
-.nb-wedding *::before,
-.nb-wedding *::after {
+.mw-theme *,
+.mw-theme *::before,
+.mw-theme *::after {
   box-sizing: border-box;
 }
 
-
-.nb-wedding img {
+.mw-theme img {
   display: block;
   max-width: 100%;
 }
 
-
-.nb-wedding button,
-.nb-wedding input,
-.nb-wedding textarea {
+.mw-theme button,
+.mw-theme input,
+.mw-theme textarea {
   font: inherit;
 }
 
 
 /* ==========================================================
-   MAIN
+   KHUNG THIỆP
 ========================================================== */
 
-.invitation {
+.mw-invitation {
   position: relative;
 
-  width: min(48rem, 100%);
-
+  width: min(480px, 100%);
   min-height: 100vh;
 
   margin: 0 auto;
 
-  overflow: hidden;
+  overflow-x: clip;
 
-  color: var(--red);
-
-  background: var(--paper);
-
-  box-shadow:
-    0 15px 60px rgba(64, 35, 15, 0.16);
+  background-color: var(--mw-paper);
 }
 
 
 /* ==========================================================
-   PAPER
-   CHỈ PAPER OPACITY 0.15
+   NỀN HOA VƯỜN
 ========================================================== */
 
-.invitation::before {
-  content: "";
-
+.mw-bg {
   position: absolute;
-
-  inset: 0;
-
-  z-index: 0;
+  z-index: 1;
 
   pointer-events: none;
 
-  background-image:
-    url("@/assets/nhat-binh-do-red/paper.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 
-  background-repeat: repeat-y;
+.mw-bg--top {
+  top: 0;
+  left: -66%;
 
-  background-position: center top;
+  width: 223%;
+  height: 1040px;
 
-  background-size: 100% auto;
+  background-image: url("@/assets/vuon xuan blu/top.webp");
+  background-position: left top;
+}
 
-  opacity: 0.15;
+.mw-bg--mid {
+  top: 10%;
+  left: 50%;
+
+  width: 214%;
+  height: 1307px;
+
+  transform: translateX(-50%);
+
+  background-image: url("@/assets/vuon xuan blu/mid.webp");
+  background-position: center center;
+}
+
+.mw-bg--bottom {
+  bottom: 0;
+  left: -59%;
+
+  width: 235%;
+  height: 1435px;
+
+  background-image: url("@/assets/vuon xuan blu/button.webp");
+  background-position: left center;
 }
 
 
 /* ==========================================================
-   GENERIC SECTION
+   NỘI DUNG
 ========================================================== */
 
-.section {
+.mw-content {
   position: relative;
+  z-index: 10;
 
-  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+
+  padding: 96px 16px 48px;
+}
+
+.mw-section {
+  position: relative;
+  z-index: 3;
 
   width: 100%;
-
-  padding:
-    40px 25px;
 }
 
-
-/* ==========================================================
-   HERO
-   KHÔNG KHUNG
-========================================================== */
-
-.hero-section {
-  position: relative;
-
-  min-height: 650px;
-
+.mw-section--hero {
   padding: 0;
-
-  z-index: 2;
 }
 
 
 /* ==========================================================
-   2 KHUNG CHÍNH
-========================================================== */
+   TIÊU ĐỀ DÙNG CHUNG
+========================================================= */
 
-.framed-section {
-  position: relative;
+.mw-theme :deep(.mw-title) {
+  margin: 0;
 
-  z-index: 5;
+  color: var(--mw-blue);
 
-  width: calc(100% - 36px);
+  font-family: var(--mw-font-serif);
+  font-size: 20px;
+  font-weight: 400;
 
-  margin:
-    25px auto;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
 
-  padding:
-    48px 24px;
+.mw-theme :deep(.mw-kicker) {
+  display: block;
 
-  border:
-    1px solid
-    rgba(151, 21, 25, 0.38);
+  margin-bottom: 6px;
 
-  background:
-    rgba(255, 249, 235, 0.28);
+  color: var(--mw-ink-soft);
 
-  box-shadow:
-    inset 0 0 35px
-    rgba(151, 21, 25, 0.025);
+  font-family: var(--mw-font-serif);
+  font-size: 11px;
+  font-weight: 400;
+
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.mw-theme :deep(.mw-lead) {
+  max-width: 320px;
+
+  margin: 12px auto 0;
+
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+  font-weight: 400;
+
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.mw-theme :deep(.mw-pill) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 38px;
+
+  padding: 0 24px;
+
+  border: none;
+  border-radius: 999px;
+
+  background-color: var(--mw-blue);
+  color: var(--mw-paper);
+
+  font-family: var(--mw-font-serif);
+  font-size: 14px;
+  font-weight: 600;
+
+  letter-spacing: 0.05em;
+
+  cursor: pointer;
+
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.mw-theme :deep(.mw-pill:hover:not(:disabled)) {
+  transform: scale(1.03);
+}
+
+.mw-theme :deep(.mw-pill:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mw-theme :deep(.mw-divider) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 14px auto 0;
+
+  color: var(--mw-blue-soft);
+}
+
+.mw-theme :deep(.mw-divider span) {
+  width: 48px;
+  height: 1px;
+
+  background-color: var(--mw-hairline);
+}
+
+.mw-theme :deep(.mw-divider i) {
+  font-size: 11px;
+  font-style: normal;
 }
 
 
 /* ==========================================================
-   KHUNG THÔNG TIN LỄ CƯỚI
-========================================================== */
-
-.wedding-info-frame {
-
-  margin-top: 10px;
-
-  border-radius:
-    18px 18px 4px 4px;
-
-}
-
-
-/* ==========================================================
-   KHUNG THÔNG TIN TIỆC CƯỚI
-========================================================== */
-
-.party-info-frame {
-
-  margin-top: 35px;
-
-  margin-bottom: 35px;
-
-  border-radius: 4px 4px 18px 18px;
-
-}
-
-
-/* ==========================================================
-   FRAME CONTENT
-========================================================== */
-
-.framed-content {
-  position: relative;
-
-  z-index: 3;
-
-  width: 100%;
-}
-
-
-/* ==========================================================
-   FRAME CORNERS
-========================================================== */
-
-.frame-decoration {
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 8;
-}
-
-
-.frame-corner {
-  position: absolute;
-
-  width: 78px;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.frame-corner-tl {
-  top: -1px;
-  left: -1px;
-}
-
-
-.frame-corner-tr {
-  top: -1px;
-  right: -1px;
-
-  transform: scaleX(-1);
-}
-
-
-.frame-corner-bl {
-  bottom: -1px;
-  left: -1px;
-
-  transform: scaleY(-1);
-}
-
-
-.frame-corner-br {
-  right: -1px;
-  bottom: -1px;
-
-  transform: scale(-1);
-}
-
-
-/* ==========================================================
-   HERO CLOUD
-========================================================== */
-
-.hero-cloud {
-  position: absolute;
-
-  z-index: 3;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.hero-cloud-left {
-  top: -15px;
-
-  left: -45px;
-
-  width: 230px;
-
-  opacity: .9;
-}
-
-
-.hero-cloud-small {
-  position: absolute;
-
-  z-index: 3;
-
-  pointer-events: none;
-}
-
-
-.hero-cloud-small-right {
-  top: 105px;
-
-  right: -35px;
-
-  width: 135px;
-
-  opacity: .7;
-
-  transform:
-    scaleX(-1);
-}
-
-
-/* ==========================================================
-   HERO FLOWER
-========================================================== */
-
-.hero-flower {
-  position: absolute;
-
-  z-index: 4;
-
-  pointer-events: none;
-
-  user-select: none;
-}
-
-
-.hero-flower-left {
-  top: 20px;
-
-  left: 10px;
-
-  width: 105px;
-
-  opacity: .8;
-
-  transform:
-    rotate(-10deg);
-}
-
-
-.hero-flower-right {
-  top: 30px;
-
-  right: 10px;
-
-  width: 100px;
-
-  opacity: .8;
-
-  transform:
-    scaleX(-1)
-    rotate(-10deg);
-}
-
-
-/* ==========================================================
-   STORY
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   ALBUM
-   KHÔNG KHUNG
-========================================================== */
-
-
-
-/* ==========================================================
-   COUNTDOWN
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   MAP
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   GIFT
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   GUESTBOOK
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   FOOTER
-   KHÔNG KHUNG
-========================================================== */
-
-
-/* ==========================================================
-   BOTTOM DECORATION
-========================================================== */
-
-.cloud-bottom {
-  position: absolute;
-
-  right: -45px;
-
-  bottom: 10px;
-
-  width: 250px;
-
-  z-index: 3;
-
-  opacity: .9;
-
-  pointer-events: none;
-
-  transform:
-    scaleX(-1);
-}
-
-
-.lantern-bottom {
-  position: absolute;
-
-  right: 35px;
-
-  bottom: 55px;
-
-  width: 70px;
-
-  z-index: 4;
-
-  opacity: .9;
-
-  pointer-events: none;
-}
-
-
-.fan-bottom {
-  position: absolute;
-
-  left: 15px;
-
-  bottom: 55px;
-
-  width: 90px;
-
-  z-index: 4;
-
-  opacity: .85;
-
-  pointer-events: none;
-
-  transform:
-    rotate(-8deg);
-}
-
-
-.flower-bottom {
-  position: absolute;
-
-  left: 55px;
-
-  bottom: 15px;
-
-  width: 110px;
-
-  z-index: 4;
-
-  opacity: .8;
-
-  pointer-events: none;
-}
-
-
-/* ==========================================================
-   MOBILE
-========================================================== */
-
-@media (max-width: 768px) {
-
-  .invitation {
-    width: 100%;
-
-    box-shadow: none;
+   DESKTOP
+========================================================= */
+
+@media (min-width: 900px) {
+  .mw-invitation {
+    width: min(900px, 100%);
+
+    border-left: 1px solid var(--mw-hairline-soft);
+    border-right: 1px solid var(--mw-hairline-soft);
   }
 
-
-  .section {
-    padding-left: 18px;
-
-    padding-right: 18px;
+  .mw-bg--top {
+    left: -35%;
+    width: 119%;
   }
 
-
-  .framed-section {
-    width: calc(100% - 24px);
-
-    padding:
-      42px 18px;
+  .mw-bg--mid {
+    width: 114%;
   }
 
-
-  .frame-corner {
-    width: 68px;
+  .mw-bg--bottom {
+    left: -31%;
+    width: 125%;
   }
 
+  .mw-content {
+    gap: 64px;
 
-  .hero-section {
-    min-height: 620px;
+    padding: 128px 40px 64px;
   }
 
-
-  .hero-cloud-left {
-    width: 190px;
-
-    left: -45px;
+  .mw-theme :deep(.mw-title) {
+    font-size: 26px;
   }
 
-
-  .hero-cloud-small-right {
-    width: 110px;
-
-    right: -30px;
+  .mw-theme :deep(.mw-kicker) {
+    font-size: 13px;
   }
 
+  .mw-theme :deep(.mw-lead) {
+    max-width: 500px;
 
-  .hero-flower-left {
-    width: 85px;
+    font-size: 16px;
   }
 
+  .mw-theme :deep(.mw-pill) {
+    min-height: 42px;
 
-  .hero-flower-right {
-    width: 80px;
+    font-size: 16px;
   }
-
-}
-
-
-/* ==========================================================
-   SMALL MOBILE
-========================================================== */
-
-@media (max-width: 420px) {
-
-  .hero-section {
-    min-height: 580px;
-  }
-
-
-  .framed-section {
-    width: calc(100% - 18px);
-
-    padding:
-      38px 14px;
-  }
-
-
-  .frame-corner {
-    width: 60px;
-  }
-
-
-  .hero-cloud-left {
-    width: 165px;
-  }
-
-
-  .hero-cloud-small-right {
-    width: 95px;
-  }
-
-
-  .hero-flower-left {
-    width: 72px;
-  }
-
-
-  .hero-flower-right {
-    width: 70px;
-  }
-
-
-  .cloud-bottom {
-    width: 200px;
-  }
-
 }
 </style>
-

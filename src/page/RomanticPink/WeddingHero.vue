@@ -1,39 +1,73 @@
 <template>
   <section class="invitation-hero">
-    <img :src="hoa" class="floral floral--top" alt="" loading="lazy" decoding="async" />
-    <img :src="hoa" class="floral floral--bottom" alt="" loading="lazy" decoding="async" />
-    <div class="hero-frame">
+    <img
+      :src="leaf"
+      class="floral floral--leaf"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      :src="flower"
+      class="floral floral--flower"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+
+    <div class="hero-card">
       <div class="hero-content">
         <p class="save-date">{{ heroTitle }}</p>
+
         <div class="motif">
-          <span></span><img :src="icon" alt="" loading="lazy" decoding="async" /><span></span>
+          <span></span>
+          <img :src="icon" alt="" loading="lazy" decoding="async" />
+          <span></span>
         </div>
-        <h1>{{ groomName }}<br> <i>&amp;</i><br> {{ brideName }}</h1>
+
+        <h1>
+          <span class="name">{{ groomName }}</span>
+          <i>&amp;</i>
+          <span class="name">{{ brideName }}</span>
+        </h1>
+
         <p class="announce">{{ heroSubtitle }}</p>
-        <p class="guest">{{ guestName }}</p>
+
+        <div class="guest-block">
+          <span class="guest-label">KÍNH MỜI</span>
+          <p class="guest">{{ guestName }}</p>
+        </div>
+
         <p class="intro">
           Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
         </p>
+
         <p class="place">{{ location }}</p>
+
         <div class="schedule">
-          <p>VÀO LÚC {{ time }}</p>
-          <p>{{ dateText }}</p>
+          <p class="schedule-time">VÀO LÚC {{ time }}</p>
+          <p class="schedule-date">{{ dateText }}</p>
         </div>
+
         <p class="message">
           Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
         </p>
+
         <div class="hero-footer">
-          <span></span><b>{{ monogram }}</b
-          ><span></span>
+          <span></span><b>{{ monogram }}</b><span></span>
         </div>
       </div>
     </div>
   </section>
 </template>
+
 <script setup>
 import { computed } from "vue";
-import { hoa, icon } from "@/page/RomanticPink/romaticpink";
 import dayjs from "dayjs";
+import { icon } from "@/page/RomanticPink/romaticpink";
+import leaf from "@/assets/glass-garden-pink/leaf1-bloom.webp";
+import flower from "@/assets/glass-garden-pink/flower1-decoration.webp";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
@@ -42,19 +76,30 @@ const props = defineProps({
   dateLabel: { type: String, default: "" },
 });
 
-const heroTitle = computed(
-  () => props.wedding?.hero?.Title || "SAVE THE DATE"
-);
+const heroTitle = computed(() => props.wedding?.hero?.Title || "SAVE THE DATE");
 
 const heroSubtitle = computed(
   () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
 );
+
 const groomName = computed(
-  () => props.wedding?.GroomName || props.wedding?.groomName || props.wedding?.hero?.GroomName || props.wedding?.couple?.Groom?.Name || ""
+  () =>
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    ""
 );
+
 const brideName = computed(
-  () => props.wedding?.BrideName || props.wedding?.brideName || props.wedding?.hero?.BrideName || props.wedding?.couple?.Bride?.Name || ""
+  () =>
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    ""
 );
+
 const location = computed(
   () =>
     props.event?.Location ||
@@ -63,6 +108,7 @@ const location = computed(
     props.wedding?.events?.[0]?.Location ||
     ""
 );
+
 const time = computed(
   () =>
     props.event?.EventTime ||
@@ -72,6 +118,7 @@ const time = computed(
     props.wedding?.events?.[0]?.EventTime ||
     ""
 );
+
 const dateText = computed(() => {
   const raw =
     props.event?.EventDate ||
@@ -79,195 +126,297 @@ const dateText = computed(() => {
     props.wedding?.hero?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
     props.wedding?.weddingDate;
+
   const date = dayjs(raw);
-  if (date.isValid())
-    return `${
-      date.day() === 0 ? "CHỦ NHẬT" : date.day() + 1
-    }, NGÀY ${date.format("DD/MM/YYYY")}`;
+
+  if (date.isValid()) {
+    const weekdays = [
+      "CHỦ NHẬT",
+      "THỨ HAI",
+      "THỨ BA",
+      "THỨ TƯ",
+      "THỨ NĂM",
+      "THỨ SÁU",
+      "THỨ BẢY",
+    ];
+
+    return `${weekdays[date.day()]}, NGÀY ${date.format("DD/MM/YYYY")}`;
+  }
+
   return props.dateLabel || "";
 });
 </script>
+
 <style scoped>
 .invitation-hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 12px;
-  min-height: 690px;
-}
-.invitation-hero:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
 
-  background-image: linear-gradient(
-      180deg,
-      rgba(255, 248, 244, 0.72),
-      rgba(255, 240, 236, 0.45) 55%,
-      rgba(255, 248, 244, 0.75)
-    ),
-    radial-gradient(circle at 20% 15%, rgba(244, 194, 208, 0.5), transparent 45%),
-    radial-gradient(circle at 82% 80%, rgba(214, 141, 166, 0.4), transparent 48%);
-  background-size: cover;
-  background-position: center;
-  opacity: 0.55;
+  padding: 34px 18px 10px;
+
+  display: flex;
+  justify-content: center;
 }
-.hero-frame {
-  position: relative;
-  min-height: 666px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(168, 67, 101, 0.45);
-}
-.hero-frame:before {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border: 1px solid rgba(168, 67, 101, 0.16);
-  pointer-events: none;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  width: min(100%, 440px);
-  padding: 55px 28px 45px;
-  text-align: center;
-  animation: fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+
+/* =========================================================
+   HOA TRANG TRÍ
+   ========================================================= */
+
 .floral {
   position: absolute;
   z-index: 1;
-  width: min(74vw, 390px);
-  opacity: 0.52;
+
   pointer-events: none;
-  filter: sepia(0.2) saturate(0.82);
+
+  object-fit: contain;
 }
-.floral--top {
-  top: -105px;
-  left: -128px;
-  transform: rotate(-34deg);
+
+.floral--leaf {
+  top: -40px;
+  left: -90px;
+
+  width: 260px;
+
+  opacity: 0.6;
+  transform: rotate(-18deg);
 }
-.floral--bottom {
-  right: -135px;
-  bottom: -110px;
-  transform: scale(-1) rotate(-34deg);
+
+.floral--flower {
+  right: -100px;
+  bottom: -60px;
+
+  width: 250px;
+
+  opacity: 0.55;
+  transform: rotate(14deg);
 }
-.save-date,
-.announce,
-.intro,
-.place,
-.schedule p {
-  letter-spacing: 0.14em;
+
+/* =========================================================
+   THẺ KÍNH HÌNH CUNG
+   ========================================================= */
+
+.hero-card {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, 300px);
+  aspect-ratio: 239 / 368;
+
+  display: grid;
+  place-items: center;
+
+  padding: 26px 20px;
+
+  border-radius: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  background-color: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(7px) saturate(1.08);
+  -webkit-backdrop-filter: blur(7px) saturate(1.08);
+
+  box-shadow: inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.45),
+    inset -1.5px -1.5px 3px rgba(180, 120, 130, 0.12),
+    0 18px 50px -6px rgba(147, 56, 69, 0.3),
+    0 6px 20px 2px rgba(147, 56, 69, 0.14);
+
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+.hero-content {
+  width: 100%;
+  text-align: center;
+}
+
+/* =========================================================
+   NỘI DUNG
+   ========================================================= */
+
 .save-date {
   margin: 0;
-  color: #a34568;
-  font-size: 11px;
-  font-weight: 700;
+
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+
+  opacity: 0.8;
 }
+
 .motif {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 11px;
-  margin: 12px auto;
+  gap: 8px;
+
+  margin: 8px auto;
 }
+
 .motif span {
-  width: 48px;
+  width: 30px;
   height: 1px;
+  background-color: rgba(203, 93, 108, 0.4);
 }
+
 .motif span:last-child {
   transform: scaleX(-1);
 }
+
 .motif img {
-  width: 60px;
-  /* height: 43px; */
+  width: 34px;
   object-fit: contain;
-  opacity: 0.66;
+  opacity: 0.7;
 }
+
 .invitation-hero h1 {
   margin: 0;
-  color: #a53f65;
-  font-family: "Great Vibes", "Brush Script MT", cursive;
-  font-size: clamp(42px, 11vw, 62px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.invitation-hero h1 .name {
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "Viaoda Libre", "EB Garamond", cursive;
+  font-size: 26px;
   font-weight: 400;
-  line-height: 1.05;
-  text-shadow: 0 1px #fff;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
 }
+
 .invitation-hero h1 i {
-  padding: 0 4px;
-  color: #b8788d;
-  font-family: Georgia;
-  font-size: 0.55em;
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "Alex Brush", "The Nautigal", cursive;
+  font-size: 20px;
   font-style: normal;
+  line-height: 1;
 }
+
 .announce {
-  margin: 30px 0 8px;
-  color: #a45a73;
-  font-size: 10px;
-  font-weight: 700;
+  margin: 12px 0 0;
+
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  opacity: 0.8;
 }
+
+.guest-block {
+  margin-top: 12px;
+}
+
+.guest-label {
+  display: block;
+
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+
+  opacity: 0.65;
+}
+
 .guest {
-  margin: 0;
-  color: #a43e64;
-  font-size: 27px;
-  font-weight: 700;
+  margin: 2px 0 0;
+
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "EB Garamond", serif;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.2;
 }
+
 .intro {
-  max-width: 325px;
-  margin: 14px auto 8px;
-  color: #84445c;
-  font-size: 12px;
+  max-width: 210px;
+  margin: 12px auto 4px;
+
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 10px;
   line-height: 1.55;
+
+  opacity: 0.85;
 }
+
 .place {
-  max-width: 350px;
+  max-width: 220px;
   margin: 0 auto;
-  color: #9d3d61;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.38;
+
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "EB Garamond", serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
 }
+
 .schedule {
-  margin: 24px auto 0;
-  padding: 14px 0;
-  border-top: 1px solid rgba(176, 74, 107, 0.36);
-  border-bottom: 1px solid rgba(176, 74, 107, 0.36);
+  margin: 12px auto 0;
+  padding: 9px 0;
+
+  border-top: 1px solid rgba(203, 93, 108, 0.3);
+  border-bottom: 1px solid rgba(203, 93, 108, 0.3);
 }
+
 .schedule p {
-  margin: 4px 0;
-  color: #9d3d61;
-  font-size: 14px;
+  margin: 2px 0;
+
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
+.schedule-time {
   font-weight: 700;
-  line-height: 1.45;
 }
+
 .message {
-  max-width: 295px;
-  margin: 24px auto 20px;
-  color: #805167;
-  font-size: 15px;
-  line-height: 1.45;
+  max-width: 200px;
+  margin: 12px auto 10px;
+
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 10px;
   font-style: italic;
+  line-height: 1.5;
+
+  opacity: 0.8;
 }
+
 .hero-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  color: #b25676;
+  gap: 8px;
+
+  color: var(--gg-rose, #cb5d6c);
 }
+
 .hero-footer span {
-  width: 50px;
+  width: 28px;
   height: 1px;
+  background-color: rgba(203, 93, 108, 0.4);
 }
+
 .hero-footer span:last-child {
   transform: scaleX(-1);
 }
+
 .hero-footer b {
-  font: 400 14px Georgia;
+  font-family: "EB Garamond", serif;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.14em;
 }
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -278,25 +427,50 @@ const dateText = computed(() => {
     transform: none;
   }
 }
-@media (max-width: 380px) {
-  .hero-content {
-    padding: 43px 20px 35px;
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 900px) {
+  .invitation-hero {
+    padding: 48px 40px 16px;
   }
-  .hero-frame {
-    min-height: 640px;
+
+  .hero-card {
+    width: min(100%, 360px);
+    padding: 34px 26px;
   }
-  .invitation-hero h1 {
-    font-size: 43px;
+
+  .invitation-hero h1 .name {
+    font-size: 33px;
   }
+
+  .invitation-hero h1 i {
+    font-size: 23px;
+  }
+
   .guest {
-    font-size: 24px;
+    font-size: 22px;
   }
-  .intro {
-    font-size: 11px;
+
+  .place {
+    font-size: 15px;
+  }
+
+  .floral--leaf {
+    left: -60px;
+    width: 320px;
+  }
+
+  .floral--flower {
+    right: -70px;
+    width: 300px;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-content {
+  .hero-card {
     animation: none;
   }
 }

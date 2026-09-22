@@ -1,54 +1,261 @@
 <template>
-  <div class="emerald-luxe-theme">
-    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" />
-    <main v-else class="el-invitation">
-      <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
+  <div ref="rootRef" class="chipi-red" :data-theme="theme.Name" :style="themeStyle">
+    <!-- =====================================================
+         MÀN HÌNH MỞ THIỆP
+    ====================================================== -->
 
-      <div class="el-content">
-        <section v-if="showCouple" class="el-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" /></section>
-        <section v-if="showStory && wedding?.story" class="el-section"><WeddingStory :story="wedding.story" /></section>
-        <section v-if="showEvents && events.length" class="el-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" /></section>
-        <section v-if="showTimeline && timeline.length" class="el-section"><Timeline :timeline="timeline" :events="events" /></section>
-        <section v-if="showCountdown" class="el-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" /></section>
-        <section v-if="showGallery && gallery.length" class="el-section"><WeddingGallery :gallery="gallery" /></section>
+    <OpeningScreen
+      v-if="!opened"
+      :wedding="wedding"
+      :monogram="monogram"
+      :date-label="openDateLabel"
+      @open="handleOpen"
+    />
+
+    <!-- =====================================================
+         THIỆP
+    ====================================================== -->
+
+    <main v-else class="cr-invitation">
+      <!-- HOA VĂN CHÌM TOÀN THIỆP -->
+      <div class="cr-invitation__pattern" aria-hidden="true"></div>
+
+      <!-- ============ HERO ============ -->
+
+      <WeddingHero
+        v-if="showHero"
+        :wedding="wedding"
+        :monogram="monogram"
+        :date-label="heroDateLabel"
+        :event="primaryEvent"
+        :guest-name="guestName"
+      />
+
+      <!-- ============ NỘI DUNG ============ -->
+
+      <div class="cr-invitation__body">
+        <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" />
+
+        <WeddingStory v-if="showStory && wedding?.story" :story="wedding.story" />
+
+        <WeddingGallery v-if="showGallery && gallery.length" :gallery="gallery" />
+
+        <WeddingEvents
+          v-if="showEvents && events.length"
+          :events="events"
+          :recipient-name="wedding?.recipientName"
+        />
+
+        <WeddingMap v-if="showMap && events.length" :events="events" />
+
+        <Timeline v-if="showTimeline && timeline.length" :timeline="timeline" :events="events" />
+
+        <WeddingCountdown
+          v-if="showCountdown"
+          :countdown="countdownTarget"
+          :wedding-date="wedding?.weddingDate"
+        />
+
+        <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" />
+
+        <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" />
       </div>
 
-      <section v-if="showMap && events.length" class="el-section"><WeddingMap :events="events" /></section>
-      <section v-if="showGift && gifts.length" class="el-section"><WeddingGifts :gifts="gifts" /></section>
-      <section v-if="showGuestBook" class="el-section"><WeddingWishes :wishes="wishes" :wedding="wedding" /></section>
+      <!-- ============ FOOTER ============ -->
 
-      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
+      <WeddingFooter
+        v-if="showFooter"
+        :wedding="wedding"
+        :monogram="monogram"
+        :current-year="currentYear"
+      />
+
+      <!-- ============ NHẠC ============ -->
+
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
   </div>
 </template>
 
 <script setup>
-import { computed, nextTick, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+
 import dayjs from "dayjs";
+
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+
 import OpeningScreen from "@/page/EmeraldLuxe/OpeningScreen.vue";
 import WeddingHero from "@/page/EmeraldLuxe/WeddingHero.vue";
 import WeddingCouple from "@/page/EmeraldLuxe/WeddingCouple.vue";
 import WeddingStory from "@/page/EmeraldLuxe/WeddingStory.vue";
-import WeddingEvents from "@/page/EmeraldLuxe/WeddingEvents.vue";
-import WeddingCountdown from "@/page/EmeraldLuxe/WeddingCountdown.vue";
 import WeddingGallery from "@/page/EmeraldLuxe/WeddingGallery.vue";
+import WeddingEvents from "@/page/EmeraldLuxe/WeddingEvents.vue";
 import WeddingMap from "@/page/EmeraldLuxe/WeddingMap.vue";
 import Timeline from "@/page/EmeraldLuxe/Timeline.vue";
-import WeddingGifts from "@/page/EmeraldLuxe/WeddingGifts.vue";
+import WeddingCountdown from "@/page/EmeraldLuxe/WeddingCountdown.vue";
 import WeddingWishes from "@/page/EmeraldLuxe/WeddingWishes.vue";
+import WeddingGifts from "@/page/EmeraldLuxe/WeddingGifts.vue";
 import WeddingFooter from "@/page/EmeraldLuxe/WeddingFooter.vue";
 
-const props = defineProps({ wedding: { type: Object, required: true } });
-const wedding = computed(() => props.wedding || {})
+import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
-/*
- * Ưu tiên nhạc từ wedding.music (panel Nhạc).
- * Nếu trống mà hero.Music có giá trị thì dùng hero.Music.
- */
+const props = defineProps({
+  wedding: {
+    type: Object,
+    required: true,
+  },
+});
+
+const { theme, themeStyle } = useWeddingTheme(props.wedding);
+
+const wedding = computed(() => props.wedding || {});
+
+/* =========================================================
+   TRẠNG THÁI
+========================================================= */
+
+const opened = ref(false);
+
+const floatingMusicRef = ref(null);
+
+const rootRef = ref(null);
+
+/* =========================================================
+   DỮ LIỆU
+========================================================= */
+
+const events = computed(() =>
+  Array.isArray(wedding.value?.events) ? wedding.value.events : []
+);
+
+const primaryEvent = computed(() => events.value[0] || {});
+
+const timeline = computed(() =>
+  Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []
+);
+
+const gallery = computed(() =>
+  Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []
+);
+
+const gifts = computed(() =>
+  Array.isArray(wedding.value?.gifts) ? wedding.value.gifts : []
+);
+
+const wishes = computed(() =>
+  Array.isArray(wedding.value?.guestBook?.Guest) ? wedding.value.guestBook.Guest : []
+);
+
+const settings = computed(() => wedding.value?.settings || {});
+
+/* =========================================================
+   CỜ HIỂN THỊ
+========================================================= */
+
+const showHero = computed(() => settings.value.ShowHero !== false);
+const showCouple = computed(() => settings.value.ShowCouple !== false);
+const showStory = computed(() => settings.value.ShowStory !== false);
+const showEvents = computed(() => settings.value.ShowEvents !== false);
+const showTimeline = computed(() => settings.value.ShowTimeline !== false);
+const showFooter = computed(() => settings.value.ShowFooter !== false);
+
+const showCountdown = computed(() => settings.value.ShowCountdown === true);
+const showGallery = computed(() => settings.value.ShowGallery === true);
+const showMap = computed(() => settings.value.ShowMap === true);
+const showGift = computed(() => settings.value.ShowGift === true);
+const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
+
+const showMusic = computed(
+  () => wedding.value?.music?.Enabled === true && settings.value.ShowMusic === true
+);
+
+/* =========================================================
+   TÊN KHÁCH MỜI
+   recipientName từ API có thể là mảng [{ Token, Name }] hoặc object.
+========================================================= */
+
+const guestName = computed(
+  () =>
+    (Array.isArray(wedding.value?.recipientName)
+      ? wedding.value.recipientName[0]?.Name
+      : wedding.value?.recipientName?.Name) ||
+    wedding.value?.guestName ||
+    "Quý khách"
+);
+
+/* =========================================================
+   MONOGRAM
+========================================================= */
+
+const monogram = computed(() => {
+  const groom =
+    wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.couple?.Groom?.Name ||
+    "";
+
+  const bride =
+    wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.couple?.Bride?.Name ||
+    "";
+
+  const left = groom.trim().charAt(0);
+  const right = bride.trim().charAt(0);
+
+  if (!left && !right) return "囍";
+
+  return `${left}&${right}`.toUpperCase();
+});
+
+/* =========================================================
+   NGÀY
+========================================================= */
+
+function formatDate(date) {
+  const value = dayjs(date);
+
+  return value.isValid() ? value.format("DD · MM · YYYY") : "";
+}
+
+const openDateLabel = computed(() => formatDate(wedding.value?.weddingDate));
+
+const heroDateLabel = computed(() => {
+  const raw = primaryEvent.value?.EventDate || wedding.value?.weddingDate;
+
+  const value = dayjs(raw);
+
+  if (!value.isValid()) return "";
+
+  const weekdays = [
+    "CHỦ NHẬT",
+    "THỨ HAI",
+    "THỨ BA",
+    "THỨ TƯ",
+    "THỨ NĂM",
+    "THỨ SÁU",
+    "THỨ BẢY",
+  ];
+
+  return `${weekdays[value.day()]}, ${value.format("DD/MM/YYYY")}`;
+});
+
+/* =========================================================
+   ĐẾM NGƯỢC
+========================================================= */
+
+const countdownTarget = computed(
+  () => wedding.value?.countdown?.Target || wedding.value?.weddingDate || ""
+);
+
+/* =========================================================
+   NHẠC
+   Ưu tiên wedding.music, fallback hero.Music.
+========================================================= */
+
 const heroMusic = computed(() => {
   const music = wedding.value?.music || {};
+
   const heroUrl = wedding.value?.hero?.Music;
 
   if (music.Url || !heroUrl) {
@@ -56,73 +263,244 @@ const heroMusic = computed(() => {
   }
 
   return { ...music, Url: heroUrl };
-});;
-const opened = ref(false);
-const floatingMusicRef = ref(null);
-const currentYear = new Date().getFullYear();
-const settings = computed(() => wedding.value?.settings || {});
-const events = computed(() => Array.isArray(wedding.value?.events) ? wedding.value.events : []);
-const timeline = computed(() => Array.isArray(wedding.value?.timeline) ? wedding.value.timeline : []);
-const gallery = computed(() => Array.isArray(wedding.value?.gallery) ? wedding.value.gallery : []);
-const gifts = computed(() => Array.isArray(wedding.value?.gifts) ? wedding.value.gifts : []);
-const wishes = computed(() => Array.isArray(wedding.value?.guestBook?.Guest) ? wedding.value.guestBook.Guest : []);
-const primaryEvent = computed(() => events.value[0] || {});
-const countdownTarget = computed(() => wedding.value?.countdown?.Target || wedding.value?.countdown || wedding.value?.weddingDate);
-const guestName = computed(() => (Array.isArray(wedding.value?.recipientName) ? wedding.value.recipientName[0]?.Name : wedding.value?.recipientName?.Name) || wedding.value?.guestName || "Quý khách");
-const showHero = computed(() => settings.value.ShowHero !== false);
-const showCouple = computed(() => settings.value.ShowCouple !== false);
-const showStory = computed(() => settings.value.ShowStory !== false);
-const showEvents = computed(() => settings.value.ShowEvents !== false);
-const showTimeline = computed(() => settings.value.ShowTimeline !== false);
-const showCountdown = computed(() => settings.value.ShowCountdown === true);
-const showGallery = computed(() => settings.value.ShowGallery === true);
-const showMap = computed(() => settings.value.ShowMap === true);
-const showGift = computed(() => settings.value.ShowGift === true);
-const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
-const showFooter = computed(() => settings.value.ShowFooter !== false);
-const showMusic = computed(() => wedding.value?.music?.Enabled === true && settings.value.ShowMusic === true);
-const monogram = computed(() => {
-  const groom = wedding.value?.GroomName || wedding.value?.groomName || wedding.value?.hero?.GroomName || wedding.value?.couple?.Groom?.Name || "G";
-  const bride = wedding.value?.BrideName || wedding.value?.brideName || wedding.value?.hero?.BrideName || wedding.value?.couple?.Bride?.Name || "B";
-  return `${groom.trim().charAt(0)}&${bride.trim().charAt(0)}`.toUpperCase();
 });
-function formatDate(value) {
-  const date = dayjs(value);
-  return date.isValid() ? date.format("DD · MM · YYYY") : "";
+
+/* =========================================================
+   NĂM HIỆN TẠI
+========================================================= */
+
+const currentYear = new Date().getFullYear();
+
+/* =========================================================
+   BIẾN MÀU RA <body>
+   Modal xác nhận / hộp quà được Teleport ra ngoài cây DOM của
+   theme nên không thừa hưởng biến --cr-* khai báo ở .chipi-red.
+   Chép sang <body> để chúng vẫn đúng màu.
+========================================================= */
+
+const BODY_VARS = [
+  "--cr-bg",
+  "--cr-bg-2",
+  "--cr-ink",
+  "--cr-soft",
+  "--cr-accent",
+  "--cr-accent-light",
+  "--cr-surface",
+  "--cr-muted",
+  "--cr-line",
+  "--cr-ink-rgb",
+  "--cr-soft-rgb",
+  "--cr-accent-rgb",
+  "--cr-bg-rgb",
+  "--cr-surface-rgb",
+];
+
+/* Biến --cr-*-rgb dùng cho rgba() nên phải suy ra từ màu thật. */
+const RGB_SOURCES = {
+  "--cr-ink-rgb": "--cr-ink",
+  "--cr-soft-rgb": "--cr-soft",
+  "--cr-accent-rgb": "--cr-accent",
+  "--cr-bg-rgb": "--cr-bg",
+  "--cr-surface-rgb": "--cr-surface",
+};
+
+function toRgbTriplet(value) {
+  const hex = String(value || "").trim().replace("#", "");
+
+  if (!/^[0-9a-f]{6}$/i.test(hex)) return "";
+
+  return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(", ");
 }
-const openDateLabel = computed(() => formatDate(wedding.value?.weddingDate));
-const heroDateLabel = computed(() => formatDate(wedding.value?.hero?.WeddingDate || wedding.value?.hero?.weddingDate || wedding.value?.weddingDate));
+
+function syncBodyVars() {
+  const root = rootRef.value;
+
+  if (!root) return;
+
+  const computedStyle = window.getComputedStyle(root);
+
+  BODY_VARS.forEach((name) => {
+    const value = computedStyle.getPropertyValue(name).trim();
+
+    if (value) {
+      document.body.style.setProperty(name, value);
+    }
+  });
+
+  Object.entries(RGB_SOURCES).forEach(([target, source]) => {
+    const triplet = toRgbTriplet(computedStyle.getPropertyValue(source));
+
+    if (triplet) {
+      document.body.style.setProperty(target, triplet);
+    }
+  });
+}
+
+function clearBodyVars() {
+  BODY_VARS.forEach((name) => document.body.style.removeProperty(name));
+}
+
+onMounted(syncBodyVars);
+
+watch(themeStyle, () => nextTick(syncBodyVars), { deep: true });
+
+onBeforeUnmount(clearBodyVars);
+
+/* =========================================================
+   MỞ THIỆP
+========================================================= */
+
 async function handleOpen() {
   opened.value = true;
+
   await nextTick();
+
   floatingMusicRef.value?.play?.();
 }
 </script>
 
 <style scoped>
-.emerald-luxe-theme {
-  --theme-primary: #123b2e;
-  --theme-secondary: #c9a45c;
-  --theme-accent: #e8d3a2;
-  --theme-bg: #f2ecdc;
-  --theme-panel: rgba(255, 255, 255, 0.72);
-  --theme-text: #2e3d36;
-  min-height: 100vh;
+/* =========================================================
+   TRANG
+========================================================= */
+
+.chipi-red {
+  /*
+   * Bảng màu lấy từ theme.Colors của thiệp (xem useWeddingTheme),
+   * fallback về tông "chibi đỏ" khi dữ liệu chưa có.
+   * Các biến --cr-*-rgb dùng cho những chỗ cần độ trong suốt.
+   */
+  --cr-bg: var(--background, #fef0e0);
+  --cr-bg-2: var(--background-secondary, #f7e6cd);
+  --cr-ink: var(--primary, #4c2d1f);
+  --cr-soft: var(--text-secondary, #624537);
+  --cr-accent: var(--accent, #e1c490);
+  --cr-accent-light: var(--accent-light, #f3ddb8);
+  --cr-surface: var(--white, #fffaf2);
+  --cr-muted: #a98a5c;
+  --cr-line: rgba(76, 45, 31, 0.22);
+
+  --cr-ink-rgb: 76, 45, 31;
+  --cr-soft-rgb: 98, 69, 55;
+  --cr-accent-rgb: 225, 196, 144;
+  --cr-bg-rgb: 254, 240, 224;
+  --cr-surface-rgb: 255, 250, 242;
+
+  position: relative;
+
   width: 100%;
-  background:
-    repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.03) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.03) 0 1px, transparent 1px 12px),
-    var(--theme-bg);
-  color: var(--theme-text);
-  font-family: "Cormorant Garamond", Georgia, serif;
+  min-height: 100dvh;
+
+  overflow-x: hidden;
+
+  background-color: var(--cr-bg);
+
+  color: var(--cr-ink);
+
+  font-family: "Be Vietnam Pro", "Segoe UI", sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+
+  text-rendering: optimizeLegibility;
 }
 
-.el-invitation { width: 100%; }
+/* =========================================================
+   KHUNG THIỆP
+========================================================= */
 
-.el-content {
-  padding: 0 20px 30px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(227, 220, 196, 0.55));
+.cr-invitation {
+  position: relative;
+
+  width: 100%;
+  max-width: 480px;
+
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  padding: 0 15px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background-color: var(--cr-bg);
+
+  color: var(--cr-ink);
 }
 
-.el-section { max-width: 1100px; margin: 0 auto 22px; }
+/* =========================================================
+   HOA VĂN CHÌM
+========================================================= */
+
+.cr-invitation__pattern {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  opacity: 0.5;
+
+  background-image: radial-gradient(rgba(var(--cr-accent-rgb), 0.55) 1px, transparent 1px);
+
+  background-size: 22px 22px;
+}
+
+/* =========================================================
+   THÂN THIỆP
+========================================================= */
+
+.cr-invitation__body {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 34px;
+
+  padding: 30px 0 0;
+}
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 768px) {
+  .cr-invitation {
+    max-width: 900px;
+
+    padding: 0 24px;
+
+    border-left: 1px solid var(--cr-line);
+    border-right: 1px solid var(--cr-line);
+  }
+
+  .cr-invitation__body {
+    gap: 48px;
+
+    padding-top: 40px;
+  }
+}
+
+/* =========================================================
+   GIẢM CHUYỂN ĐỘNG
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .chipi-red *,
+  .chipi-red *::before,
+  .chipi-red *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
   <section class="lc-countdown">
-    <p class="lc-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
+    <p v-if="eyebrow" class="lc-eyebrow">{{ eyebrow }}</p>
 
-    <h2>Đếm ngược</h2>
+    <h2>{{ heading }}</h2>
 
     <div class="lc-countdown__grid">
       <article v-for="item in values" :key="item.label" class="lc-countdown__item">
@@ -17,10 +17,21 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   countdown: { type: [String, Date, Object], default: "" },
   weddingDate: { type: [String, Date], default: "" },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "countdown", "Heading", "Đếm ngược")
+);
 
 const now = ref(Date.now());
 let timer;

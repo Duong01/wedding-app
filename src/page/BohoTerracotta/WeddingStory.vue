@@ -1,19 +1,33 @@
 <template>
-  <section class="bt-story">
-    <p class="bt-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+  <section class="bq-story">
+    <img
+      :src="flower4"
+      alt=""
+      aria-hidden="true"
+      class="bq-story__flower"
+      draggable="false"
+    />
 
-    <h2>{{ storyTitle }}</h2>
+    <div class="bq-story__inner">
+      <h2 class="bq-heading">{{ storyTitle || "CHUYỆN TÌNH YÊU" }}</h2>
 
-    <div class="bt-quote">“</div>
+      <img
+        :src="line2"
+        alt=""
+        aria-hidden="true"
+        class="bq-story__line"
+        draggable="false"
+      />
 
-    <p>{{ content }}</p>
-
-    <div class="bt-tail">❋</div>
+      <p class="bq-story__content">{{ content }}</p>
+    </div>
   </section>
 </template>
 
 <script setup>
 import { computed } from "vue";
+
+import { flower4, line2 } from "./bohoTerracottaAssets";
 
 const props = defineProps({ story: { type: [String, Object], default: "" } });
 
@@ -29,114 +43,109 @@ const storyTitle = computed(() =>
 </script>
 
 <style scoped>
-.bt-story {
+.bq-story {
   position: relative;
+  isolation: isolate;
+
+  width: 100%;
+
+  overflow: hidden;
 
   text-align: center;
 
-  color: #5c4636;
-
-  padding: 10px 22px;
+  color: var(--bq-ink);
 }
 
-/* Organic blob backdrop */
-.bt-story::before {
-  content: "";
+.bq-story__flower {
   position: absolute;
 
-  top: 50%;
-  left: 50%;
+  z-index: 1;
 
-  width: min(88%, 420px);
-  height: 78%;
+  bottom: 9px;
+  left: -9.5%;
 
-  transform: translate(-50%, -50%) rotate(-2deg);
+  width: 40.7%;
+  max-width: none;
+  height: auto;
 
-  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
-
-  background: rgba(242, 226, 208, 0.4);
+  object-fit: contain;
 
   pointer-events: none;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-eyebrow {
+.bq-story__inner {
   position: relative;
+  z-index: 2;
 
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  color: #8a9b7c;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.3em;
-  text-indent: 0.3em;
-}
-
-.bt-story h2 {
-  position: relative;
-
-  margin: 6px 0 4px;
-
-  font-family: "Allura", cursive;
-  font-size: clamp(30px, 8vw, 40px);
-  font-weight: 400;
-
-  color: #9c5b3f;
-}
-
-/* Big decorative quote mark */
-.bt-quote {
-  position: relative;
-
-  height: 35px;
-
-  color: #c97b5d;
-
-  font: 64px Georgia, serif;
-  line-height: 1;
-
-  transform: rotate(-4deg);
-}
-
-.bt-story p {
-  position: relative;
-
+  width: 100%;
   max-width: 400px;
+
   margin: 0 auto;
 
-  font-size: clamp(15px, 4.2vw, 18px);
+  padding: 0 20px;
+}
+
+.bq-heading {
+  margin: 0;
+
+  color: var(--bq-accent);
+
+  font-family: "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+}
+
+.bq-story__line {
+  display: block;
+
+  width: 143px;
+  max-width: none;
+  height: auto;
+
+  margin: 10px auto 0;
+
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
+}
+
+.bq-story__content {
+  max-width: 420px;
+  margin: 18px auto 0;
+
+  color: var(--bq-soft);
+
+  font-size: 14px;
   font-style: italic;
 
-  line-height: 1.7;
+  line-height: 1.85;
 }
 
-.bt-tail {
-  position: relative;
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
 
-  margin-top: 18px;
-
-  color: #8a9b7c;
-
-  font-size: 15px;
-
-  animation: bt-tail-sway 5s ease-in-out infinite;
-}
-
-@keyframes bt-tail-sway {
-  0%,
-  100% {
-    transform: rotate(-8deg);
+@media (min-width: 768px) {
+  .bq-heading {
+    font-size: 24px;
   }
 
-  50% {
-    transform: rotate(8deg);
+  .bq-story__line {
+    width: 180px;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .bt-tail {
-    animation: none;
+  .bq-story__content {
+    font-size: 16px;
   }
 }
 </style>

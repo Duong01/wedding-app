@@ -1,9 +1,9 @@
 <template>
   <section class="lc-gallery">
     <div class="lc-gallery__heading">
-      <span class="lc-gallery__kicker">MEMORIES</span>
+      <span v-if="eyebrow" class="lc-gallery__kicker">{{ eyebrow }}</span>
 
-      <h2>Album Ảnh Cưới</h2>
+      <h2>{{ heading }}</h2>
 
       <div class="lc-gallery__ornament">
         <span></span>
@@ -11,9 +11,8 @@
         <span></span>
       </div>
 
-      <p class="lc-gallery__intro">
-        Những khoảnh khắc đẹp nhất<br />
-        được lưu giữ cùng chúng mình
+      <p v-if="intro" class="lc-gallery__intro">
+        {{ intro }}
       </p>
     </div>
 
@@ -47,7 +46,9 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
+import { computed, ref, defineAsyncComponent } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
 
 import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
 
@@ -57,7 +58,25 @@ const GalleryModal = defineAsyncComponent(() =>
 
 const props = defineProps({
   gallery: { type: Array, default: () => [] },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "gallery", "Eyebrow", "MEMORIES")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "gallery", "Heading", "Album Ảnh Cưới")
+);
+
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "gallery",
+    "Intro",
+    "Những khoảnh khắc đẹp nhất\ndược lưu giữ cùng chúng mình"
+  )
+);
 
 const currentIndex = ref(0);
 const dialog = ref(false);
@@ -166,6 +185,9 @@ function closeLightbox() {
   font-size: 12px;
 
   line-height: 1.7;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =====================================================

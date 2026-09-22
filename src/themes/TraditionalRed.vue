@@ -118,15 +118,7 @@
 
       <!-- ============ FOOTER ============ -->
 
-      <WeddingFooter
-        v-if="showFooter"
-        :wedding="wedding"
-        :monogram="monogram"
-        :current-year="currentYear"
-        :cover="wedding.coverImage || wedding.CoverImage"
-        :gallery="wedding.gallery"
-        :couple="wedding.couple"
-      />
+      <WeddingFooter v-if="showFooter" :wedding="wedding" />
 
       <!-- ============ NHẠC ============ -->
 
@@ -179,8 +171,6 @@ const wedding = computed(() => props.wedding || {});
 const opened = ref(false);
 
 const floatingMusicRef = ref(null);
-
-const currentYear = new Date().getFullYear();
 
 /* =========================================================
    DỮ LIỆU
@@ -240,22 +230,6 @@ const guestName = computed(
     wedding.value?.guestName ||
     "Quý khách"
 );
-
-/* =========================================================
-   MONOGRAM
-========================================================= */
-
-const monogram = computed(() => {
-  const groom = (wedding.value?.GroomName || wedding.value?.groomName || "G")
-    .trim()
-    .charAt(0);
-
-  const bride = (wedding.value?.BrideName || wedding.value?.brideName || "B")
-    .trim()
-    .charAt(0);
-
-  return `${groom}&${bride}`.toUpperCase();
-});
 
 /* =========================================================
    NGÀY

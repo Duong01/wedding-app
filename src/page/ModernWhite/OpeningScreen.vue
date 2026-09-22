@@ -1,296 +1,131 @@
 <template>
   <section
-    class="red-opening"
+    class="mw-opening"
     :class="{
       'is-opening': isOpening,
       'is-opened': isOpened,
     }"
   >
-
     <!-- =====================================================
-         BACKGROUND
+         NỀN
     ====================================================== -->
 
-    <div class="red-opening__bg"></div>
+    <div class="mw-opening__bg" aria-hidden="true"></div>
 
-    <div
-      class="red-opening__pattern red-opening__pattern--top"
-    ></div>
-
-    <div
-      class="red-opening__pattern red-opening__pattern--bottom"
-    ></div>
-
+    <span
+      v-for="n in 12"
+      :key="n"
+      class="mw-spark"
+      :class="`mw-spark--${n}`"
+      aria-hidden="true"
+    >✦</span>
 
     <!-- =====================================================
-         ENVELOPE
+         PHONG BÌ
     ====================================================== -->
 
-    <div class="red-envelope">
-
-      <!-- BACK -->
-      <div class="red-envelope__back">
-
-        <div class="red-envelope__border">
-
-          <div class="red-envelope__inner">
-
-            <div class="red-envelope__ornament">
-
-              <div class="red-envelope__symbol">
-                <span>囍</span>
-              </div>
-
-            </div>
-
+    <div class="mw-envelope">
+      <div class="mw-envelope__back">
+        <div class="mw-envelope__border">
+          <div class="mw-envelope__inner">
+            <span class="mw-envelope__symbol">囍</span>
           </div>
-
         </div>
-
       </div>
 
-
       <!-- =================================================
-           INVITATION CARD
+           THIỆP
       ================================================== -->
 
-      <div class="red-card">
+      <div class="mw-card">
+        <div class="mw-card__outer">
+          <div class="mw-card__inner">
+            <p class="mw-card__kicker">THIỆP MỜI</p>
 
-        <div class="red-card__outer">
+            <h1 class="mw-card__title">LỄ THÀNH HÔN</h1>
 
-          <div class="red-card__inner">
-
-            <!-- TOP -->
-            <div class="red-card__top">
-
+            <div class="mw-divider">
               <span></span>
-
-              <div class="red-card__double-happiness">
-                囍
-              </div>
-
+              <i>❖</i>
               <span></span>
-
             </div>
 
+            <p class="mw-card__invite">Trân trọng kính mời</p>
 
-            <!-- TITLE -->
+            <div v-if="recipient" class="mw-card__guest">
+              <span class="mw-card__guest-line"></span>
 
-            <p class="red-card__kicker">
-              THIỆP MỜI
-            </p>
-
-            <h1 class="red-card__title">
-              LỄ THÀNH HÔN
-            </h1>
-
-
-            <div class="red-card__ornament">
-
-              <span></span>
-
-              <b>❖</b>
-
-              <span></span>
-
+              <strong>{{ recipient }}</strong>
             </div>
 
+            <div class="mw-card__names">
+              <span class="mw-card__name">{{ groomName }}</span>
 
-            <!-- INVITATION -->
+              <span class="mw-card__amp">&amp;</span>
 
-            <p class="red-card__invite">
-              Trân trọng kính mời
-            </p>
-
-
-            <!-- =================================================
-                 GUEST NAME
-            ================================================== -->
-
-            <div
-              v-if="recipient"
-              class="red-card__guest"
-            >
-
-              <span class="red-card__guest-line"></span>
-
-              <strong>
-                {{ recipient }}
-              </strong>
-
-              <span class="red-card__guest-line"></span>
-
+              <span class="mw-card__name">{{ brideName }}</span>
             </div>
 
+            <div class="mw-card__date">
+              <span class="mw-card__date-line"></span>
 
-            <!-- NAMES -->
+              <span>{{ dateLabel }}</span>
 
-            <div class="red-card__names">
-
-              <div class="red-card__name">
-                {{ wedding?.GroomName || wedding?.groomName || wedding?.hero?.GroomName || wedding?.couple?.Groom?.Name || "" }}
-              </div>
-
-              <div class="red-card__amp">
-                &
-              </div>
-
-              <div class="red-card__name">
-                {{ wedding?.BrideName || wedding?.brideName || wedding?.hero?.BrideName || wedding?.couple?.Bride?.Name || "" }}
-              </div>
-
+              <span class="mw-card__date-line"></span>
             </div>
 
-
-            <!-- DATE -->
-
-            <div class="red-card__date">
-
-              <span
-                class="red-card__date-line"
-              ></span>
-
-              <div>
-                {{ dateLabel }}
-              </div>
-
-              <span
-                class="red-card__date-line"
-              ></span>
-
-            </div>
-
-
-            <!-- MESSAGE -->
-
-            <p class="red-card__message">
+            <p class="mw-card__message">
               Sự hiện diện của Quý khách<br />
               là niềm vinh hạnh của gia đình chúng tôi
             </p>
 
-
-            <!-- BOTTOM -->
-
-            <div class="red-card__bottom">
-
+            <div class="mw-card__bottom">
               <span>✦</span>
 
-              <small>
-                WEDDING INVITATION
-              </small>
+              <small>WEDDING INVITATION</small>
 
               <span>✦</span>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
 
       <!-- =================================================
-           FRONT ENVELOPE
+           MẶT TRƯỚC PHONG BÌ
       ================================================== -->
 
-      <div class="red-envelope__front">
+      <div class="mw-envelope__front">
+        <span class="mw-envelope__flower mw-envelope__flower--left">❀</span>
 
-        <div
-          class="
-            red-front-flower
-            red-front-flower--left
-          "
-        >
-          ❀
-        </div>
+        <span class="mw-envelope__flower mw-envelope__flower--right">❀</span>
 
-        <div
-          class="
-            red-front-flower
-            red-front-flower--right
-          "
-        >
-          ❀
-        </div>
-
-
-        <!-- SEAL -->
-
-        <div class="red-seal">
-
-          <span>囍</span>
-
-        </div>
-
+        <span class="mw-envelope__seal">囍</span>
       </div>
-
     </div>
 
-
     <!-- =====================================================
-         OPEN BUTTON
-         NẰM NGOÀI PHONG BÌ
+         NÚT MỞ
     ====================================================== -->
 
-    <Transition name="open-button">
-
+    <Transition name="mw-open-button">
       <button
         v-if="!isOpening"
         type="button"
-        class="red-open-button"
+        class="mw-open-button"
         @click="openInvitation"
       >
+        <span class="mw-open-button__text">MỞ THIỆP</span>
 
-        <span class="red-open-button__border">
-
-          <span class="red-open-button__text">
-            MỞ THIỆP
-          </span>
-
-          <span class="red-open-button__arrow">
-            ↓
-          </span>
-
-        </span>
-
+        <span class="mw-open-button__arrow">↓</span>
       </button>
-
     </Transition>
-
-
-    <!-- =====================================================
-         BOTTOM TEXT
-    ====================================================== -->
-
-    <div
-      class="red-opening__bottom"
-      :class="{ 'is-hidden': isOpening }"
-    >
-
-      <span>✦</span>
-
-      <small>
-        HÂN HẠNH ĐÓN TIẾP
-      </small>
-
-      <span>✦</span>
-
-    </div>
-
   </section>
 </template>
 
-
 <script setup>
-import {
-  computed,
-  ref,
-} from "vue";
-
+import { computed, ref } from "vue";
 
 const props = defineProps({
-
   wedding: {
     type: Object,
     required: true,
@@ -305,1562 +140,553 @@ const props = defineProps({
     type: String,
     default: "",
   },
-
 });
 
-
-const emit = defineEmits([
-  "open",
-]);
-
+const emit = defineEmits(["open"]);
 
 const isOpening = ref(false);
+
 const isOpened = ref(false);
 
-
 /* =========================================================
-   GUEST NAME
+   NAMES
 ========================================================= */
 
-const guestName = computed(() => {
-
-  return (
-    props.guestName ||
-    props.wedding?.guestName ||
-    props.wedding?.inviteeName ||
-    props.wedding?.recipientName ||
-    props.wedding?.guest?.name ||
+const groomName = computed(
+  () =>
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
     ""
-  );
+);
 
-});
+const brideName = computed(
+  () =>
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    ""
+);
 
 const recipient = computed(() => {
+  const value = props.wedding?.recipientName;
 
-  const firstRecipient =
-    props.wedding?.recipientName?.[0];
+  if (Array.isArray(value)) {
+    return value[0]?.Name || "";
+  }
 
-  return firstRecipient?.Name || null;
+  if (value && typeof value === "object") {
+    return value.Name || "";
+  }
 
+  return typeof value === "string" ? value : "";
 });
+
 /* =========================================================
-   OPEN INVITATION
+   OPEN
 ========================================================= */
 
 function openInvitation() {
-
   if (isOpening.value) {
     return;
   }
 
   isOpening.value = true;
 
-
-  /*
-   * Giai đoạn 1:
-   *
-   * Phong bì bắt đầu mở.
-   */
-
   setTimeout(() => {
-
     isOpened.value = true;
-
   }, 380);
 
-
-  /*
-   * Giai đoạn 2:
-   *
-   * Đợi animation hoàn tất rồi
-   * mới chuyển sang trang chính.
-   *
-   * Không emit quá sớm để tránh cảm giác giật.
-   */
-
   setTimeout(() => {
-
     emit("open");
-
   }, 1250);
-
 }
 </script>
 
-
 <style scoped>
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-.red-opening {
-
-  --red-dark: #650b11;
-  --red: #8f111b;
-  --red-light: #a91b25;
-
-  --gold: #d4a84f;
-  --gold-light: #f0d99a;
-  --gold-dark: #a97825;
-
-  --paper: #fff9eb;
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 9999;
-
-  width: 100%;
-  height: 100dvh;
-
-  overflow: hidden;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  background: var(--red-dark);
-
-  color: #4d211c;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-}
-
-
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-.red-opening__bg {
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      #a91b25 0%,
-      #850f17 43%,
-      #5d080e 100%
-    );
-
-}
-
-
-.red-opening__bg::after {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  opacity: .1;
-
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,.2) 0,
-      rgba(255,255,255,.2) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-
-}
-
-
-/* =========================================================
-   BACKGROUND ORNAMENT
-========================================================= */
-
-.red-opening__pattern {
-
-  position: absolute;
-
-  width: 300px;
-  height: 300px;
-
-  border:
-    1px solid
-    rgba(212,168,79,.15);
-
-  transform: rotate(45deg);
-
-  pointer-events: none;
-
-}
-
-
-.red-opening__pattern::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 15px;
-
-  border:
-    1px solid
-    rgba(240,217,154,.08);
-
-}
-
-
-.red-opening__pattern--top {
-
-  top: -210px;
-  left: -110px;
-
-}
-
-
-.red-opening__pattern--bottom {
-
-  right: -110px;
-  bottom: -210px;
-
-}
-
-
-/* =========================================================
-   ENVELOPE
-========================================================= */
-
-.red-envelope {
-
+.mw-opening {
   position: relative;
-
-  width:
-    min(86vw, 470px);
-
-  height:
-    min(76vh, 640px);
-
-  min-height: 480px;
-
-  perspective: 1200px;
-
-  transform: translateZ(0);
-
-}
-
-
-/* =========================================================
-   BACK
-========================================================= */
-
-.red-envelope__back {
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  padding: 8px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold-dark),
-      var(--gold),
-      var(--gold-light),
-      var(--gold-dark)
-    );
-
-  box-shadow:
-    0 30px 70px
-    rgba(35,0,0,.45);
-
-}
-
-
-.red-envelope__border {
-
-  width: 100%;
-  height: 100%;
-
-  padding: 6px;
-
-  background:
-    var(--red-dark);
-
-}
-
-
-.red-envelope__inner {
-
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(240,217,154,.45);
-
-  background:
-    radial-gradient(
-      circle at center,
-      #9c1721,
-      #730b12
-    );
-
-}
-
-
-/* =========================================================
-   BACK ORNAMENT
-========================================================= */
-
-.red-envelope__ornament {
-
-  position: absolute;
-
-  inset: 30px;
+  isolation: isolate;
 
   display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border:
-    1px solid
-    rgba(240,217,154,.2);
-
-}
-
-
-.red-envelope__ornament::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 12px;
-
-  border:
-    1px solid
-    rgba(240,217,154,.1);
-
-}
-
-
-.red-envelope__symbol {
-
-  width: 110px;
-  height: 110px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border:
-    2px solid
-    rgba(212,168,79,.55);
-
-  transform: rotate(45deg);
-
-}
-
-
-.red-envelope__symbol::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 8px;
-
-  border:
-    1px solid
-    rgba(240,217,154,.4);
-
-}
-
-
-.red-envelope__symbol span {
-
-  transform: rotate(-45deg);
-
-  font-family:
-    "Noto Serif SC",
-    serif;
-
-  font-size: 62px;
-
-  color: var(--gold-light);
-
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.red-card {
-
-  position: absolute;
-
-  z-index: 3;
-
-  left: 50%;
-  top: 50%;
-
-  width: 88%;
-  height: 90%;
-
-  /*
-   * Trạng thái ban đầu:
-   * thiệp nằm trong phong bì.
-   */
-
-  transform:
-    translate3d(-50%, -46%, 0)
-    scale(.985);
-
-  opacity: .98;
-
-  will-change:
-    transform,
-    opacity;
-
-  transition:
-    transform 900ms
-      cubic-bezier(.16, 1, .3, 1),
-    opacity 500ms ease;
-
-}
-
-
-/*
- * Khi mở:
- *
- * Thiệp trượt lên rất nhẹ.
- *
- * Không dùng rotateX cho card.
- * Đây là phần giúp animation mượt hơn.
- */
-
-.red-opening.is-opened
-.red-card {
-
-  transform:
-    translate3d(-50%, -76%, 0)
-    scale(1);
-
-  opacity: 1;
-
-}
-
-
-/* =========================================================
-   CARD OUTER
-========================================================= */
-
-.red-card__outer {
-
-  width: 100%;
-  height: 100%;
-
-  padding: 5px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #b9872c,
-      #f1d58e,
-      #a97825,
-      #e8c86e
-    );
-
-  box-shadow:
-    0 20px 55px
-    rgba(30,0,0,.35);
-
-}
-
-
-.red-card__inner {
-
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  display: flex;
-
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
-  padding:
-    45px 25px;
+  min-height: 100svh;
 
-  text-align: center;
+  padding: 40px 20px;
 
-  background:
-    radial-gradient(
-      circle at center,
-      #fffdf4,
-      #f7edd7
-    );
+  overflow: hidden;
 
+  background-color: var(--mw-paper);
+  color: var(--mw-ink);
 }
 
-
 /* =========================================================
-   CARD BORDER
+   NỀN
 ========================================================= */
 
-.red-card__inner::before {
-
-  content: "";
-
+.mw-opening__bg {
   position: absolute;
+  inset: 0;
+  z-index: -10;
 
-  inset: 12px;
-
-  border:
-    1px solid
-    rgba(143,17,27,.35);
-
-  pointer-events: none;
-
+  background:
+    radial-gradient(ellipse at 50% 4%, rgba(72, 108, 125, 0.1), transparent 55%),
+    radial-gradient(ellipse at 8% 92%, rgba(72, 108, 125, 0.07), transparent 48%),
+    radial-gradient(ellipse at 92% 86%, rgba(72, 108, 125, 0.06), transparent 48%);
 }
 
-
-.red-card__inner::after {
-
-  content: "";
-
+.mw-spark {
   position: absolute;
+  z-index: -2;
 
-  inset: 17px;
-
-  border:
-    1px solid
-    rgba(212,168,79,.25);
-
-  pointer-events: none;
-
-}
-
-
-/* =========================================================
-   TOP
-========================================================= */
-
-.red-card__top {
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 12px;
-
-  margin-bottom: 15px;
-
-}
-
-
-.red-card__top span {
-
-  width: 45px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      var(--gold)
-    );
-
-}
-
-
-.red-card__top span:last-child {
-
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      var(--gold)
-    );
-
-}
-
-
-.red-card__double-happiness {
-
-  font-family:
-    "Noto Serif SC",
-    serif;
-
-  font-size: 35px;
-
-  line-height: 1;
-
-  color: var(--red);
-
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-.red-card__kicker {
-
-  margin: 0 0 6px;
-
-  font-size: 11px;
-
-  letter-spacing: .38em;
-
-  color: #9a6d3d;
-
-}
-
-
-.red-card__title {
-
-  margin: 0;
-
-  font-family:
-    "Noto Serif SC",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(22px, 5vw, 32px);
-
-  font-weight: 600;
-
-  letter-spacing: .15em;
-
-  color: var(--red-dark);
-
-}
-
-
-/* =========================================================
-   ORNAMENT
-========================================================= */
-
-.red-card__ornament {
-
-  width: 75%;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin: 13px 0;
-
-}
-
-
-.red-card__ornament span {
-
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      var(--gold)
-    );
-
-}
-
-
-.red-card__ornament span:last-child {
-
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      var(--gold)
-    );
-
-}
-
-
-.red-card__ornament b {
-
-  color: var(--gold-dark);
-
-  font-size: 11px;
-
-}
-
-
-/* =========================================================
-   INVITE
-========================================================= */
-
-.red-card__invite {
-
-  margin: 0 0 5px;
-
-  font-size: 14px;
-
-  color: #72534a;
-
-}
-
-
-/* =========================================================
-   GUEST NAME
-========================================================= */
-
-.red-card__guest {
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  width: 100%;
-
-  margin:
-    3px 0
-    10px;
-
-}
-
-
-.red-card__guest strong {
-
-  max-width: 80%;
-
-  color: var(--red);
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(14px, 3.5vw, 18px);
-
-  font-weight: 700;
-
-  line-height: 1.25;
-
-  letter-spacing: .03em;
-
-}
-
-
-.red-card__guest-line {
-
-  width: 22px;
-
-  height: 1px;
-
-  background:
-    var(--gold);
-
-  opacity: .7;
-
-}
-
-
-/* =========================================================
-   NAMES
-========================================================= */
-
-.red-card__names {
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-}
-
-
-.red-card__name {
-
-  font-family:
-    "Allura",
-    "Cormorant Garamond",
-    cursive;
-
-  font-size:
-    clamp(43px, 9vw, 62px);
-
-  line-height: .95;
-
-  color: var(--red-dark);
-
-}
-
-
-.red-card__amp {
-
-  margin: 2px 0;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 20px;
-
-  font-style: italic;
-
-  color: var(--gold-dark);
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-.red-card__date {
-
-  margin-top: 15px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  font-size: 14px;
-
-  letter-spacing: .1em;
-
-  color: #5f4a40;
-
-}
-
-
-.red-card__date-line {
-
-  width: 35px;
-
-  height: 1px;
-
-  background:
-    var(--gold);
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-.red-card__message {
-
-  margin:
-    14px
-    0
-    18px;
+  color: rgba(72, 108, 125, 0.5);
 
   font-size: 12px;
 
-  line-height: 1.7;
+  pointer-events: none;
 
-  color: #92786c;
-
+  animation: mw-spark-twinkle 3.6s ease-in-out infinite;
 }
 
+.mw-spark--1 { top: 10%; left: 12%; }
+.mw-spark--2 { top: 18%; right: 14%; font-size: 11px; animation-delay: -0.5s; }
+.mw-spark--3 { top: 32%; left: 7%; font-size: 10px; animation-delay: -1.1s; }
+.mw-spark--4 { top: 44%; right: 8%; animation-delay: -1.7s; }
+.mw-spark--5 { top: 58%; left: 13%; font-size: 10px; animation-delay: -2.2s; }
+.mw-spark--6 { top: 66%; right: 12%; font-size: 11px; animation-delay: -2.8s; }
+.mw-spark--7 { top: 80%; left: 9%; animation-delay: -3.2s; }
+.mw-spark--8 { top: 86%; right: 17%; font-size: 11px; animation-delay: -0.9s; }
+.mw-spark--9 { top: 8%; right: 32%; font-size: 10px; animation-delay: -1.4s; }
+.mw-spark--10 { top: 92%; left: 30%; font-size: 10px; animation-delay: -2s; }
+.mw-spark--11 { top: 26%; left: 24%; font-size: 10px; animation-delay: -2.6s; }
+.mw-spark--12 { top: 72%; right: 28%; font-size: 10px; animation-delay: -3.4s; }
 
 /* =========================================================
-   FRONT ENVELOPE
+   PHONG BÌ
 ========================================================= */
 
-.red-envelope__front {
+.mw-envelope {
+  position: relative;
 
+  width: min(100%, 340px);
+  height: 460px;
+
+  perspective: 1200px;
+}
+
+.mw-envelope__back {
   position: absolute;
+  inset: 0;
 
-  z-index: 6;
+  padding: 12px;
 
-  left: 0;
-  right: 0;
-  bottom: 0;
+  border: 1px solid var(--mw-hairline);
+  border-radius: 16px;
 
-  height: 37%;
-
-  background:
-    linear-gradient(
-      145deg,
-      #8d111a,
-      #6e0d13
-    );
-
-  clip-path:
-    polygon(
-      0 0,
-      50% 70%,
-      100% 0,
-      100% 100%,
-      0 100%
-    );
-
-  border-top:
-    1px solid
-    rgba(212,168,79,.45);
-
-  transform-origin:
-    center bottom;
-
-  will-change:
-    transform;
-
-  transition:
-    transform
-    850ms
-    cubic-bezier(.16,1,.3,1);
-
+  background-color: var(--mw-blue-mist);
 }
 
-
-/*
- * Chỉ mở phong bì.
- *
- * Không scale,
- * không rotate card.
- */
-
-.red-opening.is-opening
-.red-envelope__front {
-
-  transform:
-    translate3d(0, 105%, 0);
-
-}
-
-
-/* =========================================================
-   FLOWERS
-========================================================= */
-
-.red-front-flower {
-
-  position: absolute;
-
-  top: 15%;
-
-  font-size: 45px;
-
-  color:
-    rgba(
-      212,
-      168,
-      79,
-      .3
-    );
-
-}
-
-
-.red-front-flower--left {
-
-  left: 8%;
-
-}
-
-
-.red-front-flower--right {
-
-  right: 8%;
-
-  transform:
-    scaleX(-1);
-
-}
-
-
-/* =========================================================
-   SEAL
-========================================================= */
-
-.red-seal {
-
-  position: absolute;
-
-  left: 50%;
-  top: 33%;
-
-  width: 64px;
-  height: 64px;
-
-  transform:
-    translate(-50%, -50%);
-
+.mw-envelope__border {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 
-  background:
-    radial-gradient(
-      circle,
-      #bd9130,
-      #8e6418
-    );
-
-  border:
-    2px solid
-    #f0d99a;
-
-  box-shadow:
-    0 7px 20px
-    rgba(20,0,0,.3);
-
-  transition:
-    opacity 350ms ease,
-    transform 700ms
-      cubic-bezier(.16,1,.3,1);
-
+  border: 1px dashed var(--mw-hairline);
+  border-radius: 10px;
 }
 
+.mw-envelope__symbol {
+  color: var(--mw-blue);
 
-/*
- * Seal đi xuống cùng mặt phong bì.
- */
+  font-family: serif;
+  font-size: 40px;
 
-.red-opening.is-opening
-.red-seal {
-
-  transform:
-    translate(-50%, 130%)
-    scale(.85);
-
-  opacity: 0;
-
+  opacity: 0.35;
 }
-
-
-.red-seal::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 5px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.5);
-
-  border-radius: 50%;
-
-}
-
-
-.red-seal span {
-
-  position: relative;
-
-  font-family:
-    "Noto Serif SC",
-    serif;
-
-  font-size: 30px;
-
-  color: #fff0bd;
-
-}
-
 
 /* =========================================================
-   OPEN BUTTON
-   NGOÀI PHONG BÌ
+   THIỆP
 ========================================================= */
 
-.red-open-button {
+.mw-card {
+  position: absolute;
+  inset: 0;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+
+  transform-origin: 50% 100%;
+
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mw-card__outer {
+  width: 100%;
+
+  padding: 10px;
+
+  border: 1px solid var(--mw-hairline);
+  border-radius: 14px;
+
+  background-color: var(--mw-paper);
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.mw-card__inner {
+  padding: 30px 20px 24px;
+
+  border: 1px solid var(--mw-hairline-soft);
+  border-radius: 8px;
+
+  text-align: center;
+}
+
+.mw-card__kicker {
+  margin: 0 0 10px;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
+  font-size: 10px;
+
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.mw-card__title {
+  margin: 0;
+
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-serif);
+  font-size: 22px;
+  font-weight: 400;
+
+  letter-spacing: 0.1em;
+}
+
+.mw-card__invite {
+  margin: 18px 0 6px;
+
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 11px;
+
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+}
+
+.mw-card__guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 14px;
+}
+
+.mw-card__guest-line {
+  width: 60px;
+  height: 1px;
+
+  background-color: var(--mw-hairline);
+}
+
+.mw-card__guest strong {
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-script);
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.mw-card__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.mw-card__name {
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-script);
+  font-size: 26px;
+
+  line-height: 1.4;
+}
+
+.mw-card__amp {
+  color: var(--mw-blue);
+
+  font-family: var(--mw-font-script);
+  font-size: 20px;
+}
+
+.mw-card__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 16px;
+
+  color: var(--mw-ink);
+
+  font-family: var(--mw-font-serif);
+  font-size: 11px;
+
+  letter-spacing: 0.2em;
+}
+
+.mw-card__date-line {
+  width: 30px;
+  height: 1px;
+
+  background-color: var(--mw-hairline);
+}
+
+.mw-card__message {
+  margin: 16px 0 0;
+
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+.mw-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 18px;
+
+  color: var(--mw-blue-soft);
+}
+
+.mw-card__bottom small {
+  color: var(--mw-ink-soft);
+
+  font-family: var(--mw-font-serif);
+  font-size: 9px;
+
+  letter-spacing: 0.24em;
+}
+
+/* =========================================================
+   MẶT TRƯỚC PHONG BÌ
+========================================================= */
+
+.mw-envelope__front {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--mw-hairline);
+  border-radius: 16px;
+
+  background-color: var(--mw-blue-mist);
+
+  transform-origin: 50% 100%;
+
+  transition: transform 0.9s cubic-bezier(0.5, 0, 0.75, 0.4), opacity 0.6s ease;
+}
+
+.mw-envelope__flower {
   position: absolute;
 
-  z-index: 20;
+  color: var(--mw-blue-soft);
 
-  left: 50%;
+  font-size: 26px;
+}
 
-  /*
-   * Nằm ngay bên dưới phong bì.
-   */
+.mw-envelope__flower--left {
+  top: 24px;
+  left: 24px;
+}
 
-  bottom:
-    max(55px, 7vh);
+.mw-envelope__flower--right {
+  right: 24px;
+  bottom: 24px;
 
-  transform:
-    translateX(-50%);
+  transform: rotate(180deg);
+}
 
-  padding: 0;
+.mw-envelope__seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border: 0;
+  width: 76px;
+  height: 76px;
 
-  background: transparent;
+  border: 1px solid var(--mw-blue);
+  border-radius: 50%;
+
+  background-color: var(--mw-paper);
+  color: var(--mw-blue);
+
+  font-family: serif;
+  font-size: 30px;
+
+  animation: mw-seal-pulse 3.4s ease-in-out infinite;
+}
+
+/* =========================================================
+   NÚT MỞ
+========================================================= */
+
+.mw-open-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 30px;
+  padding: 13px 32px;
+
+  border: none;
+  border-radius: 999px;
+
+  background-color: var(--mw-blue);
+  color: var(--mw-paper);
+
+  font-family: var(--mw-font-serif);
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+  text-indent: 0.1em;
 
   cursor: pointer;
 
-  -webkit-tap-highlight-color:
-    transparent;
-
+  transition: transform 0.25s ease, background-color 0.25s ease;
 }
 
+.mw-open-button:hover {
+  transform: translateY(-2px);
 
-.red-open-button__border {
-
-  min-width: 160px;
-
-  padding: 11px 22px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 14px;
-
-  border:
-    1px solid
-    var(--gold-dark);
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--red),
-      var(--red-dark)
-    );
-
-  box-shadow:
-    inset 0 0 0 2px
-    rgba(240,217,154,.15),
-
-    0 8px 22px
-    rgba(70,0,0,.28);
-
-  color:
-    #f7e6b2;
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease,
-    background .3s ease;
-
+  background-color: var(--mw-blue-deep);
 }
 
-
-.red-open-button__text {
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 10px;
-
-  letter-spacing: .3em;
-
+.mw-open-button__arrow {
+  font-size: 14px;
 }
-
-
-.red-open-button__arrow {
-
-  font-size: 15px;
-
-  transition:
-    transform .3s ease;
-
-}
-
-
-.red-open-button:hover
-.red-open-button__border {
-
-  transform:
-    translateY(-3px);
-
-  background:
-    linear-gradient(
-      135deg,
-      #a91b25,
-      #6e0d13
-    );
-
-  box-shadow:
-    0 12px 28px
-    rgba(70,0,0,.35);
-
-}
-
-
-.red-open-button:hover
-.red-open-button__arrow {
-
-  transform:
-    translateY(4px);
-
-}
-
-
-.red-open-button:active
-.red-open-button__border {
-
-  transform:
-    translateY(0)
-    scale(.97);
-
-}
-
 
 /* =========================================================
-   BUTTON TRANSITION
+   ANIMATION KHI MỞ
 ========================================================= */
 
-.open-button-enter-active,
-.open-button-leave-active {
-
-  transition:
-    opacity .35s ease,
-    transform .4s
-      cubic-bezier(.16,1,.3,1);
-
-}
-
-
-.open-button-enter-from,
-.open-button-leave-to {
+.is-opening .mw-envelope__front {
+  transform: rotateX(-160deg);
 
   opacity: 0;
-
-  transform:
-    translateX(-50%)
-    translateY(18px)
-    scale(.96);
-
 }
 
-
-/* =========================================================
-   BOTTOM
-========================================================= */
-
-.red-opening__bottom {
-
-  position: absolute;
-
-  left: 50%;
-
-  bottom: 20px;
-
-  transform:
-    translateX(-50%);
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  color: #e1c27a;
-
-  transition:
-    opacity .35s ease;
-
+.is-opening .mw-card {
+  transform: translateY(-40px) scale(1.04);
 }
 
-
-.red-opening__bottom.is-hidden {
+.is-opened .mw-card {
+  transform: translateY(-120px) scale(1.06);
 
   opacity: 0;
-
 }
 
+.is-opened .mw-envelope {
+  opacity: 0;
 
-.red-opening__bottom span {
-
-  font-size: 10px;
-
+  transition: opacity 0.4s ease;
 }
 
-
-.red-opening__bottom small {
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 11px;
-
-  letter-spacing: .3em;
-
-  white-space: nowrap;
-
+.mw-open-button-enter-active,
+.mw-open-button-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+.mw-open-button-enter-from,
+.mw-open-button-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
 
 /* =========================================================
-   MOBILE
+   KEYFRAMES
 ========================================================= */
 
-@media (max-width: 600px) {
-
-  .red-envelope {
-
-    width: 88vw;
-
-    height: 73vh;
-
-    min-height: 460px;
-
-    max-height: 620px;
-
+@keyframes mw-spark-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8) rotate(0deg);
   }
 
-
-  .red-envelope__symbol {
-
-    width: 80px;
-    height: 80px;
-
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(25deg);
   }
-
-
-  .red-envelope__symbol span {
-
-    font-size: 48px;
-
-  }
-
-
-  .red-card {
-
-    width: 88%;
-
-    height: 90%;
-
-  }
-
-
-  .red-card__inner {
-
-    padding:
-      32px 17px;
-
-  }
-
-
-  .red-card__top {
-
-    margin-bottom: 10px;
-
-  }
-
-
-  .red-card__double-happiness {
-
-    font-size: 28px;
-
-  }
-
-
-  .red-card__title {
-
-    font-size: 23px;
-
-  }
-
-
-  .red-card__guest {
-
-    margin-bottom: 8px;
-
-  }
-
-
-  .red-card__guest strong {
-
-    font-size: 14px;
-
-  }
-
-
-  .red-card__name {
-
-    font-size:
-      clamp(
-        40px,
-        12vw,
-        55px
-      );
-
-  }
-
-
-  .red-card__message {
-
-    font-size: 11px;
-
-  }
-
-
-  .red-open-button {
-
-    bottom: 45px;
-
-  }
-
-
-  .red-open-button__border {
-
-    min-width: 145px;
-
-    padding:
-      10px 18px;
-
-  }
-
-
-  .red-seal {
-
-    width: 56px;
-    height: 56px;
-
-  }
-
-
-  .red-seal span {
-
-    font-size: 26px;
-
-  }
-
 }
 
+@keyframes mw-seal-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
 
 /* =========================================================
-   SMALL PHONE
+   MOBILE NHỎ
 ========================================================= */
 
 @media (max-width: 380px) {
-
-  .red-envelope {
-
-    width: 91vw;
-
-    height: 69vh;
-
-    min-height: 430px;
-
+  .mw-envelope {
+    height: 420px;
   }
 
-
-  .red-card__inner {
-
-    padding:
-      25px 12px;
-
+  .mw-card__inner {
+    padding: 24px 14px 20px;
   }
 
-
-  .red-card__kicker {
-
-    font-size: 10px;
-
+  .mw-card__guest strong {
+    font-size: 26px;
   }
 
-
-  .red-card__title {
-
-    font-size: 20px;
-
+  .mw-card__name {
+    font-size: 23px;
   }
-
-
-  .red-card__guest strong {
-
-    font-size: 13px;
-
-  }
-
-
-  .red-card__name {
-
-    font-size: 37px;
-
-  }
-
-
-  .red-card__date {
-
-    font-size: 12px;
-
-  }
-
-
-  .red-card__message {
-
-    margin:
-      10px 0;
-
-  }
-
-
-  .red-card__bottom {
-
-    margin-top: 10px;
-
-  }
-
-
-  .red-open-button {
-
-    bottom: 38px;
-
-  }
-
 }
-
 
 /* =========================================================
    REDUCE MOTION
 ========================================================= */
 
-@media (
-  prefers-reduced-motion: reduce
-) {
-
-  *,
-  *::before,
-  *::after {
-
-    transition: none !important;
-
-    animation: none !important;
-
+@media (prefers-reduced-motion: reduce) {
+  .mw-spark,
+  .mw-envelope__seal {
+    animation: none;
   }
-
 }
-
 </style>

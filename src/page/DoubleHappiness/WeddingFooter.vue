@@ -12,7 +12,7 @@
         <span class="dh-footer__ring-inner">{{ monogram }}</span>
       </div>
 
-      <p class="dh-footer__monogram-label">SAVE THE DATE</p>
+      <p v-if="eyebrow" class="dh-footer__monogram-label">{{ eyebrow }}</p>
 
       <h2 class="dh-footer__names">
         {{ groomName }}
@@ -44,11 +44,23 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G&B" },
   currentYear: { type: Number, default: 2026 },
+  sections: { type: Object, default: () => ({}) },
 });
+
+/*
+ * Dòng "SAVE THE DATE" dưới vòng monogram — đổi tên ở
+ * panel "Tên mục". Lời cảm ơn vẫn dùng footer.Message
+ * (panel "Chân thiệp").
+ */
+const eyebrow = computed(() =>
+  sectionText(props.sections, "footer", "Eyebrow", "SAVE THE DATE")
+);
 
 const wedding = computed(() => props.wedding || {});
 

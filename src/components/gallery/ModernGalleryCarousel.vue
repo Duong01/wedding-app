@@ -132,7 +132,7 @@ const props = defineProps({
     default: "#ffffff",
   },
 
-  /* Filter ảnh (VintageSepia dùng sepia) */
+  /* Filter ảnh (theme cổ điển có thể truyền sepia) */
   imgFilter: {
     type: String,
     default: "none",

@@ -1,81 +1,105 @@
 <template>
-  <section class="el-events" ref="sectionRef">
-    <div class="el-events__list">
+  <section ref="sectionRef" class="cr-events">
+    <img
+      :src="decorativeDiamond"
+      alt=""
+      aria-hidden="true"
+      class="cr-events__diamond"
+      draggable="false"
+    />
+
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">Thông tin tiệc cưới</h2>
+
+      <p class="cr-heading__zh">婚宴資訊</p>
+
+      <div class="cr-heading__ornament" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
+      </div>
+    </header>
+
+    <div class="cr-events__list">
       <article
         v-for="(event, index) in normalizedEvents"
         :key="event.Id || event.id || index"
-        class="el-event-card reveal"
+        class="cr-event reveal"
         :style="{ '--delay': `${index * 120}ms` }"
       >
-        <!-- EVENT TITLE -->
-        <div class="el-event-heading">
-          <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+        <h3 class="cr-event__title">{{ event.Title || "TIỆC CƯỚI" }}</h3>
 
-          <div class="el-mini-divider">
-            <span></span>
-            <i>❦</i>
-            <span></span>
-          </div>
+        <div class="cr-event__ornament" aria-hidden="true">
+          <span></span>
+          <i>❀</i>
+          <span></span>
         </div>
 
-        <!-- DATE -->
-        <div v-if="event.hasDate" class="el-event-date">
-          <div class="el-event-weekday">{{ event.weekday }}</div>
+        <!-- NGÀY -->
+        <div v-if="event.hasDate" class="cr-event__date">
+          <div class="cr-event__weekday">{{ event.weekday }}</div>
 
-          <div class="el-event-main-date">
-            <div class="el-date-side">
+          <div class="cr-event__date-main">
+            <div class="cr-date-side">
               <span>THÁNG</span>
               <strong>{{ event.month }}</strong>
             </div>
 
-            <div class="el-date-number">{{ event.day }}</div>
+            <div class="cr-event__day">{{ event.day }}</div>
 
-            <div class="el-date-side">
+            <div class="cr-date-side">
               <span>NĂM</span>
               <strong>{{ event.year }}</strong>
             </div>
           </div>
 
-          <div v-if="event.lunar" class="el-event-lunar">{{ event.lunar }}</div>
+          <div v-if="event.lunar" class="cr-event__lunar">{{ event.lunar }}</div>
         </div>
 
-        <!-- TIME -->
-        <div v-if="event.time" class="el-event-time">
-          <div>
-            <small>THỜI GIAN</small>
-            <strong>{{ event.time }}</strong>
-          </div>
+        <!-- GIỜ -->
+        <div v-if="event.time" class="cr-event__time">
+          <span>THỜI GIAN</span>
+          <strong>{{ event.time }}</strong>
         </div>
 
-        <!-- SCHEDULE -->
-        <div v-if="event.receptionTime || event.ceremonyTime" class="el-event-schedule">
-          <div v-if="event.receptionTime" class="el-schedule-row">
-            <div class="el-schedule-dot"><span>❦</span></div>
+        <!-- ĐÓN KHÁCH / KHAI TIỆC -->
+        <div v-if="event.receptionTime || event.ceremonyTime" class="cr-event__schedule">
+          <div v-if="event.receptionTime" class="cr-schedule-row">
+            <span class="cr-schedule-row__dot" aria-hidden="true">❀</span>
 
-            <div class="el-schedule-content">
+            <div>
               <span>ĐÓN KHÁCH</span>
               <strong>{{ event.receptionTime }}</strong>
             </div>
           </div>
 
-          <div v-if="event.ceremonyTime" class="el-schedule-row">
-            <div class="el-schedule-dot"><span>✦</span></div>
+          <div v-if="event.ceremonyTime" class="cr-schedule-row">
+            <span class="cr-schedule-row__dot" aria-hidden="true">❀</span>
 
-            <div class="el-schedule-content">
+            <div>
               <span>KHAI TIỆC</span>
               <strong>{{ event.ceremonyTime }}</strong>
             </div>
           </div>
         </div>
 
-        <!-- CALENDAR -->
-        <div v-if="event.date && event.calendarDays?.length" class="el-calendar">
-          <div class="el-calendar__header">
+        <!-- ĐỊA ĐIỂM -->
+        <div v-if="event.location || event.address" class="cr-event__place">
+          <span class="cr-event__place-label">ĐỊA ĐIỂM</span>
+
+          <p v-if="event.location" class="cr-event__place-name">{{ event.location }}</p>
+
+          <p v-if="event.address" class="cr-event__place-address">{{ event.address }}</p>
+        </div>
+
+        <!-- LỊCH -->
+        <div v-if="event.date && event.calendarDays?.length" class="cr-calendar">
+          <div class="cr-calendar__header">
             <span>LỊCH</span>
             <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
           </div>
 
-          <div class="el-calendar__weekdays">
+          <div class="cr-calendar__weekdays">
             <span>CN</span>
             <span>T2</span>
             <span>T3</span>
@@ -85,20 +109,25 @@
             <span>T7</span>
           </div>
 
-          <div class="el-calendar__days">
+          <div class="cr-calendar__days">
             <div
               v-for="(day, dayIndex) in event.calendarDays"
               :key="dayIndex"
-              class="el-calendar__cell"
-              :class="{ empty: !day, active: day === Number(event.day) }"
+              class="cr-calendar__cell"
+              :class="{ 'is-empty': !day, 'is-active': day === Number(event.day) }"
             >
               <template v-if="day">
-                <div v-if="day === Number(event.day)" class="el-active-day">
-                  <span class="el-active-sun">✦</span>
-                  <span>{{ day }}</span>
-                </div>
+                <span v-if="day === Number(event.day)" class="cr-calendar__heart">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M12 21s-7.5-4.7-9.3-9A5.3 5.3 0 0 1 12 6.6a5.3 5.3 0 0 1 9.3 5.4C19.5 16.3 12 21 12 21z"
+                    />
+                  </svg>
 
-                <span v-else class="el-normal-day">{{ day }}</span>
+                  <b>{{ day }}</b>
+                </span>
+
+                <span v-else class="cr-calendar__day">{{ day }}</span>
               </template>
             </div>
           </div>
@@ -108,100 +137,100 @@
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="el-calendar-btn"
+            class="cr-calendar__btn"
           >
-            <span>＋</span>
-            THÊM VÀO LỊCH
+            ＋ THÊM VÀO LỊCH
           </a>
         </div>
 
-        <!-- RSVP -->
-        <button type="button" class="el-rsvp-btn" @click="openConfirmModal(event)">
-          <span>❦</span>
+        <!-- XÁC NHẬN -->
+        <button type="button" class="cr-rsvp-btn" @click="openConfirmModal(event)">
           XÁC NHẬN THAM DỰ
-          <span>❦</span>
         </button>
-
-        <div class="el-event-bottom">
-          <span></span>
-          <i>✦</i>
-          <span></span>
-        </div>
       </article>
     </div>
 
-    <!-- RSVP MODAL -->
+    <!-- =====================================================
+         MODAL XÁC NHẬN
+    ====================================================== -->
     <Teleport to="body">
-      <Transition name="el-modal">
-        <div v-if="showConfirmModal" class="el-confirm-overlay" @click.self="closeConfirmModal">
-          <div class="el-confirm-modal">
-            <button type="button" class="el-modal-close" @click="closeConfirmModal">×</button>
+      <Transition name="cr-modal">
+        <div v-if="showConfirmModal" class="cr-confirm" @click.self="closeConfirmModal">
+          <div class="cr-confirm__card">
+            <button type="button" class="cr-confirm__close" @click="closeConfirmModal">×</button>
 
-            <div class="el-modal-header">
-              <div class="el-modal-symbol">✦</div>
+            <img
+              :src="doubleHappiness"
+              alt="囍"
+              class="cr-confirm__happiness"
+              draggable="false"
+            />
 
-              <span>THE CELEBRATION</span>
+            <h3 class="cr-confirm__title">Xác nhận tham dự</h3>
 
-              <h3>Xác nhận tham dự</h3>
+            <p class="cr-confirm__desc">
+              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+            </p>
 
-              <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
-            </div>
-
-            <!-- RECIPIENT -->
-            <div v-if="hasRecipient" class="el-recipient-box">
+            <div v-if="hasRecipient" class="cr-confirm__recipient">
               <span>TRÂN TRỌNG KÍNH MỜI</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
-            <!-- NAME -->
-            <div v-else class="el-form-group">
+            <div v-else class="cr-field">
               <label>Họ và tên</label>
 
-              <input v-model.trim="form.name" type="text" maxlength="100" placeholder="Nhập tên của bạn" />
+              <input
+                v-model.trim="form.name"
+                type="text"
+                maxlength="100"
+                placeholder="Nhập tên của bạn"
+              />
             </div>
 
-            <!-- ATTENDANCE -->
-            <div class="el-form-group">
+            <div class="cr-field">
               <label>Bạn có tham dự không?</label>
 
-              <div class="el-attendance">
+              <div class="cr-attendance">
                 <button
                   type="button"
-                  class="el-attendance-option"
-                  :class="{ selected: form.attendance === 'attending' }"
+                  class="cr-attendance__option"
+                  :class="{ 'is-selected': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  <span>✓</span>
                   Có, tôi sẽ tham dự
                 </button>
 
                 <button
                   type="button"
-                  class="el-attendance-option"
-                  :class="{ selected: form.attendance === 'not_attending' }"
+                  class="cr-attendance__option"
+                  :class="{ 'is-selected': form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  <span>×</span>
                   Rất tiếc, tôi không thể tham dự
                 </button>
               </div>
             </div>
 
-            <!-- PEOPLE -->
-            <div v-if="form.attendance === 'attending'" class="el-form-group">
+            <div v-if="form.attendance === 'attending'" class="cr-field">
               <label>Số người tham dự</label>
 
-              <div class="el-people-control">
+              <div class="cr-people-control">
                 <button type="button" @click="decreasePeople">−</button>
                 <strong>{{ form.numberOfPeople }}</strong>
                 <button type="button" @click="increasePeople">+</button>
               </div>
             </div>
 
-            <div v-if="errorMessage" class="el-form-error">{{ errorMessage }}</div>
-            <div v-if="successMessage" class="el-form-success">{{ successMessage }}</div>
+            <p v-if="errorMessage" class="cr-form-error">{{ errorMessage }}</p>
+            <p v-if="successMessage" class="cr-form-success">{{ successMessage }}</p>
 
-            <button type="button" class="el-modal-submit" :disabled="submitting" @click="submitConfirmation">
+            <button
+              type="button"
+              class="cr-confirm__submit"
+              :disabled="submitting"
+              @click="submitConfirmation"
+            >
               {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
             </button>
           </div>
@@ -216,6 +245,8 @@ import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+
+import { decorativeDiamond, doubleHappiness } from "./emeraldLuxeAssets";
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
@@ -254,7 +285,7 @@ const recipientName = computed(() => {
 const hasRecipient = computed(() => !!recipientName.value);
 
 /* =========================================
-   NORMALIZE EVENTS
+   CHUẨN HOÁ SỰ KIỆN
 ========================================= */
 
 const normalizedEvents = computed(() => {
@@ -273,12 +304,21 @@ const normalizedEvents = computed(() => {
       month = date.format("MM");
       year = date.format("YYYY");
 
-      const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+      const weekdays = [
+        "CHỦ NHẬT",
+        "THỨ HAI",
+        "THỨ BA",
+        "THỨ TƯ",
+        "THỨ NĂM",
+        "THỨ SÁU",
+        "THỨ BẢY",
+      ];
 
       weekday = weekdays[date.day()];
     }
 
-    const calendarDays = item.calendarDays || buildCalendarDays(Number(year), Number(month));
+    const calendarDays =
+      item.calendarDays || buildCalendarDays(Number(year), Number(month));
 
     return {
       ...item,
@@ -298,7 +338,7 @@ const normalizedEvents = computed(() => {
 
       date: rawDate,
 
-      lunar: item.LunarDate || item.lunar || "",
+      lunar: item.LunarDate || item.Lunar || item.lunar || "",
 
       receptionTime: item.ReceptionTime || item.receptionTime || "",
 
@@ -320,7 +360,7 @@ const normalizedEvents = computed(() => {
 });
 
 /* =========================================
-   CALENDAR
+   LỊCH THÁNG
 ========================================= */
 
 function buildCalendarDays(year, month) {
@@ -346,7 +386,7 @@ function buildCalendarDays(year, month) {
 }
 
 /* =========================================
-   RSVP
+   XÁC NHẬN THAM DỰ
 ========================================= */
 
 function openConfirmModal(event) {
@@ -441,7 +481,7 @@ async function submitConfirmation() {
 }
 
 /* =========================================
-   SCROLL REVEAL
+   HIỆN DẦN KHI CUỘN
 ========================================= */
 
 let observer;
@@ -470,531 +510,556 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.el-events {
+.cr-events {
   position: relative;
 
   width: 100%;
 
   overflow: hidden;
+
+  color: var(--cr-ink);
 }
 
-/* =====================================================
-   EVENTS LIST
-===================================================== */
+.cr-events__diamond {
+  position: absolute;
 
-.el-events__list {
-  width: min(100%, 680px);
-  margin: 0 auto;
+  top: 40px;
+  left: -18px;
 
+  width: 84px;
+  height: 84px;
+
+  object-fit: contain;
+
+  opacity: 0.5;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TIÊU ĐỀ
+========================================================= */
+
+.cr-heading {
+  position: relative;
+
+  text-align: center;
+
+  margin-bottom: 26px;
+}
+
+.cr-heading__vi {
+  margin: 0;
+
+  font-family: "Viaoda Libre", "Playfair Display", serif;
+
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
+
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
+}
+
+.cr-heading__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 12px;
+
+  color: var(--cr-accent);
+}
+
+.cr-heading__ornament span {
+  width: 52px;
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
+}
+
+.cr-heading__ornament span:last-child {
+  transform: rotate(180deg);
+}
+
+.cr-heading__ornament i {
+  font-size: 13px;
+  font-style: normal;
+}
+
+/* =========================================================
+   DANH SÁCH
+========================================================= */
+
+.cr-events__list {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 34px;
+  gap: 26px;
 }
 
-/* =====================================================
-   EVENT CARD
-===================================================== */
-
-.el-event-card {
+.cr-event {
   position: relative;
 
   width: 100%;
   max-width: 520px;
 
-  padding: 30px 24px 26px;
+  padding: 26px 20px 24px;
 
+  text-align: center;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+  border-radius: 18px;
+
+  background: rgba(var(--cr-surface-rgb), 0.88);
+
+  box-shadow: 0 14px 34px rgba(var(--cr-ink-rgb), 0.08);
+
+  opacity: 0;
+
+  transform: translateY(24px);
+
+  transition: opacity 0.7s ease var(--delay, 0ms),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms);
+}
+
+.cr-event.visible {
+  opacity: 1;
+
+  transform: none;
+}
+
+.cr-event__title {
+  margin: 0;
+
+  font-family: "Viaoda Libre", "Playfair Display", serif;
+
+  font-size: clamp(20px, 5.5vw, 26px);
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-event__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  margin: 10px 0 18px;
+
+  color: var(--cr-accent);
+}
+
+.cr-event__ornament span {
+  width: 40px;
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
+}
+
+.cr-event__ornament span:last-child {
+  transform: rotate(180deg);
+}
+
+.cr-event__ornament i {
+  font-size: 12px;
+  font-style: normal;
+}
+
+/* =========================================================
+   NGÀY
+========================================================= */
+
+.cr-event__weekday {
+  color: var(--cr-ink);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.26em;
+}
+
+.cr-event__date-main {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
+  max-width: 280px;
+
+  margin: 10px auto 0;
+}
+
+.cr-date-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cr-date-side span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.2em;
+}
+
+.cr-date-side strong {
+  color: var(--cr-ink);
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cr-event__day {
+  padding: 0 18px;
+
+  font-family: "Viaoda Libre", "Playfair Display", serif;
+
+  font-size: 56px;
+
+  line-height: 0.95;
+
+  color: var(--cr-ink);
+}
+
+.cr-event__lunar {
+  margin-top: 10px;
+
+  color: var(--cr-soft);
+
+  font-size: 11px;
+  font-style: italic;
+}
+
+/* =========================================================
+   GIỜ
+========================================================= */
+
+.cr-event__time {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  text-align: center;
+  margin-top: 16px;
+  padding-top: 14px;
 
-  color: #2e3d36;
-
-  border: 1px solid rgba(201, 164, 92, 0.6);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(172deg, rgba(255, 255, 255, 0.94), rgba(240, 234, 216, 0.88));
-
-  box-shadow: 0 18px 44px rgba(12, 43, 33, 0.12);
-
-  overflow: hidden;
+  border-top: 1px solid rgba(var(--cr-accent-rgb), 0.9);
 }
 
-.el-event-card::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
+.cr-event__time span {
+  color: var(--cr-muted);
 
-  border: 1px solid rgba(201, 164, 92, 0.3);
-  border-radius: 999px 999px 20px 20px;
+  font-size: 10px;
 
-  pointer-events: none;
+  letter-spacing: 0.2em;
 }
 
-/* =====================================================
-   HEADING
-===================================================== */
+.cr-event__time strong {
+  margin-top: 2px;
 
-.el-event-heading {
-  width: 100%;
-  text-align: center;
+  color: var(--cr-ink);
+
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.el-event-heading h2 {
-  margin: 0 0 8px;
+/* =========================================================
+   ĐÓN KHÁCH / KHAI TIỆC
+========================================================= */
 
-  font-family: "Playfair Display", Georgia, serif;
+.cr-event__schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  font-size: 30px;
+  margin-top: 16px;
+}
+
+.cr-schedule-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+
+  border: 1px solid rgba(var(--cr-accent-rgb), 0.9);
+  border-radius: 12px;
+
+  background: rgba(var(--cr-bg-rgb), 0.7);
+}
+
+.cr-schedule-row__dot {
+  color: var(--cr-accent);
+
+  font-size: 13px;
+}
+
+.cr-schedule-row div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cr-schedule-row span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.18em;
+}
+
+.cr-schedule-row strong {
+  color: var(--cr-ink);
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   ĐỊA ĐIỂM
+========================================================= */
+
+.cr-event__place {
+  margin-top: 16px;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(var(--cr-accent-rgb), 0.9);
+}
+
+.cr-event__place-label {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.2em;
+}
+
+.cr-event__place-name {
+  margin: 4px 0 0;
+
+  color: var(--cr-ink);
+
+  font-size: 14px;
   font-weight: 600;
 
-  letter-spacing: 0.04em;
-
-  color: #123b2e;
+  line-height: 1.45;
 }
 
-.el-mini-divider {
+.cr-event__place-address {
+  margin: 4px 0 0;
+
+  color: var(--cr-soft);
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   LỊCH
+========================================================= */
+
+.cr-calendar {
+  margin-top: 18px;
+  padding: 16px 12px 14px;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.16);
+  border-radius: 14px;
+
+  background: rgba(var(--cr-bg-rgb), 0.6);
+}
+
+.cr-calendar__header {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 
-  color: #c9a45c;
-}
-
-.el-mini-divider span {
-  width: 35px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.85));
-}
-
-.el-mini-divider span:last-child {
-  transform: rotate(180deg);
-}
-
-.el-mini-divider i {
-  font-size: 12px;
-  font-style: normal;
-}
-
-/* =====================================================
-   DATE
-===================================================== */
-
-.el-event-date {
-  width: 100%;
-  text-align: center;
-}
-
-.el-event-weekday {
-  margin-top: 14px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.24em;
-
-  color: #8a7a52;
-}
-
-.el-event-main-date {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-
-  margin: 8px 0;
-}
-
-.el-date-number {
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: clamp(44px, 13vw, 76px);
-  font-weight: 600;
-
-  line-height: 0.85;
-
-  color: #123b2e;
-}
-
-.el-date-side {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-
-  font-size: 10px;
-
-  letter-spacing: 0.14em;
-
-  color: #8a7a52;
-}
-
-.el-date-side strong {
-  font-size: 18px;
-  font-weight: 600;
-
-  color: #123b2e;
-}
-
-.el-event-lunar {
-  font-size: 14px;
-  font-style: italic;
-
-  color: #6b7a70;
-}
-
-/* =====================================================
-   TIME
-===================================================== */
-
-.el-event-time {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin: 10px auto 0;
-  padding: 15px 0;
-
-  border-bottom: 1px solid rgba(201, 164, 92, 0.45);
-}
-
-.el-event-time div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.el-event-time small {
-  font-size: 10px;
-
-  letter-spacing: 0.2em;
-
-  color: #8a7a52;
-}
-
-.el-event-time strong {
-  font-size: 23px;
-  font-weight: 600;
-
-  color: #123b2e;
-}
-
-/* =====================================================
-   SCHEDULE
-===================================================== */
-
-.el-event-schedule {
-  position: relative;
-
-  width: min(100%, 380px);
-
-  margin: 20px auto 0;
-  padding-left: 28px;
-
-  text-align: left;
-}
-
-.el-event-schedule::before {
-  content: "";
-  position: absolute;
-
-  left: 6px;
-  top: 12px;
-  bottom: 12px;
-
-  width: 1px;
-
-  background: rgba(201, 164, 92, 0.6);
-}
-
-.el-schedule-row {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  min-height: 42px;
-}
-
-.el-schedule-dot {
-  position: absolute;
-  left: -28px;
-
-  width: 13px;
-  height: 13px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  border: 1px solid #c9a45c;
-
-  background: #f7f1e3;
-
-  z-index: 2;
-}
-
-.el-schedule-dot span {
-  font-size: 11px;
-
-  color: #8a7a52;
-}
-
-.el-schedule-content {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.el-schedule-content span {
-  font-size: 11px;
-
-  letter-spacing: 0.16em;
-
-  color: #6b7a70;
-}
-
-.el-schedule-content strong {
-  font-size: 21px;
-  font-weight: 600;
-
-  color: #123b2e;
-}
-
-/* =====================================================
-   CALENDAR
-===================================================== */
-
-.el-calendar {
-  width: min(100%, 400px);
-
-  margin: 25px auto 0;
-
-  text-align: center;
-}
-
-.el-calendar__header {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
   margin-bottom: 12px;
 }
 
-.el-calendar__header span {
-  font-size: 11px;
-  font-weight: 700;
+.cr-calendar__header span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
 
   letter-spacing: 0.2em;
-
-  color: #8a7a52;
 }
 
-.el-calendar__header strong {
+.cr-calendar__header strong {
+  color: var(--cr-ink);
+
   font-size: 11px;
+  font-weight: 600;
 
-  letter-spacing: 0.1em;
-
-  color: #123b2e;
+  letter-spacing: 0.14em;
 }
 
-.el-calendar__weekdays,
-.el-calendar__days {
-  width: 100%;
-
+.cr-calendar__weekdays,
+.cr-calendar__days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cr-calendar__weekdays {
+  margin-bottom: 6px;
+}
+
+.cr-calendar__weekdays span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+  font-weight: 600;
 
   text-align: center;
 }
 
-.el-calendar__weekdays {
-  padding-bottom: 8px;
-
-  border-bottom: 1px solid rgba(201, 164, 92, 0.4);
-}
-
-.el-calendar__weekdays span {
-  font-size: 10px;
-  font-weight: 700;
-
-  color: #8a7a52;
-}
-
-.el-calendar__cell {
-  min-height: 31px;
-
+.cr-calendar__cell {
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.el-normal-day {
+  aspect-ratio: 1;
+
   font-size: 12px;
-
-  color: #55645b;
 }
 
-.el-active-day {
-  position: relative;
+.cr-calendar__day {
+  color: var(--cr-soft);
+}
 
-  width: 38px;
-  height: 38px;
+.cr-calendar__heart {
+  position: relative;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
+  height: 100%;
 }
 
-.el-active-sun {
+.cr-calendar__heart svg {
   position: absolute;
+  inset: 0;
 
-  font-size: 31px;
+  width: 100%;
+  height: 100%;
 
-  color: #c9a45c;
+  color: var(--cr-accent);
 }
 
-.el-active-day span:last-child {
+.cr-calendar__heart b {
   position: relative;
 
-  font-weight: 700;
+  color: var(--cr-ink);
 
-  color: #10281f;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.el-calendar-btn {
+.cr-calendar__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
 
-  margin-top: 15px;
+  margin-top: 14px;
+  padding: 9px 20px;
 
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 999px;
+
+  color: var(--cr-ink);
+
+  background: linear-gradient(135deg, var(--cr-accent-light), var(--cr-accent));
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  text-decoration: none;
+
+  transition: transform 0.2s ease;
+}
+
+.cr-calendar__btn:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   NÚT XÁC NHẬN
+========================================================= */
+
+.cr-rsvp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 18px;
+  padding: 12px 30px;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 999px;
+
+  color: var(--cr-ink);
+
+  background: linear-gradient(135deg, var(--cr-accent-light), var(--cr-accent));
+
+  box-shadow: 0 10px 24px rgba(var(--cr-accent-rgb), 0.45);
+
+  font-family: inherit;
   font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  color: #8a7a52;
-}
-
-/* =====================================================
-   RSVP
-===================================================== */
-
-.el-rsvp-btn {
-  width: min(100%, 400px);
-
-  margin: 25px auto 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
-
-  padding: 13px 18px;
-
-  border: 1px solid rgba(201, 164, 92, 0.85);
-  border-radius: 999px;
-
-  color: #10281f;
-
-  background: linear-gradient(135deg, #e8d3a2, #c9a45c);
-
-  box-shadow: 0 10px 24px rgba(201, 164, 92, 0.32);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
 
   cursor: pointer;
 
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.el-rsvp-btn:hover {
+.cr-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(201, 164, 92, 0.42);
+  box-shadow: 0 14px 30px rgba(var(--cr-accent-rgb), 0.6);
 }
 
-/* =====================================================
-   BOTTOM ORNAMENT
-===================================================== */
-
-.el-event-bottom {
-  width: 100%;
-
-  margin-top: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  color: #c9a45c;
-}
-
-.el-event-bottom span {
-  width: 60px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.75));
-}
-
-.el-event-bottom span:last-child {
-  transform: rotate(180deg);
-}
-
-.el-event-bottom i {
-  font-size: 12px;
-  font-style: normal;
-}
-
-/* =====================================================
-   REVEAL
-===================================================== */
-
-.reveal {
-  opacity: 0;
-
-  transform: translateY(35px);
-
-  transition:
-    opacity 0.8s ease var(--delay, 0ms),
-    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay, 0ms);
-}
-
-.reveal.visible {
-  opacity: 1;
-
-  transform: translateY(0);
-}
-
-/* =====================================================
+/* =========================================================
    MODAL
-===================================================== */
+========================================================= */
 
-.el-confirm-overlay {
+.cr-confirm {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+
+  z-index: 3000;
 
   display: flex;
   align-items: center;
@@ -1002,406 +1067,321 @@ onBeforeUnmount(() => {
 
   padding: 20px;
 
-  background: rgba(10, 30, 23, 0.5);
+  background: rgba(var(--cr-ink-rgb), 0.5);
 
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(3px);
 }
 
-.el-confirm-modal {
+.cr-confirm__card {
   position: relative;
 
-  width: min(100%, 470px);
+  width: min(100%, 400px);
+  max-height: 88vh;
 
-  max-height: 90vh;
+  padding: 28px 22px 24px;
 
   overflow-y: auto;
 
-  padding: 40px 30px;
-
-  border: 1px solid rgba(201, 164, 92, 0.65);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(172deg, #fdfaf2, #efe9d6);
-
-  box-shadow: 0 30px 80px rgba(5, 20, 15, 0.35);
-
   text-align: center;
 
-  color: #2e3d36;
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
+  border-radius: 18px;
+
+  background: var(--cr-surface);
+
+  color: var(--cr-ink);
 }
 
-.el-modal-close {
+.cr-confirm__close {
   position: absolute;
-  top: 12px;
-  right: 15px;
 
-  width: 35px;
-  height: 35px;
+  top: 10px;
+  right: 12px;
+
+  width: 30px;
+  height: 30px;
 
   border: 0;
+  border-radius: 50%;
 
-  font-size: 27px;
+  color: var(--cr-soft);
 
-  color: #c9a45c;
+  background: rgba(var(--cr-accent-rgb), 0.35);
 
-  background: transparent;
+  font-size: 19px;
+  line-height: 1;
 
   cursor: pointer;
 }
 
-.el-modal-header {
-  text-align: center;
+.cr-confirm__happiness {
+  width: 52px;
+  height: 52px;
+
+  object-fit: contain;
 }
 
-.el-modal-symbol {
-  font-size: 20px;
+.cr-confirm__title {
+  margin: 8px 0 6px;
 
-  margin-bottom: 8px;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  color: #c9a45c;
+  font-size: 24px;
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
 }
 
-.el-modal-header > span {
+.cr-confirm__desc {
+  margin: 0 0 18px;
+
+  color: var(--cr-soft);
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+.cr-confirm__recipient {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  margin-bottom: 16px;
+  padding: 12px;
+
+  border: 1px solid rgba(var(--cr-accent-rgb), 0.9);
+  border-radius: 12px;
+
+  background: rgba(var(--cr-bg-rgb), 0.7);
+}
+
+.cr-confirm__recipient span {
+  color: var(--cr-muted);
+
   font-size: 10px;
 
-  letter-spacing: 0.28em;
-
-  color: #8a7a52;
+  letter-spacing: 0.2em;
 }
 
-.el-modal-header h3 {
-  margin: 8px 0;
+.cr-confirm__recipient strong {
+  font-family: "Babylonica", "Great Vibes", cursive;
 
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 32px;
-  font-weight: 600;
-
-  color: #123b2e;
+  font-size: 26px;
+  font-weight: 400;
 }
 
-.el-modal-header p {
-  margin: 0;
-
-  font-size: 14px;
-
-  color: #55645b;
-}
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.el-form-group {
-  margin-top: 20px;
+.cr-field {
+  margin-bottom: 16px;
 
   text-align: left;
 }
 
-.el-form-group label {
+.cr-field label {
   display: block;
 
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+
+  color: var(--cr-muted);
 
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
 
-  color: #8a7a52;
+  text-transform: uppercase;
 }
 
-.el-form-group input {
+.cr-field input {
   width: 100%;
 
-  padding: 13px 14px;
+  padding: 11px 14px;
 
-  border: 1px solid rgba(201, 164, 92, 0.55);
-  border-radius: 14px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 10px;
+
+  background: #fff;
+
+  color: var(--cr-ink);
+
+  font-family: inherit;
+  font-size: 14px;
 
   outline: none;
-
-  font-size: 16px;
-
-  color: #2e3d36;
-
-  background: rgba(255, 255, 255, 0.9);
-
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.el-form-group input:focus {
-  border-color: #c9a45c;
-
-  box-shadow: 0 0 0 3px rgba(201, 164, 92, 0.18);
+.cr-field input:focus {
+  border-color: var(--cr-accent);
 }
 
-.el-attendance {
+.cr-attendance {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.el-attendance-option {
-  padding: 12px 14px;
+.cr-attendance__option {
+  padding: 11px 14px;
 
-  border: 1px solid rgba(201, 164, 92, 0.55);
-  border-radius: 14px;
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 10px;
+
+  background: #fff;
+
+  color: var(--cr-soft);
+
+  font-family: inherit;
+  font-size: 13px;
 
   text-align: left;
 
-  font-size: 13px;
-
-  color: #2e3d36;
-
-  background: rgba(255, 255, 255, 0.8);
-
   cursor: pointer;
 
-  transition: all 0.25s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.el-attendance-option.selected {
-  border-color: #c9a45c;
+.cr-attendance__option.is-selected {
+  border-color: var(--cr-accent);
 
-  background: rgba(201, 164, 92, 0.16);
+  background: rgba(var(--cr-accent-rgb), 0.28);
+
+  color: var(--cr-ink);
 
   font-weight: 600;
 }
 
-.el-attendance-option span {
-  margin-right: 8px;
-
-  color: #8a7a52;
-}
-
-.el-people-control {
+.cr-people-control {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
-}
+  gap: 18px;
 
-.el-people-control button {
-  width: 38px;
-  height: 38px;
+  padding: 8px;
 
-  border: 1px solid #c9a45c;
-  border-radius: 50%;
-
-  font-size: 20px;
-
-  color: #123b2e;
-
-  background: #f7f1e3;
-
-  cursor: pointer;
-}
-
-.el-people-control strong {
-  min-width: 25px;
-
-  text-align: center;
-
-  font-size: 18px;
-
-  color: #123b2e;
-}
-
-.el-recipient-box {
-  margin: 20px 0;
-
-  padding: 18px;
-
-  border: 1px solid rgba(201, 164, 92, 0.6);
-  border-radius: 999px 999px 16px 16px;
-
-  text-align: center;
-
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.el-recipient-box span {
-  display: block;
-
-  font-size: 10px;
-
-  letter-spacing: 0.22em;
-
-  color: #8a7a52;
-}
-
-.el-recipient-box strong {
-  display: block;
-  margin-top: 6px;
-
-  font-family: "Great Vibes", cursive;
-  font-size: 28px;
-  font-weight: 400;
-
-  color: #123b2e;
-}
-
-.el-form-error,
-.el-form-success {
-  margin-top: 15px;
-
-  padding: 10px;
-
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
   border-radius: 10px;
 
-  text-align: center;
-
-  font-size: 12px;
+  background: #fff;
 }
 
-.el-form-error {
-  color: #a34d3d;
+.cr-people-control button {
+  width: 32px;
+  height: 32px;
 
-  background: rgba(163, 77, 61, 0.08);
-}
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
+  border-radius: 50%;
 
-.el-form-success {
-  color: #3d6b4f;
+  background: rgba(var(--cr-bg-rgb), 0.9);
 
-  background: rgba(61, 107, 79, 0.12);
-}
+  color: var(--cr-ink);
 
-.el-modal-submit {
-  width: 100%;
-
-  margin-top: 22px;
-
-  padding: 14px;
-
-  border: 1px solid rgba(201, 164, 92, 0.85);
-  border-radius: 999px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
-
-  color: #10281f;
-
-  background: linear-gradient(135deg, #e8d3a2, #c9a45c);
-
-  box-shadow: 0 10px 24px rgba(201, 164, 92, 0.32);
+  font-size: 17px;
+  line-height: 1;
 
   cursor: pointer;
-
-  transition: transform 0.25s ease;
 }
 
-.el-modal-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
+.cr-people-control strong {
+  min-width: 26px;
+
+  font-size: 17px;
 }
 
-.el-modal-submit:disabled {
-  opacity: 0.6;
+.cr-form-error,
+.cr-form-success {
+  margin: 0 0 12px;
 
-  cursor: not-allowed;
+  font-size: 12px;
+
+  line-height: 1.5;
 }
 
-/* =====================================================
-   MODAL ANIMATION
-===================================================== */
-
-.el-modal-enter-active,
-.el-modal-leave-active {
-  transition: opacity 0.3s ease;
+.cr-form-error {
+  color: #b3261e;
 }
 
-.el-modal-enter-from,
-.el-modal-leave-to {
+.cr-form-success {
+  color: #2e7d32;
+}
+
+.cr-confirm__submit {
+  width: 100%;
+
+  padding: 13px;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 999px;
+
+  color: var(--cr-ink);
+
+  background: linear-gradient(135deg, var(--cr-accent-light), var(--cr-accent));
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+
+  cursor: pointer;
+}
+
+.cr-confirm__submit:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+/* =========================================================
+   CHUYỂN ĐỘNG MODAL
+========================================================= */
+
+.cr-modal-enter-active,
+.cr-modal-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.cr-modal-enter-from,
+.cr-modal-leave-to {
   opacity: 0;
 }
 
-.el-modal-enter-active .el-confirm-modal {
-  animation: el-modal-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+.cr-modal-enter-active .cr-confirm__card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes el-modal-in {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.cr-modal-enter-from .cr-confirm__card {
+  transform: translateY(20px) scale(0.96);
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   MOBILE NHỎ
+========================================================= */
 
-@media (max-width: 600px) {
-  .el-events__list {
-    width: 100%;
-    padding: 0 18px;
-    gap: 25px;
+@media (max-width: 380px) {
+  .cr-event {
+    padding: 22px 14px 20px;
   }
 
-  .el-event-card {
-    max-width: 430px;
+  .cr-event__day {
+    padding: 0 12px;
 
-    padding: 26px 18px 22px;
-  }
-
-  .el-event-heading h2 {
-    font-size: 26px;
-  }
-
-  .el-event-main-date {
-    gap: 14px;
-  }
-
-  .el-date-number {
-    font-size: 62px;
-  }
-
-  .el-date-side strong {
-    font-size: 16px;
-  }
-
-  .el-event-schedule {
-    width: min(100%, 340px);
-  }
-
-  .el-schedule-content strong {
-    font-size: 19px;
-  }
-
-  .el-calendar {
-    width: min(100%, 360px);
-  }
-
-  .el-rsvp-btn {
-    width: min(100%, 360px);
-  }
-
-  .el-confirm-modal {
-    padding: 35px 20px 25px;
+    font-size: 48px;
   }
 }
 
-/* =====================================================
-   REDUCE MOTION
-===================================================== */
+/* =========================================================
+   GIẢM CHUYỂN ĐỘNG
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .cr-event {
     opacity: 1;
 
     transform: none;
 
-    transition: none;
-  }
-
-  .el-rsvp-btn,
-  .el-modal-submit {
     transition: none;
   }
 }

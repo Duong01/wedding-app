@@ -1,277 +1,133 @@
 <template>
-  <section class="wedding-info">
+  <section class="cfr-info">
 
-    <!-- ================================
-         HEADER
-    ================================= -->
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-    <div class="section-heading">
-      <div class="heading-line"></div>
+    <h2 class="cfr-title">
+      {{ heading }}
+    </h2>
 
-      <div class="heading-content">
-        <span class="heading-subtitle">
-          TRÂN TRỌNG BÁO HỶ
+
+    <!-- =====================================================
+         HAI HỌ TỪ THÂN
+    ====================================================== -->
+
+    <div class="cfr-info__families">
+
+      <div class="cfr-info__family">
+        <span class="cfr-info__family-label">Ông Bà</span>
+
+        <span v-if="groomFather" class="cfr-info__family-name">
+          {{ groomFather }}
         </span>
 
-        <h2>
-          THÔNG TIN LỄ CƯỚI
-        </h2>
+        <span v-if="groomMother" class="cfr-info__family-name">
+          {{ groomMother }}
+        </span>
 
-        <div class="double-happiness">
-          囍
-        </div>
-      </div>
-
-      <div class="heading-line"></div>
-    </div>
-
-
-    <!-- ================================
-         CÔ DÂU & CHÚ RỂ
-    ================================= -->
-
-    <div class="couple-names">
-
-      <!-- CHÚ RỂ -->
-
-      <div class="person">
-
-        <div class="person-portrait">
-          <img
-            v-if="groomAvatar"
-            :src="groomAvatar"
-            :alt="groomName"
-            loading="lazy"
-            decoding="async"
-          />
-          <span v-else class="person-initial">{{ groomName.charAt(0) || "♥" }}</span>
-        </div>
-
-        <div class="person-role">
-          CHÚ RỂ
-        </div>
-
-        <h3>
-          {{ groomName }}
-        </h3>
-
-        <div class="name-decoration">
-          <span></span>
-          <i>✦</i>
-          <span></span>
-        </div>
-
+        <span v-if="groomAddress" class="cfr-info__family-address">
+          {{ groomAddress }}
+        </span>
       </div>
 
 
-      <!-- CENTER -->
-
-      <div class="couple-mark">
-        <span></span>
-
-        <strong>
-          囍
-        </strong>
-
-        <span></span>
-      </div>
+      <div class="cfr-info__family-divider" aria-hidden="true"></div>
 
 
-      <!-- CÔ DÂU -->
+      <div class="cfr-info__family">
+        <span class="cfr-info__family-label">Ông Bà</span>
 
-      <div class="person">
+        <span v-if="brideFather" class="cfr-info__family-name">
+          {{ brideFather }}
+        </span>
 
-        <div class="person-portrait">
-          <img
-            v-if="brideAvatar"
-            :src="brideAvatar"
-            :alt="brideName"
-            loading="lazy"
-            decoding="async"
-          />
-          <span v-else class="person-initial">{{ brideName.charAt(0) || "♥" }}</span>
-        </div>
+        <span v-if="brideMother" class="cfr-info__family-name">
+          {{ brideMother }}
+        </span>
 
-        <div class="person-role">
-          CÔ DÂU
-        </div>
-
-        <h3>
-          {{ brideName }}
-        </h3>
-
-        <div class="name-decoration">
-          <span></span>
-          <i>✦</i>
-          <span></span>
-        </div>
-
+        <span v-if="brideAddress" class="cfr-info__family-address">
+          {{ brideAddress }}
+        </span>
       </div>
 
     </div>
 
 
-    <!-- ================================
-         THỜI GIAN
-    ================================= -->
+    <!-- =====================================================
+         LỜI BÁO TIN
+    ====================================================== -->
 
-    <div
-      v-if="hasDate"
-      class="wedding-date"
-    >
+    <p class="cfr-info__announce">
+      {{ eyebrow }}
+    </p>
 
-      <div class="date-label">
-        THỜI GIAN CỬ HÀNH
+
+    <!-- =====================================================
+         TÊN CÔ DÂU CHÚ RỂ
+    ====================================================== -->
+
+    <div class="cfr-info__couple">
+
+      <h3 class="cfr-info__couple-name">
+        {{ groomName }}
+      </h3>
+
+      <div v-if="groomRole" class="cfr-info__couple-role">
+        {{ groomRole }}
       </div>
 
+      <div class="cfr-info__couple-amp">&amp;</div>
 
-      <!-- GIỜ -->
+      <h3 class="cfr-info__couple-name">
+        {{ brideName }}
+      </h3>
 
-      <div
-        v-if="time"
-        class="date-time"
-      >
-        {{ time }}
+      <div v-if="brideRole" class="cfr-info__couple-role">
+        {{ brideRole }}
       </div>
 
+    </div>
 
-      <!-- THỨ + NGÀY + THÁNG -->
 
-      <div class="date-main">
+    <!-- =====================================================
+         NGÀY GIỜ
+    ====================================================== -->
 
-        <span
-          v-if="weekday"
-          class="weekday"
-        >
-          {{ weekday }}
-        </span>
+    <div class="cfr-info__when">
 
-        <span
-          v-if="day"
-          class="day"
-        >
-          {{ day }}
-        </span>
+      <p class="cfr-info__when-place">
+        LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />{{ ceremonyPlace }}
+      </p>
 
-        <span
-          v-if="month"
-          class="month"
-        >
-          THÁNG {{ month }}
-        </span>
+      <p class="cfr-info__when-label">
+        VÀO LÚC
+      </p>
 
+      <div v-if="ceremonyTime" class="cfr-info__when-time">
+        {{ ceremonyTime }}
       </div>
 
+      <div v-if="hasDate" class="cfr-info__when-date">
+        <span class="cfr-info__when-side">{{ weekday }}</span>
 
-      <!-- NĂM -->
+        <span class="cfr-info__when-sep" aria-hidden="true"></span>
 
-      <div
-        v-if="year"
-        class="year"
-      >
+        <span class="cfr-info__when-day">{{ day }}</span>
+
+        <span class="cfr-info__when-sep" aria-hidden="true"></span>
+
+        <span class="cfr-info__when-side">{{ monthLabel }}</span>
+      </div>
+
+      <div v-if="year" class="cfr-info__when-year">
         {{ year }}
       </div>
 
-    </div>
-
-
-    <!-- ================================
-         HAI HỌ TỪ THÂN
-         (bố mẹ hai bên — chỉ hiện khi có dữ liệu)
-    ================================= -->
-
-    <div
-      v-if="hasFamilyInfo"
-      class="families"
-    >
-
-      <!-- HỌ CHÚ RỂ -->
-
-      <div
-        v-if="hasGroomFamily"
-        class="family"
-      >
-        <div class="family-label">
-          HỌ CHÚ RỂ
-        </div>
-
-        <div
-          v-if="groomFather"
-          class="parent"
-        >
-          <span class="parent-role">BỐ</span>
-
-          <strong>{{ groomFather }}</strong>
-        </div>
-
-        <div
-          v-if="groomMother"
-          class="parent"
-        >
-          <span class="parent-role">MẸ</span>
-
-          <strong>{{ groomMother }}</strong>
-        </div>
+      <div v-if="lunar" class="cfr-info__when-lunar">
+        ({{ lunar }})
       </div>
-
-
-      <div class="family-divider">
-        囍
-      </div>
-
-
-      <!-- HỌ CÔ DÂU -->
-
-      <div
-        v-if="hasBrideFamily"
-        class="family"
-      >
-        <div class="family-label">
-          HỌ CÔ DÂU
-        </div>
-
-        <div
-          v-if="brideFather"
-          class="parent"
-        >
-          <span class="parent-role">BỐ</span>
-
-          <strong>{{ brideFather }}</strong>
-        </div>
-
-        <div
-          v-if="brideMother"
-          class="parent"
-        >
-          <span class="parent-role">MẸ</span>
-
-          <strong>{{ brideMother }}</strong>
-        </div>
-      </div>
-
-    </div>
-
-
-    <!-- ================================
-         ĐỊA CHỈ
-    ================================= -->
-
-    <div
-      v-if="location || address"
-      class="location"
-    >
-
-      <div class="location-icon">
-        ◈
-      </div>
-
-      <strong v-if="location">
-        {{ location }}
-      </strong>
-
-      <span v-if="address">
-        {{ address }}
-      </span>
 
     </div>
 
@@ -281,10 +137,17 @@
 
 <script setup>
 import { computed } from "vue";
-import dayjs from "dayjs";
+
+import { sectionText } from "@/data/sectionTitles";
+
 
 const props = defineProps({
   wedding: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  sections: {
     type: Object,
     default: () => ({}),
   },
@@ -293,730 +156,571 @@ const props = defineProps({
 const wedding = computed(() => props.wedding || {});
 
 
-// ========================================
-// COUPLE
-// ========================================
+/* =========================================================
+   TIÊU ĐỀ MỤC
+========================================================= */
 
-const groomName = computed(() =>
-  wedding.value?.GroomName ||
-  wedding.value?.couple?.Groom?.Name ||
-  "",
+const heading = computed(() =>
+  sectionText(props.sections, "couple", "Heading")
 );
 
-const brideName = computed(() =>
-  wedding.value?.BrideName ||
-  wedding.value?.couple?.Bride?.Name ||
-  "",
-);
-
-const groomAvatar = computed(() =>
-  wedding.value?.couple?.Groom?.Avatar ||
-  wedding.value?.groom?.avatar ||
-  wedding.value?.groom?.image ||
-  "",
-);
-
-const brideAvatar = computed(() =>
-  wedding.value?.couple?.Bride?.Avatar ||
-  wedding.value?.bride?.avatar ||
-  wedding.value?.bride?.image ||
-  "",
+const eyebrow = computed(() =>
+  sectionText(props.sections, "couple", "Eyebrow")
 );
 
 
-// ========================================
-// PARENTS
-// ========================================
+/* =========================================================
+   CÔ DÂU / CHÚ RỂ
+========================================================= */
 
-const groomFather = computed(() =>
-  wedding.value?.couple?.Groom?.Father ||
-  "",
+const groomName = computed(
+  () =>
+    wedding.value?.GroomName ||
+    wedding.value?.groomName ||
+    wedding.value?.couple?.Groom?.Name ||
+    "Chú rể"
 );
 
-const groomMother = computed(() =>
-  wedding.value?.couple?.Groom?.Mother ||
-  "",
+const brideName = computed(
+  () =>
+    wedding.value?.BrideName ||
+    wedding.value?.brideName ||
+    wedding.value?.couple?.Bride?.Name ||
+    "Cô dâu"
 );
 
-const brideFather = computed(() =>
-  wedding.value?.couple?.Bride?.Father ||
-  "",
-);
-
-const brideMother = computed(() =>
-  wedding.value?.couple?.Bride?.Mother ||
-  "",
-);
-
-
-// ========================================
-// FAMILY CHECK
-// ========================================
-
-const hasGroomFamily = computed(() =>
-  Boolean(
-    groomFather.value ||
-    groomMother.value,
-  ),
-);
-
-const hasBrideFamily = computed(() =>
-  Boolean(
-    brideFather.value ||
-    brideMother.value,
-  ),
-);
-
-const hasFamilyInfo = computed(() =>
-  hasGroomFamily.value ||
-  hasBrideFamily.value,
-);
-
-
-// ========================================
-// DATE
-// ========================================
-
-const weddingDate = computed(() => {
-  return (
-    wedding.value?.weddingDate ||
-    wedding.value?.hero?.WeddingDate ||
-    wedding.value?.events?.[0]?.EventDate ||
+const groomRole = computed(
+  () =>
+    wedding.value?.couple?.Groom?.Nickname ||
+    wedding.value?.couple?.Groom?.Role ||
     ""
-  );
+);
+
+const brideRole = computed(
+  () =>
+    wedding.value?.couple?.Bride?.Nickname ||
+    wedding.value?.couple?.Bride?.Role ||
+    ""
+);
+
+
+/* =========================================================
+   GIA ĐÌNH
+========================================================= */
+
+const groomFather = computed(() => wedding.value?.couple?.Groom?.Father || "");
+const groomMother = computed(() => wedding.value?.couple?.Groom?.Mother || "");
+const brideFather = computed(() => wedding.value?.couple?.Bride?.Father || "");
+const brideMother = computed(() => wedding.value?.couple?.Bride?.Mother || "");
+
+const groomAddress = computed(
+  () =>
+    wedding.value?.couple?.Groom?.Address ||
+    wedding.value?.couple?.Groom?.Description ||
+    ""
+);
+
+const brideAddress = computed(
+  () =>
+    wedding.value?.couple?.Bride?.Address ||
+    wedding.value?.couple?.Bride?.Description ||
+    ""
+);
+
+
+/* =========================================================
+   SỰ KIỆN ĐẦU TIÊN
+========================================================= */
+
+const firstEvent = computed(() => {
+  const list = Array.isArray(wedding.value?.events)
+    ? wedding.value.events
+    : [];
+
+  return list[0] || null;
+});
+
+const ceremonyPlace = computed(
+  () =>
+    firstEvent.value?.Location ||
+    firstEvent.value?.Address ||
+    wedding.value?.hero?.Location ||
+    "TƯ GIA"
+);
+
+const ceremonyTime = computed(() => {
+  const raw = firstEvent.value?.EventTime || "";
+
+  if (!raw) return "";
+
+  return String(raw).slice(0, 5);
 });
 
 
-const parsedDate = computed(() => {
-  if (!weddingDate.value) {
-    return null;
-  }
+/* =========================================================
+   NGÀY
+========================================================= */
 
-  const date = dayjs(weddingDate.value);
+const WEEKDAYS = [
+  "CHỦ NHẬT",
+  "THỨ HAI",
+  "THỨ BA",
+  "THỨ TƯ",
+  "THỨ NĂM",
+  "THỨ SÁU",
+  "THỨ BẢY",
+];
 
-  return date.isValid()
-    ? date
-    : null;
+const dateObject = computed(() => {
+  const raw =
+    firstEvent.value?.EventDate ||
+    wedding.value?.weddingDate ||
+    wedding.value?.WeddingDate ||
+    "";
+
+  if (!raw) return null;
+
+  const date = new Date(raw);
+
+  return Number.isNaN(date.getTime()) ? null : date;
 });
 
-
-const time = computed(() => {
-  if (!parsedDate.value) {
-    return "";
-  }
-
-  return parsedDate.value.format("HH:mm");
-});
-
+const hasDate = computed(() => Boolean(dateObject.value));
 
 const weekday = computed(() => {
-  if (!parsedDate.value) {
-    return "";
+  if (firstEvent.value?.Weekday) {
+    return String(firstEvent.value.Weekday).toUpperCase();
   }
 
-  const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
-  ];
-
-  return weekdays[parsedDate.value.day()];
+  return dateObject.value ? WEEKDAYS[dateObject.value.getDay()] : "";
 });
-
 
 const day = computed(() => {
-  if (!parsedDate.value) {
-    return "";
+  if (firstEvent.value?.Day) {
+    return String(firstEvent.value.Day).padStart(2, "0");
   }
 
-  return parsedDate.value.format("DD");
+  return dateObject.value
+    ? String(dateObject.value.getDate()).padStart(2, "0")
+    : "";
 });
 
-
-const month = computed(() => {
-  if (!parsedDate.value) {
-    return "";
+const monthLabel = computed(() => {
+  if (firstEvent.value?.Month) {
+    return `THÁNG ${String(firstEvent.value.Month).padStart(2, "0")}`;
   }
 
-  return parsedDate.value.format("MM");
+  return dateObject.value
+    ? `THÁNG ${String(dateObject.value.getMonth() + 1).padStart(2, "0")}`
+    : "";
 });
-
 
 const year = computed(() => {
-  if (!parsedDate.value) {
-    return "";
+  if (firstEvent.value?.Year) {
+    return String(firstEvent.value.Year);
   }
 
-  return parsedDate.value.format("YYYY");
+  return dateObject.value ? String(dateObject.value.getFullYear()) : "";
 });
 
-
-const hasDate = computed(() =>
-  Boolean(
-    time.value ||
-    weekday.value ||
-    day.value ||
-    month.value ||
-    year.value,
-  ),
-);
-
-
-// ========================================
-// LOCATION
-// ========================================
-
-const location = computed(() =>
-  wedding.value?.events?.[0]?.Location ||
-  wedding.value?.hero?.Location ||
-  "",
-);
-
-const address = computed(() =>
-  wedding.value?.events?.[0]?.Address ||
-  "",
+const lunar = computed(
+  () =>
+    firstEvent.value?.Lunar ||
+    wedding.value?.weddingLunar ||
+    wedding.value?.WeddingLunar ||
+    ""
 );
 </script>
 
 
 <style scoped>
-/* =====================================================
-   ROOT
-===================================================== */
+/* =========================================================
+   SECTION
+========================================================== */
 
-.wedding-info {
+.cfr-info {
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 24px;
 
   width: 100%;
 
-  padding:
-    12px
-    8px
-    20px;
-
-  color: #701216;
+  color: var(--cfr-red-deep);
 
   text-align: center;
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================================================
+   GIA ĐÌNH
+========================================================== */
 
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 12px;
-
-  margin-bottom: 30px;
-}
-
-.heading-content {
-  flex-shrink: 0;
-}
-
-.heading-line {
-  width: 45px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b78b48
-    );
-}
-
-.heading-line:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b78b48
-    );
-}
-
-.heading-subtitle {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: #b08748;
-
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: 3px;
-}
-
-.section-heading h2 {
-  margin: 0;
-
-  color: #821419;
-
-  font-size: 22px;
-  font-weight: 800;
-
-  letter-spacing: 2px;
-
-  line-height: 1.2;
-}
-
-.double-happiness {
-  margin-top: 7px;
-
-  color: #a3171b;
-
-  font-family: "Times New Roman", serif;
-
-  font-size: 27px;
-  font-weight: 700;
-
-  line-height: 1;
-}
-
-
-/* =====================================================
-   FAMILY
-===================================================== */
-
-.families {
+.cfr-info__families {
   display: grid;
 
   grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: repeat(4, auto);
 
-  align-items: center;
+  column-gap: 12px;
+  row-gap: 4px;
 
   width: 100%;
 
-  margin:
-    0
-    auto
-    32px;
-
-  padding:
-    17px
-    5px;
-
-  border-top:
-    1px solid rgba(176, 135, 72, .4);
-
-  border-bottom:
-    1px solid rgba(176, 135, 72, .4);
+  color: var(--cfr-red);
 }
 
-.family {
+.cfr-info__family {
+  display: grid;
+
+  grid-row: span 4;
+
+  grid-template-rows: subgrid;
+
+  justify-items: center;
+
   min-width: 0;
+  min-height: 0;
+
+  max-width: 180px;
+
+  text-align: center;
 }
 
-.family-label {
-  margin-bottom: 10px;
+.cfr-info__family-label {
+  margin-bottom: 4px;
 
-  color: #ad8446;
+  color: var(--cfr-red-deep);
 
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: 1.7px;
+  font-size: 13px;
 }
 
-.parent {
+.cfr-info__family-name {
+  color: var(--cfr-red);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+.cfr-info__family-address {
   display: flex;
-  align-items: baseline;
-  justify-content: center;
+  flex-direction: column;
 
-  gap: 4px;
+  width: 100%;
 
-  margin-top: 5px;
+  margin-top: 8px;
 
-  color: #4f4439;
+  color: var(--cfr-red-deep);
+
+  font-size: 12px;
 
   line-height: 1.4;
+  white-space: pre-line;
 }
 
-.parent-role {
-  color: #9a7847;
+.cfr-info__family-divider {
+  align-self: center;
 
-  font-size: 10px;
-  font-weight: 700;
+  width: 1px;
+  height: 60px;
+
+  background-color: var(--cfr-red);
+
+  opacity: 0.5;
 }
 
-.parent strong {
-  font-size: 12px;
-  font-weight: 700;
 
+/* =========================================================
+   LỜI BÁO TIN
+========================================================== */
+
+.cfr-info__announce {
+  margin: 0;
+
+  color: var(--cfr-red);
+
+  font-size: 14px;
+
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+
+/* =========================================================
+   TÊN CÔ DÂU CHÚ RỂ
+========================================================== */
+
+.cfr-info__couple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+
+  width: 100%;
+}
+
+.cfr-info__couple-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 80%;
+  min-height: 80px;
+
+  margin: 0;
+
+  color: var(--cfr-red);
+
+  font-family: var(--cfr-font-name);
+  font-size: 42px;
+  font-weight: 400;
+
+  line-height: 1.2;
   white-space: nowrap;
 }
 
-.family-divider {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.cfr-info__couple-role {
+  color: var(--cfr-red-deep);
 
-  gap: 5px;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: 15px;
 
-  padding: 0 8px;
-
-  color: #9b171b;
-
-  font-family: "Times New Roman", serif;
-
-  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.family-divider b {
-  color: #9b171b;
+.cfr-info__couple-amp {
+  color: var(--cfr-red);
 
-  font-family: "Times New Roman", serif;
-
-  font-size: 18px;
-}
-
-
-/* =====================================================
-   NAMES
-===================================================== */
-
-.couple-names {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    42px
-    minmax(0, 1fr);
-
-  align-items: center;
-
-  margin:
-    0
-    auto
-    32px;
-}
-
-.person {
-  min-width: 0;
-}
-
-.person-portrait {
-  width: 92px;
-  height: 92px;
-
-  margin: 0 auto 12px;
-
-  border: 2px solid rgba(181, 138, 69, 0.65);
-  border-radius: 50%;
-
-  background: rgba(246, 236, 217, 0.92);
-
-  box-shadow: 0 8px 22px rgba(114, 14, 18, 0.12);
-
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.person-portrait img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
-.person-initial {
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: 40px;
-  font-weight: 600;
-
-  color: #b58a45;
-}
-
-.person-role {
-  margin-bottom: 7px;
-
-  color: #ae8547;
-
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: 2px;
-}
-
-.person h3 {
-  margin: 0;
-
-  color: #811419;
-
-  font-size: 22px;
-  font-weight: 800;
-
-  line-height: 1.25;
-
-  letter-spacing: .5px;
-}
-
-.name-decoration {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 6px;
-
-  margin-top: 8px;
-}
-
-.name-decoration span {
-  width: 25px;
-  height: 1px;
-
-  background: #c09a5d;
-}
-
-.name-decoration i {
-  color: #b1874a;
-
-  font-size: 11px;
-
-  font-style: normal;
-}
-
-.couple-mark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  gap: 5px;
-}
-
-.couple-mark span {
-  width: 1px;
-  height: 15px;
-
-  background: #c5a269;
-}
-
-.couple-mark strong {
-  color: #9c161a;
-
-  font-family: "Times New Roman", serif;
-
-  font-size: 25px;
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-.wedding-date {
-  margin:
-    5px
-    auto
-    28px;
-
-  padding-top: 5px;
-}
-
-.date-label {
-  margin-bottom: 9px;
-
-  color: #ae8548;
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: 2.5px;
-}
-
-
-/* =====================================================
-   TIME - NẰM TRÊN
-===================================================== */
-
-.date-time {
-  margin-bottom: 7px;
-
-  color: #7d1318;
-
-  font-size: 25px;
-  font-weight: 800;
-
-  letter-spacing: 2px;
+  font-family: var(--cfr-font-name);
+  font-size: 30px;
 
   line-height: 1;
 }
 
 
-/* =====================================================
-   DAY + MONTH
-===================================================== */
+/* =========================================================
+   NGÀY GIỜ
+========================================================== */
 
-.date-main {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-
-  gap: 8px;
-
-  color: #741317;
-
-  white-space: nowrap;
-}
-
-.weekday {
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: 1px;
-}
-
-.day {
-  color: #9b171b;
-
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: clamp(34px, 9vw, 47px);
-  font-weight: 900;
-
-  line-height: .9;
-}
-
-.month {
-  font-size: 12px;
-  font-weight: 800;
-
-  letter-spacing: 1px;
-}
-
-
-/* =====================================================
-   YEAR - NẰM DƯỚI
-===================================================== */
-
-.year {
-  margin-top: 8px;
-
-  color: #866641;
-
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: 15px;
-  font-weight: 800;
-
-  letter-spacing: 4px;
-}
-
-
-/* =====================================================
-   LOCATION
-===================================================== */
-
-.location {
+.cfr-info__when {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  margin-top: 25px;
+  gap: 16px;
 
-  padding-top: 18px;
-
-  border-top:
-    1px solid rgba(180, 140, 75, .25);
+  width: 100%;
 }
 
-.location-icon {
-  margin-bottom: 5px;
+.cfr-info__when-place {
+  margin: 0;
 
-  color: #ae8446;
+  color: var(--cfr-red-deep);
 
-  font-size: 14px;
+  font-size: 16px;
+
+  line-height: 1.5;
+  white-space: pre-line;
 }
 
-.location strong {
-  color: #761419;
+.cfr-info__when-label {
+  margin: 0 0 8px;
 
-  font-size: 13px;
-  font-weight: 800;
+  color: var(--cfr-red-deep);
 
-  letter-spacing: .3px;
+  font-size: 16px;
+
+  text-transform: uppercase;
 }
 
-.location span {
-  max-width: 330px;
+.cfr-info__when-time {
+  color: var(--cfr-red);
 
-  margin-top: 4px;
+  font-size: 20px;
+}
 
-  color: #77624d;
+.cfr-info__when-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  font-size: 11px;
-  font-weight: 600;
+  gap: 24px;
 
-  line-height: 1.6;
+  color: var(--cfr-red);
+}
+
+.cfr-info__when-side {
+  font-size: 12px;
+}
+
+.cfr-info__when-side:first-child {
+  text-align: right;
+}
+
+.cfr-info__when-side:last-child {
+  text-align: left;
+}
+
+.cfr-info__when-sep {
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 1px;
+
+  background-color: var(--cfr-red-deep);
+
+  opacity: 0.4;
+
+  transform: rotate(90deg);
+}
+
+.cfr-info__when-day {
+  font-size: 30px;
+
+  line-height: 1;
+}
+
+.cfr-info__when-year {
+  color: var(--cfr-red);
+
+  font-size: 18px;
+}
+
+.cfr-info__when-lunar {
+  color: var(--cfr-red-deep);
+
+  font-size: 12px;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   DESKTOP
+========================================================== */
 
-@media (max-width: 420px) {
-
-  .wedding-info {
-    padding-left: 4px;
-    padding-right: 4px;
+@media (min-width: 900px) {
+  .cfr-info {
+    gap: 32px;
   }
 
-  .families {
-    padding-left: 0;
-    padding-right: 0;
+  .cfr-info__families {
+    column-gap: 32px;
   }
 
-  .family-divider {
-    padding: 0 5px;
+  .cfr-info__family {
+    max-width: 300px;
   }
 
-  .parent {
-    flex-direction: column;
-    align-items: center;
-
-    gap: 0;
+  .cfr-info__family-label {
+    font-size: 15px;
   }
 
-  .parent-role {
+  .cfr-info__family-name {
+    font-size: 15px;
+  }
+
+  .cfr-info__family-address {
+    font-size: 13px;
+  }
+
+  .cfr-info__family-divider {
+    height: 80px;
+  }
+
+  .cfr-info__announce {
+    max-width: 560px;
+
+    font-size: 18px;
+  }
+
+  .cfr-info__couple {
+    gap: 16px;
+  }
+
+  .cfr-info__couple-name {
+    line-height: 60px;
+  }
+
+  .cfr-info__couple-role {
+    font-size: 17px;
+  }
+
+  .cfr-info__couple-amp {
+    font-size: 40px;
+  }
+
+  .cfr-info__when {
+    gap: 20px;
+  }
+
+  .cfr-info__when-place,
+  .cfr-info__when-label {
+    font-size: 18px;
+  }
+
+  .cfr-info__when-time {
+    font-size: 30px;
+  }
+
+  .cfr-info__when-side {
+    font-size: 16px;
+  }
+
+  .cfr-info__when-day {
+    font-size: 40px;
+  }
+
+  .cfr-info__when-year {
+    font-size: 24px;
+  }
+
+  .cfr-info__when-lunar {
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE NHỎ
+========================================================== */
+
+@media (max-width: 380px) {
+  .cfr-info__couple-name {
+    min-height: 60px;
+
+    font-size: 32px;
+  }
+
+  .cfr-info__couple-amp {
+    font-size: 24px;
+  }
+
+  .cfr-info__family-name,
+  .cfr-info__family-label {
+    font-size: 12px;
+  }
+
+  .cfr-info__family-address {
     font-size: 11px;
   }
 
-  .parent strong {
-    font-size: 10px;
-  }
-
-  .person h3 {
-    font-size: 19px;
-  }
-
-  .date-time {
-    font-size: 23px;
-  }
-
-  .day {
-    font-size: 42px;
-  }
-
-  .weekday {
+  .cfr-info__when-side {
     font-size: 11px;
   }
 
-  .month {
-    font-size: 10px;
+  .cfr-info__when-day {
+    font-size: 26px;
   }
 }
 </style>

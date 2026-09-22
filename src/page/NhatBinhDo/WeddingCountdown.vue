@@ -1,106 +1,75 @@
 <template>
-  <div class="countdown">
+  <div class="cfr-countdown">
 
-    <div class="countdown-intro">
-      NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN
-    </div>
+    <h2 class="cfr-title">
+      {{ heading }}
+    </h2>
 
 
-    <div class="countdown-grid">
+    <div class="cfr-countdown__grid">
 
       <!-- DAYS -->
-      <div class="time-box">
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
+      <div class="cfr-countdown__item">
+        <div class="cfr-countdown__number">
+          <Transition name="cfr-flip" mode="out-in">
             <strong :key="values.days">
               {{ values.days }}
             </strong>
           </Transition>
-
         </div>
 
         <span>NGÀY</span>
       </div>
 
 
-      <div class="separator">
-        :
-      </div>
+      <div class="cfr-countdown__sep" aria-hidden="true">:</div>
 
 
       <!-- HOURS -->
-      <div class="time-box">
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
+      <div class="cfr-countdown__item">
+        <div class="cfr-countdown__number">
+          <Transition name="cfr-flip" mode="out-in">
             <strong :key="values.hours">
               {{ values.hours }}
             </strong>
           </Transition>
-
         </div>
 
         <span>GIỜ</span>
       </div>
 
 
-      <div class="separator">
-        :
-      </div>
+      <div class="cfr-countdown__sep" aria-hidden="true">:</div>
 
 
       <!-- MINUTES -->
-      <div class="time-box">
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
+      <div class="cfr-countdown__item">
+        <div class="cfr-countdown__number">
+          <Transition name="cfr-flip" mode="out-in">
             <strong :key="values.minutes">
               {{ values.minutes }}
             </strong>
           </Transition>
-
         </div>
 
         <span>PHÚT</span>
       </div>
 
 
-      <div class="separator">
-        :
-      </div>
+      <div class="cfr-countdown__sep" aria-hidden="true">:</div>
 
 
       <!-- SECONDS -->
-      <div class="time-box seconds-box">
-
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
-            <strong
-              :key="values.seconds"
-              class="seconds"
-            >
+      <div class="cfr-countdown__item">
+        <div class="cfr-countdown__number">
+          <Transition name="cfr-flip" mode="out-in">
+            <strong :key="values.seconds">
               {{ values.seconds }}
             </strong>
           </Transition>
-
         </div>
 
         <span>GIÂY</span>
-
       </div>
 
     </div>
@@ -110,12 +79,9 @@
 
 
 <script setup>
-import {
-  computed,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
 
 
 const props = defineProps({
@@ -123,7 +89,26 @@ const props = defineProps({
     type: [Object, String],
     default: null,
   },
+
+  weddingDate: {
+    type: [String, Object],
+    default: "",
+  },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
+
+
+/* =========================================================
+   TIÊU ĐỀ MỤC
+========================================================= */
+
+const heading = computed(() =>
+  sectionText(props.sections, "countdown", "Heading")
+);
 
 
 /* =========================================================
@@ -140,37 +125,29 @@ let timer = null;
 ========================================================= */
 
 const target = computed(() => {
-
   let value = null;
 
   if (typeof props.countdown === "string") {
-
     value = props.countdown;
-
   } else {
-
     value =
       props.countdown?.Date ||
       props.countdown?.Target ||
       props.countdown?.WeddingDate ||
       null;
-
   }
 
+  if (!value) {
+    value = props.weddingDate || null;
+  }
 
   if (!value) {
     return Date.now();
   }
 
+  const timestamp = new Date(value).getTime();
 
-  const timestamp =
-    new Date(value).getTime();
-
-
-  return Number.isFinite(timestamp)
-    ? timestamp
-    : Date.now();
-
+  return Number.isFinite(timestamp) ? timestamp : Date.now();
 });
 
 
@@ -179,35 +156,17 @@ const target = computed(() => {
 ========================================================= */
 
 const values = computed(() => {
+  const distance = Math.max(0, target.value - now.value);
 
-  const distance = Math.max(
-    0,
-    target.value - now.value
-  );
+  const days = Math.floor(distance / 86400000);
 
+  const hours = Math.floor((distance % 86400000) / 3600000);
 
-  const days = Math.floor(
-    distance / 86400000
-  );
+  const minutes = Math.floor((distance % 3600000) / 60000);
 
-
-  const hours = Math.floor(
-    (distance % 86400000) / 3600000
-  );
-
-
-  const minutes = Math.floor(
-    (distance % 3600000) / 60000
-  );
-
-
-  const seconds = Math.floor(
-    (distance % 60000) / 1000
-  );
-
+  const seconds = Math.floor((distance % 60000) / 1000);
 
   return {
-
     days: String(days).padStart(2, "0"),
 
     hours: String(hours).padStart(2, "0"),
@@ -215,9 +174,7 @@ const values = computed(() => {
     minutes: String(minutes).padStart(2, "0"),
 
     seconds: String(seconds).padStart(2, "0"),
-
   };
-
 });
 
 
@@ -226,64 +183,35 @@ const values = computed(() => {
 ========================================================= */
 
 onMounted(() => {
-
   timer = setInterval(() => {
-
     now.value = Date.now();
-
   }, 1000);
-
 });
 
 
 onBeforeUnmount(() => {
-
   if (timer) {
     clearInterval(timer);
   }
-
 });
 </script>
 
 
 <style scoped>
-
 /* =========================================================
    COUNTDOWN
 ========================================================= */
 
-.countdown {
+.cfr-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 16px;
 
   width: 100%;
 
   text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-.countdown-intro {
-
-  margin-bottom: 18px;
-
-  color: #a67d3e;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 2.5px;
-
-  line-height: 1.4;
-
 }
 
 
@@ -291,60 +219,26 @@ onBeforeUnmount(() => {
    GRID
 ========================================================= */
 
-.countdown-grid {
-
+.cfr-countdown__grid {
   display: flex;
-
-  align-items: center;
-
+  align-items: flex-start;
   justify-content: center;
 
-  gap: 5px;
-
+  gap: 4px;
 }
 
 
 /* =========================================================
-   TIME BOX
+   ITEM
 ========================================================= */
 
-.time-box {
-
+.cfr-countdown__item {
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   justify-content: center;
 
   width: 55px;
-
-}
-
-
-/* =========================================================
-   NUMBER CONTAINER
-========================================================= */
-
-.number-wrap {
-
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 55px;
-
-  height: 38px;
-
-  overflow: hidden;
-
-  perspective: 180px;
-
 }
 
 
@@ -352,123 +246,78 @@ onBeforeUnmount(() => {
    NUMBER
 ========================================================= */
 
-.number-wrap strong {
+.cfr-countdown__number {
+  position: relative;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 38px;
+
+  overflow: hidden;
+
+  perspective: 180px;
+}
+
+.cfr-countdown__number strong {
   position: absolute;
-
   inset: 0;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  color: #8e1418;
+  color: var(--cfr-red);
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family: var(--cfr-font-body);
   font-size: 29px;
-
-  font-weight: 900;
+  font-weight: 700;
 
   line-height: 1;
 
-  letter-spacing: -1px;
-
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.7),
-    0 2px 5px rgba(120,20,20,.12);
+  letter-spacing: -0.02em;
 
   transform-origin: center center;
 
   backface-visibility: hidden;
-
 }
 
 
 /* =========================================================
-   FLIP OUT
+   FLIP
 ========================================================= */
 
-.flip-number-enter-active,
-.flip-number-leave-active {
-
+.cfr-flip-enter-active,
+.cfr-flip-leave-active {
   transition:
-    transform .42s cubic-bezier(.22,.61,.36,1),
-    opacity .28s ease;
-
+    transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.28s ease;
 }
 
-
-/*
- * Số mới:
- * từ phía dưới đi lên.
- */
-
-.flip-number-enter-from {
-
+.cfr-flip-enter-from {
   opacity: 0;
 
-  transform:
-    translateY(100%)
-    rotateX(-65deg)
-    scale(.92);
-
+  transform: translateY(100%) rotateX(-65deg) scale(0.92);
 }
 
-
-/*
- * Số mới:
- * về vị trí bình thường.
- */
-
-.flip-number-enter-to {
-
+.cfr-flip-enter-to {
   opacity: 1;
 
-  transform:
-    translateY(0)
-    rotateX(0)
-    scale(1);
-
+  transform: translateY(0) rotateX(0) scale(1);
 }
 
-
-/*
- * Số cũ:
- * trượt lên trên.
- */
-
-.flip-number-leave-from {
-
+.cfr-flip-leave-from {
   opacity: 1;
 
-  transform:
-    translateY(0)
-    rotateX(0)
-    scale(1);
-
+  transform: translateY(0) rotateX(0) scale(1);
 }
 
-
-/*
- * Số cũ:
- * biến mất phía trên.
- */
-
-.flip-number-leave-to {
-
+.cfr-flip-leave-to {
   opacity: 0;
 
-  transform:
-    translateY(-100%)
-    rotateX(65deg)
-    scale(.92);
-
+  transform: translateY(-100%) rotateX(65deg) scale(0.92);
 }
 
 
@@ -476,22 +325,18 @@ onBeforeUnmount(() => {
    LABEL
 ========================================================= */
 
-.time-box span {
-
+.cfr-countdown__item span {
   display: block;
 
   margin-top: 6px;
 
-  color: #99754f;
+  color: var(--cfr-red-deep);
 
   font-size: 10px;
+  font-weight: 700;
 
-  font-weight: 800;
-
-  letter-spacing: 1.5px;
-
+  letter-spacing: 0.15em;
   line-height: 1;
-
 }
 
 
@@ -499,105 +344,78 @@ onBeforeUnmount(() => {
    SEPARATOR
 ========================================================= */
 
-.separator {
-
+.cfr-countdown__sep {
   align-self: flex-start;
 
-  margin-top: 5px;
+  margin-top: 4px;
 
-  color: #b48a45;
-
-  font-family:
-    Georgia,
-    serif;
+  color: var(--cfr-red);
 
   font-size: 21px;
-
   font-weight: 700;
 
   line-height: 30px;
 
-  opacity: .8;
-
+  opacity: 0.8;
 }
 
 
 /* =========================================================
-   SECONDS
+   DESKTOP
 ========================================================= */
 
-.seconds-box .number-wrap strong {
-
-  color: #941519;
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 420px) {
-
-  .countdown-intro {
-
-    margin-bottom: 16px;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
+@media (min-width: 900px) {
+  .cfr-countdown {
+    gap: 20px;
   }
 
-
-  .countdown-grid {
-
-    gap: 2px;
-
+  .cfr-countdown__item,
+  .cfr-countdown__number {
+    width: 64px;
   }
 
-
-  .time-box {
-
-    width: 49px;
-
+  .cfr-countdown__number {
+    height: 44px;
   }
 
-
-  .number-wrap {
-
-    width: 49px;
-
-    height: 36px;
-
+  .cfr-countdown__number strong {
+    font-size: 34px;
   }
 
-
-  .number-wrap strong {
-
-    font-size: 26px;
-
-  }
-
-
-  .time-box span {
-
+  .cfr-countdown__item span {
     font-size: 11px;
-
-    letter-spacing: 1.2px;
-
   }
 
+  .cfr-countdown__sep {
+    font-size: 24px;
 
-  .separator {
+    line-height: 36px;
+  }
+}
 
-    margin-top: 4px;
 
+/* =========================================================
+   MOBILE NHỎ
+========================================================= */
+
+@media (max-width: 380px) {
+  .cfr-countdown__item,
+  .cfr-countdown__number {
+    width: 48px;
+  }
+
+  .cfr-countdown__number {
+    height: 34px;
+  }
+
+  .cfr-countdown__number strong {
+    font-size: 25px;
+  }
+
+  .cfr-countdown__sep {
     font-size: 18px;
 
-    line-height: 28px;
-
+    line-height: 26px;
   }
-
 }
 </style>

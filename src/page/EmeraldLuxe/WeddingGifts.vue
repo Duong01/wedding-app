@@ -1,213 +1,173 @@
 <template>
-  <section class="el-gifts">
-    <div class="el-gifts__ornament">
-      <span></span>
-      <i>❦</i>
-      <span></span>
-    </div>
+  <section class="cr-gifts">
+    <img
+      :src="decorativeDiamond"
+      alt=""
+      aria-hidden="true"
+      class="cr-gifts__diamond"
+      draggable="false"
+    />
 
-    <p class="el-eyebrow">GỬI YÊU THƯƠNG</p>
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">Hộp quà mừng</h2>
 
-    <h2>Hộp mừng cưới</h2>
+      <p class="cr-heading__zh">禮物盒</p>
 
-    <p class="el-gifts__intro">
-      Những lời chúc và tình cảm của bạn<br />
-      là món quà quý giá nhất dành cho chúng mình
-    </p>
+      <div class="cr-heading__ornament" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
+      </div>
 
-    <div class="el-gifts__list">
-      <article class="el-gifts__item">
-        <button type="button" class="el-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
-          <div class="el-gift-glow"></div>
-
-          <div class="el-gift-box">
-            <div class="el-gift-icon">
-              <v-icon size="52" color="#10281f">mdi-gift-outline</v-icon>
-            </div>
-
-            <span class="el-gift-sparkle el-gift-sparkle--1">✦</span>
-            <span class="el-gift-sparkle el-gift-sparkle--2">❦</span>
-            <span class="el-gift-sparkle el-gift-sparkle--3">✦</span>
-            <span class="el-gift-sparkle el-gift-sparkle--4">❦</span>
-          </div>
-
-          <div class="el-gift-shadow"></div>
-
-          <div class="el-gift-hint">
-            <span>CHẠM ĐỂ MỞ</span>
-            <v-icon size="14">mdi-heart-outline</v-icon>
-          </div>
-        </button>
-      </article>
-    </div>
-
-    <div class="el-gifts__footer-ornament">
-      <span></span>
-      <i>✦</i>
-      <span></span>
-    </div>
+      <p class="cr-heading__intro">
+        Những lời chúc và tình cảm của bạn<br />
+        là món quà quý giá nhất dành cho chúng mình
+      </p>
+    </header>
 
     <!-- =====================================================
-         BANK INFORMATION DIALOG
+         PHONG BÌ MỪNG CƯỚI
+    ====================================================== -->
+    <button type="button" class="cr-envelope" aria-label="Mở hộp quà mừng" @click="openGift">
+      <span class="cr-envelope__glow" aria-hidden="true"></span>
+
+      <span class="cr-envelope__body">
+        <span class="cr-envelope__flap" aria-hidden="true"></span>
+
+        <span class="cr-envelope__seal" aria-hidden="true">
+          <img :src="doubleHappiness" alt="" draggable="false" />
+        </span>
+
+        <span class="cr-envelope__spark cr-envelope__spark--1" aria-hidden="true">❀</span>
+        <span class="cr-envelope__spark cr-envelope__spark--2" aria-hidden="true">❀</span>
+        <span class="cr-envelope__spark cr-envelope__spark--3" aria-hidden="true">❀</span>
+      </span>
+
+      <span class="cr-envelope__hint">CHẠM ĐỂ MỞ</span>
+    </button>
+
+    <!-- =====================================================
+         HỘP THOẠI THÔNG TIN TÀI KHOẢN
     ====================================================== -->
     <Teleport to="body">
-      <Transition name="el-gift-dialog">
-        <div v-if="showGiftDialog" class="el-gift-dialog" @click.self="closeGift">
-          <div class="el-gift-dialog__backdrop" @click="closeGift"></div>
-
-          <div class="el-gift-dialog__card" role="dialog" aria-modal="true" aria-labelledby="el-gift-dialog-title">
-            <div class="el-gift-dialog__glow"></div>
-
-            <div class="el-gift-dialog__decoration">
-              <span></span>
-
-              <div class="el-gift-dialog__sun">
-                <i>✦</i>
-              </div>
-
-              <span></span>
-            </div>
-
-            <button type="button" class="el-gift-dialog__close" aria-label="Đóng hộp mừng cưới" @click="closeGift">
-              <v-icon size="18">mdi-close</v-icon>
+      <Transition name="cr-gift">
+        <div v-if="showGiftDialog" class="cr-gift-dialog" @click.self="closeGift">
+          <div class="cr-gift-dialog__card" role="dialog" aria-modal="true">
+            <button
+              type="button"
+              class="cr-gift-dialog__close"
+              aria-label="Đóng hộp quà mừng"
+              @click="closeGift"
+            >
+              ×
             </button>
 
-            <div class="el-gift-dialog__eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+            <img
+              :src="doubleHappiness"
+              alt="囍"
+              class="cr-gift-dialog__happiness"
+              draggable="false"
+            />
 
-            <h3 id="el-gift-dialog-title">Hộp mừng cưới</h3>
+            <h3 class="cr-gift-dialog__title">Hộp quà mừng</h3>
 
-            <p class="el-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể,
-              bạn có thể chuyển khoản qua các tài khoản bên dưới.
+            <p class="cr-gift-dialog__desc">
+              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể
+              chuyển khoản qua các tài khoản bên dưới.
             </p>
 
-            <div v-if="gifts.length" class="el-account-grid">
-              <article v-for="(item, index) in gifts" :key="item.Id || index" class="el-account-card">
-                <div class="el-account-heading">
-                  <div class="el-account-icon">
-                    <v-icon size="17">mdi-bank-outline</v-icon>
-                  </div>
+            <div v-if="gifts.length" class="cr-accounts">
+              <article v-for="(item, index) in gifts" :key="item.Id || index" class="cr-account">
+                <div class="cr-account__head">
+                  <span class="cr-account__label">
+                    {{ item.Name || item.BankName || `TÀI KHOẢN ${index + 1}` }}
+                  </span>
 
-                  <div>
-                    <div class="el-account-label">
-                      {{ item.Name || item.BankName || `TÀI KHOẢN ${index + 1}` }}
-                    </div>
-
-                    <div v-if="item.BankName" class="el-account-bank">
-                      {{ item.BankName }}
-                    </div>
-                  </div>
+                  <span v-if="item.BankName" class="cr-account__bank">
+                    {{ item.BankName }}
+                  </span>
                 </div>
 
                 <button
                   v-if="item.QrCode"
                   type="button"
-                  class="el-qr-button"
+                  class="cr-account__qr"
                   aria-label="Xem QR lớn"
                   @click="openQr(item)"
                 >
-                  <div class="el-qr-frame">
-                    <div class="el-qr-corner el-qr-corner--tl"></div>
-                    <div class="el-qr-corner el-qr-corner--tr"></div>
-                    <div class="el-qr-corner el-qr-corner--bl"></div>
-                    <div class="el-qr-corner el-qr-corner--br"></div>
+                  <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" />
 
-                    <div class="el-qr-inner">
-                      <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" class="el-qr-code" />
-                    </div>
-                  </div>
-
-                  <div class="el-qr-hint">
-                    <v-icon size="12">mdi-magnify-plus-outline</v-icon>
-
-                    CHẠM VÀO QR ĐỂ XEM LỚN
-                  </div>
+                  <span>CHẠM VÀO QR ĐỂ XEM LỚN</span>
                 </button>
 
-                <div class="el-account-info">
-                  <div class="el-info-row">
-                    <div class="el-info-left">
-                      <span class="el-info-label">CHỦ TÀI KHOẢN</span>
+                <div class="cr-account__row">
+                  <span class="cr-account__row-label">CHỦ TÀI KHOẢN</span>
 
-                      <span class="el-info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="el-info-divider"></div>
-
-                  <div class="el-info-row">
-                    <div class="el-info-left">
-                      <span class="el-info-label">SỐ TÀI KHOẢN</span>
-
-                      <span class="el-info-value el-account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
-                      </span>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="el-copy-button"
-                      title="Sao chép số tài khoản"
-                      aria-label="Sao chép số tài khoản"
-                      @click="copyAccount(item)"
-                    >
-                      <v-icon size="14">mdi-content-copy</v-icon>
-                    </button>
-                  </div>
+                  <span class="cr-account__row-value">
+                    {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                  </span>
                 </div>
 
-                <div v-if="item.Description" class="el-account-desc">
+                <div class="cr-account__row">
+                  <span class="cr-account__row-label">SỐ TÀI KHOẢN</span>
+
+                  <span class="cr-account__row-value cr-account__number">
+                    {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                  </span>
+
+                  <button
+                    type="button"
+                    class="cr-account__copy"
+                    title="Sao chép số tài khoản"
+                    aria-label="Sao chép số tài khoản"
+                    @click="copyAccount(item)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                      <rect x="9" y="9" width="11" height="11" rx="2" />
+                      <path d="M5 15V6a2 2 0 0 1 2-2h9" stroke-linecap="round" />
+                    </svg>
+                  </button>
+                </div>
+
+                <p v-if="item.Description" class="cr-account__desc">
                   {{ item.Description }}
-                </div>
+                </p>
               </article>
             </div>
 
-            <div v-else class="el-account-desc">
+            <p v-else class="cr-gift-dialog__desc">
               Thông tin chuyển khoản đang được cập nhật.
-            </div>
-
-            <div class="el-gift-dialog__footer">
-              <span></span>
-
-              <i>❦</i>
-
-              <span></span>
-            </div>
+            </p>
           </div>
         </div>
       </Transition>
 
-      <!-- QR PREVIEW -->
-      <Transition name="el-qr-preview">
-        <div v-if="previewQr" class="el-qr-preview" @click.self="closeQr">
-          <div class="el-qr-preview__backdrop" @click="closeQr"></div>
-
-          <div class="el-qr-preview__card">
-            <button type="button" class="el-qr-preview__close" aria-label="Đóng QR" @click="closeQr">
-              <v-icon size="18">mdi-close</v-icon>
+      <!-- XEM QR LỚN -->
+      <Transition name="cr-gift">
+        <div v-if="previewQr" class="cr-qr-preview" @click.self="closeQr">
+          <div class="cr-qr-preview__card">
+            <button
+              type="button"
+              class="cr-gift-dialog__close"
+              aria-label="Đóng QR"
+              @click="closeQr"
+            >
+              ×
             </button>
 
-            <div class="el-qr-preview__title">
-              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
-            </div>
+            <p class="cr-qr-preview__title">{{ previewQr.Name || "QR MỪNG CƯỚI" }}</p>
 
-            <div class="el-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
-            </div>
+            <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p class="cr-qr-preview__hint">Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
 
             <a
               :href="previewQr.QrCode"
               target="_blank"
               rel="noopener"
               download
-              class="el-qr-preview__save"
+              class="cr-qr-preview__save"
             >
-              <v-icon size="15">mdi-download</v-icon>
-
               MỞ / LƯU ẢNH QR
             </a>
           </div>
@@ -220,6 +180,8 @@
 <script setup>
 import { onBeforeUnmount, ref } from "vue";
 
+import { decorativeDiamond, doubleHappiness } from "./emeraldLuxeAssets";
+
 const props = defineProps({
   gifts: { type: Array, default: () => [] },
 });
@@ -230,14 +192,14 @@ const previewQr = ref(null);
 function openGift() {
   showGiftDialog.value = true;
 
-  document.body.classList.add("el-gift-dialog-open");
+  document.body.classList.add("cr-gift-dialog-open");
 }
 
 function closeGift() {
   previewQr.value = null;
   showGiftDialog.value = false;
 
-  document.body.classList.remove("el-gift-dialog-open");
+  document.body.classList.remove("cr-gift-dialog-open");
 }
 
 function openQr(item) {
@@ -257,8 +219,6 @@ async function copyAccount(item) {
 
   try {
     await navigator.clipboard.writeText(String(number));
-
-    console.log("Đã sao chép số tài khoản");
   } catch (error) {
     console.warn("Không thể sao chép số tài khoản", error);
   }
@@ -282,1242 +242,645 @@ document.addEventListener("keydown", handleEscape);
 onBeforeUnmount(() => {
   document.removeEventListener("keydown", handleEscape);
 
-  document.body.classList.remove("el-gift-dialog-open");
+  document.body.classList.remove("cr-gift-dialog-open");
 });
 </script>
 
 <style scoped>
-.el-gifts {
+.cr-gifts {
   position: relative;
-
-  width: min(590px, calc(100% - 24px));
-
-  margin: 24px auto 35px;
-  padding: 38px 18px 32px;
 
   text-align: center;
 
-  color: #2e3d36;
-
-  border: 1px solid rgba(201, 164, 92, 0.55);
-  border-radius: 60% 60% 28px 28px / 12% 12% 28px 28px;
-
-  background: linear-gradient(172deg, rgba(255, 255, 255, 0.7), rgba(240, 234, 216, 0.5));
-
-  box-shadow: 0 12px 35px rgba(12, 43, 33, 0.1);
-
-  overflow: hidden;
+  color: var(--cr-ink);
 }
 
-/* Fine gold lattice texture */
-.el-gifts::before {
-  content: "";
+.cr-gifts__diamond {
   position: absolute;
-  inset: 0;
 
-  opacity: 0.05;
+  top: 20px;
+  left: -16px;
 
-  background-image:
-    repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px);
+  width: 76px;
+  height: 76px;
+
+  object-fit: contain;
+
+  opacity: 0.5;
 
   pointer-events: none;
 }
 
 /* =========================================================
-   HEADER
+   TIÊU ĐỀ
 ========================================================= */
 
-.el-gifts__ornament {
+.cr-heading {
   position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
+  text-align: center;
 
-  margin-bottom: 12px;
-
-  color: #c9a45c;
+  margin-bottom: 24px;
 }
 
-.el-gifts__ornament span {
-  width: 45px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.85));
-}
-
-.el-gifts__ornament span:last-child {
-  transform: rotate(180deg);
-}
-
-.el-gifts__ornament i {
-  font-size: 14px;
-  font-style: normal;
-}
-
-.el-eyebrow {
-  position: relative;
-
+.cr-heading__vi {
   margin: 0;
 
-  color: #8a7a52;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: 10px;
-  font-weight: 700;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
 
   letter-spacing: 0.3em;
   text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
 }
 
-.el-gifts h2 {
-  position: relative;
+.cr-heading__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  margin: 6px 0 4px;
+  margin-top: 12px;
 
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: clamp(27px, 7vw, 34px);
-  font-weight: 600;
-
-  color: #123b2e;
+  color: var(--cr-accent);
 }
 
-.el-gifts__intro {
-  position: relative;
+.cr-heading__ornament span {
+  width: 52px;
+  height: 1px;
 
-  margin: 0 0 27px;
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
+}
 
-  color: #6b7a70;
+.cr-heading__ornament span:last-child {
+  transform: rotate(180deg);
+}
 
-  font-size: 14px;
+.cr-heading__ornament i {
+  font-size: 13px;
+  font-style: normal;
+}
+
+.cr-heading__intro {
+  margin: 12px 0 0;
+
+  color: var(--cr-soft);
+
+  font-size: 12px;
 
   line-height: 1.7;
 }
 
 /* =========================================================
-   GIFT BOX
+   PHONG BÌ
 ========================================================= */
 
-.el-gifts__list {
+.cr-envelope {
   position: relative;
-
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-.el-gifts__item {
-  position: relative;
-
-  width: 100%;
-  min-height: 315px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.el-gift-btn {
-  position: relative;
-
-  width: 100%;
-  min-height: 315px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(201, 164, 92, 0.45);
-  border-radius: 999px 999px 23px 23px;
-
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.75), rgba(240, 234, 216, 0.3));
-
-  cursor: pointer;
-
-  appearance: none;
-
-  font-family: inherit;
-
-  overflow: hidden;
-
-  -webkit-tap-highlight-color: transparent;
-}
-
-.el-gift-glow {
-  position: absolute;
-
-  width: 230px;
-  height: 230px;
-
-  left: 50%;
-  top: 35px;
-
-  transform: translateX(-50%);
-
-  border-radius: 50%;
-
-  background: radial-gradient(
-    circle,
-    rgba(201, 164, 92, 0.45),
-    rgba(201, 164, 92, 0.12) 45%,
-    transparent 72%
-  );
-
-  filter: blur(4px);
-
-  animation: el-gift-glow 3.5s ease-in-out infinite;
-}
-
-.el-gift-box {
-  position: relative;
-  z-index: 3;
-
-  width: 150px;
-  height: 150px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: linear-gradient(140deg, #e8d3a2, #c9a45c 60%, #a8873f);
-
-  box-shadow:
-    0 20px 40px rgba(201, 164, 92, 0.4),
-    inset 0 2px 6px rgba(255, 255, 255, 0.5);
-
-  animation: el-gift-float 3.5s ease-in-out infinite;
-
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
-}
-
-.el-gift-box::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-
-  border: 1px dashed rgba(16, 40, 31, 0.35);
-  border-radius: 50%;
-}
-
-.el-gift-btn:hover .el-gift-box {
-  animation-play-state: paused;
-
-  transform: translateY(-10px) rotate(-3deg) scale(1.035);
-
-  filter: brightness(1.05);
-}
-
-.el-gift-btn:active .el-gift-box {
-  transform: translateY(2px) scale(0.93) rotate(3deg);
-}
-
-.el-gift-shadow {
-  position: absolute;
-  z-index: 2;
-
-  left: 50%;
-  bottom: 58px;
-
-  width: 135px;
-  height: 22px;
-
-  transform: translateX(-50%);
-
-  border-radius: 50%;
-
-  background: rgba(12, 43, 33, 0.16);
-
-  filter: blur(8px);
-
-  animation: el-gift-shadow 3.5s ease-in-out infinite;
-}
-
-.el-gift-sparkle {
-  position: absolute;
-  z-index: 6;
-
-  color: #c9a45c;
-
-  font-family: Georgia, serif;
-
-  text-shadow:
-    0 0 8px rgba(255, 255, 255, 0.95),
-    0 0 14px rgba(201, 164, 92, 0.35);
-
-  pointer-events: none;
-
-  animation: el-sparkle 2.6s ease-in-out infinite;
-}
-
-.el-gift-sparkle--1 { top: 58px; left: calc(50% - 108px); font-size: 15px; }
-.el-gift-sparkle--2 { top: 91px; right: calc(50% - 116px); font-size: 11px; animation-delay: 0.6s; }
-.el-gift-sparkle--3 { bottom: 105px; left: calc(50% - 125px); font-size: 10px; animation-delay: 1.2s; }
-.el-gift-sparkle--4 { right: calc(50% - 124px); bottom: 93px; font-size: 12px; animation-delay: 1.7s; }
-
-.el-gift-hint {
-  position: absolute;
-  z-index: 8;
-
-  left: 50%;
-  bottom: 21px;
 
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  gap: 7px;
-
-  transform: translateX(-50%);
-
-  color: #123b2e;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
-
-  white-space: nowrap;
-}
-
-.el-gift-hint::after {
-  content: "";
-  position: absolute;
-
-  left: 50%;
-  bottom: -7px;
-
-  width: 34px;
-  height: 1px;
-
-  transform: translateX(-50%);
-
-  background: linear-gradient(90deg, transparent, #c9a45c, transparent);
-}
-
-/* =========================================================
-   DIALOG
-========================================================= */
-
-.el-gift-dialog {
-  position: fixed;
-  z-index: 99999;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-
-  overflow-y: auto;
-}
-
-.el-gift-dialog__backdrop {
-  position: absolute;
-  inset: 0;
-
-  background: radial-gradient(circle at center, rgba(247, 241, 227, 0.35), rgba(10, 30, 23, 0.65));
-
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-}
-
-.el-gift-dialog__card {
-  position: relative;
-  z-index: 2;
-
-  width: min(760px, 100%);
-
-  max-height: min(90vh, 850px);
-
-  padding: 31px 28px 24px;
-
-  overflow-y: auto;
-
-  text-align: center;
-
-  border: 1px solid rgba(201, 164, 92, 0.65);
-  border-radius: 999px 999px 28px 28px;
-
-  background: linear-gradient(172deg, rgba(253, 250, 242, 0.98), rgba(240, 234, 216, 0.97));
-
-  box-shadow:
-    0 30px 90px rgba(5, 20, 15, 0.35),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.85);
-
-  scrollbar-width: thin;
-  scrollbar-color: rgba(201, 164, 92, 0.4) transparent;
-}
-
-.el-gift-dialog__card::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
-
-  border: 1px solid rgba(201, 164, 92, 0.3);
-  border-radius: 999px 999px 21px 21px;
-
-  pointer-events: none;
-}
-
-.el-gift-dialog__glow {
-  position: absolute;
-
-  width: 300px;
-  height: 180px;
-
-  top: -100px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  border-radius: 50%;
-
-  background: radial-gradient(circle, rgba(201, 164, 92, 0.4), transparent 70%);
-
-  filter: blur(5px);
-
-  pointer-events: none;
-}
-
-.el-gift-dialog__decoration {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  margin-bottom: 8px;
-}
-
-.el-gift-dialog__decoration span {
-  width: 60px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.75));
-}
-
-.el-gift-dialog__decoration span:last-child {
-  transform: rotate(180deg);
-}
-
-.el-gift-dialog__sun {
-  width: 35px;
-  height: 35px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #10281f;
-
-  border-radius: 50%;
-
-  background: linear-gradient(135deg, #e8d3a2, #c9a45c);
-
-  box-shadow: 0 7px 18px rgba(201, 164, 92, 0.32);
-
-  animation: el-sun-pulse 2.5s ease-in-out infinite;
-}
-
-.el-gift-dialog__sun i {
-  font-size: 17px;
-  font-style: normal;
-}
-
-.el-gift-dialog__close {
-  position: absolute;
-  z-index: 10;
-
-  top: 15px;
-  right: 15px;
-
-  width: 32px;
-  height: 32px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #123b2e;
-
-  border: 1px solid rgba(201, 164, 92, 0.45);
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.75);
-
-  cursor: pointer;
-
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.el-gift-dialog__close:hover {
-  transform: rotate(90deg);
-
-  background: white;
-}
-
-.el-gift-dialog__eyebrow {
-  position: relative;
-
-  margin-top: 6px;
-
-  color: #8a7a52;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.26em;
-}
-
-.el-gift-dialog__card h3 {
-  position: relative;
-
-  margin: 3px 0 2px;
-
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 29px;
-  font-weight: 600;
-
-  color: #123b2e;
-}
-
-.el-gift-dialog__desc {
-  position: relative;
-
-  max-width: 450px;
-
-  margin: 0 auto 22px;
-
-  color: #6b7a70;
-
-  font-size: 12px;
-
-  line-height: 1.6;
-}
-
-/* =========================================================
-   ACCOUNTS
-========================================================= */
-
-.el-account-grid {
-  position: relative;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 16px;
-
-  text-align: left;
-}
-
-.el-account-card {
-  position: relative;
-
-  padding: 17px;
-
-  border: 1px solid rgba(201, 164, 92, 0.45);
-  border-radius: 20px 20px 19px 19px;
-
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(247, 241, 227, 0.78));
-
-  box-shadow: 0 8px 25px rgba(12, 43, 33, 0.08);
-
-  overflow: hidden;
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.el-account-card:hover {
-  transform: translateY(-3px);
-
-  box-shadow: 0 13px 30px rgba(12, 43, 33, 0.13);
-}
-
-.el-account-heading {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  margin-bottom: 13px;
-}
-
-.el-account-icon {
-  width: 34px;
-  height: 34px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex: 0 0 auto;
-
-  color: #123b2e;
-
-  border: 1px solid rgba(201, 164, 92, 0.5);
-  border-radius: 50%;
-
-  background: linear-gradient(145deg, #fdfaf2, #efe9d6);
-}
-
-.el-account-label {
-  color: #2e3d36;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.09em;
-}
-
-.el-account-bank {
-  margin-top: 2px;
-
-  color: #6b7a70;
-
-  font-size: 10px;
-}
-
-/* =========================================================
-   QR
-========================================================= */
-
-.el-qr-button {
-  position: relative;
-
-  width: 100%;
-
-  display: block;
 
   padding: 0;
 
   border: 0;
 
-  background: transparent;
+  background: none;
 
   cursor: pointer;
-
-  font-family: inherit;
 }
 
-.el-qr-frame {
+.cr-envelope__glow {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 240px;
+  height: 240px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, rgba(var(--cr-accent-rgb), 0.55), transparent 68%);
+
+  pointer-events: none;
+
+  animation: cr-envelope-breathe 4.5s ease-in-out infinite;
+}
+
+.cr-envelope__body {
   position: relative;
 
-  width: fit-content;
-
-  margin: 0 auto;
-
-  padding: 8px;
-}
-
-.el-qr-inner {
-  padding: 7px;
-
-  border: 1px solid rgba(201, 164, 92, 0.45);
-
-  background: white;
-
-  box-shadow: 0 7px 20px rgba(12, 43, 33, 0.08);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.el-qr-button:hover .el-qr-inner {
-  transform: scale(1.025);
-
-  box-shadow: 0 10px 25px rgba(12, 43, 33, 0.13);
-}
-
-.el-qr-code {
   display: block;
 
-  width: 150px;
+  width: 220px;
   height: 150px;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.22);
+  border-radius: 12px;
+
+  background: linear-gradient(160deg, var(--cr-surface), var(--cr-bg-2));
+
+  box-shadow: 0 18px 40px rgba(var(--cr-ink-rgb), 0.16);
+
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cr-envelope:hover .cr-envelope__body {
+  transform: translateY(-5px);
+}
+
+/* Nắp phong bì */
+.cr-envelope__flap {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 78px;
+
+  border-bottom: 1px solid rgba(var(--cr-ink-rgb), 0.16);
+
+  background: linear-gradient(180deg, var(--cr-bg-2), var(--cr-accent-light));
+
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+
+  border-radius: 12px 12px 0 0;
+}
+
+/* Con dấu song hỷ */
+.cr-envelope__seal {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 62px;
+  height: 62px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 50%;
+
+  background: var(--cr-surface);
+
+  box-shadow: 0 6px 16px rgba(var(--cr-ink-rgb), 0.14);
+}
+
+.cr-envelope__seal img {
+  width: 40px;
+  height: 40px;
 
   object-fit: contain;
 }
 
-.el-qr-corner {
+.cr-envelope__spark {
   position: absolute;
-  z-index: 2;
 
-  width: 18px;
-  height: 18px;
+  color: var(--cr-accent);
 
-  border-color: #c9a45c;
-  border-style: solid;
+  font-size: 13px;
 
-  pointer-events: none;
+  animation: cr-spark-twinkle 3.4s ease-in-out infinite;
 }
 
-.el-qr-corner--tl { top: 0; left: 0; border-width: 1px 0 0 1px; }
-.el-qr-corner--tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
-.el-qr-corner--bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
-.el-qr-corner--br { right: 0; bottom: 0; border-width: 0 1px 1px 0; }
+.cr-envelope__spark--1 {
+  top: 12px;
+  left: 16px;
+}
 
-.el-qr-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+.cr-envelope__spark--2 {
+  top: 20px;
+  right: 18px;
 
-  margin-top: 7px;
+  animation-delay: -1.1s;
+}
 
-  color: #6b7a70;
+.cr-envelope__spark--3 {
+  bottom: 14px;
+  right: 30px;
 
   font-size: 11px;
-  font-weight: 700;
 
-  letter-spacing: 0.12em;
+  animation-delay: -2.2s;
 }
 
-/* =========================================================
-   ACCOUNT INFO
-========================================================= */
+.cr-envelope__hint {
+  margin-top: 16px;
 
-.el-account-info {
-  margin-top: 13px;
-
-  padding: 11px 12px;
-
-  border: 1px solid rgba(201, 164, 92, 0.3);
-  border-radius: 12px;
-
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.el-info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.el-info-left {
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.el-info-label {
-  color: #8a7a52;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
-}
-
-.el-info-value {
-  color: #2e3d36;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  overflow-wrap: anywhere;
-}
-
-.el-account-number {
-  color: #123b2e;
-
-  letter-spacing: 0.06em;
-}
-
-.el-info-divider {
-  height: 1px;
-
-  margin: 8px 0;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.35), transparent);
-}
-
-.el-copy-button {
-  width: 27px;
-  height: 27px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex: 0 0 auto;
-
-  color: #123b2e;
-
-  border: 1px solid rgba(201, 164, 92, 0.45);
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.8);
-
-  cursor: pointer;
-
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.el-copy-button:hover {
-  transform: scale(1.08);
-
-  background: white;
-}
-
-.el-account-desc {
-  margin-top: 9px;
-
-  color: #6b7a70;
+  color: var(--cr-muted);
 
   font-size: 10px;
-  font-style: italic;
+  font-weight: 600;
 
-  line-height: 1.5;
-
-  text-align: center;
-}
-
-.el-gift-dialog__footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-
-  margin-top: 20px;
-
-  color: #c9a45c;
-}
-
-.el-gift-dialog__footer span {
-  width: 55px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.6));
-}
-
-.el-gift-dialog__footer span:last-child {
-  transform: rotate(180deg);
-}
-
-.el-gift-dialog__footer i {
-  font-size: 12px;
-  font-style: normal;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
 }
 
 /* =========================================================
-   QR PREVIEW
+   HỘP THOẠI
 ========================================================= */
 
-.el-qr-preview {
+.cr-gift-dialog,
+.cr-qr-preview {
   position: fixed;
-  z-index: 100000;
   inset: 0;
+
+  z-index: 3000;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   padding: 20px;
+
+  background: rgba(var(--cr-ink-rgb), 0.5);
+
+  backdrop-filter: blur(3px);
 }
 
-.el-qr-preview__backdrop {
-  position: absolute;
-  inset: 0;
-
-  background: rgba(8, 24, 18, 0.75);
-
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-}
-
-.el-qr-preview__card {
+.cr-gift-dialog__card,
+.cr-qr-preview__card {
   position: relative;
-  z-index: 2;
 
-  width: min(380px, 100%);
+  width: min(100%, 420px);
+  max-height: 88vh;
 
-  padding: 27px 22px 23px;
+  padding: 26px 20px 22px;
+
+  overflow-y: auto;
 
   text-align: center;
 
-  border: 1px solid rgba(201, 164, 92, 0.65);
-  border-radius: 999px 999px 24px 24px;
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
+  border-radius: 18px;
 
-  background: linear-gradient(172deg, #fdfaf2, #efe9d6);
+  background: var(--cr-surface);
 
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+  color: var(--cr-ink);
 }
 
-.el-qr-preview__close {
+.cr-gift-dialog__close {
   position: absolute;
 
-  top: 11px;
-  right: 11px;
+  top: 10px;
+  right: 12px;
 
-  width: 31px;
-  height: 31px;
+  width: 30px;
+  height: 30px;
+
+  border: 0;
+  border-radius: 50%;
+
+  color: var(--cr-soft);
+
+  background: rgba(var(--cr-accent-rgb), 0.35);
+
+  font-size: 19px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.cr-gift-dialog__happiness {
+  width: 50px;
+  height: 50px;
+
+  object-fit: contain;
+}
+
+.cr-gift-dialog__title {
+  margin: 8px 0 6px;
+
+  font-family: "Viaoda Libre", "Playfair Display", serif;
+
+  font-size: 24px;
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+.cr-gift-dialog__desc {
+  margin: 0 0 18px;
+
+  color: var(--cr-soft);
+
+  font-size: 12px;
+
+  line-height: 1.65;
+}
+
+/* =========================================================
+   TÀI KHOẢN
+========================================================= */
+
+.cr-accounts {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cr-account {
+  padding: 16px 14px;
+
+  text-align: left;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.16);
+  border-radius: 14px;
+
+  background: rgba(var(--cr-bg-rgb), 0.6);
+}
+
+.cr-account__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+
+  margin-bottom: 12px;
+}
+
+.cr-account__label {
+  color: var(--cr-ink);
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+}
+
+.cr-account__bank {
+  color: var(--cr-muted);
+
+  font-size: 11px;
+}
+
+.cr-account__qr {
+  display: block;
+
+  width: 100%;
+
+  margin-bottom: 12px;
+  padding: 10px;
+
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
+  border-radius: 12px;
+
+  background: #fff;
+
+  cursor: pointer;
+}
+
+.cr-account__qr img {
+  display: block;
+
+  width: 100%;
+  max-width: 190px;
+
+  margin: 0 auto;
+
+  aspect-ratio: 1;
+
+  object-fit: contain;
+}
+
+.cr-account__qr span {
+  display: block;
+
+  margin-top: 8px;
+
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.14em;
+}
+
+.cr-account__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 0;
+
+  border-top: 1px solid rgba(var(--cr-accent-rgb), 0.9);
+}
+
+.cr-account__row-label {
+  flex: 0 0 auto;
+
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.14em;
+}
+
+.cr-account__row-value {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  color: var(--cr-ink);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+.cr-account__number {
+  letter-spacing: 0.06em;
+}
+
+.cr-account__copy {
+  flex: 0 0 auto;
+
+  width: 30px;
+  height: 30px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: #123b2e;
-
-  border: 1px solid rgba(201, 164, 92, 0.4);
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.85);
+  background: #fff;
+
+  color: var(--cr-ink);
 
   cursor: pointer;
 }
 
-.el-qr-preview__title {
-  margin-bottom: 15px;
+.cr-account__copy svg {
+  width: 14px;
+  height: 14px;
+}
 
-  color: #2e3d36;
+.cr-account__desc {
+  margin: 10px 0 0;
+
+  color: var(--cr-soft);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   XEM QR LỚN
+========================================================= */
+
+.cr-qr-preview__title {
+  margin: 0 0 14px;
+
+  color: var(--cr-ink);
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+}
+
+.cr-qr-preview__card img {
+  display: block;
+
+  width: 100%;
+  max-width: 280px;
+
+  margin: 0 auto;
+
+  aspect-ratio: 1;
+
+  object-fit: contain;
+
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+.cr-qr-preview__hint {
+  margin: 12px 0 14px;
+
+  color: var(--cr-muted);
+
+  font-size: 11px;
+}
+
+.cr-qr-preview__save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 24px;
+
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+  border-radius: 999px;
+
+  color: var(--cr-ink);
+
+  background: linear-gradient(135deg, var(--cr-accent-light), var(--cr-accent));
 
   font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.16em;
-}
-
-.el-qr-preview__image {
-  width: fit-content;
-
-  margin: 0 auto;
-
-  padding: 12px;
-
-  border: 1px solid rgba(201, 164, 92, 0.5);
-
-  background: white;
-
-  box-shadow: 0 10px 30px rgba(12, 43, 33, 0.12);
-}
-
-.el-qr-preview__image img {
-  display: block;
-
-  width: min(280px, 70vw);
-  height: min(280px, 70vw);
-
-  object-fit: contain;
-}
-
-.el-qr-preview__card p {
-  margin: 14px 0;
-
-  color: #6b7a70;
-
-  font-size: 11px;
-  font-style: italic;
-}
-
-.el-qr-preview__save {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  padding: 9px 15px;
-
-  color: #10281f;
-
-  border-radius: 999px;
-
-  background: linear-gradient(135deg, #e8d3a2, #c9a45c);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
 
   text-decoration: none;
-
-  box-shadow: 0 7px 18px rgba(201, 164, 92, 0.28);
 }
 
 /* =========================================================
-   DIALOG ANIMATION
+   CHUYỂN ĐỘNG
 ========================================================= */
 
-.el-gift-dialog-enter-active,
-.el-gift-dialog-leave-active {
-  transition: opacity 0.35s ease;
-}
-
-.el-gift-dialog-enter-active .el-gift-dialog__card,
-.el-gift-dialog-leave-active .el-gift-dialog__card {
-  transition:
-    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.el-gift-dialog-enter-from {
-  opacity: 0;
-}
-
-.el-gift-dialog-enter-from .el-gift-dialog__card {
-  opacity: 0;
-
-  transform: translateY(35px) scale(0.88) rotateX(8deg);
-}
-
-.el-gift-dialog-leave-to {
-  opacity: 0;
-}
-
-.el-gift-dialog-leave-to .el-gift-dialog__card {
-  opacity: 0;
-
-  transform: translateY(20px) scale(0.94);
-}
-
-.el-qr-preview-enter-active,
-.el-qr-preview-leave-active {
+.cr-gift-enter-active,
+.cr-gift-leave-active {
   transition: opacity 0.25s ease;
 }
 
-.el-qr-preview-enter-active .el-qr-preview__card,
-.el-qr-preview-leave-active .el-qr-preview__card {
-  transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.3s ease;
-}
-
-.el-qr-preview-enter-from {
+.cr-gift-enter-from,
+.cr-gift-leave-to {
   opacity: 0;
 }
 
-.el-qr-preview-enter-from .el-qr-preview__card {
-  opacity: 0;
-
-  transform: scale(0.85) translateY(20px);
-}
-
-.el-qr-preview-leave-to {
-  opacity: 0;
-}
-
-.el-qr-preview-leave-to .el-qr-preview__card {
-  opacity: 0;
-
-  transform: scale(0.92);
-}
-
-/* =========================================================
-   KEYFRAMES
-========================================================= */
-
-@keyframes el-gift-float {
+@keyframes cr-envelope-breathe {
   0%,
   100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(2deg);
-  }
-}
-
-@keyframes el-gift-shadow {
-  0%,
-  100% {
-    transform: translateX(-50%) scaleX(1);
-    opacity: 0.16;
-  }
-
-  50% {
-    transform: translateX(-50%) scaleX(0.76);
-    opacity: 0.08;
-  }
-}
-
-@keyframes el-gift-glow {
-  0%,
-  100% {
-    opacity: 0.65;
-
-    transform: translateX(-50%) scale(0.94);
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.94);
   }
 
   50% {
     opacity: 1;
-
-    transform: translateX(-50%) scale(1.08);
+    transform: translate(-50%, -50%) scale(1.06);
   }
 }
 
-@keyframes el-sparkle {
+@keyframes cr-spark-twinkle {
   0%,
   100% {
-    opacity: 0.2;
-
-    transform: scale(0.65) rotate(0deg);
+    opacity: 0.3;
+    transform: scale(0.85);
   }
 
   50% {
     opacity: 1;
-
-    transform: scale(1.2) rotate(20deg);
-  }
-}
-
-@keyframes el-sun-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.08);
+    transform: scale(1.2);
   }
 }
 
 /* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 620px) {
-  .el-gifts {
-    width: calc(100% - 16px);
-
-    margin: 18px auto 28px;
-
-    padding: 32px 12px 26px;
-  }
-
-  .el-gifts__intro {
-    margin-bottom: 22px;
-
-    font-size: 13px;
-  }
-
-  .el-gifts__item,
-  .el-gift-btn {
-    min-height: 295px;
-  }
-
-  .el-gift-box {
-    width: 130px;
-    height: 130px;
-  }
-
-  .el-gift-glow {
-    width: 190px;
-    height: 190px;
-  }
-
-  .el-gift-dialog {
-    align-items: flex-end;
-
-    padding: 10px;
-  }
-
-  .el-gift-dialog__card {
-    width: 100%;
-
-    max-height: 92vh;
-
-    padding: 27px 13px 19px;
-
-    border-radius: 999px 999px 20px 20px;
-  }
-
-  .el-gift-dialog__card::before {
-    inset: 6px;
-
-    border-radius: 999px 999px 15px 15px;
-  }
-
-  .el-gift-dialog__card h3 {
-    font-size: 26px;
-  }
-
-  .el-gift-dialog__desc {
-    margin-bottom: 18px;
-
-    padding: 0 10px;
-
-    font-size: 11px;
-  }
-
-  .el-account-grid {
-    grid-template-columns: 1fr;
-
-    gap: 12px;
-  }
-
-  .el-account-card {
-    padding: 14px;
-  }
-
-  .el-qr-code {
-    width: 135px;
-    height: 135px;
-  }
-
-  .el-account-info {
-    margin-top: 11px;
-  }
-
-  .el-qr-preview {
-    padding: 14px;
-  }
-
-  .el-qr-preview__card {
-    padding: 25px 15px 19px;
-  }
-}
-
-@media (max-width: 380px) {
-  .el-gift-box {
-    width: 115px;
-    height: 115px;
-  }
-
-  .el-gifts__item,
-  .el-gift-btn {
-    min-height: 280px;
-  }
-
-  .el-qr-code {
-    width: 125px;
-    height: 125px;
-  }
-
-  .el-account-label {
-    font-size: 11px;
-  }
-
-  .el-info-value {
-    font-size: 10px;
-  }
-}
-
-/* =========================================================
-   REDUCE MOTION
+   GIẢM CHUYỂN ĐỘNG
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .el-gift-box,
-  .el-gift-shadow,
-  .el-gift-glow,
-  .el-gift-sparkle,
-  .el-gift-dialog__sun {
+  .cr-envelope__glow,
+  .cr-envelope__spark {
     animation: none;
   }
 
-  .el-gift-dialog-enter-active,
-  .el-gift-dialog-leave-active,
-  .el-qr-preview-enter-active,
-  .el-qr-preview-leave-active {
+  .cr-envelope__body {
     transition: none;
   }
 }
 
-:global(body.el-gift-dialog-open) {
+:global(body.cr-gift-dialog-open) {
   overflow: hidden;
 }
 </style>

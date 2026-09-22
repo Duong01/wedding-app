@@ -37,9 +37,9 @@ const themes = {
 
   "boho-terracotta": defineAsyncComponent(() => import("./BohoTerracotta.vue")),
 
-  "vintage-sepia": defineAsyncComponent(() => import("./VintageSepia.vue")),
+  "song-hy-red": defineAsyncComponent(() => import("./SongHyRed.vue")),
 
-  "ocean-breeze": defineAsyncComponent(() => import("./OceanBreeze.vue")),
+  "to-duyen-xanh": defineAsyncComponent(() => import("./ToDuyenXanh.vue")),
 
   "long-phung-v3": defineAsyncComponent(() => import("./LongPhungV3.vue")),
 

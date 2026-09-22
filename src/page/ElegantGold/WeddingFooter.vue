@@ -1,75 +1,35 @@
 <template>
-  <footer class="footer">
-    <div class="footer-sun">
-      <span>✦</span>
+  <footer class="la-footer">
+    <img :src="thanks" alt="" class="la-footer__thanks" aria-hidden="true" />
+
+    <p class="la-footer__message">{{ thanksMessage }}</p>
+
+    <div class="la-footer__names">
+      <span>{{ groomName }}</span>
+
+      <i>&amp;</i>
+
+      <span>{{ brideName }}</span>
     </div>
 
-    <div class="footer-content">
-      <small>FOREVER BEGINS HERE</small>
+    <div class="la-footer__actions">
+      <a v-if="facebookUrl" :href="facebookUrl" target="_blank" rel="noopener noreferrer" class="la-footer__link">
+        Facebook
+      </a>
 
-      <div class="monogram">
-        {{ monogram }}
-      </div>
+      <a v-if="phoneUrl" :href="phoneUrl" class="la-footer__link">{{ phoneDisplay }}</a>
 
-      <h2>
-        {{ groomName }}
-        <span>&</span>
-        {{ brideName }}
-      </h2>
-
-      <div class="footer-line">
-        <span />
-        <b>𓅃</b>
-        <span />
-      </div>
-
-      <p>
-        {{ thanksMessage }}
-      </p>
-
-      <div class="footer-actions">
-        <a
-          v-if="facebookUrl"
-          :href="facebookUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="footer-link"
-        >
-          <v-icon size="15">mdi-facebook</v-icon>
-
-          <span>Facebook</span>
-        </a>
-
-        <a
-          v-if="phoneUrl"
-          :href="phoneUrl"
-          class="footer-link"
-        >
-          <v-icon size="15">mdi-phone</v-icon>
-
-          <span>{{ phoneDisplay }}</span>
-        </a>
-
-        <a
-          v-if="emailUrl"
-          :href="emailUrl"
-          class="footer-link"
-        >
-          <v-icon size="15">mdi-email-outline</v-icon>
-
-          <span>{{ emailDisplay }}</span>
-        </a>
-      </div>
-
-      <div class="copyright">
-        {{ copyrightText }}
-      </div>
+      <a v-if="emailUrl" :href="emailUrl" class="la-footer__link">{{ emailDisplay }}</a>
     </div>
+
+    <p class="la-footer__copyright">{{ copyrightText }}</p>
   </footer>
 </template>
 
 <script setup>
 import { computed } from "vue";
+
+import thanks from "@/assets/love-art/thanks.webp";
 
 const props = defineProps({
   wedding: {
@@ -80,37 +40,35 @@ const props = defineProps({
   currentYear: Number,
 });
 
-const groomName = computed(() =>
-  props.wedding?.GroomName ||
-  props.wedding?.groomName ||
-  props.wedding?.footer?.GroomName ||
-  props.wedding?.hero?.GroomName ||
-  props.wedding?.couple?.Groom?.Name ||
-  ""
+const groomName = computed(
+  () =>
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.footer?.GroomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    ""
 );
 
-const brideName = computed(() =>
-  props.wedding?.BrideName ||
-  props.wedding?.brideName ||
-  props.wedding?.footer?.BrideName ||
-  props.wedding?.hero?.BrideName ||
-  props.wedding?.couple?.Bride?.Name ||
-  ""
+const brideName = computed(
+  () =>
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.footer?.BrideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    ""
 );
 
-const thanksMessage = computed(() => {
-  return (
+const thanksMessage = computed(
+  () =>
     props.wedding?.footer?.Message ||
-    "Cảm ơn bạn đã dành thời gian đến chung vui cùng gia đình chúng mình."
-  );
-});
+    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+);
 
-const copyrightText = computed(() => {
-  return (
-    props.wedding?.footer?.Copyright ||
-    `© ${props.currentYear ?? ""} · ${props.monogram ?? ""}`
-  );
-});
+const copyrightText = computed(
+  () => props.wedding?.footer?.Copyright || `© ${props.currentYear ?? ""} · ${props.monogram ?? ""}`
+);
 
 const facebookUrl = computed(() => {
   const raw =
@@ -124,13 +82,9 @@ const facebookUrl = computed(() => {
   return raw.startsWith("http") ? raw : `https://${raw}`;
 });
 
-const phoneDisplay = computed(() => {
-  return (
-    props.wedding?.footer?.Phone ||
-    props.wedding?.contact?.Phone ||
-    ""
-  );
-});
+const phoneDisplay = computed(
+  () => props.wedding?.footer?.Phone || props.wedding?.contact?.Phone || ""
+);
 
 const phoneUrl = computed(() => {
   const raw = phoneDisplay.value;
@@ -138,13 +92,9 @@ const phoneUrl = computed(() => {
   return raw ? `tel:${String(raw).replace(/[^\d+]/g, "")}` : "";
 });
 
-const emailDisplay = computed(() => {
-  return (
-    props.wedding?.footer?.Email ||
-    props.wedding?.contact?.Email ||
-    ""
-  );
-});
+const emailDisplay = computed(
+  () => props.wedding?.footer?.Email || props.wedding?.contact?.Email || ""
+);
 
 const emailUrl = computed(() => {
   const raw = emailDisplay.value;
@@ -154,159 +104,131 @@ const emailUrl = computed(() => {
 </script>
 
 <style scoped>
-.footer {
-  position: relative;
-  overflow: hidden;
-  padding: 85px 20px 35px;
-  background: #350b0a;
-  color: #ead7b5;
+.la-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  max-width: 360px;
+
+  margin: 0 auto;
+  padding: 32px 16px 28px;
+
   text-align: center;
 }
 
-.footer::before,
-.footer::after {
-  content: "";
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border: 1px solid rgba(201,149,82,.15);
-  border-radius: 50%;
+.la-footer__thanks {
+  width: 100px;
+  height: auto;
+
+  margin-bottom: 12px;
+
+  object-fit: contain;
+
+  opacity: 0.8;
 }
 
-.footer::before {
-  left: -170px;
-  top: -100px;
+.la-footer__message {
+  margin: 0;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 13px;
+  font-weight: 300;
+
+  line-height: 1.5;
+  white-space: pre-line;
 }
 
-.footer::after {
-  right: -170px;
-  bottom: -130px;
-}
-
-.footer-sun {
-  position: absolute;
-  top: -100px;
-  left: 50%;
-  width: 250px;
-  height: 250px;
-  transform: translateX(-50%);
-  border: 1px dashed rgba(201,149,82,.2);
-  border-radius: 50%;
-}
-
-.footer-sun span {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  color: #c99552;
-}
-
-.footer-content {
-  position: relative;
-  z-index: 2;
-}
-
-.footer-content > small {
-  font-size: 10px;
-  letter-spacing: .4em;
-  color: #c99552;
-}
-
-.monogram {
-  margin: 20px 0;
-  font-family: Georgia, serif;
-  font-size: 45px;
-  color: #d4a35f;
-}
-
-h2 {
-  font-family: Georgia, serif;
-  font-size: 24px;
-  font-weight: 400;
-}
-
-h2 span {
-  color: #c99552;
-  margin: 0 5px;
-}
-
-.footer-line {
+.la-footer__names {
   display: flex;
   align-items: center;
-  gap: 10px;
-  max-width: 230px;
-  margin: 22px auto;
+  gap: 8px;
+
+  margin-top: 18px;
+
+  color: var(--la-red);
+
+  font-family: var(--la-font-hand);
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.footer-line span {
-  height: 1px;
-  flex: 1;
-  background: rgba(201,149,82,.4);
+.la-footer__names i {
+  color: var(--la-ink);
+
+  font-size: 15px;
+  font-style: normal;
 }
 
-.footer-line b {
-  color: #c99552;
-}
-
-.footer-content p {
-  font-family: Georgia, serif;
-  line-height: 1.8;
-  color: #cdb99b;
-}
-
-.footer-actions {
+.la-footer__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
 
-  margin-top: 26px;
+  margin-top: 18px;
 }
 
-.footer-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.la-footer__link {
+  padding: 6px 14px;
 
-  padding: 8px 16px;
+  border: 1px solid var(--la-hairline);
+  border-radius: 999px;
 
-  border: 1px solid rgba(201,149,82,.45);
+  color: var(--la-red);
 
-  font-size: 11px;
-  letter-spacing: .12em;
-
-  color: #ead7b5;
-  background: rgba(201,149,82,.08);
+  font-family: var(--la-font-hand);
+  font-size: 12px;
 
   text-decoration: none;
 
-  transition: background .2s ease, border-color .2s ease;
+  transition: background-color 0.25s ease;
 }
 
-.footer-link:hover {
-  border-color: #c99552;
-  background: rgba(201,149,82,.18);
+.la-footer__link:hover {
+  background-color: var(--la-hairline-soft);
 }
 
-.copyright {
-  margin-top: 45px;
+.la-footer__copyright {
+  margin: 24px 0 0;
+
+  color: var(--la-ink-soft);
+
+  font-family: var(--la-font-hand);
   font-size: 11px;
-  letter-spacing: .3em;
-  color: #806052;
+
+  letter-spacing: 0.16em;
+
+  opacity: 0.6;
 }
 
-@media (max-width: 480px) {
-  .footer {
-    padding: 65px 16px 28px;
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 900px) {
+  .la-footer {
+    max-width: 640px;
+
+    padding: 40px 40px 34px;
   }
 
-  .footer-actions {
-    gap: 8px;
+  .la-footer__thanks {
+    width: 124px;
   }
 
-  .footer-link {
-    padding: 7px 12px;
+  .la-footer__message {
+    max-width: 560px;
+
+    font-size: 15px;
+  }
+
+  .la-footer__names {
+    font-size: 20px;
   }
 }
 </style>

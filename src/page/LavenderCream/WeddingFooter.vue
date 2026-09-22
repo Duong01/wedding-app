@@ -12,7 +12,7 @@
         <span class="lc-footer__ring-inner">{{ monogram }}</span>
       </div>
 
-      <p class="lc-footer__monogram-label">SAVE THE DATE</p>
+      <p v-if="eyebrow" class="lc-footer__monogram-label">{{ eyebrow }}</p>
 
       <h2 class="lc-footer__names">
         {{ groomName }}
@@ -45,11 +45,18 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G&B" },
   currentYear: { type: Number, default: 2026 },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "footer", "Eyebrow", "SAVE THE DATE")
+);
 
 const wedding = computed(() => props.wedding || {});
 

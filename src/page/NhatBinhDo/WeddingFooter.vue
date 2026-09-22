@@ -1,50 +1,43 @@
 <template>
-  <footer class="footer">
+  <footer class="cfr-footer">
 
-    <div class="footer-cloud cloud-1"></div>
-    <div class="footer-cloud cloud-2"></div>
+    <span class="cfr-footer__eyebrow">
+      {{ eyebrow }}
+    </span>
 
-    <div class="footer-inner">
+    <h2 class="cfr-footer__names">
+      {{ groomName }}
+      <span class="cfr-footer__amp">&amp;</span>
+      {{ brideName }}
+    </h2>
 
-      <div class="footer-symbol">
-        囍
-      </div>
-
-      <div class="footer-monogram">
-        {{ monogram }}
-      </div>
-
-      <h2>
-        {{ groomName }}
-        <span>&</span>
-        {{ brideName }}
-      </h2>
-
-      <div class="footer-line">
-        <span></span>
-        <i>❖</i>
-        <span></span>
-      </div>
-
-      <p>
-        {{ thanksMessage }}
-      </p>
-
-      <div class="footer-date">
-        {{ weddingDate }}
-      </div>
-
-      <small>
-        {{ copyrightText }}
-      </small>
-
+    <div class="cfr-footer__line" aria-hidden="true">
+      <span></span>
+      <i>❖</i>
+      <span></span>
     </div>
+
+    <p class="cfr-footer__message">
+      {{ thanksMessage }}
+    </p>
+
+    <div v-if="weddingDate" class="cfr-footer__date">
+      {{ weddingDate }}
+    </div>
+
+    <small class="cfr-footer__copyright">
+      {{ copyrightText }}
+    </small>
 
   </footer>
 </template>
 
+
 <script setup>
 import { computed } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
+
 
 const props = defineProps({
   wedding: {
@@ -61,28 +54,47 @@ const props = defineProps({
     type: Number,
     default: 2026,
   },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 const wedding = computed(() => props.wedding || {});
 
+
+/* =====================================================
+   TIÊU ĐỀ MỤC
+===================================================== */
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "footer", "Eyebrow")
+);
+
+
 const groomName = computed(() => {
-  return wedding.value?.GroomName ||
+  return (
+    wedding.value?.GroomName ||
     wedding.value?.groomName ||
     wedding.value?.footer?.GroomName ||
     wedding.value?.hero?.GroomName ||
     wedding.value?.couple?.Groom?.Name ||
     wedding.value?.groom?.name ||
-    "";
+    ""
+  );
 });
 
 const brideName = computed(() => {
-  return wedding.value?.BrideName ||
+  return (
+    wedding.value?.BrideName ||
     wedding.value?.brideName ||
     wedding.value?.footer?.BrideName ||
     wedding.value?.hero?.BrideName ||
     wedding.value?.couple?.Bride?.Name ||
     wedding.value?.bride?.name ||
-    "";
+    ""
+  );
 });
 
 const weddingDate = computed(() => {
@@ -102,601 +114,167 @@ const thanksMessage = computed(() => {
 });
 
 const copyrightText = computed(() => {
-  return (
-    wedding.value?.footer?.Copyright ||
-    `© ${currentYear}`
-  );
+  return wedding.value?.footer?.Copyright || `© ${props.currentYear}`;
 });
 </script>
 
-<style scoped>
 
+<style scoped>
 /* =====================================================
    FOOTER
 ===================================================== */
 
-.footer {
+.cfr-footer {
   position: relative;
+
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
 
   width: 100%;
-  min-height: 390px;
 
-  overflow: hidden;
+  padding: 40px 24px 48px;
 
-  box-sizing: border-box;
-
-  color: #711519;
+  color: var(--cfr-red-deep);
 
   text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fffaf0 0%,
-      #f8edd9 52%,
-      #f0dfc1 100%
-    );
-
 }
 
+.cfr-footer__eyebrow {
+  display: block;
 
-/* =====================================================
-   DECORATIVE FRAME
-===================================================== */
+  color: var(--cfr-red);
 
-.footer::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 14px;
-
-  border:
-    1px solid
-    rgba(169, 126, 61, .35);
-
-  pointer-events: none;
-}
-
-
-.footer::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 20px;
-
-  border:
-    1px solid
-    rgba(169, 126, 61, .14);
-
-  pointer-events: none;
-}
-
-
-/* =====================================================
-   INNER
-===================================================== */
-
-.footer-inner {
-  position: relative;
-
-  z-index: 3;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  box-sizing: border-box;
-
-  min-height: 390px;
-
-  padding:
-    48px
-    24px
-    28px;
-}
-
-
-/* =====================================================
-   DOUBLE HAPPINESS
-===================================================== */
-
-.footer-symbol {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 66px;
-  height: 66px;
-
-  color: #9a171b;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 55px;
-
-  font-weight: 700;
-
-  line-height: 1;
-
-  border:
-    1px solid
-    rgba(164, 117, 52, .5);
-
-  background:
-    rgba(255,250,238,.72);
-
-  box-shadow:
-    0 5px 18px
-    rgba(112, 53, 24, .07);
-}
-
-
-/*
- * Góc trang trí nhỏ
- */
-
-.footer-symbol::before,
-.footer-symbol::after {
-  content: "";
-
-  position: absolute;
-
-  width: 7px;
-  height: 7px;
-
-  border:
-    1px solid
-    #b58a48;
-
-  transform: rotate(45deg);
-
-  background: #fff8e9;
-}
-
-
-.footer-symbol::before {
-  top: -5px;
-  left: -5px;
-}
-
-
-.footer-symbol::after {
-  right: -5px;
-  bottom: -5px;
-}
-
-
-/* =====================================================
-   MONOGRAM
-===================================================== */
-
-.footer-monogram {
-  margin-top: 15px;
-
-  color: #a77c3e;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
+  font-family: var(--cfr-font-heading);
   font-size: 11px;
-
   font-weight: 700;
 
-  letter-spacing: 4px;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
 
   text-transform: uppercase;
 }
 
+.cfr-footer__names {
+  margin: 0;
 
-/* =====================================================
-   NAMES
-===================================================== */
+  color: var(--cfr-red);
 
-.footer h2 {
-  margin:
-    13px
-    0
-    0;
-
-  color: #761519;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 22px;
-
-  font-weight: 800;
-
-  letter-spacing: .8px;
-
-  line-height: 1.4;
-}
-
-
-.footer h2 span {
-  display: inline-block;
-
-  margin:
-    0
-    7px;
-
-  color: #b28a4c;
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 17px;
-
+  font-family: var(--cfr-font-name);
+  font-size: 20px;
   font-weight: 400;
+
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+
+  text-transform: uppercase;
 }
 
+.cfr-footer__amp {
+  color: var(--cfr-red-deep);
 
-/* =====================================================
-   DECORATION
-===================================================== */
+  font-family: var(--cfr-font-script);
+  font-size: 24px;
 
-.footer-line {
+  text-transform: none;
+}
+
+.cfr-footer__line {
   display: flex;
-
   align-items: center;
-  justify-content: center;
 
-  gap: 9px;
+  gap: 10px;
 
-  width: 100%;
-
-  margin:
-    16px
-    0
-    15px;
+  margin: 4px 0;
 }
 
-
-.footer-line span {
-  width: 42px;
+.cfr-footer__line span {
+  width: 40px;
   height: 1px;
 
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b58a49
-    );
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--cfr-red) 50%, transparent)
+  );
 }
 
-
-.footer-line span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b58a49
-    );
+.cfr-footer__line span:last-child {
+  background: linear-gradient(
+    to left,
+    transparent,
+    color-mix(in srgb, var(--cfr-red) 50%, transparent)
+  );
 }
 
-
-.footer-line i {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 19px;
-  height: 19px;
-
-  color: #a0171b;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 12px;
-
-  font-style: normal;
-
-  border:
-    1px solid
-    rgba(181, 138, 73, .45);
-
-  transform: rotate(45deg);
-}
-
-
-.footer-line i::first-letter {
-  transform: rotate(-45deg);
-}
-
-
-/* =====================================================
-   THANK YOU
-===================================================== */
-
-.footer p {
-  max-width: 280px;
-
-  margin: 0 auto;
-
-  color: #78614b;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-  line-height: 1.8;
-
-  letter-spacing: 1.5px;
-}
-
-
-/* =====================================================
-   WEDDING DATE
-===================================================== */
-
-.footer-date {
-  margin-top: 18px;
-
-  padding:
-    7px
-    15px;
-
-  color: #861519;
+.cfr-footer__line i {
+  color: var(--cfr-red);
 
   font-size: 11px;
 
-  font-weight: 700;
+  font-style: normal;
+}
 
-  letter-spacing: 2px;
+.cfr-footer__message {
+  max-width: 420px;
 
-  border-top:
-    1px solid
-    rgba(181, 138, 73, .35);
+  margin: 0;
 
-  border-bottom:
-    1px solid
-    rgba(181, 138, 73, .35);
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.cfr-footer__date {
+  font-size: 13px;
+
+  letter-spacing: 0.15em;
+
+  opacity: 0.8;
+}
+
+.cfr-footer__copyright {
+  margin-top: 8px;
+
+  font-size: 12px;
+
+  opacity: 0.6;
 }
 
 
 /* =====================================================
-   COPYRIGHT
+   TABLET / DESKTOP
 ===================================================== */
 
-.footer small {
-  display: block;
+@media (min-width: 768px) {
+  .cfr-footer {
+    gap: 12px;
 
-  margin-top: auto;
-
-  padding-top: 23px;
-
-  color: #a68b66;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-  letter-spacing: 1px;
-}
-
-
-/* =====================================================
-   CLOUD
-===================================================== */
-
-.footer-cloud {
-  position: absolute;
-
-  z-index: 1;
-
-  width: 190px;
-  height: 90px;
-
-  opacity: .13;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 22% 70%,
-      #9d743a 0 18%,
-      transparent 19%
-    ),
-    radial-gradient(
-      circle at 45% 42%,
-      #9d743a 0 28%,
-      transparent 29%
-    ),
-    radial-gradient(
-      circle at 68% 67%,
-      #9d743a 0 22%,
-      transparent 23%
-    ),
-    radial-gradient(
-      circle at 88% 55%,
-      #9d743a 0 14%,
-      transparent 15%
-    );
-}
-
-
-.cloud-1 {
-  left: -75px;
-  bottom: 12px;
-
-  transform:
-    rotate(-4deg);
-}
-
-
-.cloud-2 {
-  right: -75px;
-  bottom: 72px;
-
-  transform:
-    scaleX(-1)
-    rotate(-4deg);
-}
-
-
-/* =====================================================
-   SMALL DECORATIVE DIAMONDS
-===================================================== */
-
-.footer-inner::before,
-.footer-inner::after {
-  content: "✦";
-
-  position: absolute;
-
-  z-index: -1;
-
-  color: rgba(165, 122, 59, .35);
-
-  font-size: 18px;
-}
-
-
-.footer-inner::before {
-  top: 32px;
-  left: 25px;
-}
-
-
-.footer-inner::after {
-  top: 32px;
-  right: 25px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .footer {
-    min-height: 370px;
+    padding: 48px 40px 64px;
   }
 
-
-  .footer::before {
-    inset: 10px;
+  .cfr-footer__eyebrow {
+    font-size: 12px;
   }
 
-
-  .footer::after {
-    inset: 15px;
+  .cfr-footer__names {
+    font-size: 24px;
   }
 
-
-  .footer-inner {
-    min-height: 370px;
-
-    padding:
-      42px
-      20px
-      24px;
+  .cfr-footer__amp {
+    font-size: 30px;
   }
 
-
-  .footer-symbol {
-    width: 60px;
-    height: 60px;
-
-    font-size: 50px;
+  .cfr-footer__message {
+    font-size: 16px;
   }
 
-
-  .footer-monogram {
-    margin-top: 13px;
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
+  .cfr-footer__date {
+    font-size: 14px;
   }
-
-
-  .footer h2 {
-    margin-top: 11px;
-
-    font-size: 19px;
-
-    letter-spacing: .5px;
-  }
-
-
-  .footer h2 span {
-    margin:
-      0
-      5px;
-
-    font-size: 15px;
-  }
-
-
-  .footer-line {
-    margin:
-      14px
-      0;
-  }
-
-
-  .footer-line span {
-    width: 34px;
-  }
-
-
-  .footer p {
-    max-width: 250px;
-
-    font-size: 11px;
-
-    line-height: 1.8;
-
-    letter-spacing: 1.2px;
-  }
-
-
-  .footer-date {
-    margin-top: 16px;
-
-    font-size: 10px;
-
-    letter-spacing: 1.5px;
-  }
-
-
-  .footer small {
-    font-size: 11px;
-  }
-
 }
 </style>

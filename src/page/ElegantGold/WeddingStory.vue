@@ -1,14 +1,14 @@
 <template>
-  <section class="eg-story">
-    <p class="eg-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+  <section class="la-story">
+    <h2 class="la-title">{{ storyTitle || "Chuyện tình yêu" }}</h2>
 
-    <h2>{{ storyTitle }}</h2>
+    <div class="la-story__card">
+      <span class="la-story__quote">“</span>
 
-    <div class="eg-quote">“</div>
+      <p class="la-story__text">{{ content }}</p>
 
-    <p>{{ content }}</p>
-
-    <div class="eg-tail">❦</div>
+      <span class="la-story__tail">✦</span>
+    </div>
   </section>
 </template>
 
@@ -29,114 +29,78 @@ const storyTitle = computed(() =>
 </script>
 
 <style scoped>
-.eg-story {
-  position: relative;
-
+.la-story {
   text-align: center;
-
-  color: #5f4f38;
-
-  padding: 10px 22px;
 }
 
-/* Soft gold blob backdrop */
-.eg-story::before {
-  content: "";
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  width: min(88%, 420px);
-  height: 78%;
-
-  transform: translate(-50%, -50%) rotate(-2deg);
-
-  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
-
-  background: rgba(181, 138, 69, 0.14);
-
-  pointer-events: none;
-}
-
-.eg-eyebrow {
+.la-story__card {
   position: relative;
 
-  margin: 0;
+  max-width: 420px;
 
-  color: #8a7a52;
+  margin: 20px auto 0;
+  padding: 24px 20px 18px;
 
-  font-size: 10px;
-  font-weight: 700;
+  border: 1px solid var(--la-hairline);
+  border-radius: 18px;
 
-  letter-spacing: 0.3em;
-  text-indent: 0.3em;
+  background-color: var(--la-blush);
 }
 
-.eg-story h2 {
-  position: relative;
+.la-story__quote {
+  display: block;
 
-  margin: 6px 0 4px;
+  height: 28px;
 
-  font-family: "Great Vibes", cursive;
-  font-size: clamp(30px, 8vw, 40px);
-  font-weight: 400;
+  color: var(--la-red);
 
-  color: #5d452a;
-}
-
-/* Big decorative quote mark */
-.eg-quote {
-  position: relative;
-
-  height: 35px;
-
-  color: #b58a45;
-
-  font: 64px Georgia, serif;
+  font-family: Georgia, serif;
+  font-size: 52px;
   line-height: 1;
 
-  transform: rotate(-4deg);
+  opacity: 0.5;
 }
 
-.eg-story p {
-  position: relative;
-
-  max-width: 400px;
+.la-story__text {
+  max-width: 340px;
   margin: 0 auto;
 
-  font-size: clamp(15px, 4.2vw, 18px);
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 14px;
   font-style: italic;
 
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
-.eg-tail {
-  position: relative;
+.la-story__tail {
+  display: block;
 
-  margin-top: 18px;
+  margin-top: 12px;
 
-  color: #8a7a52;
+  color: var(--la-red);
 
-  font-size: 15px;
+  font-size: 12px;
 
-  animation: eg-tail-sway 5s ease-in-out infinite;
+  opacity: 0.7;
 }
 
-@keyframes eg-tail-sway {
-  0%,
-  100% {
-    transform: rotate(-8deg);
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 900px) {
+  .la-story__card {
+    max-width: 560px;
+
+    padding: 30px 28px 22px;
   }
 
-  50% {
-    transform: rotate(8deg);
-  }
-}
+  .la-story__text {
+    max-width: 440px;
 
-@media (prefers-reduced-motion: reduce) {
-  .eg-tail {
-    animation: none;
+    font-size: 16px;
   }
 }
 </style>

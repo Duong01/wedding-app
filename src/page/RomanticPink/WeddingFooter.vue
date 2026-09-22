@@ -1,38 +1,29 @@
 <template>
   <footer class="footer">
-    <!-- =========================
-         DECORATIVE FLOWERS
-    ========================== -->
-    <div class="footer-flower footer-flower--left">
-      <img :src="hoa" alt="" />
-    </div>
+    <!-- Hoa trang trí -->
+    <img
+      :src="flower"
+      class="footer-flower footer-flower--left"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
 
-    <div class="footer-flower footer-flower--right">
-      <img :src="hoa" alt="" />
-    </div>
-
-    <!-- Soft glow -->
-    <div class="footer-glow"></div>
+    <img
+      :src="flower"
+      class="footer-flower footer-flower--right"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
 
     <div class="footer-content">
-      <!-- Top ornament -->
-      <div class="footer-ornament">
-        <span></span>
-
-        <v-icon size="14">mdi-heart</v-icon>
-
-        <span></span>
-      </div>
-
-      <!-- Thank you -->
       <div class="footer-eyebrow">THANK YOU</div>
 
       <p class="footer-subtitle">CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI</p>
 
       <!-- Monogram -->
       <div class="monogram">
-        <div class="monogram-ring"></div>
-
         <span>{{ monogram }}</span>
       </div>
 
@@ -47,11 +38,11 @@
 
       <!-- Date -->
       <div class="wedding-date">
-        <span></span>
+        <span class="date-line"></span>
 
         <b>{{ formattedDate }}</b>
 
-        <span></span>
+        <span class="date-line"></span>
       </div>
 
       <!-- Message -->
@@ -59,28 +50,16 @@
         {{ footerMessage }}
       </p>
 
-      <!-- Bottom quote -->
-      <div class="footer-quote">
-        <v-icon size="13">mdi-flower-outline</v-icon>
-
-        <span>
-          Một ngày thật đẹp<br />
-          một tình yêu thật đẹp
-        </span>
-
-        <v-icon size="13">mdi-flower-outline</v-icon>
-      </div>
+      <!-- Quote -->
+      <p class="footer-quote">
+        Một ngày thật đẹp<br />
+        một tình yêu thật đẹp
+      </p>
 
       <!-- Copyright -->
-      <div class="footer-bottom">
-        <span></span>
-
-        <small>
-          © {{ currentYear }} · Cảm ơn bạn đã chung vui cùng chúng mình
-        </small>
-
-        <span></span>
-      </div>
+      <small class="footer-bottom">
+        © {{ currentYear }} · Cảm ơn bạn đã chung vui cùng chúng mình
+      </small>
     </div>
   </footer>
 </template>
@@ -88,7 +67,7 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
-import { hoa } from "./romaticpink";
+import flower from "@/assets/glass-garden-pink/flower2-decoration.webp";
 
 const props = defineProps({
   wedding: {
@@ -109,7 +88,7 @@ const props = defineProps({
 
 /* =========================================================
    COUPLE
-   ========================================================= */
+========================================================= */
 
 const groom = computed(() => {
   return (
@@ -133,10 +112,15 @@ const bride = computed(() => {
 
 /* =========================================================
    DATE
-   ========================================================= */
+========================================================= */
 
 const date = computed(() => {
-  return props.wedding?.weddingDate || props.wedding?.hero?.WeddingDate || props.wedding?.hero?.weddingDate || "";
+  return (
+    props.wedding?.weddingDate ||
+    props.wedding?.hero?.WeddingDate ||
+    props.wedding?.hero?.weddingDate ||
+    ""
+  );
 });
 
 const formattedDate = computed(() => {
@@ -153,7 +137,7 @@ const formattedDate = computed(() => {
 
 /* =========================================================
    MESSAGE
-   ========================================================= */
+========================================================= */
 
 const footerMessage = computed(() => {
   return (
@@ -165,436 +149,233 @@ const footerMessage = computed(() => {
 </script>
 
 <style scoped>
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
 .footer {
   position: relative;
 
-  min-height: 460px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 72px 22px 42px;
-
   overflow: hidden;
 
-}
-
-/* =========================================================
-   SOFT LIGHT
-   ========================================================= */
-
-.footer-glow {
-  position: absolute;
-
-  width: 320px;
-  height: 320px;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  border-radius: 50%;
-
-  pointer-events: none;
-}
-
-/* =========================================================
-   FLOWERS
-   ========================================================= */
-
-.footer-flower {
-  position: absolute;
-
-  width: 270px;
-
-  pointer-events: none;
-
-  opacity: 0.17;
-
-  filter: brightness(1.25) saturate(0.7);
-
-  animation: footerFlowerFloat 7s ease-in-out infinite;
-}
-
-.footer-flower img {
-  display: block;
-
-  width: 100%;
-  height: auto;
-}
-
-.footer-flower--left {
-  left: -145px;
-  bottom: -90px;
-
-  transform: rotate(-15deg);
-}
-
-.footer-flower--right {
-  right: -145px;
-  top: -95px;
-
-  transform: scaleX(-1) rotate(-12deg);
-
-  animation-delay: -3s;
-}
-
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
-.footer-content {
-  position: relative;
-
-  z-index: 2;
-
-  width: min(520px, 100%);
+  padding: 60px 22px 40px;
 
   text-align: center;
 }
 
 /* =========================================================
-   ORNAMENT
-   ========================================================= */
+   HOA
+========================================================= */
 
-.footer-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  margin-bottom: 17px;
+.footer-flower {
+  position: absolute;
+  z-index: 0;
+
+  width: 200px;
+
+  object-fit: contain;
+
+  pointer-events: none;
 }
 
-.footer-ornament span {
-  width: 52px;
-  height: 1px;
+.footer-flower--left {
+  top: -30px;
+  left: -80px;
+
+  opacity: 0.4;
+  transform: rotate(-16deg);
 }
 
-.footer-ornament span:last-child {
-  transform: rotate(180deg);
+.footer-flower--right {
+  right: -80px;
+  bottom: -40px;
+
+  opacity: 0.35;
+  transform: scaleX(-1) rotate(-16deg);
 }
 
 /* =========================================================
-   TITLE
-   ========================================================= */
+   NỘI DUNG
+========================================================= */
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
 
 .footer-eyebrow {
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 10px;
-  font-weight: 700;
+  letter-spacing: 0.3em;
 
-  letter-spacing: 0.38em;
-
-  text-indent: 0.38em;
+  opacity: 0.7;
 }
 
 .footer-subtitle {
-  margin: 7px 0 0;
+  margin: 6px 0 0;
 
-  font-size: 10px;
-  font-weight: 500;
-
-  letter-spacing: 0.2em;
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 
 /* =========================================================
    MONOGRAM
-   ========================================================= */
+========================================================= */
 
 .monogram {
-  position: relative;
+  width: 74px;
+  height: 74px;
 
-  width: 78px;
-  height: 78px;
+  margin: 22px auto 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin: 25px auto 20px;
-
-  border: 1px solid rgba(241, 208, 158, 0.7);
-
   border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 
-  box-shadow: 0 0 0 5px rgba(198, 160, 106, 0.07),
-    0 12px 30px rgba(49, 13, 25, 0.16);
-}
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(7px) saturate(1.08);
+  -webkit-backdrop-filter: blur(7px) saturate(1.08);
 
-/* Inner ring */
-
-.monogram-ring {
-  position: absolute;
-
-  inset: 6px;
-
-  border: 1px solid rgba(255, 232, 194, 0.35);
-
-  border-radius: 50%;
+  box-shadow: inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.5),
+    0 14px 34px -8px rgba(147, 56, 69, 0.3);
 }
 
 .monogram span {
-  position: relative;
-
-  font-family: "Great Vibes", cursive;
-
-  font-size: 28px;
-
-  line-height: 1;
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "EB Garamond", serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 /* =========================================================
-   COUPLE NAME
-   ========================================================= */
+   TÊN
+========================================================= */
 
 .couple-name {
-  margin: 0;
+  margin: 20px 0 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 
-  flex-wrap: wrap;
-
-  gap: 9px;
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: clamp(26px, 7vw, 36px);
-
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "EB Garamond", serif;
+  font-size: 24px;
   font-weight: 500;
-
-  line-height: 1.15;
 }
 
 .couple-name i {
-
-  font-family: "Great Vibes", cursive;
-
-  font-size: 28px;
-
-  font-weight: 400;
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "Ms Madi", cursive;
+  font-size: 24px;
+  font-style: normal;
 }
 
 /* =========================================================
-   DATE
-   ========================================================= */
+   NGÀY
+========================================================= */
 
 .wedding-date {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
 
-  gap: 11px;
-
-  margin-top: 18px;
-}
-
-.wedding-date span {
-  width: 35px;
-  height: 1px;
-
-}
-
-.wedding-date span:last-child {
-  transform: rotate(180deg);
+  margin-top: 14px;
 }
 
 .wedding-date b {
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+}
 
-  font-size: 10px;
-  font-weight: 700;
+.date-line {
+  width: 1px;
+  height: 20px;
 
-  letter-spacing: 0.18em;
+  background-color: var(--gg-deep, #933845);
+  opacity: 0.5;
 }
 
 /* =========================================================
-   MESSAGE
-   ========================================================= */
+   LỜI NHẮN
+========================================================= */
 
 .footer-message {
-  max-width: 390px;
+  max-width: 320px;
+  margin: 20px auto 0;
 
-  margin: 22px auto 0;
-
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: 15px;
-
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 13px;
   font-style: italic;
-
   line-height: 1.7;
-}
 
-/* =========================================================
-   QUOTE
-   ========================================================= */
+  opacity: 0.85;
+}
 
 .footer-quote {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 22px 0 0;
 
-  gap: 13px;
+  color: var(--gg-rose, #cb5d6c);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 12px;
+  line-height: 1.7;
 
-  margin-top: 24px;
-
-}
-
-.footer-quote .v-icon {
   opacity: 0.8;
 }
 
-.footer-quote span {
-  font-size: 11px;
-
-  font-style: italic;
-
-  line-height: 1.5;
-
-  letter-spacing: 0.06em;
-}
-
 /* =========================================================
-   BOTTOM
-   ========================================================= */
+   BẢN QUYỀN
+========================================================= */
 
 .footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  margin-top: 26px;
 
-  gap: 10px;
+  color: var(--gg-deep, #933845);
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.06em;
 
-  margin-top: 34px;
-}
-
-.footer-bottom span {
-  width: 28px;
-  height: 1px;
-}
-
-.footer-bottom small {
-
-  font-size: 11px;
-
-  letter-spacing: 0.08em;
+  opacity: 0.55;
 }
 
 /* =========================================================
-   ANIMATION
-   ========================================================= */
+   DESKTOP
+========================================================= */
 
-@keyframes footerFlowerFloat {
-  0%,
-  100% {
-    margin-top: 0;
-  }
-
-  50% {
-    margin-top: -8px;
-  }
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 620px) {
+@media (min-width: 900px) {
   .footer {
-    min-height: 440px;
-
-    padding: 62px 17px 35px;
-  }
-
-  .footer-flower {
-    width: 230px;
-
-    opacity: 0.14;
-  }
-
-  .footer-flower--left {
-    left: -135px;
-    bottom: -80px;
-  }
-
-  .footer-flower--right {
-    right: -135px;
-    top: -80px;
-  }
-
-  .monogram {
-    width: 70px;
-    height: 70px;
-
-    margin-top: 22px;
+    padding: 70px 40px 48px;
   }
 
   .couple-name {
-    gap: 7px;
-
-    font-size: 27px;
+    font-size: 30px;
   }
 
   .couple-name i {
-    font-size: 25px;
+    font-size: 30px;
   }
 
-  .footer-message {
-    padding: 0 10px;
-
-    font-size: 14px;
-  }
-
-  .footer-bottom {
-    gap: 7px;
-  }
-
-  .footer-bottom span {
-    width: 18px;
-  }
-
-  .footer-bottom small {
-    font-size: 10px;
-  }
-}
-
-/* =========================================================
-   SMALL PHONE
-   ========================================================= */
-
-@media (max-width: 380px) {
-  .footer {
-    padding-left: 13px;
-    padding-right: 13px;
-  }
-
-  .couple-name {
-    font-size: 24px;
-  }
-
-  .footer-eyebrow {
-    font-size: 11px;
-  }
-
-  .footer-message {
-    font-size: 13px;
-  }
-}
-
-/* =========================================================
-   REDUCE MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
   .footer-flower {
-    animation: none;
+    width: 260px;
+  }
+
+  .footer-flower--left {
+    left: -50px;
+  }
+
+  .footer-flower--right {
+    right: -50px;
   }
 }
 </style>

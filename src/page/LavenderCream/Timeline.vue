@@ -1,12 +1,12 @@
 <template>
   <section class="lc-timeline">
     <div class="lc-timeline__header">
-      <p class="lc-eyebrow">DẤU MỐC YÊU THƯƠNG</p>
+      <p v-if="eyebrow" class="lc-eyebrow">{{ eyebrow }}</p>
 
-      <h2>Hành trình của chúng mình</h2>
+      <h2>{{ heading }}</h2>
 
-      <p class="lc-timeline__intro">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
+      <p v-if="intro" class="lc-timeline__intro">
+        {{ intro }}
       </p>
     </div>
 
@@ -58,11 +58,32 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   timeline: { type: Array, default: () => [] },
+  events: { type: Array, default: () => [] },
+  sections: { type: Object, default: () => ({}) },
 });
 
 const items = computed(() => props.timeline || []);
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "timeline", "Heading", "Hành trình của chúng mình")
+);
+
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "timeline",
+    "Intro",
+    "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay"
+  )
+);
 
 function formatTime(index) {
   return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
@@ -149,6 +170,9 @@ function formatTime(index) {
   font-size: 13px;
 
   line-height: 1.65;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =========================================================

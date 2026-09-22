@@ -1,8 +1,8 @@
 <template>
   <section class="dh-couple">
-    <p class="dh-eyebrow">TRÂN TRỌNG BÁO HỶ</p>
+    <p v-if="eyebrow" class="dh-eyebrow">{{ eyebrow }}</p>
 
-    <h2>Thông tin tiệc cưới</h2>
+    <h2>{{ heading }}</h2>
 
     <div class="dh-rule">
       <span></span>
@@ -101,10 +101,21 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   guestName: { type: String, default: "Quý khách" },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "couple", "Heading", "Thông tin tiệc cưới")
+);
 
 const groom = computed(
   () =>

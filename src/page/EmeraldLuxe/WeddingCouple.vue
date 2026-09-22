@@ -1,86 +1,135 @@
 <template>
-  <section class="el-couple">
-    <p class="el-eyebrow">TRÂN TRỌNG BÁO HỶ</p>
+  <section class="cr-couple">
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-couple__blossom"
+      draggable="false"
+    />
 
-    <h2>Thông tin tiệc cưới</h2>
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">Thông tin lễ cưới</h2>
 
-    <div class="el-rule">
-      <span></span>
-      <i>❦</i>
-      <span></span>
-    </div>
+      <p class="cr-heading__zh">婚禮資訊</p>
 
-    <div class="el-people">
-      <!-- CHÚ RỂ -->
-      <article class="el-person">
-        <div class="el-person__avatar">
-          <img v-if="groomAvatar" :src="groomAvatar" alt="Chú rể" draggable="false" />
-          <span v-else class="el-person__initial">{{ groom.charAt(0) || "♥" }}</span>
-        </div>
+      <div class="cr-heading__ornament" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
+      </div>
+    </header>
 
-        <div class="el-person__parents">
-          <p v-if="groomParents?.Father" class="el-parents">Ông {{ groomParents.Father }}</p>
-          <p v-if="groomParents?.Mother" class="el-parents">Bà {{ groomParents.Mother }}</p>
-        </div>
+    <!-- =====================================================
+         GIA ĐÌNH HAI BÊN
+    ====================================================== -->
 
-        <h3>{{ groom }}</h3>
+    <div class="cr-families">
+      <div class="cr-family">
+        <span class="cr-family__label">Ông Bà</span>
 
-        <span class="el-person__role">CHÚ RỂ</span>
+        <span v-if="groomParents.Father" class="cr-family__name">
+          {{ groomParents.Father }}
+        </span>
 
-        <p class="el-person__desc">{{ groomDescription }}</p>
-      </article>
+        <span v-if="groomParents.Mother" class="cr-family__name">
+          {{ groomParents.Mother }}
+        </span>
 
-      <div class="el-couple-divider"><i>&amp;</i></div>
-
-      <!-- CÔ DÂU -->
-      <article class="el-person">
-        <div class="el-person__avatar">
-          <img v-if="brideAvatar" :src="brideAvatar" alt="Cô dâu" draggable="false" />
-          <span v-else class="el-person__initial">{{ bride.charAt(0) || "♥" }}</span>
-        </div>
-
-        <div class="el-person__parents">
-          <p v-if="brideParents?.Father" class="el-parents">Ông {{ brideParents.Father }}</p>
-          <p v-if="brideParents?.Mother" class="el-parents">Bà {{ brideParents.Mother }}</p>
-        </div>
-
-        <h3>{{ bride }}</h3>
-
-        <span class="el-person__role">CÔ DÂU</span>
-
-        <p class="el-person__desc">{{ brideDescription }}</p>
-      </article>
-    </div>
-
-    <!-- WEDDING DATE -->
-    <div class="el-wedding-date">
-      <div class="el-date-top">
-        <span class="el-date-line"></span>
-        <span class="el-weekday">{{ weddingWeekday }}</span>
-        <span class="el-date-line"></span>
+        <span v-if="groomParents.Address" class="cr-family__address">
+          {{ groomParents.Address }}
+        </span>
       </div>
 
-      <div class="el-date-main">
-        <div class="el-date-side">
+      <span class="cr-families__divider" aria-hidden="true"></span>
+
+      <div class="cr-family">
+        <span class="cr-family__label">Ông Bà</span>
+
+        <span v-if="brideParents.Father" class="cr-family__name">
+          {{ brideParents.Father }}
+        </span>
+
+        <span v-if="brideParents.Mother" class="cr-family__name">
+          {{ brideParents.Mother }}
+        </span>
+
+        <span v-if="brideParents.Address" class="cr-family__address">
+          {{ brideParents.Address }}
+        </span>
+      </div>
+    </div>
+
+    <p class="cr-couple__announce">
+      TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+    </p>
+
+    <!-- =====================================================
+         CÔ DÂU · CHÚ RỂ
+    ====================================================== -->
+
+    <div class="cr-people">
+      <article class="cr-person">
+        <div class="cr-person__avatar">
+          <img v-if="groomAvatar" :src="groomAvatar" alt="Chú rể" draggable="false" />
+
+          <span v-else class="cr-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+        </div>
+
+        <h3 class="cr-person__name">{{ groom }}</h3>
+
+        <span class="cr-person__role">CHÚ RỂ</span>
+
+        <p class="cr-person__desc">{{ groomDescription }}</p>
+      </article>
+
+      <div class="cr-people__amp" aria-hidden="true">&amp;</div>
+
+      <article class="cr-person">
+        <div class="cr-person__avatar">
+          <img v-if="brideAvatar" :src="brideAvatar" alt="Cô dâu" draggable="false" />
+
+          <span v-else class="cr-person__initial">{{ bride.charAt(0) || "♥" }}</span>
+        </div>
+
+        <h3 class="cr-person__name">{{ bride }}</h3>
+
+        <span class="cr-person__role">CÔ DÂU</span>
+
+        <p class="cr-person__desc">{{ brideDescription }}</p>
+      </article>
+    </div>
+
+    <!-- =====================================================
+         NGÀY CƯỚI
+    ====================================================== -->
+
+    <div class="cr-date">
+      <div class="cr-date__top">
+        <span></span>
+        <b>{{ weddingWeekday }}</b>
+        <span></span>
+      </div>
+
+      <div class="cr-date__main">
+        <div class="cr-date__side">
           <span>THÁNG</span>
           <strong>{{ weddingMonth }}</strong>
         </div>
 
-        <div class="el-date-day">{{ weddingDay }}</div>
+        <div class="cr-date__day">{{ weddingDay }}</div>
 
-        <div class="el-date-side">
+        <div class="cr-date__side">
           <span>NĂM</span>
           <strong>{{ weddingYear }}</strong>
         </div>
       </div>
 
-      <div v-if="weddingLunar" class="el-lunar">{{ weddingLunar }}</div>
+      <p v-if="weddingLunar" class="cr-date__lunar">{{ weddingLunar }}</p>
 
-      <div v-if="weddingTime" class="el-wedding-time">
-        <div class="el-time-content">
-          <span class="el-time-label">THỜI GIAN</span>
-          <strong>{{ weddingTime }}</strong>
-        </div>
+      <div v-if="weddingTime" class="cr-date__time">
+        <span>THỜI GIAN</span>
+        <strong>{{ weddingTime }}</strong>
       </div>
     </div>
   </section>
@@ -88,6 +137,8 @@
 
 <script setup>
 import { computed } from "vue";
+
+import { cherryBlossom } from "./emeraldLuxeAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -145,44 +196,48 @@ const brideDescription = computed(
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
 
-const weddingDate = computed(
-  () =>
+/* =========================================================
+   NGÀY CƯỚI
+========================================================= */
+
+const dateObject = computed(() => {
+  const raw =
     props.wedding?.weddingDate ||
     props.wedding?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
-    null
-);
+    "";
 
-const dateObject = computed(() => {
-  if (!weddingDate.value) return null;
+  if (!raw) return null;
 
-  const date = new Date(weddingDate.value);
+  const date = new Date(raw);
 
   return Number.isNaN(date.getTime()) ? null : date;
 });
 
-const weddingDay = computed(() => {
-  if (!dateObject.value) return "--";
+const weddingDay = computed(() =>
+  dateObject.value ? String(dateObject.value.getDate()).padStart(2, "0") : "--"
+);
 
-  return String(dateObject.value.getDate()).padStart(2, "0");
-});
+const weddingMonth = computed(() =>
+  dateObject.value ? String(dateObject.value.getMonth() + 1).padStart(2, "0") : "--"
+);
 
-const weddingMonth = computed(() => {
-  if (!dateObject.value) return "--";
-
-  return String(dateObject.value.getMonth() + 1).padStart(2, "0");
-});
-
-const weddingYear = computed(() => {
-  if (!dateObject.value) return "----";
-
-  return dateObject.value.getFullYear();
-});
+const weddingYear = computed(() =>
+  dateObject.value ? String(dateObject.value.getFullYear()) : "----"
+);
 
 const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
-  const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+  const weekdays = [
+    "CHỦ NHẬT",
+    "THỨ HAI",
+    "THỨ BA",
+    "THỨ TƯ",
+    "THỨ NĂM",
+    "THỨ SÁU",
+    "THỨ BẢY",
+  ];
 
   return weekdays[dateObject.value.getDay()];
 });
@@ -193,6 +248,7 @@ const weddingLunar = computed(
     props.wedding?.WeddingLunar ||
     props.wedding?.lunarDate ||
     props.wedding?.LunarDate ||
+    props.wedding?.events?.[0]?.Lunar ||
     ""
 );
 
@@ -200,17 +256,11 @@ const weddingTime = computed(() => {
   const event = Array.isArray(props.wedding?.events) ? props.wedding.events[0] : null;
 
   const time =
-    event?.Time ||
-    event?.time ||
-    event?.StartTime ||
-    event?.startTime ||
     event?.EventTime ||
-    event?.eventTime ||
-    props.wedding?.time ||
-    props.wedding?.Time ||
+    event?.Time ||
+    event?.StartTime ||
     props.wedding?.weddingTime ||
     props.wedding?.WeddingTime ||
-    props.wedding?.hero?.time ||
     props.wedding?.hero?.Time ||
     "";
 
@@ -220,7 +270,11 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", hour12: false });
+      return date.toLocaleTimeString("vi-VN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
     }
   }
 
@@ -233,117 +287,209 @@ const weddingTime = computed(() => {
 </script>
 
 <style scoped>
-.el-couple {
+.cr-couple {
   position: relative;
 
-  padding: 48px 22px 42px;
+  padding: 8px 0 0;
 
   text-align: center;
 
-  color: #2e3d36;
-
-  overflow: hidden;
+  color: var(--cr-ink);
 }
 
-/* Fine gold lattice texture */
-.el-couple::before {
-  content: "";
+.cr-couple__blossom {
   position: absolute;
-  inset: 0;
 
-  opacity: 0.05;
+  top: 4px;
+  right: -18px;
 
-  background-image:
-    repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px);
+  width: 96px;
+  height: 96px;
+
+  object-fit: contain;
+
+  opacity: 0.5;
 
   pointer-events: none;
 }
 
-.el-eyebrow {
+/* =========================================================
+   TIÊU ĐỀ
+========================================================= */
+
+.cr-heading {
   position: relative;
 
+  text-align: center;
+}
+
+.cr-heading__vi {
   margin: 0;
 
-  color: #8a7a52;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: 10px;
-  font-weight: 700;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
 
   letter-spacing: 0.3em;
   text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
 }
 
-.el-couple h2 {
-  position: relative;
-
-  margin: 6px 0 10px;
-
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: clamp(26px, 7vw, 34px);
-  font-weight: 600;
-
-  color: #123b2e;
-}
-
-.el-rule {
-  position: relative;
-
+.cr-heading__ornament {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 
-  margin: 0 auto;
+  margin-top: 12px;
 
-  color: #c9a45c;
-
-  font-size: 14px;
+  color: var(--cr-accent);
 }
 
-.el-rule span {
-  width: 50px;
+.cr-heading__ornament span {
+  width: 52px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.85));
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
 }
 
-.el-rule span:last-child {
+.cr-heading__ornament span:last-child {
   transform: rotate(180deg);
 }
 
-/* =========================================================
-   PEOPLE
-========================================================= */
-
-.el-people {
-  position: relative;
-
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: 12px;
-
-  margin-top: 30px;
+.cr-heading__ornament i {
+  font-size: 13px;
+  font-style: normal;
 }
 
-.el-person {
+/* =========================================================
+   GIA ĐÌNH
+========================================================= */
+
+.cr-families {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+
+  column-gap: 12px;
+
+  margin-top: 26px;
+
+  font-size: 13px;
+}
+
+.cr-family {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 0;
+
+  text-align: center;
+}
+
+.cr-family__label {
+  color: var(--cr-muted);
+
+  font-size: 11px;
+
+  letter-spacing: 0.16em;
+}
+
+.cr-family__name {
+  margin-top: 2px;
+
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+.cr-family__address {
+  margin-top: 4px;
+
+  color: var(--cr-soft);
+
+  font-size: 11px;
+
+  line-height: 1.4;
+
+  white-space: pre-line;
+}
+
+.cr-families__divider {
+  align-self: center;
+
+  width: 1px;
+  height: 58px;
+
+  background-color: rgba(var(--cr-ink-rgb), 0.22);
+}
+
+/* =========================================================
+   LỜI BÁO TIN
+========================================================= */
+
+.cr-couple__announce {
+  margin: 26px auto 0;
+
+  max-width: 420px;
+
+  color: var(--cr-soft);
+
+  font-size: 12px;
+
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+
+  white-space: pre-line;
+}
+
+/* =========================================================
+   CÔ DÂU · CHÚ RỂ
+========================================================= */
+
+.cr-people {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+
+  margin-top: 26px;
+}
+
+.cr-person {
   min-width: 0;
 
   padding: 18px 10px 16px;
 
-  border: 1px solid rgba(201, 164, 92, 0.45);
-  border-radius: 999px 999px 18px 18px;
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+  border-radius: 16px;
 
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(var(--cr-surface-rgb), 0.85);
 }
 
-.el-person__avatar {
+.cr-person__avatar {
   position: relative;
 
-  width: 74px;
-  height: 74px;
+  width: 78px;
+  height: 78px;
 
   display: flex;
   align-items: center;
@@ -351,325 +497,233 @@ const weddingTime = computed(() => {
 
   margin: 0 auto 12px;
 
-  border: 1px solid rgba(201, 164, 92, 0.7);
+  border: 1px solid rgba(var(--cr-accent-rgb), 1);
   border-radius: 50%;
 
-  background: linear-gradient(170deg, rgba(201, 164, 92, 0.2), rgba(18, 59, 46, 0.1));
+  background: rgba(var(--cr-bg-rgb), 0.9);
 
   overflow: hidden;
 }
 
-.el-person__avatar::before {
-  content: "";
-
-  position: absolute;
-  inset: 4px;
-
-  border: 1px dashed rgba(201, 164, 92, 0.5);
-  border-radius: 50%;
-
-  z-index: 2;
-
-  pointer-events: none;
-}
-
-.el-person__avatar img {
+.cr-person__avatar img {
   width: 100%;
   height: 100%;
 
   object-fit: cover;
 }
 
-.el-person__initial {
-  font-family: "Playfair Display", Georgia, serif;
+.cr-person__initial {
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
   font-size: 28px;
-  font-weight: 600;
 
-  color: #123b2e;
+  color: var(--cr-ink);
 }
 
-.el-person__parents {
-  min-height: 38px;
-}
+.cr-person__name {
+  margin: 0;
 
-.el-parents {
-  margin: 2px 0;
+  font-family: "Babylonica", "Great Vibes", cursive;
 
-  color: #6b7a70;
-
-  font-size: 11px;
-
-  line-height: 1.35;
-
-  letter-spacing: 0.03em;
-}
-
-.el-people h3 {
-  margin: 8px 0 4px;
-
-  font-family: "Great Vibes", cursive;
-  font-size: 36px;
+  font-size: clamp(28px, 8vw, 36px);
   font-weight: 400;
 
-  line-height: 1.2;
+  line-height: 1.25;
 
-  color: #123b2e;
+  color: var(--cr-ink);
 }
 
-.el-person__role {
+.cr-person__role {
   display: block;
 
-  color: #8a7a52;
+  margin-top: 2px;
 
-  font-size: 11px;
+  color: var(--cr-muted);
+
+  font-size: 10px;
+  font-weight: 600;
 
   letter-spacing: 0.24em;
-  font-weight: 700;
+  text-indent: 0.24em;
 }
 
-.el-person__desc {
-  margin: 7px 0 0;
+.cr-person__desc {
+  margin: 8px 0 0;
 
-  color: #55645b;
+  color: var(--cr-soft);
 
-  font-size: 12px;
+  font-size: 11px;
   font-style: italic;
 
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-.el-couple-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.cr-people__amp {
+  align-self: center;
 
-  width: 36px;
-}
-
-.el-couple-divider i {
-  color: #c9a45c;
+  color: var(--cr-accent);
 
   font-family: Georgia, serif;
-  font-size: 30px;
+  font-size: 28px;
   font-style: italic;
-  font-weight: 400;
 }
 
 /* =========================================================
-   WEDDING DATE
+   NGÀY CƯỚI
 ========================================================= */
 
-.el-wedding-date {
-  position: relative;
+.cr-date {
+  margin: 30px auto 0;
+  max-width: 400px;
 
-  margin: 36px auto 0;
-  max-width: 420px;
+  padding: 20px 16px 18px;
 
-  padding: 22px 16px 20px;
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+  border-radius: 16px;
 
-  border: 1px solid rgba(201, 164, 92, 0.55);
-  border-radius: 60% 60% 24px 24px / 28% 28% 24px 24px;
-
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(var(--cr-surface-rgb), 0.85);
 }
 
-.el-date-top {
+.cr-date__top {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
 
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.el-weekday {
-  color: #123b2e;
+.cr-date__top b {
+  color: var(--cr-ink);
 
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
   letter-spacing: 0.26em;
 }
 
-.el-date-line {
-  width: 42px;
+.cr-date__top span {
+  width: 40px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.85));
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
 }
 
-.el-date-line:last-child {
+.cr-date__top span:last-child {
   transform: rotate(180deg);
 }
 
-.el-date-main {
+.cr-date__main {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
 
-  max-width: 300px;
+  max-width: 290px;
 
-  margin: auto;
+  margin: 0 auto;
 }
 
-.el-date-side {
+.cr-date__side {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
 }
 
-.el-date-side span {
-  color: #8a7a52;
+.cr-date__side span {
+  color: var(--cr-muted);
 
   font-size: 10px;
-  font-weight: 700;
 
   letter-spacing: 0.2em;
 }
 
-.el-date-side strong {
-  color: #123b2e;
+.cr-date__side strong {
+  color: var(--cr-ink);
+
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.cr-date__day {
+  padding: 0 20px;
+
+  font-family: "Viaoda Libre", "Playfair Display", serif;
+
+  font-size: 62px;
+
+  line-height: 0.95;
+
+  color: var(--cr-ink);
+}
+
+.cr-date__lunar {
+  margin: 12px 0 0;
+
+  color: var(--cr-soft);
+
+  font-size: 11px;
+  font-style: italic;
+}
+
+.cr-date__time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 14px;
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(var(--cr-accent-rgb), 0.9);
+}
+
+.cr-date__time span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.2em;
+}
+
+.cr-date__time strong {
+  margin-top: 2px;
+
+  color: var(--cr-ink);
 
   font-size: 20px;
   font-weight: 600;
 }
 
-.el-date-day {
-  padding: 0 22px;
-
-  color: #123b2e;
-
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 66px;
-  font-weight: 600;
-
-  line-height: 0.95;
-}
-
-.el-lunar {
-  margin-top: 12px;
-
-  color: #6b7a70;
-
-  font-size: 11px;
-  font-style: italic;
-
-  letter-spacing: 0.05em;
-}
-
-.el-wedding-time {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  margin-top: 18px;
-}
-
-.el-time-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-  font-weight: 600;
-}
-
-.el-time-label {
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
-
-  color: #8a7a52;
-}
-
-.el-time-content strong {
-  margin-top: 1px;
-
-  color: #123b2e;
-
-  font-size: 21px;
-  font-weight: 600;
-
-  line-height: 1;
-}
-
 /* =========================================================
-   MOBILE
+   MOBILE NHỎ
 ========================================================= */
 
-@media (max-width: 480px) {
-  .el-couple {
-    padding: 40px 16px 36px;
-  }
-
-  .el-people {
+@media (max-width: 380px) {
+  .cr-people {
     gap: 6px;
   }
 
-  .el-person {
+  .cr-person {
     padding: 14px 6px 12px;
   }
 
-  .el-person__avatar {
-    width: 62px;
-    height: 62px;
+  .cr-person__avatar {
+    width: 64px;
+    height: 64px;
   }
 
-  .el-people h3 {
-    font-size: 30px;
-  }
-
-  .el-parents {
+  .cr-person__desc {
     font-size: 10px;
   }
 
-  .el-person__desc {
-    font-size: 11px;
-  }
-
-  .el-couple-divider {
-    width: 25px;
-  }
-
-  .el-couple-divider i {
-    font-size: 24px;
-  }
-
-  .el-date-day {
+  .cr-date__day {
     padding: 0 12px;
 
-    font-size: 58px;
+    font-size: 54px;
   }
 
-  .el-date-side strong {
-    font-size: 18px;
-  }
-
-  .el-date-line {
-    width: 28px;
-  }
-}
-
-@media (max-width: 360px) {
-  .el-people {
-    gap: 3px;
-  }
-
-  .el-people h3 {
-    font-size: 26px;
-  }
-
-  .el-person__desc {
-    font-size: 10px;
-  }
-
-  .el-date-day {
-    font-size: 52px;
+  .cr-date__top span {
+    width: 26px;
   }
 }
 </style>

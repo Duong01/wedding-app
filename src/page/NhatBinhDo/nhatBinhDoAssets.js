@@ -8,6 +8,14 @@ import may from "@/assets/nhat-binh-do-red/may.webp";
 import quat from "@/assets/nhat-binh-do-red/quat.webp";
 import corner from "@/assets/nhat-binh-do-red/corner.webp";
 
+/*
+ * Ảnh phong bì hộp quà mừng.
+ *
+ * Mẫu gốc dùng /images/envelope/nhat_binh_red.webp — cùng bộ ảnh
+ * với nhat_binh_red.webp trong assets của theme này.
+ */
+import envelopeNhatBinhRed from "@/assets/nhat-binh-do-red/nhat_binh_red.webp";
+
 export {
   chineseHappiness,
   chuHy,
@@ -18,4 +26,5 @@ export {
   may,
   quat,
   corner,
+  envelopeNhatBinhRed,
 };

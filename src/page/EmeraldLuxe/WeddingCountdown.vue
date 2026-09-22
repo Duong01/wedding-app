@@ -1,11 +1,27 @@
 <template>
-  <section class="el-countdown">
-    <p class="el-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
+  <section class="cr-countdown">
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-countdown__blossom"
+      draggable="false"
+    />
 
-    <h2>Đếm ngược</h2>
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">Đếm ngược</h2>
 
-    <div class="el-countdown__grid">
-      <article v-for="item in values" :key="item.label" class="el-countdown__item">
+      <p class="cr-heading__zh">婚禮倒數</p>
+
+      <div class="cr-heading__ornament" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
+      </div>
+    </header>
+
+    <div class="cr-countdown__grid">
+      <article v-for="item in values" :key="item.label" class="cr-countdown__item">
         <b>{{ item.value }}</b>
         <span>{{ item.label }}</span>
       </article>
@@ -16,6 +32,8 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
+
+import { cherryBlossom } from "./emeraldLuxeAssets";
 
 const props = defineProps({
   countdown: { type: [String, Date, Object], default: "" },
@@ -33,7 +51,9 @@ onMounted(() => {
 
 onUnmounted(() => window.clearInterval(timer));
 
-const target = computed(() => props.countdown?.Target || props.countdown || props.weddingDate);
+const target = computed(
+  () => props.countdown?.Target || props.countdown || props.weddingDate
+);
 
 const values = computed(() => {
   const seconds = Math.max(0, dayjs(target.value).diff(dayjs(now.value), "second"));
@@ -51,114 +71,147 @@ const values = computed(() => {
 </script>
 
 <style scoped>
-.el-countdown {
+.cr-countdown {
   position: relative;
 
   text-align: center;
 
-  color: #2e3d36;
-
-  padding: 6px 18px;
+  color: var(--cr-ink);
 }
 
-/* Fine gold lattice texture */
-.el-countdown::before {
-  content: "";
+.cr-countdown__blossom {
   position: absolute;
-  inset: 0;
 
-  opacity: 0.05;
+  top: 0;
+  left: -18px;
 
-  background-image:
-    repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px);
+  width: 88px;
+  height: 88px;
+
+  object-fit: contain;
+
+  opacity: 0.45;
 
   pointer-events: none;
 }
 
-.el-eyebrow {
+/* =========================================================
+   TIÊU ĐỀ
+========================================================= */
+
+.cr-heading {
   position: relative;
 
+  text-align: center;
+
+  margin-bottom: 20px;
+}
+
+.cr-heading__vi {
   margin: 0;
 
-  color: #8a7a52;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: 10px;
-  font-weight: 700;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
 
   letter-spacing: 0.3em;
   text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
 }
 
-.el-countdown h2 {
-  position: relative;
+.cr-heading__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  margin: 6px 0 18px;
+  margin-top: 12px;
 
-  font-family: "Great Vibes", cursive;
-
-  font-size: clamp(30px, 8vw, 40px);
-  font-weight: 400;
-
-  color: #123b2e;
+  color: var(--cr-accent);
 }
 
-.el-countdown__grid {
-  position: relative;
+.cr-heading__ornament span {
+  width: 52px;
+  height: 1px;
 
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
+}
+
+.cr-heading__ornament span:last-child {
+  transform: rotate(180deg);
+}
+
+.cr-heading__ornament i {
+  font-size: 13px;
+  font-style: normal;
+}
+
+/* =========================================================
+   Ô ĐẾM
+========================================================= */
+
+.cr-countdown__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
-.el-countdown__item {
-  padding: 16px 2px;
+.cr-countdown__item {
+  padding: 15px 2px;
 
-  border: 1px solid rgba(201, 164, 92, 0.55);
-  border-radius: 999px 999px 16px 16px;
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+  border-radius: 14px;
 
-  background: linear-gradient(172deg, rgba(255, 255, 255, 0.92), rgba(240, 234, 216, 0.72));
-
-  box-shadow: 0 8px 22px rgba(12, 43, 33, 0.08);
+  background: rgba(var(--cr-surface-rgb), 0.88);
 
   transition: transform 0.25s ease;
 }
 
-.el-countdown__item:nth-child(odd) {
-  transform: rotate(-1.2deg);
+.cr-countdown__item:hover {
+  transform: translateY(-3px);
 }
 
-.el-countdown__item:nth-child(even) {
-  transform: rotate(1.2deg);
-}
-
-.el-countdown__item:hover {
-  transform: rotate(0deg) translateY(-3px);
-}
-
-.el-countdown__item b {
+.cr-countdown__item b {
   display: block;
 
-  font-family: "Playfair Display", Georgia, serif;
+  margin-bottom: 3px;
 
-  color: #123b2e;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
   font-size: clamp(22px, 7vw, 30px);
-  font-weight: 600;
+  font-weight: 400;
 
-  margin-bottom: 4px;
+  color: var(--cr-ink);
 }
 
-.el-countdown__item span {
+.cr-countdown__item span {
+  color: var(--cr-muted);
+
   font-size: 10px;
 
   letter-spacing: 0.14em;
-
-  color: #8a7a52;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .el-countdown__item {
+  .cr-countdown__item {
     transition: none;
   }
 }

@@ -1,5 +1,11 @@
 <template>
   <section class="lc-events" ref="sectionRef">
+    <header v-if="eyebrow || heading" class="lc-events__head">
+      <p v-if="eyebrow" class="lc-eyebrow">{{ eyebrow }}</p>
+
+      <h2 v-if="heading">{{ heading }}</h2>
+    </header>
+
     <div class="lc-events__list">
       <article
         v-for="(event, index) in normalizedEvents"
@@ -216,11 +222,21 @@ import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+import { sectionText } from "@/data/sectionTitles";
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "events", "Eyebrow", "TIỆC BÁO HỶ")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "events", "Heading", "Thông tin tiệc báo hỷ")
+);
 
 const route = useRoute();
 
@@ -476,6 +492,41 @@ onBeforeUnmount(() => {
   width: 100%;
 
   overflow: hidden;
+}
+
+/* =====================================================
+   SECTION HEADING
+===================================================== */
+
+.lc-events__head {
+  margin-bottom: 34px;
+
+  text-align: center;
+}
+
+.lc-eyebrow {
+  margin: 0;
+
+  color: #a086b4;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lc-events__head h2 {
+  margin: 6px 0 0;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 30px;
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  color: #584a5b;
 }
 
 /* =====================================================

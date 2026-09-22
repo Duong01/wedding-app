@@ -123,5 +123,10 @@ export function createDefaultWedding(themeName = "traditional-red") {
       Title: "",
       Autoplay: false,
     },
+    /*
+     * Tiêu đề các mục trên thiệp — người dùng đổi ở
+     * panel "Tiêu đề mục". Xem src/data/sectionTitles.js.
+     */
+    sections: {},
   };
 }

@@ -1,105 +1,153 @@
 <template>
-  <section class="bt-events" ref="sectionRef">
-    <div class="bt-events__list">
-      <article
-        v-for="(event, index) in normalizedEvents"
-        :key="event.Id || event.id || index"
-        class="bt-event-card reveal"
-        :style="{ '--delay': `${index * 120}ms` }"
-      >
-        <!-- EVENT TITLE -->
-        <div class="bt-event-heading">
-          <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+  <section ref="sectionRef" class="bq-events">
+    <img
+      :src="flower3"
+      alt=""
+      aria-hidden="true"
+      class="bq-events__flower bq-events__flower--tl"
+      draggable="false"
+    />
 
-          <div class="bt-mini-divider">
-            <span></span>
-            <i>❋</i>
-            <span></span>
+    <img
+      :src="flower3"
+      alt=""
+      aria-hidden="true"
+      class="bq-events__flower bq-events__flower--tr"
+      draggable="false"
+    />
+
+    <img
+      :src="flower4"
+      alt=""
+      aria-hidden="true"
+      class="bq-events__flower bq-events__flower--bl"
+      draggable="false"
+    />
+
+    <img
+      :src="flower4"
+      alt=""
+      aria-hidden="true"
+      class="bq-events__flower bq-events__flower--br"
+      draggable="false"
+    />
+
+    <div class="bq-events__inner">
+      <h2 class="bq-heading">THÔNG TIN TIỆC CƯỚI</h2>
+
+      <img
+        :src="line2"
+        alt=""
+        aria-hidden="true"
+        class="bq-events__line"
+        draggable="false"
+      />
+
+      <div class="bq-events__list">
+        <article
+          v-for="(event, index) in normalizedEvents"
+          :key="event.Id || event.id || index"
+          class="bq-event reveal"
+          :style="{ '--delay': `${index * 120}ms` }"
+        >
+          <h3 class="bq-event__title">
+            {{ event.Title || "Tiệc cưới sẽ diễn ra vào lúc:" }}
+          </h3>
+
+          <!-- NGÀY GIỜ -->
+          <div v-if="event.hasDate" class="bq-event__when">
+            <span v-if="event.weekday">{{ event.weekday }}</span>
+            <span v-if="event.time">{{ event.time }}</span>
           </div>
-        </div>
 
-        <!-- DATE -->
-        <div v-if="event.hasDate" class="bt-event-date">
-          <div class="bt-event-weekday">{{ event.weekday }}</div>
+          <div v-if="event.hasDate" class="bq-event__date">
+            <img
+              :src="line4"
+              alt=""
+              aria-hidden="true"
+              class="bq-event__date-line"
+              draggable="false"
+            />
 
-          <div class="bt-event-main-date">
-            <div class="bt-date-side">
-              <span>THÁNG</span>
-              <strong>{{ event.month }}</strong>
+            <span class="bq-event__day">{{ event.day }}</span>
+
+            <span class="bq-event__bar" aria-hidden="true"></span>
+
+            <div class="bq-event__side">
+              <span>THÁNG {{ event.month }}</span>
+              <span>{{ event.year }}</span>
             </div>
 
-            <div class="bt-date-number">{{ event.day }}</div>
+            <img
+              :src="line4"
+              alt=""
+              aria-hidden="true"
+              class="bq-event__date-line bq-event__date-line--flip"
+              draggable="false"
+            />
+          </div>
 
-            <div class="bt-date-side">
-              <span>NĂM</span>
-              <strong>{{ event.year }}</strong>
+          <p v-if="event.lunar" class="bq-event__lunar">({{ event.lunar }})</p>
+
+          <!-- ĐÓN KHÁCH / KHAI TIỆC -->
+          <div v-if="event.receptionTime || event.ceremonyTime" class="bq-event__schedule">
+            <div v-if="event.receptionTime" class="bq-schedule">
+              <span class="bq-schedule__label">Đón khách</span>
+              <strong class="bq-schedule__time">{{ event.receptionTime }}</strong>
+            </div>
+
+            <div v-if="event.ceremonyTime" class="bq-schedule">
+              <span class="bq-schedule__label">Khai tiệc</span>
+              <strong class="bq-schedule__time">{{ event.ceremonyTime }}</strong>
             </div>
           </div>
 
-          <div v-if="event.lunar" class="bt-event-lunar">{{ event.lunar }}</div>
-        </div>
+          <!-- ĐỊA ĐIỂM -->
+          <div v-if="event.location || event.address" class="bq-event__place">
+            <span class="bq-event__place-label">ĐỊA ĐIỂM</span>
 
-        <!-- TIME -->
-        <div v-if="event.time" class="bt-event-time">
-          <div>
-            <small>THỜI GIAN</small>
-            <strong>{{ event.time }}</strong>
+            <p v-if="event.location" class="bq-event__place-name">{{ event.location }}</p>
+
+            <p v-if="event.address" class="bq-event__place-address">{{ event.address }}</p>
           </div>
-        </div>
 
-        <!-- SCHEDULE -->
-        <div v-if="event.receptionTime || event.ceremonyTime" class="bt-event-schedule">
-          <div v-if="event.receptionTime" class="bt-schedule-row">
-            <div class="bt-schedule-dot"><span>❋</span></div>
-
-            <div class="bt-schedule-content">
-              <span>ĐÓN KHÁCH</span>
-              <strong>{{ event.receptionTime }}</strong>
+          <!-- LỊCH -->
+          <div v-if="event.date && event.calendarDays?.length" class="bq-calendar">
+            <div class="bq-calendar__header">
+              Tháng {{ event.month }} / {{ event.year }}
             </div>
-          </div>
 
-          <div v-if="event.ceremonyTime" class="bt-schedule-row">
-            <div class="bt-schedule-dot"><span>✽</span></div>
-
-            <div class="bt-schedule-content">
-              <span>KHAI TIỆC</span>
-              <strong>{{ event.ceremonyTime }}</strong>
+            <div class="bq-calendar__weekdays">
+              <span>T2</span>
+              <span>T3</span>
+              <span>T4</span>
+              <span>T5</span>
+              <span>T6</span>
+              <span>T7</span>
+              <span>CN</span>
             </div>
-          </div>
-        </div>
 
-        <!-- CALENDAR -->
-        <div v-if="event.date && event.calendarDays?.length" class="bt-calendar">
-          <div class="bt-calendar__header">
-            <span>LỊCH</span>
-            <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
-          </div>
+            <div class="bq-calendar__days">
+              <div
+                v-for="(day, dayIndex) in event.calendarDays"
+                :key="dayIndex"
+                class="bq-calendar__cell"
+                :class="{ 'is-empty': !day, 'is-active': day === Number(event.day) }"
+              >
+                <template v-if="day">
+                  <span v-if="day === Number(event.day)" class="bq-calendar__heart">
+                    <svg viewBox="0 0 24 22" fill="currentColor" aria-hidden="true">
+                      <path
+                        d="M12 21C12 21 1.5 13.5 1.5 7.5C1.5 4.46 3.96 2 7 2C8.76 2 10.35 2.81 11.4 4.09L12 4.8L12.6 4.09C13.65 2.81 15.24 2 17 2C20.04 2 22.5 4.46 22.5 7.5C22.5 13.5 12 21 12 21Z"
+                      />
+                    </svg>
 
-          <div class="bt-calendar__weekdays">
-            <span>CN</span>
-            <span>T2</span>
-            <span>T3</span>
-            <span>T4</span>
-            <span>T5</span>
-            <span>T6</span>
-            <span>T7</span>
-          </div>
+                    <b>{{ day }}</b>
+                  </span>
 
-          <div class="bt-calendar__days">
-            <div
-              v-for="(day, dayIndex) in event.calendarDays"
-              :key="dayIndex"
-              class="bt-calendar__cell"
-              :class="{ empty: !day, active: day === Number(event.day) }"
-            >
-              <template v-if="day">
-                <div v-if="day === Number(event.day)" class="bt-active-day">
-                  <span class="bt-active-sun">☼</span>
-                  <span>{{ day }}</span>
-                </div>
-
-                <span v-else class="bt-normal-day">{{ day }}</span>
-              </template>
+                  <span v-else class="bq-calendar__day">{{ day }}</span>
+                </template>
+              </div>
             </div>
           </div>
 
@@ -108,100 +156,93 @@
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="bt-calendar-btn"
+            class="bq-event__calendar-link"
           >
-            <span>＋</span>
-            THÊM VÀO LỊCH
+            Thêm vào lịch
           </a>
-        </div>
+        </article>
+      </div>
 
-        <!-- RSVP -->
-        <button type="button" class="bt-rsvp-btn" @click="openConfirmModal(event)">
-          <span>❋</span>
-          XÁC NHẬN THAM DỰ
-          <span>❋</span>
-        </button>
-
-        <div class="bt-event-bottom">
-          <span></span>
-          <i>✽</i>
-          <span></span>
-        </div>
-      </article>
+      <!-- XÁC NHẬN THAM DỰ -->
+      <button type="button" class="bq-rsvp-btn" @click="openConfirmModal(normalizedEvents[0])">
+        XÁC NHẬN THAM DỰ
+      </button>
     </div>
 
-    <!-- RSVP MODAL -->
+    <!-- =====================================================
+         MODAL XÁC NHẬN
+    ====================================================== -->
     <Teleport to="body">
-      <Transition name="bt-modal">
-        <div v-if="showConfirmModal" class="bt-confirm-overlay" @click.self="closeConfirmModal">
-          <div class="bt-confirm-modal">
-            <button type="button" class="bt-modal-close" @click="closeConfirmModal">×</button>
+      <Transition name="bq-modal">
+        <div v-if="showConfirmModal" class="bq-confirm" @click.self="closeConfirmModal">
+          <div class="bq-confirm__card">
+            <button type="button" class="bq-confirm__close" @click="closeConfirmModal">×</button>
 
-            <div class="bt-modal-header">
-              <div class="bt-modal-symbol">☼</div>
+            <h3 class="bq-confirm__title">Xác nhận tham dự</h3>
 
-              <span>THE CELEBRATION</span>
+            <p class="bq-confirm__desc">
+              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+            </p>
 
-              <h3>Xác nhận tham dự</h3>
-
-              <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
-            </div>
-
-            <!-- RECIPIENT -->
-            <div v-if="hasRecipient" class="bt-recipient-box">
+            <div v-if="hasRecipient" class="bq-confirm__recipient">
               <span>TRÂN TRỌNG KÍNH MỜI</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
-            <!-- NAME -->
-            <div v-else class="bt-form-group">
+            <div v-else class="bq-field">
               <label>Họ và tên</label>
 
-              <input v-model.trim="form.name" type="text" maxlength="100" placeholder="Nhập tên của bạn" />
+              <input
+                v-model.trim="form.name"
+                type="text"
+                maxlength="100"
+                placeholder="Nhập tên của bạn"
+              />
             </div>
 
-            <!-- ATTENDANCE -->
-            <div class="bt-form-group">
+            <div class="bq-field">
               <label>Bạn có tham dự không?</label>
 
-              <div class="bt-attendance">
+              <div class="bq-attendance">
                 <button
                   type="button"
-                  class="bt-attendance-option"
-                  :class="{ selected: form.attendance === 'attending' }"
+                  class="bq-attendance__option"
+                  :class="{ 'is-selected': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  <span>✓</span>
                   Có, tôi sẽ tham dự
                 </button>
 
                 <button
                   type="button"
-                  class="bt-attendance-option"
-                  :class="{ selected: form.attendance === 'not_attending' }"
+                  class="bq-attendance__option"
+                  :class="{ 'is-selected': form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  <span>×</span>
                   Rất tiếc, tôi không thể tham dự
                 </button>
               </div>
             </div>
 
-            <!-- PEOPLE -->
-            <div v-if="form.attendance === 'attending'" class="bt-form-group">
+            <div v-if="form.attendance === 'attending'" class="bq-field">
               <label>Số người tham dự</label>
 
-              <div class="bt-people-control">
+              <div class="bq-people-control">
                 <button type="button" @click="decreasePeople">−</button>
                 <strong>{{ form.numberOfPeople }}</strong>
                 <button type="button" @click="increasePeople">+</button>
               </div>
             </div>
 
-            <div v-if="errorMessage" class="bt-form-error">{{ errorMessage }}</div>
-            <div v-if="successMessage" class="bt-form-success">{{ successMessage }}</div>
+            <p v-if="errorMessage" class="bq-form-error">{{ errorMessage }}</p>
+            <p v-if="successMessage" class="bq-form-success">{{ successMessage }}</p>
 
-            <button type="button" class="bt-modal-submit" :disabled="submitting" @click="submitConfirmation">
+            <button
+              type="button"
+              class="bq-confirm__submit"
+              :disabled="submitting"
+              @click="submitConfirmation"
+            >
               {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
             </button>
           </div>
@@ -216,6 +257,8 @@ import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+
+import { flower3, flower4, line2, line4 } from "./bohoTerracottaAssets";
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
@@ -254,7 +297,7 @@ const recipientName = computed(() => {
 const hasRecipient = computed(() => !!recipientName.value);
 
 /* =========================================
-   NORMALIZE EVENTS
+   CHUẨN HOÁ SỰ KIỆN
 ========================================= */
 
 const normalizedEvents = computed(() => {
@@ -273,12 +316,21 @@ const normalizedEvents = computed(() => {
       month = date.format("MM");
       year = date.format("YYYY");
 
-      const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+      const weekdays = [
+        "CHỦ NHẬT",
+        "THỨ HAI",
+        "THỨ BA",
+        "THỨ TƯ",
+        "THỨ NĂM",
+        "THỨ SÁU",
+        "THỨ BẢY",
+      ];
 
       weekday = weekdays[date.day()];
     }
 
-    const calendarDays = item.calendarDays || buildCalendarDays(Number(year), Number(month));
+    const calendarDays =
+      item.calendarDays || buildCalendarDays(Number(year), Number(month));
 
     return {
       ...item,
@@ -298,7 +350,7 @@ const normalizedEvents = computed(() => {
 
       date: rawDate,
 
-      lunar: item.LunarDate || item.lunar || "",
+      lunar: item.LunarDate || item.Lunar || item.lunar || "",
 
       receptionTime: item.ReceptionTime || item.receptionTime || "",
 
@@ -320,7 +372,8 @@ const normalizedEvents = computed(() => {
 });
 
 /* =========================================
-   CALENDAR
+   LỊCH THÁNG
+   Tuần bắt đầu từ thứ Hai (T2 → CN).
 ========================================= */
 
 function buildCalendarDays(year, month) {
@@ -330,7 +383,8 @@ function buildCalendarDays(year, month) {
 
   const daysInMonth = firstDay.daysInMonth();
 
-  const startDay = firstDay.day();
+  /* dayjs: 0 = Chủ nhật → đổi sang cột T2..CN */
+  const startDay = (firstDay.day() + 6) % 7;
 
   const result = [];
 
@@ -346,11 +400,11 @@ function buildCalendarDays(year, month) {
 }
 
 /* =========================================
-   RSVP
+   XÁC NHẬN THAM DỰ
 ========================================= */
 
 function openConfirmModal(event) {
-  selectedEvent.value = event;
+  selectedEvent.value = event || null;
 
   form.value = {
     name: recipientName.value || "",
@@ -441,7 +495,7 @@ async function submitConfirmation() {
 }
 
 /* =========================================
-   SCROLL REVEAL
+   HIỆN DẦN KHI CUỘN
 ========================================= */
 
 let observer;
@@ -470,531 +524,469 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.bt-events {
+.bq-events {
   position: relative;
+  isolation: isolate;
 
   width: 100%;
 
   overflow: hidden;
-}
-
-/* =====================================================
-   EVENTS LIST
-===================================================== */
-
-.bt-events__list {
-  width: min(100%, 680px);
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 34px;
-}
-
-/* =====================================================
-   EVENT CARD
-===================================================== */
-
-.bt-event-card {
-  position: relative;
-
-  width: 100%;
-  max-width: 520px;
-
-  padding: 30px 24px 26px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   text-align: center;
 
-  color: #5c4636;
-
-  border: 2px dashed rgba(156, 91, 63, 0.45);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(172deg, rgba(255, 251, 245, 0.94), rgba(242, 226, 208, 0.85));
-
-  box-shadow: 0 18px 44px rgba(92, 70, 54, 0.12);
-
-  overflow: hidden;
+  color: var(--bq-ink);
 }
 
-.bt-event-card::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
+/* =========================================================
+   HOA VĂN BỐN GÓC
+========================================================= */
 
-  border: 1px solid rgba(156, 91, 63, 0.22);
-  border-radius: 999px 999px 20px 20px;
+.bq-events__flower {
+  position: absolute;
+
+  z-index: 1;
+
+  max-width: none;
+  height: auto;
+
+  object-fit: contain;
 
   pointer-events: none;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-/* =====================================================
-   HEADING
-===================================================== */
+.bq-events__flower--tl {
+  top: -13px;
+  left: -13%;
 
-.bt-event-heading {
+  width: 46.3%;
+
+  transform: scaleX(-1);
+}
+
+.bq-events__flower--tr {
+  top: -13px;
+  right: -13%;
+
+  width: 46.3%;
+}
+
+.bq-events__flower--bl {
+  bottom: 9px;
+  left: -9.5%;
+
+  width: 40.7%;
+}
+
+.bq-events__flower--br {
+  right: -9.5%;
+  bottom: 9px;
+
+  width: 40.7%;
+
+  transform: scaleX(-1);
+}
+
+.bq-events__inner {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   width: 100%;
-  text-align: center;
+  max-width: 400px;
+
+  margin: 0 auto;
+
+  padding: 76px 20px 40px;
 }
 
-.bt-event-heading h2 {
-  margin: 0 0 8px;
+/* =========================================================
+   TIÊU ĐỀ
+========================================================= */
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+.bq-heading {
+  margin: 0;
 
-  font-size: 30px;
-  font-weight: 600;
+  color: var(--bq-accent);
+
+  font-family: "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
 
   letter-spacing: 0.04em;
 
-  color: #9c5b3f;
+  text-transform: uppercase;
 }
 
-.bt-mini-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+.bq-events__line {
+  display: block;
 
-  color: #c97b5d;
+  width: 143px;
+  max-width: none;
+  height: auto;
+
+  margin: 10px auto 12px;
+
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-mini-divider span {
-  width: 35px;
-  height: 1px;
+/* =========================================================
+   SỰ KIỆN
+========================================================= */
 
-  background: linear-gradient(90deg, transparent, rgba(156, 91, 63, 0.7));
-}
-
-.bt-mini-divider span:last-child {
-  transform: rotate(180deg);
-}
-
-.bt-mini-divider i {
-  font-size: 12px;
-  font-style: normal;
-}
-
-/* =====================================================
-   DATE
-===================================================== */
-
-.bt-event-date {
-  width: 100%;
-  text-align: center;
-}
-
-.bt-event-weekday {
-  margin-top: 14px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.24em;
-
-  color: #8a9b7c;
-}
-
-.bt-event-main-date {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-
-  margin: 8px 0;
-}
-
-.bt-date-number {
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: clamp(44px, 13vw, 76px);
-  font-weight: 600;
-
-  line-height: 0.85;
-
-  color: #9c5b3f;
-}
-
-.bt-date-side {
+.bq-events__list {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 34px;
 
-  font-size: 10px;
-
-  letter-spacing: 0.14em;
-
-  color: #8a9b7c;
+  width: 100%;
 }
 
-.bt-date-side strong {
-  font-size: 18px;
+.bq-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+
+  opacity: 0;
+  transform: translateY(18px);
+
+  transition: opacity 0.7s ease var(--delay, 0ms),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms);
+}
+
+.bq-event.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.bq-event__title {
+  margin: 0;
+
+  color: var(--bq-accent);
+
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 17px;
   font-weight: 600;
 
-  color: #9c5b3f;
+  letter-spacing: 0.02em;
+
+  text-transform: uppercase;
 }
 
-.bt-event-lunar {
+.bq-event__when {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+
+  color: var(--bq-ink);
+
   font-size: 14px;
-  font-style: italic;
+  font-weight: 600;
 
-  color: #8a6f5c;
+  text-transform: uppercase;
 }
 
-/* =====================================================
-   TIME
-===================================================== */
+/* =========================================================
+   NGÀY
+========================================================= */
 
-.bt-event-time {
-  width: 100%;
-
+.bq-event__date {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 9px;
 
-  margin: 10px auto 0;
-  padding: 15px 0;
+  color: var(--bq-accent);
 
-  border-bottom: 1px dashed rgba(156, 91, 63, 0.35);
+  font-family: "Times New Roman", serif;
 }
 
-.bt-event-time div {
+.bq-event__date-line {
+  display: block;
+
+  height: 84px;
+  width: auto;
+  max-width: none;
+
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
+}
+
+.bq-event__date-line--flip {
+  transform: scaleX(-1);
+}
+
+.bq-event__day {
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 52px;
+
+  line-height: 1;
+}
+
+.bq-event__bar {
+  width: 1px;
+  height: 46px;
+
+  background-color: var(--bq-accent);
+}
+
+.bq-event__side {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.bt-event-time small {
-  font-size: 10px;
-
-  letter-spacing: 0.2em;
-
-  color: #8a9b7c;
-}
-
-.bt-event-time strong {
-  font-size: 23px;
-  font-weight: 600;
-
-  color: #9c5b3f;
-}
-
-/* =====================================================
-   SCHEDULE
-===================================================== */
-
-.bt-event-schedule {
-  position: relative;
-
-  width: min(100%, 380px);
-
-  margin: 20px auto 0;
-  padding-left: 28px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
 
   text-align: left;
+
+  font-size: 16px;
+
+  text-transform: uppercase;
 }
 
-.bt-event-schedule::before {
-  content: "";
-  position: absolute;
+.bq-event__lunar {
+  margin: 0;
 
-  left: 6px;
-  top: 12px;
-  bottom: 12px;
+  color: var(--bq-ink);
 
-  width: 1px;
+  font-size: 12px;
 
-  background: rgba(156, 91, 63, 0.45);
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
 }
 
-.bt-schedule-row {
-  position: relative;
+/* =========================================================
+   ĐÓN KHÁCH / KHAI TIỆC
+========================================================= */
 
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  min-height: 42px;
-}
-
-.bt-schedule-dot {
-  position: absolute;
-  left: -28px;
-
-  width: 13px;
-  height: 13px;
-
+.bq-event__schedule {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 32px;
 
-  border-radius: 50%;
-  border: 1px solid #c97b5d;
-
-  background: #faf3ec;
-
-  z-index: 2;
+  margin-top: 6px;
 }
 
-.bt-schedule-dot span {
-  font-size: 11px;
-
-  color: #8a9b7c;
-}
-
-.bt-schedule-content {
-  width: 100%;
-
+.bq-schedule {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
 }
 
-.bt-schedule-content span {
+.bq-schedule__label {
+  color: var(--bq-ink);
+
   font-size: 11px;
 
-  letter-spacing: 0.16em;
-
-  color: #8a6f5c;
+  text-transform: uppercase;
 }
 
-.bt-schedule-content strong {
-  font-size: 21px;
+.bq-schedule__time {
+  margin-top: 4px;
+
+  color: var(--bq-accent);
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   ĐỊA ĐIỂM
+========================================================= */
+
+.bq-event__place {
+  margin-top: 6px;
+}
+
+.bq-event__place-label {
+  display: block;
+
+  color: var(--bq-muted);
+
+  font-size: 10px;
   font-weight: 600;
 
-  color: #9c5b3f;
-}
-
-/* =====================================================
-   CALENDAR
-===================================================== */
-
-.bt-calendar {
-  width: min(100%, 400px);
-
-  margin: 25px auto 0;
-
-  text-align: center;
-}
-
-.bt-calendar__header {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 12px;
-}
-
-.bt-calendar__header span {
-  font-size: 11px;
-  font-weight: 700;
-
   letter-spacing: 0.2em;
-
-  color: #8a9b7c;
 }
 
-.bt-calendar__header strong {
-  font-size: 11px;
+.bq-event__place-name {
+  margin: 6px 0 0;
 
-  letter-spacing: 0.1em;
+  color: var(--bq-accent);
 
-  color: #9c5b3f;
+  font-size: 15px;
+  font-weight: 600;
+
+  line-height: 1.45;
 }
 
-.bt-calendar__weekdays,
-.bt-calendar__days {
+.bq-event__place-address {
+  max-width: 300px;
+  margin: 4px auto 0;
+
+  color: var(--bq-ink);
+
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   LỊCH
+========================================================= */
+
+.bq-calendar {
   width: 100%;
+  max-width: 300px;
 
+  margin-top: 10px;
+
+  color: var(--bq-accent);
+}
+
+.bq-calendar__header {
+  padding: 10px 0;
+
+  border-bottom: 1px solid var(--bq-line);
+
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bq-calendar__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
-  text-align: center;
+  border-bottom: 2px solid var(--bq-accent);
 }
 
-.bt-calendar__weekdays {
-  padding-bottom: 8px;
+.bq-calendar__weekdays span {
+  padding: 6px 0;
 
-  border-bottom: 1px dashed rgba(156, 91, 63, 0.3);
-}
-
-.bt-calendar__weekdays span {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
 
-  color: #8a9b7c;
+  opacity: 0.6;
 }
 
-.bt-calendar__cell {
-  min-height: 31px;
+.bq-calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px 0;
 
+  padding: 8px 4px;
+}
+
+.bq-calendar__cell {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  height: 30px;
 }
 
-.bt-normal-day {
+.bq-calendar__day {
   font-size: 12px;
-
-  color: #7d6350;
 }
 
-.bt-active-day {
+.bq-calendar__heart {
   position: relative;
-
-  width: 38px;
-  height: 38px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 26px;
+  height: 24px;
 }
 
-.bt-active-sun {
+.bq-calendar__heart svg {
   position: absolute;
+  inset: 0;
 
-  font-size: 31px;
+  width: 100%;
+  height: 100%;
 
-  color: #c97b5d;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
 }
 
-.bt-active-day span:last-child {
+.bq-calendar__heart b {
   position: relative;
+  z-index: 1;
 
-  font-weight: 700;
-
-  color: #fff6ec;
-}
-
-.bt-calendar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  margin-top: 15px;
+  color: var(--bq-deep);
 
   font-size: 11px;
   font-weight: 700;
-
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  color: #8a9b7c;
 }
 
-/* =====================================================
-   RSVP
-===================================================== */
+/* =========================================================
+   THÊM VÀO LỊCH
+========================================================= */
 
-.bt-rsvp-btn {
-  width: min(100%, 400px);
+.bq-event__calendar-link {
+  margin-top: 6px;
 
-  margin: 25px auto 0;
+  color: var(--bq-accent);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
+  font-family: "Times New Roman", serif;
+  font-size: 14px;
 
-  padding: 13px 18px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* =========================================================
+   NÚT XÁC NHẬN
+========================================================= */
+
+.bq-rsvp-btn {
+  margin-top: 30px;
+  padding: 6px 32px;
 
   border: 0;
   border-radius: 999px;
 
-  color: #fff6ec;
+  color: var(--bq-deep);
 
-  background: linear-gradient(135deg, #c97b5d, #9c5b3f);
+  background: var(--bq-accent);
 
-  box-shadow: 0 10px 24px rgba(156, 91, 63, 0.28);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 13px;
 
   cursor: pointer;
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
-.bt-rsvp-btn:hover {
-  transform: translateY(-2px) rotate(-0.5deg);
-
-  box-shadow: 0 14px 30px rgba(156, 91, 63, 0.36);
+.bq-rsvp-btn:hover {
+  transform: scale(1.03);
 }
 
-/* =====================================================
-   BOTTOM ORNAMENT
-===================================================== */
-
-.bt-event-bottom {
-  width: 100%;
-
-  margin-top: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  color: #c97b5d;
-}
-
-.bt-event-bottom span {
-  width: 60px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(156, 91, 63, 0.6));
-}
-
-.bt-event-bottom span:last-child {
-  transform: rotate(180deg);
-}
-
-.bt-event-bottom i {
-  font-size: 12px;
-  font-style: normal;
-}
-
-/* =====================================================
-   REVEAL
-===================================================== */
-
-.reveal {
-  opacity: 0;
-
-  transform: translateY(35px);
-
-  transition:
-    opacity 0.8s ease var(--delay, 0ms),
-    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay, 0ms);
-}
-
-.reveal.visible {
-  opacity: 1;
-
-  transform: translateY(0);
-}
-
-/* =====================================================
+/* =========================================================
    MODAL
-===================================================== */
+========================================================= */
 
-.bt-confirm-overlay {
+.bq-confirm {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+
+  z-index: 3000;
 
   display: flex;
   align-items: center;
@@ -1002,407 +994,345 @@ onBeforeUnmount(() => {
 
   padding: 20px;
 
-  background: rgba(74, 52, 38, 0.45);
+  background: rgba(var(--bq-bg-rgb), 0.72);
 
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(3px);
 }
 
-.bt-confirm-modal {
+.bq-confirm__card {
   position: relative;
 
-  width: min(100%, 470px);
+  width: min(100%, 400px);
+  max-height: 88vh;
 
-  max-height: 90vh;
+  padding: 26px 20px 22px;
 
   overflow-y: auto;
 
-  padding: 40px 30px;
-
-  border: 2px dashed rgba(156, 91, 63, 0.5);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(172deg, #fffbf5, #f2e2d0);
-
-  box-shadow: 0 30px 80px rgba(74, 52, 38, 0.3);
-
   text-align: center;
 
-  color: #5c4636;
+  border: 1px solid var(--bq-line);
+  border-radius: 6px;
+
+  background: var(--bq-bg-2);
+
+  color: var(--bq-ink);
 }
 
-.bt-modal-close {
+.bq-confirm__close {
   position: absolute;
-  top: 12px;
-  right: 15px;
 
-  width: 35px;
-  height: 35px;
+  top: 10px;
+  right: 12px;
+
+  width: 30px;
+  height: 30px;
 
   border: 0;
+  border-radius: 50%;
 
-  font-size: 27px;
+  color: var(--bq-accent);
 
-  color: #c97b5d;
+  background: rgba(var(--bq-accent-rgb), 0.14);
 
-  background: transparent;
+  font-size: 19px;
+  line-height: 1;
 
   cursor: pointer;
 }
 
-.bt-modal-header {
-  text-align: center;
+.bq-confirm__title {
+  margin: 0 0 6px;
+
+  color: var(--bq-accent);
+
+  font-family: "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 700;
+
+  text-transform: uppercase;
 }
 
-.bt-modal-symbol {
-  font-size: 20px;
+.bq-confirm__desc {
+  margin: 0 0 18px;
 
-  margin-bottom: 8px;
+  color: var(--bq-soft);
 
-  color: #c97b5d;
+  font-size: 12px;
+
+  line-height: 1.65;
 }
 
-.bt-modal-header > span {
+.bq-confirm__recipient {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  margin-bottom: 16px;
+  padding: 12px;
+
+  border: 1px solid var(--bq-line);
+  border-radius: 6px;
+}
+
+.bq-confirm__recipient span {
+  color: var(--bq-muted);
+
   font-size: 10px;
 
-  letter-spacing: 0.28em;
-
-  color: #8a9b7c;
+  letter-spacing: 0.18em;
 }
 
-.bt-modal-header h3 {
-  margin: 8px 0;
+.bq-confirm__recipient strong {
+  color: var(--bq-accent);
 
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: 32px;
-  font-weight: 600;
-
-  color: #9c5b3f;
+  font-family: "Ms Madi", cursive;
+  font-size: 26px;
+  font-weight: 400;
 }
 
-.bt-modal-header p {
-  margin: 0;
+/* =========================================================
+   Ô NHẬP
+========================================================= */
 
-  font-size: 14px;
-
-  color: #7d6350;
-}
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.bt-form-group {
-  margin-top: 20px;
+.bq-field {
+  margin-bottom: 14px;
 
   text-align: left;
 }
 
-.bt-form-group label {
+.bq-field label {
   display: block;
 
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+
+  color: var(--bq-muted);
 
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
 
-  color: #8a9b7c;
+  text-transform: uppercase;
 }
 
-.bt-form-group input {
+.bq-field input {
   width: 100%;
 
-  padding: 13px 14px;
+  padding: 11px 14px;
 
-  border: 1px dashed rgba(156, 91, 63, 0.45);
-  border-radius: 14px;
+  box-sizing: border-box;
+
+  border: 1px solid var(--bq-accent);
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--bq-ink);
+
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 14px;
 
   outline: none;
-
-  font-size: 16px;
-
-  color: #5c4636;
-
-  background: rgba(255, 251, 245, 0.9);
-
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.bt-form-group input:focus {
-  border-color: #c97b5d;
-
-  box-shadow: 0 0 0 3px rgba(201, 123, 93, 0.16);
+.bq-field input::placeholder {
+  color: rgba(var(--bq-ink-rgb), 0.4);
 }
 
-.bt-attendance {
+.bq-attendance {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.bt-attendance-option {
-  padding: 12px 14px;
+.bq-attendance__option {
+  padding: 11px 14px;
 
-  border: 1px dashed rgba(156, 91, 63, 0.45);
-  border-radius: 14px;
+  border: 1px solid var(--bq-line);
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--bq-soft);
+
+  font-family: inherit;
+  font-size: 13px;
 
   text-align: left;
 
-  font-size: 13px;
-
-  color: #5c4636;
-
-  background: rgba(255, 251, 245, 0.8);
-
   cursor: pointer;
 
-  transition: all 0.25s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-.bt-attendance-option.selected {
-  border-color: #c97b5d;
-  border-style: solid;
+.bq-attendance__option.is-selected {
+  border-color: var(--bq-accent);
 
-  background: rgba(201, 123, 93, 0.14);
+  color: var(--bq-accent);
 
-  font-weight: 600;
+  background: rgba(var(--bq-accent-rgb), 0.1);
 }
 
-.bt-attendance-option span {
-  margin-right: 8px;
-
-  color: #8a9b7c;
-}
-
-.bt-people-control {
+.bq-people-control {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 18px;
 }
 
-.bt-people-control button {
-  width: 38px;
-  height: 38px;
+.bq-people-control button {
+  width: 34px;
+  height: 34px;
 
-  border: 1px solid #c97b5d;
+  border: 1px solid var(--bq-accent);
   border-radius: 50%;
 
-  font-size: 20px;
+  background: transparent;
 
-  color: #9c5b3f;
+  color: var(--bq-accent);
 
-  background: #faf3ec;
+  font-size: 17px;
+  line-height: 1;
 
   cursor: pointer;
 }
 
-.bt-people-control strong {
-  min-width: 25px;
+.bq-people-control strong {
+  min-width: 30px;
 
-  text-align: center;
+  color: var(--bq-accent);
 
   font-size: 18px;
-
-  color: #9c5b3f;
 }
 
-.bt-recipient-box {
-  margin: 20px 0;
-
-  padding: 18px;
-
-  border: 1px dashed rgba(156, 91, 63, 0.5);
-  border-radius: 999px 999px 16px 16px;
-
-  text-align: center;
-
-  background: rgba(255, 251, 245, 0.7);
-}
-
-.bt-recipient-box span {
-  display: block;
-
-  font-size: 10px;
-
-  letter-spacing: 0.22em;
-
-  color: #8a9b7c;
-}
-
-.bt-recipient-box strong {
-  display: block;
-  margin-top: 6px;
-
-  font-family: "Allura", cursive;
-  font-size: 28px;
-  font-weight: 400;
-
-  color: #9c5b3f;
-}
-
-.bt-form-error,
-.bt-form-success {
-  margin-top: 15px;
-
-  padding: 10px;
-
-  border-radius: 10px;
-
-  text-align: center;
+.bq-form-error,
+.bq-form-success {
+  margin: 0 0 12px;
 
   font-size: 12px;
 }
 
-.bt-form-error {
-  color: #a34d3d;
-
-  background: rgba(163, 77, 61, 0.08);
+.bq-form-error {
+  color: #ff9d9d;
 }
 
-.bt-form-success {
-  color: #66805d;
-
-  background: rgba(138, 155, 124, 0.14);
+.bq-form-success {
+  color: var(--bq-accent);
 }
 
-.bt-modal-submit {
+.bq-confirm__submit {
   width: 100%;
 
-  margin-top: 22px;
-
-  padding: 14px;
+  padding: 12px;
 
   border: 0;
   border-radius: 999px;
 
-  font-size: 10px;
-  font-weight: 700;
+  color: var(--bq-deep);
 
-  letter-spacing: 0.2em;
+  background: var(--bq-accent);
 
-  color: #fff6ec;
-
-  background: linear-gradient(135deg, #c97b5d, #9c5b3f);
-
-  box-shadow: 0 10px 24px rgba(156, 91, 63, 0.28);
+  font-family: "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 600;
 
   cursor: pointer;
-
-  transition: transform 0.25s ease;
 }
 
-.bt-modal-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
-
-.bt-modal-submit:disabled {
+.bq-confirm__submit:disabled {
   opacity: 0.6;
-
-  cursor: not-allowed;
+  cursor: default;
 }
 
-/* =====================================================
-   MODAL ANIMATION
-===================================================== */
+/* =========================================================
+   CHUYỂN ĐỘNG
+========================================================= */
 
-.bt-modal-enter-active,
-.bt-modal-leave-active {
-  transition: opacity 0.3s ease;
+.bq-modal-enter-active,
+.bq-modal-leave-active {
+  transition: opacity 0.25s ease;
 }
 
-.bt-modal-enter-from,
-.bt-modal-leave-to {
+.bq-modal-enter-from,
+.bq-modal-leave-to {
   opacity: 0;
 }
 
-.bt-modal-enter-active .bt-confirm-modal {
-  animation: bt-modal-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
 
-@keyframes bt-modal-in {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.96);
+@media (min-width: 768px) {
+  .bq-events__inner {
+    max-width: 560px;
+
+    padding: 92px 32px 40px;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 600px) {
-  .bt-events__list {
-    width: 100%;
-    padding: 0 18px;
-    gap: 25px;
+  .bq-heading {
+    font-size: 24px;
   }
 
-  .bt-event-card {
-    max-width: 430px;
-
-    padding: 26px 18px 22px;
+  .bq-events__line {
+    width: 180px;
   }
 
-  .bt-event-heading h2 {
-    font-size: 26px;
-  }
-
-  .bt-event-main-date {
-    gap: 14px;
-  }
-
-  .bt-date-number {
-    font-size: 62px;
-  }
-
-  .bt-date-side strong {
-    font-size: 16px;
-  }
-
-  .bt-event-schedule {
-    width: min(100%, 340px);
-  }
-
-  .bt-schedule-content strong {
+  .bq-event__title {
     font-size: 19px;
   }
 
-  .bt-calendar {
-    width: min(100%, 360px);
+  .bq-event__when {
+    font-size: 15px;
   }
 
-  .bt-rsvp-btn {
-    width: min(100%, 360px);
+  .bq-event__date-line {
+    height: 91px;
   }
 
-  .bt-confirm-modal {
-    padding: 35px 20px 25px;
+  .bq-event__day {
+    font-size: 57px;
+  }
+
+  .bq-event__side {
+    font-size: 17px;
+  }
+
+  .bq-event__lunar {
+    font-size: 14px;
+  }
+
+  .bq-schedule__label {
+    font-size: 13px;
+  }
+
+  .bq-calendar {
+    max-width: 360px;
+  }
+
+  .bq-calendar__cell {
+    height: 34px;
+  }
+
+  .bq-calendar__heart {
+    width: 30px;
+    height: 28px;
+  }
+
+  .bq-calendar__heart b {
+    font-size: 12px;
   }
 }
 
-/* =====================================================
-   REDUCE MOTION
-===================================================== */
+/* =========================================================
+   GIẢM CHUYỂN ĐỘNG
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .bq-event {
     opacity: 1;
-
     transform: none;
 
-    transition: none;
-  }
-
-  .bt-rsvp-btn,
-  .bt-modal-submit {
     transition: none;
   }
 }

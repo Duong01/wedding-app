@@ -6,13 +6,12 @@
       <span></span>
     </div>
 
-    <p class="lc-eyebrow">LỜI CHÚC TỪ BẠN</p>
+    <p v-if="eyebrow" class="lc-eyebrow">{{ eyebrow }}</p>
 
-    <h2>Sổ lưu bút</h2>
+    <h2>{{ heading }}</h2>
 
-    <p class="lc-wishes__intro">
-      Mỗi lời chúc là một kỷ niệm đẹp<br />
-      mà chúng mình muốn lưu giữ trong ngày đặc biệt này
+    <p v-if="intro" class="lc-wishes__intro">
+      {{ intro }}
     </p>
 
     <!-- =========================================
@@ -183,11 +182,30 @@
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
+import { sectionText } from "@/data/sectionTitles";
 
 const props = defineProps({
   wishes: { type: Array, default: () => [] },
   wedding: { type: Object, default: () => ({}) },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "guestbook", "Heading", "Sổ lưu bút")
+);
+
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "guestbook",
+    "Intro",
+    "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này"
+  )
+);
 
 const route = useRoute();
 
@@ -423,6 +441,9 @@ async function submitWish() {
   font-size: 13px;
 
   line-height: 1.7;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =========================================================

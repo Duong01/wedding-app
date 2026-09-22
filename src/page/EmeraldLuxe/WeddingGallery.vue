@@ -1,31 +1,39 @@
 <template>
-  <section class="el-gallery">
-    <div class="el-gallery__heading">
-      <span class="el-gallery__kicker">TIMELESS LOVE</span>
+  <section class="cr-gallery">
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-gallery__blossom"
+      draggable="false"
+    />
 
-      <h2>Album Ảnh Cưới</h2>
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">Album ảnh cưới</h2>
 
-      <div class="el-gallery__ornament">
+      <p class="cr-heading__zh">婚紗相簿</p>
+
+      <div class="cr-heading__ornament" aria-hidden="true">
         <span></span>
-        <i>❦</i>
+        <i>❀</i>
         <span></span>
       </div>
 
-      <p class="el-gallery__intro">
+      <p class="cr-heading__intro">
         Những khoảnh khắc đẹp nhất<br />
         được lưu giữ cùng chúng mình
       </p>
-    </div>
+    </header>
 
     <ModernGalleryCarousel
       v-if="gallery.length"
       :images="gallery"
-      accent="#c9a45c"
-      text-color="#123b2e"
+      accent="var(--cr-accent)"
+      text-color="var(--cr-ink)"
       @open="openLightbox"
     />
 
-    <div v-else class="el-gallery__empty">
+    <div v-else class="cr-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
       <p>Chưa có hình ảnh</p>
     </div>
@@ -50,6 +58,8 @@
 import { ref, defineAsyncComponent } from "vue";
 
 import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+
+import { cherryBlossom } from "./emeraldLuxeAssets";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
@@ -78,124 +88,125 @@ function closeLightbox() {
 </script>
 
 <style scoped>
-.el-gallery {
+.cr-gallery {
   position: relative;
 
   width: 100%;
 
-  padding: 55px 0 70px;
-
   overflow: hidden;
 
-  color: #2e3d36;
+  color: var(--cr-ink);
 }
 
-/* Fine gold lattice texture */
-.el-gallery::before {
-  content: "";
+.cr-gallery__blossom {
   position: absolute;
-  inset: 0;
 
-  opacity: 0.04;
+  top: 0;
+  right: -20px;
 
-  background-image:
-    repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 20px),
-    repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 20px);
+  width: 104px;
+  height: 104px;
+
+  object-fit: contain;
+
+  opacity: 0.45;
 
   pointer-events: none;
 }
 
-/* =====================================================
-   HEADING
-===================================================== */
+/* =========================================================
+   TIÊU ĐỀ
+========================================================= */
 
-.el-gallery__heading {
+.cr-heading {
   position: relative;
   z-index: 5;
 
   text-align: center;
 
-  padding: 0 20px;
-
-  margin-bottom: 26px;
+  margin-bottom: 22px;
 }
 
-.el-gallery__kicker {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #8a7a52;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.36em;
-}
-
-.el-gallery__heading h2 {
+.cr-heading__vi {
   margin: 0;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: clamp(30px, 7vw, 42px);
-  font-weight: 600;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
 
-  line-height: 1.05;
+  letter-spacing: 0.06em;
 
-  color: #123b2e;
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
 }
 
-.el-gallery__ornament {
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
+
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
+}
+
+.cr-heading__ornament {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 11px;
+  gap: 10px;
 
-  margin-top: 13px;
+  margin-top: 12px;
 
-  color: #c9a45c;
+  color: var(--cr-accent);
 }
 
-.el-gallery__ornament span {
-  width: 48px;
+.cr-heading__ornament span {
+  width: 52px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.85));
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
 }
 
-.el-gallery__ornament span:last-child {
+.cr-heading__ornament span:last-child {
   transform: rotate(180deg);
 }
 
-.el-gallery__ornament i {
+.cr-heading__ornament i {
   font-size: 13px;
   font-style: normal;
 }
 
-.el-gallery__intro {
-  margin: 13px 0 0;
+.cr-heading__intro {
+  margin: 12px 0 0;
 
-  color: #6b7a70;
+  color: var(--cr-soft);
 
   font-size: 12px;
 
   line-height: 1.7;
 }
 
-/* =====================================================
-   EMPTY
-===================================================== */
+/* =========================================================
+   TRỐNG
+========================================================= */
 
-.el-gallery__empty {
-  padding: 80px 20px;
+.cr-gallery__empty {
+  padding: 60px 20px;
 
   text-align: center;
 
-  color: #8a9a8f;
+  color: var(--cr-muted);
 }
 
-.el-gallery__empty p {
+.cr-gallery__empty p {
   margin: 8px 0 0;
 
   font-size: 13px;

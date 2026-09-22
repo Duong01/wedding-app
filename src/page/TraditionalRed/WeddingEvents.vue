@@ -297,7 +297,11 @@ const guestTime = computed(() =>
 ========================================================= */
 
 const dateObject = computed(() => {
-  const raw = firstEvent.value?.EventDate || "";
+  const raw =
+    firstEvent.value?.EventDate ||
+    props.wedding?.weddingDate ||
+    props.wedding?.WeddingDate ||
+    "";
 
   if (!raw) return null;
 
@@ -348,7 +352,13 @@ const year = computed(() => {
   return dateObject.value ? String(dateObject.value.getFullYear()) : "";
 });
 
-const lunar = computed(() => firstEvent.value?.Lunar || "");
+const lunar = computed(
+  () =>
+    firstEvent.value?.Lunar ||
+    props.wedding?.weddingLunar ||
+    props.wedding?.WeddingLunar ||
+    ""
+);
 
 const weddingDay = computed(() => {
   const value = Number(day.value);
@@ -369,6 +379,8 @@ const countdownTarget = computed(
     props.countdown?.Target ||
     props.countdown?.Date ||
     firstEvent.value?.EventDate ||
+    props.wedding?.weddingDate ||
+    props.wedding?.WeddingDate ||
     null
 );
 
@@ -405,13 +417,11 @@ const calendarDays = computed(() => {
 const calendarUrl = computed(() => {
   const event = firstEvent.value;
 
-  if (!event) return "";
-
-  const explicit = event.calendarUrl || event.calendar_url;
+  const explicit = event?.calendarUrl || event?.calendar_url;
 
   if (explicit) return explicit;
 
-  const raw = event.EventDate;
+  const raw = event?.EventDate || props.wedding?.weddingDate;
 
   if (!raw) return "";
 
@@ -426,7 +436,7 @@ const calendarUrl = computed(() => {
 
   const title = `Đám cưới ${groomName.value} & ${brideName.value}`;
 
-  const location = event.Address || event.Location || "";
+  const location = event?.Address || event?.Location || "";
 
   const params = new URLSearchParams({
     action: "TEMPLATE",

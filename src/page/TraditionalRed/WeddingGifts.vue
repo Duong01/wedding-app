@@ -21,14 +21,14 @@
         <span class="tr-gift__shadow" aria-hidden="true"></span>
 
         <img
-          :src="envelope"
+          :src="envelopeDragonPhoenix"
           alt=""
           aria-hidden="true"
           class="tr-gift__envelope-back"
         />
 
         <img
-          :src="envelope"
+          :src="envelopeDragonPhoenix"
           alt=""
           aria-hidden="true"
           class="tr-gift__envelope-card"
@@ -96,14 +96,39 @@
                   </p>
                 </div>
 
-                <button
-                  v-if="gift.AccountNumber"
-                  type="button"
-                  class="tr-gift__copy"
-                  @click="copy(gift.AccountNumber)"
-                >
-                  Sao chép số tài khoản
-                </button>
+                <div class="tr-gift__actions">
+                  <button
+                    v-if="gift.QrCode"
+                    type="button"
+                    class="tr-gift__action"
+                    @click="saveQr(gift)"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                      ></path>
+                    </svg>
+
+                    Lưu QR
+                  </button>
+
+                  <button
+                    v-if="gift.AccountNumber"
+                    type="button"
+                    class="tr-gift__action"
+                    @click="copy(gift.AccountNumber)"
+                  >
+                    Sao chép số tài khoản
+                  </button>
+                </div>
 
                 <p v-if="gift.Description" class="tr-gift__note">
                   {{ gift.Description }}
@@ -120,7 +145,7 @@
 <script setup>
 import { ref } from "vue";
 
-import { envelope } from "./traditionalRedAssets";
+import { envelopeDragonPhoenix } from "./traditionalRedAssets";
 
 defineProps({
   gifts: {
@@ -155,6 +180,47 @@ async function copy(value) {
     alert("Đã sao chép số tài khoản");
   } catch (error) {
     console.error(error);
+  }
+}
+
+/*
+ * Tải ảnh QR về máy.
+ *
+ * Ảnh QR có thể nằm khác origin (CDN) nên thẻ <a download> không
+ * tải trực tiếp được — phải fetch về blob rồi mới lưu.
+ */
+async function saveQr(gift) {
+  const url = gift?.QrCode;
+
+  if (!url) return;
+
+  const fileName = `qr-${gift.AccountName || gift.Name || "mung-cuoi"}.png`;
+
+  try {
+    const response = await fetch(url, { mode: "cors" });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const blob = await response.blob();
+
+    const objectUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = objectUrl;
+    link.download = fileName;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(objectUrl);
+  } catch (error) {
+    console.error("[TraditionalRed] Không tải được QR:", error);
+
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 }
 </script>
@@ -575,8 +641,25 @@ async function copy(value) {
   font-weight: 600;
 }
 
-.tr-gift__copy {
+.tr-gift__actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
   margin-top: 6px;
+}
+
+.tr-gift__action {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 4px;
 
   padding: 4px 8px;
 
@@ -595,6 +678,13 @@ async function copy(value) {
   font-size: 10px;
 
   font-weight: 500;
+}
+
+.tr-gift__action svg {
+  width: 12px;
+  height: 12px;
+
+  flex-shrink: 0;
 }
 
 .tr-gift__note {

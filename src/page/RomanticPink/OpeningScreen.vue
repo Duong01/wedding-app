@@ -1,8 +1,5 @@
-﻿<template>
-  <section
-    class="opening"
-    :class="{ 'opening--active': opening }"
-  >
+<template>
+  <section class="opening" :class="{ 'opening--active': opening }">
     <!-- =====================================================
          BACKGROUND
     ====================================================== -->
@@ -13,25 +10,17 @@
     <div class="opening__glow opening__glow--2"></div>
 
     <!-- Decorative flowers -->
-    <img
-      :src="hoa"
-      class="opening__flower opening__flower--top"
-      alt=""
-    />
+    <img :src="flower" class="opening__flower opening__flower--top" alt="" />
 
-    <img
-      :src="hoa"
-      class="opening__flower opening__flower--bottom"
-      alt=""
-    />
+    <img :src="flower" class="opening__flower opening__flower--bottom" alt="" />
 
     <!-- Floating sparkles -->
     <div class="sparkles" aria-hidden="true">
       <span class="sparkle sparkle--1">✦</span>
-      <span class="sparkle sparkle--2">✧</span>
+      <span class="sparkle sparkle--2">✦</span>
       <span class="sparkle sparkle--3">✦</span>
-      <span class="sparkle sparkle--4">·</span>
-      <span class="sparkle sparkle--5">✧</span>
+      <span class="sparkle sparkle--4">✦</span>
+      <span class="sparkle sparkle--5">✦</span>
       <span class="sparkle sparkle--6">✦</span>
     </div>
 
@@ -49,44 +38,30 @@
       <span></span>
     </div>
 
-    <div class="opening__eyebrow">
-      WEDDING INVITATION
-    </div>
+    <div class="opening__eyebrow">WEDDING INVITATION</div>
 
     <!-- =====================================================
          ENVELOPE
     ====================================================== -->
 
     <div class="envelope">
-
       <!-- Envelope back -->
       <div class="envelope__back"></div>
 
       <!-- Invitation card -->
       <div class="envelope__card">
-
         <div class="card-border"></div>
 
         <div class="card-content">
-
-          <div class="card-eyebrow">
-            SAVE THE DATE
-          </div>
+          <div class="card-eyebrow">SAVE THE DATE</div>
 
           <div class="card-icon">
-            <img
-              :src="icon"
-              alt="Biểu tượng cưới"
-            />
+            <img :src="icon" alt="Biểu tượng cưới" />
           </div>
 
-          <p class="card-invite">
-            Trân trọng kính mời
-          </p>
+          <p class="card-invite">Trân trọng kính mời</p>
 
-          <h1>
-            {{ guestName }}
-          </h1>
+          <h1>{{ guestName }}</h1>
 
           <div class="card-divider">
             <span></span>
@@ -103,7 +78,6 @@
           <div class="card-date">
             {{ dateLabel || "OUR WEDDING DAY" }}
           </div>
-
         </div>
       </div>
 
@@ -112,7 +86,6 @@
 
       <!-- Envelope flap -->
       <div class="envelope__flap">
-
         <div class="flap-line"></div>
 
         <!-- Wax seal -->
@@ -123,7 +96,6 @@
             <v-icon size="13">mdi-heart</v-icon>
           </div>
         </div>
-
       </div>
 
       <!-- Envelope shine -->
@@ -144,13 +116,9 @@
         <v-icon size="17">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="open-button__text">
-        CHẠM ĐỂ MỞ THIỆP
-      </span>
+      <span class="open-button__text">CHẠM ĐỂ MỞ THIỆP</span>
 
-      <span class="open-button__arrow">
-        ↗
-      </span>
+      <span class="open-button__arrow">↗</span>
     </button>
 
     <p class="hint">
@@ -163,9 +131,7 @@
     <div class="opening__footer">
       <span></span>
 
-      <v-icon size="13">
-        mdi-flower-outline
-      </v-icon>
+      <v-icon size="13">mdi-flower-outline</v-icon>
 
       <span></span>
     </div>
@@ -174,7 +140,8 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import { hoa } from "@/page/RomanticPink/romaticpink";
+import { icon } from "@/page/RomanticPink/romaticpink";
+import flower from "@/assets/glass-garden-pink/flower1-decoration.webp";
 
 const props = defineProps({
   wedding: {
@@ -198,17 +165,11 @@ const emit = defineEmits(["open"]);
 const opening = ref(false);
 
 const groomName = computed(
-  () =>
-    props.wedding?.GroomName ||
-    props.wedding?.groomName ||
-    ""
+  () => props.wedding?.GroomName || props.wedding?.groomName || ""
 );
 
 const brideName = computed(
-  () =>
-    props.wedding?.BrideName ||
-    props.wedding?.brideName ||
-    ""
+  () => props.wedding?.BrideName || props.wedding?.brideName || ""
 );
 
 const guestName = computed(
@@ -235,11 +196,9 @@ function openInvitation() {
 ========================================================= */
 
 .opening {
-  --pink-deep: #8f4059;
-  --pink: #b85e79;
-  --pink-light: #d995a9;
-  --champagne: #c9a06a;
-  --cream: #fff8f4;
+  --gg-rose: var(--primary, #cb5d6c);
+  --gg-deep: var(--secondary, #933845);
+  --gg-white: var(--white, #ffffff);
 
   position: relative;
   isolation: isolate;
@@ -255,16 +214,17 @@ function openInvitation() {
 
   overflow: hidden;
 
-  color: var(--cream);
+  color: var(--gg-deep);
 
-  background:
-    linear-gradient(
-      145deg,
-      #5b1935 0%,
-      #8d3d59 40%,
-      #b45c78 72%,
-      #641d3b 100%
-    );
+  background-color: #fdf3f4;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.72),
+      rgba(255, 255, 255, 0.72)
+    ),
+    url("@/assets/glass-garden-pink/floral-background.webp");
+  background-repeat: repeat;
+  background-size: 180% auto;
+  background-position: top left;
 }
 
 /* =========================================================
@@ -277,25 +237,24 @@ function openInvitation() {
 
   z-index: -10;
 
-  background:
-    radial-gradient(
+  background: radial-gradient(
       ellipse at 50% 22%,
-      rgba(255, 213, 222, 0.5),
-      transparent 30%
+      rgba(255, 255, 255, 0.75),
+      transparent 42%
     ),
     radial-gradient(
       ellipse at 15% 80%,
-      rgba(236, 167, 187, 0.18),
-      transparent 32%
+      rgba(203, 93, 108, 0.1),
+      transparent 36%
     ),
     radial-gradient(
       ellipse at 90% 70%,
-      rgba(255, 219, 203, 0.15),
-      transparent 30%
+      rgba(203, 93, 108, 0.08),
+      transparent 34%
     );
 }
 
-/* subtle texture */
+/* Hạt sáng li ti */
 .opening::before {
   content: "";
 
@@ -304,13 +263,12 @@ function openInvitation() {
 
   z-index: -5;
 
-  opacity: 0.13;
+  opacity: 0.16;
 
-  background-image:
-    radial-gradient(
-      rgba(255,255,255,0.5) 0.6px,
-      transparent 0.6px
-    );
+  background-image: radial-gradient(
+    rgba(203, 93, 108, 0.5) 0.6px,
+    transparent 0.6px
+  );
 
   background-size: 6px 6px;
 
@@ -339,12 +297,11 @@ function openInvitation() {
 
   transform: translateX(-50%);
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255, 225, 230, 0.2),
-      transparent 68%
-    );
+  background: radial-gradient(
+    circle,
+    rgba(203, 93, 108, 0.14),
+    transparent 68%
+  );
 
   animation: glow-breathe 5s ease-in-out infinite;
 }
@@ -358,12 +315,11 @@ function openInvitation() {
 
   transform: translateX(-50%);
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255, 215, 191, 0.16),
-      transparent 70%
-    );
+  background: radial-gradient(
+    circle,
+    rgba(147, 56, 69, 0.1),
+    transparent 70%
+  );
 }
 
 /* =========================================================
@@ -377,26 +333,18 @@ function openInvitation() {
 
   width: min(68vw, 360px);
 
-  opacity: 0.28;
+  opacity: 0.5;
 
   pointer-events: none;
 
-  filter:
-    brightness(1.1)
-    saturate(0.65)
-    sepia(0.08)
-    drop-shadow(
-      0 12px 20px rgba(50, 9, 27, 0.16)
-    );
+  filter: saturate(0.9) drop-shadow(0 12px 20px rgba(147, 56, 69, 0.12));
 }
 
 .opening__flower--top {
   top: -105px;
   left: -115px;
 
-  transform:
-    rotate(-28deg)
-    scale(1.05);
+  transform: rotate(-28deg) scale(1.05);
 
   animation: flower-top 8s ease-in-out infinite;
 }
@@ -405,11 +353,9 @@ function openInvitation() {
   right: -120px;
   bottom: -105px;
 
-  transform:
-    scale(-1.05)
-    rotate(-28deg);
+  transform: scale(-1.05) rotate(-28deg);
 
-  opacity: 0.24;
+  opacity: 0.42;
 
   animation: flower-bottom 9s ease-in-out infinite;
 }
@@ -430,15 +376,13 @@ function openInvitation() {
 .sparkle {
   position: absolute;
 
-  color: rgba(255, 232, 219, 0.85);
+  color: rgba(203, 93, 108, 0.75);
 
   font-family: Georgia, serif;
 
-  text-shadow:
-    0 0 10px rgba(255, 224, 216, 0.7);
+  text-shadow: 0 0 10px rgba(203, 93, 108, 0.4);
 
-  animation:
-    sparkle-float 3.5s ease-in-out infinite;
+  animation: sparkle-float 3.5s ease-in-out infinite;
 }
 
 .sparkle--1 {
@@ -497,22 +441,14 @@ function openInvitation() {
 
   opacity: 0;
 
-  animation:
-    fade-up 0.8s 0.1s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: fade-up 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .opening__brand > span {
   width: 55px;
   height: 1px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 226, 210, 0.75)
-    );
+  background: linear-gradient(90deg, transparent, rgba(203, 93, 108, 0.6));
 }
 
 .opening__brand > span:last-child {
@@ -527,39 +463,33 @@ function openInvitation() {
   align-items: center;
   justify-content: center;
 
-  color: #fff5ed;
+  color: var(--gg-rose);
 
-  border: 1px solid rgba(255, 224, 207, 0.65);
-
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
 
-  background:
-    rgba(255, 246, 240, 0.08);
+  background: rgba(255, 255, 255, 0.3);
 
-  box-shadow:
-    0 0 20px rgba(255, 213, 204, 0.15);
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.6),
+    0 6px 16px -4px rgba(147, 56, 69, 0.24);
 
-  animation:
-    heart-breathe 2.7s ease-in-out infinite;
+  animation: heart-breathe 2.7s ease-in-out infinite;
 }
 
 .opening__eyebrow {
   margin-bottom: 18px;
 
-  color: rgba(255, 235, 225, 0.8);
+  color: var(--gg-deep);
 
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 11px;
-
-  font-weight: 700;
+  font-weight: 400;
 
   letter-spacing: 0.34em;
 
   opacity: 0;
 
-  animation:
-    fade-up 0.8s 0.18s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: fade-up 0.8s 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* =========================================================
@@ -579,17 +509,9 @@ function openInvitation() {
 
   perspective: 1000px;
 
-  filter:
-    drop-shadow(
-      0 28px 35px rgba(39, 5, 22, 0.38)
-    );
+  filter: drop-shadow(0 28px 35px rgba(147, 56, 69, 0.28));
 
-  animation:
-    envelope-in
-    1s
-    0.15s
-    cubic-bezier(0.16, 1, 0.3, 1)
-    both;
+  animation: envelope-in 1s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* =========================================================
@@ -603,16 +525,9 @@ function openInvitation() {
 
   border-radius: 5px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #f9dce3,
-      #d98aa1
-    );
+  background: linear-gradient(145deg, #fbe4e8, #e6a3b1);
 
-  box-shadow:
-    inset 0 0 0 1px
-      rgba(255, 244, 237, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
 }
 
 /* =========================================================
@@ -632,42 +547,26 @@ function openInvitation() {
 
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      150deg,
-      #fffaf7,
-      #fbe8ec
-    );
+  background: linear-gradient(150deg, #ffffff, #fdf0f2);
 
-  border: 1px solid
-    rgba(198, 160, 106, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
 
-  box-shadow:
-    0 5px 18px
-      rgba(88, 27, 48, 0.15),
-    inset 0 0 0 5px
-      rgba(255, 255, 255, 0.5);
+  box-shadow: 0 5px 18px rgba(147, 56, 69, 0.14),
+    inset 0 0 0 5px rgba(255, 255, 255, 0.6);
 
-  transform:
-    translateY(34px);
+  transform: translateY(34px);
 
-  animation:
-    card-rise
-    0.9s
-    0.45s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: card-rise 0.9s 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Card inner border */
+/* Viền trong thiệp */
 
 .card-border {
   position: absolute;
 
   inset: 10px;
 
-  border: 1px solid
-    rgba(198, 160, 106, 0.28);
+  border: 1px solid rgba(203, 93, 108, 0.28);
 
   pointer-events: none;
 }
@@ -693,13 +592,15 @@ function openInvitation() {
 ========================================================= */
 
 .card-eyebrow {
-  color: #b17486;
+  color: var(--gg-deep);
 
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 10px;
-
-  font-weight: 700;
+  font-weight: 400;
 
   letter-spacing: 0.27em;
+
+  opacity: 0.75;
 }
 
 .card-icon {
@@ -712,21 +613,12 @@ function openInvitation() {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid
-    rgba(198, 160, 106, 0.28);
-
+  border: 1px solid rgba(203, 93, 108, 0.25);
   border-radius: 50%;
 
-  background:
-    linear-gradient(
-      145deg,
-      #fff,
-      #f7e0e6
-    );
+  background: linear-gradient(145deg, #ffffff, #fbe6ea);
 
-  box-shadow:
-    0 7px 18px
-      rgba(147, 73, 91, 0.08);
+  box-shadow: 0 7px 18px rgba(147, 56, 69, 0.1);
 }
 
 .card-icon img {
@@ -735,21 +627,20 @@ function openInvitation() {
 
   object-fit: contain;
 
-  opacity: 0.82;
-
-  filter:
-    sepia(0.15)
-    saturate(0.65);
+  opacity: 0.85;
 }
 
 .card-invite {
   margin: 5px 0 4px;
 
-  color: #9c6878;
+  color: var(--gg-deep);
 
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 10px;
 
   letter-spacing: 0.13em;
+
+  opacity: 0.8;
 }
 
 .envelope__card h1 {
@@ -757,16 +648,12 @@ function openInvitation() {
 
   margin: 0;
 
-  color: #914b62;
+  color: var(--gg-rose);
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  font-family: "EB Garamond", serif;
 
   font-size: clamp(30px, 8vw, 42px);
-
-  font-weight: 600;
+  font-weight: 500;
 
   line-height: 1.08;
 
@@ -777,7 +664,6 @@ function openInvitation() {
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 7px;
@@ -786,19 +672,14 @@ function openInvitation() {
 
   margin: 13px 0 7px;
 
-  color: #c6a06a;
+  color: var(--gg-rose);
 }
 
 .card-divider span {
   width: 35px;
   height: 1px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(198, 160, 106, 0.65)
-    );
+  background: linear-gradient(90deg, transparent, rgba(203, 93, 108, 0.6));
 }
 
 .card-divider span:last-child {
@@ -816,26 +697,23 @@ function openInvitation() {
 .card-names {
   margin: 0;
 
-  color: #754354;
+  color: var(--gg-deep);
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  font-family: "EB Garamond", serif;
 
   font-size: 21px;
-
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .card-names i {
   padding: 0 5px;
 
-  color: #b75b76;
+  color: var(--gg-rose);
 
-  font-family: Georgia, serif;
+  font-family: "Ms Madi", cursive;
 
-  font-size: 17px;
+  font-size: 19px;
+  font-style: normal;
 }
 
 .card-date {
@@ -843,16 +721,17 @@ function openInvitation() {
 
   padding-top: 10px;
 
-  border-top: 1px solid
-    rgba(198, 160, 106, 0.3);
+  border-top: 1px solid rgba(203, 93, 108, 0.3);
 
-  color: #aa7381;
+  color: var(--gg-deep);
 
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 10px;
-
-  font-weight: 700;
+  font-weight: 400;
 
   letter-spacing: 0.2em;
+
+  opacity: 0.8;
 }
 
 /* =========================================================
@@ -870,25 +749,11 @@ function openInvitation() {
 
   height: 105px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #d67d97,
-      #a94c69
-    );
+  background: linear-gradient(145deg, #e08b9b, #b04a5c);
 
-  clip-path:
-    polygon(
-      0 0,
-      50% 63%,
-      100% 0,
-      100% 100%,
-      0 100%
-    );
+  clip-path: polygon(0 0, 50% 63%, 100% 0, 100% 100%, 0 100%);
 
-  box-shadow:
-    inset 0 1px 0
-      rgba(255, 236, 226, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* =========================================================
@@ -906,28 +771,16 @@ function openInvitation() {
 
   height: 150px;
 
-  clip-path:
-    polygon(
-      0 0,
-      100% 0,
-      50% 76%
-    );
+  clip-path: polygon(0 0, 100% 0, 50% 76%);
 
-  background:
-    linear-gradient(
-      150deg,
-      #e5a2b5,
-      #b95676
-    );
+  background: linear-gradient(150deg, #eda9b6, #c25c6e);
 
   transform-origin: top center;
 
-  box-shadow:
-    0 7px 12px
-      rgba(75, 17, 38, 0.16);
+  box-shadow: 0 7px 12px rgba(147, 56, 69, 0.18);
 }
 
-/* flap inner line */
+/* Đường viền trong nắp */
 
 .flap-line {
   position: absolute;
@@ -939,15 +792,9 @@ function openInvitation() {
 
   height: 1px;
 
-  opacity: 0.55;
+  opacity: 0.6;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #ffe9df,
-      transparent
-    );
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
 }
 
 /* =========================================================
@@ -965,8 +812,7 @@ function openInvitation() {
   width: 66px;
   height: 66px;
 
-  transform:
-    translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
   display: flex;
 
@@ -975,33 +821,22 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  color: #ffe8dd;
+  color: #ffffff;
 
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-      #d47b96,
-      #9b3657 68%,
-      #76203e
-    );
+  background: radial-gradient(
+    circle at 35% 30%,
+    #d97a89,
+    #a83f52 68%,
+    #7d2436
+  );
 
-  border: 2px solid
-    rgba(255, 224, 208, 0.78);
+  border: 2px solid rgba(255, 255, 255, 0.8);
 
-  box-shadow:
-    0 7px 17px
-      rgba(70, 12, 34, 0.3),
-    inset 0 2px 3px
-      rgba(255,255,255,0.2),
-    inset 0 -3px 5px
-      rgba(71, 9, 29, 0.25);
+  box-shadow: 0 7px 17px rgba(147, 56, 69, 0.32),
+    inset 0 2px 3px rgba(255, 255, 255, 0.25),
+    inset 0 -3px 5px rgba(90, 20, 35, 0.25);
 
-  animation:
-    seal-in
-    0.8s
-    0.7s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    both;
+  animation: seal-in 0.8s 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .wax-seal > span {
@@ -1009,14 +844,10 @@ function openInvitation() {
 
   top: 17px;
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  font-family: "EB Garamond", serif;
 
   font-size: 10px;
-
-  font-weight: 700;
+  font-weight: 600;
 
   letter-spacing: 0.04em;
 }
@@ -1026,7 +857,7 @@ function openInvitation() {
 
   bottom: 13px;
 
-  color: #ffe6da;
+  color: #ffffff;
 
   opacity: 0.9;
 }
@@ -1047,24 +878,16 @@ function openInvitation() {
 
   width: 35%;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,0.22),
-      transparent
-    );
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
 
-  transform:
-    rotate(18deg)
-    translateX(-180%);
+  transform: rotate(18deg) translateX(-180%);
 
-  animation:
-    envelope-shine
-    4.5s
-    1.5s
-    ease-in-out
-    infinite;
+  animation: envelope-shine 4.5s 1.5s ease-in-out infinite;
 
   pointer-events: none;
 }
@@ -1089,47 +912,30 @@ function openInvitation() {
 
   padding: 12px 17px;
 
-  color: #fff9f5;
+  color: #ffffff;
 
-  border: 1px solid
-    rgba(255, 227, 214, 0.75);
-
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 999px;
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,0.13),
-      rgba(255,255,255,0.05)
-    );
+  background: var(--gg-rose, #cb5d6c);
 
-  box-shadow:
-    0 9px 25px
-      rgba(54, 9, 29, 0.2),
-    inset 0 0 0 1px
-      rgba(255,255,255,0.08);
-
-  backdrop-filter: blur(5px);
+  box-shadow: 0 9px 25px rgba(147, 56, 69, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 
   cursor: pointer;
 
   font-family: inherit;
 
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
+  transition: transform 0.25s ease, background 0.25s ease,
     box-shadow 0.25s ease;
 }
 
 .open-button:hover {
   transform: translateY(-3px);
 
-  background:
-    rgba(255, 247, 241, 0.17);
+  background: var(--gg-deep, #933845);
 
-  box-shadow:
-    0 13px 30px
-      rgba(54, 9, 29, 0.27);
+  box-shadow: 0 13px 30px rgba(147, 56, 69, 0.3);
 }
 
 .open-button:active {
@@ -1150,21 +956,16 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  color: #fff2e9;
+  color: #ffffff;
 
-  background:
-    rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .open-button__text {
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
 
   font-size: 12px;
-
-  font-weight: 700;
+  font-weight: 600;
 
   letter-spacing: 0.2em;
 }
@@ -1174,13 +975,11 @@ function openInvitation() {
 
   line-height: 1;
 
-  transition:
-    transform 0.25s ease;
+  transition: transform 0.25s ease;
 }
 
 .open-button:hover .open-button__arrow {
-  transform:
-    translate(2px, -2px);
+  transform: translate(2px, -2px);
 }
 
 /* =========================================================
@@ -1196,29 +995,23 @@ function openInvitation() {
 
   margin: 12px 0 0;
 
-  color:
-    rgba(255, 237, 229, 0.68);
+  color: var(--gg-deep);
 
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 11px;
 
   letter-spacing: 0.08em;
 
   opacity: 0;
 
-  animation:
-    fade-up
-    0.8s
-    0.7s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: fade-up 0.8s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .hint span {
   width: 16px;
   height: 1px;
 
-  background:
-    rgba(255, 222, 211, 0.4);
+  background: rgba(203, 93, 108, 0.45);
 }
 
 /* =========================================================
@@ -1235,28 +1028,18 @@ function openInvitation() {
 
   margin-top: 19px;
 
-  color: rgba(255, 221, 205, 0.65);
+  color: var(--gg-rose);
 
   opacity: 0;
 
-  animation:
-    fade-up
-    0.8s
-    0.85s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: fade-up 0.8s 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .opening__footer span {
   width: 45px;
   height: 1px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 220, 202, 0.5)
-    );
+  background: linear-gradient(90deg, transparent, rgba(203, 93, 108, 0.5));
 }
 
 .opening__footer span:last-child {
@@ -1268,37 +1051,19 @@ function openInvitation() {
 ========================================================= */
 
 .opening--active .envelope__flap {
-  animation:
-    flap-open
-    0.72s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: flap-open 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .opening--active .wax-seal {
-  animation:
-    seal-break
-    0.45s
-    ease
-    forwards;
+  animation: seal-break 0.45s ease forwards;
 }
 
 .opening--active .envelope__card {
-  animation:
-    card-out
-    1s
-    0.2s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: card-out 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .opening--active .envelope {
-  animation:
-    envelope-out
-    1.1s
-    0.35s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
+  animation: envelope-out 1.1s 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .opening--active .open-button,
@@ -1306,19 +1071,11 @@ function openInvitation() {
 .opening--active .opening__footer,
 .opening--active .opening__brand,
 .opening--active .opening__eyebrow {
-  animation:
-    fade-out
-    0.35s
-    ease
-    forwards;
+  animation: fade-out 0.35s ease forwards;
 }
 
 .opening--active .sparkles {
-  animation:
-    sparkle-out
-    0.8s
-    ease
-    forwards;
+  animation: sparkle-out 0.8s ease forwards;
 }
 
 /* =========================================================
@@ -1329,31 +1086,23 @@ function openInvitation() {
   from {
     opacity: 0;
 
-    transform:
-      translateY(45px)
-      scale(0.91)
-      rotateX(7deg);
+    transform: translateY(45px) scale(0.91) rotateX(7deg);
   }
 
   to {
     opacity: 1;
 
-    transform:
-      translateY(0)
-      scale(1)
-      rotateX(0);
+    transform: translateY(0) scale(1) rotateX(0);
   }
 }
 
 @keyframes card-rise {
   from {
-    transform:
-      translateY(45px);
+    transform: translateY(45px);
   }
 
   to {
-    transform:
-      translateY(34px);
+    transform: translateY(34px);
   }
 }
 
@@ -1361,31 +1110,23 @@ function openInvitation() {
   from {
     opacity: 0;
 
-    transform:
-      translate(-50%, -50%)
-      scale(0.5)
-      rotate(-15deg);
+    transform: translate(-50%, -50%) scale(0.5) rotate(-15deg);
   }
 
   to {
     opacity: 1;
 
-    transform:
-      translate(-50%, -50%)
-      scale(1)
-      rotate(0);
+    transform: translate(-50%, -50%) scale(1) rotate(0);
   }
 }
 
 @keyframes flap-open {
   0% {
-    transform:
-      rotateX(0deg);
+    transform: rotateX(0deg);
   }
 
   100% {
-    transform:
-      rotateX(-178deg);
+    transform: rotateX(-178deg);
 
     opacity: 0;
   }
@@ -1393,43 +1134,31 @@ function openInvitation() {
 
 @keyframes seal-break {
   0% {
-    transform:
-      translate(-50%, -50%)
-      scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 
   40% {
-    transform:
-      translate(-50%, -50%)
-      scale(1.14);
+    transform: translate(-50%, -50%) scale(1.14);
   }
 
   100% {
     opacity: 0;
 
-    transform:
-      translate(-50%, -50%)
-      scale(0.65)
-      rotate(15deg);
+    transform: translate(-50%, -50%) scale(0.65) rotate(15deg);
   }
 }
 
 @keyframes card-out {
   0% {
-    transform:
-      translateY(34px);
+    transform: translateY(34px);
   }
 
   35% {
-    transform:
-      translateY(-20px)
-      scale(1.015);
+    transform: translateY(-20px) scale(1.015);
   }
 
   100% {
-    transform:
-      translateY(-250px)
-      scale(0.9);
+    transform: translateY(-250px) scale(0.9);
 
     opacity: 0;
   }
@@ -1437,15 +1166,11 @@ function openInvitation() {
 
 @keyframes envelope-out {
   0% {
-    transform:
-      translateY(0)
-      scale(1);
+    transform: translateY(0) scale(1);
   }
 
   100% {
-    transform:
-      translateY(-30px)
-      scale(0.96);
+    transform: translateY(-30px) scale(0.96);
 
     opacity: 0;
   }
@@ -1455,15 +1180,13 @@ function openInvitation() {
   from {
     opacity: 0;
 
-    transform:
-      translateY(12px);
+    transform: translateY(12px);
   }
 
   to {
     opacity: 1;
 
-    transform:
-      translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -1471,8 +1194,7 @@ function openInvitation() {
   to {
     opacity: 0;
 
-    transform:
-      translateY(8px);
+    transform: translateY(8px);
   }
 }
 
@@ -1481,17 +1203,13 @@ function openInvitation() {
   100% {
     opacity: 0.65;
 
-    transform:
-      translateX(-50%)
-      scale(0.94);
+    transform: translateX(-50%) scale(0.94);
   }
 
   50% {
     opacity: 1;
 
-    transform:
-      translateX(-50%)
-      scale(1.1);
+    transform: translateX(-50%) scale(1.1);
   }
 }
 
@@ -1511,65 +1229,47 @@ function openInvitation() {
   100% {
     opacity: 0.2;
 
-    transform:
-      translateY(4px)
-      scale(0.7)
-      rotate(0);
+    transform: translateY(4px) scale(0.7) rotate(0);
   }
 
   50% {
     opacity: 1;
 
-    transform:
-      translateY(-7px)
-      scale(1.15)
-      rotate(18deg);
+    transform: translateY(-7px) scale(1.15) rotate(18deg);
   }
 }
 
 @keyframes envelope-shine {
   0%,
   58% {
-    transform:
-      rotate(18deg)
-      translateX(-180%);
+    transform: rotate(18deg) translateX(-180%);
   }
 
   78%,
   100% {
-    transform:
-      rotate(18deg)
-      translateX(480%);
+    transform: rotate(18deg) translateX(480%);
   }
 }
 
 @keyframes flower-top {
   0%,
   100% {
-    transform:
-      rotate(-28deg)
-      scale(1.05);
+    transform: rotate(-28deg) scale(1.05);
   }
 
   50% {
-    transform:
-      rotate(-24deg)
-      scale(1.09);
+    transform: rotate(-24deg) scale(1.09);
   }
 }
 
 @keyframes flower-bottom {
   0%,
   100% {
-    transform:
-      scale(-1.05)
-      rotate(-28deg);
+    transform: scale(-1.05) rotate(-28deg);
   }
 
   50% {
-    transform:
-      scale(-1.09)
-      rotate(-24deg);
+    transform: scale(-1.09) rotate(-24deg);
   }
 }
 
@@ -1587,10 +1287,7 @@ function openInvitation() {
 
 @media (max-width: 600px) {
   .opening {
-    padding:
-      25px
-      13px
-      22px;
+    padding: 25px 13px 22px;
   }
 
   .opening__eyebrow {
@@ -1625,9 +1322,7 @@ function openInvitation() {
   }
 
   .card-content {
-    padding:
-      25px
-      18px;
+    padding: 25px 18px;
   }
 
   .card-icon {
@@ -1672,9 +1367,7 @@ function openInvitation() {
   .open-button {
     min-width: 215px;
 
-    padding:
-      11px
-      15px;
+    padding: 11px 15px;
   }
 
   .open-button__text {
@@ -1714,9 +1407,7 @@ function openInvitation() {
   }
 
   .card-content {
-    padding:
-      20px
-      15px;
+    padding: 20px 15px;
   }
 
   .card-icon {

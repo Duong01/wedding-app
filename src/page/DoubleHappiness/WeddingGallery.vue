@@ -1,9 +1,9 @@
 <template>
   <section class="dh-gallery">
     <div class="dh-gallery__heading">
-      <span class="dh-gallery__kicker">KỶ NIỆM TƯƠI ĐẸP</span>
+      <span v-if="eyebrow" class="dh-gallery__kicker">{{ eyebrow }}</span>
 
-      <h2>Album Hình Cưới</h2>
+      <h2>{{ heading }}</h2>
 
       <div class="dh-gallery__ornament">
         <span></span>
@@ -49,7 +49,9 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
+import { computed, ref, defineAsyncComponent } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
 
 import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
 
@@ -59,7 +61,16 @@ const GalleryModal = defineAsyncComponent(() =>
 
 const props = defineProps({
   gallery: { type: Array, default: () => [] },
+  sections: { type: Object, default: () => ({}) },
 });
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "gallery", "Eyebrow", "KỶ NIỆM TƯƠI ĐẸP")
+);
+
+const heading = computed(() =>
+  sectionText(props.sections, "gallery", "Heading", "Album Hình Cưới")
+);
 
 const currentIndex = ref(0);
 const dialog = ref(false);

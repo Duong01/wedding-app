@@ -1,180 +1,175 @@
 <template>
-  <section class="eg-events" ref="sectionRef">
-    <div class="eg-events__list">
-      <article
-        v-for="(event, index) in normalizedEvents"
-        :key="event.Id || event.id || index"
-        class="eg-event-card reveal"
-        :style="{ '--delay': `${index * 120}ms` }"
-      >
-        <!-- EVENT TITLE -->
-        <div class="eg-event-heading">
-          <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+  <section ref="sectionRef" class="la-events">
+    <h2 class="la-title">Thông tin tiệc cưới</h2>
 
-          <div class="eg-mini-divider">
-            <span></span>
-            <i>❦</i>
-            <span></span>
-          </div>
+    <article
+      v-for="(event, index) in normalizedEvents"
+      :key="event.Id || event.id || index"
+      class="la-event reveal"
+      :style="{ '--delay': `${index * 120}ms` }"
+    >
+      <!-- =====================================================
+           GIỜ TIỆC
+      ====================================================== -->
+      <h3 class="la-event__lead">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+
+      <p v-if="event.time" class="la-event__time">{{ event.time }}</p>
+
+      <!-- =====================================================
+           NGÀY
+      ====================================================== -->
+      <template v-if="event.hasDate">
+        <div class="la-event__row">
+          <span class="la-event__side">{{ event.weekday }}</span>
+
+          <span class="la-event__bar"></span>
+
+          <span class="la-event__day">{{ event.day }}</span>
+
+          <span class="la-event__bar"></span>
+
+          <span class="la-event__side">THÁNG {{ event.month }}</span>
         </div>
 
-        <!-- DATE -->
-        <div v-if="event.hasDate" class="eg-event-date">
-          <div class="eg-event-weekday">{{ event.weekday }}</div>
+        <p class="la-event__year">{{ event.year }}</p>
 
-          <div class="eg-event-main-date">
-            <div class="eg-date-side">
-              <span>THÁNG</span>
-              <strong>{{ event.month }}</strong>
-            </div>
+        <p v-if="event.lunar" class="la-event__lunar">( Tức ngày {{ event.lunar }} )</p>
+      </template>
 
-            <div class="eg-date-number">{{ event.day }}</div>
+      <!-- =====================================================
+           ĐÓN KHÁCH / KHAI TIỆC
+      ====================================================== -->
+      <div v-if="event.receptionTime || event.ceremonyTime" class="la-event__schedule">
+        <div v-if="event.receptionTime" class="la-schedule">
+          <span class="la-schedule__label">Đón khách</span>
 
-            <div class="eg-date-side">
-              <span>NĂM</span>
-              <strong>{{ event.year }}</strong>
-            </div>
-          </div>
-
-          <div v-if="event.lunar" class="eg-event-lunar">{{ event.lunar }}</div>
+          <span class="la-schedule__value">{{ event.receptionTime }}</span>
         </div>
 
-        <!-- TIME -->
-        <div v-if="event.time" class="eg-event-time">
-          <div>
-            <small>THỜI GIAN</small>
-            <strong>{{ event.time }}</strong>
-          </div>
+        <div v-if="event.ceremonyTime" class="la-schedule">
+          <span class="la-schedule__label">Khai tiệc</span>
+
+          <span class="la-schedule__value">{{ event.ceremonyTime }}</span>
         </div>
+      </div>
 
-        <!-- SCHEDULE -->
-        <div v-if="event.receptionTime || event.ceremonyTime" class="eg-event-schedule">
-          <div v-if="event.receptionTime" class="eg-schedule-row">
-            <div class="eg-schedule-dot"><span>❦</span></div>
+      <!-- =====================================================
+           LỊCH THÁNG
+      ====================================================== -->
+      <div v-if="event.hasDate && event.calendarDays.length" class="la-calendar">
+        <img :src="calendarFrame" alt="" class="la-calendar__frame" aria-hidden="true" />
 
-            <div class="eg-schedule-content">
-              <span>ĐÓN KHÁCH</span>
-              <strong>{{ event.receptionTime }}</strong>
-            </div>
+        <div class="la-calendar__body">
+          <div class="la-calendar__month">Tháng {{ Number(event.month) }} / {{ event.year }}</div>
+
+          <svg class="la-calendar__wave" viewBox="0 0 280 8" preserveAspectRatio="none" height="8" aria-hidden="true">
+            <path
+              d="M4,4 C30,2 60,6 90,4 C120,2 150,6 180,4 C210,2 240,5 276,4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              opacity="0.5"
+            />
+          </svg>
+
+          <div class="la-calendar__weekdays">
+            <span v-for="label in WEEKDAYS" :key="label">{{ label }}</span>
           </div>
 
-          <div v-if="event.ceremonyTime" class="eg-schedule-row">
-            <div class="eg-schedule-dot"><span>✦</span></div>
+          <svg class="la-calendar__wave la-calendar__wave--strong" viewBox="0 0 280 10" preserveAspectRatio="none" height="10" aria-hidden="true">
+            <path
+              d="M3,5 C20,3 50,7 80,5 C110,3 140,7 170,5 C200,3 230,7 277,5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            />
+          </svg>
 
-            <div class="eg-schedule-content">
-              <span>KHAI TIỆC</span>
-              <strong>{{ event.ceremonyTime }}</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- LOCATION -->
-        <div v-if="event.location || event.address" class="eg-event-location">
-          <small>ĐỊA ĐIỂM</small>
-          <strong>{{ event.location }}</strong>
-          <span v-if="event.address">{{ event.address }}</span>
-        </div>
-
-        <!-- CALENDAR -->
-        <div v-if="event.date && event.calendarDays?.length" class="eg-calendar">
-          <div class="eg-calendar__header">
-            <span>LỊCH</span>
-            <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
-          </div>
-
-          <div class="eg-calendar__weekdays">
-            <span>CN</span>
-            <span>T2</span>
-            <span>T3</span>
-            <span>T4</span>
-            <span>T5</span>
-            <span>T6</span>
-            <span>T7</span>
-          </div>
-
-          <div class="eg-calendar__days">
+          <div class="la-calendar__days">
             <div
               v-for="(day, dayIndex) in event.calendarDays"
               :key="dayIndex"
-              class="eg-calendar__cell"
-              :class="{ empty: !day, active: day === Number(event.day) }"
+              class="la-calendar__cell"
             >
               <template v-if="day">
-                <div v-if="day === Number(event.day)" class="eg-active-day">
-                  <span class="eg-active-sun">✦</span>
-                  <span>{{ day }}</span>
-                </div>
+                <span v-if="day === Number(event.day)" class="la-calendar__heart">
+                  <img :src="calendarHeart" alt="" aria-hidden="true" />
 
-                <span v-else class="eg-normal-day">{{ day }}</span>
+                  <b>{{ day }}</b>
+                </span>
+
+                <span v-else class="la-calendar__day">{{ day }}</span>
               </template>
             </div>
           </div>
-
-          <a
-            v-if="event.calendarUrl"
-            :href="event.calendarUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="eg-calendar-btn"
-          >
-            <span>＋</span>
-            THÊM VÀO LỊCH
-          </a>
         </div>
+      </div>
 
-        <!-- RSVP -->
-        <button type="button" class="eg-rsvp-btn" @click="openConfirmModal(event)">
-          <span>❦</span>
-          XÁC NHẬN THAM DỰ
-          <span>❦</span>
-        </button>
+      <!-- =====================================================
+           THÊM VÀO LỊCH
+      ====================================================== -->
+      <a
+        v-if="event.calendarUrl"
+        :href="event.calendarUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="la-event__calendar-link"
+      >
+        Thêm vào lịch
+      </a>
 
-        <div class="eg-event-bottom">
-          <span></span>
-          <i>✦</i>
-          <span></span>
-        </div>
-      </article>
-    </div>
+      <!-- =====================================================
+           XÁC NHẬN THAM DỰ
+      ====================================================== -->
+      <button type="button" class="la-pill la-event__rsvp" @click="openConfirmModal(event)">
+        XÁC NHẬN THAM DỰ
+      </button>
+    </article>
 
-    <!-- RSVP MODAL -->
+    <!-- =====================================================
+         RSVP MODAL
+    ====================================================== -->
     <Teleport to="body">
-      <Transition name="eg-modal">
-        <div v-if="showConfirmModal" class="eg-confirm-overlay" @click.self="closeConfirmModal">
-          <div class="eg-confirm-modal">
-            <button type="button" class="eg-modal-close" @click="closeConfirmModal">×</button>
+      <Transition name="la-modal">
+        <div v-if="showConfirmModal" class="la-confirm" @click.self="closeConfirmModal">
+          <div class="la-confirm__card">
+            <button type="button" class="la-confirm__close" aria-label="Đóng" @click="closeConfirmModal">
+              ×
+            </button>
 
-            <div class="eg-modal-header">
-              <div class="eg-modal-symbol">✦</div>
+            <h3 class="la-confirm__title">Xác nhận tham dự</h3>
 
-              <span>THE CELEBRATION</span>
+            <p class="la-confirm__desc">
+              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+            </p>
 
-              <h3>Xác nhận tham dự</h3>
-
-              <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
-            </div>
-
-            <!-- RECIPIENT -->
-            <div v-if="hasRecipient" class="eg-recipient-box">
+            <div v-if="hasRecipient" class="la-confirm__recipient">
               <span>TRÂN TRỌNG KÍNH MỜI</span>
+
               <strong>{{ recipientName }}</strong>
             </div>
 
-            <!-- NAME -->
-            <div v-else class="eg-form-group">
-              <label>Họ và tên</label>
+            <div v-else class="la-field">
+              <label for="la-rsvp-name">Họ và tên</label>
 
-              <input v-model.trim="form.name" type="text" maxlength="100" placeholder="Nhập tên của bạn" />
+              <input
+                id="la-rsvp-name"
+                v-model.trim="form.name"
+                type="text"
+                maxlength="100"
+                placeholder="Nhập tên của bạn"
+              />
             </div>
 
-            <!-- ATTENDANCE -->
-            <div class="eg-form-group">
+            <div class="la-field">
               <label>Bạn có tham dự không?</label>
 
-              <div class="eg-attendance">
+              <div class="la-attendance">
                 <button
                   type="button"
-                  class="eg-attendance-option"
+                  class="la-attendance__option"
                   :class="{ selected: form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
@@ -184,7 +179,7 @@
 
                 <button
                   type="button"
-                  class="eg-attendance-option"
+                  class="la-attendance__option"
                   :class="{ selected: form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
@@ -194,21 +189,28 @@
               </div>
             </div>
 
-            <!-- PEOPLE -->
-            <div v-if="form.attendance === 'attending'" class="eg-form-group">
+            <div v-if="form.attendance === 'attending'" class="la-field">
               <label>Số người tham dự</label>
 
-              <div class="eg-people-control">
+              <div class="la-people">
                 <button type="button" @click="decreasePeople">−</button>
+
                 <strong>{{ form.numberOfPeople }}</strong>
+
                 <button type="button" @click="increasePeople">+</button>
               </div>
             </div>
 
-            <div v-if="errorMessage" class="eg-form-error">{{ errorMessage }}</div>
-            <div v-if="successMessage" class="eg-form-success">{{ successMessage }}</div>
+            <p v-if="errorMessage" class="la-confirm__error">{{ errorMessage }}</p>
 
-            <button type="button" class="eg-modal-submit" :disabled="submitting" @click="submitConfirmation">
+            <p v-if="successMessage" class="la-confirm__success">{{ successMessage }}</p>
+
+            <button
+              type="button"
+              class="la-pill la-confirm__submit"
+              :disabled="submitting"
+              @click="submitConfirmation"
+            >
               {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
             </button>
           </div>
@@ -219,10 +221,16 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
+
 import { Confirm } from "@/model/api";
+
+import calendarFrame from "@/assets/love-art/lich.webp";
+import calendarHeart from "@/assets/love-art/tim.webp";
+
+const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
@@ -264,14 +272,14 @@ const hasRecipient = computed(() => !!recipientName.value);
    NORMALIZE EVENTS
 ========================================= */
 
-const normalizedEvents = computed(() => {
-  return (props.events || []).map((item) => {
+const normalizedEvents = computed(() =>
+  (props.events || []).map((item) => {
     const rawDate = item.EventDate || item.Date || item.StartDate;
 
     const date = dayjs(rawDate);
 
-    let month = "";
     let day = "";
+    let month = "";
     let year = "";
     let weekday = "";
 
@@ -285,51 +293,56 @@ const normalizedEvents = computed(() => {
       weekday = weekdays[date.day()];
     }
 
-    const calendarDays = item.calendarDays || buildCalendarDays(Number(year), Number(month));
+    const time =
+      item.EventTime ||
+      item.Time ||
+      item.StartTime ||
+      (date.isValid() ? date.format("HH:mm") : "");
+
+    const location = item.Location || item.location || "";
+
+    const address = item.Address || item.address || "";
 
     return {
       ...item,
 
       hasDate: date.isValid(),
 
-      time:
-        item.EventTime ||
-        item.Time ||
-        item.StartTime ||
-        (date.isValid() ? date.format("HH:mm") : ""),
-
+      time,
       day,
       month,
       year,
       weekday,
 
-      date: rawDate,
-
-      lunar: item.LunarDate || item.lunar || "",
+      lunar: item.LunarDate || item.Lunar || item.lunar || "",
 
       receptionTime: item.ReceptionTime || item.receptionTime || "",
 
       ceremonyTime: item.CeremonyTime || item.ceremonyTime || "",
 
-      location: item.Location || item.location || "",
+      location,
+      address,
 
-      address: item.Address || item.address || "",
+      calendarDays: buildCalendarDays(Number(year), Number(month)),
 
-      map: item.Map || item.map || "",
-
-      rsvpUrl: item.RsvpUrl || item.rsvpUrl || item.RSVPUrl || "",
-
-      calendarUrl: item.CalendarUrl || item.calendarUrl || "",
-
-      calendarDays,
+      calendarUrl:
+        item.CalendarUrl ||
+        item.calendarUrl ||
+        buildCalendarUrl({
+          date,
+          time,
+          title: item.Title || "Đám cưới",
+          location: [location, address].filter(Boolean).join(", "),
+        }),
     };
-  });
-});
+  })
+);
 
 /* =========================================
    CALENDAR
 ========================================= */
 
+/* Lịch bắt đầu từ thứ Hai — khớp hàng tiêu đề T2…CN */
 function buildCalendarDays(year, month) {
   if (!year || !month) return [];
 
@@ -337,7 +350,7 @@ function buildCalendarDays(year, month) {
 
   const daysInMonth = firstDay.daysInMonth();
 
-  const startDay = firstDay.day();
+  const startDay = (firstDay.day() + 6) % 7;
 
   const result = [];
 
@@ -350,6 +363,28 @@ function buildCalendarDays(year, month) {
   }
 
   return result;
+}
+
+function buildCalendarUrl({ date, time, title, location }) {
+  if (!date?.isValid()) return "";
+
+  const [hour, minute] = String(time || "00:00")
+    .split(":")
+    .map((value) => Number(value) || 0);
+
+  const start = date.hour(hour).minute(minute).second(0);
+
+  const end = start.add(3, "hour");
+
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: title,
+    dates: `${start.format("YYYYMMDDTHHmmss")}/${end.format("YYYYMMDDTHHmmss")}`,
+    details: "Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.",
+    location: location || "",
+  });
+
+  return `https://www.google.com/calendar/render?${params.toString()}`;
 }
 
 /* =========================================
@@ -418,10 +453,8 @@ async function submitConfirmation() {
       Slug: slug,
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
-      Attendance:
-        form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
-      NumberOfPeople:
-        form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
+      Attendance: form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+      NumberOfPeople: form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
 
     const response = await Confirm(payload);
@@ -439,9 +472,7 @@ async function submitConfirmation() {
     }, 1800);
   } catch (error) {
     errorMessage.value =
-      error?.response?.data?.message ||
-      error?.message ||
-      "Có lỗi xảy ra. Vui lòng thử lại.";
+      error?.response?.data?.message || error?.message || "Có lỗi xảy ra. Vui lòng thử lại.";
   } finally {
     submitting.value = false;
   }
@@ -477,555 +508,599 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.eg-events {
+.la-events {
   position: relative;
 
   width: 100%;
 
-  overflow: hidden;
-}
-
-/* =====================================================
-   EVENTS LIST
-===================================================== */
-
-.eg-events__list {
-  width: min(100%, 680px);
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 34px;
-}
-
-/* =====================================================
-   EVENT CARD
-===================================================== */
-
-.eg-event-card {
-  position: relative;
-
-  width: 100%;
-  max-width: 520px;
-
-  padding: 30px 24px 26px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  text-align: center;
-
-  color: #5f4f38;
-
-  border: 1px solid rgba(181, 138, 69, 0.6);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(172deg, rgba(255, 255, 255, 0.94), rgba(246, 236, 217, 0.88));
-
-  box-shadow: 0 18px 44px rgba(93, 69, 42, 0.12);
-
-  overflow: hidden;
-}
-
-.eg-event-card::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
-
-  border: 1px solid rgba(181, 138, 69, 0.3);
-  border-radius: 999px 999px 20px 20px;
-
-  pointer-events: none;
-}
-
-/* =====================================================
-   HEADING
-===================================================== */
-
-.eg-event-heading {
-  width: 100%;
   text-align: center;
 }
 
-.eg-event-heading h2 {
-  margin: 0 0 8px;
-
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 30px;
-  font-weight: 600;
-
-  letter-spacing: 0.04em;
-
-  color: #5d452a;
-}
-
-.eg-mini-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  color: #b58a45;
-}
-
-.eg-mini-divider span {
-  width: 35px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(181, 138, 69, 0.85));
-}
-
-.eg-mini-divider span:last-child {
-  transform: rotate(180deg);
-}
-
-.eg-mini-divider i {
-  font-size: 12px;
-  font-style: normal;
-}
-
-/* =====================================================
-   DATE
-===================================================== */
-
-.eg-event-date {
-  width: 100%;
-  text-align: center;
-}
-
-.eg-event-weekday {
-  margin-top: 14px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.24em;
-
-  color: #8a7a52;
-}
-
-.eg-event-main-date {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-
-  margin: 8px 0;
-}
-
-.eg-date-number {
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: clamp(44px, 13vw, 76px);
-  font-weight: 600;
-
-  line-height: 0.85;
-
-  color: #5d452a;
-}
-
-.eg-date-side {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-
-  font-size: 10px;
-
-  letter-spacing: 0.14em;
-
-  color: #8a7a52;
-}
-
-.eg-date-side strong {
-  font-size: 18px;
-  font-weight: 600;
-
-  color: #5d452a;
-}
-
-.eg-event-lunar {
-  font-size: 14px;
-  font-style: italic;
-
-  color: #8a7657;
-}
-
-/* =====================================================
-   TIME
-===================================================== */
-
-.eg-event-time {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin: 10px auto 0;
-  padding: 15px 0;
-
-  border-bottom: 1px solid rgba(181, 138, 69, 0.45);
-}
-
-.eg-event-time div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.eg-event-time small {
-  font-size: 10px;
-
-  letter-spacing: 0.2em;
-
-  color: #8a7a52;
-}
-
-.eg-event-time strong {
-  font-size: 23px;
-  font-weight: 600;
-
-  color: #5d452a;
-}
-
-/* =====================================================
-   SCHEDULE
-===================================================== */
-
-.eg-event-schedule {
-  position: relative;
-
-  width: min(100%, 380px);
-
-  margin: 20px auto 0;
-  padding-left: 28px;
-
-  text-align: left;
-}
-
-.eg-event-schedule::before {
-  content: "";
-  position: absolute;
-
-  left: 6px;
-  top: 12px;
-  bottom: 12px;
-
-  width: 1px;
-
-  background: rgba(181, 138, 69, 0.6);
-}
-
-.eg-schedule-row {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  min-height: 42px;
-}
-
-.eg-schedule-dot {
-  position: absolute;
-  left: -28px;
-
-  width: 13px;
-  height: 13px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  border: 1px solid #b58a45;
-
-  background: #faf8f3;
-
-  z-index: 2;
-}
-
-.eg-schedule-dot span {
-  font-size: 11px;
-
-  color: #8a7a52;
-}
-
-.eg-schedule-content {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.eg-schedule-content span {
-  font-size: 11px;
-
-  letter-spacing: 0.16em;
-
-  color: #8a7657;
-}
-
-.eg-schedule-content strong {
-  font-size: 21px;
-  font-weight: 600;
-
-  color: #5d452a;
-}
-
-/* =====================================================
-   LOCATION
-===================================================== */
-
-.eg-event-location {
-  width: 100%;
-
-  margin-top: 18px;
-  padding: 14px 16px;
-
+/* =========================================================
+   THẺ SỰ KIỆN
+========================================================= */
+
+.la-event {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 
-  border: 1px solid rgba(181, 138, 69, 0.4);
-  border-radius: 16px;
-
-  background: rgba(255, 255, 255, 0.55);
+  margin-top: 22px;
 }
 
-.eg-event-location small {
-  font-size: 10px;
+.la-event__lead {
+  margin: 0;
 
-  letter-spacing: 0.2em;
+  color: var(--la-red);
 
-  color: #8a7a52;
-}
-
-.eg-event-location strong {
+  font-family: var(--la-font-hand);
   font-size: 16px;
+  font-weight: 500;
+
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.la-event__time {
+  margin: 0;
+
+  color: var(--la-red);
+
+  font-family: var(--la-font-hand);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   NGÀY
+========================================================= */
+
+.la-event__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+
+  margin-top: 4px;
+
+  color: var(--la-ink);
+}
+
+.la-event__side {
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 14px;
+  font-weight: 500;
+
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.la-event__bar {
+  flex: 0 0 auto;
+
+  width: 1.5px;
+  height: 28px;
+
+  border-radius: 999px;
+
+  background-color: var(--la-red);
+}
+
+.la-event__day {
+  color: var(--la-red);
+
+  font-family: var(--la-font-hand);
+  font-size: 32px;
+  font-weight: 500;
+
+  line-height: 1;
+}
+
+.la-event__year {
+  margin: 0;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.la-event__lunar {
+  margin: 0;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 13px;
+  font-weight: 300;
+
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   ĐÓN KHÁCH / KHAI TIỆC
+========================================================= */
+
+.la-event__schedule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+
+  margin-top: 16px;
+}
+
+.la-schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.la-schedule__label {
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 11px;
+  font-weight: 300;
+
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.la-schedule__value {
+  margin-top: 4px;
+
+  color: var(--la-red);
+
+  font-family: var(--la-font-hand);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   LỊCH THÁNG
+========================================================= */
+
+.la-calendar {
+  position: relative;
+
+  width: 290px;
+
+  margin: 22px auto 0;
+}
+
+.la-calendar__frame {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: fill;
+
+  pointer-events: none;
+}
+
+.la-calendar__body {
+  position: relative;
+  z-index: 10;
+
+  padding: 40px 20px 20px;
+}
+
+.la-calendar__month {
+  padding: 10px 0;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 13px;
   font-weight: 600;
 
-  color: #5d452a;
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
-.eg-event-location span {
-  font-size: 12px;
+.la-calendar__wave {
+  display: block;
 
-  color: #8a7657;
+  width: 100%;
+
+  color: var(--la-red);
+}
+
+.la-calendar__weekdays,
+.la-calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  width: 100%;
+
+  text-align: center;
+}
+
+.la-calendar__weekdays span {
+  padding: 6px 0;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 10px;
+  font-weight: 500;
+
+  opacity: 0.6;
+}
+
+.la-calendar__days {
+  row-gap: 2px;
+
+  padding: 8px 4px;
+}
+
+.la-calendar__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px;
+}
+
+.la-calendar__day {
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 12px;
+}
+
+.la-calendar__heart {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 24px;
+}
+
+.la-calendar__heart img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.12));
+}
+
+.la-calendar__heart b {
+  position: relative;
+  z-index: 10;
+
+  color: var(--la-paper);
+
+  font-family: var(--la-font-hand);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   THÊM VÀO LỊCH
+========================================================= */
+
+.la-event__calendar-link {
+  margin-top: 4px;
+
+  color: var(--la-red);
+
+  font-family: var(--la-font-hand);
+  font-size: 13px;
+  font-weight: 300;
+
+  letter-spacing: 0.02em;
+
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+
+  transition: opacity 0.25s ease;
+}
+
+.la-event__calendar-link:hover {
+  opacity: 0.7;
+}
+
+/* =========================================================
+   RSVP
+========================================================= */
+
+.la-event__rsvp {
+  margin-top: 8px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.la-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.la-confirm__card {
+  position: relative;
+
+  width: min(100%, 440px);
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 32px 24px 26px;
+
+  border: 1px solid var(--la-hairline);
+  border-radius: 20px;
+
+  background-color: var(--la-paper);
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+
+  text-align: center;
+}
+
+.la-confirm__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+
+  color: var(--la-red);
+
+  background: transparent;
+
+  font-size: 26px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.la-confirm__title {
+  margin: 0;
+
+  color: var(--la-red);
+
+  font-family: var(--la-font-display);
+  font-size: 24px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.la-confirm__desc {
+  margin: 8px 0 0;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 13px;
+  font-weight: 300;
 
   line-height: 1.5;
 }
 
-/* =====================================================
-   CALENDAR
-===================================================== */
+.la-confirm__recipient {
+  margin: 20px 0 0;
+  padding: 16px;
 
-.eg-calendar {
-  width: min(100%, 400px);
-
-  margin: 25px auto 0;
-
-  text-align: center;
+  border: 1px solid var(--la-hairline);
+  border-radius: 14px;
 }
 
-.eg-calendar__header {
-  width: 100%;
+.la-confirm__recipient span {
+  display: block;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  color: var(--la-ink);
 
-  margin-bottom: 12px;
-}
-
-.eg-calendar__header span {
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
-
-  color: #8a7a52;
-}
-
-.eg-calendar__header strong {
-  font-size: 11px;
-
-  letter-spacing: 0.1em;
-
-  color: #5d452a;
-}
-
-.eg-calendar__weekdays,
-.eg-calendar__days {
-  width: 100%;
-
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-
-  text-align: center;
-}
-
-.eg-calendar__weekdays {
-  padding-bottom: 8px;
-
-  border-bottom: 1px solid rgba(181, 138, 69, 0.4);
-}
-
-.eg-calendar__weekdays span {
+  font-family: var(--la-font-hand);
   font-size: 10px;
-  font-weight: 700;
-
-  color: #8a7a52;
-}
-
-.eg-calendar__cell {
-  min-height: 31px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.eg-normal-day {
-  font-size: 12px;
-
-  color: #6d5c42;
-}
-
-.eg-active-day {
-  position: relative;
-
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.eg-active-sun {
-  position: absolute;
-
-  font-size: 31px;
-
-  color: #b58a45;
-}
-
-.eg-active-day span:last-child {
-  position: relative;
-
-  font-weight: 700;
-
-  color: #4a3620;
-}
-
-.eg-calendar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  margin-top: 15px;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  color: #8a7a52;
-}
-
-/* =====================================================
-   RSVP
-===================================================== */
-
-.eg-rsvp-btn {
-  width: min(100%, 400px);
-
-  margin: 25px auto 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
-
-  padding: 13px 18px;
-
-  border: 1px solid rgba(181, 138, 69, 0.85);
-  border-radius: 999px;
-
-  color: #4a3620;
-
-  background: linear-gradient(135deg, #efe3c8, #d7bb82);
-
-  box-shadow: 0 10px 24px rgba(181, 138, 69, 0.32);
-
-  font-size: 11px;
-  font-weight: 700;
+  font-weight: 300;
 
   letter-spacing: 0.2em;
+}
+
+.la-confirm__recipient strong {
+  display: block;
+
+  margin-top: 6px;
+
+  color: var(--la-red);
+
+  font-family: var(--la-font-hand);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.la-field {
+  margin-top: 18px;
+
+  text-align: left;
+}
+
+.la-field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 11px;
+  font-weight: 300;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.la-field input {
+  width: 100%;
+
+  padding: 11px 13px;
+
+  border: 1px solid var(--la-hairline);
+  border-radius: 10px;
+
+  outline: none;
+
+  background-color: transparent;
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 15px;
+}
+
+.la-field input:focus {
+  border-color: var(--la-red);
+}
+
+.la-attendance {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.la-attendance__option {
+  padding: 11px 13px;
+
+  border: 1px solid var(--la-hairline);
+  border-radius: 10px;
+
+  background-color: transparent;
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 13px;
+
+  text-align: left;
 
   cursor: pointer;
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
-.eg-rsvp-btn:hover {
-  transform: translateY(-2px);
+.la-attendance__option span {
+  margin-right: 8px;
 
-  box-shadow: 0 14px 30px rgba(181, 138, 69, 0.42);
+  color: var(--la-red);
 }
 
-/* =====================================================
-   BOTTOM ORNAMENT
-===================================================== */
+.la-attendance__option.selected {
+  border-color: var(--la-red);
 
-.eg-event-bottom {
-  width: 100%;
+  background-color: var(--la-hairline-soft);
 
-  margin-top: 30px;
+  font-weight: 600;
+}
 
+.la-people {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-
-  color: #b58a45;
+  gap: 24px;
 }
 
-.eg-event-bottom span {
-  width: 60px;
-  height: 1px;
+.la-people button {
+  width: 38px;
+  height: 38px;
 
-  background: linear-gradient(90deg, transparent, rgba(181, 138, 69, 0.75));
+  border: 1px solid var(--la-red);
+  border-radius: 50%;
+
+  background-color: transparent;
+  color: var(--la-red);
+
+  font-size: 20px;
+
+  cursor: pointer;
 }
 
-.eg-event-bottom span:last-child {
-  transform: rotate(180deg);
+.la-people strong {
+  min-width: 24px;
+
+  color: var(--la-ink);
+
+  font-family: var(--la-font-hand);
+  font-size: 18px;
+
+  text-align: center;
 }
 
-.eg-event-bottom i {
+.la-confirm__error,
+.la-confirm__success {
+  margin: 16px 0 0;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  font-family: var(--la-font-hand);
   font-size: 12px;
-  font-style: normal;
 }
 
-/* =====================================================
+.la-confirm__error {
+  color: #a30a15;
+
+  background-color: rgba(215, 12, 27, 0.08);
+}
+
+.la-confirm__success {
+  color: #1c6b3a;
+
+  background-color: rgba(28, 107, 58, 0.1);
+}
+
+.la-confirm__submit {
+  width: 100%;
+
+  margin-top: 20px;
+}
+
+.la-confirm__submit:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
    REVEAL
-===================================================== */
+========================================================= */
 
 .reveal {
   opacity: 0;
 
-  transform: translateY(35px);
+  transform: translateY(30px);
 
   transition:
     opacity 0.8s ease var(--delay, 0ms),
@@ -1038,344 +1113,28 @@ onBeforeUnmount(() => {
   transform: translateY(0);
 }
 
-/* =====================================================
-   MODAL
-===================================================== */
-
-.eg-confirm-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-
-  background: rgba(48, 34, 16, 0.5);
-
-  backdrop-filter: blur(6px);
-}
-
-.eg-confirm-modal {
-  position: relative;
-
-  width: min(100%, 470px);
-
-  max-height: 90vh;
-
-  overflow-y: auto;
-
-  padding: 40px 30px;
-
-  border: 1px solid rgba(181, 138, 69, 0.65);
-  border-radius: 999px 999px 26px 26px;
-
-  background: linear-gradient(172deg, #fdfaf2, #f3e9d3);
-
-  box-shadow: 0 30px 80px rgba(30, 20, 8, 0.35);
-
-  text-align: center;
-
-  color: #5f4f38;
-}
-
-.eg-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-
-  width: 35px;
-  height: 35px;
-
-  border: 0;
-
-  font-size: 27px;
-
-  color: #b58a45;
-
-  background: transparent;
-
-  cursor: pointer;
-}
-
-.eg-modal-header {
-  text-align: center;
-}
-
-.eg-modal-symbol {
-  font-size: 20px;
-
-  margin-bottom: 8px;
-
-  color: #b58a45;
-}
-
-.eg-modal-header > span {
-  font-size: 10px;
-
-  letter-spacing: 0.28em;
-
-  color: #8a7a52;
-}
-
-.eg-modal-header h3 {
-  margin: 8px 0;
-
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 32px;
-  font-weight: 600;
-
-  color: #5d452a;
-}
-
-.eg-modal-header p {
-  margin: 0;
-
-  font-size: 14px;
-
-  color: #6d5c42;
-}
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.eg-form-group {
-  margin-top: 20px;
-
-  text-align: left;
-}
-
-.eg-form-group label {
-  display: block;
-
-  margin-bottom: 8px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-  color: #8a7a52;
-}
-
-.eg-form-group input {
-  width: 100%;
-
-  padding: 13px 14px;
-
-  border: 1px solid rgba(181, 138, 69, 0.55);
-  border-radius: 14px;
-
-  outline: none;
-
-  font-size: 16px;
-
-  color: #5f4f38;
-
-  background: rgba(255, 255, 255, 0.9);
-
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.eg-form-group input:focus {
-  border-color: #b58a45;
-
-  box-shadow: 0 0 0 3px rgba(181, 138, 69, 0.18);
-}
-
-.eg-attendance {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.eg-attendance-option {
-  padding: 12px 14px;
-
-  border: 1px solid rgba(181, 138, 69, 0.55);
-  border-radius: 14px;
-
-  text-align: left;
-
-  font-size: 13px;
-
-  color: #5f4f38;
-
-  background: rgba(255, 255, 255, 0.8);
-
-  cursor: pointer;
-
-  transition: all 0.25s ease;
-}
-
-.eg-attendance-option.selected {
-  border-color: #b58a45;
-
-  background: rgba(181, 138, 69, 0.16);
-
-  font-weight: 600;
-}
-
-.eg-attendance-option span {
-  margin-right: 8px;
-
-  color: #8a7a52;
-}
-
-.eg-people-control {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-}
-
-.eg-people-control button {
-  width: 38px;
-  height: 38px;
-
-  border: 1px solid #b58a45;
-  border-radius: 50%;
-
-  font-size: 20px;
-
-  color: #5d452a;
-
-  background: #faf8f3;
-
-  cursor: pointer;
-}
-
-.eg-people-control strong {
-  min-width: 25px;
-
-  text-align: center;
-
-  font-size: 18px;
-
-  color: #5d452a;
-}
-
-.eg-recipient-box {
-  margin: 20px 0;
-
-  padding: 18px;
-
-  border: 1px solid rgba(181, 138, 69, 0.6);
-  border-radius: 999px 999px 16px 16px;
-
-  text-align: center;
-
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.eg-recipient-box span {
-  display: block;
-
-  font-size: 10px;
-
-  letter-spacing: 0.22em;
-
-  color: #8a7a52;
-}
-
-.eg-recipient-box strong {
-  display: block;
-  margin-top: 6px;
-
-  font-family: "Great Vibes", cursive;
-  font-size: 28px;
-  font-weight: 400;
-
-  color: #5d452a;
-}
-
-.eg-form-error,
-.eg-form-success {
-  margin-top: 15px;
-
-  padding: 10px;
-
-  border-radius: 10px;
-
-  text-align: center;
-
-  font-size: 12px;
-}
-
-.eg-form-error {
-  color: #a34d3d;
-
-  background: rgba(163, 77, 61, 0.08);
-}
-
-.eg-form-success {
-  color: #6b6136;
-
-  background: rgba(181, 138, 69, 0.14);
-}
-
-.eg-modal-submit {
-  width: 100%;
-
-  margin-top: 22px;
-
-  padding: 14px;
-
-  border: 1px solid rgba(181, 138, 69, 0.85);
-  border-radius: 999px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
-
-  color: #4a3620;
-
-  background: linear-gradient(135deg, #efe3c8, #d7bb82);
-
-  box-shadow: 0 10px 24px rgba(181, 138, 69, 0.32);
-
-  cursor: pointer;
-
-  transition: transform 0.25s ease;
-}
-
-.eg-modal-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
-
-.eg-modal-submit:disabled {
-  opacity: 0.6;
-
-  cursor: not-allowed;
-}
-
-/* =====================================================
+/* =========================================================
    MODAL ANIMATION
-===================================================== */
+========================================================= */
 
-.eg-modal-enter-active,
-.eg-modal-leave-active {
+.la-modal-enter-active,
+.la-modal-leave-active {
   transition: opacity 0.3s ease;
 }
 
-.eg-modal-enter-from,
-.eg-modal-leave-to {
+.la-modal-enter-from,
+.la-modal-leave-to {
   opacity: 0;
 }
 
-.eg-modal-enter-active .eg-confirm-modal {
-  animation: eg-modal-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+.la-modal-enter-active .la-confirm__card {
+  animation: la-modal-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes eg-modal-in {
+@keyframes la-modal-in {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.96);
+    transform: translateY(28px) scale(0.96);
   }
 
   to {
@@ -1384,63 +1143,88 @@ onBeforeUnmount(() => {
   }
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   DESKTOP
+========================================================= */
 
-@media (max-width: 600px) {
-  .eg-events__list {
-    width: 100%;
-    padding: 0 18px;
-    gap: 25px;
+@media (min-width: 900px) {
+  .la-event {
+    margin-top: 28px;
   }
 
-  .eg-event-card {
-    max-width: 430px;
-
-    padding: 26px 18px 22px;
+  .la-event__lead {
+    font-size: 20px;
   }
 
-  .eg-event-heading h2 {
-    font-size: 26px;
+  .la-event__time {
+    font-size: 24px;
   }
 
-  .eg-event-main-date {
-    gap: 14px;
+  .la-event__side {
+    font-size: 15px;
   }
 
-  .eg-date-number {
-    font-size: 62px;
+  .la-event__day {
+    font-size: 38px;
   }
 
-  .eg-date-side strong {
-    font-size: 16px;
+  .la-event__year {
+    font-size: 22px;
   }
 
-  .eg-event-schedule {
-    width: min(100%, 340px);
+  .la-event__lunar {
+    font-size: 14px;
   }
 
-  .eg-schedule-content strong {
-    font-size: 19px;
+  .la-schedule__label {
+    font-size: 13px;
   }
 
-  .eg-calendar {
-    width: min(100%, 360px);
+  .la-schedule__value {
+    font-size: 22px;
   }
 
-  .eg-rsvp-btn {
-    width: min(100%, 360px);
+  .la-calendar {
+    width: 330px;
   }
 
-  .eg-confirm-modal {
-    padding: 35px 20px 25px;
+  .la-calendar__body {
+    padding: 44px 22px 22px;
+  }
+
+  .la-calendar__month {
+    font-size: 14px;
+  }
+
+  .la-calendar__weekdays span {
+    font-size: 11px;
+  }
+
+  .la-calendar__cell {
+    height: 34px;
+  }
+
+  .la-calendar__day {
+    font-size: 13px;
+  }
+
+  .la-calendar__heart {
+    width: 30px;
+    height: 28px;
+  }
+
+  .la-calendar__heart b {
+    font-size: 12px;
+  }
+
+  .la-event__calendar-link {
+    font-size: 15px;
   }
 }
 
-/* =====================================================
+/* =========================================================
    REDUCE MOTION
-===================================================== */
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {
@@ -1448,11 +1232,6 @@ onBeforeUnmount(() => {
 
     transform: none;
 
-    transition: none;
-  }
-
-  .eg-rsvp-btn,
-  .eg-modal-submit {
     transition: none;
   }
 }

@@ -1,42 +1,53 @@
 <template>
-  <footer class="el-footer">
-    <div class="el-footer__glow el-footer__glow--left"></div>
-    <div class="el-footer__glow el-footer__glow--right"></div>
+  <footer class="cr-footer">
+    <img
+      :src="decorativeHeader"
+      alt=""
+      aria-hidden="true"
+      class="cr-footer__header"
+      draggable="false"
+    />
 
-    <div class="el-footer__leaf el-footer__leaf--1">❦</div>
-    <div class="el-footer__leaf el-footer__leaf--2">✦</div>
-    <div class="el-footer__leaf el-footer__leaf--3">❦</div>
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-footer__blossom cr-footer__blossom--left"
+      draggable="false"
+    />
 
-    <div class="el-footer__inner">
-      <div class="el-footer__ring">
-        <span class="el-footer__ring-inner">{{ monogram }}</span>
+    <img
+      :src="cherryBlossom"
+      alt=""
+      aria-hidden="true"
+      class="cr-footer__blossom cr-footer__blossom--right"
+      draggable="false"
+    />
+
+    <div class="cr-footer__inner">
+      <div class="cr-footer__seal">
+        <img :src="doubleHappiness" alt="囍" draggable="false" />
       </div>
 
-      <p class="el-footer__monogram-label">SAVE THE DATE</p>
+      <p class="cr-footer__kicker">SAVE THE DATE</p>
 
-      <h2 class="el-footer__names">
-        {{ groomName }}
-
-        <span>&</span>
-
-        {{ brideName }}
+      <h2 class="cr-footer__names">
+        <span>{{ groomName }}</span>
+        <i>&amp;</i>
+        <span>{{ brideName }}</span>
       </h2>
 
-      <div class="el-footer__line">
+      <div class="cr-footer__ornament" aria-hidden="true">
         <span></span>
-
-        <i>❦</i>
-
+        <i>❀</i>
         <span></span>
       </div>
 
-      <p class="el-footer__thanks">
-        {{ thanksMessage }}
-      </p>
+      <p class="cr-footer__thanks">{{ thanksMessage }}</p>
 
-      <div class="el-footer__date">{{ weddingDate }}</div>
+      <p v-if="weddingDate" class="cr-footer__date">{{ weddingDate }}</p>
 
-      <small class="el-footer__copyright">© {{ currentYear }} · {{ copyrightText }}</small>
+      <small class="cr-footer__copyright">© {{ currentYear }} · {{ copyrightText }}</small>
     </div>
   </footer>
 </template>
@@ -44,476 +55,301 @@
 <script setup>
 import { computed } from "vue";
 
+import {
+  cherryBlossom,
+  decorativeHeader,
+  doubleHappiness,
+} from "./emeraldLuxeAssets";
+
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
-  monogram: { type: String, default: "G&B" },
+  monogram: { type: String, default: "囍" },
   currentYear: { type: Number, default: 2026 },
 });
 
 const wedding = computed(() => props.wedding || {});
 
-const groomName = computed(() => {
-  return (
+const groomName = computed(
+  () =>
     wedding.value?.footer?.GroomName ||
     wedding.value?.GroomName ||
     wedding.value?.groomName ||
     wedding.value?.hero?.GroomName ||
     wedding.value?.couple?.Groom?.Name ||
     ""
-  );
-});
+);
 
-const brideName = computed(() => {
-  return (
+const brideName = computed(
+  () =>
     wedding.value?.footer?.BrideName ||
     wedding.value?.BrideName ||
     wedding.value?.brideName ||
     wedding.value?.hero?.BrideName ||
     wedding.value?.couple?.Bride?.Name ||
     ""
-  );
-});
+);
 
-const thanksMessage = computed(() => {
-  return (
+const thanksMessage = computed(
+  () =>
     wedding.value?.footer?.Message ||
     "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
-  );
-});
+);
 
-const copyrightText = computed(() => {
-  return wedding.value?.footer?.Copyright || "Made with love";
-});
+const copyrightText = computed(
+  () => wedding.value?.footer?.Copyright || "Made with love"
+);
 
 const weddingDate = computed(() => {
-  return wedding.value?.weddingDate || wedding.value?.hero?.WeddingDate || wedding.value?.hero?.weddingDate || "";
+  const raw =
+    wedding.value?.weddingDate ||
+    wedding.value?.hero?.WeddingDate ||
+    wedding.value?.hero?.weddingDate ||
+    "";
+
+  if (!raw) return "";
+
+  const date = new Date(raw);
+
+  if (Number.isNaN(date.getTime())) return String(raw);
+
+  return date.toLocaleDateString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 });
 </script>
 
 <style scoped>
-.el-footer {
+.cr-footer {
   position: relative;
 
   width: 100%;
-  min-height: 400px;
+
+  margin-top: 40px;
+  padding: 0 0 34px;
 
   overflow: hidden;
 
-  box-sizing: border-box;
-
-  color: #2e3d36;
-
   text-align: center;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--cr-ink);
 
-  background: linear-gradient(180deg, #f2ecdc 0%, #e3dcc4 55%, #123b2e 100%);
+  background: linear-gradient(180deg, var(--cr-bg) 0%, var(--cr-bg-2) 100%);
 }
 
-/* =====================================================
-   DECORATIVE FRAME
-===================================================== */
-
-.el-footer::before {
-  content: "";
-
+.cr-footer__header {
   position: absolute;
 
-  inset: 14px;
+  top: -10px;
+  left: 50%;
 
-  border: 1px solid rgba(201, 164, 92, 0.55);
+  width: min(100%, 420px);
 
-  border-radius: 60% 60% 26px 26px / 10% 10% 26px 26px;
+  transform: translateX(-50%) rotate(180deg);
+
+  object-fit: contain;
+
+  opacity: 0.5;
 
   pointer-events: none;
 }
 
-.el-footer::after {
-  content: "";
-
+.cr-footer__blossom {
   position: absolute;
 
-  inset: 20px;
+  width: 96px;
+  height: 96px;
 
-  border: 1px solid rgba(201, 164, 92, 0.22);
+  object-fit: contain;
 
-  border-radius: 60% 60% 20px 20px / 10% 10% 20px 20px;
+  opacity: 0.4;
 
   pointer-events: none;
 }
 
-/* =====================================================
-   GLOW
-===================================================== */
-
-.el-footer__glow {
-  position: absolute;
-
-  z-index: 1;
-
-  width: 240px;
-  height: 240px;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  filter: blur(10px);
+.cr-footer__blossom--left {
+  bottom: 20px;
+  left: -26px;
 }
 
-.el-footer__glow--left {
-  left: -90px;
-  bottom: -70px;
+.cr-footer__blossom--right {
+  top: 40px;
+  right: -26px;
 
-  background: radial-gradient(circle, rgba(201, 164, 92, 0.4), transparent 70%);
+  width: 78px;
+  height: 78px;
 }
 
-.el-footer__glow--right {
-  right: -90px;
-  top: -60px;
+/* =========================================================
+   NỘI DUNG
+========================================================= */
 
-  background: radial-gradient(circle, rgba(18, 59, 46, 0.3), transparent 70%);
-}
-
-/* =====================================================
-   LEAF STROKES
-===================================================== */
-
-.el-footer__leaf {
-  position: absolute;
-
-  z-index: 1;
-
-  color: rgba(201, 164, 92, 0.4);
-
-  pointer-events: none;
-
-  animation: el-footer-sway 6s ease-in-out infinite;
-}
-
-.el-footer__leaf--1 {
-  top: 44px;
-  left: 30px;
-
-  font-size: 20px;
-}
-
-.el-footer__leaf--2 {
-  top: 90px;
-  right: 38px;
-
-  font-size: 15px;
-
-  animation-delay: 1.4s;
-}
-
-.el-footer__leaf--3 {
-  bottom: 60px;
-  right: 70px;
-
-  font-size: 12px;
-
-  color: rgba(201, 164, 92, 0.55);
-
-  animation-delay: 2.6s;
-}
-
-@keyframes el-footer-sway {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-8deg);
-  }
-
-  50% {
-    transform: translateY(-9px) rotate(10deg);
-  }
-}
-
-/* =====================================================
-   INNER
-===================================================== */
-
-.el-footer__inner {
+.cr-footer__inner {
   position: relative;
-
-  z-index: 3;
+  z-index: 2;
 
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
 
-  box-sizing: border-box;
-
-  min-height: 400px;
-
-  padding: 50px 24px 28px;
+  padding: 96px 20px 0;
 }
 
-/* =====================================================
-   MONOGRAM RING
-===================================================== */
-
-.el-footer__ring {
-  position: relative;
+.cr-footer__seal {
+  width: 76px;
+  height: 76px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  width: 84px;
-  height: 84px;
-
-  border: 1px solid rgba(201, 164, 92, 0.75);
-
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
   border-radius: 50%;
 
-  background: rgba(255, 253, 246, 0.85);
+  background: var(--cr-surface);
 
-  box-shadow: 0 8px 24px rgba(12, 43, 33, 0.14);
-
-  transform: rotate(-3deg);
+  box-shadow: 0 10px 26px rgba(var(--cr-ink-rgb), 0.12);
 }
 
-.el-footer__ring::before {
-  content: "";
+.cr-footer__seal img {
+  width: 48px;
+  height: 48px;
 
-  position: absolute;
-
-  inset: 6px;
-
-  border: 1px dashed rgba(201, 164, 92, 0.5);
-
-  border-radius: 50%;
+  object-fit: contain;
 }
 
-.el-footer__ring-inner {
-  font-family: "Playfair Display", Georgia, serif;
-
-  font-size: 26px;
-
-  font-weight: 600;
-
-  color: #123b2e;
-
-  line-height: 1;
-}
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.el-footer__monogram-label {
+.cr-footer__kicker {
   margin: 16px 0 0;
 
-  color: #8a7a52;
+  color: var(--cr-muted);
 
-  font-size: 11px;
-
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 600;
 
   letter-spacing: 0.34em;
   text-indent: 0.34em;
 }
 
-/* =====================================================
-   NAMES
-===================================================== */
+.cr-footer__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 
-.el-footer__names {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
 
-  font-family: "Great Vibes", cursive;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: clamp(32px, 8.5vw, 44px);
-
+  font-size: clamp(26px, 7.5vw, 38px);
   font-weight: 400;
 
-  line-height: 1.25;
+  line-height: 1.2;
 
-  color: #123b2e;
+  letter-spacing: 0.04em;
 }
 
-.el-footer__names span {
-  display: inline-block;
+.cr-footer__names i {
+  color: var(--cr-accent);
 
-  margin: 0 8px;
-
-  color: #c9a45c;
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: 0.62em;
-
+  font-family: Georgia, serif;
+  font-size: 0.55em;
   font-style: italic;
 }
 
-/* =====================================================
-   LINE
-===================================================== */
-
-.el-footer__line {
+.cr-footer__ornament {
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 10px;
 
-  width: 100%;
+  margin: 14px 0;
 
-  margin: 15px 0 14px;
+  color: var(--cr-accent);
 }
 
-.el-footer__line span {
+.cr-footer__ornament span {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(to right, transparent, rgba(201, 164, 92, 0.85));
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
 }
 
-.el-footer__line span:last-child {
-  background: linear-gradient(to left, transparent, rgba(201, 164, 92, 0.85));
+.cr-footer__ornament span:last-child {
+  transform: rotate(180deg);
 }
 
-.el-footer__line i {
-  color: #c9a45c;
-
+.cr-footer__ornament i {
   font-size: 12px;
-
   font-style: normal;
 }
 
-/* =====================================================
-   THANK YOU
-===================================================== */
-
-.el-footer__thanks {
-  max-width: 300px;
+.cr-footer__thanks {
+  max-width: 320px;
 
   margin: 0 auto;
 
-  color: #55645b;
+  color: var(--cr-soft);
 
-  font-size: 11px;
+  font-size: 12px;
 
   line-height: 1.85;
 
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
 
   white-space: pre-line;
 }
 
-/* =====================================================
-   DATE
-===================================================== */
-
-.el-footer__date {
-  margin-top: 18px;
-
+.cr-footer__date {
+  margin: 18px 0 0;
   padding: 8px 18px;
 
-  color: #123b2e;
+  border-top: 1px solid rgba(var(--cr-accent-rgb), 1);
+  border-bottom: 1px solid rgba(var(--cr-accent-rgb), 1);
+
+  color: var(--cr-ink);
 
   font-size: 12px;
-
   font-weight: 600;
 
-  letter-spacing: 0.22em;
-
-  border-top: 1px solid rgba(201, 164, 92, 0.5);
-
-  border-bottom: 1px solid rgba(201, 164, 92, 0.5);
+  letter-spacing: 0.2em;
 }
 
-/* =====================================================
-   COPYRIGHT
-===================================================== */
-
-.el-footer__copyright {
+.cr-footer__copyright {
   display: block;
 
-  margin-top: auto;
+  margin-top: 22px;
 
-  padding-top: 24px;
-
-  color: #8a7a52;
+  color: var(--cr-muted);
 
   font-size: 11px;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   MOBILE NHỎ
+========================================================= */
 
 @media (max-width: 420px) {
-  .el-footer {
-    min-height: 370px;
+  .cr-footer__inner {
+    padding-top: 84px;
   }
 
-  .el-footer::before {
-    inset: 10px;
+  .cr-footer__seal {
+    width: 66px;
+    height: 66px;
   }
 
-  .el-footer::after {
-    inset: 15px;
+  .cr-footer__seal img {
+    width: 42px;
+    height: 42px;
   }
 
-  .el-footer__inner {
-    min-height: 370px;
-
-    padding: 44px 20px 24px;
-  }
-
-  .el-footer__ring {
-    width: 74px;
-    height: 74px;
-  }
-
-  .el-footer__ring-inner {
-    font-size: 23px;
-  }
-
-  .el-footer__monogram-label {
-    margin-top: 13px;
-
-    font-size: 10px;
-  }
-
-  .el-footer__names {
-    margin-top: 8px;
-  }
-
-  .el-footer__thanks {
-    max-width: 260px;
-
-    font-size: 10px;
-  }
-
-  .el-footer__date {
-    margin-top: 15px;
+  .cr-footer__thanks {
+    max-width: 270px;
 
     font-size: 11px;
-  }
-
-  .el-footer__copyright {
-    font-size: 10px;
-  }
-}
-
-/* =====================================================
-   REDUCE MOTION
-===================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .el-footer__leaf {
-    animation: none;
   }
 }
 </style>

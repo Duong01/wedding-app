@@ -1,173 +1,62 @@
 <template>
-  <section class="map-section">
+  <section class="cfr-map">
 
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-    <div class="map-heading">
-
-      <span class="heading-kicker">
-        ĐỊA ĐIỂM TỔ CHỨC
-      </span>
-
-      <h2>
-        NƠI DIỄN RA NGÀY TRỌNG ĐẠI
-      </h2>
-
-      <div class="heading-decoration">
-        <span></span>
-
-        <b>囍</b>
-
-        <span></span>
-      </div>
-
-    </div>
+    <h3 class="cfr-title">
+      {{ heading }}
+    </h3>
 
 
-    <!-- =========================================
-         EVENTS
-    ========================================== -->
+    <!-- =====================================================
+         TỪNG ĐỊA ĐIỂM
+    ====================================================== -->
 
     <div
-      v-for="(event, index) in normalizedEvents"
-      :key="event.Id || index"
-      class="map-event"
+      v-for="event in normalizedEvents"
+      :key="event.id"
+      class="cfr-map__event"
     >
+      <p v-if="event.address" class="cfr-map__address">
+        {{ event.address }}
+      </p>
 
-      <!-- =====================================
-           CARD
-      ====================================== -->
+      <div class="cfr-map__body">
 
-      <div class="map-card">
+        <iframe
+          v-if="event.mapUrl"
+          :src="event.mapUrl"
+          class="cfr-map__frame"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
 
-        <!-- CORNERS -->
-
-        <span class="corner corner-tl"></span>
-        <span class="corner corner-tr"></span>
-        <span class="corner corner-bl"></span>
-        <span class="corner corner-br"></span>
-
-
-        <div class="map-content">
-
-          <!-- =================================
-               LOCATION ICON
-          ================================== -->
-
-          <div class="location-icon">
-            <span>⌖</span>
-          </div>
-
-
-          <!-- =================================
-               TITLE
-          ================================== -->
-
-          <div class="map-title">
-            {{ event.Title }}
-          </div>
-
-
-          <!-- =================================
-               ADDRESS
-          ================================== -->
-
-          <div
-            v-if="event.address"
-            class="map-address"
+        <a
+          v-if="event.directionUrl"
+          :href="event.directionUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cfr-link cfr-map__direction"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
           >
-            {{ event.address }}
-          </div>
+            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+          </svg>
 
-
-          <!-- =================================
-               MAP
-          ================================== -->
-
-            <div class="map-frame">
-      <iframe
-        v-if="event.mapUrl"
-        :src="event.mapUrl"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen
-      ></iframe>
-
-      <div v-else class="map-frame-fallback">
-        <v-icon size="28">mdi-map-outline</v-icon>
-
-        <span>Chưa có bản đồ — dùng nút CHỈ ĐƯỜNG bên dưới</span>
-      </div>
-
-      <div class="map-overlay">
-        <div class="map-badge">
-          <v-icon size="18">
-            mdi-map-marker
-          </v-icon>
-
-          <span>
-            Địa điểm tổ chức
-          </span>
-        </div>
-      </div>
-    </div>
-
-
-          <!-- =================================
-               DIRECTION
-          ================================== -->
-
-          <a
-            v-if="event.directionUrl"
-            :href="event.directionUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="direction-button"
-          >
-
-            <span class="direction-icon">
-              ↗
-            </span>
-
-            <span>
-              CHỈ ĐƯỜNG
-            </span>
-
-          </a>
-
-
-          <!-- =================================
-               BOTTOM DECORATION
-          ================================== -->
-
-          <div class="map-bottom-decoration">
-
-            <span></span>
-
-            <b>囍</b>
-
-            <span></span>
-
-          </div>
-
-        </div>
+          <span>Chỉ đường</span>
+        </a>
 
       </div>
-
-    </div>
-
-
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div
-      v-if="!normalizedEvents.length"
-      class="map-empty"
-    >
-      Chưa có thông tin địa điểm
     </div>
 
   </section>
@@ -177,935 +66,218 @@
 <script setup>
 import { computed } from "vue";
 
+import { sectionText } from "@/data/sectionTitles";
+
 
 const props = defineProps({
-
   events: {
     type: Array,
     default: () => [],
   },
 
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 
 /* =====================================================
-   NORMALIZE EVENTS
+   TIÊU ĐỀ MỤC
 ===================================================== */
 
-const normalizedEvents = computed(() => {
+const heading = computed(() =>
+  sectionText(props.sections, "map", "Heading")
+);
 
-  return (props.events || [])
 
+/* =====================================================
+   CHUẨN HÓA ĐỊA ĐIỂM
+===================================================== */
+
+const normalizedEvents = computed(() =>
+  (props.events || [])
     .map((event, index) => {
-
       const item = event || {};
 
-      /*
-       * API có thể trả:
-       *
-       * map: "https://maps.google.com/..."
-       *
-       * hoặc:
-       *
-       * map: {
-       *   url: "...",
-       *   directionUrl: "..."
-       * }
-       */
+      const raw = item.Map || "";
 
-      const mapValue = item.Map;
-
-
-      let mapUrl = "";
-
-      let directionUrl = "";
-
-
-      if (typeof mapValue === "string") {
-
-        /*
-         * URL Google Maps thường không nhúng được vào iframe
-         * (X-Frame-Options: sameorigin) — chỉ dùng làm link
-         * chỉ đường. Nếu là link embed có sẵn thì giữ nguyên.
-         */
-
-        directionUrl = mapValue;
-
-        if (mapValue.includes("output=embed")) {
-          mapUrl = mapValue;
-        }
-
-      }
-
-
-      if (
-        mapValue &&
-        typeof mapValue === "object"
-      ) {
-
-        mapUrl =
-          mapValue.url ||
-          mapValue.embedUrl ||
-          mapValue.embed ||
-          "";
-
-        directionUrl =
-          mapValue.directionUrl ||
-          mapValue.googleMapsUrl ||
-          mapValue.url ||
-          "";
-
-      }
-
-
-      /*
-       * Không có link embed sẵn → tự tạo từ tọa độ trong URL
-       * (maps.google.com/?q=lat,lng) hoặc từ địa chỉ.
-       */
-
-      if (!mapUrl && directionUrl) {
-
-        const coords = directionUrl.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
-
-        if (coords) {
-          mapUrl = `https://www.google.com/maps?q=${coords[1]},${coords[2]}&output=embed`;
-        }
-
-      }
-
-
-      if (!mapUrl && item.Address) {
-
-        mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(item.Address)}&output=embed`;
-
-      }
-
+      const address = item.Address || item.Location || "";
 
       return {
+        id: item.Id || index,
 
-        id:
-          item.Id ||
-          index,
+        address,
 
-        title:
-          item.Title ||
-          item.name ||
-          item.Location ||
-          "Địa điểm tổ chức",
+        mapUrl: embedUrl(raw, address),
 
-        address:
-          item.Address ||
-          item.location ||
-          item.venue ||
-          "",
-
-        mapUrl:
-          item.MapEmbed ||
-          item.embedUrl ||
-          item.map_embed ||
-          mapUrl,
-
-        directionUrl:
-          item.directionUrl ||
-          item.googleMapsUrl ||
-          directionUrl ||
-          item.Map,
-
+        directionUrl: directionUrl(raw, address),
       };
-
     })
+    .filter((event) => event.address || event.mapUrl || event.directionUrl)
+);
 
-    .filter((event) => {
 
-      return (
-        event.address ||
-        event.mapUrl ||
-        event.directionUrl
-      );
+/*
+ * URL Google Maps thường không nhúng được vào iframe
+ * (X-Frame-Options: sameorigin) → tự tạo link embed
+ * từ tọa độ trong URL hoặc từ địa chỉ.
+ */
+function embedUrl(raw, address) {
+  if (!raw) {
+    return address
+      ? `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`
+      : "";
+  }
 
-    });
+  if (raw.includes("output=embed")) {
+    return raw;
+  }
 
-});
+  const coords = raw.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+
+  if (coords) {
+    return `https://www.google.com/maps?q=${coords[1]},${coords[2]}&output=embed`;
+  }
+
+  return address
+    ? `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`
+    : "";
+}
+
+
+/*
+ * Link dạng ?q=lat,lng là link xem bản đồ, không phải link
+ * chỉ đường. Chuyển sang /maps/dir/ để mở đúng chế độ dẫn đường.
+ */
+function directionUrl(raw, address) {
+  if (raw) {
+    const coords = raw.match(/q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+
+    if (coords) {
+      return `https://www.google.com/maps/dir/?api=1&destination=${coords[1]},${coords[2]}`;
+    }
+  }
+
+  if (address) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+      address
+    )}`;
+  }
+
+  return raw || "";
+}
 </script>
 
 
 <style scoped>
-
 /* =====================================================
-   ROOT
+   SECTION
 ===================================================== */
 
-.map-section {
-
+.cfr-map {
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 16px;
 
   width: 100%;
 
-  padding:
-    8px
-    4px;
-
-  color: #5f1619;
+  color: var(--cfr-red-deep);
 
   text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.map-heading {
-
+.cfr-map__event {
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
-  margin-bottom: 27px;
-
-}
-
-
-.heading-kicker {
-
-  margin-bottom: 6px;
-
-  color: #a47b3f;
-
-  font-size: 10px;
-
-  font-weight: 800;
-
-  letter-spacing: 2.8px;
-
-}
-
-
-.map-heading h2 {
-
-  margin: 0;
-
-  color: #7b1519;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 21px;
-
-  font-weight: 900;
-
-  letter-spacing: .8px;
-
-  line-height: 1.25;
-
-}
-
-
-.heading-decoration {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
 
   gap: 8px;
 
-  margin-top: 10px;
-
+  width: 100%;
 }
 
+.cfr-map__address {
+  max-width: 384px;
 
-.heading-decoration span {
+  margin: 12px auto 0;
+  padding-bottom: 12px;
 
-  width: 38px;
+  border-bottom: 1px solid var(--cfr-hairline-soft);
 
-  height: 1px;
+  font-size: 14px;
 
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b99051
-    );
-
+  letter-spacing: 0.025em;
+  line-height: 1.5;
+  white-space: pre-line;
 }
 
+.cfr-map__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-.heading-decoration span:last-child {
-
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b99051
-    );
-
-}
-
-
-.heading-decoration b {
-
-  color: #991519;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 16px;
-
-  line-height: 1;
-
-}
-
-
-/* =====================================================
-   EVENT
-===================================================== */
-
-.map-event {
+  gap: 16px;
 
   width: 100%;
-
-  margin-bottom: 24px;
-
 }
 
-
-/* ================================
-   MAP
-================================ */
-
-.map-frame {
+.cfr-map__frame {
   position: relative;
+  z-index: 10;
 
   width: 100%;
+  max-width: 340px;
+  height: 280px;
 
-  height: 380px;
-
-  overflow: hidden;
-
-  border-radius: 24px;
-
-  background: #eee;
-}
-
-.map-frame iframe {
-  display: block;
-
-  width: 100%;
-  height: 100%;
+  margin-top: 8px;
 
   border: 0;
-}
-
-/* Fallback khi không có URL bản đồ embed */
-.map-frame-fallback {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 10px;
-
-  height: 100%;
-
-  padding: 20px;
-
-  color: #927b62;
-
-  font-size: 11px;
-
-  line-height: 1.6;
-}
-
-
-/* Map overlay */
-
-.map-overlay {
-  position: absolute;
-
-  top: 18px;
-  left: 18px;
-
-  pointer-events: none;
-}
-
-.map-badge {
-  display: inline-flex;
-
-  align-items: center;
-  gap: 8px;
-
-  padding: 9px 14px;
-
-  border-radius: 999px;
-
-  color: #5c3a40;
-
-  background: rgba(255, 255, 255, 0.92);
-
-  border: 1px solid rgba(255, 255, 255, 0.8);
-
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.12);
-
-  backdrop-filter: blur(12px);
-
-  font-family: var(--font-main);
-  font-size: var(--text-sm);
-  font-weight: 600;
-}
-
-/* =====================================================
-   MAP CARD
-===================================================== */
-
-.map-card {
-
-  position: relative;
-
-  width: 100%;
+  border-radius: 16px;
 
   overflow: hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fffdf8,
-      #fbf4e7
-    );
-
-  border:
-    1px solid
-    rgba(174, 132, 66, .45);
-
-  box-shadow:
-    0 10px 28px
-    rgba(89, 35, 20, .07);
-
 }
 
-
-/* =====================================================
-   INNER BORDER
-===================================================== */
-
-.map-card::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 7px;
-
-  z-index: 1;
-
-  border:
-    1px solid
-    rgba(174, 132, 66, .2);
-
-  pointer-events: none;
-
-}
-
-
-/* =====================================================
-   CORNERS
-===================================================== */
-
-.corner {
-
-  position: absolute;
-
-  z-index: 5;
-
-  width: 17px;
-
-  height: 17px;
-
-  pointer-events: none;
-
-}
-
-
-.corner::before,
-.corner::after {
-
-  content: "";
-
-  position: absolute;
-
-  background: #b28a4c;
-
-}
-
-
-.corner::before {
-
-  width: 100%;
-
-  height: 1px;
-
-}
-
-
-.corner::after {
-
-  width: 1px;
-
-  height: 100%;
-
-}
-
-
-.corner-tl {
-
-  top: 10px;
-
-  left: 10px;
-
-}
-
-
-.corner-tr {
-
-  top: 10px;
-
-  right: 10px;
-
-  transform: rotate(90deg);
-
-}
-
-
-.corner-bl {
-
-  bottom: 10px;
-
-  left: 10px;
-
-  transform: rotate(-90deg);
-
-}
-
-
-.corner-br {
-
-  right: 10px;
-
-  bottom: 10px;
-
-  transform: rotate(180deg);
-
-}
-
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.map-content {
-
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  padding:
-    25px
-    17px
-    22px;
-
-}
-
-
-/* =====================================================
-   LOCATION ICON
-===================================================== */
-
-.location-icon {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 34px;
-
-  height: 34px;
-
-  margin-bottom: 8px;
-
-  color: #9c171b;
-
-  border:
-    1px solid
-    rgba(167, 124, 59, .45);
-
-  border-radius: 50%;
-
-  background:
-    rgba(255, 250, 239, .8);
-
-  box-shadow:
-    0 3px 10px
-    rgba(120, 50, 20, .06);
-
-}
-
-
-.location-icon span {
-
-  font-size: 19px;
-
-  line-height: 1;
-
-  transform:
-    translateY(-1px);
-
-}
-
-
-/* =====================================================
-   TITLE
-===================================================== */
-
-.map-title {
-
-  max-width: 330px;
-
-  color: #781419;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 17px;
-
-  font-weight: 900;
-
-  letter-spacing: .4px;
-
-  line-height: 1.35;
-
-}
-
-
-/* =====================================================
-   ADDRESS
-===================================================== */
-
-.map-address {
-
-  max-width: 320px;
-
-  margin:
-    6px
-    auto
-    17px;
-
-  color: #716052;
-
-  font-size: 11px;
-
-  font-weight: 500;
-
-  line-height: 1.65;
-
-}
-
-
-/* =====================================================
-   MAP FRAME
-===================================================== */
-
-
-
-
-/* =====================================================
-   DIRECTION BUTTON
-===================================================== */
-
-.direction-button {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 8px;
-
-  min-width: 145px;
-
-  min-height: 40px;
-
-  margin-top: 17px;
-
-  padding:
-    9px
-    19px;
-
-  color: #fffaf1;
-
-  background:
-    linear-gradient(
-      135deg,
-      #9b171c,
-      #761116
-    );
-
-  border:
-    1px solid
-    #a7282b;
-
-  box-shadow:
-    0 5px 14px
-    rgba(117, 17, 22, .16);
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  letter-spacing: 1.7px;
+.cfr-map__direction {
+  padding: 8px 20px;
 
   text-decoration: none;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    background .2s ease;
-
 }
 
+.cfr-map__direction svg {
+  width: 16px;
+  height: 16px;
 
-.direction-button:hover {
-
-  background:
-    linear-gradient(
-      135deg,
-      #a51a1f,
-      #811318
-    );
-
-  box-shadow:
-    0 8px 18px
-    rgba(117, 17, 22, .23);
-
-  transform:
-    translateY(-2px);
-
-}
-
-
-.direction-icon {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 17px;
-
-  height: 17px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.45);
-
-  border-radius: 50%;
-
-  font-size: 10px;
-
-  line-height: 1;
-
+  flex-shrink: 0;
 }
 
 
 /* =====================================================
-   BOTTOM DECORATION
+   DESKTOP
 ===================================================== */
 
-.map-bottom-decoration {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 8px;
-
-  width: 100%;
-
-  margin-top: 21px;
-
-}
-
-
-.map-bottom-decoration span {
-
-  width: 35px;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #b99153
-    );
-
-}
-
-
-.map-bottom-decoration span:last-child {
-
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #b99153
-    );
-
-}
-
-
-.map-bottom-decoration b {
-
-  color: #981519;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 15px;
-
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.map-empty {
-
-  padding: 30px 15px;
-
-  color: #927b62;
-
-  font-size: 11px;
-
-  line-height: 1.6;
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .map-section {
-
-    padding-left: 2px;
-
-    padding-right: 2px;
-
+@media (min-width: 900px) {
+  .cfr-map {
+    gap: 20px;
   }
 
-
-  .map-heading {
-
-    margin-bottom: 22px;
-
-  }
-
-
-  .heading-kicker {
-
-    font-size: 11px;
-
-    letter-spacing: 2.2px;
-
-  }
-
-
-  .map-heading h2 {
-
-    font-size: 18px;
-
-  }
-
-
-  .heading-decoration {
-
-    margin-top: 8px;
-
-  }
-
-
-  .map-content {
-
-    padding:
-      23px
-      14px
-      20px;
-
-  }
-
-
-  .map-title {
+  .cfr-map__address {
+    max-width: 500px;
 
     font-size: 16px;
-
   }
 
-
-  .map-address {
-
-    font-size: 10px;
-
-    margin-bottom: 15px;
-
+  .cfr-map__frame {
+    max-width: 560px;
+    height: 380px;
   }
 
-
-
-  .direction-button {
-
-    min-width: 135px;
-
-    min-height: 39px;
-
-    font-size: 10px;
-
-    letter-spacing: 1.5px;
-
+  .cfr-map__direction {
+    font-size: 16px;
   }
-
 }
 </style>

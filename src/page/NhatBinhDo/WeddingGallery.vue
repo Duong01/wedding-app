@@ -1,76 +1,52 @@
 <template>
-  <section class="gallery-section">
+  <section class="cfr-gallery">
 
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-    <div class="gallery-heading">
+    <h2 class="cfr-title">
+      {{ heading }}
+    </h2>
 
-      <span class="heading-kicker">
-        NHỮNG KHOẢNH KHẮC
-      </span>
 
-      <h2>
-        KHOẢNH KHẮC CỦA CHÚNG MÌNH
-      </h2>
+    <!-- =====================================================
+         BĂNG CHUYỀN ẢNH
+    ====================================================== -->
 
-      <div class="heading-decoration">
-        <span></span>
+    <div class="cfr-gallery__stage">
+      <ModernGalleryCarousel
+        v-if="gallery.length"
+        :images="gallery"
+        accent="#9c1f2c"
+        text-color="#9c1f2c"
+        frame-bg="#fbf8f3"
+        :radius="16"
+        @open="openLightbox"
+      />
 
-        <b>囍</b>
-
-        <span></span>
-      </div>
-
+      <p v-else class="cfr-gallery__empty">
+        Chưa có hình ảnh
+      </p>
     </div>
 
 
-    <!-- =========================================
-         GALLERY - CAROUSEL VÒNG
-    ========================================== -->
-
-    <ModernGalleryCarousel
-      v-if="gallery.length"
-      :images="gallery"
-      accent="#93a58c"
-      text-color="#3f4a3e"
-      :radius="2"
-      @open="openGallery"
-    />
-
-
-    <!-- =========================================
-         EMPTY
-    ========================================== -->
-
-    <div
-      v-else
-      class="gallery-empty"
-    >
-      Chưa có hình ảnh
-    </div>
-
-
-    <!-- =========================================
-         FULLSCREEN GALLERY DIALOG
-    ========================================== -->
+    <!-- =====================================================
+         XEM TOÀN MÀN HÌNH
+    ====================================================== -->
 
     <v-dialog
       v-model="dialog"
       fullscreen
-      persistent
       transition="dialog-fade-transition"
       content-class="gallery-dialog"
     >
-
       <GalleryModal
         v-if="dialog"
         :images="gallery"
         :start-index="currentIndex"
         @close="closeLightbox"
       />
-
     </v-dialog>
 
   </section>
@@ -78,7 +54,9 @@
 
 
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
+import { computed, defineAsyncComponent, onUnmounted, ref } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
 
 import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
 
@@ -96,11 +74,25 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 
 /* =====================================================
-   DIALOG
+   TIÊU ĐỀ MỤC
+===================================================== */
+
+const heading = computed(() =>
+  sectionText(props.sections, "gallery", "Heading")
+);
+
+
+/* =====================================================
+   LIGHTBOX
 ===================================================== */
 
 const dialog = ref(false);
@@ -108,175 +100,83 @@ const dialog = ref(false);
 const currentIndex = ref(0);
 
 
-/* =====================================================
-   OPEN GALLERY
-===================================================== */
+function openLightbox(index) {
+  if (!props.gallery.length) return;
 
-function openGallery(index = 0) {
-
-  if (!props.gallery.length) {
-    return;
-  }
-
-
-  const safeIndex = Math.min(
-    Math.max(index, 0),
-    props.gallery.length - 1,
-  );
-
-
-  currentIndex.value = safeIndex;
+  currentIndex.value = index;
 
   dialog.value = true;
+
+  document.body.style.overflow = "hidden";
 }
 
-
-/* =====================================================
-   CLOSE GALLERY
-===================================================== */
 
 function closeLightbox() {
   dialog.value = false;
+
+  document.body.style.overflow = "";
 }
+
+
+onUnmounted(() => {
+  document.body.style.overflow = "";
+});
 </script>
 
 
 <style scoped>
-
 /* =====================================================
-   ROOT
+   SECTION
 ===================================================== */
 
-.gallery-section {
-  width: 100%;
+.cfr-gallery {
+  position: relative;
 
-  color: #3f4a3e;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.gallery-heading {
-  text-align: center;
-
-  margin-bottom: 28px;
-}
-
-
-.heading-kicker {
-  display: block;
-
-  margin-bottom: 6px;
-
-  color: #8b948a;
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: 2.5px;
-}
-
-
-.gallery-heading h2 {
-  margin: 0;
-
-  color: #3f4a3e;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 24px;
-  font-weight: 700;
-
-  line-height: 1.2;
-
-  letter-spacing: .8px;
-}
-
-
-.heading-decoration {
   display: flex;
-
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 
-  gap: 9px;
+  gap: 24px;
 
-  margin-top: 10px;
-}
-
-
-.heading-decoration span {
-  width: 38px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      to right,
-      transparent,
-      #93a58c
-    );
-}
-
-
-.heading-decoration span:last-child {
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      #93a58c
-    );
-}
-
-
-.heading-decoration b {
-  color: #6b7f6a;
-
-  font-family:
-    "Times New Roman",
-    serif;
-
-  font-size: 18px;
-
-  line-height: 1;
+  width: 100%;
 }
 
 
 /* =====================================================
-   EMPTY
+   BĂNG CHUYỀN
 ===================================================== */
 
-.gallery-empty {
-  padding: 35px 20px;
+.cfr-gallery__stage {
+  width: 100%;
+  max-width: 432px;
 
-  color: #8b948a;
+  margin-top: 8px;
+}
 
-  font-size: 12px;
+.cfr-gallery__empty {
+  margin: 0;
+
+  color: var(--cfr-red-deep);
+
+  font-size: 14px;
 
   text-align: center;
 
-  border:
-    1px solid
-    rgba(107,127,106,.2);
+  opacity: 0.7;
 }
 
 
 /* =====================================================
-   DIALOG
+   DESKTOP
 ===================================================== */
 
-:deep(.gallery-dialog) {
-  margin: 0;
+@media (min-width: 900px) {
+  .cfr-gallery {
+    gap: 32px;
+  }
 
-  max-width: 100%;
-
-  border-radius: 0;
-
-  overflow: hidden;
+  .cfr-gallery__stage {
+    max-width: 600px;
+  }
 }
-
 </style>

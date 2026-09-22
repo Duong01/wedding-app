@@ -1,603 +1,180 @@
 <template>
-  <div class="countdown">
+  <section class="mw-countdown">
+    <h2 class="mw-title">Cùng đếm ngược</h2>
 
-    <div class="countdown-intro">
-      NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN
+    <p class="mw-lead">Ngày trọng đại đang đến gần</p>
+
+    <div class="mw-countdown__grid">
+      <div v-for="item in items" :key="item.label" class="mw-countdown__item">
+        <Transition name="mw-flip" mode="out-in">
+          <strong :key="item.value">{{ item.value }}</strong>
+        </Transition>
+
+        <span>{{ item.label }}</span>
+      </div>
     </div>
-
-
-    <div class="countdown-grid">
-
-      <!-- DAYS -->
-      <div class="time-box">
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
-            <strong :key="values.days">
-              {{ values.days }}
-            </strong>
-          </Transition>
-
-        </div>
-
-        <span>NGÀY</span>
-      </div>
-
-
-      <div class="separator">
-        :
-      </div>
-
-
-      <!-- HOURS -->
-      <div class="time-box">
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
-            <strong :key="values.hours">
-              {{ values.hours }}
-            </strong>
-          </Transition>
-
-        </div>
-
-        <span>GIỜ</span>
-      </div>
-
-
-      <div class="separator">
-        :
-      </div>
-
-
-      <!-- MINUTES -->
-      <div class="time-box">
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
-            <strong :key="values.minutes">
-              {{ values.minutes }}
-            </strong>
-          </Transition>
-
-        </div>
-
-        <span>PHÚT</span>
-      </div>
-
-
-      <div class="separator">
-        :
-      </div>
-
-
-      <!-- SECONDS -->
-      <div class="time-box seconds-box">
-
-        <div class="number-wrap">
-
-          <Transition
-            name="flip-number"
-            mode="out-in"
-          >
-            <strong
-              :key="values.seconds"
-              class="seconds"
-            >
-              {{ values.seconds }}
-            </strong>
-          </Transition>
-
-        </div>
-
-        <span>GIÂY</span>
-
-      </div>
-
-    </div>
-
-  </div>
+  </section>
 </template>
 
-
 <script setup>
-import {
-  computed,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from "vue";
-
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 const props = defineProps({
   countdown: {
     type: [Object, String],
     default: null,
   },
+
+  weddingDate: {
+    type: [String, Object],
+    default: "",
+  },
 });
-
-
-/* =========================================================
-   CURRENT TIME
-========================================================= */
 
 const now = ref(Date.now());
 
 let timer = null;
 
-
-/* =========================================================
-   TARGET DATE
-========================================================= */
-
 const target = computed(() => {
+  const value = props.countdown;
 
-  let value = null;
+  let raw = "";
 
-  if (typeof props.countdown === "string") {
-
-    value = props.countdown;
-
-  } else {
-
-    value =
-      props.countdown?.Date ||
-      props.countdown?.Target ||
-      props.countdown?.WeddingDate ||
-      null;
-
+  if (typeof value === "string") {
+    raw = value;
+  } else if (value) {
+    raw = value.Date || value.Target || value.WeddingDate || "";
   }
 
+  if (!raw) {
+    raw = props.weddingDate || "";
+  }
 
-  if (!value) {
+  if (!raw) {
     return Date.now();
   }
 
+  const timestamp = new Date(raw).getTime();
 
-  const timestamp =
-    new Date(value).getTime();
-
-
-  return Number.isFinite(timestamp)
-    ? timestamp
-    : Date.now();
-
+  return Number.isFinite(timestamp) ? timestamp : Date.now();
 });
-
-
-/* =========================================================
-   COUNTDOWN VALUES
-========================================================= */
 
 const values = computed(() => {
-
-  const distance = Math.max(
-    0,
-    target.value - now.value
-  );
-
-
-  const days = Math.floor(
-    distance / 86400000
-  );
-
-
-  const hours = Math.floor(
-    (distance % 86400000) / 3600000
-  );
-
-
-  const minutes = Math.floor(
-    (distance % 3600000) / 60000
-  );
-
-
-  const seconds = Math.floor(
-    (distance % 60000) / 1000
-  );
-
+  const distance = Math.max(0, target.value - now.value);
 
   return {
-
-    days: String(days).padStart(2, "0"),
-
-    hours: String(hours).padStart(2, "0"),
-
-    minutes: String(minutes).padStart(2, "0"),
-
-    seconds: String(seconds).padStart(2, "0"),
-
+    days: Math.floor(distance / 86400000),
+    hours: Math.floor((distance % 86400000) / 3600000),
+    minutes: Math.floor((distance % 3600000) / 60000),
+    seconds: Math.floor((distance % 60000) / 1000),
   };
-
 });
 
-
-/* =========================================================
-   TIMER
-========================================================= */
+const items = computed(() => [
+  { label: "NGÀY", value: String(values.value.days).padStart(2, "0") },
+  { label: "GIỜ", value: String(values.value.hours).padStart(2, "0") },
+  { label: "PHÚT", value: String(values.value.minutes).padStart(2, "0") },
+  { label: "GIÂY", value: String(values.value.seconds).padStart(2, "0") },
+]);
 
 onMounted(() => {
-
   timer = setInterval(() => {
-
     now.value = Date.now();
-
   }, 1000);
-
 });
 
-
 onBeforeUnmount(() => {
-
   if (timer) {
     clearInterval(timer);
   }
-
 });
 </script>
 
-
 <style scoped>
-
-/* =========================================================
-   COUNTDOWN
-========================================================= */
-
-.countdown {
-
-  width: 100%;
-
+.mw-countdown {
   text-align: center;
-
-  font-family:
-    Arial,
-    "Helvetica Neue",
-    sans-serif;
-
 }
 
+.mw-countdown__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
 
-/* =========================================================
-   INTRO
-========================================================= */
+  max-width: 420px;
 
-.countdown-intro {
-
-  margin-bottom: 18px;
-
-  color: #a67d3e;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 2.5px;
-
-  line-height: 1.4;
-
+  margin: 24px auto 0;
 }
 
-
-/* =========================================================
-   GRID
-========================================================= */
-
-.countdown-grid {
-
+.mw-countdown__item {
   display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 5px;
-
-}
-
-
-/* =========================================================
-   TIME BOX
-========================================================= */
-
-.time-box {
-
-  display: flex;
-
   flex-direction: column;
-
   align-items: center;
+  gap: 4px;
 
-  justify-content: center;
+  padding: 14px 6px;
 
-  width: 55px;
+  border: 1px solid var(--mw-hairline);
+  border-radius: 14px;
 
+  background-color: var(--mw-blue-mist);
 }
 
+.mw-countdown__item strong {
+  color: var(--mw-blue);
 
-/* =========================================================
-   NUMBER CONTAINER
-========================================================= */
+  font-family: var(--mw-font-serif);
+  font-size: 24px;
+  font-weight: 500;
 
-.number-wrap {
-
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 55px;
-
-  height: 38px;
-
-  overflow: hidden;
-
-  perspective: 180px;
-
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
 }
 
+.mw-countdown__item span {
+  color: var(--mw-ink);
 
-/* =========================================================
-   NUMBER
-========================================================= */
-
-.number-wrap strong {
-
-  position: absolute;
-
-  inset: 0;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  color: #8e1418;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 29px;
-
-  font-weight: 900;
-
-  line-height: 1;
-
-  letter-spacing: -1px;
-
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.7),
-    0 2px 5px rgba(120,20,20,.12);
-
-  transform-origin: center center;
-
-  backface-visibility: hidden;
-
-}
-
-
-/* =========================================================
-   FLIP OUT
-========================================================= */
-
-.flip-number-enter-active,
-.flip-number-leave-active {
-
-  transition:
-    transform .42s cubic-bezier(.22,.61,.36,1),
-    opacity .28s ease;
-
-}
-
-
-/*
- * Số mới:
- * từ phía dưới đi lên.
- */
-
-.flip-number-enter-from {
-
-  opacity: 0;
-
-  transform:
-    translateY(100%)
-    rotateX(-65deg)
-    scale(.92);
-
-}
-
-
-/*
- * Số mới:
- * về vị trí bình thường.
- */
-
-.flip-number-enter-to {
-
-  opacity: 1;
-
-  transform:
-    translateY(0)
-    rotateX(0)
-    scale(1);
-
-}
-
-
-/*
- * Số cũ:
- * trượt lên trên.
- */
-
-.flip-number-leave-from {
-
-  opacity: 1;
-
-  transform:
-    translateY(0)
-    rotateX(0)
-    scale(1);
-
-}
-
-
-/*
- * Số cũ:
- * biến mất phía trên.
- */
-
-.flip-number-leave-to {
-
-  opacity: 0;
-
-  transform:
-    translateY(-100%)
-    rotateX(65deg)
-    scale(.92);
-
-}
-
-
-/* =========================================================
-   LABEL
-========================================================= */
-
-.time-box span {
-
-  display: block;
-
-  margin-top: 6px;
-
-  color: #99754f;
-
+  font-family: var(--mw-font-serif);
   font-size: 10px;
 
-  font-weight: 800;
-
-  letter-spacing: 1.5px;
-
-  line-height: 1;
-
+  letter-spacing: 0.2em;
 }
 
-
-/* =========================================================
-   SEPARATOR
-========================================================= */
-
-.separator {
-
-  align-self: flex-start;
-
-  margin-top: 5px;
-
-  color: #b48a45;
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 21px;
-
-  font-weight: 700;
-
-  line-height: 30px;
-
-  opacity: .8;
-
+.mw-flip-enter-active,
+.mw-flip-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-
-/* =========================================================
-   SECONDS
-========================================================= */
-
-.seconds-box .number-wrap strong {
-
-  color: #941519;
-
+.mw-flip-enter-from {
+  opacity: 0;
+  transform: translateY(-6px);
 }
 
+.mw-flip-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
 
 /* =========================================================
-   MOBILE
+   DESKTOP
 ========================================================= */
 
-@media (max-width: 420px) {
+@media (min-width: 900px) {
+  .mw-countdown__grid {
+    gap: 14px;
 
-  .countdown-intro {
-
-    margin-bottom: 16px;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
+    max-width: 560px;
   }
 
-
-  .countdown-grid {
-
-    gap: 2px;
-
+  .mw-countdown__item {
+    padding: 18px 8px;
   }
 
-
-  .time-box {
-
-    width: 49px;
-
+  .mw-countdown__item strong {
+    font-size: 32px;
   }
 
-
-  .number-wrap {
-
-    width: 49px;
-
-    height: 36px;
-
+  .mw-countdown__item span {
+    font-size: 12px;
   }
-
-
-  .number-wrap strong {
-
-    font-size: 26px;
-
-  }
-
-
-  .time-box span {
-
-    font-size: 11px;
-
-    letter-spacing: 1.2px;
-
-  }
-
-
-  .separator {
-
-    margin-top: 4px;
-
-    font-size: 18px;
-
-    line-height: 28px;
-
-  }
-
 }
 </style>

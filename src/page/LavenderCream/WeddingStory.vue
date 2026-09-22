@@ -1,6 +1,6 @@
 <template>
   <section class="lc-story">
-    <p class="lc-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+    <p v-if="eyebrow" class="lc-eyebrow">{{ eyebrow }}</p>
 
     <h2>{{ storyTitle }}</h2>
 
@@ -15,7 +15,12 @@
 <script setup>
 import { computed } from "vue";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+import { sectionText } from "@/data/sectionTitles";
+
+const props = defineProps({
+  story: { type: [String, Object], default: "" },
+  sections: { type: Object, default: () => ({}) },
+});
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -23,9 +28,23 @@ const content = computed(() =>
     : props.story?.Content || props.story?.Description || props.story?.Text || ""
 );
 
-const storyTitle = computed(() =>
-  typeof props.story === "object" ? props.story?.Title || "" : ""
+const eyebrow = computed(() =>
+  sectionText(props.sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH")
 );
+
+/*
+ * Tiêu đề ưu tiên giá trị đặt riêng ở panel "Tiêu đề mục",
+ * nếu trống thì dùng story.Title như trước.
+ */
+const storyTitle = computed(() => {
+  const override = sectionText(props.sections, "story", "Heading");
+
+  if (override) {
+    return override;
+  }
+
+  return typeof props.story === "object" ? props.story?.Title || "" : "";
+});
 </script>
 
 <style scoped>

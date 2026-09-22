@@ -1,62 +1,71 @@
 <template>
-  <section class="el-timeline">
-    <div class="el-timeline__header">
-      <p class="el-eyebrow">DẤU MỐC YÊU THƯƠNG</p>
+  <section class="cr-timeline">
+    <img
+      :src="decorativeFlowers"
+      alt=""
+      aria-hidden="true"
+      class="cr-timeline__flowers"
+      draggable="false"
+    />
 
-      <h2>Hành trình của chúng mình</h2>
+    <header class="cr-heading">
+      <h2 class="cr-heading__vi">Lịch trình ngày cưới</h2>
 
-      <p class="el-timeline__intro">
+      <p class="cr-heading__zh">婚禮當日流程</p>
+
+      <div class="cr-heading__ornament" aria-hidden="true">
+        <span></span>
+        <i>❀</i>
+        <span></span>
+      </div>
+
+      <p class="cr-heading__intro">
         Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
       </p>
-    </div>
+    </header>
 
-    <ol class="el-timeline__list">
-      <li v-for="(item, index) in items" :key="item.Id || index" class="el-timeline__item">
-        <div class="el-timeline__side">
-          <div class="el-timeline__number">
+    <ol class="cr-timeline__list">
+      <li v-for="(item, index) in items" :key="item.Id || index" class="cr-timeline__item">
+        <div class="cr-timeline__side">
+          <div class="cr-timeline__number">
             {{ String(index + 1).padStart(2, "0") }}
           </div>
 
-          <div v-if="index < items.length - 1" class="el-timeline__line"></div>
+          <div v-if="index < items.length - 1" class="cr-timeline__line"></div>
         </div>
 
-        <article class="el-timeline__card">
-          <div class="el-timeline__date">
-            <span class="el-date-icon">
-              <v-icon size="14">mdi-calendar-heart</v-icon>
-            </span>
+        <article class="cr-timeline__card">
+          <div class="cr-timeline__time">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 21s-7.5-4.7-9.3-9A5.3 5.3 0 0 1 12 6.6a5.3 5.3 0 0 1 9.3 5.4C19.5 16.3 12 21 12 21z"
+              />
+            </svg>
 
             <time>{{ item.Time || item.Date || formatTime(index) }}</time>
           </div>
 
-          <div class="el-timeline__title-row">
-            <div class="el-timeline__icon">{{ item.Icon || "❦" }}</div>
+          <h3 class="cr-timeline__title">
+            {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+          </h3>
 
-            <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
-          </div>
-
-          <p v-if="item.Description || item.Content" class="el-timeline__desc">
+          <p v-if="item.Description || item.Content" class="cr-timeline__desc">
             {{ item.Description || item.Content }}
           </p>
 
-          <div v-if="item.Location" class="el-timeline__location">
-            <v-icon size="14">mdi-map-marker-outline</v-icon>
-            <span>{{ item.Location }}</span>
-          </div>
+          <p v-if="item.Location" class="cr-timeline__location">
+            {{ item.Location }}
+          </p>
         </article>
       </li>
     </ol>
-
-    <div class="el-timeline__footer">
-      <span></span>
-      <v-icon size="14">mdi-heart</v-icon>
-      <span></span>
-    </div>
   </section>
 </template>
 
 <script setup>
 import { computed } from "vue";
+
+import { decorativeFlowers } from "./emeraldLuxeAssets";
 
 const props = defineProps({
   timeline: { type: Array, default: () => [] },
@@ -71,123 +80,135 @@ function formatTime(index) {
 </script>
 
 <style scoped>
-.el-timeline {
+.cr-timeline {
   position: relative;
 
-  width: min(680px, calc(100% - 24px));
+  width: 100%;
 
-  margin: 30px auto;
-
-  padding: 38px 20px 32px;
-
-  color: #2e3d36;
-
-  border: 1px solid rgba(201, 164, 92, 0.55);
-  border-radius: 60% 60% 28px 28px / 14% 14% 28px 28px;
-
-  background: linear-gradient(172deg, rgba(255, 255, 255, 0.78), rgba(240, 234, 216, 0.55));
-
-  box-shadow: 0 12px 35px rgba(12, 43, 33, 0.09);
-
-  overflow: hidden;
+  color: var(--cr-ink);
 }
 
-/* Fine gold lattice texture */
-.el-timeline::before {
-  content: "";
+.cr-timeline__flowers {
   position: absolute;
-  inset: 0;
 
-  opacity: 0.05;
+  top: 20px;
+  right: -20px;
 
-  background-image:
-    repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.7) 0 1px, transparent 1px 18px);
+  width: 96px;
+  height: 96px;
+
+  object-fit: contain;
+
+  opacity: 0.45;
 
   pointer-events: none;
 }
 
 /* =========================================================
-   HEADER
+   TIÊU ĐỀ
 ========================================================= */
 
-.el-timeline__header {
+.cr-heading {
   position: relative;
 
   text-align: center;
 
-  margin-bottom: 30px;
+  margin-bottom: 26px;
 }
 
-.el-eyebrow {
+.cr-heading__vi {
   margin: 0;
 
-  color: #8a7a52;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: 10px;
-  font-weight: 700;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+
+  color: var(--cr-ink);
+}
+
+.cr-heading__zh {
+  margin: 4px 0 0;
+
+  font-family: "Noto Serif SC", serif;
+
+  font-size: 0.85em;
 
   letter-spacing: 0.3em;
   text-indent: 0.3em;
+
+  opacity: 0.7;
+
+  color: var(--cr-soft);
 }
 
-.el-timeline__header h2 {
-  margin: 6px 0;
+.cr-heading__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  font-family: "Playfair Display", Georgia, serif;
+  margin-top: 12px;
 
-  font-size: clamp(28px, 7vw, 36px);
-  font-weight: 600;
-
-  line-height: 1.1;
-
-  color: #123b2e;
+  color: var(--cr-accent);
 }
 
-.el-timeline__intro {
-  max-width: 440px;
+.cr-heading__ornament span {
+  width: 52px;
+  height: 1px;
 
-  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgba(var(--cr-accent-rgb), 1));
+}
 
-  color: #6b7a70;
+.cr-heading__ornament span:last-child {
+  transform: rotate(180deg);
+}
 
+.cr-heading__ornament i {
   font-size: 13px;
+  font-style: normal;
+}
 
-  line-height: 1.65;
+.cr-heading__intro {
+  max-width: 420px;
+
+  margin: 12px auto 0;
+
+  color: var(--cr-soft);
+
+  font-size: 12px;
+
+  line-height: 1.7;
 }
 
 /* =========================================================
-   LIST
+   DANH SÁCH
 ========================================================= */
 
-.el-timeline__list {
-  position: relative;
-
+.cr-timeline__list {
   margin: 0;
   padding: 0;
 
   list-style: none;
 }
 
-.el-timeline__item {
-  position: relative;
-
+.cr-timeline__item {
   display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 14px;
+  grid-template-columns: 46px 1fr;
+  gap: 12px;
 
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
-.el-timeline__item:last-child {
+.cr-timeline__item:last-child {
   margin-bottom: 0;
 }
 
-/* =========================================================
-   SIDE — numbered circles + connecting line
-========================================================= */
-
-.el-timeline__side {
+.cr-timeline__side {
   position: relative;
 
   display: flex;
@@ -195,38 +216,35 @@ function formatTime(index) {
   align-items: flex-start;
 }
 
-.el-timeline__number {
+.cr-timeline__number {
   position: relative;
   z-index: 3;
 
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: #10281f;
-
-  border: 1px solid rgba(201, 164, 92, 0.8);
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
   border-radius: 50%;
 
-  background: linear-gradient(145deg, #e8d3a2, #c9a45c);
+  background: linear-gradient(135deg, var(--cr-accent-light), var(--cr-accent));
 
-  font-family: "Playfair Display", Georgia, serif;
+  color: var(--cr-ink);
 
-  font-size: 15px;
-  font-weight: 700;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  box-shadow: 0 5px 14px rgba(201, 164, 92, 0.3);
+  font-size: 14px;
 }
 
-.el-timeline__line {
+.cr-timeline__line {
   position: absolute;
   z-index: 1;
 
-  top: 38px;
-  bottom: -18px;
+  top: 36px;
+  bottom: -16px;
   left: 50%;
 
   width: 1px;
@@ -235,316 +253,128 @@ function formatTime(index) {
 
   background: repeating-linear-gradient(
     180deg,
-    rgba(201, 164, 92, 0.7) 0 5px,
+    rgba(var(--cr-accent-rgb), 1) 0 5px,
     transparent 5px 10px
   );
 }
 
 /* =========================================================
-   CARD
+   THẺ
 ========================================================= */
 
-.el-timeline__card {
-  position: relative;
+.cr-timeline__card {
+  padding: 15px 16px 16px;
 
-  padding: 16px 17px 17px;
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+  border-radius: 14px;
 
-  border: 1px solid rgba(201, 164, 92, 0.4);
-  border-radius: 20px 20px 20px 6px;
+  background: rgba(var(--cr-surface-rgb), 0.88);
 
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 241, 227, 0.78));
-
-  box-shadow: 0 7px 22px rgba(12, 43, 33, 0.07);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.el-timeline__card:hover {
+.cr-timeline__card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(201, 164, 92, 0.7);
-
-  box-shadow: 0 12px 28px rgba(12, 43, 33, 0.12);
+  box-shadow: 0 12px 28px rgba(var(--cr-ink-rgb), 0.1);
 }
 
-/* =========================================================
-   DATE
-========================================================= */
-
-.el-timeline__date {
+.cr-timeline__time {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 
-  color: #8a7a52;
+  color: var(--cr-muted);
 
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
 
   letter-spacing: 0.14em;
 }
 
-.el-date-icon {
-  width: 25px;
-  height: 25px;
+.cr-timeline__time svg {
+  width: 13px;
+  height: 13px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #c9a45c;
-
-  border-radius: 50%;
-
-  background: rgba(201, 164, 92, 0.2);
+  color: var(--cr-accent);
 }
 
-/* =========================================================
-   TITLE
-========================================================= */
-
-.el-timeline__title-row {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.el-timeline__icon {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #c9a45c;
-
-  border: 1px solid rgba(201, 164, 92, 0.5);
-  border-radius: 50%;
-
-  background: linear-gradient(145deg, #fdfaf2, #efe9d6);
-
-  font-size: 16px;
-}
-
-.el-timeline__card h3 {
+.cr-timeline__title {
   margin: 0;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Viaoda Libre", "Playfair Display", serif;
 
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 400;
 
-  line-height: 1.2;
+  letter-spacing: 0.04em;
 
-  color: #123b2e;
+  line-height: 1.25;
+
+  color: var(--cr-ink);
 }
 
-/* =========================================================
-   DESCRIPTION
-========================================================= */
+.cr-timeline__desc {
+  margin: 8px 0 0;
 
-.el-timeline__desc {
-  margin: 9px 0 0;
+  color: var(--cr-soft);
 
-  color: #55645b;
-
-  font-size: 13px;
+  font-size: 12px;
 
   line-height: 1.65;
 }
 
-/* =========================================================
-   LOCATION
-========================================================= */
-
-.el-timeline__location {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
-  margin-top: 11px;
+.cr-timeline__location {
+  margin: 10px 0 0;
   padding-top: 9px;
 
-  border-top: 1px solid rgba(201, 164, 92, 0.3);
+  border-top: 1px solid rgba(var(--cr-accent-rgb), 0.9);
 
-  color: #6b7a70;
+  color: var(--cr-muted);
 
   font-size: 11px;
 
-  line-height: 1.4;
-}
-
-.el-timeline__location .v-icon {
-  color: #c9a45c;
-
-  flex: 0 0 auto;
+  line-height: 1.45;
 }
 
 /* =========================================================
-   FOOTER
+   MOBILE NHỎ
 ========================================================= */
 
-.el-timeline__footer {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-
-  margin-top: 27px;
-
-  color: #c9a45c;
-}
-
-.el-timeline__footer span {
-  width: 55px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(201, 164, 92, 0.7));
-}
-
-.el-timeline__footer span:last-child {
-  transform: rotate(180deg);
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-  .el-timeline {
-    width: calc(100% - 16px);
-
-    margin: 20px auto;
-
-    padding: 32px 12px 27px;
-  }
-
-  .el-timeline__header {
-    margin-bottom: 25px;
-  }
-
-  .el-timeline__header h2 {
-    font-size: 29px;
-  }
-
-  .el-timeline__intro {
-    padding: 0 10px;
-
-    font-size: 12px;
-  }
-
-  .el-timeline__item {
-    grid-template-columns: 39px 1fr;
+@media (max-width: 380px) {
+  .cr-timeline__item {
+    grid-template-columns: 38px 1fr;
     gap: 9px;
-
-    margin-bottom: 14px;
   }
 
-  .el-timeline__number {
-    width: 32px;
-    height: 32px;
-
-    font-size: 13px;
-  }
-
-  .el-timeline__line {
-    top: 32px;
-
-    bottom: -14px;
-  }
-
-  .el-timeline__card {
-    padding: 13px 13px 14px;
-
-    border-radius: 16px 16px 16px 5px;
-  }
-
-  .el-timeline__date {
-    margin-bottom: 7px;
-
-    font-size: 10px;
-  }
-
-  .el-date-icon {
-    width: 23px;
-    height: 23px;
-  }
-
-  .el-timeline__icon {
+  .cr-timeline__number {
     width: 31px;
     height: 31px;
 
-    font-size: 14px;
-  }
-
-  .el-timeline__card h3 {
-    font-size: 20px;
-  }
-
-  .el-timeline__desc {
-    margin-top: 8px;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-  }
-
-  .el-timeline__location {
-    margin-top: 9px;
-    padding-top: 8px;
-
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 380px) {
-  .el-timeline {
-    padding-left: 9px;
-    padding-right: 9px;
-  }
-
-  .el-timeline__item {
-    grid-template-columns: 34px 1fr;
-    gap: 7px;
-  }
-
-  .el-timeline__number {
-    width: 29px;
-    height: 29px;
-
     font-size: 12px;
   }
 
-  .el-timeline__line {
-    top: 29px;
+  .cr-timeline__line {
+    top: 31px;
   }
 
-  .el-timeline__card {
-    padding: 12px;
+  .cr-timeline__card {
+    padding: 13px;
   }
 
-  .el-timeline__card h3 {
+  .cr-timeline__title {
     font-size: 18px;
-  }
-
-  .el-timeline__icon {
-    width: 29px;
-    height: 29px;
   }
 }
 
 /* =========================================================
-   REDUCE MOTION
+   GIẢM CHUYỂN ĐỘNG
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .el-timeline__card {
+  .cr-timeline__card {
     transition: none;
   }
 }

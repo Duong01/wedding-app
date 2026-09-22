@@ -1,98 +1,144 @@
 <template>
-  <section class="bt-couple">
-    <p class="bt-eyebrow">TRÂN TRỌNG BÁO HỶ</p>
+  <section class="bq-couple">
+    <img
+      :src="flower3"
+      alt=""
+      aria-hidden="true"
+      class="bq-couple__flower bq-couple__flower--left"
+      draggable="false"
+    />
 
-    <h2>Thông tin tiệc cưới</h2>
+    <img
+      :src="flower3"
+      alt=""
+      aria-hidden="true"
+      class="bq-couple__flower bq-couple__flower--right"
+      draggable="false"
+    />
 
-    <div class="bt-rule">
-      <span></span>
-      <i>❋</i>
-      <span></span>
-    </div>
+    <div class="bq-couple__inner">
+      <h2 class="bq-heading">THÔNG TIN LỄ CƯỚI</h2>
 
-    <div class="bt-people">
-      <!-- CHÚ RỂ -->
-      <article class="bt-person bt-person--groom">
-        <div class="bt-person__portrait">
-          <img
-            v-if="groomAvatar"
-            :src="groomAvatar"
-            :alt="groom"
-            loading="lazy"
-            decoding="async"
-          />
-          <span v-else class="bt-person__initial">{{ groom.charAt(0) || "♥" }}</span>
+      <!-- =====================================================
+           GIA ĐÌNH HAI BÊN
+      ====================================================== -->
+
+      <div class="bq-families">
+        <div class="bq-family">
+          <span class="bq-family__label">Ông Bà</span>
+
+          <span v-if="groomParents.Father" class="bq-family__name">
+            {{ groomParents.Father }}
+          </span>
+
+          <span v-if="groomParents.Mother" class="bq-family__name">
+            {{ groomParents.Mother }}
+          </span>
+
+          <span v-if="groomParents.Address" class="bq-family__address">
+            {{ groomParents.Address }}
+          </span>
         </div>
 
-        <div class="bt-person__parents">
-          <p v-if="groomParents?.Father" class="bt-parents">Ông {{ groomParents.Father }}</p>
-          <p v-if="groomParents?.Mother" class="bt-parents">Bà {{ groomParents.Mother }}</p>
-        </div>
+        <img
+          :src="line3"
+          alt=""
+          aria-hidden="true"
+          class="bq-families__divider"
+          draggable="false"
+        />
 
-        <h3>{{ groom }}</h3>
+        <div class="bq-family">
+          <span class="bq-family__label">Ông Bà</span>
 
-        <span class="bt-person__role">CHÚ RỂ</span>
+          <span v-if="brideParents.Father" class="bq-family__name">
+            {{ brideParents.Father }}
+          </span>
 
-        <p class="bt-person__desc">{{ groomDescription }}</p>
-      </article>
+          <span v-if="brideParents.Mother" class="bq-family__name">
+            {{ brideParents.Mother }}
+          </span>
 
-      <div class="bt-couple-divider"><i>&amp;</i></div>
-
-      <!-- CÔ DÂU -->
-      <article class="bt-person bt-person--bride">
-        <div class="bt-person__portrait">
-          <img
-            v-if="brideAvatar"
-            :src="brideAvatar"
-            :alt="bride"
-            loading="lazy"
-            decoding="async"
-          />
-          <span v-else class="bt-person__initial">{{ bride.charAt(0) || "♥" }}</span>
-        </div>
-
-        <div class="bt-person__parents">
-          <p v-if="brideParents?.Father" class="bt-parents">Ông {{ brideParents.Father }}</p>
-          <p v-if="brideParents?.Mother" class="bt-parents">Bà {{ brideParents.Mother }}</p>
-        </div>
-
-        <h3>{{ bride }}</h3>
-
-        <span class="bt-person__role">CÔ DÂU</span>
-
-        <p class="bt-person__desc">{{ brideDescription }}</p>
-      </article>
-    </div>
-
-    <!-- WEDDING DATE -->
-    <div class="bt-wedding-date">
-      <div class="bt-date-top">
-        <span class="bt-date-line"></span>
-        <span class="bt-weekday">{{ weddingWeekday }}</span>
-        <span class="bt-date-line"></span>
-      </div>
-
-      <div class="bt-date-main">
-        <div class="bt-date-side">
-          <span>THÁNG</span>
-          <strong>{{ weddingMonth }}</strong>
-        </div>
-
-        <div class="bt-date-day">{{ weddingDay }}</div>
-
-        <div class="bt-date-side">
-          <span>NĂM</span>
-          <strong>{{ weddingYear }}</strong>
+          <span v-if="brideParents.Address" class="bq-family__address">
+            {{ brideParents.Address }}
+          </span>
         </div>
       </div>
 
-      <div v-if="weddingLunar" class="bt-lunar">{{ weddingLunar }}</div>
+      <!-- =====================================================
+           BÁO TIN
+      ====================================================== -->
 
-      <div v-if="weddingTime" class="bt-wedding-time">
-        <div class="bt-time-content">
-          <span class="bt-time-label">THỜI GIAN</span>
-          <strong>{{ weddingTime }}</strong>
+      <p class="bq-couple__announce">
+        TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+      </p>
+
+      <img
+        :src="line2"
+        alt=""
+        aria-hidden="true"
+        class="bq-couple__line"
+        draggable="false"
+      />
+
+      <!-- =====================================================
+           CÔ DÂU · CHÚ RỂ
+      ====================================================== -->
+
+      <div class="bq-people">
+        <h3 class="bq-person__name">{{ groom }}</h3>
+
+        <span class="bq-person__role">TRƯỞNG NAM</span>
+
+        <span class="bq-people__amp" aria-hidden="true">&amp;</span>
+
+        <h3 class="bq-person__name">{{ bride }}</h3>
+
+        <span class="bq-person__role">ÚT NỮ</span>
+      </div>
+
+      <!-- =====================================================
+           NGÀY CƯỚI
+      ====================================================== -->
+
+      <div class="bq-date">
+        <p class="bq-date__place">
+          LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />TƯ GIA
+        </p>
+
+        <div class="bq-date__when">
+          <span v-if="weddingTime">VÀO LÚC {{ weddingTime }}</span>
+          <span v-if="weddingWeekday">{{ weddingWeekday }}</span>
         </div>
+
+        <div class="bq-date__main">
+          <img
+            :src="line4"
+            alt=""
+            aria-hidden="true"
+            class="bq-date__line"
+            draggable="false"
+          />
+
+          <span class="bq-date__day">{{ weddingDay }}</span>
+
+          <span class="bq-date__bar" aria-hidden="true"></span>
+
+          <div class="bq-date__side">
+            <span>THÁNG {{ weddingMonth }}</span>
+            <span>{{ weddingYear }}</span>
+          </div>
+
+          <img
+            :src="line4"
+            alt=""
+            aria-hidden="true"
+            class="bq-date__line bq-date__line--flip"
+            draggable="false"
+          />
+        </div>
+
+        <p v-if="weddingLunar" class="bq-date__lunar">({{ weddingLunar }})</p>
       </div>
     </div>
   </section>
@@ -100,6 +146,8 @@
 
 <script setup>
 import { computed } from "vue";
+
+import { flower3, line2, line3, line4 } from "./bohoTerracottaAssets";
 
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
@@ -124,77 +172,51 @@ const bride = computed(
     ""
 );
 
-const groomDescription = computed(
-  () =>
-    props.wedding?.couple?.Groom?.Description ||
-    props.wedding?.couple?.Groom?.Address ||
-    "Chú rể của gia đình chúng mình"
-);
-
-const brideDescription = computed(
-  () =>
-    props.wedding?.couple?.Bride?.Description ||
-    props.wedding?.couple?.Bride?.Address ||
-    "Cô dâu của gia đình chúng mình"
-);
-
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
 const brideParents = computed(() => props.wedding?.couple?.Bride || {});
 
-const groomAvatar = computed(
-  () =>
-    props.wedding?.couple?.Groom?.Avatar ||
-    props.wedding?.groom?.avatar ||
-    props.wedding?.groom?.image ||
-    ""
-);
+/* =========================================================
+   NGÀY CƯỚI
+========================================================= */
 
-const brideAvatar = computed(
-  () =>
-    props.wedding?.couple?.Bride?.Avatar ||
-    props.wedding?.bride?.avatar ||
-    props.wedding?.bride?.image ||
-    ""
-);
-
-const weddingDate = computed(
-  () =>
+const dateObject = computed(() => {
+  const raw =
     props.wedding?.weddingDate ||
     props.wedding?.WeddingDate ||
     props.wedding?.hero?.weddingDate ||
-    null
-);
+    "";
 
-const dateObject = computed(() => {
-  if (!weddingDate.value) return null;
+  if (!raw) return null;
 
-  const date = new Date(weddingDate.value);
+  const date = new Date(raw);
 
   return Number.isNaN(date.getTime()) ? null : date;
 });
 
-const weddingDay = computed(() => {
-  if (!dateObject.value) return "--";
+const weddingDay = computed(() =>
+  dateObject.value ? String(dateObject.value.getDate()).padStart(2, "0") : "--"
+);
 
-  return String(dateObject.value.getDate()).padStart(2, "0");
-});
+const weddingMonth = computed(() =>
+  dateObject.value ? String(dateObject.value.getMonth() + 1).padStart(2, "0") : "--"
+);
 
-const weddingMonth = computed(() => {
-  if (!dateObject.value) return "--";
-
-  return String(dateObject.value.getMonth() + 1).padStart(2, "0");
-});
-
-const weddingYear = computed(() => {
-  if (!dateObject.value) return "----";
-
-  return dateObject.value.getFullYear();
-});
+const weddingYear = computed(() =>
+  dateObject.value ? String(dateObject.value.getFullYear()) : "----"
+);
 
 const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
-  const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+  const weekdays = [
+    "CHỦ NHẬT",
+    "THỨ HAI",
+    "THỨ BA",
+    "THỨ TƯ",
+    "THỨ NĂM",
+    "THỨ SÁU",
+    "THỨ BẢY",
+  ];
 
   return weekdays[dateObject.value.getDay()];
 });
@@ -205,6 +227,7 @@ const weddingLunar = computed(
     props.wedding?.WeddingLunar ||
     props.wedding?.lunarDate ||
     props.wedding?.LunarDate ||
+    props.wedding?.events?.[0]?.Lunar ||
     ""
 );
 
@@ -212,17 +235,11 @@ const weddingTime = computed(() => {
   const event = Array.isArray(props.wedding?.events) ? props.wedding.events[0] : null;
 
   const time =
-    event?.Time ||
-    event?.time ||
-    event?.StartTime ||
-    event?.startTime ||
     event?.EventTime ||
-    event?.eventTime ||
-    props.wedding?.time ||
-    props.wedding?.Time ||
+    event?.Time ||
+    event?.StartTime ||
     props.wedding?.weddingTime ||
     props.wedding?.WeddingTime ||
-    props.wedding?.hero?.time ||
     props.wedding?.hero?.Time ||
     "";
 
@@ -232,7 +249,11 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", hour12: false });
+      return date.toLocaleTimeString("vi-VN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
     }
   }
 
@@ -245,423 +266,397 @@ const weddingTime = computed(() => {
 </script>
 
 <style scoped>
-.bt-couple {
+.bq-couple {
   position: relative;
+  isolation: isolate;
 
-  padding: 48px 22px 42px;
+  width: 100%;
+
+  overflow: hidden;
 
   text-align: center;
 
-  color: #5c4636;
-
-  overflow: hidden;
+  color: var(--bq-ink);
 }
 
-/* Macramé lattice texture */
-.bt-couple::before {
-  content: "";
+.bq-couple__flower {
   position: absolute;
-  inset: 0;
 
-  opacity: 0.05;
+  z-index: 1;
 
-  background-image:
-    repeating-linear-gradient(45deg, rgba(156, 91, 63, 0.6) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(156, 91, 63, 0.6) 0 1px, transparent 1px 18px);
+  width: 46.3%;
+  max-width: none;
+  height: auto;
+
+  object-fit: contain;
 
   pointer-events: none;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-eyebrow {
-  position: relative;
+.bq-couple__flower--left {
+  top: -13px;
+  left: -13%;
 
-  margin: 0;
-
-  color: #8a9b7c;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.3em;
-  text-indent: 0.3em;
+  transform: scaleX(-1);
 }
 
-.bt-couple h2 {
-  position: relative;
-
-  margin: 6px 0 10px;
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: clamp(26px, 7vw, 34px);
-  font-weight: 600;
-
-  color: #9c5b3f;
+.bq-couple__flower--right {
+  top: -13px;
+  right: -13%;
 }
 
-.bt-rule {
+.bq-couple__inner {
   position: relative;
+  z-index: 2;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+
+  width: 100%;
+  max-width: 366px;
 
   margin: 0 auto;
 
-  color: #c97b5d;
-
-  font-size: 14px;
-}
-
-.bt-rule span {
-  width: 50px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(156, 91, 63, 0.7));
-}
-
-.bt-rule span:last-child {
-  transform: rotate(180deg);
+  padding: 46px 20px 0;
 }
 
 /* =========================================================
-   PEOPLE
+   TIÊU ĐỀ
 ========================================================= */
 
-.bt-people {
-  position: relative;
+.bq-heading {
+  margin: 0;
 
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: 12px;
+  color: var(--bq-accent);
 
-  margin-top: 30px;
-}
-
-.bt-person {
-  min-width: 0;
-
-  padding: 18px 10px 16px;
-
-  border: 1px dashed rgba(156, 91, 63, 0.35);
-  border-radius: 999px 999px 18px 18px;
-
-  background: rgba(255, 251, 245, 0.6);
-}
-
-.bt-person__portrait {
-  width: 92px;
-  height: 92px;
-
-  margin: 0 auto 12px;
-
-  border: 2px solid rgba(156, 91, 63, 0.55);
-  border-radius: 50%;
-
-  background: rgba(255, 251, 245, 0.9);
-
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.bt-person__portrait img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
-.bt-person__initial {
-  font-family: "Allura", cursive;
-
-  font-size: 38px;
-
-  color: #c97b5d;
-}
-
-.bt-person__parents {
-  min-height: 38px;
-}
-
-.bt-parents {
-  margin: 2px 0;
-
-  color: #8a6f5c;
-
-  font-size: 11px;
-
-  line-height: 1.35;
-
-  letter-spacing: 0.03em;
-}
-
-.bt-people h3 {
-  margin: 8px 0 4px;
-
-  font-family: "Allura", cursive;
-  font-size: 36px;
-  font-weight: 400;
-
-  line-height: 1.2;
-
-  color: #9c5b3f;
-}
-
-.bt-person__role {
-  display: block;
-
-  color: #8a9b7c;
-
-  font-size: 11px;
-
-  letter-spacing: 0.24em;
+  font-family: "Times New Roman", serif;
+  font-size: 20px;
   font-weight: 700;
-}
 
-.bt-person__desc {
-  margin: 7px 0 0;
+  letter-spacing: 0.04em;
 
-  color: #7d6350;
-
-  font-size: 12px;
-  font-style: italic;
-
-  line-height: 1.5;
-}
-
-.bt-couple-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 36px;
-}
-
-.bt-couple-divider i {
-  color: #c97b5d;
-
-  font-family: "Allura", cursive;
-  font-size: 34px;
-  font-style: normal;
-  font-weight: 400;
+  text-transform: uppercase;
 }
 
 /* =========================================================
-   WEDDING DATE
+   GIA ĐÌNH HAI BÊN
 ========================================================= */
 
-.bt-wedding-date {
-  position: relative;
-
-  margin: 36px auto 0;
-  max-width: 420px;
-
-  padding: 22px 16px 20px;
-
-  border: 1px dashed rgba(156, 91, 63, 0.4);
-  border-radius: 60% 60% 24px 24px / 28% 28% 24px 24px;
-
-  background: rgba(255, 251, 245, 0.65);
-}
-
-.bt-date-top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  margin-bottom: 14px;
-}
-
-.bt-weekday {
-  color: #9c5b3f;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.26em;
-}
-
-.bt-date-line {
-  width: 42px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(156, 91, 63, 0.7));
-}
-
-.bt-date-line:last-child {
-  transform: rotate(180deg);
-}
-
-.bt-date-main {
+.bq-families {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  gap: 14px;
 
-  max-width: 300px;
+  width: 100%;
 
-  margin: auto;
+  margin-top: 24px;
 }
 
-.bt-date-side {
+.bq-family {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
+
+  min-width: 0;
 }
 
-.bt-date-side span {
-  color: #8a9b7c;
+.bq-family__label {
+  color: var(--bq-ink);
 
+  font-size: 12px;
+}
+
+.bq-family__name {
+  color: var(--bq-accent);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+.bq-family__address {
+  margin-top: 4px;
+
+  color: var(--bq-ink);
+
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
   font-size: 10px;
-  font-weight: 700;
 
-  letter-spacing: 0.2em;
+  line-height: 1.35;
+
+  white-space: pre-line;
 }
 
-.bt-date-side strong {
-  color: #9c5b3f;
+.bq-families__divider {
+  display: block;
 
-  font-size: 20px;
-  font-weight: 600;
+  height: 84px;
+  width: auto;
+  max-width: none;
+
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-date-day {
-  padding: 0 22px;
+/* =========================================================
+   BÁO TIN
+========================================================= */
 
-  color: #9c5b3f;
+.bq-couple__announce {
+  margin: 26px 0 0;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--bq-accent);
 
-  font-size: 66px;
-  font-weight: 600;
+  font-size: 12px;
 
-  line-height: 0.95;
+  line-height: 1.5;
+
+  text-transform: uppercase;
+  white-space: pre-line;
 }
 
-.bt-lunar {
-  margin-top: 12px;
+.bq-couple__line {
+  display: block;
 
-  color: #8a6f5c;
+  width: 143px;
+  max-width: none;
+  height: auto;
 
-  font-size: 11px;
-  font-style: italic;
+  margin: 10px auto 0;
 
-  letter-spacing: 0.05em;
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
 }
 
-.bt-wedding-time {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+/* =========================================================
+   CÔ DÂU · CHÚ RỂ
+========================================================= */
 
-  margin-top: 18px;
-}
-
-.bt-time-content {
+.bq-people {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 3px;
 
-  font-weight: 600;
+  width: 100%;
+
+  margin-top: 22px;
 }
 
-.bt-time-label {
+.bq-person__name {
+  width: 80%;
+
+  margin: 0;
+
+  color: var(--bq-accent);
+
+  font-family: "Cormorant Garamond", "EB Garamond", "Times New Roman", serif;
+  font-size: 39px;
+  font-weight: 500;
+
+  line-height: 1.35;
+
+  white-space: nowrap;
+}
+
+.bq-person__role {
+  color: var(--bq-ink);
+
   font-size: 10px;
-  font-weight: 700;
 
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
 
-  color: #8a9b7c;
+  text-transform: uppercase;
 }
 
-.bt-time-content strong {
-  margin-top: 1px;
+.bq-people__amp {
+  margin: 4px 0;
 
-  color: #9c5b3f;
+  color: var(--bq-accent);
 
-  font-size: 21px;
-  font-weight: 600;
-
+  font-family: "Ms Madi", cursive;
+  font-size: 35px;
   line-height: 1;
 }
 
 /* =========================================================
-   MOBILE
+   NGÀY CƯỚI
 ========================================================= */
 
-@media (max-width: 480px) {
-  .bt-couple {
-    padding: 40px 16px 36px;
-  }
+.bq-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 
-  .bt-people {
-    gap: 6px;
-  }
-
-  .bt-person {
-    padding: 14px 6px 12px;
-  }
-
-  .bt-people h3 {
-    font-size: 30px;
-  }
-
-  .bt-parents {
-    font-size: 10px;
-  }
-
-  .bt-person__desc {
-    font-size: 11px;
-  }
-
-  .bt-couple-divider {
-    width: 25px;
-  }
-
-  .bt-couple-divider i {
-    font-size: 26px;
-  }
-
-  .bt-date-day {
-    padding: 0 12px;
-
-    font-size: 58px;
-  }
-
-  .bt-date-side strong {
-    font-size: 18px;
-  }
-
-  .bt-date-line {
-    width: 28px;
-  }
+  margin-top: 24px;
 }
 
-@media (max-width: 360px) {
-  .bt-people {
-    gap: 3px;
+.bq-date__place {
+  margin: 0;
+
+  color: var(--bq-accent);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+.bq-date__when {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  color: var(--bq-ink);
+
+  font-family: "Times New Roman", serif;
+  font-size: 12px;
+
+  text-transform: uppercase;
+}
+
+.bq-date__main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  color: var(--bq-accent);
+}
+
+.bq-date__line {
+  display: block;
+
+  height: 84px;
+  width: auto;
+  max-width: none;
+
+  object-fit: contain;
+
+  filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.25));
+}
+
+.bq-date__line--flip {
+  transform: scaleX(-1);
+}
+
+.bq-date__day {
+  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-size: 52px;
+
+  line-height: 1;
+}
+
+.bq-date__bar {
+  width: 1px;
+  height: 46px;
+
+  background-color: var(--bq-accent);
+}
+
+.bq-date__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+
+  text-align: left;
+
+  font-family: "Times New Roman", serif;
+  font-size: 16px;
+
+  text-transform: uppercase;
+}
+
+.bq-date__lunar {
+  margin: 0;
+
+  color: var(--bq-ink);
+
+  font-family: "Times New Roman", serif;
+  font-size: 12px;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 768px) {
+  .bq-couple__inner {
+    max-width: 520px;
+
+    padding: 56px 32px 0;
   }
 
-  .bt-people h3 {
-    font-size: 26px;
+  .bq-heading {
+    font-size: 24px;
   }
 
-  .bt-person__desc {
-    font-size: 10px;
+  .bq-family__label,
+  .bq-family__name {
+    font-size: 14px;
   }
 
-  .bt-date-day {
-    font-size: 52px;
+  .bq-family__address {
+    font-size: 12px;
+  }
+
+  .bq-families__divider {
+    height: 104px;
+  }
+
+  .bq-couple__announce {
+    font-size: 14px;
+  }
+
+  .bq-couple__line {
+    width: 180px;
+  }
+
+  .bq-person__name {
+    font-size: 39px;
+  }
+
+  .bq-person__role {
+    font-size: 12px;
+  }
+
+  .bq-date__place,
+  .bq-date__when {
+    font-size: 14px;
+  }
+
+  .bq-date__line {
+    height: 91px;
+  }
+
+  .bq-date__day {
+    font-size: 57px;
+  }
+
+  .bq-date__side {
+    font-size: 17px;
+  }
+
+  .bq-date__lunar {
+    font-size: 14px;
   }
 }
 </style>
