@@ -10,9 +10,8 @@
 
     <h2>{{ heading }}</h2>
 
-    <p class="dh-wishes__intro">
-      Mỗi lời chúc là một kỷ niệm đẹp<br />
-      mà chúng mình muốn lưu giữ trong ngày đặc biệt này
+    <p v-if="intro" class="dh-wishes__intro">
+      {{ intro }}
     </p>
 
     <!-- =========================================
@@ -196,6 +195,15 @@ const eyebrow = computed(() =>
 
 const heading = computed(() =>
   sectionText(props.sections, "guestbook", "Heading", "Sổ lưu bút")
+);
+
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "guestbook",
+    "Intro",
+    "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này"
+  )
 );
 
 const route = useRoute();
@@ -448,6 +456,9 @@ async function submitWish() {
   font-size: 13px;
 
   line-height: 1.7;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =========================================================

@@ -86,6 +86,14 @@ export const getAllWeddings = (success, error) => {return https.Get(`/wedding/ge
 export const getWeddingStatus = (param, success, error) => {return https.GetPublic(`/wedding/getWeddingStatus`, param, success, error);};
 export const updateWeddingStatus = (param, success, error) => {return https.Post(`/wedding/updateWeddingStatus`, param, success, error);};
 
+/*
+ * Chủ thiệp bấm "Xuất bản" — bật thiệp cho khách mời xem và bắt đầu
+ * đồng hồ dùng thử TRIAL_DAYS ngày.
+ * Body: { Slug } — trả về WeddingStatusInfo
+ * (PublishState, TrialEndsAt, DaysLeft...).
+ */
+export const publishWedding = (param, success, error) => {return https.Post(`/wedding/publishWedding`, param, success, error);};
+
 /* ======================
    THANH TOÁN KÍCH HOẠT THIỆP
    (chuyển khoản ngân hàng)

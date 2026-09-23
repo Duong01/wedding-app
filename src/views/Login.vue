@@ -22,8 +22,8 @@
            BRAND
       ========================================== -->
       <router-link to="/" class="auth-brand">
-        <span class="brand-mark">Ngày</span>
-        <span class="brand-text">Chung Đôi</span>
+        <span class="brand-mark">Thiệp</span>
+        <span class="brand-text">Duyên</span>
       </router-link>
 
       <!-- =========================================

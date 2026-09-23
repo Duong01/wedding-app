@@ -9,15 +9,80 @@ import { defineStore } from "pinia";
  */
 let lastSynced = {};
 
+/*
+ * Số bước hoàn tác tối đa. Mỗi bước là một bản
+ * snapshot JSON của wedding — đủ nhỏ để giữ trong
+ * bộ nhớ nhưng vẫn cho người dùng "cứu" được các
+ * thao tác nhập liệu.
+ */
+const HISTORY_LIMIT = 40;
+
+/*
+ * Khóa localStorage giữ bản nháp khi người dùng
+ * lỡ tải lại trang / đóng tab.
+ */
+const DRAFT_KEY = "wedding-editor-draft";
+
+function clone(value) {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return structuredClone(value);
+  } catch {
+    return JSON.parse(JSON.stringify(value));
+  }
+}
+
 export const useWeddingEditorStore =
   defineStore("weddingEditor", {
 
     state: () => ({
       wedding: null,
       initialized: false,
+
+      /*
+       * Trạng thái "có thay đổi chưa lưu" — dùng cho
+       * badge autosave, cảnh báo rời trang và nút Lưu.
+       */
+      dirty: false,
+
+      lastSavedAt: null,
+
+      /*
+       * Lịch sử hoàn tác: mảng snapshot + con trỏ.
+       * historyIndex luôn trỏ tới bản đang hiển thị.
+       */
+      history: [],
+      historyIndex: -1,
+
+      /*
+       * Bản nháp khôi phục được từ localStorage (nếu có)
+       * — Editor.vue hỏi người dùng trước khi dùng.
+       */
+      pendingDraft: null,
     }),
 
+    getters: {
+      canUndo: (state) => state.historyIndex > 0,
+
+      canRedo: (state) =>
+        state.historyIndex >= 0 &&
+        state.historyIndex < state.history.length - 1,
+
+      /*
+       * Số bước đã thao tác — hiển thị cho người dùng
+       * biết còn hoàn tác được bao nhiêu lần.
+       */
+      undoDepth: (state) => Math.max(0, state.historyIndex),
+    },
+
     actions: {
+
+      /* =====================================================
+         ĐỒNG BỘ TRƯỜNG DÙNG CHUNG
+      ===================================================== */
 
       /*
        * Đồng bộ các trường dùng chung giữa các panel:
@@ -116,6 +181,161 @@ export const useWeddingEditorStore =
           }
         });
       },
+
+      /* =====================================================
+         LỊCH SỬ HOÀN TÁC
+      ===================================================== */
+
+      /*
+       * Ghi một bản snapshot mới vào lịch sử.
+       *
+       * Gọi sau mỗi thay đổi đã "lắng" (debounce ở
+       * composable useEditorHistory) để không tạo ra
+       * hàng trăm bước cho một lần gõ phím.
+       */
+      pushHistory() {
+        if (!this.wedding) {
+          return;
+        }
+
+        const snapshot = clone(this.wedding);
+
+        /*
+         * Bỏ các bước "redo" cũ khi người dùng thao tác
+         * tiếp sau khi đã hoàn tác.
+         */
+        if (this.historyIndex < this.history.length - 1) {
+          this.history = this.history.slice(0, this.historyIndex + 1);
+        }
+
+        this.history.push(snapshot);
+
+        if (this.history.length > HISTORY_LIMIT) {
+          this.history.shift();
+        }
+
+        this.historyIndex = this.history.length - 1;
+      },
+
+      undo() {
+        if (!this.canUndo) {
+          return false;
+        }
+
+        this.historyIndex -= 1;
+
+        this.wedding = clone(this.history[this.historyIndex]);
+
+        this.dirty = true;
+
+        return true;
+      },
+
+      redo() {
+        if (!this.canRedo) {
+          return false;
+        }
+
+        this.historyIndex += 1;
+
+        this.wedding = clone(this.history[this.historyIndex]);
+
+        this.dirty = true;
+
+        return true;
+      },
+
+      resetHistory() {
+        this.history = [];
+        this.historyIndex = -1;
+
+        if (this.wedding) {
+          this.pushHistory();
+        }
+      },
+
+      /* =====================================================
+         TRẠNG THÁI LƯU
+      ===================================================== */
+
+      markDirty() {
+        this.dirty = true;
+      },
+
+      markSaved() {
+        this.dirty = false;
+        this.lastSavedAt = Date.now();
+      },
+
+      /* =====================================================
+         BẢN NHÁP LOCALSTORAGE
+      ===================================================== */
+
+      /*
+       * Lưu bản nháp xuống localStorage. Không lưu ảnh
+       * base64 (rất nặng) — chỉ lưu cấu trúc dữ liệu.
+       */
+      saveDraft() {
+        if (!this.wedding) {
+          return;
+        }
+
+        try {
+          window.localStorage.setItem(
+            DRAFT_KEY,
+            JSON.stringify({
+              savedAt: Date.now(),
+              wedding: this.wedding,
+            })
+          );
+        } catch (error) {
+          /*
+           * Hết quota hoặc chế độ riêng tư — bỏ qua,
+           * autosave chỉ là tiện ích.
+           */
+          console.warn("[WeddingEditor] Không lưu được bản nháp:", error);
+        }
+      },
+
+      /*
+       * Đọc bản nháp đang có trong localStorage.
+       * Trả về { savedAt, wedding } hoặc null.
+       */
+      readDraft() {
+        try {
+          const raw = window.localStorage.getItem(DRAFT_KEY);
+
+          if (!raw) {
+            return null;
+          }
+
+          const parsed = JSON.parse(raw);
+
+          if (!parsed?.wedding) {
+            return null;
+          }
+
+          return parsed;
+        } catch (error) {
+          console.warn("[WeddingEditor] Bản nháp hỏng, bỏ qua:", error);
+
+          return null;
+        }
+      },
+
+      clearDraft() {
+        try {
+          window.localStorage.removeItem(DRAFT_KEY);
+        } catch {
+          /* bỏ qua */
+        }
+
+        this.pendingDraft = null;
+      },
+
+      /* =====================================================
+         KHỞI TẠO
+      ===================================================== */
 
       init(themeName = "traditional-red") {
         if (this.wedding) {
@@ -235,6 +455,7 @@ export const useWeddingEditorStore =
             ShowTimeline: true,
             ShowGallery: true,
             ShowMap: true,
+            ShowDressCode: true,
             ShowGift: true,
             ShowGuestBook: true,
             ShowMusic: true,
@@ -249,6 +470,27 @@ export const useWeddingEditorStore =
           },
 
           /*
+           * Trang phục dự tiệc — chỉ vài mẫu dùng
+           * (xem các trang DressCode.vue trong src/page).
+           */
+          dressCode: {
+            Note: "",
+            Colors: [],
+            Suggestions: [],
+          },
+
+          /*
+           * Lời cảm ơn cuối thiệp (một số mẫu dùng
+           * thay cho footer.Message).
+           */
+          thankYouNote: "",
+
+          /*
+           * Ngày âm lịch — hiển thị cạnh ngày dương.
+           */
+          weddingLunar: "",
+
+          /*
            * Tiêu đề các mục trên thiệp — người dùng đổi ở
            * panel "Tiêu đề mục". Xem src/data/sectionTitles.js.
            */
@@ -256,6 +498,11 @@ export const useWeddingEditorStore =
         };
 
         this.initialized = true;
+
+        this.dirty = false;
+        this.lastSavedAt = null;
+
+        this.resetHistory();
 
         return this.wedding;
       },
@@ -265,6 +512,11 @@ export const useWeddingEditorStore =
         this.initialized = !!data;
 
         lastSynced = {};
+
+        this.dirty = false;
+        this.lastSavedAt = null;
+
+        this.resetHistory();
       },
 
       setTheme(themeName) {
@@ -287,6 +539,9 @@ export const useWeddingEditorStore =
         this.initialized = false;
         lastSynced = {};
 
+        this.history = [];
+        this.historyIndex = -1;
+
         this.init(themeName);
       },
 
@@ -294,6 +549,12 @@ export const useWeddingEditorStore =
         this.wedding = null;
         this.initialized = false;
         lastSynced = {};
+
+        this.dirty = false;
+        this.lastSavedAt = null;
+
+        this.history = [];
+        this.historyIndex = -1;
       },
     },
   });

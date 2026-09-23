@@ -5,8 +5,8 @@
 
       <h2>{{ heading }}</h2>
 
-      <p class="dh-timeline__intro">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
+      <p v-if="intro" class="dh-timeline__intro">
+        {{ intro }}
       </p>
     </div>
 
@@ -73,6 +73,15 @@ const eyebrow = computed(() =>
 
 const heading = computed(() =>
   sectionText(props.sections, "timeline", "Heading", "Hành trình của chúng mình")
+);
+
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "timeline",
+    "Intro",
+    "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay"
+  )
 );
 
 function formatTime(index) {
@@ -168,6 +177,9 @@ function formatTime(index) {
   font-size: 13px;
 
   line-height: 1.65;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =========================================================

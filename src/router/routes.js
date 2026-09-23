@@ -1,20 +1,124 @@
-﻿export default [
+export default [
   {
     path: "/",
     name: "Home",
     component: () => import("@/views/Home.vue"),
     meta: {
-      title: "Ngày chung ",
+      title: "Thiệp cưới online - Lưu giữ ngày mình thuộc về nhau",
+    },
+  },
+
+  /* =====================================================
+     THƯ VIỆN MẪU THIẾP + CÁC TRANG ĐÍCH SEO
+     Cùng một component, khác bộ lọc mặc định truyền qua
+     query để Google index được từng nhóm phong cách.
+  ====================================================== */
+
+  {
+    path: "/mau-thiep-cuoi",
+    name: "Templates",
+    component: () => import("@/views/Templates.vue"),
+    meta: {
+      title: "Mẫu thiệp cưới đẹp",
     },
   },
 
   {
-    path: "/templates",
-    name: "Templates",
+    path: "/mau-thiep-cuoi-dep",
+    name: "TemplatesFeatured",
     component: () => import("@/views/Templates.vue"),
     meta: {
-      title: "Mẫu thiệp cưới",
+      title: "Mẫu thiệp cưới đẹp nhất",
     },
+  },
+
+  {
+    path: "/thiep-cuoi-hien-dai",
+    name: "TemplatesModern",
+    component: () => import("@/views/Templates.vue"),
+    meta: {
+      title: "Thiệp cưới hiện đại",
+    },
+  },
+
+  {
+    path: "/thiep-cuoi-truyen-thong",
+    name: "TemplatesTraditional",
+    component: () => import("@/views/Templates.vue"),
+    meta: {
+      title: "Thiệp cưới truyền thống",
+    },
+  },
+
+  /* =====================================================
+     TRANG ĐÍCH SEO
+  ====================================================== */
+
+  {
+    path: "/thiep-cuoi-online",
+    name: "WeddingOnline",
+    component: () => import("@/views/landing/WeddingOnline.vue"),
+    meta: {
+      title: "Thiệp cưới online",
+    },
+  },
+
+  {
+    path: "/tao-thiep-cuoi",
+    name: "CreateInvitation",
+    component: () => import("@/views/landing/CreateInvitation.vue"),
+    meta: {
+      title: "Tạo thiệp cưới online",
+    },
+  },
+
+  /* =====================================================
+     TRANG HỖ TRỢ
+  ====================================================== */
+
+  {
+    path: "/gioi-thieu",
+    name: "About",
+    component: () => import("@/views/About.vue"),
+    meta: {
+      title: "Giới thiệu",
+    },
+  },
+
+  {
+    path: "/bang-gia",
+    name: "Pricing",
+    component: () => import("@/views/Pricing.vue"),
+    meta: {
+      title: "Bảng giá",
+    },
+  },
+
+  {
+    path: "/huong-dan",
+    name: "Guide",
+    component: () => import("@/views/Guide.vue"),
+    meta: {
+      title: "Hướng dẫn tạo thiệp cưới",
+    },
+  },
+
+  {
+    path: "/lien-he",
+    name: "Contact",
+    component: () => import("@/views/Contact.vue"),
+    meta: {
+      title: "Liên hệ",
+    },
+  },
+
+  /* =====================================================
+     ĐƯỜNG DẪN CŨ — giữ để link đã chia sẻ không gãy
+  ====================================================== */
+
+  {
+    path: "/templates",
+    redirect: { name: "Templates" },
   },
 
   {
@@ -136,8 +240,7 @@
     name: "NotFound",
     component: () => import("@/views/Home.vue"),
     meta: {
-      title: "Ngày chung đôi",
+      title: "Thiệp cưới online – Lưu giữ ngày mình thuộc về nhau",
     },
   },
 ];
-

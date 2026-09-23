@@ -29,19 +29,12 @@
       <p>Chưa có hình ảnh</p>
     </div>
 
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      transition="dialog-fade-transition"
-      content-class="gallery-dialog"
-    >
-      <GalleryModal
-        v-if="dialog"
-        :images="gallery"
-        :start-index="currentIndex"
-        @close="closeLightbox"
-      />
-    </v-dialog>
+    <GalleryModal
+      v-if="dialog"
+      :images="gallery"
+      :start-index="currentIndex"
+      @close="closeLightbox"
+    />
   </section>
 </template>
 
@@ -86,13 +79,10 @@ function openLightbox(index) {
 
   currentIndex.value = index;
   dialog.value = true;
-
-  document.body.style.overflow = "hidden";
 }
 
 function closeLightbox() {
   dialog.value = false;
-  document.body.style.overflow = "";
 }
 </script>
 

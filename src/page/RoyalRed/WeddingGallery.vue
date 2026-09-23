@@ -1,95 +1,149 @@
 <template>
-  <section class="memories-section">
+  <section class="rr-gallery">
 
-    <!-- HEADER -->
-    <div class="memories-heading">
-      <span class="memories-kicker">MEMORIES</span>
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-      <h2>
-        Album Ảnh Cưới
-      </h2>
-
-      <div class="heading-ornament">
-        <span></span>
-        <b>囍</b>
-        <span></span>
-      </div>
-    </div>
+    <h2 class="rr-title">
+      {{ heading }}
+    </h2>
 
 
     <!-- =====================================================
-         ROYAL RED COVERFLOW
+         LƯỚI ẢNH
     ====================================================== -->
 
-    <ModernGalleryCarousel
-      v-if="gallery.length"
-      :images="gallery"
-      accent="#d8aa5a"
-      text-color="#f2d69a"
-      frame-bg="#160406"
-      :radius="2"
-      @open="openLightbox"
-    />
+    <div v-if="gallery.length" class="rr-gallery__box">
 
+      <div class="rr-gallery__grid">
 
-    <!-- EMPTY -->
-    <div
-      v-else
-      class="gallery-empty"
-    >
-      Chưa có hình ảnh
+        <button
+          v-for="(item, index) in visibleImages"
+          :key="item.id"
+          type="button"
+          class="rr-gallery__cell"
+          :aria-label="`Xem ảnh ${index + 1}`"
+          @click="openLightbox(index)"
+        >
+          <img
+            :src="item.src"
+            :alt="`Ảnh cưới ${index + 1}`"
+            loading="lazy"
+            decoding="async"
+          />
+
+          <span
+            v-if="index === visibleImages.length - 1 && hiddenCount > 0"
+            class="rr-gallery__more"
+          >
+            +{{ hiddenCount }}
+          </span>
+        </button>
+
+      </div>
+
     </div>
 
 
-    <!-- LIGHTBOX -->
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      transition="dialog-fade-transition"
-      content-class="gallery-dialog"
-    >
+    <p v-else class="rr-gallery__empty">
+      Chưa có hình ảnh
+    </p>
 
-      <GalleryModal
-        v-if="dialog"
-        :images="gallery"
-        :start-index="currentIndex"
-        @close="closeLightbox"
-      />
 
-    </v-dialog>
+    <!-- =====================================================
+         LIGHTBOX
+    ====================================================== -->
+
+    <GalleryModal
+      v-if="dialog"
+      :images="gallery"
+      :start-index="currentIndex"
+      @close="closeLightbox"
+    />
 
   </section>
 </template>
 
 
 <script setup>
+import { computed, defineAsyncComponent, ref } from "vue";
 
-import { ref, defineAsyncComponent } from "vue";
+import { sectionText } from "@/data/sectionTitles";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 
-const props = defineProps({
+/* =====================================================
+   PROPS
+===================================================== */
 
+const props = defineProps({
   gallery: {
     type: Array,
     default: () => [],
   },
 
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
+
+/* =====================================================
+   TIÊU ĐỀ MỤC
+===================================================== */
+
+const heading = computed(() =>
+  sectionText(props.sections, "gallery", "Heading", "Album Ảnh")
+);
+
+
+/* =====================================================
+   ẢNH
+===================================================== */
+
+/*
+ * Lưới chỉ hiển thị 4 ô vuông. Nếu còn ảnh phía sau
+ * thì ô cuối phủ lớp "+N".
+ */
+const MAX_VISIBLE = 4;
+
+const normalized = computed(() =>
+  (props.gallery || [])
+    .map((item, index) => {
+      const data = item || {};
+
+      return {
+        id: data.Id || index,
+        src: data.Image || data.Url || data.Src || data.image || "",
+      };
+    })
+    .filter((item) => item.src)
+);
+
+const visibleImages = computed(() =>
+  normalized.value.slice(0, MAX_VISIBLE)
+);
+
+const hiddenCount = computed(() =>
+  Math.max(normalized.value.length - MAX_VISIBLE, 0)
+);
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
 
 const currentIndex = ref(0);
 
 const dialog = ref(false);
 
-
 const openLightbox = (index) => {
-
   if (!props.gallery.length) {
     return;
   }
@@ -97,145 +151,103 @@ const openLightbox = (index) => {
   currentIndex.value = index;
 
   dialog.value = true;
-
-  document.body.style.overflow = "hidden";
-
 };
-
 
 const closeLightbox = () => {
-
   dialog.value = false;
-
-  document.body.style.overflow = "";
-
 };
-
 </script>
 
 
 <style scoped>
-
 /* =====================================================
    SECTION
 ===================================================== */
 
-.memories-section {
+.rr-gallery {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 24px;
 
   width: 100%;
 
-  padding: 70px 0 90px;
+  padding: 0 24px;
 
-  overflow: hidden;
-
-  color: #f6dfb0;
-
+  color: var(--rr-red);
 }
 
 
 /* =====================================================
-   HEADER
+   LƯỚI
 ===================================================== */
 
-.memories-heading {
-
-  text-align: center;
-
-  margin-bottom: 45px;
-
+.rr-gallery__box {
+  width: 100%;
+  max-width: 320px;
 }
 
+.rr-gallery__grid {
+  display: grid;
 
-.memories-kicker {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  padding: 16px;
+}
+
+.rr-gallery__cell {
+  position: relative;
 
   display: block;
 
-  margin-bottom: 10px;
+  aspect-ratio: 1 / 1;
 
-  font-size: 10px;
+  padding: 0;
 
-  letter-spacing: 0.38em;
+  overflow: hidden;
 
-  color: #c99b54;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 8px;
 
+  background-color: color-mix(in srgb, var(--rr-white) 50%, transparent);
+
+  cursor: pointer;
 }
 
+.rr-gallery__cell img {
+  width: 100%;
+  height: 100%;
 
-.memories-heading h2 {
+  object-fit: cover;
 
-  margin: 0;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: clamp(
-    32px,
-    5vw,
-    52px
-  );
-
-  font-weight: 500;
-
-  letter-spacing: 0.05em;
-
-  color: #f2d69a;
-
+  transition: transform 0.2s ease;
 }
 
+.rr-gallery__cell:hover img {
+  transform: scale(1.03);
+}
 
-.heading-ornament {
+.rr-gallery__more {
+  position: absolute;
+  inset: 0;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  gap: 14px;
+  background-color: rgba(0, 0, 0, 0.55);
 
-  margin-top: 16px;
+  color: #ffffff;
 
-}
-
-
-.heading-ornament span {
-
-  width: 55px;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #c99b54
-    );
-
-}
-
-
-.heading-ornament span:last-child {
-
-  background:
-    linear-gradient(
-      90deg,
-      #c99b54,
-      transparent
-    );
-
-}
-
-
-.heading-ornament b {
-
-  color: #d5a75e;
-
-  font-size: 17px;
-
-  font-weight: 400;
-
+  font-size: 18px;
+  font-weight: 600;
 }
 
 
@@ -243,19 +255,36 @@ const closeLightbox = () => {
    EMPTY
 ===================================================== */
 
-.gallery-empty {
+.rr-gallery__empty {
+  margin: 0;
+
+  font-size: 14px;
 
   text-align: center;
 
-  padding: 80px 20px;
-
-  color: rgba(
-    240,
-    210,
-    160,
-    0.5
-  );
-
+  opacity: 0.7;
 }
 
+
+/* =====================================================
+   TABLET / DESKTOP
+===================================================== */
+
+@media (min-width: 768px) {
+  .rr-gallery {
+    gap: 32px;
+
+    padding: 0 40px;
+  }
+
+  .rr-gallery__box {
+    max-width: 550px;
+  }
+
+  .rr-gallery__grid {
+    gap: 16px;
+
+    padding: 24px;
+  }
+}
 </style>

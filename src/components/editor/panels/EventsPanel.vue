@@ -35,27 +35,69 @@
             </strong>
           </div>
 
-          <button
-            type="button"
-            class="danger-icon"
-            title="Xóa sự kiện"
-            @click="removeEvent(index)"
-          >
-            <v-icon size="18"> mdi-delete-outline </v-icon>
-          </button>
+          <EditorItemActions
+            :index="index"
+            :total="wedding.events.length"
+            remove-title="Xoá sự kiện"
+            @move="moveEvent"
+            @remove="removeEvent"
+          />
         </div>
 
         <div class="form-grid">
           <div class="editor-field">
             <label>Loại sự kiện</label>
 
-            <input v-model="event.EventType" type="text" />
+            <input
+              v-model="event.EventType"
+              type="text"
+              list="event-type-options"
+              placeholder="VD: Lễ thành hôn"
+            />
+
+            <datalist id="event-type-options">
+              <option value="Lễ ăn hỏi" />
+              <option value="Lễ thành hôn" />
+              <option value="Tiệc cưới" />
+              <option value="Lễ vu quy" />
+              <option value="Lễ tân hôn" />
+            </datalist>
           </div>
 
           <div class="editor-field">
             <label>Tên sự kiện</label>
 
             <input v-model="event.Title" type="text" />
+          </div>
+
+          <div class="editor-field full">
+            <label>Ngày tổ chức</label>
+
+            <input
+              :value="toDateInput(event.EventDate)"
+              type="date"
+              @input="onEventDateInput(event, $event)"
+            />
+
+            <small class="field-help">
+              Thứ, ngày, tháng, năm bên dưới được điền tự động.
+            </small>
+          </div>
+
+          <div class="editor-field">
+            <label>Giờ</label>
+
+            <input v-model="event.EventTime" type="time" />
+          </div>
+
+          <div class="editor-field">
+            <label>Âm lịch</label>
+
+            <input
+              v-model="event.Lunar"
+              type="text"
+              placeholder="VD: 12 tháng 5 năm Bính Ngọ"
+            />
           </div>
 
           <div class="editor-field">
@@ -82,25 +124,7 @@
             <input v-model="event.Year" type="text" />
           </div>
 
-          <div class="editor-field">
-            <label>Ngày tổ chức</label>
-
-            <input v-model="event.EventDate" type="date" />
-          </div>
-
-          <div class="editor-field">
-            <label>Giờ</label>
-
-            <input v-model="event.EventTime" type="time" />
-          </div>
-
-          <div class="editor-field">
-            <label>Âm lịch</label>
-
-            <input v-model="event.Lunar" type="text" />
-          </div>
-
-          <div class="editor-field">
+          <div class="editor-field full">
             <label>Địa điểm</label>
 
             <input v-model="event.Location" type="text" />
@@ -120,6 +144,17 @@
               type="text"
               placeholder="https://maps.google.com/..."
             />
+
+            <small v-if="event.Map" class="field-help">
+              <a
+                :href="event.Map"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="field-link"
+              >
+                Mở thử trên Google Maps ↗
+              </a>
+            </small>
           </div>
         </div>
       </article>
@@ -143,6 +178,10 @@
 
 <script setup>
 import { watch } from "vue";
+
+import EditorItemActions from "@/components/editor/EditorItemActions.vue";
+
+import { confirmDialog } from "@/composables/useConfirm";
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -172,12 +211,59 @@ function addEvent() {
   });
 }
 
-function removeEvent(index) {
+async function removeEvent(index) {
   if (!props.wedding) return;
 
   if (!Array.isArray(props.wedding.events)) return;
 
+  const event = props.wedding.events[index];
+
+  const ok = await confirmDialog({
+    title: "Xoá sự kiện này?",
+    message: "Sự kiện sẽ bị xoá khỏi thiệp. Bạn vẫn hoàn tác được.",
+    detail: event?.Title || `Sự kiện ${index + 1}`,
+    confirmText: "Xoá sự kiện",
+    danger: true,
+  });
+
+  if (!ok) {
+    return;
+  }
+
   props.wedding.events.splice(index, 1);
+}
+
+function moveEvent(index, direction) {
+  const list = props.wedding.events;
+
+  const target = index + direction;
+
+  if (!Array.isArray(list) || target < 0 || target >= list.length) {
+    return;
+  }
+
+  const [item] = list.splice(index, 1);
+
+  list.splice(target, 0, item);
+}
+
+/*
+ * Input type="date" chỉ nhận "YYYY-MM-DD" còn dữ liệu
+ * có thể đang là ISO đầy đủ ("2026-11-14T08:00:00") —
+ * cắt lấy phần ngày để input hiển thị đúng.
+ */
+function toDateInput(value) {
+  if (!value) {
+    return "";
+  }
+
+  return String(value).slice(0, 10);
+}
+
+function onEventDateInput(event, domEvent) {
+  event.EventDate = domEvent.target.value;
+
+  applyEventDate(event);
 }
 
 /*
@@ -228,3 +314,15 @@ watch(
   { deep: true }
 );
 </script>
+
+<style scoped>
+.field-link {
+  color: var(--wine, #a63a2e);
+
+  text-decoration: none;
+}
+
+.field-link:hover {
+  text-decoration: underline;
+}
+</style>

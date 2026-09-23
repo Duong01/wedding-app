@@ -1,300 +1,108 @@
 <template>
-  <section class="guestbook-section">
-    <div class="guestbook-frame">
+  <section class="rr-wishes">
 
-      <!-- =====================================================
-           HEADER
-      ====================================================== -->
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-      <header class="guestbook-header">
-
-        <div class="header-ornament">
-          <span></span>
-          <i>✦</i>
-          <span></span>
-        </div>
-
-        <div class="rr-kicker">
-          GUEST BOOK
-        </div>
-
-        <h2 class="rr-title">
-          Sổ Lưu Bút
-        </h2>
-
-        <div class="double-happiness">
-          囍
-        </div>
-
-        <p class="guestbook-intro">
-          Mỗi lời chúc là một món quà nhỏ,
-          cùng cô dâu chú rể lưu giữ những khoảnh khắc
-          đáng nhớ trong ngày trọng đại.
-        </p>
-
-      </header>
+    <h2 class="rr-wishes__heading">
+      {{ heading }}
+    </h2>
 
 
-      <!-- =====================================================
-           WRITE WISH
-      ====================================================== -->
+    <!-- =====================================================
+         FORM GỬI LỜI CHÚC
+    ====================================================== -->
 
-      <div class="wish-paper">
+    <form class="rr-wishes__form" @submit.prevent="submit">
 
-        <!-- TOP ORNAMENT -->
+      <input
+        v-model.trim="form.name"
+        class="rr-wishes__input"
+        type="text"
+        :placeholder="namePlaceholder"
+        maxlength="100"
+        autocomplete="name"
+      />
 
-        <div class="paper-ornament paper-top">
-          <span></span>
-          <b>✦</b>
-          <span></span>
-        </div>
+      <textarea
+        v-model.trim="form.message"
+        class="rr-wishes__textarea"
+        :placeholder="messagePlaceholder"
+        rows="4"
+        maxlength="500"
+      ></textarea>
 
+      <div class="rr-wishes__actions">
 
-        <!-- TITLE -->
+        <span class="rr-wishes__count">
+          {{ form.message.length }}/500
+        </span>
 
-        <div class="paper-title">
-          GỬI LỜI CHÚC ĐẾN CÔ DÂU CHÚ RỂ
-        </div>
-
-
-        <!-- FORM -->
-
-        <form
-          class="wish-form"
-          @submit.prevent="submit"
+        <button
+          type="submit"
+          class="rr-wishes__submit"
+          :disabled="!form.name || !form.message || submitting"
         >
-
-          <!-- NAME -->
-
-          <div class="input-wrap">
-
-            <span class="input-icon">
-              ♡
-            </span>
-
-            <input
-              v-model.trim="form.name"
-              type="text"
-              placeholder="Tên của bạn"
-              maxlength="100"
-              autocomplete="name"
-            />
-
-          </div>
-
-
-          <!-- MESSAGE -->
-
-          <div class="textarea-wrap">
-
-            <textarea
-              v-model.trim="form.message"
-              placeholder="Viết lời chúc của bạn..."
-              maxlength="500"
-            ></textarea>
-
-            <span class="textarea-decoration">
-              囍
-            </span>
-
-            <span class="character-count">
-              {{ form.message.length }}/500
-            </span>
-
-          </div>
-
-
-          <!-- SUBMIT -->
-
-          <button
-            type="submit"
-            class="wish-submit"
-            :disabled="!form.name || !form.message || submitting"
-          >
-
-            <span class="button-shine"></span>
-
-            <span
-              v-if="!submitting"
-              class="button-icon"
-            >
-              ✦
-            </span>
-
-            <span v-if="!submitting">
-              GỬI LỜI CHÚC
-            </span>
-
-            <span v-else>
-              ĐANG GỬI...
-            </span>
-
-          </button>
-
-        </form>
-
-
-        <!-- BOTTOM ORNAMENT -->
-
-        <div class="paper-ornament paper-bottom">
-          <span></span>
-          <b>囍</b>
-          <span></span>
-        </div>
+          {{ submitting ? "ĐANG GỬI..." : submitLabel }}
+        </button>
 
       </div>
 
+    </form>
 
-      <!-- =====================================================
-           WISHES
-      ====================================================== -->
 
-      <section
-        v-if="allWishes && allWishes.length"
-        class="wishes-section"
+    <!-- =====================================================
+         DANH SÁCH LỜI CHÚC
+    ====================================================== -->
+
+    <div v-if="allWishes.length" class="rr-wishes__list">
+
+      <article
+        v-for="(wish, index) in allWishes"
+        :key="wish.Id || wish.id || index"
+        class="rr-wishes__item"
       >
 
-        <!-- HEADING -->
+        <div class="rr-wishes__item-head">
+          <span class="rr-wishes__author">
+            {{
+              wish.name ||
+              wish.Name ||
+              wish.guestName ||
+              wish.GuestName ||
+              "Một người bạn"
+            }}
+          </span>
 
-        <div class="wishes-heading">
-
-          <span></span>
-
-          <div class="wishes-heading-content">
-
-            <small>
-              NHỮNG LỜI CHÚC
-            </small>
-
-            <strong>
-              Từ những người thân yêu
-            </strong>
-
-          </div>
-
-          <span></span>
-
+          <span v-if="wish.CreatedAt || wish.createdAt" class="rr-wishes__time">
+            {{ wish.CreatedAt || wish.createdAt }}
+          </span>
         </div>
 
-
-        <!-- WISH LIST -->
-
-        <div class="wishes-list">
-
-          <article
-            v-for="(w, i) in allWishes"
-            :key="w.Id || w.id || i"
-            class="wish-item"
-          >
-
-            <!-- NUMBER -->
-
-            <div class="wish-number">
-              {{ String(i + 1).padStart(2, "0") }}
-            </div>
-
-
-            <!-- CONTENT -->
-
-            <div class="wish-content">
-
-              <!-- AUTHOR -->
-
-              <div class="wish-author">
-
-                <span class="author-symbol">
-                  ❖
-                </span>
-
-                <strong>
-                  {{
-                    w.name ||
-                    w.Name ||
-                    w.guestName ||
-                    w.GuestName ||
-                    "Một người bạn"
-                  }}
-                </strong>
-
-              </div>
-
-
-              <!-- MESSAGE -->
-
-              <p>
-                {{
-                  w.message ||
-                  w.Message ||
-                  w.content ||
-                  w.Content ||
-                  ""
-                }}
-              </p>
-
-
-              <!-- SMALL ORNAMENT -->
-
-              <div class="wish-divider">
-
-                <span></span>
-
-                <i>✦</i>
-
-                <span></span>
-
-              </div>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           EMPTY STATE
-      ====================================================== -->
-
-      <section
-        v-else
-        class="empty-wishes"
-      >
-
-        <div class="empty-symbol">
-          囍
-        </div>
-
-        <div class="empty-title">
-          LỜI CHÚC ĐẦU TIÊN
-        </div>
-
-        <p>
-          Hãy là người đầu tiên gửi những lời chúc
-          tốt đẹp nhất đến cô dâu chú rể.
+        <p class="rr-wishes__message">
+          {{
+            wish.message ||
+            wish.Message ||
+            wish.content ||
+            wish.Content ||
+            ""
+          }}
         </p>
 
-      </section>
-
-
-      <!-- =====================================================
-           FOOTER
-      ====================================================== -->
-
-      <div class="guestbook-footer">
-
-        <span></span>
-
-        <div>
-          ✦
-        </div>
-
-        <span></span>
-
-      </div>
+      </article>
 
     </div>
+
+
+    <!-- =====================================================
+         CHƯA CÓ LỜI CHÚC
+    ====================================================== -->
+
+    <p v-else class="rr-wishes__empty">
+      {{ emptyText }}
+    </p>
+
   </section>
 </template>
 
@@ -305,6 +113,7 @@ import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
+import { sectionText } from "@/data/sectionTitles";
 
 
 /* =========================================================
@@ -312,7 +121,6 @@ import { addWish, getAllWishes } from "@/model/api";
 ========================================================= */
 
 const props = defineProps({
-
   wishes: {
     type: Array,
     default: () => [],
@@ -323,7 +131,35 @@ const props = defineProps({
     default: null,
   },
 
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
+
+
+/* =========================================================
+   TIÊU ĐỀ MỤC
+========================================================= */
+
+const heading = computed(() =>
+  sectionText(props.sections, "guestbook", "Heading", "Sổ lưu bút")
+);
+
+const namePlaceholder = "Nhập tên của bạn*";
+
+const messagePlaceholder = "Nhập lời chúc của bạn*";
+
+const submitLabel = "GỬI LỜI CHÚC";
+
+const emptyText = computed(() =>
+  sectionText(
+    props.sections,
+    "guestbook",
+    "Intro",
+    "Hãy là người đầu tiên gửi những lời chúc tốt đẹp nhất đến cô dâu chú rể."
+  )
+);
 
 
 /* =========================================================
@@ -331,11 +167,8 @@ const props = defineProps({
 ========================================================= */
 
 const form = reactive({
-
   name: "",
-
   message: "",
-
 });
 
 
@@ -382,58 +215,39 @@ async function loadWishes() {
   }
 }
 
-if(route.params.slug  && route.name === "WeddingByApi") {
+if (route.params.slug && route.name === "WeddingByApi") {
   loadWishes();
 }
 
 
 /* =========================================================
-   SUBMIT
+   GỬI LỜI CHÚC
 ========================================================= */
 
 async function submit() {
-
   if (submitting.value) {
     return;
   }
-
 
   const name = form.name.trim();
 
   const message = form.message.trim();
 
-
-  /* =========================
-     VALIDATE
-  ========================== */
-
   if (!name) {
-
     alert("Vui lòng nhập tên của bạn.");
 
     return;
-
   }
 
-
   if (!message) {
-
     alert("Vui lòng nhập lời chúc.");
 
     return;
-
   }
-
-
-  /* =========================
-     START
-  ========================== */
 
   submitting.value = true;
 
-
   try {
-
     /*
      * Gửi lời chúc lên API (addWish).
      * Slug kèm token để ghi đúng thiệp của khách mời.
@@ -456,356 +270,64 @@ async function submit() {
       throw new Error(result?.message || "Gửi lời chúc thất bại.");
     }
 
-    /* =========================
-       SUCCESS
-    ========================== */
-
-    alert(
-      "Cảm ơn bạn! Lời chúc đã được gửi ❤️"
-    );
-
-
-    /* =========================
-       RESET
-    ========================== */
+    alert("Cảm ơn bạn! Lời chúc đã được gửi ❤️");
 
     form.name = "";
 
     form.message = "";
 
     await loadWishes();
-
-
   } catch (error) {
+    console.error("Guest book error:", error);
 
-    console.error(
-      "Guest book error:",
-      error
-    );
-
-    alert(
-      "Đã xảy ra lỗi. Vui lòng thử lại."
-    );
-
-
+    alert("Đã xảy ra lỗi. Vui lòng thử lại.");
   } finally {
-
     submitting.value = false;
-
   }
-
 }
 </script>
 
 
 <style scoped>
-
 /* =========================================================
-   ROYAL RED
-   GUEST BOOK
+   SECTION
 ========================================================= */
 
-.guestbook-section {
-
+.rr-wishes {
   position: relative;
+
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 24px;
 
   width: 100%;
 
+  padding: 0 16px;
 
-  color: #f5e5c0;
-
-  overflow: hidden;
-
-}
-
-
-.guestbook-frame {
-
-  width:
-    min(720px, 100%);
-
-  margin:
-    0 auto;
-
+  color: var(--rr-red);
 }
 
 
 /* =========================================================
-   HEADER
+   TIÊU ĐỀ
 ========================================================= */
 
-.guestbook-header {
-
-  text-align: center;
-
-}
-
-
-.header-ornament {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 12px;
-
-  width: 190px;
-
-  margin:
-    0 auto
-    25px;
-
-}
-
-
-.header-ornament span {
-
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,164,92,.65)
-    );
-
-}
-
-
-.header-ornament span:last-child {
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(201,164,92,.65),
-      transparent
-    );
-
-}
-
-
-.header-ornament i {
-
-  color: #c69a4b;
-
-  font-size: 10px;
-
-  font-style: normal;
-
-}
-
-
-.rr-kicker {
-
-  margin-bottom: 13px;
-
-  color: #c9a45c;
-
-  font-size: 11px;
-
-  font-weight: 600;
-
-  letter-spacing: .4em;
-
-}
-
-
-.rr-title {
-
+.rr-wishes__heading {
   margin: 0;
 
-  color: #f0d18b;
+  color: var(--rr-red);
 
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(34px, 7vw, 50px);
-
-  font-weight: 500;
-
-  letter-spacing: .04em;
-
-}
-
-
-.double-happiness {
-
-  margin-top: 14px;
-
-  color: #b98b45;
-
-  font-family: serif;
-
+  font-family: var(--rr-font-guestbook);
   font-size: 22px;
-
-  line-height: 1;
-
-}
-
-
-.guestbook-intro {
-
-  width:
-    min(550px, 100%);
-
-  margin:
-    25px auto
-    55px;
-
-  color:
-    rgba(245,229,192,.67);
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size: 14px;
-
-  line-height: 1.9;
-
-}
-
-
-/* =========================================================
-   WISH PAPER
-========================================================= */
-
-.wish-paper {
-
-  position: relative;
-
-  width:
-    min(570px, 100%);
-
-  margin:
-    0 auto;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(100,10,15,.30),
-      rgba(35,0,3,.14)
-    );
-
-  box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.18);
-
-  transition:
-    transform .5s ease,
-    box-shadow .5s ease;
-
-}
-
-
-.wish-paper:hover {
-
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 32px 85px
-    rgba(0,0,0,.25);
-
-}
-
-
-/* =========================================================
-   PAPER ORNAMENT
-========================================================= */
-
-.paper-ornament {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-}
-
-
-.paper-top {
-
-  margin-bottom: 25px;
-
-}
-
-
-.paper-bottom {
-
-  margin-top: 28px;
-
-}
-
-
-.paper-ornament span {
-
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,164,92,.48)
-    );
-
-}
-
-
-.paper-ornament span:last-child {
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(201,164,92,.48),
-      transparent
-    );
-
-}
-
-
-.paper-ornament b {
-
-  color: #c69a4b;
-
-  font-family: serif;
-
-  font-size: 12px;
-
   font-weight: 400;
 
-}
-
-
-/* =========================================================
-   PAPER TITLE
-========================================================= */
-
-.paper-title {
-
-  margin-bottom: 25px;
+  line-height: 1.4;
 
   text-align: center;
-
-  color: #d7b56b;
-
-  font-size: 11px;
-
-  font-weight: 600;
-
-  letter-spacing: .27em;
-
 }
 
 
@@ -813,624 +335,154 @@ async function submit() {
    FORM
 ========================================================= */
 
-.wish-form {
-
+.rr-wishes__form {
   display: flex;
-
   flex-direction: column;
 
-  gap: 14px;
-
-}
-
-
-/* =========================================================
-   NAME
-========================================================= */
-
-.input-wrap {
-
-  position: relative;
-
-  border-bottom:
-    1px solid
-    rgba(201,164,92,.30);
-
-}
-
-
-.input-wrap::after {
-
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-
-  bottom: -1px;
-
-  width: 0;
-
-  height: 1px;
-
-  background: #d4ad62;
-
-  transition:
-    width .55s
-    cubic-bezier(.22,.61,.36,1);
-
-}
-
-
-.input-wrap:focus-within::after {
+  gap: 12px;
 
   width: 100%;
-
+  max-width: 600px;
 }
 
-
-.input-icon {
-
-  position: absolute;
-
-  left: 0;
-
-  top: 3px;
-
-  color: #b98b45;
-
-  font-size: 14px;
-
-}
-
-
-.input-wrap input {
-
+.rr-wishes__input,
+.rr-wishes__textarea {
   width: 100%;
 
-  border: 0;
+  padding: 8px 16px;
 
-  outline: 0;
+  border: 1px solid var(--rr-red);
+  border-radius: 6px;
 
-  background: transparent;
+  background-color: #ffffff;
+  color: var(--rr-red);
 
-  color: #f4dca5;
+  font-family: var(--rr-font-body);
+  font-size: 13px;
 
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size: 15px;
-
+  line-height: 1.6;
 }
 
+.rr-wishes__input::placeholder,
+.rr-wishes__textarea::placeholder {
+  color: var(--rr-red);
 
-.input-wrap input::placeholder {
-
-  color:
-    rgba(245,229,192,.40);
-
+  opacity: 0.55;
 }
 
+.rr-wishes__input:focus,
+.rr-wishes__textarea:focus {
+  outline: none;
 
-/* =========================================================
-   TEXTAREA
-========================================================= */
-
-.textarea-wrap {
-
-  position: relative;
-
-  padding-top: 4px;
-
+  box-shadow: 0 0 0 2px var(--rr-hairline-soft);
 }
 
-
-.textarea-wrap textarea {
-
-  width: 100%;
-
-  min-height: 140px;
-
-  border: 0;
-
-  outline: 0;
-
+.rr-wishes__textarea {
   resize: none;
-
-  background: transparent;
-
-  color: #f4dca5;
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size: 15px;
-
-  line-height: 1.9;
-
 }
 
-
-.textarea-wrap textarea::placeholder {
-
-  color:
-    rgba(245,229,192,.40);
-
-}
-
-
-.textarea-wrap::after {
-
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-
-  right: 0;
-
-  bottom: 0;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,164,92,.38),
-      transparent
-    );
-
-}
-
-
-.textarea-decoration {
-
-  position: absolute;
-
-  right: 5px;
-
-  bottom: 27px;
-
-  color:
-    rgba(201,164,92,.22);
-
-  font-family: serif;
-
-  font-size: 32px;
-
-  pointer-events: none;
-
-}
-
-
-.character-count {
-
-  position: absolute;
-
-  right: 0;
-
-  bottom: 7px;
-
-  color:
-    rgba(201,164,92,.35);
-
-  font-size: 10px;
-
-  letter-spacing: .08em;
-
-}
-
-
-/* =========================================================
-   SUBMIT BUTTON
-========================================================= */
-
-.wish-submit {
-
-  position: relative;
-
-  display: inline-flex;
-
+.rr-wishes__actions {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 
-  justify-content: center;
+  gap: 12px;
+}
 
-  align-self: center;
+.rr-wishes__count {
+  font-size: 12px;
 
-  gap: 9px;
+  opacity: 0.6;
+}
 
-  min-width: 195px;
+.rr-wishes__submit {
+  padding: 6px 16px;
 
-  margin-top: 9px;
+  border: none;
+  border-radius: 999px;
 
+  background-color: var(--rr-red);
+  color: #ffffff;
 
+  font-family: var(--rr-font-body);
+  font-size: 12px;
+  font-weight: 600;
 
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(201,164,92,.7);
-
-  background:
-    linear-gradient(
-      135deg,
-      #b98b45,
-      #d8b76c,
-      #a97832
-    );
-
-  color: #360004;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: .17em;
+  letter-spacing: 0.02em;
 
   cursor: pointer;
 
-  transition:
-    transform .35s ease,
-    filter .35s ease,
-    box-shadow .35s ease;
-
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-
-.wish-submit:hover:not(:disabled) {
-
-  transform:
-    translateY(-3px);
-
-  filter:
-    brightness(1.08);
-
-  box-shadow:
-    0 12px 30px
-    rgba(201,164,92,.18);
-
+.rr-wishes__submit:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
-
-.wish-submit:active:not(:disabled) {
-
-  transform:
-    translateY(-1px);
-
-}
-
-
-.wish-submit:disabled {
-
-  opacity: .4;
-
+.rr-wishes__submit:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
-
-}
-
-
-.button-icon {
-
-  font-size: 11px;
-
-}
-
-
-.button-shine {
-
-  position: absolute;
-
-  top: 0;
-
-  left: -100%;
-
-  width: 45%;
-
-  height: 100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.38),
-      transparent
-    );
-
-  transform:
-    skewX(-20deg);
-
-  transition:
-    left .75s ease;
-
-}
-
-
-.wish-submit:hover
-.button-shine {
-
-  left: 130%;
-
 }
 
 
 /* =========================================================
-   WISHES SECTION
+   DANH SÁCH
 ========================================================= */
 
-.wishes-section {
-
-  margin-top: 20px;
-
-}
-
-
-/* =========================================================
-   WISHES HEADING
-========================================================= */
-
-.wishes-heading {
-
-  display: grid;
-
-  grid-template-columns:
-    1fr
-    auto
-    1fr;
-
-  align-items: center;
-
-  gap: 20px;
-
-  margin-bottom: 28px;
-
-  text-align: center;
-
-}
-
-
-.wishes-heading > span {
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,164,92,.35)
-    );
-
-}
-
-
-.wishes-heading > span:last-child {
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(201,164,92,.35),
-      transparent
-    );
-
-}
-
-
-.wishes-heading-content {
-
+.rr-wishes__list {
   display: flex;
-
   flex-direction: column;
 
-  align-items: center;
+  gap: 12px;
 
+  width: 100%;
+  max-width: 600px;
+  max-height: 500px;
+
+  overflow-y: auto;
+
+  padding-right: 8px;
 }
 
+.rr-wishes__item {
+  padding: 12px;
 
-.wishes-heading small {
+  border: 1px solid var(--rr-hairline);
+  border-radius: 8px;
 
-  margin-bottom: 7px;
+  background-color: #ffffff;
 
-  color: #b98b45;
-
-  font-size: 10px;
-
-  letter-spacing: .3em;
-
+  font-size: 13px;
 }
 
-
-.wishes-heading strong {
-
-  color: #efd18b;
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size: 18px;
-
-  font-weight: 400;
-
-}
-
-
-/* =========================================================
-   WISH LIST
-========================================================= */
-
-.wishes-list {
-
+.rr-wishes__item-head {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 
-  flex-direction: column;
-
+  gap: 12px;
 }
 
+.rr-wishes__author {
+  color: var(--rr-red);
 
-.wish-item {
-
-  display: grid;
-
-  grid-template-columns:
-    52px
-    1fr;
-
-  gap: 18px;
-
-  padding:
-    25px
-    0;
-
-  transition:
-    transform .35s ease;
-
+  font-weight: 600;
 }
 
-
-.wish-item:hover {
-
-  transform:
-    translateX(5px);
-
-}
-
-
-/* =========================================================
-   NUMBER
-========================================================= */
-
-.wish-number {
-
-  padding-top: 2px;
-
-  color:
-    rgba(201,164,92,.38);
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
+.rr-wishes__time {
+  flex-shrink: 0;
 
   font-size: 12px;
 
-  letter-spacing: .1em;
-
-  text-align: center;
-
+  opacity: 0.7;
 }
 
+.rr-wishes__message {
+  margin: 8px 0 0;
 
-/* =========================================================
-   AUTHOR
-========================================================= */
+  line-height: 1.7;
 
-.wish-author {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  margin-bottom: 8px;
-
-}
-
-
-.author-symbol {
-
-  color: #b98b45;
-
-  font-size: 11px;
-
-}
-
-
-.wish-author strong {
-
-  color: #efd18b;
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size: 16px;
-
-  font-weight: 500;
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-.wish-content p {
-
-  margin: 0;
-
-  color:
-    rgba(245,229,192,.68);
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
-
-  font-size: 14px;
-
-  line-height: 1.9;
-
-}
-
-
-/* =========================================================
-   WISH DIVIDER
-========================================================= */
-
-.wish-divider {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  width: 110px;
-
-  margin-top: 15px;
-
-  opacity: .55;
-
-}
-
-
-.wish-divider span {
-
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    rgba(201,164,92,.28);
-
-}
-
-
-.wish-divider i {
-
-  color: #b98b45;
-
-  font-size: 11px;
-
-  font-style: normal;
-
+  white-space: pre-line;
 }
 
 
@@ -1438,343 +490,39 @@ async function submit() {
    EMPTY
 ========================================================= */
 
-.empty-wishes {
+.rr-wishes__empty {
+  max-width: 420px;
 
-  margin-top: 65px;
-
-  text-align: center;
-
-}
-
-
-.empty-symbol {
-
-  color:
-    rgba(201,164,92,.35);
-
-  font-family: serif;
-
-  font-size: 35px;
-
-  margin-bottom: 14px;
-
-}
-
-
-.empty-title {
-
-  margin-bottom: 9px;
-
-  color: #c9a45c;
-
-  font-size: 10px;
-
-  font-weight: 600;
-
-  letter-spacing: .3em;
-
-}
-
-
-.empty-wishes p {
-
-  width:
-    min(420px, 100%);
-
-  margin:
-    0 auto;
-
-  color:
-    rgba(245,229,192,.48);
-
-  font-family:
-    "Times New Roman",
-    Georgia,
-    serif;
+  margin: 0;
 
   font-size: 14px;
 
-  line-height: 1.8;
+  line-height: 1.7;
 
+  text-align: center;
+
+  opacity: 0.75;
 }
 
 
 /* =========================================================
-   FOOTER
+   TABLET / DESKTOP
 ========================================================= */
 
-.guestbook-footer {
+@media (min-width: 768px) {
+  .rr-wishes {
+    gap: 32px;
 
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-  width:
-    min(300px, 70%);
-
-  margin:
-    70px auto 0;
-
-}
-
-
-.guestbook-footer span {
-
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,164,92,.3)
-    );
-
-}
-
-
-.guestbook-footer span:last-child {
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(201,164,92,.3),
-      transparent
-    );
-
-}
-
-
-.guestbook-footer div {
-
-  color: #b98b45;
-
-  font-size: 11px;
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 700px) {
-
-
-  .wish-paper {
-
-    width: 100%;
-
+    padding: 0 32px;
   }
 
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-
-  .rr-kicker {
-
-    font-size: 10px;
-
-    letter-spacing: .34em;
-
+  .rr-wishes__heading {
+    font-size: 24px;
   }
 
-
-  .rr-title {
-
-    font-size:
-      clamp(
-        32px,
-        10vw,
-        42px
-      );
-
-  }
-
-
-  .guestbook-intro {
-
-    margin:
-      22px auto
-      38px;
-
-    font-size: 13px;
-
-    line-height: 1.8;
-
-  }
-
-
-  .wish-paper {
-
-    padding:
-      28px
-      20px
-      27px;
-
-  }
-
-
-  .paper-title {
-
-    font-size: 10px;
-
-    letter-spacing: .2em;
-
-  }
-
-
-  .input-wrap input,
-  .textarea-wrap textarea {
-
+  .rr-wishes__input,
+  .rr-wishes__textarea {
     font-size: 14px;
-
   }
-
-
-  .wish-submit {
-
-    width: 100%;
-
-  }
-
-
-  .wishes-section {
-
-    margin-top: 20px;
-
-  }
-
-
-  .wishes-heading {
-
-    gap: 12px;
-
-  }
-
-
-  .wishes-heading strong {
-
-    font-size: 16px;
-
-    white-space: nowrap;
-
-  }
-
-
-  .wish-item {
-
-    grid-template-columns:
-      35px
-      1fr;
-
-    gap: 10px;
-
-    padding:
-      21px
-      0;
-
-  }
-
-
-  .wish-content p {
-
-    font-size: 13px;
-
-    line-height: 1.85;
-
-  }
-
-
-  .wish-author strong {
-
-    font-size: 15px;
-
-  }
-
 }
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 380px) {
-
-  .guestbook-section {
-
-    padding-left: 12px;
-
-    padding-right: 12px;
-
-  }
-
-
-  .wish-paper {
-
-    padding-left: 17px;
-
-    padding-right: 17px;
-
-  }
-
-
-  .wishes-heading {
-
-    grid-template-columns:
-      25px
-      auto
-      25px;
-
-  }
-
-
-  .wishes-heading strong {
-
-    font-size: 15px;
-
-  }
-
-
-  .wish-number {
-
-    font-size: 10px;
-
-  }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .wish-paper,
-  .wish-item,
-  .wish-submit {
-
-    transition: none;
-
-  }
-
-
-  .button-shine {
-
-    display: none;
-
-  }
-
-}
-
 </style>

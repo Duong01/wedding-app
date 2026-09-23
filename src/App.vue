@@ -2,14 +2,20 @@
   <v-app class="app-root">
     <header ref="headerRef" v-if="showTopNav" class="site-header">
       <div class="site-header-inner">
-        <router-link to="/" class="brand">
-          <span class="brand-mark">Ngày</span>
-          <span>Chung Đôi</span>
+        <router-link :to="{ name: 'Home' }" class="brand">
+          <span class="brand-mark">Thiệp</span>
+          <span>Duyên</span>
         </router-link>
 
         <nav class="top-nav" aria-label="Main navigation">
-          <router-link to="/" class="nav-link">Home</router-link>
-          <router-link to="/templates" class="nav-link">Mẫu thiệp</router-link>
+          <router-link
+            v-for="link in publicNavLinks"
+            :key="link.routeName"
+            :to="{ name: link.routeName }"
+            class="nav-link"
+          >
+            {{ link.label }}
+          </router-link>
 
           <router-link
             v-if="auth.isLoggedIn && auth.can('manage')"
@@ -168,10 +174,13 @@
           class="mobile-nav"
           aria-label="Menu di động"
         >
-          <router-link to="/" class="mobile-nav-link"> Home </router-link>
-
-          <router-link to="/templates" class="mobile-nav-link">
-            Mẫu thiệp
+          <router-link
+            v-for="link in publicNavLinks"
+            :key="`m-${link.routeName}`"
+            :to="{ name: link.routeName }"
+            class="mobile-nav-link"
+          >
+            {{ link.label }}
           </router-link>
 
           <router-link
@@ -302,6 +311,13 @@
       <SiteFooter v-if="showFooter" />
 
       <!-- =======================================
+           NÚT LÊN ĐẦU TRANG
+           Trang chủ và các trang marketing nay rất dài —
+           hiện cùng nhóm với header/footer.
+      ======================================== -->
+      <ScrollTop v-if="showFooter" />
+
+      <!-- =======================================
            GLOBAL DECORATION
            Chỉ hiển thị trên desktop
       ======================================== -->
@@ -341,7 +357,10 @@ const AppLoading = defineAsyncComponent(() =>
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
 import SiteFooter from "@/components/common/SiteFooter.vue";
+import ScrollTop from "@/components/common/ScrollTop.vue";
 import "@/assets/styles/chungdoi.css";
+
+import { NAV_LINKS } from "@/data/siteContent";
 
 // Auth store
 import { useAuthStore } from "@/stores/auth";
@@ -366,6 +385,12 @@ const headerRef = ref(null);
 const avatarBroken = ref(false);
 
 const mobileNavOpen = ref(false);
+
+/*
+ * Link công khai trên header / menu di động — khai báo
+ * một lần ở siteContent để footer dùng chung.
+ */
+const publicNavLinks = NAV_LINKS;
 
 const userInitial = computed(() => {
   const name = auth.displayName || "";
@@ -805,16 +830,17 @@ body {
 .top-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
 
 .nav-link {
   position: relative;
   color: var(--studio-ink-soft, #5c4f43);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  white-space: nowrap;
   padding: 6px 0;
   transition: color 0.2s ease;
 }

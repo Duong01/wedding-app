@@ -20,20 +20,12 @@
 
     <p v-else class="mw-gallery__empty">Chưa có hình ảnh</p>
 
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      persistent
-      transition="dialog-fade-transition"
-      content-class="gallery-dialog"
-    >
-      <GalleryModal
-        v-if="dialog"
-        :images="gallery"
-        :start-index="currentIndex"
-        @close="closeLightbox"
-      />
-    </v-dialog>
+    <GalleryModal
+      v-if="dialog"
+      :images="gallery"
+      :start-index="currentIndex"
+      @close="closeLightbox"
+    />
   </section>
 </template>
 

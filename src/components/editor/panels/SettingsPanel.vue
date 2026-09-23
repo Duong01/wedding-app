@@ -10,9 +10,26 @@
       </div>
     </div>
 
+    <div class="settings-toolbar">
+      <span>
+        Đang bật <strong>{{ enabledCount }}</strong> /
+        {{ SETTINGS_ORDER.length }} mục
+      </span>
+
+      <div class="settings-toolbar-actions">
+        <button type="button" class="toolbar-btn" @click="toggleAll(true)">
+          Bật tất cả
+        </button>
+
+        <button type="button" class="toolbar-btn" @click="toggleAll(false)">
+          Tắt tất cả
+        </button>
+      </div>
+    </div>
+
     <div class="settings-grid">
       <div
-        v-for="(value, key) in wedding.settings"
+        v-for="key in SETTINGS_ORDER"
         :key="key"
         class="setting-item"
       >
@@ -35,7 +52,7 @@
         </div>
 
         <v-switch
-          v-model="wedding.settings[key]"
+          v-model="settings[key]"
           color="primary"
           hide-details
         />
@@ -45,7 +62,9 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   wedding: { type: Object, required: true },
 });
 
@@ -74,6 +93,11 @@ const SETTINGS_META = {
     icon: "mdi-calendar-heart-outline",
     label: "Sự kiện cưới",
     description: "Ngày giờ và địa điểm.",
+  },
+  ShowDressCode: {
+    icon: "mdi-tshirt-crew-outline",
+    label: "Trang phục",
+    description: "Gợi ý dress code cho khách.",
   },
   ShowTimeline: {
     icon: "mdi-timeline-outline",
@@ -117,7 +141,114 @@ const SETTINGS_META = {
   },
 };
 
+/*
+ * Thứ tự hiển thị mong muốn — theo đúng trình tự các
+ * mục xuất hiện trên thiệp, không phụ thuộc thứ tự key
+ * trong object (dữ liệu cũ có thể thiếu/thừa key).
+ */
+const SETTINGS_ORDER = Object.keys(SETTINGS_META);
+
+/*
+ * Dữ liệu cũ có thể chưa có ShowDressCode → bổ sung
+ * mặc định để switch hiển thị và ghi được giá trị.
+ */
+const settings = computed(() => {
+  const data = props.wedding.settings;
+
+  if (!data || typeof data !== "object") {
+    props.wedding.settings = {};
+  }
+
+  SETTINGS_ORDER.forEach((key) => {
+    if (typeof props.wedding.settings[key] !== "boolean") {
+      props.wedding.settings[key] = true;
+    }
+  });
+
+  return props.wedding.settings;
+});
+
+/*
+ * Số mục đang bật / tổng số — giúp người dùng biết
+ * ngay mình đã tắt bao nhiêu phần.
+ */
+const enabledCount = computed(
+  () => SETTINGS_ORDER.filter((key) => settings.value[key]).length
+);
+
 function settingMeta(key) {
   return SETTINGS_META[key];
 }
+
+function toggleAll(value) {
+  SETTINGS_ORDER.forEach((key) => {
+    props.wedding.settings[key] = value;
+  });
+}
 </script>
+
+<style scoped>
+.settings-toolbar {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin-bottom: 16px;
+
+  padding: 11px 14px;
+
+  border: 1px solid var(--border, #ece4da);
+  border-radius: 12px;
+
+  background: #fffdfb;
+}
+
+.settings-toolbar span {
+  color: #8a7a68;
+
+  font-size: 11.5px;
+}
+
+.settings-toolbar strong {
+  color: #3a2c26;
+}
+
+.settings-toolbar-actions {
+  display: flex;
+
+  gap: 7px;
+}
+
+.toolbar-btn {
+  height: 30px;
+
+  padding: 0 12px;
+
+  border: 1px solid var(--border-strong, #e0d4c5);
+  border-radius: 8px;
+
+  background: #fffdfb;
+
+  color: #6b5a4e;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.toolbar-btn:hover {
+  background: #f6f1ea;
+
+  color: var(--wine, #a63a2e);
+}
+</style>

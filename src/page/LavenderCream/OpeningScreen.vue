@@ -70,9 +70,9 @@
     </button>
 
     <p class="lc-hint">
-      <span></span>
-      {{ hintText }}
-      <span></span>
+      <span class="lc-hint__line"></span>
+      <span class="lc-hint__text">{{ hintText }}</span>
+      <span class="lc-hint__line"></span>
     </p>
   </section>
 </template>
@@ -567,6 +567,11 @@ function openInvitation() {
   align-items: center;
 }
 
+.lc-open-btn__text {
+  text-align: center;
+  white-space: pre-line;
+}
+
 .lc-open-btn__arrow {
   font-size: 12px;
 }
@@ -591,14 +596,21 @@ function openInvitation() {
   letter-spacing: 0.06em;
 }
 
-.lc-hint span {
+.lc-hint__text {
+  text-align: center;
+  white-space: pre-line;
+}
+
+.lc-hint__line {
+  flex: 0 0 auto;
+
   width: 34px;
   height: 1px;
 
   background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.6));
 }
 
-.lc-hint span:last-child {
+.lc-hint__line:last-child {
   transform: rotate(180deg);
 }
 

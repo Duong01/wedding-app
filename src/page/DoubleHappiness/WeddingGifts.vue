@@ -10,9 +10,8 @@
 
     <h2>{{ heading }}</h2>
 
-    <p class="dh-gifts__intro">
-      Những lời chúc và tình cảm của bạn<br />
-      là món quà quý giá nhất dành cho chúng mình
+    <p v-if="intro" class="dh-gifts__intro">
+      {{ intro }}
     </p>
 
     <div class="dh-gifts__list">
@@ -231,6 +230,15 @@ const heading = computed(() =>
   sectionText(props.sections, "gifts", "Heading", "Hộp mừng cưới")
 );
 
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "gifts",
+    "Intro",
+    "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình"
+  )
+);
+
 const showGiftDialog = ref(false);
 const previewQr = ref(null);
 
@@ -406,6 +414,9 @@ onBeforeUnmount(() => {
   font-size: 14px;
 
   line-height: 1.7;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =========================================================

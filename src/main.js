@@ -18,6 +18,10 @@ import "./assets/styles/theme.css";
 // Design system cho các trang ứng dụng (Manage/Admin/Payment/Profile/Login)
 // — mở rộng studio tokens, dùng chung thay vì CSS nhân bản từng view.
 import "./assets/styles/app.css";
+
+// Khung dùng chung cho trang chủ + các trang marketing/hỗ trợ
+// (Giới thiệu, Bảng giá, Hướng dẫn, Liên hệ, trang đích SEO).
+import "./assets/styles/marketing.css";
 import * as directives from "vuetify/directives";
 
 const vuetify = createVuetify({

@@ -119,9 +119,9 @@
 
               <span
                 class="status-chip"
-                :class="statusChipClass(entry.status)"
+                :class="statusChipClass(entry)"
               >
-                {{ statusChipLabel(entry.status) }}
+                {{ statusChipLabel(entry) }}
               </span>
             </div>
 
@@ -170,10 +170,29 @@
                 Khách mời
               </button>
 
+              <button
+                v-if="canPublish(entry)"
+                type="button"
+                class="action-btn publish"
+                :disabled="publishing === entry.slug"
+                @click="publishEntry(entry)"
+              >
+                <v-progress-circular
+                  v-if="publishing === entry.slug"
+                  indeterminate
+                  size="14"
+                  width="2"
+                />
+
+                <v-icon v-else size="16"> mdi-rocket-launch-outline </v-icon>
+
+                Xuất bản
+              </button>
+
               <button type="button" class="action-btn" @click="copyLink(entry)">
                 <v-icon size="16"> mdi-link-variant </v-icon>
 
-                Link
+                {{ canPublish(entry) ? "Link (chưa mở)" : "Link" }}
               </button>
 
               <button
@@ -430,7 +449,10 @@ import {
   getRecipients as getRecipientsApi,
   updateRecipient as updateRecipientApi,
   getMyWeddings,
+  publishWedding as publishWeddingApi,
 } from "@/model/api";
+
+import { PUBLISH_STATE } from "@/model/weddingAdmin";
 
 const router = useRouter();
 
@@ -444,6 +466,9 @@ const loadError = ref("");
 const deleting = ref("");
 const deleteTarget = ref(null);
 const toast = ref("");
+
+/* Slug của thiệp đang gọi API xuất bản ("" = không có). */
+const publishing = ref("");
 
 /* =========================================================
    GUESTS
@@ -495,6 +520,17 @@ async function loadEntries() {
         status: item.Status || item.status || "",
 
         createdAt: item.CreatedAt || item.createdAt || "",
+
+        /* Trạng thái xuất bản / dùng thử — server suy ra trong SQL. */
+        publishState: item.PublishState || item.publishState || "",
+
+        publishedAt: item.PublishedAt || item.publishedAt || "",
+
+        trialEndsAt: item.TrialEndsAt || item.trialEndsAt || "",
+
+        paidAt: item.PaidAt || item.paidAt || "",
+
+        daysLeft: item.DaysLeft ?? item.daysLeft ?? 0,
       }));
     } else {
       loadError.value =
@@ -598,24 +634,92 @@ function goPayment(entry) {
 
 /* =========================================================
    STATUS CHIP
+   Ưu tiên trạng thái xuất bản (PublishState) vì nó phản ánh
+   đúng điều chủ thiệp quan tâm: khách mời có xem được không.
+   Thiếu PublishState (API cũ) thì rơi về Status thô.
 ========================================================= */
 
-function statusChipLabel(status) {
+function statusChipLabel(entry) {
+  const state = entry?.publishState;
+
+  if (state === PUBLISH_STATE.DRAFT) return "Chưa xuất bản";
+
+  if (state === PUBLISH_STATE.TRIAL) {
+    return `Dùng thử còn ${entry.daysLeft} ngày`;
+  }
+
+  if (state === PUBLISH_STATE.EXPIRED) return "Hết hạn dùng thử";
+
+  if (state === PUBLISH_STATE.ACTIVE) return "Đã kích hoạt";
+
+  if (state === PUBLISH_STATE.LOCKED) return "Đã khóa";
+
+  const status = entry?.status;
+
   if (status === "Active") return "Đã kích hoạt";
 
   if (status === "Locked") return "Đã khóa";
 
-  if (status === "Pending") return "Chờ duyệt";
-
   return "Chờ duyệt";
 }
 
-function statusChipClass(status) {
+function statusChipClass(entry) {
+  const state = entry?.publishState;
+
+  if (state === PUBLISH_STATE.TRIAL) return "chip-trial";
+
+  if (state === PUBLISH_STATE.ACTIVE) return "chip-active";
+
+  if (state === PUBLISH_STATE.EXPIRED) return "chip-locked";
+
+  if (state === PUBLISH_STATE.LOCKED) return "chip-locked";
+
+  if (state === PUBLISH_STATE.DRAFT) return "chip-pending";
+
+  const status = entry?.status;
+
   if (status === "Active") return "chip-active";
 
   if (status === "Locked") return "chip-locked";
 
   return "chip-pending";
+}
+
+/* Chỉ thiệp còn là bản nháp mới cần nút "Xuất bản". */
+function canPublish(entry) {
+  return entry?.publishState === PUBLISH_STATE.DRAFT;
+}
+
+/* =========================================================
+   XUẤT BẢN
+========================================================= */
+
+async function publishEntry(entry) {
+  if (!entry?.slug || publishing.value) {
+    return;
+  }
+
+  publishing.value = entry.slug;
+
+  try {
+    const response = await publishWeddingApi({ Slug: entry.slug });
+
+    const result = response?.data;
+
+    if (result?.status === "success") {
+      showToast("Đã xuất bản thiệp — dùng thử 3 ngày");
+
+      await loadEntries();
+    } else {
+      showToast(result?.message || "Không thể xuất bản thiệp");
+    }
+  } catch (error) {
+    console.error("[Manage] publishWedding error:", error);
+
+    showToast("Không thể xuất bản thiệp. Vui lòng thử lại.");
+  } finally {
+    publishing.value = "";
+  }
 }
 
 function goHome() {
@@ -632,7 +736,15 @@ async function copyLink(entry) {
   try {
     await navigator.clipboard.writeText(url);
 
-    showToast("Đã sao chép link thiệp");
+    /*
+     * Chưa xuất bản thì link vẫn sao chép được, nhưng phải
+     * nói rõ để chủ thiệp không gửi nhầm cho khách rồi tưởng hỏng.
+     */
+    if (canPublish(entry)) {
+      showToast("Đã sao chép — nhưng thiệp chưa xuất bản nên khách mở sẽ không xem được");
+    } else {
+      showToast("Đã sao chép link thiệp");
+    }
   } catch (error) {
     showToast("Không thể sao chép link");
   }

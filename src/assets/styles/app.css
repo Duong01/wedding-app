@@ -427,6 +427,19 @@
   border-color: var(--app-ok);
 }
 
+/* Xuất bản — hành động chính khi thiệp còn là bản nháp. */
+.action-btn.publish {
+  color: #8a6a1f;
+
+  border-color: rgba(185, 151, 91, 0.45);
+}
+
+.action-btn.publish:hover:not(:disabled) {
+  background: #fdf6e3;
+
+  border-color: var(--gold, #b9975b);
+}
+
 .action-btn:disabled {
   opacity: 0.55;
 
@@ -467,6 +480,16 @@
   background: var(--app-danger-soft);
 
   color: var(--app-danger);
+}
+
+/*
+ * Đang trong thời gian dùng thử — khác "chờ duyệt" (chưa xuất bản)
+ * và khác "đã kích hoạt" (đã thanh toán). Dùng tông vàng kim.
+ */
+.status-chip.chip-trial {
+  background: #fdf6e3;
+
+  color: #8a6a1f;
 }
 
 /* ==================================================

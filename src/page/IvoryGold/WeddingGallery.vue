@@ -56,22 +56,14 @@
          FULLSCREEN GALLERY DIALOG
     ========================================== -->
 
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      persistent
-      transition="dialog-fade-transition"
-      content-class="gallery-dialog"
-    >
 
-      <GalleryModal
-        v-if="dialog"
-        :images="gallery"
-        :start-index="currentIndex"
-        @close="closeLightbox"
-      />
+    <GalleryModal
+      v-if="dialog"
+      :images="gallery"
+      :start-index="currentIndex"
+      @close="closeLightbox"
+    />
 
-    </v-dialog>
 
   </section>
 </template>
@@ -139,8 +131,6 @@ function openLightbox(index = 0) {
   currentIndex.value = safeIndex;
 
   dialog.value = true;
-
-  document.body.style.overflow = "hidden";
 }
 
 
@@ -150,8 +140,6 @@ function openLightbox(index = 0) {
 
 function closeLightbox() {
   dialog.value = false;
-
-  document.body.style.overflow = "";
 }
 </script>
 

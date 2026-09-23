@@ -1,177 +1,137 @@
 <template>
-  <section class="opening">
-    <!-- ================= BACKGROUND ================= -->
-    <div class="bg-pattern"></div>
-    <div class="bg-glow"></div>
+  <section
+    class="rr-open"
+    :class="{
+      'is-opening': isOpening,
+      'is-opened': isOpened,
+    }"
+    aria-label="Mở thiệp"
+  >
 
-    <!-- Floating gold dust -->
-    <div class="gold-dust">
-      <i v-for="n in 14" :key="n"></i>
-    </div>
+    <!-- =====================================================
+         NỀN HOA
+    ====================================================== -->
 
-    <!-- ================= OUTER DECORATION ================= -->
-    <div class="outer-frame">
-      <span class="frame-line top"></span>
-      <span class="frame-line right"></span>
-      <span class="frame-line bottom"></span>
-      <span class="frame-line left"></span>
+    <img
+      :src="flower"
+      class="rr-open__bloom rr-open__bloom--left"
+      alt=""
+      aria-hidden="true"
+    />
 
-      <span class="corner tl">❧</span>
-      <span class="corner tr">❧</span>
-      <span class="corner bl">❧</span>
-      <span class="corner br">❧</span>
-    </div>
+    <img
+      :src="flower"
+      class="rr-open__bloom rr-open__bloom--right"
+      alt=""
+      aria-hidden="true"
+    />
 
-    <!-- ================= INVITATION ================= -->
-    <div class="invitation-card">
 
-      <!-- Gold border -->
-      <div class="card-border"></div>
+    <!-- =====================================================
+         THIỆP
+    ====================================================== -->
 
-      <div class="card-content">
+    <div class="rr-open__stage">
 
-        <!-- ================= TOP ================= -->
-        <header class="header">
-          <div class="royal-symbol">
-            <span></span>
-            <b>✦</b>
-            <span></span>
-          </div>
+      <div class="rr-open__card">
 
-          <div class="title">
-            THIỆP MỜI
-          </div>
+        <div class="rr-open__frame">
 
-          <div class="subtitle">
-            WEDDING INVITATION
-          </div>
-        </header>
+          <span class="rr-open__kicker">
+            {{ kicker }}
+          </span>
 
-        <!-- ================= ORNAMENT ================= -->
-        <div class="ornament">
-          <span></span>
-          <b>❦</b>
-          <span></span>
+          <h1 class="rr-open__names">
+            <span class="rr-open__name">{{ groomName }}</span>
+
+            <span class="rr-open__amp">&amp;</span>
+
+            <span class="rr-open__name">{{ brideName }}</span>
+          </h1>
+
+          <span class="rr-open__rule" aria-hidden="true"></span>
+
         </div>
 
-        <!-- ================= GUEST ================= -->
-        <section class="guest-section">
-          <div class="guest-label">
-            TRÂN TRỌNG KÍNH MỜI
-          </div>
 
-          <div class="guest-name">
-            {{ guestName }}
-          </div>
+        <!-- ===============================================
+             NỘI DUNG
+        ================================================ -->
 
-          <div class="guest-description">
-            đến tham dự lễ thành hôn của chúng tôi
-          </div>
-        </section>
+        <div class="rr-open__inner">
 
-        <!-- ================= COUPLE ================= -->
-        <section class="couple">
-
-          <div class="couple-name">
-            {{ groom }}
-          </div>
-
-          <div class="couple-middle">
-            <span></span>
-            <i>&</i>
-            <span></span>
-          </div>
-
-          <div class="couple-name">
-            {{ bride }}
-          </div>
-
-        </section>
-
-        <!-- ================= DATE ================= -->
-        <section class="date-section">
-
-          <div class="date-line"></div>
-
-          <div class="date-label">
-            HÔN LỄ
-          </div>
-
-          <div class="date">
-            {{ dateLabel }}
-          </div>
-
-          <div class="date-line"></div>
-
-        </section>
-
-        <!-- ================= MESSAGE ================= -->
-        <div class="message">
-          <div class="quote-mark">“</div>
-
-          <p>
-            Sự hiện diện của quý khách<br />
-            là niềm vinh hạnh lớn lao<br />
-            đối với gia đình chúng tôi.
+          <p class="rr-open__eyebrow">
+            {{ eyebrow }}
           </p>
 
-          <div class="quote-mark bottom">”</div>
-        </div>
+          <div v-if="dateLabel" class="rr-open__date">
+            <span aria-hidden="true"></span>
 
-        <!-- ================= OPEN BUTTON ================= -->
-        <div class="open-area">
+            <span>{{ dateLabel }}</span>
 
-          <button
-            class="open-btn"
-            type="button"
-            @click="$emit('open')"
-          >
-            <span class="btn-left">❧</span>
+            <span aria-hidden="true"></span>
+          </div>
 
-            <span class="btn-text">
-              MỞ THIỆP
+
+          <!-- NGƯỜI ĐƯỢC MỜI -->
+
+          <div v-if="recipient" class="rr-open__guest">
+            <span class="rr-open__guest-label">
+              {{ invite }}
             </span>
 
-            <span class="btn-right">❧</span>
+            <strong class="rr-open__guest-name">
+              {{ recipient }}
+            </strong>
+          </div>
+
+
+          <!-- NÚT MỞ -->
+
+          <button
+            type="button"
+            class="rr-pill rr-open__button"
+            :disabled="isOpening"
+            @click="openInvitation"
+          >
+            {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
           </button>
 
-          <div class="open-hint">
-            Chạm để mở thiệp cưới
-          </div>
+          <p class="rr-open__hint">
+            {{ hint }}
+          </p>
 
         </div>
 
-        <!-- ================= FOOTER ================= -->
-        <footer class="footer">
-
-          <span></span>
-
-          <div class="footer-center">
-            <b>♥</b>
-            <small>WITH LOVE</small>
-          </div>
-
-          <span></span>
-
-        </footer>
-
       </div>
+
     </div>
+
   </section>
 </template>
 
+
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
+
+import { flower } from "./royalRedAssets";
+
+
+/* =========================================================
+   PROPS
+========================================================= */
 
 const props = defineProps({
   wedding: {
     type: Object,
-    default: () => ({}),
+    required: true,
   },
 
   monogram: {
     type: String,
-    default: "",
+    default: "G&B",
   },
 
   dateLabel: {
@@ -181,1117 +141,514 @@ const props = defineProps({
 
   guestName: {
     type: String,
-    default: "Quý Khách",
+    default: "",
+  },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
   },
 });
 
-const groom = computed(
-  () =>
-    props.wedding?.GroomName ||
-    props.wedding?.groomName ||
-    ""
-);
 
-const bride = computed(
-  () =>
-    props.wedding?.BrideName ||
-    props.wedding?.brideName ||
-    ""
-);
-</script>
+const emit = defineEmits(["open"]);
 
-<style scoped>
 
 /* =========================================================
-   ROYAL RED WEDDING
-   ========================================================= */
+   TIÊU ĐỀ MỤC
+========================================================= */
 
-.opening {
-  --red-1: #230004;
-  --red-2: #390007;
-  --red-3: #570810;
-  --red-4: #790e18;
+const eyebrow = computed(() =>
+  sectionText(props.sections, "opening", "Eyebrow")
+);
 
-  --gold-1: #fff0b2;
-  --gold-2: #e6c36d;
-  --gold-3: #bd8b38;
-  --gold-4: #80571d;
+const kicker = computed(() =>
+  sectionText(props.sections, "opening", "Kicker")
+);
 
-  position: relative;
+const invite = computed(() =>
+  sectionText(props.sections, "opening", "Invite")
+);
 
-  min-height: 100svh;
+const buttonLabel = computed(() =>
+  sectionText(props.sections, "opening", "Button")
+);
+
+const hint = computed(() =>
+  sectionText(props.sections, "opening", "Hint")
+);
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const isOpening = ref(false);
+
+const isOpened = ref(false);
+
+
+/* =========================================================
+   TÊN CÔ DÂU CHÚ RỂ
+========================================================= */
+
+const groomName = computed(() => {
+  return (
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    props.wedding?.groom?.name ||
+    ""
+  );
+});
+
+
+const brideName = computed(() => {
+  return (
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    props.wedding?.bride?.name ||
+    ""
+  );
+});
+
+
+/* =========================================================
+   NGƯỜI ĐƯỢC MỜI
+========================================================= */
+
+const recipient = computed(() => {
+  const list = props.wedding?.recipientName;
+
+  if (Array.isArray(list)) {
+    return list[0]?.Name || props.guestName || "";
+  }
+
+  if (typeof list === "string") {
+    return list;
+  }
+
+  return list?.Name || props.guestName || "";
+});
+
+
+/* =========================================================
+   MỞ THIỆP
+========================================================= */
+
+function openInvitation() {
+  if (isOpening.value) return;
+
+  isOpening.value = true;
+
+  /*
+   * Giai đoạn 1: thiệp sáng lên và phóng nhẹ.
+   */
+  setTimeout(() => {
+    isOpened.value = true;
+  }, 320);
+
+  /*
+   * Giai đoạn 2: đợi hiệu ứng chạy xong mới chuyển
+   * sang trang chính, tránh cảm giác giật.
+   */
+  setTimeout(() => {
+    emit("open");
+  }, 1150);
+}
+</script>
+
+
+<style scoped>
+/* =========================================================
+   ROOT
+========================================================= */
+
+.rr-open {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-  padding: 30px 15px;
+  width: 100%;
+  height: 100dvh;
 
   overflow: hidden;
 
-  color: var(--gold-1);
+  background-color: var(--rr-cream, #f4eee2);
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  color: var(--rr-red, #5c080c);
 
-  background:
-    radial-gradient(
-      ellipse at 50% 18%,
-      rgba(139, 18, 31, .85),
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 50% 100%,
-      rgba(125, 10, 21, .4),
-      transparent 50%
-    ),
-    linear-gradient(
-      145deg,
-      var(--red-3),
-      var(--red-2) 45%,
-      var(--red-1)
-    );
+  font-family: var(--rr-font-body, Baskerville, serif);
 }
 
 
 /* =========================================================
-   BACKGROUND
-   ========================================================= */
+   NỀN HOA
+========================================================= */
 
-.bg-pattern {
-  position: absolute;
-  inset: 0;
-
-  opacity: .15;
-
-  background-image:
-    radial-gradient(
-      circle at center,
-      transparent 0 55px,
-      rgba(240, 208, 132, .12) 56px,
-      transparent 57px
-    );
-
-  background-size: 170px 170px;
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      transparent,
-      black 20%,
-      black 80%,
-      transparent
-    );
-}
-
-.bg-glow {
+.rr-open__bloom {
   position: absolute;
 
-  width: 500px;
-  height: 500px;
+  width: 52%;
+  height: auto;
 
-  border-radius: 50%;
+  object-fit: contain;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(236, 192, 91, .09),
-      transparent 68%
-    );
-
-  filter: blur(20px);
-
-  animation: glow 8s ease-in-out infinite;
-}
-
-
-/* =========================================================
-   GOLD DUST
-   ========================================================= */
-
-.gold-dust {
-  position: absolute;
-  inset: 0;
+  opacity: 0.1;
 
   pointer-events: none;
+  user-select: none;
 }
 
-.gold-dust i {
-  position: absolute;
+.rr-open__bloom--left {
+  left: -14%;
+  bottom: 2%;
 
-  width: 3px;
-  height: 3px;
-
-  border-radius: 50%;
-
-  background: var(--gold-2);
-
-  box-shadow:
-    0 0 7px var(--gold-2);
-
-  opacity: 0;
-
-  animation:
-    dust 5s ease-in-out infinite;
+  transform: rotate(18deg);
 }
 
-.gold-dust i:nth-child(1) {
-  left: 14%;
-  top: 18%;
-  animation-delay: .3s;
-}
+.rr-open__bloom--right {
+  right: -14%;
+  top: 12%;
 
-.gold-dust i:nth-child(2) {
-  left: 82%;
-  top: 25%;
-  animation-delay: 1.2s;
-}
-
-.gold-dust i:nth-child(3) {
-  left: 10%;
-  top: 52%;
-  animation-delay: 2.1s;
-}
-
-.gold-dust i:nth-child(4) {
-  left: 88%;
-  top: 61%;
-  animation-delay: 1.7s;
-}
-
-.gold-dust i:nth-child(5) {
-  left: 23%;
-  top: 76%;
-  animation-delay: 2.8s;
-}
-
-.gold-dust i:nth-child(6) {
-  left: 74%;
-  top: 82%;
-  animation-delay: 3.4s;
-}
-
-.gold-dust i:nth-child(7) {
-  left: 34%;
-  top: 13%;
-  animation-delay: 1.5s;
-}
-
-.gold-dust i:nth-child(8) {
-  left: 68%;
-  top: 14%;
-  animation-delay: 2.7s;
-}
-
-.gold-dust i:nth-child(9) {
-  left: 6%;
-  top: 72%;
-  animation-delay: 1.9s;
-}
-
-.gold-dust i:nth-child(10) {
-  left: 94%;
-  top: 39%;
-  animation-delay: 3s;
-}
-
-.gold-dust i:nth-child(11) {
-  left: 38%;
-  top: 88%;
-  animation-delay: 1.1s;
-}
-
-.gold-dust i:nth-child(12) {
-  left: 60%;
-  top: 91%;
-  animation-delay: 2.3s;
-}
-
-.gold-dust i:nth-child(13) {
-  left: 28%;
-  top: 41%;
-  animation-delay: 3.1s;
-}
-
-.gold-dust i:nth-child(14) {
-  left: 77%;
-  top: 48%;
-  animation-delay: .8s;
+  transform: scaleX(-1) rotate(-18deg);
 }
 
 
 /* =========================================================
-   OUTER FRAME
-   ========================================================= */
+   THIỆP
+========================================================= */
 
-.outer-frame {
-  position: absolute;
-
-  inset: 11px;
-
-  border:
-    1px solid
-    rgba(230, 195, 109, .38);
-
-  pointer-events: none;
-}
-
-.outer-frame::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 6px;
-
-  border:
-    1px solid
-    rgba(230, 195, 109, .12);
-}
-
-.frame-line {
-  position: absolute;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gold-3),
-      transparent
-    );
-}
-
-.frame-line.top,
-.frame-line.bottom {
-  width: 70%;
-  height: 1px;
-
-  left: 15%;
-}
-
-.frame-line.top {
-  top: 6px;
-}
-
-.frame-line.bottom {
-  bottom: 6px;
-}
-
-.frame-line.right,
-.frame-line.left {
-  width: 1px;
-  height: 70%;
-
-  top: 15%;
-
-  background:
-    linear-gradient(
-      180deg,
-      transparent,
-      var(--gold-3),
-      transparent
-    );
-}
-
-.frame-line.left {
-  left: 6px;
-}
-
-.frame-line.right {
-  right: 6px;
-}
-
-
-/* =========================================================
-   CORNERS
-   ========================================================= */
-
-.corner {
-  position: absolute;
-
-  width: 45px;
-  height: 45px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-family:
-    "Great Vibes",
-    cursive;
-
-  font-size: 31px;
-
-  color: var(--gold-2);
-
-  opacity: .7;
-}
-
-.corner.tl {
-  top: -5px;
-  left: -4px;
-}
-
-.corner.tr {
-  top: -5px;
-  right: -4px;
-  transform: scaleX(-1);
-}
-
-.corner.bl {
-  bottom: -5px;
-  left: -4px;
-  transform: scaleY(-1);
-}
-
-.corner.br {
-  bottom: -5px;
-  right: -4px;
-  transform: scale(-1);
-}
-
-
-/* =========================================================
-   CARD
-   ========================================================= */
-
-.invitation-card {
+.rr-open__stage {
   position: relative;
 
   z-index: 5;
 
-  width: min(100%, 440px);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(119, 10, 20, .98),
-      rgba(68, 3, 9, .99)
-    );
-
-  border:
-    1px solid
-    rgba(236, 203, 119, .85);
-
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, .55),
-    0 0 40px rgba(0, 0, 0, .25),
-    inset 0 0 50px rgba(0, 0, 0, .18);
-
-  animation:
-    cardReveal 1s
-    cubic-bezier(.22,1,.36,1)
-    both;
-}
-
-.card-border {
-  position: absolute;
-
-  inset: 7px;
-
-  border:
-    1px solid
-    rgba(240, 213, 139, .28);
-
-  pointer-events: none;
-}
-
-.card-border::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 7px;
-
-  border:
-    1px solid
-    rgba(240, 213, 139, .08);
-}
-
-
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
-.card-content {
-  position: relative;
-
-  padding:
-    38px
-    30px
-    30px;
-
-  text-align: center;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header {
-  text-align: center;
-}
-
-.royal-symbol {
   display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 10px;
-
-  margin-bottom: 9px;
-}
-
-.royal-symbol span {
-  width: 25px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gold-3)
-    );
-}
-
-.royal-symbol span:last-child {
-  transform: rotate(180deg);
-}
-
-.royal-symbol b {
-  color: var(--gold-1);
-
-  font-size: 11px;
-}
-
-.title {
-  color: var(--gold-1);
-
-  font-size: 23px;
-  font-weight: 600;
-
-  letter-spacing: .2em;
-}
-
-.subtitle {
-  margin-top: 5px;
-
-  font-family: Arial, sans-serif;
-
-  font-size: 11px;
-
-  letter-spacing: .35em;
-
-  color:
-    rgba(240, 213, 139, .55);
-}
-
-
-/* =========================================================
-   ORNAMENT
-   ========================================================= */
-
-.ornament {
-  display: flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  width: 170px;
-
-  margin:
-    19px
-    auto
-    24px;
-}
-
-.ornament span {
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gold-3)
-    );
-}
-
-.ornament span:last-child {
-  transform: rotate(180deg);
-}
-
-.ornament b {
-  font-family:
-    "Great Vibes",
-    cursive;
-
-  font-size: 25px;
-
-  font-weight: 400;
-
-  color: var(--gold-1);
-}
-
-
-/* =========================================================
-   GUEST
-   ========================================================= */
-
-.guest-section {
-  margin-bottom: 25px;
-}
-
-.guest-label {
-  font-size: 11px;
-
-  letter-spacing: .28em;
-
-  color:
-    rgba(240, 213, 139, .72);
-}
-
-.guest-name {
-  margin-top: 9px;
-
-  color: #fff2c6;
-
-  font-size: 28px;
-
-  font-weight: 600;
-
-  line-height: 1.2;
-
-  text-shadow:
-    0 3px 12px rgba(0,0,0,.3);
-}
-
-.guest-description {
-  margin-top: 6px;
-
-  color:
-    rgba(255, 239, 194, .62);
-
-  font-size: 12px;
-
-  font-style: italic;
-}
-
-
-/* =========================================================
-   COUPLE
-   ========================================================= */
-
-.couple-name {
-  font-family:
-    "Great Vibes",
-    "Brush Script MT",
-    cursive;
-  font-weight: 400;
-  font-size: 51px;
-
-  line-height: .95;
-
-  color: #fff1c5;
-
-  text-shadow:
-    0 3px 10px rgba(0,0,0,.35);
-}
-
-.couple-middle {
-  display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 10px;
+  width: 100%;
 
-  margin: 8px auto;
+  animation: rr-open-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-.couple-middle span {
-  width: 32px;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gold-3)
-    );
-}
-
-.couple-middle span:last-child {
-  transform: rotate(180deg);
-}
-
-.couple-middle i {
-  color: var(--gold-1);
-
-  font-size: 19px;
-
-  font-style: italic;
-}
-
-
-/* =========================================================
-   DATE
-   ========================================================= */
-
-.date-section {
-  margin-top: 23px;
-}
-
-.date-line {
-  width: 100px;
-
-  height: 1px;
-
-  margin: 0 auto 9px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gold-3),
-      transparent
-    );
-}
-
-.date-section .date-line:last-child {
-  margin:
-    9px
-    auto
-    0;
-}
-
-.date-label {
-  font-family: Arial, sans-serif;
-
-  font-size: 11px;
-
-  letter-spacing: .32em;
-
-  color:
-    rgba(240, 213, 139, .6);
-}
-
-.date {
-  margin-top: 5px;
-
-  font-size: 13px;
-
-  letter-spacing: .22em;
-
-  color: var(--gold-1);
-}
-
-
-/* =========================================================
-   MESSAGE
-   ========================================================= */
-
-.message {
-  position: relative;
-
-  margin:
-    22px
-    auto
-    24px;
-
-  max-width: 290px;
-
-  color:
-    rgba(255, 239, 194, .68);
-
-  font-size: 12px;
-
-  line-height: 1.7;
-
-  font-style: italic;
-}
-
-.message p {
-  margin: 0;
-}
-
-.quote-mark {
-  position: absolute;
-
-  left: -7px;
-  top: -14px;
-
-  font-family: Georgia, serif;
-
-  font-size: 28px;
-
-  color:
-    rgba(215, 174, 88, .45);
-}
-
-.quote-mark.bottom {
-  left: auto;
-  top: auto;
-
-  right: -7px;
-  bottom: -18px;
-}
-
-
-/* =========================================================
-   OPEN BUTTON
-   ========================================================= */
-
-.open-area {
-  margin-top: 5px;
-}
-
-.open-btn {
-  position: relative;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 15px;
-
-  min-width: 190px;
-
-  height: 47px;
-
-  padding: 0 25px;
-
-  border:
-    1px solid
-    var(--gold-2);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(231, 194, 103, .12),
-      rgba(231, 194, 103, .03)
-    );
-
-  color: var(--gold-1);
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 12px;
-
-  font-weight: 600;
-
-  letter-spacing: .25em;
-
-  cursor: pointer;
-
-  overflow: hidden;
-
-  transition:
-    .3s ease;
-}
-
-.open-btn::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 3px;
-
-  border:
-    1px solid
-    rgba(240, 213, 139, .18);
-}
-
-.open-btn::after {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: -100%;
-
-  width: 60%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.18),
-      transparent
-    );
-
-  transform: skewX(-20deg);
-
-  animation:
-    buttonShine 4s
-    ease-in-out
-    infinite;
-}
-
-.open-btn:hover {
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold-2),
-      var(--gold-3)
-    );
-
-  color: var(--red-dark);
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.3),
-    0 0 25px rgba(230,195,109,.15);
-}
-
-.open-btn:active {
-  transform: scale(.97);
-}
-
-.btn-left,
-.btn-right {
-  position: relative;
-
-  z-index: 2;
-
-  font-family:
-    "Great Vibes",
-    cursive;
-
-  font-size: 18px;
-}
-
-.btn-right {
-  transform: scaleX(-1);
-}
-
-.btn-text {
-  position: relative;
-
-  z-index: 2;
-}
-
-.open-hint {
-  margin-top: 10px;
-
-  font-size: 11px;
-
-  letter-spacing: .08em;
-
-  color:
-    rgba(255,239,194,.38);
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  margin-top: 25px;
-}
-
-.footer > span {
-  width: 45px;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(215,174,88,.35)
-    );
-}
-
-.footer > span:last-child {
-  transform: rotate(180deg);
-}
-
-.footer-center {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 2px;
-}
-
-.footer-center b {
-  color:
-    rgba(240,213,139,.7);
-
-  font-size: 11px;
-}
-
-.footer-center small {
-  font-family: Arial, sans-serif;
-
-  font-size: 11px;
-
-  letter-spacing: .25em;
-
-  color:
-    rgba(240,213,139,.35);
-}
-
-
-/* =========================================================
-   ANIMATION
-   ========================================================= */
-
-@keyframes cardReveal {
-
+@keyframes rr-open-rise {
   from {
     opacity: 0;
 
-    transform:
-      translateY(30px)
-      scale(.97);
+    transform: translateY(24px) scale(0.97);
   }
 
   to {
     opacity: 1;
 
-    transform:
-      translateY(0)
-      scale(1);
+    transform: none;
   }
-
 }
 
-@keyframes glow {
+.rr-open__card {
+  position: relative;
 
-  0%,
-  100% {
-    transform: scale(.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    opacity: .6;
-  }
+  width: min(88vw, 400px);
 
-  50% {
-    transform: scale(1.08);
-
-    opacity: 1;
-  }
-
+  transition:
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 500ms ease;
 }
 
-@keyframes dust {
-
-  0%,
-  100% {
-    opacity: 0;
-
-    transform:
-      translateY(8px)
-      scale(.5);
-  }
-
-  40% {
-    opacity: .8;
-  }
-
-  70% {
-    opacity: .25;
-
-    transform:
-      translateY(-18px)
-      scale(1);
-  }
-
+.rr-open.is-opening .rr-open__card {
+  transform: scale(1.015);
 }
 
-@keyframes buttonShine {
+.rr-open.is-opened .rr-open__card {
+  transform: translateY(-14px) scale(1.02);
 
-  0%,
-  55% {
-    left: -100%;
-  }
-
-  75%,
-  100% {
-    left: 140%;
-  }
-
+  opacity: 0;
 }
 
 
 /* =========================================================
-   MOBILE
-   ========================================================= */
+   KHUNG TÊN
+========================================================= */
 
-@media (max-width: 480px) {
+.rr-open__frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  .opening {
-    padding: 20px 12px;
-  }
+  gap: 6px;
 
-  .card-content {
-    padding:
-      32px
-      22px
-      25px;
-  }
+  width: 100%;
 
-  .title {
-    font-size: 21px;
-  }
+  padding: 0 8%;
+}
 
-  .guest-name {
-    font-size: 25px;
-  }
+.rr-open__kicker {
+  color: var(--rr-red, #5c080c);
 
-  .couple-name {
-    font-size: 45px;
-  }
+  font-family: var(--rr-font-body, Baskerville, serif);
+  font-size: 11px;
+  font-weight: 400;
 
-  .invitation-card {
-    width: 100%;
-  }
+  letter-spacing: 0.28em;
+  line-height: 1.4;
 
-  .outer-frame {
-    inset: 8px;
-  }
+  text-align: center;
+  text-transform: uppercase;
 
-  .message {
-    font-size: 11px;
-  }
+  opacity: 0.8;
+}
 
+.rr-open__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 2px;
+
+  margin: 0;
+
+  color: var(--rr-red, #5c080c);
+
+  font-family: var(--rr-font-hero, "Playfair Display", serif);
+  font-size: 34px;
+  font-weight: 400;
+
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rr-open__name {
+  display: block;
+
+  padding-top: 0.12em;
+
+  white-space: nowrap;
+}
+
+.rr-open__amp {
+  display: block;
+
+  margin: 2px 0;
+
+  font-family: var(--rr-font-name, "EB Garamond", serif);
+  font-size: 26px;
+
+  line-height: 1;
+
+  text-transform: none;
+}
+
+.rr-open__rule {
+  display: block;
+
+  width: 60px;
+  height: 1px;
+
+  margin-top: 10px;
+
+  background-color: var(--rr-red, #5c080c);
 }
 
 
 /* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
+   NỘI DUNG
+========================================================= */
+
+.rr-open__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  margin-top: 22px;
+
+  text-align: center;
+}
+
+.rr-open__eyebrow {
+  margin: 0;
+
+  color: var(--rr-red, #5c080c);
+
+  font-family: var(--rr-font-heading, "Times New Roman", serif);
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+
+  text-transform: uppercase;
+}
+
+.rr-open__date {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--rr-red, #5c080c);
+
+  font-size: 13px;
+
+  letter-spacing: 0.15em;
+}
+
+.rr-open__date span[aria-hidden] {
+  width: 28px;
+  height: 1px;
+
+  background-color: color-mix(
+    in srgb,
+    var(--rr-red, #5c080c) 45%,
+    transparent
+  );
+}
+
+
+/* =========================================================
+   NGƯỜI ĐƯỢC MỜI
+========================================================= */
+
+.rr-open__guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  width: 100%;
+  max-width: 280px;
+
+  margin-top: 8px;
+  padding-top: 14px;
+
+  border-top: 1px solid var(--rr-hairline-soft, rgba(92, 8, 12, 0.13));
+}
+
+.rr-open__guest-label {
+  font-size: 12px;
+
+  letter-spacing: 0.1em;
+
+  opacity: 0.75;
+}
+
+.rr-open__guest-name {
+  color: var(--rr-red, #5c080c);
+
+  font-size: 17px;
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   NÚT MỞ
+========================================================= */
+
+.rr-open__button {
+  margin-top: 14px;
+}
+
+.rr-open__hint {
+  max-width: 280px;
+
+  margin: 4px 0 0;
+
+  color: var(--rr-red, #5c080c);
+
+  font-size: 11px;
+
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 768px) {
+  .rr-open__names {
+    font-size: 44px;
+  }
+
+  .rr-open__amp {
+    font-size: 32px;
+  }
+
+  .rr-open__kicker {
+    font-size: 12px;
+  }
+
+  .rr-open__eyebrow {
+    font-size: 15px;
+  }
+
+  .rr-open__guest-name {
+    font-size: 19px;
+  }
+
+  .rr-open__hint {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   MÀN HÌNH NHỎ
+========================================================= */
+
+@media (max-width: 380px) {
+  .rr-open__names {
+    font-size: 28px;
+  }
+
+  .rr-open__amp {
+    font-size: 22px;
+  }
+
+  .rr-open__eyebrow {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   GIẢM CHUYỂN ĐỘNG
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
-  .invitation-card,
-  .bg-glow,
-  .gold-dust i,
-  .open-btn::after {
-    animation: none !important;
+  .rr-open__stage {
+    animation: none;
   }
 
+  .rr-open__card {
+    transition: none;
+  }
 }
 </style>

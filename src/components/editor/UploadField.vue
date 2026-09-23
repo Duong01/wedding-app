@@ -28,6 +28,7 @@
       type="file"
       class="upload-hidden-input"
       :accept="accept"
+      :multiple="multiple"
       @change="onFileChange"
     />
 
@@ -87,9 +88,16 @@ const props = defineProps({
 
   // Xếp nút và ô link theo chiều dọc (ô hẹp như gallery)
   compact: { type: Boolean, default: false },
+
+  /*
+   * Cho phép chọn nhiều file một lần. Khi bật, component
+   * phát thêm sự kiện "uploaded" với mảng URL để panel
+   * cha tự tạo nhiều mục (dùng cho album ảnh).
+   */
+  multiple: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "uploaded"]);
 
 const model = computed({
   get: () => props.modelValue,
@@ -137,34 +145,53 @@ function openFilePicker() {
 }
 
 async function onFileChange(event) {
-  const file = event.target.files?.[0];
+  const files = Array.from(event.target.files || []);
 
   // Cho phép chọn lại cùng 1 file lần nữa
   event.target.value = "";
 
-  if (!file) {
+  if (!files.length) {
     return;
   }
 
-  // Kiểm tra loại file trước khi gửi lên server
+  if (props.multiple) {
+    await uploadMany(files);
+
+    return;
+  }
+
+  await uploadOne(files[0]);
+}
+
+/*
+ * Kiểm tra loại file + dung lượng trước khi gửi lên
+ * server. Trả về thông báo lỗi hoặc "" nếu hợp lệ.
+ */
+function validateFile(file) {
   const isImage = file.type.startsWith("image/");
   const isAudio = file.type.startsWith("audio/");
 
   if (props.kind === "image" && !isImage) {
-    showMessage("Vui lòng chọn file ảnh.", true);
-
-    return;
+    return "Vui lòng chọn file ảnh.";
   }
 
   if (props.kind === "audio" && !isAudio) {
-    showMessage("Vui lòng chọn file nhạc.", true);
-
-    return;
+    return "Vui lòng chọn file nhạc.";
   }
 
   // Giới hạn 10MB — khớp với giới hạn trên server
   if (file.size > 10 * 1024 * 1024) {
-    showMessage("File vượt quá giới hạn 10MB.", true);
+    return "File vượt quá giới hạn 10MB.";
+  }
+
+  return "";
+}
+
+async function uploadOne(file) {
+  const invalid = validateFile(file);
+
+  if (invalid) {
+    showMessage(invalid, true);
 
     return;
   }
@@ -194,6 +221,60 @@ async function onFileChange(event) {
     );
   } finally {
     uploading.value = false;
+  }
+}
+
+/*
+ * Tải nhiều file lần lượt (không song song để tránh
+ * nghẽn server) rồi phát 1 sự kiện "uploaded" duy nhất
+ * với mảng URL thành công.
+ */
+async function uploadMany(files) {
+  const valid = files.filter((file) => !validateFile(file));
+
+  if (!valid.length) {
+    showMessage("Không có file hợp lệ để tải lên.", true);
+
+    return;
+  }
+
+  uploading.value = true;
+
+  const urls = [];
+
+  let failed = 0;
+
+  for (const file of valid) {
+    try {
+      const response = await uploadMedia(file);
+
+      const result = response?.data;
+
+      if (result && result.status === "success" && result.data?.url) {
+        urls.push(result.data.url);
+      } else {
+        failed += 1;
+      }
+    } catch (error) {
+      console.error("[UploadField] uploadMedia error:", error);
+
+      failed += 1;
+    }
+  }
+
+  uploading.value = false;
+
+  if (urls.length) {
+    emit("uploaded", urls);
+
+    showMessage(
+      failed
+        ? `Đã tải ${urls.length} file, ${failed} file lỗi.`
+        : `Đã tải ${urls.length} file lên server.`,
+      failed > 0
+    );
+  } else {
+    showMessage("Không thể tải file lên server.", true);
   }
 }
 

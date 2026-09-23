@@ -22,7 +22,7 @@
       </div>
 
       <div class="subtitle">
-        Ngày chung đôi
+        Thiệp Duyên
       </div>
 
       <!-- Lottie -->

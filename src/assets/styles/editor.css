@@ -191,7 +191,8 @@
 }
 
 .top-button,
-.save-button {
+.save-button,
+.publish-button {
   height: 38px;
 
   display: inline-flex;
@@ -252,6 +253,248 @@
   opacity: 0.65;
 
   cursor: not-allowed;
+}
+
+/* =========================================================
+   XUẤT BẢN / DÙNG THỬ
+========================================================= */
+
+/*
+ * Nút Xuất bản dùng tông vàng (--gold) để tách hẳn khỏi nút Lưu
+ * (đỏ rượu) — hai hành động khác nhau về hệ quả, không được
+ * trông giống nhau.
+ */
+.publish-button {
+  color: #4a3a1c;
+
+  background: linear-gradient(135deg, #e3c98a, var(--gold));
+
+  border: 1px solid #a8873f;
+
+  box-shadow: 0 7px 18px rgba(185, 151, 91, 0.3);
+}
+
+.publish-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow: 0 10px 24px rgba(185, 151, 91, 0.38);
+}
+
+.publish-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+/* Hết hạn dùng thử — đổi sang đỏ cảnh báo. */
+.publish-button.warn {
+  color: #fdf6ec;
+
+  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
+
+  border-color: var(--wine-dark);
+
+  box-shadow: 0 7px 18px rgba(166, 58, 46, 0.24);
+}
+
+/* Pill trạng thái (Trial / Active / Locked) — chỉ để đọc, không phải nút. */
+.publish-state {
+  height: 38px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 0 6px 0 11px;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--border);
+
+  background: #fffdfb;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.publish-state.trial {
+  color: #8a6a1f;
+
+  background: #fdf6e3;
+
+  border-color: #ecd9a8;
+}
+
+.publish-state.active {
+  color: #2f6b45;
+
+  background: #eef7f1;
+
+  border-color: #cbe4d5;
+}
+
+.publish-state.locked {
+  color: #7a6a5c;
+
+  background: #f4f1ee;
+
+  border-color: #e2dbd3;
+}
+
+.publish-share {
+  width: 26px;
+
+  height: 26px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: rgba(0, 0, 0, 0.05);
+
+  color: inherit;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.publish-share:hover {
+  background: rgba(0, 0, 0, 0.11);
+}
+
+/* =========================================================
+   DẢI THÔNG BÁO CHƯA ĐĂNG NHẬP
+========================================================= */
+
+/*
+ * Thường trực (không tự tắt) — khác với toast. Hai mức:
+ * .info khi chưa có thay đổi, .warn khi đã chỉnh sửa.
+ */
+.editor-login-notice {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 9px 16px;
+
+  border-bottom: 1px solid var(--border);
+
+  background: var(--panel-bg);
+
+  color: var(--muted);
+
+  font-size: 12.5px;
+
+  line-height: 1.45;
+}
+
+.editor-login-notice.warn {
+  background: #fdf3dd;
+
+  border-bottom-color: #ecd9a8;
+
+  color: #7a5a15;
+}
+
+.editor-login-notice .notice-icon {
+  flex: 0 0 auto;
+}
+
+.editor-login-notice .notice-text {
+  flex: 1 1 auto;
+
+  min-width: 0;
+}
+
+.editor-login-notice .notice-text strong {
+  font-weight: 700;
+}
+
+.editor-login-notice .notice-login {
+  flex: 0 0 auto;
+
+  height: 30px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 0 12px;
+
+  border-radius: 8px;
+
+  border: 1px solid var(--wine-dark);
+
+  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
+
+  color: #fdf6ec;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.editor-login-notice .notice-dismiss {
+  flex: 0 0 auto;
+
+  width: 26px;
+
+  height: 26px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: inherit;
+
+  opacity: 0.6;
+
+  cursor: pointer;
+}
+
+.editor-login-notice .notice-dismiss:hover {
+  opacity: 1;
+}
+
+/*
+ * Dải thông báo nằm giữa topbar và layout nên làm layout cao
+ * thêm ~40px. Bù lại để trang không bị tràn ra ngoài viewport.
+ */
+.editor-login-notice ~ .editor-layout {
+  height: calc(100vh - 68px - 40px);
+}
+
+.editor-login-notice ~ .editor-loading,
+.editor-login-notice ~ .editor-error {
+  min-height: calc(100vh - 68px - 40px);
 }
 
 /* =========================================================
@@ -454,6 +697,8 @@
 }
 
 .menu-content {
+  flex: 1;
+
   min-width: 0;
 
   display: flex;
@@ -2065,6 +2310,147 @@
 }
 
 /* =========================================================
+   DRAFT PROMPT
+========================================================= */
+
+/*
+ * Thanh hỏi khôi phục bản nháp — nằm giữa dưới màn hình
+ * để không che nút Lưu ở góc phải.
+ */
+.draft-prompt {
+  position: fixed;
+
+  left: 50%;
+
+  bottom: 24px;
+
+  z-index: 3000;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  width: min(560px, calc(100% - 32px));
+
+  padding: 13px 15px;
+
+  border: 1px solid var(--border, #ece4da);
+  border-radius: 15px;
+
+  background: #fffdfb;
+
+  box-shadow: 0 20px 50px rgba(43, 33, 24, 0.2);
+}
+
+.draft-icon {
+  width: 38px;
+
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 11px;
+
+  color: var(--wine, #a63a2e);
+
+  background: rgba(166, 58, 46, 0.08);
+}
+
+.draft-body {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.draft-body strong {
+  color: #3a2c26;
+
+  font-size: 12.5px;
+}
+
+.draft-body span {
+  margin-top: 3px;
+
+  color: #a8988a;
+
+  font-size: 10.5px;
+
+  line-height: 1.45;
+}
+
+.draft-actions {
+  display: flex;
+
+  gap: 7px;
+
+  flex: 0 0 auto;
+}
+
+.draft-btn {
+  height: 34px;
+
+  padding: 0 14px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: linear-gradient(135deg, var(--wine, #a63a2e), #7c2a20);
+
+  color: #fdf6ec;
+
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.draft-btn.ghost {
+  background: #f4eee6;
+
+  color: #6b5a4e;
+}
+
+.draft-btn:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 520px) {
+  .draft-prompt {
+    flex-wrap: wrap;
+
+    bottom: 78px;
+  }
+
+  .draft-actions {
+    width: 100%;
+  }
+
+  .draft-btn {
+    flex: 1;
+  }
+}
+
+/* =========================================================
    TRANSITIONS
 ========================================================= */
 
@@ -2213,12 +2599,47 @@
     display: none;
   }
 
+  /* Thu gọn pill trạng thái xuất bản thành icon-only cho vừa header. */
+  .publish-state {
+    padding: 0 6px;
+  }
+
+  .publish-state > span {
+    display: none;
+  }
+
+  .publish-button {
+    width: 38px;
+
+    padding: 0;
+  }
+
+  .publish-button span {
+    display: none;
+  }
+
   .editor-layout {
     height: calc(100vh - 62px);
 
     display: block;
 
     padding-bottom: 66px;
+  }
+
+  /* Dải thông báo chưa đăng nhập chiếm thêm chỗ trên mobile. */
+  .editor-login-notice {
+    padding: 8px 12px;
+
+    font-size: 11.5px;
+  }
+
+  .editor-login-notice ~ .editor-layout {
+    height: calc(100vh - 62px - 40px);
+  }
+
+  .editor-login-notice ~ .editor-loading,
+  .editor-login-notice ~ .editor-error {
+    min-height: calc(100vh - 62px - 40px);
   }
 
   .editor-sidebar {
@@ -2288,7 +2709,7 @@
 
     display: grid;
 
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(7, 1fr);
 
     padding-bottom: env(safe-area-inset-bottom);
 
@@ -2298,6 +2719,7 @@
 
     box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.06);
 
+    -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
   }
 
@@ -2320,7 +2742,7 @@
 
     color: #8b9098;
 
-    font-size: 9px;
+    font-size: 8px;
 
     cursor: pointer;
   }

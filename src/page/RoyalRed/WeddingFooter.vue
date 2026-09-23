@@ -1,90 +1,178 @@
 <template>
-  <footer class="footer">
-    <div class="mark">{{ monogram }}</div>
-    <div class="names">{{ groom }} <span>&</span> {{ bride }}</div>
-    <div class="date">{{ date }}</div>
-    <p>{{ thanksMessage }}</p>
-    <div class="ornament">❧ ✦ ❧</div>
-    <small>{{ copyrightText }}</small>
+  <footer class="rr-footer">
+
+    <div class="rr-footer__band">
+      <p class="rr-footer__message">
+        {{ thanksMessage }}
+      </p>
+    </div>
+
+    <div class="rr-footer__credit">
+      <a
+        :href="BRAND.siteUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rr-footer__link"
+      >
+        ♡ {{ copyrightText }}
+      </a>
+    </div>
+
   </footer>
 </template>
+
+
 <script setup>
 import { computed } from "vue";
-import dayjs from "dayjs";
-const p = defineProps({
-  wedding: Object,
-  monogram: String,
-  currentYear: Number,
+
+import { sectionText } from "@/data/sectionTitles";
+import { BRAND } from "@/data/siteContent";
+
+
+/* =====================================================
+   PROPS
+===================================================== */
+
+const props = defineProps({
+  wedding: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  monogram: {
+    type: String,
+    default: "G&B",
+  },
+
+  currentYear: {
+    type: Number,
+    default: 2026,
+  },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
-const groom = computed(
-  () => p.wedding?.GroomName || p.wedding?.groomName || ""
+
+
+const wedding = computed(() => props.wedding || {});
+
+
+/* =====================================================
+   TIÊU ĐỀ MỤC
+===================================================== */
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "footer", "Eyebrow")
 );
-const bride = computed(
-  () => p.wedding?.BrideName || p.wedding?.brideName || ""
-);
+
+
+/* =====================================================
+   NỘI DUNG
+===================================================== */
 
 const thanksMessage = computed(() => {
   return (
-    p.wedding?.footer?.Message ||
-    "Cảm ơn bạn đã dành thời gian đến với ngày vui của chúng tôi."
+    wedding.value?.footer?.Message ||
+    eyebrow.value ||
+    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
   );
 });
 
 const copyrightText = computed(() => {
-  return (
-    p.wedding?.footer?.Copyright ||
-    `© ${p.currentYear ?? ""} · WEDDING INVITATION`
-  );
-});
-const date = computed(() => {
-  const d = dayjs(p.wedding?.weddingDate);
-  return d.isValid() ? d.format("DD · MM · YYYY") : "";
+  return wedding.value?.footer?.Copyright || BRAND.domain;
 });
 </script>
+
+
 <style scoped>
-.footer {
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.rr-footer {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  color: var(--rr-red);
+
   text-align: center;
-  padding: 55px 25px 35px;
-  border-top: 1px solid rgba(216, 170, 90, 0.28);
 }
-.mark {
-  width: 55px;
-  height: 55px;
-  border: 1px solid #d8aa5a;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  margin: auto;
-  color: #efd18b;
+
+.rr-footer__band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 24px 16px;
+
+  background-color: var(--rr-red);
+
+  color: var(--rr-cream);
 }
-.names {
-  font-family: "Great Vibes";
-  font-size: 32px;
-  color: #efd18b;
-  margin-top: 15px;
-}
-.names span {
-  font-family: "Cormorant Garamond";
-  font-size: 18px;
-}
-.date {
-  margin: 10px;
-  letter-spacing: 0.15em;
-}
-.footer p {
-  opacity: 0.65;
-  max-width: 350px;
-  margin: 20px auto;
+
+.rr-footer__message {
+  max-width: 560px;
+
+  margin: 0;
+
+  font-family: var(--rr-font-body);
+  font-size: 12px;
+
   line-height: 1.6;
+
+  white-space: pre-line;
 }
-.ornament {
-  color: #d8aa5a;
+
+.rr-footer__credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 0;
 }
-.footer small {
-  display: block;
-  margin-top: 20px;
-  opacity: 0.4;
-  font-size: 10px;
-  letter-spacing: 0.14em;
+
+.rr-footer__link {
+  color: var(--rr-red);
+
+  font-size: 12px;
+
+  text-decoration: none;
+
+  opacity: 0.5;
+
+  transition: opacity 0.2s ease;
+}
+
+.rr-footer__link:hover {
+  opacity: 0.7;
+}
+
+
+/* =====================================================
+   TABLET / DESKTOP
+===================================================== */
+
+@media (min-width: 768px) {
+  .rr-footer__message {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rr-footer__message {
+    font-size: 18px;
+  }
 }
 </style>

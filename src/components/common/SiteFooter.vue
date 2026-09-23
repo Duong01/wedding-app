@@ -8,45 +8,51 @@
       ========================================== -->
       <div class="footer-brand">
         <div class="footer-logo">
-          <span class="footer-mark">Ngày</span>
-          <span class="footer-name">Chung Đôi</span>
+          <span class="footer-mark">Thiệp</span>
+          <span class="footer-name">Duyên</span>
         </div>
 
         <p class="footer-desc">
-          Nơi lưu giữ và chia sẻ niềm hạnh phúc trọn vẹn của ngày chung đôi.
-          Tạo thiệp cưới online đẹp mắt, gửi tặng khách mời chỉ trong vài phút.
+          {{ BRAND.slogan }} Tạo thiệp cưới online đẹp mắt, gửi tặng khách mời
+          chỉ trong vài phút.
         </p>
 
         <div class="footer-socials">
-          <!--
-            CONTACT ADMIN → FACEBOOK
-            Bấm "Liên hệ Admin" sẽ mở trang Facebook.
-            Đổi CONTACT_FACEBOOK_URL ở phần script sang
-            link Facebook thật của bạn.
-          -->
           <a
-            :href="contactFacebookUrl"
+            :href="CONTACT.facebook"
             target="_blank"
             rel="noopener noreferrer"
             class="social-btn social-facebook"
-            aria-label="Liên hệ Admin qua Facebook"
+            aria-label="Liên hệ qua Facebook"
           >
             <v-icon size="18"> mdi-facebook </v-icon>
 
-            <span> Liên hệ Admin </span>
+            <span> Facebook </span>
           </a>
 
           <a
-            v-if="contactZaloUrl"
-            :href="contactZaloUrl"
+            v-if="CONTACT.zalo"
+            :href="CONTACT.zalo"
             target="_blank"
             rel="noopener noreferrer"
             class="social-btn"
-            aria-label="Chat Zalo với Admin"
+            aria-label="Chat Zalo"
           >
             <v-icon size="18"> mdi-chat-processing-outline </v-icon>
 
             <span> Zalo </span>
+          </a>
+
+          <a
+            :href="CONTACT.messenger"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-btn"
+            aria-label="Nhắn tin qua Messenger"
+          >
+            <v-icon size="18"> mdi-message-text-outline </v-icon>
+
+            <span> Messenger </span>
           </a>
         </div>
       </div>
@@ -54,26 +60,21 @@
       <!-- =========================================
            LIÊN KẾT NHANH
       ========================================== -->
-      <div class="footer-col">
-        <h4>Khám phá</h4>
+      <div
+        v-for="group in FOOTER_GROUPS"
+        :key="group.title"
+        class="footer-col"
+      >
+        <h4>{{ group.title }}</h4>
 
         <nav class="footer-links">
-          <router-link to="/" class="footer-link"> Trang chủ </router-link>
-
-          <router-link to="/templates" class="footer-link">
-            Mẫu thiệp cưới
-          </router-link>
-
-          <router-link to="/editor" class="footer-link">
-            Tạo thiệp ngay
-          </router-link>
-
           <router-link
-            v-if="auth.isLoggedIn && auth.can('manage')"
-            to="/manage"
+            v-for="link in group.links"
+            :key="link.routeName"
+            :to="{ name: link.routeName }"
             class="footer-link"
           >
-            Thiệp của tôi
+            {{ link.label }}
           </router-link>
         </nav>
       </div>
@@ -82,31 +83,31 @@
            HỖ TRỢ / LIÊN HỆ
       ========================================== -->
       <div class="footer-col">
-        <h4>Hỗ trợ</h4>
+        <h4>Liên hệ</h4>
 
         <ul class="footer-contact">
           <li>
             <v-icon size="16"> mdi-clock-outline </v-icon>
 
-            <span> Hỗ trợ 8:00 - 21:00 hằng ngày </span>
+            <span> Hỗ trợ {{ CONTACT.hours }} </span>
           </li>
 
           <li>
             <v-icon size="16"> mdi-email-outline </v-icon>
 
-            <a :href="`mailto:${contactEmail}`">{{ contactEmail }}</a>
+            <a :href="`mailto:${CONTACT.email}`">{{ CONTACT.email }}</a>
           </li>
 
           <li>
             <v-icon size="16"> mdi-phone-outline </v-icon>
 
-            <a :href="`tel:${contactPhoneHref}`">{{ contactPhone }}</a>
+            <a :href="`tel:${phoneHref()}`">{{ CONTACT.phone }}</a>
           </li>
         </ul>
 
         <p class="footer-note">
           Cần hỗ trợ kích hoạt thiệp, thanh toán hay chỉnh sửa nội dung?
-          Nhắn tin trực tiếp qua Facebook — Admin phản hồi trong vài phút.
+          Nhắn tin trực tiếp qua Messenger — phản hồi trong vài phút.
         </p>
       </div>
     </div>
@@ -117,7 +118,7 @@
     <div class="footer-bottom">
       <div class="footer-bottom-inner">
         <span>
-          © {{ currentYear }} Ngày Chung Đôi — Thiệp cưới online.
+          © {{ currentYear }} {{ BRAND.name }} — {{ BRAND.domain }}
         </span>
 
         <span class="footer-heart">
@@ -129,37 +130,9 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-
-import { useAuthStore } from "@/stores/auth";
-
-/*
- * =========================================================
- * THÔNG TIN LIÊN HỆ ADMIN
- *
- * ⚠ ĐỔI CÁC GIÁ TRỊ DƯỚI ĐÂY THÀNH THÔNG TIN THẬT CỦA BẠN:
- * - contactFacebookUrl: link trang/nhóm Facebook — nút
- *   "Liên hệ Admin" sẽ mở link này khi khách bấm.
- * - contactZaloUrl: để rỗng ("") nếu không dùng Zalo.
- * - contactEmail / contactPhone: hiển thị ở cột Hỗ trợ.
- * =========================================================
- */
-
-const contactFacebookUrl = "https://www.facebook.com/your-page";
-
-const contactZaloUrl = "";
-
-const contactEmail = "hotro@ngaychungdoi.vn";
-
-const contactPhone = "0900 000 000";
-
-const contactPhoneHref = computed(() => {
-  return contactPhone.replace(/[^0-9+]/g, "");
-});
+import { BRAND, CONTACT, FOOTER_GROUPS, phoneHref } from "@/data/siteContent";
 
 const currentYear = new Date().getFullYear();
-
-const auth = useAuthStore();
 </script>
 
 <style scoped>
@@ -212,9 +185,9 @@ const auth = useAuthStore();
 
   display: grid;
 
-  grid-template-columns: 1.4fr 0.8fr 1fr;
+  grid-template-columns: 1.6fr 0.7fr 0.8fr 0.8fr 1fr;
 
-  gap: 44px;
+  gap: 36px;
 
   padding: 54px 0 40px;
 }
@@ -494,6 +467,14 @@ const auth = useAuthStore();
    MOBILE
 ================================================== */
 
+@media (max-width: 1100px) {
+  .footer-inner {
+    grid-template-columns: 1.4fr 1fr 1fr;
+
+    gap: 32px;
+  }
+}
+
 @media (max-width: 900px) {
   .footer-inner {
     grid-template-columns: 1fr 1fr;
@@ -509,18 +490,73 @@ const auth = useAuthStore();
     margin-top: 48px;
   }
 
+  /*
+   * Trên điện thoại, năm khối xếp thành một cột khiến footer
+   * dài gần hai màn hình — khách phải vuốt rất nhiều mới hết.
+   * Thương hiệu vẫn chiếm trọn chiều ngang, còn bốn cột còn
+   * lại gấp thành lưới hai cột: chiều cao giảm gần một nửa mà
+   * vẫn đọc được đủ.
+   */
   .footer-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    gap: 28px;
+    gap: 24px 18px;
 
-    padding: 38px 0 28px;
+    padding: 32px 0 24px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-desc {
+    max-width: none;
+
+    margin: 12px 0 16px;
+  }
+
+  .footer-col h4 {
+    margin: 0 0 12px;
+
+    font-size: 14px;
+  }
+
+  .footer-links {
+    gap: 8px;
+  }
+
+  .footer-link,
+  .footer-contact li {
+    font-size: 13px;
+  }
+
+  /*
+   * Khối "Liên hệ" chứa ghi chú dài — cho trải rộng cả hai cột
+   * để câu chữ không bị bó thành cột hẹp khó đọc.
+   */
+  .footer-col:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-note {
+    margin-top: 14px;
   }
 
   .footer-bottom-inner {
     flex-direction: column;
 
     text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer-inner {
+    gap: 20px 14px;
+  }
+
+  .footer-link,
+  .footer-contact li {
+    font-size: 12.5px;
   }
 }
 </style>

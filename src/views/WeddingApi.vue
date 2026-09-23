@@ -16,19 +16,16 @@
     </div>
 
     <!-- =========================================================
-         LOCKED — thiệp chưa được admin kích hoạt
-         (đặt trước nhánh error để khóa ưu tiên hơn)
+         THIỆP CHƯA MỞ CHO KHÁCH — ba lý do khác nhau, ba màn hình
+         (đặt trước nhánh error để thông báo cụ thể ưu tiên hơn)
     ========================================================== -->
-    <div v-else-if="isLocked" class="wedding-error">
+    <div v-else-if="blockReason" class="wedding-error">
       <div class="error-content">
-        <div class="error-icon">🔒</div>
+        <div class="error-icon">{{ blockIcon }}</div>
 
-        <h1>Thiệp chưa được kích hoạt</h1>
+        <h1>{{ blockTitle }}</h1>
 
-        <p>
-          Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ
-          với cô dâu chú rể hoặc quay lại sau.
-        </p>
+        <p>{{ blockMessage }}</p>
 
         <button type="button" class="back-button" @click="goHome">
           Quay lại trang chủ
@@ -96,7 +93,7 @@ import { GetWedding, getWeddingStatus } from "@/model/api";
 
 import { useWeddingDetailStore } from "@/stores/weddingDetail";
 
-import { WEDDING_STATUS } from "@/model/weddingAdmin";
+import { PUBLISH_STATE } from "@/model/weddingAdmin";
 
 /* =========================================================
    THEMES
@@ -124,14 +121,62 @@ const wedding = computed(() => {
 });
 
 /* =========================================================
-   KHÓA THIỆP — trạng thái lấy từ API getWeddingStatus
+   CHẶN THIỆP — trạng thái lấy từ API getWeddingStatus
    (server là nguồn duy nhất; khách mời không cần đăng nhập)
+
+   Ba lý do khác nhau, ba thông báo khác nhau:
+     locked  — Admin khóa thiệp
+     expired — hết hạn dùng thử mà chưa thanh toán
+     draft   — chủ thiệp chưa bấm "Xuất bản"
 ========================================================= */
 
-const isLocked = ref(false);
+const blockReason = ref(null);
+
+const blockIcon = computed(() => {
+  switch (blockReason.value) {
+    case "expired":
+      return "⏳";
+    case "draft":
+      return "✎";
+    default:
+      return "🔒";
+  }
+});
+
+const blockTitle = computed(() => {
+  switch (blockReason.value) {
+    case "expired":
+      return "Thiệp tạm ẩn";
+    case "draft":
+      return "Thiệp chưa được xuất bản";
+    default:
+      return "Thiệp chưa được kích hoạt";
+  }
+});
+
+const blockMessage = computed(() => {
+  switch (blockReason.value) {
+    case "expired":
+      return (
+        "Thời gian dùng thử của thiệp đã kết thúc và thiệp chưa được " +
+        "thanh toán. Toàn bộ nội dung vẫn được giữ nguyên — vui lòng " +
+        "liên hệ cô dâu chú rể."
+      );
+    case "draft":
+      return (
+        "Cô dâu chú rể chưa xuất bản thiệp này cho khách mời. " +
+        "Vui lòng quay lại sau."
+      );
+    default:
+      return (
+        "Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ " +
+        "với cô dâu chú rể hoặc quay lại sau."
+      );
+  }
+});
 
 async function checkWeddingStatus(slug) {
-  isLocked.value = false;
+  blockReason.value = null;
 
   if (typeof slug !== "string" || !slug.trim()) {
     return;
@@ -143,9 +188,17 @@ async function checkWeddingStatus(slug) {
     const result = response?.data;
 
     if (result && result.status === "success" && result.data) {
-      const status = result.data.Status || result.data.status;
+      const state = result.data.PublishState || result.data.publishState;
 
-      isLocked.value = status === WEDDING_STATUS.LOCKED;
+      if (state === PUBLISH_STATE.LOCKED) {
+        blockReason.value = "locked";
+      } else if (state === PUBLISH_STATE.EXPIRED) {
+        blockReason.value = "expired";
+      } else if (state === PUBLISH_STATE.DRAFT) {
+        blockReason.value = "draft";
+      } else {
+        blockReason.value = null;
+      }
     }
   } catch (error) {
     /*
@@ -227,7 +280,7 @@ async function loadWedding() {
        */
       await checkWeddingStatus(slug);
 
-      if (isLocked.value) {
+      if (blockReason.value) {
         store.wedding = null;
 
         store.error = null;
@@ -253,7 +306,7 @@ async function loadWedding() {
        */
       await checkWeddingStatus(slug);
 
-      if (isLocked.value) {
+      if (blockReason.value) {
         store.error = null;
 
         return;

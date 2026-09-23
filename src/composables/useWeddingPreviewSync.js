@@ -7,8 +7,20 @@ import { ref, watch, onMounted, onBeforeUnmount } from "vue";
  * Iframe thật → media query của theme phản ứng
  * theo chiều rộng khung, không theo cửa sổ.
  */
-export function useWeddingPreviewSync(wedding, previewIframe, overlayIframe) {
+export function useWeddingPreviewSync(
+  wedding,
+  previewIframe,
+  overlayIframe,
+  options = {}
+) {
   const previewUrl = `${window.location.origin}/preview-bare`;
+
+  /*
+   * Cho phép tạm dừng đẩy dữ liệu sang iframe — người
+   * dùng bấm nút "tạm dừng tự động cập nhật" khi đang
+   * xem một mục dài trong bản xem trước.
+   */
+  const enabled = options.enabled || (() => true);
 
   function cloneWedding(data) {
     try {
@@ -38,6 +50,10 @@ export function useWeddingPreviewSync(wedding, previewIframe, overlayIframe) {
 
   function pushWeddingToIframes() {
     if (!wedding.value) {
+      return;
+    }
+
+    if (!enabled()) {
       return;
     }
 

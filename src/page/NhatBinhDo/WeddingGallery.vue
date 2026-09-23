@@ -35,26 +35,19 @@
          XEM TOÀN MÀN HÌNH
     ====================================================== -->
 
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      transition="dialog-fade-transition"
-      content-class="gallery-dialog"
-    >
-      <GalleryModal
-        v-if="dialog"
-        :images="gallery"
-        :start-index="currentIndex"
-        @close="closeLightbox"
-      />
-    </v-dialog>
+    <GalleryModal
+      v-if="dialog"
+      :images="gallery"
+      :start-index="currentIndex"
+      @close="closeLightbox"
+    />
 
   </section>
 </template>
 
 
 <script setup>
-import { computed, defineAsyncComponent, onUnmounted, ref } from "vue";
+import { computed, defineAsyncComponent, ref } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
 
@@ -106,21 +99,12 @@ function openLightbox(index) {
   currentIndex.value = index;
 
   dialog.value = true;
-
-  document.body.style.overflow = "hidden";
 }
 
 
 function closeLightbox() {
   dialog.value = false;
-
-  document.body.style.overflow = "";
 }
-
-
-onUnmounted(() => {
-  document.body.style.overflow = "";
-});
 </script>
 
 

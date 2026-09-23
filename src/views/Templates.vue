@@ -85,8 +85,8 @@
         <button
           type="button"
           class="collection-chip"
-          :class="{ 'is-active': !selectedCollection }"
-          @click="selectedCollection = ''"
+          :class="{ 'is-active': !activeCollectionIds.length }"
+          @click="clearCollections"
         >
           <span class="chip-swatches">
             <span class="chip-swatch chip-swatch-ink"></span>
@@ -102,8 +102,8 @@
           :key="col.id"
           type="button"
           class="collection-chip"
-          :class="{ 'is-active': selectedCollection === col.id }"
-          @click="selectedCollection = col.id"
+          :class="{ 'is-active': activeCollectionIds.includes(col.id) }"
+          @click="toggleCollection(col.id)"
         >
           <span class="chip-swatches">
             <span
@@ -141,7 +141,7 @@
           <div class="filter-control">
             <span class="control-icon">✦</span>
 
-            <select v-model="selectedCollection">
+            <select v-model="collectionSelect">
               <option value="">Tất cả bộ sưu tập</option>
 
               <option
@@ -816,7 +816,7 @@ import {
   watch
 } from "vue";
 
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useWeddingStore } from "@/stores/wedding";
 
 import {
@@ -825,10 +825,13 @@ import {
   getThemeMeta,
 } from "@/data/templateCollections";
 
+import { useSeo } from "@/composables/useSeo";
+
 // ======================================================
 // Router / Store
 // ======================================================
 
+const route = useRoute();
 const router = useRouter();
 const store = useWeddingStore();
 
@@ -843,7 +846,103 @@ function goHome() {
 const q = ref("");
 const selectedTheme = ref("");
 const selectedWedding = ref(null);
-const selectedCollection = ref("");
+
+/*
+ * Bộ sưu tập đang chọn — luôn là mảng để vừa chọn được
+ * một mục, vừa nhận được preset nhiều mục từ route SEO
+ * (/thiep-cuoi-hien-dai gộp "tối giản" + "lãng mạn").
+ */
+const activeCollectionIds = ref([]);
+
+/*
+ * Sắp xếp — "noi-bat" đẩy các mẫu nổi bật lên đầu.
+ * Mặc định giữ nguyên thứ tự trả về từ API.
+ */
+const sortMode = ref("");
+
+/*
+ * ======================================================
+ * PRESET THEO ĐƯỜNG DẪN
+ * ======================================================
+ * Bốn route SEO (/mau-thiep-cuoi, /mau-thiep-cuoi-dep,
+ * /thiep-cuoi-hien-dai, /thiep-cuoi-truyen-thong) dùng
+ * chung component này. Mỗi route mang bộ lọc mặc định
+ * riêng, đọc từ query để link chia sẻ được vẫn giữ đúng
+ * bộ lọc người dùng đang xem.
+ */
+
+const ROUTE_PRESETS = {
+  TemplatesFeatured: { sort: "noi-bat" },
+  TemplatesModern: { collections: ["toi-gian", "lang-man"] },
+  TemplatesTraditional: { collections: ["a-dong"] },
+};
+
+function applyRoutePreset() {
+  const preset = ROUTE_PRESETS[route.name] || {};
+
+  const queryCollections = String(route.query["bo-suu-tap"] || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  activeCollectionIds.value = queryCollections.length
+    ? queryCollections
+    : [...(preset.collections || [])];
+
+  sortMode.value = String(route.query["sap-xep"] || preset.sort || "");
+
+  q.value = String(route.query["tu-khoa"] || "");
+}
+
+/*
+ * Ghi lại bộ lọc hiện tại lên query — để copy link là
+ * chia sẻ được đúng khung đang xem.
+ */
+function syncQuery() {
+  const query = {};
+
+  if (activeCollectionIds.value.length) {
+    query["bo-suu-tap"] = activeCollectionIds.value.join(",");
+  }
+
+  if (sortMode.value) {
+    query["sap-xep"] = sortMode.value;
+  }
+
+  if (q.value.trim()) {
+    query["tu-khoa"] = q.value.trim();
+  }
+
+  router.replace({ query }).catch(() => {});
+}
+
+function toggleCollection(id) {
+  const list = activeCollectionIds.value;
+
+  activeCollectionIds.value = list.includes(id)
+    ? list.filter((item) => item !== id)
+    : [...list, id];
+}
+
+function clearCollections() {
+  activeCollectionIds.value = [];
+}
+
+/*
+ * Ô chọn bộ sưu tập trong toolbar chỉ chọn được một mục —
+ * khi preset đang gộp nhiều mục thì hiển thị "Tất cả".
+ */
+const collectionSelect = computed({
+  get() {
+    return activeCollectionIds.value.length === 1
+      ? activeCollectionIds.value[0]
+      : "";
+  },
+
+  set(value) {
+    activeCollectionIds.value = value ? [value] : [];
+  },
+});
 
 const favorites = ref(
   JSON.parse(
@@ -912,17 +1011,16 @@ const activeCollections = computed(() => {
 const filteredWeddings = computed(() => {
   let list = weddings.value;
 
-  // bộ sưu tập
-  if (selectedCollection.value) {
+  // bộ sưu tập — người dùng có thể chọn nhiều mục
+  if (activeCollectionIds.value.length) {
     list = list.filter((w) => {
       const themeName =
         w?.theme?.Name ||
         w?.theme ||
         "";
 
-      return (
-        getThemeMeta(themeName).collection ===
-        selectedCollection.value
+      return activeCollectionIds.value.includes(
+        getThemeMeta(themeName).collection
       );
     });
   }
@@ -969,14 +1067,66 @@ const filteredWeddings = computed(() => {
     });
   }
 
+  /*
+   * "noi-bat" — mẫu có ảnh bìa và ngày cưới đầy đủ lên
+   * trước, vì đó là những mẫu xem được trọn vẹn nhất.
+   */
+  if (sortMode.value === "noi-bat") {
+    list = [...list].sort((a, b) => {
+      const score = (w) =>
+        (w?.coverImage ? 2 : 0) + (w?.weddingDate ? 1 : 0);
+
+      return score(b) - score(a);
+    });
+  }
+
   return list;
 });
+
+// ======================================================
+// SEO — mỗi route SEO có tiêu đề và mô tả riêng
+// ======================================================
+
+const SEO_BY_ROUTE = {
+  Templates: {
+    title: "Mẫu thiệp cưới đẹp",
+    description:
+      "Thư viện mẫu thiệp cưới online đẹp thuộc năm bộ sưu tập: Á Đông sang trọng, " +
+      "kim tuyến & lụa, lãng mạn đương đại, thiên nhiên & vintage, tối giản hiện đại.",
+    path: "/mau-thiep-cuoi",
+  },
+  TemplatesFeatured: {
+    title: "Mẫu thiệp cưới đẹp nhất",
+    description:
+      "Tuyển chọn những mẫu thiệp cưới online đẹp nhất — bố cục chỉn chu, " +
+      "bảng màu hài hoà, hiển thị sắc nét trên mọi thiết bị.",
+    path: "/mau-thiep-cuoi-dep",
+  },
+  TemplatesModern: {
+    title: "Thiệp cưới hiện đại",
+    description:
+      "Thiệp cưới online phong cách hiện đại: tối giản, nhiều khoảng trắng, " +
+      "nét mực gọn và điểm nhấn tinh tế. Tạo miễn phí, dùng thử 3 ngày.",
+    path: "/thiep-cuoi-hien-dai",
+  },
+  TemplatesTraditional: {
+    title: "Thiệp cưới truyền thống",
+    description:
+      "Thiệp cưới online phong cách truyền thống Á Đông: đỏ son, vàng son, " +
+      "họa tiết trống đồng và chữ song hỷ. Tạo miễn phí, dùng thử 3 ngày.",
+    path: "/thiep-cuoi-truyen-thong",
+  },
+};
+
+useSeo(() => SEO_BY_ROUTE[route.name] || SEO_BY_ROUTE.Templates);
 
 // ======================================================
 // Load
 // ======================================================
 
 onMounted(async () => {
+  applyRoutePreset();
+
   await store.loadWeddings();
 
   document.addEventListener(
@@ -984,6 +1134,23 @@ onMounted(async () => {
     handleKeydown
   );
 });
+
+/*
+ * Điều hướng giữa các route SEO dùng chung component
+ * (Vue tái sử dụng instance) → đọc lại preset.
+ */
+watch(
+  () => route.name,
+  () => {
+    applyRoutePreset();
+  }
+);
+
+/*
+ * Người dùng đổi bộ lọc → ghi lên query để link chia sẻ
+ * được giữ đúng khung đang xem.
+ */
+watch([activeCollectionIds, sortMode, q], syncQuery);
 
 onBeforeUnmount(() => {
   document.removeEventListener(
@@ -1008,7 +1175,7 @@ function getCoupleName(wedding) {
     "";
 
   if (!bride && !groom) {
-    return "Ngày Chung Đôi";
+    return "Cô dâu & Chú rể";
   }
 
   return `${bride} & ${groom}`;
@@ -1273,7 +1440,8 @@ function getQrUrl(wedding) {
 function resetFilters() {
   q.value = "";
   selectedTheme.value = "";
-  selectedCollection.value = "";
+  activeCollectionIds.value = [];
+  sortMode.value = "";
 }
 
 // ======================================================

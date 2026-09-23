@@ -11,9 +11,8 @@
         <span></span>
       </div>
 
-      <p class="dh-gallery__intro">
-        Những khoảnh khắc đẹp nhất<br />
-        được lưu giữ cùng chúng mình
+      <p v-if="intro" class="dh-gallery__intro">
+        {{ intro }}
       </p>
     </div>
 
@@ -32,19 +31,12 @@
       <p>Chưa có hình ảnh</p>
     </div>
 
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      transition="dialog-fade-transition"
-      content-class="gallery-dialog"
-    >
-      <GalleryModal
-        v-if="dialog"
-        :images="gallery"
-        :start-index="currentIndex"
-        @close="closeLightbox"
-      />
-    </v-dialog>
+    <GalleryModal
+      v-if="dialog"
+      :images="gallery"
+      :start-index="currentIndex"
+      @close="closeLightbox"
+    />
   </section>
 </template>
 
@@ -72,6 +64,15 @@ const heading = computed(() =>
   sectionText(props.sections, "gallery", "Heading", "Album Hình Cưới")
 );
 
+const intro = computed(() =>
+  sectionText(
+    props.sections,
+    "gallery",
+    "Intro",
+    "Những khoảnh khắc đẹp nhất\ndược lưu giữ cùng chúng mình"
+  )
+);
+
 const currentIndex = ref(0);
 const dialog = ref(false);
 
@@ -80,13 +81,10 @@ function openLightbox(index) {
 
   currentIndex.value = index;
   dialog.value = true;
-
-  document.body.style.overflow = "hidden";
 }
 
 function closeLightbox() {
   dialog.value = false;
-  document.body.style.overflow = "";
 }
 </script>
 
@@ -187,6 +185,9 @@ function closeLightbox() {
   font-size: 12px;
 
   line-height: 1.7;
+
+  /* Nội dung cho phép xuống dòng bằng ký tự \n */
+  white-space: pre-line;
 }
 
 /* =====================================================

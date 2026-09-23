@@ -4,10 +4,66 @@
       :wedding="wedding"
       :routeTheme="routeTheme"
       :saving="saving"
+      :dirty="editorStore.dirty"
+      :canUndo="editorStore.canUndo"
+      :canRedo="editorStore.canRedo"
+      :undoDepth="editorStore.undoDepth"
+      :publishState="publishState"
+      :daysLeft="daysLeft"
+      :publishing="publishing"
       @back="backToTemplates"
       @preview="previewWedding"
       @save="saveWedding"
+      @undo="undo"
+      @redo="redo"
+      @publish="publishWedding"
+      @share="openPublishDialog"
+      @payment="goToPayment"
     />
+
+    <!-- =====================================================
+         THÔNG BÁO CHƯA ĐĂNG NHẬP (thường trực, không tự tắt)
+    ====================================================== -->
+    <div
+      v-if="showLoginNotice"
+      class="editor-login-notice"
+      :class="loginNoticeLevel"
+    >
+      <v-icon class="notice-icon" size="17">
+        {{
+          loginNoticeLevel === "warn"
+            ? "mdi-alert-outline"
+            : "mdi-account-outline"
+        }}
+      </v-icon>
+
+      <span class="notice-text">
+        <template v-if="loginNoticeLevel === 'warn'">
+          Bạn đang chỉnh sửa mà <strong>chưa đăng nhập</strong> — thay đổi
+          chưa được lưu lên server và thiệp chưa thể xuất bản cho khách mời.
+        </template>
+
+        <template v-else>
+          Bạn chưa đăng nhập. Mọi thay đổi chỉ được giữ trên máy này.
+        </template>
+      </span>
+
+      <button type="button" class="notice-login" @click="goToLogin">
+        <v-icon size="15"> mdi-login-variant </v-icon>
+
+        <span>Đăng nhập</span>
+      </button>
+
+      <button
+        v-if="loginNoticeLevel === 'info'"
+        type="button"
+        class="notice-dismiss"
+        title="Ẩn thông báo"
+        @click="loginNoticeDismissed = true"
+      >
+        <v-icon size="16"> mdi-close </v-icon>
+      </button>
+    </div>
 
     <!-- =====================================================
          LOADING
@@ -51,6 +107,7 @@
       <EditorSidebarNav
         :menus="menus"
         :activeMenu="activeMenu"
+        :completion="completion"
         @select="selectMenu"
       />
 
@@ -86,6 +143,8 @@
 
         <SettingsPanel v-if="activeMenu === 'settings'" :wedding="wedding" />
 
+        <DressCodePanel v-if="activeMenu === 'dressCode'" :wedding="wedding" />
+
         <SectionTitlesPanel v-if="activeMenu === 'sections'" :wedding="wedding" />
 
         <ThemePanel v-if="activeMenu === 'theme'" :wedding="wedding" />
@@ -97,7 +156,9 @@
         :themeName="wedding.theme?.Name"
         :previewDevice="previewDevice"
         :previewUrl="previewUrl"
+        :autoRefresh="autoRefresh"
         @update:previewDevice="previewDevice = $event"
+        @update:autoRefresh="autoRefresh = $event"
       />
     </main>
 
@@ -137,10 +198,21 @@
       :activeMenu="activeMenu"
       :menuOpen="mobileMenuOpen"
       :saving="saving"
+      :dirty="editorStore.dirty"
+      :canUndo="editorStore.canUndo"
+      :canRedo="editorStore.canRedo"
+      :publishState="publishState"
+      :daysLeft="daysLeft"
+      :publishing="publishing"
       @select="selectMenu"
       @open-menu="mobileMenuOpen = true"
       @preview="previewWedding"
       @save="saveWedding"
+      @undo="undo"
+      @redo="redo"
+      @publish="publishWedding"
+      @share="openPublishDialog"
+      @payment="goToPayment"
     />
 
     <!-- =====================================================
@@ -151,6 +223,7 @@
         v-if="mobileMenuOpen"
         :menus="menus"
         :activeMenu="activeMenu"
+        :completion="completion"
         @select="selectMenu"
         @close="mobileMenuOpen = false"
       />
@@ -166,11 +239,59 @@
         :isError="saveError"
       />
     </Transition>
+
+    <!-- =====================================================
+         HỘP THOẠI XÁC NHẬN DÙNG CHUNG
+    ====================================================== -->
+    <EditorConfirmDialog />
+
+    <!-- =====================================================
+         KHUNG CHIA SẺ LINK SAU KHI XUẤT BẢN
+    ====================================================== -->
+    <PublishDialog
+      v-if="publishDialogOpen"
+      :guestLink="guestLink"
+      :trialEndsAt="trialEndsAt"
+      :daysLeft="daysLeft"
+      :publishState="publishState"
+      @close="publishDialogOpen = false"
+      @payment="goToPayment"
+    />
+
+    <!-- =====================================================
+         KHÔI PHỤC BẢN NHÁP
+    ====================================================== -->
+    <Transition name="toast">
+      <div v-if="draftPrompt" class="draft-prompt">
+        <div class="draft-icon">
+          <v-icon size="19"> mdi-history </v-icon>
+        </div>
+
+        <div class="draft-body">
+          <strong> Có bản nháp chưa lưu </strong>
+
+          <span>
+            Bạn còn thay đổi từ {{ draftPrompt.time }} chưa lưu lên
+            server.
+          </span>
+        </div>
+
+        <div class="draft-actions">
+          <button type="button" class="draft-btn ghost" @click="discardDraft">
+            Bỏ
+          </button>
+
+          <button type="button" class="draft-btn" @click="restoreDraft">
+            Khôi phục
+          </button>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onActivated, watch } from "vue";
+import { ref, computed, onMounted, onActivated, onBeforeUnmount, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { useWeddingStore } from "@/stores/wedding";
@@ -183,6 +304,8 @@ import EditorPreviewPanel from "@/components/editor/EditorPreviewPanel.vue";
 import PreviewOverlay from "@/components/editor/PreviewOverlay.vue";
 import EditorMobileBar from "@/components/editor/EditorMobileBar.vue";
 import EditorMobileSheet from "@/components/editor/EditorMobileSheet.vue";
+import EditorConfirmDialog from "@/components/editor/EditorConfirmDialog.vue";
+import PublishDialog from "@/components/editor/PublishDialog.vue";
 import SaveToast from "@/components/editor/SaveToast.vue";
 
 import GeneralPanel from "@/components/editor/panels/GeneralPanel.vue";
@@ -200,10 +323,14 @@ import MusicPanel from "@/components/editor/panels/MusicPanel.vue";
 import FooterPanel from "@/components/editor/panels/FooterPanel.vue";
 import MapPanel from "@/components/editor/panels/MapPanel.vue";
 import SettingsPanel from "@/components/editor/panels/SettingsPanel.vue";
+import DressCodePanel from "@/components/editor/panels/DressCodePanel.vue";
 import SectionTitlesPanel from "@/components/editor/panels/SectionTitlesPanel.vue";
 import ThemePanel from "@/components/editor/panels/ThemePanel.vue";
 
 import { useWeddingPreviewSync } from "@/composables/useWeddingPreviewSync";
+import { useEditorHistory } from "@/composables/useEditorHistory";
+import { useWeddingPublish } from "@/composables/useWeddingPublish";
+import { confirmDialog } from "@/composables/useConfirm";
 import { ensureSections } from "@/data/sectionTitles";
 import "@/assets/styles/editor.css";
 
@@ -231,6 +358,12 @@ const previewDevice = ref("desktop");
 const mobileMenuOpen = ref(false);
 const previewOverlayOpen = ref(false);
 
+/*
+ * Tự động đẩy dữ liệu sang iframe xem trước. Tắt khi
+ * người dùng muốn giữ nguyên bản xem trước để đọc.
+ */
+const autoRefresh = ref(true);
+
 const previewPanelRef = ref(null);
 const overlayRef = ref(null);
 
@@ -241,6 +374,23 @@ const error = ref("");
 
 const saveMessage = ref("");
 const saveError = ref(false);
+
+/*
+ * Bản nháp khôi phục được (localStorage) — hiển thị
+ * thanh hỏi người dùng trước khi ghi đè dữ liệu.
+ */
+const draftPrompt = ref(null);
+
+/*
+ * Khung chia sẻ link sau khi xuất bản.
+ */
+const publishDialogOpen = ref(false);
+
+/*
+ * Người dùng đã bấm ẩn dải "chưa đăng nhập" mức nhạt.
+ * Mức cảnh báo (đã chỉnh sửa) KHÔNG cho ẩn.
+ */
+const loginNoticeDismissed = ref(false);
 
 /* =========================================================
    ROUTE
@@ -275,14 +425,210 @@ const wedding = computed(() => {
 });
 
 /* =========================================================
+   XUẤT BẢN + DÙNG THỬ
+========================================================= */
+
+/*
+ * Trạng thái xuất bản (Draft / Trial / Expired / Active / Locked)
+ * đọc từ server. Chỉ sau khi chủ thiệp bấm "Xuất bản" thì khách
+ * mời mới xem được — bấm Lưu đơn thuần thì không.
+ */
+const {
+  publishing,
+  publishState,
+  daysLeft,
+  trialEndsAt,
+  guestLink,
+  refresh: refreshPublish,
+  publish: publishToServer,
+} = useWeddingPublish(wedding, routeSlug);
+
+/*
+ * Dải thông báo "chưa đăng nhập" — thường trực, không tự tắt.
+ * Mức cảnh báo bật ngay khi người dùng đã chỉnh sửa gì đó.
+ */
+const loginNoticeLevel = computed(() => {
+  if (auth.isLoggedIn) {
+    return null;
+  }
+
+  return editorStore.dirty ? "warn" : "info";
+});
+
+const showLoginNotice = computed(() => {
+  if (!loginNoticeLevel.value) {
+    return false;
+  }
+
+  /* Mức cảnh báo luôn hiện; mức nhạt cho phép ẩn. */
+  return loginNoticeLevel.value === "warn" || !loginNoticeDismissed.value;
+});
+
+function goToLogin() {
+  router.push({
+    name: "Login",
+    query: {
+      redirect: route.fullPath,
+    },
+  });
+}
+
+/* =========================================================
    IFRAME PREVIEW SYNC
 ========================================================= */
 
 const { previewUrl } = useWeddingPreviewSync(
   wedding,
   computed(() => previewPanelRef.value?.iframeEl ?? null),
-  computed(() => overlayRef.value?.iframeEl ?? null)
+  computed(() => overlayRef.value?.iframeEl ?? null),
+  { enabled: () => autoRefresh.value }
 );
+
+/* =========================================================
+   LỊCH SỬ HOÀN TÁC + TỰ ĐỘNG LƯU BẢN NHÁP
+========================================================= */
+
+/*
+ * Chỉ ghi lịch sử khi đã có dữ liệu thiệp và không
+ * đang ở màn hình loading.
+ */
+const history = useEditorHistory(wedding, editorStore, {
+  enabled: () => !!wedding.value && !loading.value,
+});
+
+function undo() {
+  if (!editorStore.undo()) {
+    return;
+  }
+
+  /*
+   * wedding vừa bị thay bằng snapshot cũ — tạm ngưng
+   * watch để không ghi thêm một bước lịch sử cho
+   * chính thao tác hoàn tác.
+   */
+  history.suspend();
+
+  window.setTimeout(() => history.resume(), 0);
+}
+
+function redo() {
+  if (!editorStore.redo()) {
+    return;
+  }
+
+  history.suspend();
+
+  window.setTimeout(() => history.resume(), 0);
+}
+
+/* =========================================================
+   PHÍM TẮT
+========================================================= */
+
+function onEditorKeydown(event) {
+  const meta = event.ctrlKey || event.metaKey;
+
+  if (!meta) {
+    return;
+  }
+
+  const key = event.key.toLowerCase();
+
+  if (key === "s") {
+    event.preventDefault();
+
+    saveWedding();
+
+    return;
+  }
+
+  if (key === "z" && !event.shiftKey) {
+    event.preventDefault();
+
+    undo();
+
+    return;
+  }
+
+  if ((key === "z" && event.shiftKey) || key === "y") {
+    event.preventDefault();
+
+    redo();
+  }
+}
+
+/* =========================================================
+   BẢN NHÁP
+========================================================= */
+
+function formatDraftTime(timestamp) {
+  if (!timestamp) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+  }).format(new Date(timestamp));
+}
+
+/*
+ * Chỉ hỏi khôi phục khi bản nháp thuộc ĐÚNG thiệp đang
+ * mở (cùng slug, hoặc cùng theme nếu là thiệp mới) —
+ * tránh ghi đè thiệp này bằng nháp của thiệp khác.
+ */
+function checkDraft() {
+  const draft = editorStore.readDraft();
+
+  if (!draft?.wedding) {
+    return;
+  }
+
+  const currentSlug = routeSlug.value || "";
+
+  const draftSlug = draft.wedding.slug || "";
+
+  if (currentSlug !== draftSlug) {
+    return;
+  }
+
+  const currentTheme = routeTheme.value;
+
+  const draftTheme = draft.wedding.theme?.Name || "";
+
+  if (!currentSlug && draftTheme !== currentTheme) {
+    return;
+  }
+
+  draftPrompt.value = {
+    time: formatDraftTime(draft.savedAt),
+    wedding: draft.wedding,
+  };
+}
+
+function restoreDraft() {
+  if (!draftPrompt.value?.wedding) {
+    return;
+  }
+
+  editorStore.setWedding(draftPrompt.value.wedding);
+
+  ensureSections(editorStore.wedding);
+
+  editorStore.markDirty();
+
+  draftPrompt.value = null;
+
+  showSaveMessage("Đã khôi phục bản nháp chưa lưu.");
+}
+
+function discardDraft() {
+  editorStore.clearDraft();
+
+  draftPrompt.value = null;
+}
 
 /*
  * Đồng bộ các trường dùng chung giữa các panel:
@@ -346,9 +692,20 @@ watch(
    MENUS
 ========================================================= */
 
+/*
+ * Menu chia theo nhóm để sidebar dài 20 mục vẫn dễ
+ * quét mắt: Nội dung thiệp → Khách mời → Cấu hình.
+ */
+const MENU_GROUPS = [
+  { id: "content", label: "NỘI DUNG THIỆP" },
+  { id: "guests", label: "KHÁCH MỜI" },
+  { id: "config", label: "CẤU HÌNH" },
+];
+
 const menus = [
   {
     id: "general",
+    group: "content",
     label: "Thông tin chung",
     description: "Thông tin cơ bản",
     icon: "mdi-card-account-details-outline",
@@ -356,6 +713,7 @@ const menus = [
 
   {
     id: "couple",
+    group: "content",
     label: "Cô dâu & Chú rể",
     description: "Thông tin hai bạn",
     icon: "mdi-heart-outline",
@@ -363,6 +721,7 @@ const menus = [
 
   {
     id: "hero",
+    group: "content",
     label: "Ảnh bìa",
     description: "Màn hình mở đầu",
     icon: "mdi-image-outline",
@@ -370,6 +729,7 @@ const menus = [
 
   {
     id: "story",
+    group: "content",
     label: "Chuyện tình yêu",
     description: "Câu chuyện của hai bạn",
     icon: "mdi-book-heart-outline",
@@ -377,13 +737,23 @@ const menus = [
 
   {
     id: "events",
+    group: "content",
     label: "Sự kiện cưới",
     description: "Ngày giờ địa điểm",
     icon: "mdi-calendar-heart-outline",
   },
 
   {
+    id: "dressCode",
+    group: "content",
+    label: "Trang phục",
+    description: "Dress code cho khách",
+    icon: "mdi-tshirt-crew-outline",
+  },
+
+  {
     id: "timeline",
+    group: "content",
     label: "Timeline",
     description: "Lịch trình ngày cưới",
     icon: "mdi-timeline-outline",
@@ -391,34 +761,15 @@ const menus = [
 
   {
     id: "gallery",
+    group: "content",
     label: "Album ảnh",
     description: "Khoảnh khắc đáng nhớ",
     icon: "mdi-image-multiple-outline",
   },
 
   {
-    id: "recipient",
-    label: "Khách mời",
-    description: "Cá nhân hóa thiệp",
-    icon: "mdi-account-multiple-outline",
-  },
-
-  {
-    id: "gifts",
-    label: "Mừng cưới",
-    description: "Tài khoản nhận quà",
-    icon: "mdi-gift-outline",
-  },
-
-  {
-    id: "guestbook",
-    label: "Sổ lưu bút",
-    description: "Lời chúc khách mời",
-    icon: "mdi-message-heart-outline",
-  },
-
-  {
     id: "countdown",
+    group: "content",
     label: "Đếm ngược",
     description: "Đếm ngày cưới",
     icon: "mdi-timer-outline",
@@ -426,6 +777,7 @@ const menus = [
 
   {
     id: "footer",
+    group: "content",
     label: "Chân thiệp",
     description: "Lời cảm ơn cuối thiệp",
     icon: "mdi-page-layout-footer",
@@ -433,6 +785,7 @@ const menus = [
 
   {
     id: "map",
+    group: "content",
     label: "Bản đồ",
     description: "Chỉ đường đến sự kiện",
     icon: "mdi-map-marker-outline",
@@ -440,18 +793,106 @@ const menus = [
 
   {
     id: "music",
+    group: "content",
     label: "Âm nhạc",
     description: "Nhạc nền thiệp",
     icon: "mdi-music-outline",
   },
 
   {
+    id: "recipient",
+    group: "guests",
+    label: "Khách mời",
+    description: "Cá nhân hóa thiệp",
+    icon: "mdi-account-multiple-outline",
+  },
+
+  {
+    id: "gifts",
+    group: "guests",
+    label: "Mừng cưới",
+    description: "Tài khoản nhận quà",
+    icon: "mdi-gift-outline",
+  },
+
+  {
+    id: "guestbook",
+    group: "guests",
+    label: "Sổ lưu bút",
+    description: "Lời chúc khách mời",
+    icon: "mdi-message-heart-outline",
+  },
+
+  {
     id: "sections",
+    group: "config",
     label: "Tiêu đề mục",
     description: "Đổi tên các mục",
     icon: "mdi-format-title",
   },
+
+  {
+    id: "settings",
+    group: "config",
+    label: "Cài đặt hiển thị",
+    description: "Bật / tắt nội dung",
+    icon: "mdi-tune-variant",
+  },
+
+  {
+    id: "theme",
+    group: "config",
+    label: "Giao diện",
+    description: "Màu sắc & font",
+    icon: "mdi-palette-outline",
+  },
 ];
+
+/* =========================================================
+   ĐỘ HOÀN THIỆN TỪNG MỤC
+========================================================= */
+
+/*
+ * Đánh dấu mục nào đã có nội dung để sidebar hiện tick
+ * — người dùng nhìn ra ngay còn thiếu gì mà không phải
+ * mở từng mục.
+ */
+const completion = computed(() => {
+  const data = wedding.value;
+
+  if (!data) {
+    return {};
+  }
+
+  const has = (value) => {
+    if (Array.isArray(value)) {
+      return value.length > 0;
+    }
+
+    return typeof value === "string" ? !!value.trim() : !!value;
+  };
+
+  return {
+    general: has(data.brideName) && has(data.groomName) && has(data.weddingDate),
+    couple: has(data.couple?.Bride?.Name) || has(data.couple?.Groom?.Name),
+    hero: has(data.hero?.Background) || has(data.hero?.Subtitle),
+    story: has(data.story?.Description) || has(data.story?.Title),
+    events: has(data.events),
+    dressCode: has(data.dressCode?.Note) || has(data.dressCode?.Colors),
+    timeline: has(data.timeline),
+    gallery: has(data.gallery),
+    countdown: !!data.countdown?.Enabled,
+    footer: has(data.footer?.Message) || has(data.thankYouNote),
+    map: (data.events || []).some((event) => has(event.Map)),
+    music: has(data.music?.Url),
+    recipient: has(data.recipientName),
+    gifts: has(data.gifts),
+    guestbook: has(data.guestBook?.Guest),
+    sections: Object.values(data.sections || {}).some((section) =>
+      Object.values(section || {}).some((value) => has(value))
+    ),
+  };
+});
 
 /* =========================================================
    SELECT MENU
@@ -482,9 +923,16 @@ function showSaveMessage(message, isError = false) {
    SAVE API
 ========================================================= */
 
+/*
+ * Lưu thiệp lên server.
+ *
+ * @returns Promise<boolean> — true khi đã lưu xong. publishWedding()
+ *          cần chờ kết quả này trước khi xuất bản, nếu không sẽ
+ *          xuất bản nhầm nội dung cũ.
+ */
 function saveWedding() {
   if (!wedding.value || saving.value) {
-    return;
+    return Promise.resolve(false);
   }
 
   /*
@@ -507,73 +955,179 @@ function saveWedding() {
       },
     });
 
-    return;
+    return Promise.resolve(false);
   }
 
   saving.value = true;
   saveMessage.value = "";
   saveError.value = false;
 
-  try {
-    AddDataWedding(
-      wedding.value,
+  return new Promise((resolve) => {
+    try {
+      AddDataWedding(
+        wedding.value,
 
-      (result) => {
-        console.log("[WeddingEditor] saved:", result);
+        (result) => {
+          console.log("[WeddingEditor] saved:", result);
 
-        /*
-         * API trả về envelope { status, message, data }.
-         */
-        if (
-          result &&
-          result.status === "success" &&
-          result.data &&
-          typeof result.data === "object"
-        ) {
-          try {
-            editorStore.setWedding({
-              ...wedding.value,
-              ...result.data,
-            });
-          } catch (e) {
-            console.warn(
-              "[WeddingEditor] Không thể cập nhật kết quả API:",
-              e
-            );
+          /*
+           * API trả về envelope { status, message, data }.
+           */
+          if (
+            result &&
+            result.status === "success" &&
+            result.data &&
+            typeof result.data === "object"
+          ) {
+            try {
+              editorStore.setWedding({
+                ...wedding.value,
+                ...result.data,
+              });
+            } catch (e) {
+              console.warn(
+                "[WeddingEditor] Không thể cập nhật kết quả API:",
+                e
+              );
+            }
           }
+
+          /*
+           * Danh sách thiệp giờ lấy trực tiếp từ API
+           * (getAllWeddings / Manage) — không cần ghi
+           * registry localStorage nữa.
+           */
+
+          /*
+           * Đã lên server → bản nháp localStorage hết
+           * cần thiết, xoá để lần mở sau không hỏi lại.
+           */
+          editorStore.markSaved();
+          editorStore.clearDraft();
+
+          showSaveMessage("Đã lưu thiệp thành công.");
+          saving.value = false;
+
+          resolve(result?.status === "success");
+        },
+
+        (err) => {
+          console.error("[WeddingEditor] save error:", err);
+
+          showSaveMessage(
+            err?.message || "Không thể lưu thiệp.",
+            true
+          );
+
+          saving.value = false;
+
+          resolve(false);
         }
+      );
+    } catch (err) {
+      console.error("[WeddingEditor] save exception:", err);
 
-        /*
-         * Danh sách thiệp giờ lấy trực tiếp từ API
-         * (getAllWeddings / Manage) — không cần ghi
-         * registry localStorage nữa.
-         */
+      showSaveMessage(
+        err?.message || "Không thể lưu thiệp.",
+        true
+      );
 
-        showSaveMessage("Đã lưu thiệp thành công.");
-        saving.value = false;
-      },
+      saving.value = false;
 
-      (err) => {
-        console.error("[WeddingEditor] save error:", err);
+      resolve(false);
+    }
+  });
+}
 
-        showSaveMessage(
-          err?.message || "Không thể lưu thiệp.",
-          true
-        );
+/* =========================================================
+   XUẤT BẢN
+========================================================= */
 
-        saving.value = false;
-      }
-    );
-  } catch (err) {
-    console.error("[WeddingEditor] save exception:", err);
-
-    showSaveMessage(
-      err?.message || "Không thể lưu thiệp.",
-      true
-    );
-
-    saving.value = false;
+/*
+ * Luồng: kiểm tra đăng nhập → lưu nếu còn thay đổi chưa lưu
+ * → xác nhận → gọi API → mở khung chia sẻ link.
+ *
+ * Lưu trước là bắt buộc: nếu không, thiệp được xuất bản với
+ * nội dung cũ trên server trong khi bản đang sửa còn nằm ở máy.
+ */
+async function publishWedding() {
+  if (!wedding.value || publishing.value) {
+    return;
   }
+
+  if (!auth.canSaveWedding()) {
+    showSaveMessage("Vui lòng đăng nhập để xuất bản thiệp.");
+
+    goToLogin();
+
+    return;
+  }
+
+  if (editorStore.dirty) {
+    const saved = await saveWedding();
+
+    if (!saved) {
+      return;
+    }
+  }
+
+  const ok = await confirmDialog({
+    title: "Xuất bản thiệp?",
+    message:
+      "Sau khi xuất bản, khách mời mở link sẽ xem được thiệp. " +
+      "Bạn được dùng thử miễn phí 3 ngày, sau đó cần thanh toán " +
+      "một lần để thiệp tiếp tục hoạt động.",
+    confirmText: "Xuất bản ngay",
+    cancelText: "Để sau",
+  });
+
+  if (!ok) {
+    return;
+  }
+
+  const success = await publishToServer();
+
+  if (success) {
+    /*
+     * Thiệp mới lưu lần đầu: server vừa sinh slug nhưng URL vẫn
+     * chưa có. Ghi slug lên URL để lần sau mở lại là đúng thiệp
+     * này, và để link khách mời trong khung chia sẻ có giá trị.
+     */
+    const slug = routeSlug.value || wedding.value?.slug;
+
+    if (slug && slug !== routeSlug.value) {
+      router.replace({
+        name: "Editor",
+        query: { ...route.query, slug },
+      });
+    }
+
+    publishDialogOpen.value = true;
+    return;
+  }
+
+  showSaveMessage("Không thể xuất bản thiệp. Vui lòng thử lại.", true);
+}
+
+function openPublishDialog() {
+  publishDialogOpen.value = true;
+}
+
+function goToPayment() {
+  /*
+   * Thiệp vừa được lưu lần đầu chưa có slug trên URL —
+   * lấy slug server vừa trả về trong wedding.
+   */
+  const slug = routeSlug.value || wedding.value?.slug;
+
+  if (!slug) {
+    return;
+  }
+
+  router.push({
+    name: "WeddingPayment",
+    params: { slug },
+  });
 }
 
 /* =========================================================
@@ -610,6 +1164,26 @@ async function previewWedding() {
 ========================================================= */
 
 async function backToTemplates() {
+  /*
+   * Còn thay đổi chưa lưu thì hỏi trước khi rời — bản
+   * nháp vẫn nằm trong localStorage nên có thể khôi
+   * phục, nhưng người dùng cần biết mình đang bỏ dở.
+   */
+  if (editorStore.dirty) {
+    const ok = await confirmDialog({
+      title: "Rời trình chỉnh sửa?",
+      message:
+        "Bạn còn thay đổi chưa lưu lên server. Bản nháp vẫn được giữ trên máy này và hỏi khôi phục ở lần mở sau.",
+      confirmText: "Rời trang",
+      cancelText: "Ở lại",
+      danger: true,
+    });
+
+    if (!ok) {
+      return;
+    }
+  }
+
   await router.push({
     path: "/templates",
   });
@@ -782,15 +1356,29 @@ async function initializeEditor() {
     ensureSections(editorStore.wedding);
 
     loading.value = false;
+
+    /*
+     * Sau khi dữ liệu đã sẵn sàng mới kiểm tra bản
+     * nháp — cần biết slug/theme hiện tại để so khớp.
+     */
+    checkDraft();
+
+    /*
+     * Đọc trạng thái xuất bản / dùng thử của thiệp.
+     * Thiệp mới chưa có slug thì composable tự bỏ qua
+     * và giữ mặc định Draft.
+     */
+    refreshPublish();
   }
 }
-
 /* =========================================================
    MOUNT
 ========================================================= */
 
 onMounted(() => {
   initializeEditor();
+
+  window.addEventListener("keydown", onEditorKeydown);
 });
 
 /*
@@ -800,5 +1388,9 @@ onMounted(() => {
  */
 onActivated(() => {
   initializeEditor();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", onEditorKeydown);
 });
 </script>

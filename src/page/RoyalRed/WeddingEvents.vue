@@ -1,255 +1,239 @@
 <template>
-  <section class="events">
-    <!-- =========================================
-         HEADER SECTION
-    ========================================== -->
+  <section class="rr-events">
 
-    <div class="section-heading">
-      <div class="heading-line"></div>
+    <!-- =====================================================
+         TIÊU ĐỀ
+    ====================================================== -->
 
-      <div class="heading-content">
-        <span class="heading-subtitle"> TRÂN TRỌNG KÍNH MỜI </span>
+    <h2 class="rr-title">
+      {{ heading }}
+    </h2>
 
-        <h2>THÔNG TIN TIỆC CƯỚI</h2>
 
-        <div class="heading-symbol">囍</div>
-      </div>
-
-      <div class="heading-line"></div>
-    </div>
-
-    <!-- =========================================
-         EVENT CARDS
-    ========================================== -->
+    <!-- =====================================================
+         TỪNG SỰ KIỆN
+    ====================================================== -->
 
     <div
       v-for="(event, index) in normalizedEvents"
-      :key="event.Id || index"
-      class="event-card"
+      :key="event.id || index"
+      class="rr-events__item"
     >
-      <!-- Viền trang trí -->
 
-      <div class="card-border"></div>
+      <!-- ===============================================
+           LỜI DẪN
+      ================================================ -->
 
-      <div class="corner corner-tl">❖</div>
-      <div class="corner corner-tr">❖</div>
-      <div class="corner corner-bl">❖</div>
-      <div class="corner corner-br">❖</div>
+      <h3 class="rr-events__lead">
+        {{ event.typeLabel }}
+      </h3>
 
-      <div class="event-inner">
-        <!-- =====================================
-             EVENT TITLE
-        ====================================== -->
 
-        <div class="event-title-wrap">
-          <span class="event-kicker">
-            {{ event.typeLabel }}
+      <!-- ===============================================
+           GIỜ
+      ================================================ -->
+
+      <p v-if="event.time" class="rr-events__time">
+        {{ event.time }}
+      </p>
+
+
+      <!-- ===============================================
+           THỨ / NGÀY / THÁNG
+      ================================================ -->
+
+      <div v-if="event.hasDate" class="rr-events__date">
+
+        <span v-if="event.weekday" class="rr-events__weekday">
+          {{ event.weekday }}
+        </span>
+
+        <span class="rr-events__sep" aria-hidden="true">/</span>
+
+        <span v-if="event.day" class="rr-events__day">
+          {{ event.day }}
+        </span>
+
+        <span class="rr-events__sep" aria-hidden="true">/</span>
+
+        <span v-if="event.month" class="rr-events__month">
+          THÁNG {{ event.month }}
+        </span>
+
+      </div>
+
+
+      <!-- ===============================================
+           NĂM + ÂM LỊCH
+      ================================================ -->
+
+      <p v-if="event.year" class="rr-events__year">
+        {{ event.year }}
+      </p>
+
+      <p v-if="event.lunar" class="rr-events__lunar">
+        {{ event.lunar }}
+      </p>
+
+
+      <!-- ===============================================
+           ĐÓN KHÁCH / KHAI TIỆC
+      ================================================ -->
+
+      <div
+        v-if="event.receptionTime || event.ceremonyTime"
+        class="rr-events__schedule"
+      >
+
+        <div v-if="event.receptionTime" class="rr-events__schedule-item">
+          <span class="rr-events__schedule-label">
+            {{ receptionLabel }}
           </span>
 
-          <h3>
-            {{ event.Title || "THÔNG TIN TIỆC CƯỚI" }}
-          </h3>
-
-          <div class="title-decoration">
-            <span></span>
-            <b>囍</b>
-            <span></span>
-          </div>
+          <strong class="rr-events__schedule-time">
+            {{ event.receptionTime }}
+          </strong>
         </div>
 
-        <!-- =====================================
-             TIME + DATE
-        ====================================== -->
+        <div v-if="event.ceremonyTime" class="rr-events__schedule-item">
+          <span class="rr-events__schedule-label">
+            {{ ceremonyLabel }}
+          </span>
 
-        <div v-if="event.hasDate" class="event-date-block">
-          <!-- GIỜ -->
-
-          <div v-if="event.time" class="event-time">
-            {{ event.time }}
-          </div>
-
-          <!-- THỨ + NGÀY + THÁNG -->
-
-          <div class="event-date">
-            <span v-if="event.weekday" class="weekday">
-              {{ event.weekday }}
-            </span>
-
-            <strong v-if="event.day" class="day">
-              {{ event.day }}
-            </strong>
-
-            <span v-if="event.month" class="month">
-              THÁNG {{ event.month }}
-            </span>
-          </div>
-
-          <!-- NĂM -->
-
-          <div v-if="event.year" class="event-year">
-            {{ event.year }}
-          </div>
-
-          <!-- ÂM LỊCH -->
-
-          <div v-if="event.lunar" class="event-lunar">
-            {{ event.lunar }}
-          </div>
+          <strong class="rr-events__schedule-time">
+            {{ event.ceremonyTime }}
+          </strong>
         </div>
 
-        <!-- =====================================
-             RECEPTION / CEREMONY
-        ====================================== -->
+      </div>
 
-        <div v-if="event.receptionTime || event.ceremonyTime" class="schedule">
-          <div v-if="event.receptionTime" class="schedule-item">
-            <span class="schedule-icon"> ♡ </span>
 
-            <span class="schedule-label"> ĐÓN KHÁCH </span>
+      <!-- ===============================================
+           LỊCH THÁNG
+      ================================================ -->
 
-            <strong>
-              {{ event.receptionTime }}
-            </strong>
-          </div>
+      <div v-if="event.date" class="rr-events__calendar">
 
-          <div v-if="event.ceremonyTime" class="schedule-item">
-            <span class="schedule-icon"> ✦ </span>
-
-            <span class="schedule-label"> KHAI TIỆC </span>
-
-            <strong>
-              {{ event.ceremonyTime }}
-            </strong>
-          </div>
+        <div class="rr-events__calendar-head">
+          Tháng {{ event.month }} / {{ event.year }}
         </div>
 
-        <!-- =====================================
-             CALENDAR
-        ====================================== -->
+        <div class="rr-events__calendar-week">
+          <span v-for="label in WEEKDAYS" :key="label">
+            {{ label }}
+          </span>
+        </div>
 
-        <div v-if="event.date" class="calendar">
-          <div class="calendar-top">
-            <span class="calendar-label"> LỊCH </span>
+        <div class="rr-events__calendar-days">
 
-            <strong> THÁNG {{ event.month }} · {{ event.year }} </strong>
-          </div>
+          <div
+            v-for="(day, dayIndex) in event.calendarDays"
+            :key="dayIndex"
+            class="rr-events__calendar-cell"
+          >
+            <template v-if="day">
+              <span
+                v-if="day === Number(event.day)"
+                class="rr-events__calendar-active"
+              >
+                <svg
+                  class="rr-events__heart"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 21s-7.5-4.6-9.6-9A5.6 5.6 0 0 1 12 5.6 5.6 5.6 0 0 1 21.6 12c-2.1 4.4-9.6 9-9.6 9z"
+                  />
+                </svg>
 
-          <div class="calendar-weekdays">
-            <span>CN</span>
-            <span>T2</span>
-            <span>T3</span>
-            <span>T4</span>
-            <span>T5</span>
-            <span>T6</span>
-            <span>T7</span>
-          </div>
-
-          <div class="calendar-days">
-            <div
-              v-for="(day, dayIndex) in event.calendarDays"
-              :key="dayIndex"
-              class="calendar-cell"
-              :class="{
-                empty: !day,
-                active: day === Number(event.Day),
-              }"
-            >
-              <template v-if="day">
-                <div v-if="day === Number(event.Day)" class="active-day">
-                  <span class="heart"> ♥ </span>
-
-                  <span class="active-number">
-                    {{ day }}
-                  </span>
-                </div>
-
-                <span v-else class="normal-day">
+                <span class="rr-events__calendar-number is-active">
                   {{ day }}
                 </span>
-              </template>
-            </div>
+              </span>
+
+              <span v-else class="rr-events__calendar-number">
+                {{ day }}
+              </span>
+            </template>
           </div>
 
-          <!-- ADD TO CALENDAR -->
-
-          <a
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="calendar-link"
-          >
-            <span>＋</span>
-            THÊM VÀO LỊCH
-          </a>
         </div>
-        <!-- =====================================
-             RSVP
-        ====================================== -->
-        <button class="rsvp-button" type="button" @click="openConfirmModal">
-          <span> XÁC NHẬN THAM DỰ </span>
 
-          <span> → </span>
-        </button>
+        <a
+          :href="event.calendarUrl || defaultCalendarUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rr-link rr-events__calendar-link"
+        >
+          {{ calendarLabel }}
+        </a>
 
-        <!-- =====================================
-             BOTTOM ORNAMENT
-        ====================================== -->
-
-        <div class="bottom-ornament">
-          <span></span>
-
-          <b>囍</b>
-
-          <span></span>
-        </div>
       </div>
+
+
+      <!-- ===============================================
+           XÁC NHẬN THAM DỰ
+      ================================================ -->
+
+      <button
+        type="button"
+        class="rr-pill rr-events__rsvp"
+        @click="openConfirmModal"
+      >
+        {{ rsvpLabel }}
+      </button>
+
     </div>
+
+
     <!-- =====================================================
-         CONFIRM MODAL
+         MODAL XÁC NHẬN
     ====================================================== -->
 
     <Teleport to="body">
       <div
         v-if="showConfirmModal"
-        class="confirm-overlay"
+        class="rr-confirm"
         @click.self="closeConfirmModal"
       >
-        <div class="confirm-modal">
-          <!-- CLOSE -->
-          <button class="modal-close" type="button" @click="closeConfirmModal">
+        <div class="rr-confirm__box">
+
+          <button
+            type="button"
+            class="rr-confirm__close"
+            aria-label="Đóng"
+            @click="closeConfirmModal"
+          >
             ×
           </button>
 
-          <!-- HEADER -->
-          <div class="modal-header">
-            <div class="modal-symbol">❖</div>
+          <div class="rr-confirm__head">
+            <h3>{{ rsvpLabel }}</h3>
 
-            <h3>XÁC NHẬN THAM DỰ</h3>
-
-            <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+            <p>
+              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+            </p>
           </div>
 
-          <!-- =================================================
-               TH1: CÓ NGƯỜI ĐƯỢC MỜI
-          ================================================== -->
+          <div class="rr-confirm__body">
 
-          <template v-if="hasRecipient">
-            <div class="recipient-box">
-              <div class="recipient-label">TRÂN TRỌNG KÍNH MỜI</div>
+            <!-- CÓ NGƯỜI ĐƯỢC MỜI -->
 
-              <div class="recipient-name">
-                {{ recipientName }}
-              </div>
+            <div v-if="hasRecipient" class="rr-confirm__recipient">
+              <span class="rr-confirm__recipient-label">
+                {{ inviteLabel }}
+              </span>
+
+              <strong class="rr-confirm__recipient-name">
+                {{ recipientDisplay }}
+              </strong>
             </div>
-          </template>
 
-          <!-- =================================================
-               TH2: KHÔNG CÓ NGƯỜI ĐƯỢC MỜI
-          ================================================== -->
+            <!-- KHÔNG CÓ NGƯỜI ĐƯỢC MỜI -->
 
-          <template v-else>
-            <div class="form-group">
-              <label> Họ và tên </label>
+            <div v-else class="rr-confirm__field">
+              <label>Họ và tên</label>
 
               <input
                 v-model.trim="form.name"
@@ -258,100 +242,147 @@
                 maxlength="100"
               />
             </div>
-          </template>
 
-          <!-- ATTEND -->
-          <div class="form-group">
-            <label> Bạn có tham dự không? </label>
 
-            <div class="attendance-options">
-              <button
-                type="button"
-                class="attendance-option"
-                :class="{
-                  selected: form.attendance === 'attending',
-                }"
-                @click="form.attendance = 'attending'"
-              >
-                <span class="option-icon"> ✓ </span>
+            <!-- THAM DỰ -->
 
-                <span> Có, tôi sẽ tham dự </span>
-              </button>
+            <div class="rr-confirm__field">
+              <label>Bạn có tham dự không?</label>
 
-              <button
-                type="button"
-                class="attendance-option"
-                :class="{
-                  selected: form.attendance === 'not_attending',
-                }"
-                @click="form.attendance = 'not_attending'"
-              >
-                <span class="option-icon"> × </span>
+              <div class="rr-confirm__options">
 
-                <span> Rất tiếc, tôi không thể tham dự </span>
-              </button>
+                <button
+                  type="button"
+                  class="rr-confirm__option"
+                  :class="{ 'is-selected': form.attendance === 'attending' }"
+                  @click="form.attendance = 'attending'"
+                >
+                  Có, tôi sẽ tham dự
+                </button>
+
+                <button
+                  type="button"
+                  class="rr-confirm__option"
+                  :class="{
+                    'is-selected': form.attendance === 'not_attending',
+                  }"
+                  @click="form.attendance = 'not_attending'"
+                >
+                  Rất tiếc, tôi không thể tham dự
+                </button>
+
+              </div>
             </div>
-          </div>
 
-          <!-- NUMBER OF PEOPLE -->
-          <div v-if="form.attendance === 'attending'" class="form-group">
-            <label> Số người tham dự </label>
 
-            <div class="people-control">
-              <button type="button" @click="decreasePeople">−</button>
+            <!-- SỐ NGƯỜI -->
 
-              <span>
-                {{ form.numberOfPeople }}
-              </span>
+            <div
+              v-if="form.attendance === 'attending'"
+              class="rr-confirm__field"
+            >
+              <label>Số người tham dự</label>
 
-              <button type="button" @click="increasePeople">+</button>
+              <div class="rr-confirm__people">
+                <button type="button" @click="decreasePeople">−</button>
+
+                <span>{{ form.numberOfPeople }}</span>
+
+                <button type="button" @click="increasePeople">+</button>
+              </div>
             </div>
+
+
+            <p v-if="errorMessage" class="rr-confirm__error">
+              {{ errorMessage }}
+            </p>
+
+            <p v-if="successMessage" class="rr-confirm__success">
+              {{ successMessage }}
+            </p>
+
+
+            <button
+              type="button"
+              class="rr-pill rr-confirm__submit"
+              :disabled="submitting"
+              @click="submitConfirmation"
+            >
+              {{ submitting ? "ĐANG GỬI..." : submitLabel }}
+            </button>
+
           </div>
 
-          <!-- ERROR -->
-          <div v-if="errorMessage" class="form-error">
-            {{ errorMessage }}
-          </div>
-
-          <!-- SUCCESS -->
-          <div v-if="successMessage" class="form-success">
-            {{ successMessage }}
-          </div>
-
-          <!-- SUBMIT -->
-          <button
-            class="modal-submit"
-            type="button"
-            :disabled="submitting"
-            @click="submitConfirmation"
-          >
-            <span v-if="!submitting"> GỬI XÁC NHẬN </span>
-
-            <span v-else> ĐANG GỬI... </span>
-          </button>
         </div>
       </div>
     </Teleport>
+
   </section>
 </template>
 
 
 <script setup>
 import { computed, reactive, ref } from "vue";
-import { Confirm } from "@/model/api";
 import { useRoute } from "vue-router";
+
+import { Confirm } from "@/model/api";
+import { sectionText } from "@/data/sectionTitles";
+
+
+/* =========================================================
+   PROPS
+========================================================= */
+
 const props = defineProps({
   events: {
     type: Array,
     default: () => [],
   },
+
   recipientName: {
     type: [Object, Array, String],
     default: null,
   },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
+
 const route = useRoute();
+
+
+/* =========================================================
+   TIÊU ĐỀ MỤC
+========================================================= */
+
+const heading = computed(() =>
+  sectionText(props.sections, "events", "Heading", "Thông tin tiệc cưới")
+);
+
+const inviteLabel = computed(() =>
+  sectionText(props.sections, "events", "Eyebrow", "Trân trọng kính mời")
+);
+
+const rsvpLabel = "XÁC NHẬN THAM DỰ";
+
+const submitLabel = "GỬI XÁC NHẬN";
+
+const calendarLabel = "Thêm vào lịch";
+
+const receptionLabel = "Đón khách";
+
+const ceremonyLabel = "Khai tiệc";
+
+const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
 const showConfirmModal = ref(false);
 
 const submitting = ref(false);
@@ -359,6 +390,7 @@ const submitting = ref(false);
 const errorMessage = ref("");
 
 const successMessage = ref("");
+
 
 /* =========================================================
    FORM
@@ -369,6 +401,11 @@ const form = reactive({
   attendance: "attending",
   numberOfPeople: 1,
 });
+
+
+/* =========================================================
+   NGƯỜI ĐƯỢC MỜI
+========================================================= */
 
 const hasRecipient = computed(() => {
   if (!props.recipientName) {
@@ -386,6 +423,25 @@ const hasRecipient = computed(() => {
   return !!props.recipientName.Name;
 });
 
+const recipientDisplay = computed(() => {
+  const value = props.recipientName;
+
+  if (Array.isArray(value)) {
+    return value[0]?.Name || "";
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  return value?.Name || "";
+});
+
+
+/* =========================================================
+   MỞ / ĐÓNG MODAL
+========================================================= */
+
 function openConfirmModal() {
   errorMessage.value = "";
 
@@ -395,19 +451,14 @@ function openConfirmModal() {
    * Nếu có người được mời
    * thì tự động dùng tên người nhận.
    */
-  if (hasRecipient.value) {
-    form.name = props.recipientName.Name;
-  } else {
-    form.name = "";
-  }
+  form.name = hasRecipient.value ? recipientDisplay.value : "";
+
   form.attendance = "attending";
+
   form.numberOfPeople = 1;
+
   showConfirmModal.value = true;
 }
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
 
 function closeConfirmModal() {
   if (submitting.value) {
@@ -417,8 +468,9 @@ function closeConfirmModal() {
   showConfirmModal.value = false;
 }
 
+
 /* =========================================================
-   PEOPLE
+   SỐ NGƯỜI
 ========================================================= */
 
 function increasePeople() {
@@ -433,18 +485,15 @@ function decreasePeople() {
   }
 }
 
+
 /* =========================================================
-   SUBMIT
+   GỬI XÁC NHẬN
 ========================================================= */
 
 async function submitConfirmation() {
   errorMessage.value = "";
 
   successMessage.value = "";
-
-  /* =========================
-     VALIDATE
-  ========================== */
 
   if (!form.name) {
     errorMessage.value = "Vui lòng nhập họ tên.";
@@ -458,14 +507,12 @@ async function submitConfirmation() {
     return;
   }
 
-  /* =========================
-     PAYLOAD
-  ========================== */
   const slug = route.params.slug
     ? route.params.token
       ? `${route.params.slug}/${route.params.token}`
       : route.params.slug
     : "";
+
   const payload = {
     Slug: slug,
     RecipientToken: route.params.token || null,
@@ -474,10 +521,6 @@ async function submitConfirmation() {
       form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
     NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0,
   };
-
-  /* =========================
-     REQUEST
-  ========================== */
 
   submitting.value = true;
 
@@ -488,8 +531,10 @@ async function submitConfirmation() {
         if (!result || result.status !== "success") {
           throw new Error(result?.message || "Không thể gửi xác nhận.");
         }
+
         successMessage.value =
           "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+
         setTimeout(() => {
           showConfirmModal.value = false;
         }, 2500);
@@ -500,14 +545,16 @@ async function submitConfirmation() {
       }
     );
   } catch (error) {
-    errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại!.";
+    errorMessage.value =
+      error?.message || "Đã xảy ra lỗi. Vui lòng thử lại!.";
   } finally {
     submitting.value = false;
   }
 }
 
+
 /* =====================================================
-   NORMALIZE EVENTS
+   CHUẨN HOÁ SỰ KIỆN
 ===================================================== */
 
 const normalizedEvents = computed(() => {
@@ -560,8 +607,9 @@ const normalizedEvents = computed(() => {
   });
 });
 
+
 /* =====================================================
-   EVENT TYPE
+   LOẠI SỰ KIỆN
 ===================================================== */
 
 function getTypeLabel(type) {
@@ -578,8 +626,9 @@ function getTypeLabel(type) {
   return labels[type] || "NGÀY TRỌNG ĐẠI";
 }
 
+
 /* =====================================================
-   CREATE CALENDAR
+   LỊCH THÁNG
    LẤY HOÀN TOÀN TỪ API
 ===================================================== */
 
@@ -603,28 +652,25 @@ function createCalendarDays(event) {
    * ...
    * 6 = T7
    */
-
   const firstDay = new Date(year, month - 1, 1).getDay();
 
   /*
    * Số ngày trong tháng.
    */
-
   const totalDays = new Date(year, month, 0).getDate();
 
   const days = [];
 
   /*
    * Ô trống đầu tháng.
+   *
+   * Lưới bắt đầu từ thứ Hai nên CN (0) lùi về cuối.
    */
+  const offset = (firstDay + 6) % 7;
 
-  for (let i = 0; i < firstDay; i++) {
+  for (let i = 0; i < offset; i++) {
     days.push(null);
   }
-
-  /*
-   * Ngày trong tháng.
-   */
 
   for (let day = 1; day <= totalDays; day++) {
     days.push(day);
@@ -633,701 +679,300 @@ function createCalendarDays(event) {
   return days;
 }
 
-const firstEvent = computed(() => {
-  return normalizedEvents.value[0] || null;
+
+/* =====================================================
+   LINK LỊCH MẶC ĐỊNH
+===================================================== */
+
+const defaultCalendarUrl = computed(() => {
+  const event = normalizedEvents.value[0];
+
+  if (!event?.date) {
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE";
+  }
+
+  const start = event.date.replace(/-/g, "");
+
+  return (
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    `&dates=${start}/${start}`
+  );
 });
 </script>
 
+
 <style scoped>
 /* =========================================================
-   ROYAL RED WEDDING EVENTS
-   Không background riêng
-   Không border card
-   Không khung viền
+   SECTION
 ========================================================= */
 
-.events {
+.rr-events {
   position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  color: #f5dfb0;
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
-}
 
-/* =========================================================
-   SECTION HEADING
-========================================================= */
+  z-index: 10;
 
-.section-heading {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
-  margin-bottom: 70px;
-}
 
-.heading-line {
-  flex: 1;
-  max-width: 120px;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(198, 151, 67, 0.75),
-    transparent
-  );
-}
-
-.heading-content {
-  position: relative;
-  text-align: center;
-  min-width: 260px;
-}
-
-.heading-subtitle {
-  display: block;
-  margin-bottom: 12px;
-
-  color: #c99b4a;
-
-  font-family: "Montserrat", sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-}
-
-.heading-content h2 {
-  margin: 0;
-
-  color: #f3d58f;
-
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 500;
-
-  letter-spacing: 0.08em;
-  line-height: 1.15;
-
-  text-shadow: 0 1px 12px rgba(173, 25, 35, 0.25);
-}
-
-.heading-symbol {
-  margin-top: 16px;
-
-  color: #b88938;
-
-  font-family: serif;
-  font-size: 22px;
-
-  line-height: 1;
-
-  text-shadow: 0 0 12px rgba(211, 166, 78, 0.25);
-}
-
-/* =========================================================
-   EVENT CARD
-   Không border / không background
-========================================================= */
-
-.event-card {
-  position: relative;
+  gap: 40px;
 
   width: 100%;
-  margin-bottom: 75px;
 
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-}
+  padding: 0 24px;
 
-.event-card:last-child {
-  margin-bottom: 0;
-}
+  color: var(--rr-red);
 
-/* ẨN KHUNG CŨ */
-
-.card-border {
-  display: none;
-}
-
-/* =========================================================
-   CORNER ORNAMENT
-========================================================= */
-
-.corner {
-  position: absolute;
-
-  color: rgba(190, 142, 57, 0.65);
-
-  font-size: 13px;
-
-  opacity: 0.75;
-
-  pointer-events: none;
-}
-
-.corner-tl {
-  top: 0;
-  left: 5%;
-}
-
-.corner-tr {
-  top: 0;
-  right: 5%;
-}
-
-.corner-bl {
-  bottom: 0;
-  left: 5%;
-}
-
-.corner-br {
-  bottom: 0;
-  right: 5%;
-}
-
-/* =========================================================
-   EVENT INNER
-========================================================= */
-
-.event-inner {
-  position: relative;
-
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-/* =========================================================
-   EVENT TITLE
-========================================================= */
-
-.event-title-wrap {
   text-align: center;
-  margin-bottom: 38px;
 }
 
-.event-kicker {
-  display: block;
+.rr-events__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  margin-bottom: 10px;
+  gap: 10px;
 
-  color: #a87532;
-
-  font-family: "Montserrat", sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-
-  letter-spacing: 0.32em;
+  width: 100%;
 }
 
-.event-title-wrap h3 {
+
+/* =========================================================
+   LỜI DẪN + GIỜ
+========================================================= */
+
+.rr-events__lead {
   margin: 0;
 
-  color: #f0cf82;
-
-  font-size: clamp(23px, 4vw, 31px);
-  font-weight: 500;
-
-  letter-spacing: 0.07em;
-  line-height: 1.3;
-
-  text-transform: uppercase;
-}
-
-/* =========================================================
-   TITLE DECORATION
-========================================================= */
-
-.title-decoration {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 13px;
-
-  margin-top: 18px;
-}
-
-.title-decoration span {
-  width: 55px;
-  height: 1px;
-
-  background: linear-gradient(90deg, transparent, rgba(191, 143, 57, 0.75));
-}
-
-.title-decoration span:last-child {
-  background: linear-gradient(90deg, rgba(191, 143, 57, 0.75), transparent);
-}
-
-.title-decoration b {
-  color: #bd8d39;
-
+  font-family: var(--rr-font-body);
   font-size: 18px;
   font-weight: 400;
+
+  line-height: 1.4;
+
+  text-transform: uppercase;
 }
+
+.rr-events__time {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
 
 /* =========================================================
-   DATE BLOCK
+   NGÀY
 ========================================================= */
 
-.event-date-block {
-  text-align: center;
-
-  margin: 0 auto 38px;
-}
-
-/* GIỜ */
-
-.event-time {
-  margin-bottom: 12px;
-
-  color: #fff0c5;
-
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: clamp(34px, 7vw, 52px);
-  font-weight: 500;
-
-  line-height: 1;
-
-  letter-spacing: 0.04em;
-
-  text-shadow: 0 3px 18px rgba(107, 10, 20, 0.5);
-}
-
-/* NGÀY */
-
-.event-date {
+.rr-events__date {
   display: flex;
   align-items: center;
   justify-content: center;
 
   gap: 10px;
+}
 
-  color: #d5a653;
+.rr-events__weekday,
+.rr-events__month {
+  font-size: 18px;
+  font-weight: 600;
+
+  line-height: 1.4;
 
   text-transform: uppercase;
 }
 
-.weekday {
-  font-family: "Montserrat", sans-serif;
+.rr-events__sep {
+  font-size: 14px;
 
-  font-size: 11px;
+  opacity: 0.5;
+}
+
+.rr-events__day {
+  font-size: 30px;
   font-weight: 600;
 
-  letter-spacing: 0.18em;
+  line-height: 1.1;
 }
 
-.day {
-  color: #f5d88f;
+.rr-events__year {
+  margin: 0;
 
-  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
 
-  font-size: 32px;
-  font-weight: 500;
-
-  line-height: 1;
+  line-height: 1.3;
 }
 
-.month {
-  font-family: "Montserrat", sans-serif;
+.rr-events__lunar {
+  margin: 0;
 
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 13px;
 
-  letter-spacing: 0.14em;
+  line-height: 1.5;
 }
 
-/* NĂM */
-
-.event-year {
-  margin-top: 8px;
-
-  color: #b9893e;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-  font-weight: 500;
-
-  letter-spacing: 0.32em;
-}
-
-/* ÂM LỊCH */
-
-.event-lunar {
-  margin-top: 8px;
-
-  color: rgba(236, 210, 154, 0.62);
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 11px;
-
-  letter-spacing: 0.08em;
-}
 
 /* =========================================================
-   SCHEDULE
+   ĐÓN KHÁCH / KHAI TIỆC
 ========================================================= */
 
-.schedule {
+.rr-events__schedule {
   display: flex;
+  align-items: flex-start;
   justify-content: center;
-  align-items: stretch;
 
-  gap: 0;
+  gap: 32px;
 
-  margin: 35px auto;
-
-  max-width: 470px;
+  margin-top: 8px;
 }
 
-.schedule-item {
-  flex: 1;
-
+.rr-events__schedule-item {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  text-align: center;
+  gap: 4px;
 }
 
-.schedule-item + .schedule-item {
-  border-left: 1px solid rgba(190, 142, 57, 0.28);
-}
-
-.schedule-icon {
-  margin-bottom: 7px;
-
-  color: #c29342;
-
-  font-size: 16px;
-}
-
-.schedule-label {
-  margin-bottom: 5px;
-
-  color: #a97b38;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-  font-weight: 600;
-
-  letter-spacing: 0.2em;
-}
-
-.schedule-item strong {
-  color: #f1d493;
-
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: 22px;
-  font-weight: 500;
-}
-
-/* =========================================================
-   CALENDAR
-========================================================= */
-
-.calendar {
-  width: 100%;
-  max-width: 390px;
-
-  margin: 45px auto 0;
-
-  text-align: center;
-}
-
-/* HEADER */
-
-.calendar-top {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  margin-bottom: 20px;
-}
-
-.calendar-label {
-  color: #a97834;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-  font-weight: 600;
-
-  letter-spacing: 0.28em;
-}
-
-.calendar-top strong {
-  color: #e8c779;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-  font-weight: 500;
-
-  letter-spacing: 0.15em;
-}
-
-/* WEEK DAYS */
-
-.calendar-weekdays,
-.calendar-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
-
-.calendar-weekdays {
-  margin-bottom: 7px;
-}
-
-.calendar-weekdays span {
-  color: #a87a39;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-  font-weight: 600;
+.rr-events__schedule-label {
+  font-size: 11px;
 
   letter-spacing: 0.05em;
+  line-height: 1.4;
+
+  text-transform: uppercase;
 }
 
-/* DAYS */
-
-.calendar-cell {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 38px;
-
-  color: rgba(239, 216, 170, 0.72);
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-}
-
-.calendar-cell.empty {
-  visibility: hidden;
-}
-
-.normal-day {
-  opacity: 0.75;
-}
-
-/* ACTIVE DAY */
-
-.active-day {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 31px;
-  height: 31px;
-}
-
-.heart {
-  position: absolute;
-
-  color: #a91627;
-
-  font-size: 31px;
-
-  line-height: 1;
-
-  filter: drop-shadow(0 2px 8px rgba(151, 17, 34, 0.4));
-}
-
-.active-number {
-  position: relative;
-  z-index: 2;
-
-  color: #f9e7b1;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* CALENDAR LINK */
-
-.calendar-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  margin-top: 20px;
-
-  color: #c89945;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
+.rr-events__schedule-time {
+  font-size: 18px;
   font-weight: 600;
 
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  transition: color 0.25s ease, transform 0.25s ease;
+  line-height: 1.3;
 }
 
-.calendar-link span {
-  font-size: 15px;
-}
-
-.calendar-link:hover {
-  color: #f1d38c;
-
-  transform: translateY(-2px);
-}
 
 /* =========================================================
-   LOCATION
+   LỊCH THÁNG
 ========================================================= */
 
-.location {
-  margin: 48px auto 0;
+.rr-events__calendar {
+  width: 296px;
+  max-width: 100%;
 
-  text-align: center;
+  margin-top: 8px;
 
-  max-width: 560px;
+  overflow: hidden;
+
+  border: 1px solid var(--rr-hairline);
+  border-radius: 8px;
 }
 
-.location-symbol {
-  margin-bottom: 12px;
+.rr-events__calendar-head {
+  padding: 10px 0;
 
-  color: #b98536;
+  border-bottom: 1px solid var(--rr-hairline);
 
-  font-size: 18px;
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
 }
 
-.location-name {
-  color: #eed08b;
+.rr-events__calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 
-  font-family: "Cormorant Garamond", serif;
+  border-bottom: 2px solid var(--rr-red);
+}
 
-  font-size: 22px;
+.rr-events__calendar-week span {
+  padding: 6px 0;
+
+  font-size: 10px;
   font-weight: 500;
 
-  letter-spacing: 0.03em;
+  opacity: 0.6;
 }
 
-.location-address {
-  margin-top: 7px;
-  color: rgba(238, 214, 169, 0.65);
-  font-family: "Montserrat", sans-serif;
-  font-size: 10px;
-  line-height: 1.7;
+.rr-events__calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+
+  row-gap: 2px;
+
+  padding: 8px 4px;
 }
 
-.map-link {
-  display: inline-block;
-  margin-top: 14px;
-  color: #c39440;
-  font-family: "Montserrat", sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-decoration: none;
-  transition: color 0.25s ease;
-}
-
-.map-link:hover {
-  color: #f0d28c;
-}
-
-/* =========================================================
-   RSVP BUTTON
-   Không border
-========================================================= */
-
-.rsvp-button {
+.rr-events__calendar-cell {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  gap: 9px;
-
-  width: fit-content;
-
-  margin: 40px auto 0;
-
-  color: #f3d797;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  height: 30px;
 }
 
-.rsvp-button span {
-  font-size: 15px;
+.rr-events__calendar-number {
+  font-size: 12px;
+
+  line-height: 1;
 }
 
-.rsvp-button:hover {
-  color: #fff1c5;
+.rr-events__calendar-number.is-active {
+  position: relative;
 
-  transform: translateY(-2px);
+  z-index: 1;
 
-  box-shadow: 0 12px 30px rgba(94, 7, 18, 0.48);
+  color: #ffffff;
+  font-weight: 700;
 }
 
-/* =========================================================
-   BOTTOM ORNAMENT
-========================================================= */
+.rr-events__calendar-active {
+  position: relative;
 
-.bottom-ornament {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
-
-  margin-top: 48px;
+  width: 26px;
+  height: 24px;
 }
 
-.bottom-ornament span {
-  width: 55px;
-  height: 1px;
+.rr-events__heart {
+  position: absolute;
+  inset: 0;
 
-  background: linear-gradient(90deg, transparent, rgba(180, 133, 49, 0.55));
+  width: 100%;
+  height: 100%;
+
+  color: var(--rr-red);
 }
 
-.bottom-ornament span:last-child {
-  background: linear-gradient(90deg, rgba(180, 133, 49, 0.55), transparent);
+.rr-events__calendar-link {
+  display: inline-flex;
+
+  margin: 8px 0 12px;
+
+  font-size: 14px;
 }
 
-.bottom-ornament b {
-  color: #b98739;
-
-  font-size: 17px;
-  font-weight: 400;
-}
 
 /* =========================================================
-   CONFIRM OVERLAY
+   XÁC NHẬN THAM DỰ
 ========================================================= */
 
-.confirm-overlay {
+.rr-events__rsvp {
+  margin-top: 8px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.rr-confirm {
   position: fixed;
 
   inset: 0;
@@ -1335,481 +980,325 @@ const firstEvent = computed(() => {
   z-index: 9999;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 
-  background: rgba(35, 3, 8, 0.78);
+  padding: 16px;
 
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* =========================================================
-   MODAL
-========================================================= */
-
-.confirm-modal {
+.rr-confirm__box {
   position: relative;
 
   width: 100%;
-  max-width: 500px;
-
+  max-width: 520px;
   max-height: 90vh;
 
   overflow-y: auto;
 
-  color: #ead5a5;
+  border-radius: 12px;
 
-  background: linear-gradient(145deg, #520b15, #650d19 45%, #460812);
+  background-color: var(--rr-cream, #f4eee2);
 
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
-
-  animation: royalModalIn 0.3s ease;
+  color: var(--rr-red, #5c080c);
 }
 
-@keyframes royalModalIn {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* CLOSE */
-
-.modal-close {
+.rr-confirm__close {
   position: absolute;
 
-  top: 13px;
-  right: 16px;
+  top: 12px;
+  right: 12px;
 
-  width: 32px;
-  height: 32px;
+  z-index: 2;
 
-  border: 0;
+  display: grid;
+  place-items: center;
 
-  background: transparent;
+  width: 30px;
+  height: 30px;
 
-  color: rgba(241, 212, 145, 0.65);
+  border: none;
+  border-radius: 50%;
 
-  font-size: 27px;
-
-  cursor: pointer;
-
-  transition: color 0.2s ease;
-}
-
-.modal-close:hover {
-  color: #f4d792;
-}
-
-/* =========================================================
-   MODAL HEADER
-========================================================= */
-
-.modal-header {
-  text-align: center;
-
-  margin-bottom: 30px;
-}
-
-.modal-symbol {
-  margin-bottom: 12px;
-
-  color: #c69642;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 
   font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
 }
 
-.modal-header h3 {
-  margin: 0;
+.rr-confirm__head {
+  padding: 24px 24px 16px;
 
-  color: #f2d590;
+  background-color: var(--rr-red, #5c080c);
 
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: 27px;
-  font-weight: 500;
-
-  letter-spacing: 0.08em;
-}
-
-.modal-header p {
-  max-width: 350px;
-
-  margin: 12px auto 0;
-
-  color: rgba(238, 215, 171, 0.65);
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-
-  line-height: 1.7;
-}
-
-/* =========================================================
-   RECIPIENT
-========================================================= */
-
-.recipient-box {
-  margin-bottom: 25px;
+  color: #ffffff;
 
   text-align: center;
 }
 
-.recipient-label {
-  margin-bottom: 8px;
+.rr-confirm__head h3 {
+  margin: 0;
 
-  color: #b98438;
+  font-family: var(--rr-font-heading, "Times New Roman", serif);
+  font-size: 20px;
+  font-weight: 700;
 
-  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.05em;
 
-  font-size: 10px;
-  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.rr-confirm__head p {
+  margin: 8px 0 0;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  opacity: 0.85;
+}
+
+.rr-confirm__body {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  padding: 20px 24px 24px;
+}
+
+.rr-confirm__recipient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 14px;
+
+  border: 1px solid var(--rr-hairline, rgba(92, 8, 12, 0.27));
+  border-radius: 8px;
+}
+
+.rr-confirm__recipient-label {
+  font-size: 11px;
 
   letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  opacity: 0.75;
 }
 
-.recipient-name {
-  color: #f3d895;
-
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: 26px;
+.rr-confirm__recipient-name {
+  font-size: 18px;
+  font-weight: 700;
 }
 
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-group {
-  margin-bottom: 22px;
-}
-
-.form-group label {
-  display: block;
-
-  margin-bottom: 9px;
-
-  color: #c6974b;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  letter-spacing: 0.12em;
-}
-
-.form-group input {
-  width: 100%;
-
-  box-sizing: border-box;
-
-  padding: 12px 0;
-
-  border: 0;
-  border-bottom: 1px solid rgba(217, 172, 91, 0.35);
-
-  outline: none;
-
-  background: transparent;
-
-  color: #f5dfa9;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 12px;
-}
-
-.form-group input::placeholder {
-  color: rgba(236, 213, 170, 0.4);
-}
-
-.form-group input:focus {
-  border-bottom-color: #d5a552;
-}
-
-/* =========================================================
-   ATTENDANCE
-========================================================= */
-
-.attendance-options {
+.rr-confirm__field {
   display: flex;
   flex-direction: column;
 
   gap: 8px;
 }
 
-.attendance-option {
-  display: flex;
-  align-items: center;
+.rr-confirm__field label {
+  font-size: 13px;
 
-  gap: 11px;
+  letter-spacing: 0.05em;
+}
 
+.rr-confirm__field input {
   width: 100%;
 
-  padding: 12px 13px;
+  padding: 10px 14px;
 
-  border: 0;
+  border: 1px solid var(--rr-red, #5c080c);
+  border-radius: 6px;
 
-  background: rgba(255, 255, 255, 0.035);
+  background-color: #ffffff;
+  color: var(--rr-red, #5c080c);
 
-  color: rgba(240, 216, 171, 0.7);
+  font-size: 14px;
+}
 
-  font-family: "Montserrat", sans-serif;
+.rr-confirm__field input:focus {
+  outline: none;
 
-  font-size: 10px;
+  box-shadow: 0 0 0 2px var(--rr-hairline-soft, rgba(92, 8, 12, 0.13));
+}
+
+.rr-confirm__options {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.rr-confirm__option {
+  padding: 11px 14px;
+
+  border: 1px solid var(--rr-hairline, rgba(92, 8, 12, 0.27));
+  border-radius: 8px;
+
+  background-color: transparent;
+  color: var(--rr-red, #5c080c);
+
+  font-size: 14px;
 
   text-align: left;
 
   cursor: pointer;
 
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.attendance-option:hover,
-.attendance-option.selected {
-  background: rgba(177, 31, 49, 0.3);
-
-  color: #f2d48f;
+.rr-confirm__option.is-selected {
+  background-color: var(--rr-red, #5c080c);
+  color: #ffffff;
 }
 
-.option-icon {
-  width: 20px;
-
-  color: #c49342;
-
-  font-size: 15px;
-
-  text-align: center;
-}
-
-/* =========================================================
-   PEOPLE CONTROL
-========================================================= */
-
-.people-control {
-  display: flex;
+.rr-confirm__people {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
 
-  gap: 25px;
+  gap: 16px;
+
+  align-self: flex-start;
+
+  padding: 6px 12px;
+
+  border: 1px solid var(--rr-hairline, rgba(92, 8, 12, 0.27));
+  border-radius: 8px;
 }
 
-.people-control button {
-  width: 32px;
-  height: 32px;
+.rr-confirm__people button {
+  width: 28px;
+  height: 28px;
 
-  border: 0;
+  border: none;
+  border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.06);
+  background-color: var(--rr-hairline-soft, rgba(92, 8, 12, 0.13));
+  color: var(--rr-red, #5c080c);
 
-  color: #d3a04d;
-
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 1;
 
   cursor: pointer;
-
-  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.people-control button:hover {
-  background: rgba(175, 29, 47, 0.35);
+.rr-confirm__people span {
+  min-width: 24px;
 
-  color: #f3d58f;
-}
-
-.people-control span {
-  min-width: 25px;
-
-  color: #f4d997;
-
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: 23px;
-
-  text-align: center;
-}
-
-/* =========================================================
-   ERROR / SUCCESS
-========================================================= */
-
-.form-error,
-.form-success {
-  margin: 15px 0;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 10px;
-
-  line-height: 1.6;
-
-  text-align: center;
-}
-
-.form-error {
-  color: #ffb0b8;
-}
-
-.form-success {
-  color: #e6cb83;
-}
-
-/* =========================================================
-   SUBMIT
-========================================================= */
-
-.modal-submit {
-  display: block;
-
-  width: 100%;
-
-  margin-top: 25px;
-
-  padding: 14px 20px;
-
-  border: 0;
-
-  background: linear-gradient(135deg, #9a1628, #b21d32, #861321);
-
-  color: #f6dfa1;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
 
-  letter-spacing: 0.2em;
-
-  cursor: pointer;
-
-  box-shadow: 0 8px 25px rgba(60, 3, 11, 0.35);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
 }
 
-.modal-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
+.rr-confirm__error {
+  margin: 0;
 
-  box-shadow: 0 12px 30px rgba(53, 2, 9, 0.45);
+  color: #b3261e;
+
+  font-size: 13px;
+
+  text-align: center;
 }
 
-.modal-submit:disabled {
-  opacity: 0.55;
+.rr-confirm__success {
+  margin: 0;
 
-  cursor: not-allowed;
+  color: var(--rr-red, #5c080c);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-align: center;
 }
+
+.rr-confirm__submit {
+  width: 100%;
+}
+
 
 /* =========================================================
-   MOBILE
+   TABLET / DESKTOP
 ========================================================= */
 
-@media (max-width: 600px) {
-  .events {
-    padding: 50px 14px;
+@media (min-width: 768px) {
+  .rr-events {
+    gap: 48px;
+
+    padding: 0 40px;
   }
 
-  .section-heading {
-    gap: 10px;
-
-    margin-bottom: 50px;
+  .rr-events__lead,
+  .rr-events__time {
+    font-size: 20px;
   }
 
-  .heading-line {
-    max-width: 45px;
+  .rr-events__weekday,
+  .rr-events__month {
+    font-size: 20px;
   }
 
-  .heading-content {
-    min-width: 0;
+  .rr-events__day {
+    font-size: 36px;
   }
 
-  .heading-subtitle {
-    font-size: 10px;
-
-    letter-spacing: 0.22em;
+  .rr-events__year {
+    font-size: 22px;
   }
 
-  .heading-content h2 {
-    font-size: 27px;
-
-    letter-spacing: 0.04em;
+  .rr-events__lunar {
+    font-size: 14px;
   }
 
-  .event-inner {
-    padding: 10px;
+  .rr-events__schedule {
+    gap: 48px;
   }
 
-  .event-card {
-    margin-bottom: 60px;
+  .rr-events__schedule-time {
+    font-size: 20px;
   }
 
-  .corner {
-    font-size: 10px;
+  .rr-events__calendar {
+    width: 352px;
   }
 
-  .schedule {
-    max-width: 100%;
+  .rr-events__calendar-head {
+    font-size: 14px;
   }
 
-  .schedule-item {
-    padding: 5px 12px;
+  .rr-events__calendar-week span {
+    font-size: 11px;
   }
 
-  .schedule-item strong {
-    font-size: 19px;
+  .rr-events__calendar-cell {
+    height: 34px;
   }
 
-  .calendar {
-    max-width: 340px;
+  .rr-events__calendar-number {
+    font-size: 13px;
   }
 
-  .calendar-cell {
-    min-height: 34px;
+  .rr-events__calendar-active {
+    width: 30px;
+    height: 28px;
   }
 
-  .confirm-modal {
-    padding: 35px 22px;
+  .rr-confirm {
+    align-items: center;
   }
 
-  .modal-header h3 {
-    font-size: 23px;
-  }
-}
-
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
-
-@media (max-width: 380px) {
-  .heading-line {
-    display: none;
-  }
-
-  .event-date {
-    gap: 7px;
-  }
-
-  .day {
-    font-size: 29px;
-  }
-
-  .schedule-item {
-    padding: 5px 8px;
-  }
-
-  .schedule-item strong {
-    font-size: 17px;
-  }
-
-  .calendar {
-    max-width: 300px;
+  .rr-confirm__head h3 {
+    font-size: 24px;
   }
 }
 </style>

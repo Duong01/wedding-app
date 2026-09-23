@@ -7,7 +7,7 @@
       <div class="dh-content">
         <section v-if="showCouple" class="dh-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" /></section>
         <section v-if="showStory && wedding?.story" class="dh-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
-        <section v-if="showEvents && events.length" class="dh-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" /></section>
+        <section v-if="showEvents && events.length" class="dh-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :sections="sections" /></section>
         <section v-if="showTimeline && timeline.length" class="dh-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="dh-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
         <section v-if="showGallery && gallery.length" class="dh-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>

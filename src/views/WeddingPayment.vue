@@ -363,7 +363,7 @@ import {
   submitPaymentNotice,
 } from "@/model/api";
 
-import { WEDDING_STATUS } from "@/model/weddingAdmin";
+import { PUBLISH_STATE, WEDDING_STATUS } from "@/model/weddingAdmin";
 
 defineOptions({
   name: "WeddingPayment",
@@ -411,6 +411,14 @@ const loadError = ref("");
 
 const status = ref("");
 
+/*
+ * Trạng thái xuất bản / dùng thử (Draft | Trial | Expired | Active | Locked).
+ * Trang này là nơi chủ thiệp hết hạn dùng thử đổ về, nên phải phân biệt
+ * "đã thanh toán" với "đang dùng thử" — cột Status thô không làm được
+ * (cả hai đều là 'Active').
+ */
+const publishState = ref("");
+
 const paymentInfo = ref({ ...FALLBACK_PAYMENT_INFO });
 
 const usingFallbackInfo = ref(false);
@@ -439,8 +447,8 @@ async function loadAll() {
   try {
     /*
      * 1. Trạng thái thiệp — để biết đã kích hoạt chưa.
-     *    API getWeddingStatus hiện chưa có [AllowAnonymous]
-     *    nên có thể 401: không chặn trang, chỉ cảnh báo.
+     *    getWeddingStatus là API công khai ([AllowAnonymous]) nên
+     *    khách mở trang thanh toán không cần đăng nhập vẫn đọc được.
      */
     let statusKnown = false;
 
@@ -456,6 +464,11 @@ async function loadAll() {
       ) {
         status.value =
           statusResult.data.Status || statusResult.data.status || "";
+
+        publishState.value =
+          statusResult.data.PublishState ||
+          statusResult.data.publishState ||
+          "";
 
         statusKnown = true;
       } else if (statusResult && statusResult.status !== "success") {
@@ -567,7 +580,7 @@ onMounted(() => {
 ========================================================= */
 
 const isActivated = computed(() => {
-  return status.value === WEDDING_STATUS.ACTIVE;
+  return publishState.value === PUBLISH_STATE.ACTIVE;
 });
 
 const transferContent = computed(() => {
@@ -575,7 +588,13 @@ const transferContent = computed(() => {
 });
 
 const statusLabel = computed(() => {
-  if (status.value === WEDDING_STATUS.ACTIVE) return "Đã kích hoạt";
+  if (publishState.value === PUBLISH_STATE.ACTIVE) return "Đã kích hoạt";
+
+  if (publishState.value === PUBLISH_STATE.TRIAL) return "Đang dùng thử";
+
+  if (publishState.value === PUBLISH_STATE.EXPIRED) return "Hết hạn dùng thử";
+
+  if (publishState.value === PUBLISH_STATE.LOCKED) return "Đã khóa";
 
   if (status.value === WEDDING_STATUS.LOCKED) return "Đã khóa";
 
@@ -583,7 +602,13 @@ const statusLabel = computed(() => {
 });
 
 const statusChipClass = computed(() => {
-  if (status.value === WEDDING_STATUS.ACTIVE) return "chip-active";
+  if (publishState.value === PUBLISH_STATE.ACTIVE) return "chip-active";
+
+  if (publishState.value === PUBLISH_STATE.TRIAL) return "chip-trial";
+
+  if (publishState.value === PUBLISH_STATE.EXPIRED) return "chip-locked";
+
+  if (publishState.value === PUBLISH_STATE.LOCKED) return "chip-locked";
 
   if (status.value === WEDDING_STATUS.LOCKED) return "chip-locked";
 

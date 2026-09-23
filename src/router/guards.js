@@ -7,6 +7,15 @@ import { useAuthStore } from "@/stores/auth";
 const PUBLIC_ROUTE_NAMES = [
   "Home",
   "Templates",
+  "TemplatesFeatured",
+  "TemplatesModern",
+  "TemplatesTraditional",
+  "WeddingOnline",
+  "CreateInvitation",
+  "About",
+  "Pricing",
+  "Guide",
+  "Contact",
   "EditorPreview",
   "PreviewBare",
   "WeddingBySlug",
@@ -16,9 +25,14 @@ const PUBLIC_ROUTE_NAMES = [
 
 export function setupRouterGuards(router) {
 
-    router.beforeEach(async (to, from, next) => {
+    /*
+     * Guard trả thẳng giá trị điều hướng thay vì gọi next():
+     * vue-router 4 đã bỏ dần kiểu callback (cảnh báo
+     * VUE_ROUTER_R0025). `undefined` = cho đi tiếp.
+     */
+    router.beforeEach(async (to) => {
 
-        document.title = to.meta.title || "Ngày chung đôi";
+        document.title = to.meta.title || "Thiệp Duyên — Thiệp cưới online";
 
         const auth = useAuthStore();
 
@@ -32,14 +46,10 @@ export function setupRouterGuards(router) {
              * → chuyển về trang quản lý.
              */
             if (to.name === "Login" && auth.isLoggedIn) {
-                next({ name: "Manage" });
-
-                return;
+                return { name: "Manage" };
             }
 
-            next();
-
-            return;
+            return true;
         }
 
         /*
@@ -49,9 +59,7 @@ export function setupRouterGuards(router) {
          * khi bấm "Lưu thiệp".
          */
         if (to.meta.requiresAuth === false) {
-            next();
-
-            return;
+            return true;
         }
 
         /*
@@ -59,14 +67,12 @@ export function setupRouterGuards(router) {
          * → đá về /login kèm redirect.
          */
         if (!auth.isLoggedIn) {
-            next({
+            return {
                 name: "Login",
                 query: {
                     redirect: to.fullPath,
                 },
-            });
-
-            return;
+            };
         }
 
         /*
@@ -79,14 +85,12 @@ export function setupRouterGuards(router) {
             auth.sessionVerified = true;
 
             if (!valid) {
-                next({
+                return {
                     name: "Login",
                     query: {
                         redirect: to.fullPath,
                     },
-                });
-
-                return;
+                };
             }
         }
 
@@ -101,13 +105,11 @@ export function setupRouterGuards(router) {
                 /*
                  * Không đủ quyền → về trang chủ.
                  */
-                next({ name: "Home" });
-
-                return;
+                return { name: "Home" };
             }
         }
 
-        next();
+        return true;
 
     });
     router.afterEach(() => {

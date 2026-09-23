@@ -1,31 +1,100 @@
 <template>
-  <section class="hero">
-    <div class="hero-top">{{ heroTitle }}</div>
-    <div class="hero-flourish">❧ ✦ ❧</div>
-    <div class="hero-names">
-      <span>{{ groom }}</span
-      ><small>&</small><span>{{ bride }}</span>
+  <header class="rr-hero">
+
+    <!-- =====================================================
+         TÊN CÔ DÂU CHÚ RỂ
+    ====================================================== -->
+
+    <div class="rr-hero__names">
+      <span class="rr-hero__name">{{ groom }}</span>
+
+      <span class="rr-hero__name rr-hero__name--second">
+        {{ bride }}
+      </span>
     </div>
-    <div class="hero-date">{{ dateLabel }}</div>
-    <div v-if="heroImage" class="hero-photo">
-      <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" />
+
+
+    <!-- =====================================================
+         KHỐI ẢNH + BĂNG MÀU
+    ====================================================== -->
+
+    <div class="rr-hero__stage">
+
+      <span class="rr-hero__band" aria-hidden="true"></span>
+
+      <img
+        :src="flower"
+        class="rr-hero__bloom rr-hero__bloom--left"
+        alt=""
+        aria-hidden="true"
+      />
+
+      <img
+        :src="flower"
+        class="rr-hero__bloom rr-hero__bloom--right"
+        alt=""
+        aria-hidden="true"
+      />
+
+      <div class="rr-hero__seal">
+        <span>{{ monogram }}</span>
+      </div>
+
     </div>
-    <div class="hero-seal">{{ monogram }}</div>
-    <div class="scroll">SCROLL<br /><b>⌄</b></div>
-  </section>
+
+
+    <!-- =====================================================
+         NGÀY CƯỚI
+    ====================================================== -->
+
+    <div class="rr-hero__meta">
+
+      <p v-if="heroTitle" class="rr-hero__title">
+        {{ heroTitle }}
+      </p>
+
+      <p v-if="dateLabel" class="rr-hero__date">
+        {{ dateLabel }}
+      </p>
+
+      <p v-if="location" class="rr-hero__location">
+        {{ location }}
+      </p>
+
+    </div>
+
+  </header>
 </template>
+
+
 <script setup>
 import { computed } from "vue";
 
+import { flower } from "./royalRedAssets";
+
+
 const props = defineProps({
-  wedding: Object,
-  monogram: String,
-  dateLabel: String,
+  wedding: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  monogram: {
+    type: String,
+    default: "G&B",
+  },
+
+  dateLabel: {
+    type: String,
+    default: "",
+  },
+
+  sections: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
-const heroTitle = computed(
-  () => props.wedding?.hero?.Title || "THE WEDDING OF"
-);
 
 const groom = computed(
   () =>
@@ -35,6 +104,7 @@ const groom = computed(
     props.wedding?.couple?.Groom?.Name ||
     ""
 );
+
 const bride = computed(
   () =>
     props.wedding?.BrideName ||
@@ -43,102 +113,302 @@ const bride = computed(
     props.wedding?.couple?.Bride?.Name ||
     ""
 );
-const heroImage = computed(
+
+const heroTitle = computed(() => props.wedding?.hero?.Title || "");
+
+const location = computed(
   () =>
-    props.wedding?.hero?.Image ||
-    props.wedding?.hero?.Background ||
-    props.wedding?.coverImage ||
+    props.wedding?.hero?.Location ||
+    props.wedding?.events?.[0]?.Location ||
     ""
 );
 </script>
+
+
 <style scoped>
-.hero {
-  min-height: 650px;
-  text-align: center;
+/* =====================================================
+   HERO
+===================================================== */
+
+.rr-hero {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 50px 20px;
+
+  width: 100%;
+
+  padding: 48px 24px 40px;
+
   overflow: hidden;
-  background: radial-gradient(
-    circle at 50% 20%,
-    rgba(151, 22, 22, 0.42),
-    transparent 38%
-  );
-  position: relative;
+
+  text-align: center;
 }
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  pointer-events: none;
-}
-.hero-top {
-  font-size: 11px;
-  letter-spacing: 0.35em;
-  color: #d9b76d;
-}
-.hero-flourish {
-  margin: 16px 0;
-  color: #c28e40;
-  letter-spacing: 0.2em;
-}
-.hero-names {
-  /* font-family: "Great Vibes", cursive; */
-  font-size: 68px;
-  line-height: 0.9;
-  color: #efd18b;
+
+
+/* =====================================================
+   TÊN
+===================================================== */
+
+.rr-hero__names {
   display: flex;
   flex-direction: column;
-}
-.hero-names small {
-  font-family: "Cormorant Garamond";
-  font-size: 25px;
-  margin: 12px;
-}
-.hero-date {
-  margin-top: 25px;
-  letter-spacing: 0.22em;
-  font-size: 13px;
-}
-.hero-photo {
-  width: min(300px, 75vw);
-  height: 300px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid #d8aa5a;
-  padding: 7px;
-  margin-top: 28px;
-  box-shadow: 0 0 0 8px rgba(216, 170, 90, 0.06);
-}
-.hero-photo img {
+
+  gap: 6px;
+
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+  max-width: 420px;
+
+  margin-bottom: 28px;
+
+  text-align: left;
 }
-.hero-seal {
+
+.rr-hero__name {
+  color: var(--rr-red);
+
+  font-family: var(--rr-font-hero);
+  font-size: 36px;
+  font-weight: 400;
+
+  letter-spacing: 0.01em;
+  line-height: 1.11;
+
+  text-transform: uppercase;
+}
+
+.rr-hero__name--second {
+  margin-left: 34px;
+}
+
+
+/* =====================================================
+   KHỐI ẢNH + BĂNG MÀU
+===================================================== */
+
+.rr-hero__stage {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 240px;
+}
+
+.rr-hero__band {
   position: absolute;
-  bottom: 34px;
-  border: 1px solid #d8aa5a;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
+  left: 50%;
+
+  top: 50%;
+
+  width: 100vw;
+  height: 96px;
+
+  transform: translate(-50%, -50%);
+
+  background-color: var(--rr-red);
+}
+
+.rr-hero__bloom {
+  position: absolute;
+
+  width: 200px;
+  height: auto;
+
+  object-fit: contain;
+
+  opacity: 0.9;
+
+  pointer-events: none;
+}
+
+.rr-hero__bloom--left {
+  left: -70px;
+  top: -10px;
+
+  transform: rotate(-8deg);
+}
+
+.rr-hero__bloom--right {
+  right: -70px;
+  bottom: -10px;
+
+  transform: scaleX(-1) rotate(-8deg);
+}
+
+.rr-hero__seal {
+  position: relative;
+
+  z-index: 2;
+
   display: grid;
   place-items: center;
-  font-size: 11px;
-  color: #f1d28a;
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background-color: var(--rr-cream);
+
+  box-shadow: 0 0 0 1px var(--rr-red);
 }
-.scroll {
-  position: absolute;
-  bottom: 22px;
-  right: 20px;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  opacity: 0.55;
+
+.rr-hero__seal span {
+  color: var(--rr-red);
+
+  font-family: var(--rr-font-name);
+  font-size: 34px;
+
+  letter-spacing: 0.04em;
 }
-.scroll b {
-  font-size: 17px;
+
+
+/* =====================================================
+   NGÀY CƯỚI
+===================================================== */
+
+.rr-hero__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 28px;
+}
+
+.rr-hero__title {
+  margin: 0;
+
+  color: var(--rr-red);
+
+  font-family: var(--rr-font-heading);
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+
+  text-transform: uppercase;
+}
+
+.rr-hero__date {
+  margin: 0;
+
+  color: var(--rr-red);
+
+  font-size: 14px;
+
+  letter-spacing: 0.2em;
+}
+
+.rr-hero__location {
+  margin: 0;
+
+  color: var(--rr-red);
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  opacity: 0.75;
+}
+
+
+/* =====================================================
+   TABLET / DESKTOP
+===================================================== */
+
+@media (min-width: 768px) {
+  .rr-hero {
+    padding: 64px 40px 48px;
+  }
+
+  .rr-hero__names {
+    max-width: 640px;
+
+    margin-bottom: 36px;
+  }
+
+  .rr-hero__name {
+    font-size: 52px;
+  }
+
+  .rr-hero__name--second {
+    margin-left: 60px;
+  }
+
+  .rr-hero__stage {
+    height: 400px;
+  }
+
+  .rr-hero__band {
+    height: 180px;
+  }
+
+  .rr-hero__bloom {
+    width: 360px;
+  }
+
+  .rr-hero__bloom--left {
+    left: -130px;
+  }
+
+  .rr-hero__bloom--right {
+    right: -130px;
+  }
+
+  .rr-hero__seal {
+    width: 240px;
+    height: 240px;
+  }
+
+  .rr-hero__seal span {
+    font-size: 56px;
+  }
+
+  .rr-hero__title {
+    font-size: 15px;
+  }
+
+  .rr-hero__date {
+    font-size: 16px;
+  }
+
+  .rr-hero__location {
+    font-size: 15px;
+  }
+}
+
+
+/* =====================================================
+   MÀN HÌNH NHỎ
+===================================================== */
+
+@media (max-width: 380px) {
+  .rr-hero__name {
+    font-size: 30px;
+  }
+
+  .rr-hero__name--second {
+    margin-left: 24px;
+  }
+
+  .rr-hero__stage {
+    height: 200px;
+  }
+
+  .rr-hero__seal {
+    width: 116px;
+    height: 116px;
+  }
+
+  .rr-hero__seal span {
+    font-size: 28px;
+  }
 }
 </style>

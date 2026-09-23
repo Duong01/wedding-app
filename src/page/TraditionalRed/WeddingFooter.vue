@@ -4,17 +4,19 @@
 
     <a
       class="tr-footer__brand"
-      href="https://chungdoi.com"
+      :href="BRAND.siteUrl"
       target="_blank"
       rel="noopener noreferrer"
     >
-      ♡ chungdoi.com
+      ♡ {{ BRAND.domain }}
     </a>
   </footer>
 </template>
 
 <script setup>
 import { computed } from "vue";
+
+import { BRAND } from "@/data/siteContent";
 
 const props = defineProps({
   wedding: {
