@@ -50,6 +50,19 @@
             <v-icon size="15"> mdi-card-multiple-outline </v-icon>
             Quản lý thiệp
           </router-link>
+
+          <router-link
+            v-if="auth.isAdmin"
+            to="/admin/payments"
+            class="nav-link admin-link"
+          >
+            <v-icon size="15"> mdi-cash-check </v-icon>
+            Duyệt thanh toán
+
+            <span v-if="pendingPayments > 0" class="nav-badge">
+              {{ pendingPayments }}
+            </span>
+          </router-link>
         </nav>
 
         <!-- =========================================
@@ -119,6 +132,20 @@
                   >
                     <v-icon size="16"> mdi-card-multiple-outline </v-icon>
                     Quản lý thiệp
+                  </button>
+
+                  <button
+                    v-if="auth.isAdmin"
+                    type="button"
+                    class="dropdown-item"
+                    @click="goAdminPayments"
+                  >
+                    <v-icon size="16"> mdi-cash-check </v-icon>
+                    Duyệt thanh toán
+
+                    <span v-if="pendingPayments > 0" class="nav-badge">
+                      {{ pendingPayments }}
+                    </span>
                   </button>
 
                   <button
@@ -213,6 +240,18 @@
             class="mobile-nav-link"
           >
             Quản lý thiệp
+          </router-link>
+
+          <router-link
+            v-if="auth.isAdmin"
+            to="/admin/payments"
+            class="mobile-nav-link"
+          >
+            Duyệt thanh toán
+
+            <span v-if="pendingPayments > 0" class="nav-badge">
+              {{ pendingPayments }}
+            </span>
           </router-link>
 
           <div class="mobile-nav-divider"></div>
@@ -362,6 +401,8 @@ import "@/assets/styles/chungdoi.css";
 
 import { NAV_LINKS } from "@/data/siteContent";
 
+import { getPaymentRequests } from "@/model/api";
+
 // Auth store
 import { useAuthStore } from "@/stores/auth";
 
@@ -385,6 +426,9 @@ const headerRef = ref(null);
 const avatarBroken = ref(false);
 
 const mobileNavOpen = ref(false);
+
+/* Số yêu cầu thanh toán chờ duyệt — badge cho Admin. */
+const pendingPayments = ref(0);
 
 /*
  * Link công khai trên header / menu di động — khai báo
@@ -418,6 +462,43 @@ function goAdminWeddings() {
   userMenuOpen.value = false;
 
   router.push({ name: "AdminWeddings" });
+}
+
+function goAdminPayments() {
+  userMenuOpen.value = false;
+
+  mobileNavOpen.value = false;
+
+  router.push({ name: "AdminPayments" });
+}
+
+/*
+ * Số yêu cầu thanh toán đang chờ duyệt — hiện thành badge trên
+ * link "Duyệt thanh toán".
+ *
+ * Chỉ gọi MỘT lần khi App mount và chỉ khi là Admin: dự án chưa có
+ * hạ tầng polling/websocket, thêm vào là quá tay. Admin vào trang
+ * /admin/payments là thấy số mới nhất ở hero stats.
+ *
+ * Lỗi thì bỏ qua im lặng — badge không quan trọng bằng việc trang
+ * vẫn chạy bình thường cho khách.
+ */
+async function loadPendingPayments() {
+  if (!auth.isAdmin) {
+    return;
+  }
+
+  try {
+    const response = await getPaymentRequests({ status: "Pending" });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      pendingPayments.value = result.data.length;
+    }
+  } catch (error) {
+    console.warn("[App] getPaymentRequests error:", error);
+  }
 }
 
 async function handleLogout() {
@@ -479,7 +560,12 @@ const handleLoadingFinish = () => {
 const hiddenRoutes = ["editor", "dashboard", "admin", "preview-bare"];
 
 // Trang thiệp theo link (/{slug}/{token}) — ẩn toàn bộ khung trang
-const guestInvitationRoutes = ["WeddingByApi", "WeddingBySlug"];
+const guestInvitationRoutes = [
+  "WeddingByApi",
+  "WeddingIntro",
+  "WeddingOpen",
+  "WeddingBySlug",
+];
 
 const showGlobalDecoration = computed(() => {
   if (guestInvitationRoutes.includes(route.name)) {
@@ -548,6 +634,8 @@ onMounted(() => {
   syncThemeClass();
 
   document.addEventListener("click", onDocumentClick);
+
+  loadPendingPayments();
 });
 
 onBeforeUnmount(() => {
@@ -796,6 +884,33 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+}
+
+/*
+ * Badge số yêu cầu thanh toán chờ duyệt.
+ * Dùng chung cho header, dropdown và menu di động nên để
+ * margin-left tự động đẩy sang phải trong dropdown.
+ */
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 4px;
+  border-radius: 999px;
+  background: #a63a2e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Trong dropdown / menu di động thì đẩy badge sang sát phải */
+.dropdown-item .nav-badge,
+.mobile-nav-link .nav-badge {
+  margin-left: auto;
 }
 
 .brand {

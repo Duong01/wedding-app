@@ -5,6 +5,7 @@
     ====================================================== -->
     <div class="page-glow page-glow-1"></div>
     <div class="page-glow page-glow-2"></div>
+    <div class="page-glow page-glow-3"></div>
     <div class="page-seal">囍</div>
 
     <!-- =====================================================
@@ -22,6 +23,8 @@
          HERO
     ====================================================== -->
     <section class="page-hero">
+      <div class="hero-aurora" aria-hidden="true"></div>
+
       <div class="container hero-inner">
         <div class="hero-decoration hero-decoration-left">
           囍
@@ -43,29 +46,77 @@
           riêng.
         </h1>
 
-        <p>
+        <p class="hero-lead">
           Năm bộ sưu tập — từ đỏ son Á Đông, lụa vàng kim tuyến đến tối giản
           hiện đại — mỗi mẫu mang bảng màu, họa tiết và nhịp điệu riêng.
           Chọn mẫu bạn thích và tùy chỉnh cho ngày cưới của bạn.
         </p>
 
+        <!-- hai lối vào chính: xem mẫu nổi bật, hoặc bắt tay tạo thiệp -->
+        <div class="hero-actions">
+          <button
+            type="button"
+            class="hero-btn hero-btn-primary"
+            @click="goToFeatured"
+          >
+            <span>Xem mẫu nổi bật</span>
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="hero-btn hero-btn-ghost"
+            @click="goToEditor()"
+          >
+            Tạo thiệp của bạn
+          </button>
+        </div>
+
+        <!-- dòng tin cậy: gỡ rào cản trước khi người dùng bấm -->
+        <ul class="hero-trust">
+          <li>
+            <span class="trust-dot"></span>
+            Tạo miễn phí
+          </li>
+
+          <li>
+            <span class="trust-dot"></span>
+            Dùng thử 3 ngày
+          </li>
+
+          <li>
+            <span class="trust-dot"></span>
+            Đẹp mới thanh toán
+          </li>
+        </ul>
+
         <div class="hero-stats">
           <div class="hero-stat">
-            <strong>{{ weddings.length }}</strong>
+            <strong>{{ templateCount }}</strong>
             <span>Mẫu thiệp</span>
           </div>
 
           <div class="hero-stat-divider"></div>
 
           <div class="hero-stat">
-            <strong>{{ themes.length }}</strong>
+            <strong>{{ styleCount }}</strong>
             <span>Phong cách</span>
           </div>
 
           <div class="hero-stat-divider"></div>
 
           <div class="hero-stat">
-            <strong>100%</strong>
+            <strong>{{ customPercent }}%</strong>
             <span>Tùy chỉnh</span>
           </div>
         </div>
@@ -292,7 +343,9 @@
             'is-featured': index === 0
           }"
           :style="getCardStyle(wedding)"
-          @click="openTemplateDetail(wedding)"
+          @click="goToIntro(wedding)"
+          @pointermove="trackSpotlight"
+          @pointerleave="clearSpotlight"
         >
           <!-- IMAGE -->
           <div class="image-wrap">
@@ -306,6 +359,9 @@
 
             <!-- image gradient -->
             <div class="image-gradient"></div>
+
+            <!-- vệt sáng chạy ngang qua ảnh -->
+            <div class="image-sheen" aria-hidden="true"></div>
 
             <!-- hover overlay -->
             <div class="card-hover">
@@ -337,6 +393,7 @@
               <button
                 type="button"
                 class="favorite-btn"
+                :class="{ 'is-on': isFavorite(wedding) }"
                 aria-label="Yêu thích"
                 @click.stop="toggleFavorite(wedding)"
               >
@@ -382,13 +439,22 @@
               {{ getCoupleName(wedding) }}
             </h3>
 
+            <!-- một dòng mô tả phong cách — cho người xem biết
+                 mẫu này đẹp ở chỗ nào trước khi bấm vào -->
+            <p class="card-desc">
+              {{ getCollectionSub(wedding) }}
+            </p>
+
             <!-- dải màu nhận diện của mẫu -->
             <div class="identity-row">
               <span
                 v-for="(swatch, swatchIndex) in getWeddingMeta(wedding).palette"
                 :key="swatchIndex"
                 class="identity-swatch"
-                :style="{ background: swatch }"
+                :style="{
+                  background: swatch,
+                  '--swatch-delay': `${swatchIndex * 90}ms`
+                }"
               ></span>
 
               <span class="identity-orn">
@@ -408,7 +474,7 @@
                 class="use-template-btn"
                 @click.stop="goToEditor(wedding)"
               >
-                Sử dụng mẫu
+                Dùng mẫu này
               </button>
 
             </div>
@@ -419,378 +485,21 @@
       <!-- ===================================================
            COLLECTION FOOTNOTE
       ==================================================== -->
-      <p class="collection-note">
-        囍 Mỗi mẫu thuộc một bộ sưu tập với bảng màu riêng — chọn
-        <strong>bộ sưu tập</strong> phía trên để xem theo phong cách.
-      </p>
-    </section>
+      <div class="collection-note">
+        <p class="note-line">
+          囍 Mỗi mẫu thuộc một bộ sưu tập với bảng màu riêng — chọn
+          <strong>bộ sưu tập</strong> phía trên để xem theo phong cách.
+        </p>
 
-    <!-- =====================================================
-         DETAIL MODAL
-    ====================================================== -->
-    <Teleport to="body">
-      <Transition name="detail-modal">
-        <div
-          v-if="selectedWedding"
-          class="detail-modal"
-          @click.self="closeTemplateDetail"
+        <button
+          type="button"
+          class="note-cta"
+          @click="goToEditor()"
         >
-
-          <div class="detail-panel">
-
-            <!-- =========================================
-                 CLOSE
-            ========================================== -->
-            <button
-              type="button"
-              class="close-btn"
-              aria-label="Đóng"
-              @click="closeTemplateDetail"
-            >
-              <span></span>
-              <span></span>
-            </button>
-
-            <!-- =========================================
-                 LEFT PREVIEW
-            ========================================== -->
-            <div
-              class="detail-preview"
-              :style="getCardStyle(selectedWedding)"
-            >
-
-              <div class="preview-header">
-                <span>PREVIEW</span>
-
-                <div class="preview-device">
-                  <span class="device-dot"></span>
-                  Mobile
-                </div>
-              </div>
-
-              <div class="preview-stage">
-
-                <div class="preview-phone">
-
-                  <div class="phone-top">
-                    <span></span>
-                  </div>
-
-                  <div class="phone-screen">
-                    <img
-                      :src="selectedWedding.coverImage"
-                      :alt="getCoupleName(selectedWedding)"
-                      @error="onImageError"
-                    />
-                  </div>
-
-                  <div class="phone-bottom">
-                    <span></span>
-                  </div>
-                </div>
-
-                <!-- decoration -->
-                <div class="preview-decoration decoration-1">
-                  {{ getWeddingMeta(selectedWedding).orn }}
-                </div>
-
-                <div class="preview-decoration decoration-2">
-                  {{ getWeddingMeta(selectedWedding).orn }}
-                </div>
-
-              </div>
-
-              <div class="preview-footer">
-                <span>
-                  Thiết kế responsive
-                </span>
-
-                <span>
-                  •
-                </span>
-
-                <span>
-                  Tối ưu điện thoại
-                </span>
-              </div>
-            </div>
-
-            <!-- =========================================
-                 RIGHT CONTENT
-            ========================================== -->
-            <div
-              class="detail-content"
-              :style="getCardStyle(selectedWedding)"
-            >
-
-              <div class="detail-scroll">
-
-                <!-- badge -->
-                <div class="detail-topline">
-
-                  <span class="info-badge">
-                    {{ getThemeLabel(selectedWedding) }}
-                  </span>
-
-                  <span class="template-code">
-                    #{{ selectedWedding.id || "WEDDING" }}
-                  </span>
-                </div>
-
-                <!-- title -->
-                <h2>
-                  {{ getCoupleName(selectedWedding) }}
-                </h2>
-
-                <p class="detail-date">
-                  {{ formatDate(selectedWedding.weddingDate) }}
-                </p>
-
-                <!-- dải màu bản sắc của mẫu -->
-                <div class="detail-identity">
-                  <span
-                    v-for="(swatch, swatchIndex) in getWeddingMeta(selectedWedding).palette"
-                    :key="swatchIndex"
-                    class="identity-swatch"
-                    :style="{ background: swatch }"
-                  ></span>
-
-                  <span class="detail-collection">
-                    {{ getCollectionLabel(selectedWedding) }}
-                  </span>
-                </div>
-
-                <div class="gold-rule">
-                  <span></span>
-                  <i>{{ getWeddingMeta(selectedWedding).orn }}</i>
-                  <span></span>
-                </div>
-
-                <!-- description -->
-                <p class="description">
-                  {{
-                    selectedWedding.story?.Description ||
-                    "Thiệp cưới được thiết kế theo phong cách hiện đại, đầy cảm xúc và dễ tùy chỉnh theo thông tin ngày cưới của bạn."
-                  }}
-                </p>
-
-                <!-- =====================================
-                     INFORMATION
-                ====================================== -->
-                <div class="detail-information">
-
-                  <div class="information-item">
-
-                    <span class="information-icon">
-                      ♡
-                    </span>
-
-                    <div>
-                      <span class="meta-label">
-                        Cặp đôi
-                      </span>
-
-                      <strong>
-                        {{ getCoupleName(selectedWedding) }}
-                      </strong>
-                    </div>
-                  </div>
-
-                  <div class="information-item">
-
-                    <span class="information-icon">
-                      ◷
-                    </span>
-
-                    <div>
-                      <span class="meta-label">
-                        Thời gian
-                      </span>
-
-                      <strong>
-                        {{
-                          formatFullDate(selectedWedding.weddingDate) ||
-                          selectedWedding.hero?.Title ||
-                          "Save the date"
-                        }}
-                      </strong>
-                    </div>
-                  </div>
-
-                  <div class="information-item">
-
-                    <span class="information-icon">
-                      ♧
-                    </span>
-
-                    <div>
-                      <span class="meta-label">
-                        Địa điểm
-                      </span>
-
-                      <strong>
-                        {{
-                          selectedWedding.hero?.Location ||
-                          "Chưa cập nhật"
-                        }}
-                      </strong>
-                    </div>
-                  </div>
-
-                </div>
-
-                <!-- =====================================
-                     FEATURES
-                ====================================== -->
-                <div class="features-section">
-
-                  <div class="section-heading">
-                    <span>Tính năng</span>
-                    <i></i>
-                  </div>
-
-                  <div class="features-grid">
-
-                    <div class="feature-item">
-                      <span>✦</span>
-                      <p>Tùy chỉnh nội dung</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>◉</span>
-                      <p>Ảnh không giới hạn</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>⌖</span>
-                      <p>Google Maps</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>♪</span>
-                      <p>Nhạc nền</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>♧</span>
-                      <p>Ghi tên khách mời</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>↗</span>
-                      <p>Chia sẻ qua link</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>♡</span>
-                      <p>Xác nhận tham dự</p>
-                    </div>
-
-                    <div class="feature-item">
-                      <span>○</span>
-                      <p>Nhận lời chúc</p>
-                    </div>
-
-                  </div>
-                </div>
-
-                <!-- =====================================
-                     QR
-                ====================================== -->
-                <div class="demo-section">
-
-                  <div class="qr-box">
-
-                    <img
-                      :src="getQrUrl(selectedWedding)"
-                      alt="QR xem demo"
-                    />
-
-                  </div>
-
-                  <div class="qr-content">
-
-                    <strong>
-                      Xem thiệp trên điện thoại
-                    </strong>
-
-                    <p>
-                      Quét mã QR để mở bản demo trực tiếp
-                      trên điện thoại.
-                    </p>
-
-                    <span>
-                      Không cần đăng nhập
-                    </span>
-
-                  </div>
-                </div>
-
-                <!-- =====================================
-                     ACTIONS
-                ====================================== -->
-                <div class="detail-actions">
-
-                  <button
-                    type="button"
-                    class="primary-btn"
-                    @click="goToEditor(selectedWedding)"
-                  >
-                    <span>＋</span>
-                    Tạo thiệp theo mẫu này
-                  </button>
-
-                  <button
-                    type="button"
-                    class="secondary-btn"
-                    @click="goToWedding(selectedWedding)"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                    >
-                      <path
-                        d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
-                      />
-                      <circle cx="12" cy="12" r="2.5" />
-                    </svg>
-
-                    Xem demo
-                  </button>
-
-                </div>
-
-                <!-- share -->
-                <button
-                  type="button"
-                  class="share-btn"
-                  @click="shareTemplate(selectedWedding)"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.7"
-                  >
-                    <circle cx="18" cy="5" r="2.5" />
-                    <circle cx="6" cy="12" r="2.5" />
-                    <circle cx="18" cy="19" r="2.5" />
-                    <path d="m8.3 10.8 7.4-4.4" />
-                    <path d="m8.3 13.2 7.4 4.4" />
-                  </svg>
-
-                  Chia sẻ mẫu thiệp
-                </button>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
+          Chưa chọn được mẫu? Bắt đầu tạo thiệp của bạn →
+        </button>
+      </div>
+    </section>
 
     <!-- =====================================================
          TOAST
@@ -812,6 +521,7 @@ import {
   computed,
   onBeforeUnmount,
   onMounted,
+  reactive,
   ref,
   watch
 } from "vue";
@@ -839,13 +549,17 @@ function goHome() {
   router.push({ name: "Home" });
 }
 
+/* Lối vào nhanh ở hero — nhảy sang route SEO "mẫu nổi bật". */
+function goToFeatured() {
+  router.push({ name: "TemplatesFeatured" });
+}
+
 // ======================================================
 // State
 // ======================================================
 
 const q = ref("");
 const selectedTheme = ref("");
-const selectedWedding = ref(null);
 
 /*
  * Bộ sưu tập đang chọn — luôn là mảng để vừa chọn được
@@ -951,6 +665,110 @@ const favorites = ref(
 );
 
 const toast = ref("");
+
+// ======================================================
+// HIỆU ỨNG CHUYỂN ĐỘNG
+// ======================================================
+
+/*
+ * ======================================================
+ * SỐ LIỆU ĐẾM LÊN
+ * ======================================================
+ * Ba con số ở hero đếm dần từ 0 thay vì hiện ra nguyên con.
+ * Đích đến là giá trị thật (số mẫu, số phong cách) nên khi
+ * dữ liệu về muộn thì số vẫn chạy tới đúng chỗ.
+ */
+const counters = reactive({
+  templates: 0,
+  styles: 0,
+  custom: 0,
+});
+
+const templateCount = computed(() => counters.templates);
+const styleCount = computed(() => counters.styles);
+const customPercent = computed(() => counters.custom);
+
+/*
+ * Mỗi con số giữ một khung hình riêng. Dùng chung một biến thì
+ * lần chạy sau sẽ huỷ lần chạy trước — gọi ba lần liên tiếp
+ * chỉ còn con số cuối cùng chạy.
+ */
+const counterFrames = new Map();
+
+/*
+ * Chạy một con số từ giá trị hiện tại tới đích trong `duration`
+ * mili-giây. Dùng easeOutCubic để đoạn cuối chậm lại — cảm giác
+ * "dừng đúng số" thay vì bị cắt ngang.
+ */
+function runCounter(key, target, duration = 1100) {
+  const from = counters[key];
+
+  if (from === target) {
+    return;
+  }
+
+  const start = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+
+    const eased = 1 - Math.pow(1 - progress, 3);
+
+    counters[key] = Math.round(from + (target - from) * eased);
+
+    if (progress < 1) {
+      counterFrames.set(key, requestAnimationFrame(step));
+    } else {
+      counterFrames.delete(key);
+    }
+  }
+
+  cancelAnimationFrame(counterFrames.get(key));
+
+  counterFrames.set(key, requestAnimationFrame(step));
+}
+
+function prefersReducedMotion() {
+  return (
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ??
+    false
+  );
+}
+
+/*
+ * ======================================================
+ * VỆT SÁNG THEO CON TRỎ
+ * ======================================================
+ * Thẻ mẫu có một vệt sáng mờ đi theo ngón tay / con trỏ, giống
+ * ánh kim loại bắt sáng khi nghiêng tấm thiệp. Toạ độ ghi vào
+ * biến CSS của chính thẻ đó nên mỗi thẻ sáng theo vị trí riêng.
+ */
+function trackSpotlight(event) {
+  if (prefersReducedMotion()) {
+    return;
+  }
+
+  const card = event.currentTarget;
+
+  const rect = card.getBoundingClientRect();
+
+  card.style.setProperty(
+    "--spot-x",
+    `${((event.clientX - rect.left) / rect.width) * 100}%`
+  );
+
+  card.style.setProperty(
+    "--spot-y",
+    `${((event.clientY - rect.top) / rect.height) * 100}%`
+  );
+}
+
+function clearSpotlight(event) {
+  const card = event.currentTarget;
+
+  card.style.removeProperty("--spot-x");
+  card.style.removeProperty("--spot-y");
+}
 
 // ======================================================
 // Computed
@@ -1129,10 +947,9 @@ onMounted(async () => {
 
   await store.loadWeddings();
 
-  document.addEventListener(
-    "keydown",
-    handleKeydown
-  );
+  runCounter("templates", weddings.value.length);
+  runCounter("styles", themes.value.length, 900);
+  runCounter("custom", 100, 1300);
 });
 
 /*
@@ -1153,12 +970,9 @@ watch(
 watch([activeCollectionIds, sortMode, q], syncQuery);
 
 onBeforeUnmount(() => {
-  document.removeEventListener(
-    "keydown",
-    handleKeydown
-  );
+  counterFrames.forEach((frame) => cancelAnimationFrame(frame));
 
-  document.body.style.overflow = "";
+  counterFrames.clear();
 });
 
 // ======================================================
@@ -1232,6 +1046,16 @@ function getCollectionLabel(wedding) {
   return getCollection(meta.collection).name;
 }
 
+/*
+ * Mô tả ngắn của bộ sưu tập — hiện dưới tên cặp đôi trên thẻ,
+ * để người xem biết ngay mẫu này thuộc phong cách nào.
+ */
+function getCollectionSub(wedding) {
+  const meta = getWeddingMeta(wedding);
+
+  return getCollection(meta.collection).sub;
+}
+
 function formatDate(date) {
   if (!date) {
     return "";
@@ -1253,98 +1077,44 @@ function formatDate(date) {
   ).format(parsed);
 }
 
-/*
- * Ngày + giờ đầy đủ cho modal chi tiết
- * (vd: "14/11/2026 · 08:00").
- */
-function formatFullDate(date) {
-  if (!date) {
-    return "";
-  }
-
-  const parsed = new Date(date);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return "";
-  }
-
-  const day = new Intl.DateTimeFormat(
-    "vi-VN",
-    {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    }
-  ).format(parsed);
-
-  const time = new Intl.DateTimeFormat(
-    "vi-VN",
-    {
-      hour: "2-digit",
-      minute: "2-digit"
-    }
-  ).format(parsed);
-
-  return `${day} · ${time}`;
-}
-
-// ======================================================
-// Modal
-// ======================================================
-
-function openTemplateDetail(wedding) {
-  selectedWedding.value = wedding;
-
-  // khóa scroll background
-  document.body.style.overflow = "hidden";
-}
-
-function closeTemplateDetail() {
-  selectedWedding.value = null;
-
-  document.body.style.overflow = "";
-}
-
-function handleKeydown(event) {
-  if (
-    event.key === "Escape" &&
-    selectedWedding.value
-  ) {
-    closeTemplateDetail();
-  }
-}
-
 // ======================================================
 // Navigation
 // ======================================================
 
-function goToWedding(wedding) {
+/*
+ * Bước 1 của luồng xem thiệp — trang giới thiệu mẫu.
+ *
+ * Trước đây chỗ này mở một modal chi tiết ngay trong trang.
+ * Modal đó đã chuyển thành WeddingIntro.vue để mỗi bước có
+ * URL riêng, chia sẻ được và Google index được.
+ */
+function goToIntro(wedding) {
   if (!wedding?.slug) {
     return;
   }
 
-  closeTemplateDetail();
-
   router.push({
-    name: "WeddingBySlug",
+    name: "WeddingIntro",
     params: {
       slug: wedding.slug
     }
   });
 }
 
+/*
+ * Mở trình tạo thiệp. Gọi kèm mẫu thì mang sẵn theme của mẫu
+ * đó; gọi rỗng (nút ở hero) thì mở trình tạo trắng để người
+ * dùng tự chọn phong cách bên trong.
+ */
 function goToEditor(wedding) {
-  if (!wedding) {
-    return;
-  }
-
-  closeTemplateDetail();
+  const themeName =
+    wedding?.theme?.Name ||
+    wedding?.theme ||
+    "";
 
   router.push({
     name: "Editor",
-    query: {
-      theme: wedding.theme.Name
-    }
+    query: themeName ? { theme: themeName } : {}
   });
 }
 
@@ -1393,47 +1163,6 @@ function toggleFavorite(wedding) {
 }
 
 // ======================================================
-// Share
-// ======================================================
-
-async function shareTemplate(wedding) {
-  const url = `${window.location.origin}/wedding/${wedding?.slug || ""}`;
-
-  try {
-    if (navigator.share) {
-      await navigator.share({
-        title: getCoupleName(wedding),
-        text: "Xem mẫu thiệp cưới này",
-        url
-      });
-
-      return;
-    }
-
-    await navigator.clipboard.writeText(url);
-
-    showToast("Đã sao chép link mẫu thiệp");
-  } catch (error) {
-    // Người dùng đóng hộp thoại share
-  }
-}
-
-// ======================================================
-// QR
-// ======================================================
-
-function getQrUrl(wedding) {
-  const url =
-    `${window.location.origin}/wedding/` +
-    `${wedding?.slug || ""}`;
-
-  return (
-    "https://api.qrserver.com/v1/create-qr-code/" +
-    `?size=180x180&margin=8&data=${encodeURIComponent(url)}`
-  );
-}
-
-// ======================================================
 // Filter
 // ======================================================
 
@@ -1470,19 +1199,6 @@ function onImageError(event) {
     "photo-1520854221256-17451cc331bf" +
     "?auto=format&fit=crop&w=900&q=80";
 }
-
-// ======================================================
-// Close modal when route changes
-// ======================================================
-
-watch(
-  () => router.currentRoute.value.fullPath,
-  () => {
-    if (selectedWedding.value) {
-      closeTemplateDetail();
-    }
-  }
-);
 </script>
 
 <style scoped>
@@ -1563,6 +1279,32 @@ watch(
 
   filter: blur(70px);
   opacity: 0.5;
+
+  /* Ba quầng trôi lệch nhịp nhau, mỗi quầng một chu kỳ riêng
+     nên chúng không bao giờ trùng pha — nền vì thế luôn đổi
+     chỗ sáng tối một cách tự nhiên. */
+  animation: glow-drift 22s ease-in-out infinite;
+}
+
+@keyframes glow-drift {
+  0%,
+  100% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  33% {
+    transform:
+      translate(40px, -30px)
+      scale(1.12);
+  }
+
+  66% {
+    transform:
+      translate(-30px, 25px)
+      scale(0.94);
+  }
 }
 
 .page-glow-1 {
@@ -1587,7 +1329,33 @@ watch(
     67,
     0.07
   );
+
+  animation-duration: 28s;
+  animation-delay: -8s;
 }
+
+/*
+ * Quầng thứ ba nằm sâu trong trang, chỗ lưới mẫu — giữ cho
+ * nền không phẳng dần khi cuộn xuống.
+ */
+.page-glow-3 {
+  top: 1900px;
+  left: -280px;
+
+  background: rgba(
+    201,
+    166,
+    89,
+    0.08
+  );
+
+  animation-duration: 34s;
+  animation-delay: -16s;
+}
+
+/* =========================================================
+   ẤN SON
+========================================================= */
 
 /*
  * Ấn son lớn mờ ở góc trang — điểm nhấn Á Đông
@@ -1623,6 +1391,25 @@ watch(
   pointer-events: none;
 
   user-select: none;
+
+  /* Lắc lư rất chậm, như tờ giấy bị gió thổi — đủ để mắt nhận
+     ra trang đang sống mà không gây nhiễu. */
+  animation: seal-sway 9s ease-in-out infinite;
+}
+
+@keyframes seal-sway {
+  0%,
+  100% {
+    transform:
+      rotate(6deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      rotate(3deg)
+      translateY(-10px);
+  }
 }
 
 /* =========================================================
@@ -1666,6 +1453,67 @@ watch(
   padding: 90px 0 64px;
 
   text-align: center;
+}
+
+/*
+ * Quầng sáng chuyển động chậm phía sau tiêu đề. Ba lớp màu
+ * (son, vàng kim, hồng đất) trôi lệch nhịp nhau nên vùng sáng
+ * không đứng yên một chỗ — mắt thấy trang "thở" dù không có
+ * gì di chuyển hẳn.
+ *
+ * Đặt sau nội dung và chặn sự kiện chuột để không ảnh hưởng
+ * tới việc bấm nút.
+ */
+.hero-aurora {
+  position: absolute;
+
+  top: -140px;
+  left: 50%;
+
+  width: min(1100px, 130vw);
+  height: 620px;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(166, 58, 46, 0.13),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 70% 55%,
+      rgba(185, 151, 91, 0.16),
+      transparent 58%
+    ),
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(176, 122, 110, 0.1),
+      transparent 60%
+    );
+
+  filter: blur(30px);
+
+  animation: aurora-drift 18s ease-in-out infinite;
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      translateY(-26px)
+      scale(1.06);
+  }
 }
 
 .hero-inner {
@@ -1730,13 +1578,18 @@ watch(
     Georgia,
     serif;
 
+  /*
+   * Cỡ chữ chảy theo bề rộng màn hình: 34px ở máy nhỏ, phình
+   * dần tới 76px ở màn rộng. Một công thức dùng chung cho mọi
+   * thiết bị nên không có bậc nhảy cỡ chữ ở mốc breakpoint.
+   */
   font-size: clamp(
-    42px,
-    5.4vw,
+    34px,
+    6.2vw,
     76px
   );
 
-  line-height: 0.98;
+  line-height: 1.02;
 
   letter-spacing: -0.025em;
 
@@ -1751,16 +1604,169 @@ watch(
   font-style: italic;
 }
 
-.page-hero p {
-  max-width: 680px;
+.hero-lead {
+  max-width: 640px;
 
-  margin: 25px auto 0;
+  margin: 22px auto 0;
 
   color: var(--muted);
 
-  font-size: 16px;
+  font-size: clamp(
+    14px,
+    1.6vw,
+    17px
+  );
 
-  line-height: 1.85;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   HERO ACTIONS
+========================================================= */
+
+.hero-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+.hero-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 50px;
+
+  padding: 0 26px;
+
+  border-radius: 999px;
+
+  font-size: clamp(
+    13px,
+    1.4vw,
+    15px
+  );
+
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.hero-btn svg {
+  width: 17px;
+  height: 17px;
+
+  transition: transform 0.25s ease;
+}
+
+.hero-btn-primary {
+  border: 1px solid
+    var(--studio-ink, #2b2118);
+
+  background:
+    var(--studio-ink, #2b2118);
+
+  color: #f7f1e6;
+
+  box-shadow:
+    0 14px 32px
+      rgba(43, 33, 24, 0.2);
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 20px 42px
+      rgba(43, 33, 24, 0.26);
+}
+
+.hero-btn-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.hero-btn-ghost {
+  border: 1px solid
+    var(--studio-line-strong, rgba(43, 33, 24, 0.2));
+
+  background:
+    rgba(255, 255, 255, 0.7);
+
+  color: var(--studio-ink, #2b2118);
+}
+
+.hero-btn-ghost:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    var(--studio-ink, #2b2118);
+
+  background: #fff;
+}
+
+/* =========================================================
+   HERO TRUST
+========================================================= */
+
+.hero-trust {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px 20px;
+
+  margin: 22px 0 0;
+
+  padding: 0;
+
+  list-style: none;
+
+  color: var(--muted);
+
+  font-size: clamp(
+    11.5px,
+    1.2vw,
+    13px
+  );
+}
+
+.hero-trust li {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.trust-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background:
+    var(--studio-foil, var(--gold));
 }
 
 .hero-stats {
@@ -1768,7 +1774,7 @@ watch(
 
   align-items: center;
 
-  margin-top: 38px;
+  margin-top: 30px;
 
   padding: 13px 22px;
 
@@ -1808,6 +1814,10 @@ watch(
   font-size: 22px;
 
   font-weight: 600;
+
+  /* Số đếm lên liên tục nên phải cố định bề rộng chữ số,
+     nếu không cả cụm sẽ rung khi số nhảy. */
+  font-variant-numeric: tabular-nums;
 }
 
 .hero-stat span {
@@ -1859,7 +1869,11 @@ watch(
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 12.5px;
+  font-size: clamp(
+    12px,
+    1.15vw,
+    13.5px
+  );
 
   cursor: pointer;
 
@@ -1940,7 +1954,11 @@ watch(
 }
 
 .chip-text strong {
-  font-size: 12.5px;
+  font-size: clamp(
+    12px,
+    1.15vw,
+    13.5px
+  );
 
   font-weight: 700;
 }
@@ -1989,7 +2007,11 @@ watch(
 
   color: var(--muted);
 
-  font-size: 13px;
+  font-size: clamp(
+    12.5px,
+    1.2vw,
+    14px
+  );
 }
 
 .result-count strong {
@@ -2000,7 +2022,11 @@ watch(
     Georgia,
     serif;
 
-  font-size: 23px;
+  font-size: clamp(
+    20px,
+    2vw,
+    25px
+  );
 }
 
 .toolbar-right {
@@ -2201,6 +2227,47 @@ watch(
     border-color 0.3s ease;
 }
 
+/*
+ * Vệt sáng bám theo con trỏ — như ánh kim loại bắt sáng khi
+ * nghiêng tấm thiệp. Toạ độ do JS ghi vào --spot-x/--spot-y;
+ * chưa rê chuột thì vệt nằm ngoài khung nên không thấy gì.
+ *
+ * Chỉ hiện trên thiết bị có con trỏ thật: trên điện thoại
+ * không có "hover" nên lớp này chỉ tổ vẽ thừa.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .template-card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 4;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+      radial-gradient(
+        260px circle at var(--spot-x, -20%) var(--spot-y, -20%),
+        color-mix(
+          in srgb,
+          var(--card-accent, #b9975b) 22%,
+          transparent
+        ),
+        transparent 70%
+      );
+
+    transition: opacity 0.4s ease;
+  }
+
+  .template-card:hover::after {
+    opacity: 1;
+  }
+}
+
 .template-card:hover {
   transform:
     translateY(-10px);
@@ -2211,6 +2278,45 @@ watch(
   box-shadow:
     0 28px 65px
       rgba(43, 33, 24, 0.14);
+}
+
+/*
+ * Thẻ nổi bật tự phát sáng nhịp nhàng — không cần rê chuột vẫn
+ * thấy nó khác các thẻ còn lại. Chu kỳ 4.5s đủ chậm để không
+ * gây phân tâm khi đang đọc.
+ */
+.template-card.is-featured {
+  animation: featured-glow 4.5s ease-in-out infinite;
+}
+
+@keyframes featured-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 12px 35px rgba(43, 33, 24, 0.06),
+      0 0 0 0
+        color-mix(
+          in srgb,
+          var(--card-accent, #b9975b) 0%,
+          transparent
+        );
+  }
+
+  50% {
+    box-shadow:
+      0 18px 45px rgba(43, 33, 24, 0.1),
+      0 0 0 6px
+        color-mix(
+          in srgb,
+          var(--card-accent, #b9975b) 14%,
+          transparent
+        );
+  }
+}
+
+/* Đang rê chuột thì nhường hiệu ứng cho trạng thái hover. */
+.template-card.is-featured:hover {
+  animation: none;
 }
 
 .image-wrap {
@@ -2258,6 +2364,61 @@ watch(
     );
 
   pointer-events: none;
+}
+
+/*
+ * Vệt sáng chạy chéo qua ảnh — chạy một lần mỗi khi rê chuột
+ * vào thẻ, như ánh sáng quét qua mặt giấy bóng.
+ *
+ * Đặt sẵn ngoài khung (translateX(-120%)) rồi trượt sang phải;
+ * chỉ chạy khi hover nên không tốn gì lúc trang đứng yên.
+ */
+.image-sheen {
+  position: absolute;
+
+  top: -50%;
+  left: 0;
+
+  width: 55%;
+  height: 200%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.34) 50%,
+      transparent 100%
+    );
+
+  transform: translateX(-160%) rotate(8deg);
+
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .template-card:hover .image-sheen {
+    animation: sheen-sweep 1.1s cubic-bezier(.3,.7,.3,1);
+  }
+}
+
+@keyframes sheen-sweep {
+  0% {
+    transform: translateX(-160%) rotate(8deg);
+
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(320%) rotate(8deg);
+
+    opacity: 0;
+  }
 }
 
 /* =========================================================
@@ -2457,6 +2618,44 @@ watch(
     );
 }
 
+/*
+ * Trạng thái đã lưu: trái tim tô đầy và nảy lên một nhịp. Nhịp
+ * nảy chỉ chạy khi class vừa được thêm nên mỗi lần bấm là một
+ * lần phản hồi, không phải rung liên tục.
+ */
+.favorite-btn.is-on {
+  background:
+    color-mix(
+      in srgb,
+      var(--card-seal, #a63a2e) 92%,
+      transparent
+    );
+
+  border-color:
+    rgba(255, 255, 255, 0.85);
+
+  animation: heart-pop 0.45s
+    cubic-bezier(.2,1.4,.4,1);
+}
+
+.favorite-btn.is-on svg {
+  fill: currentColor;
+}
+
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.28);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .favorite-btn svg {
   width: 16px;
   height: 16px;
@@ -2493,6 +2692,21 @@ watch(
   text-transform: uppercase;
 
   z-index: 3;
+
+  /* Nhấp nhô nhẹ — huy hiệu "đang được chú ý" chứ không phải
+     một nhãn tĩnh nằm im. */
+  animation: badge-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes badge-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .featured-label span {
@@ -2543,13 +2757,50 @@ watch(
     Georgia,
     serif;
 
-  font-size: 26px;
+  /*
+   * Cỡ chữ theo bề rộng khung nhìn: thẻ nằm trong lưới 2–4 cột
+   * nên bề rộng thẻ cũng co giãn theo màn hình — dùng chung một
+   * công thức thì chữ và thẻ luôn cân nhau.
+   */
+  font-size: clamp(
+    19px,
+    1.9vw,
+    26px
+  );
 
-  line-height: 1.1;
+  line-height: 1.12;
 
   font-weight: 600;
 
   color: var(--card-ink, var(--text));
+}
+
+/*
+ * Một dòng mô tả phong cách của mẫu. Cắt sau hai dòng để các
+ * thẻ trong cùng hàng luôn cao bằng nhau dù mô tả dài ngắn khác
+ * nhau.
+ */
+.card-desc {
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  margin: 7px 0 0;
+
+  color: #8a7a76;
+
+  font-size: clamp(
+    11px,
+    1.05vw,
+    12.5px
+  );
+
+  line-height: 1.55;
 }
 
 /* =========================================================
@@ -2577,6 +2828,19 @@ watch(
       rgba(43, 33, 24, 0.08);
 
   opacity: 0.9;
+
+  /*
+   * Dải màu bản sắc nở dần từ trái sang khi thẻ hiện ra — mỗi
+   * ô lệch nhau 90ms (do template đặt) nên chạy như một làn
+   * sóng nhỏ chạy ngang qua dải.
+   */
+  transform-origin: left center;
+
+  transition:
+    transform 0.5s cubic-bezier(.2,.8,.2,1),
+    opacity 0.5s ease;
+
+  transition-delay: var(--swatch-delay, 0ms);
 }
 
 .identity-swatch:first-child {
@@ -2593,6 +2857,16 @@ watch(
   font-size: 14px;
 
   line-height: 1;
+
+  /* Ấn ký xoay chậm — chi tiết nhỏ nhưng làm thẻ có sức sống
+     ngay cả khi người dùng không chạm vào. */
+  animation: orn-turn 14s linear infinite;
+}
+
+@keyframes orn-turn {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* =========================================================
@@ -2600,19 +2874,79 @@ watch(
 ========================================================= */
 
 .collection-note {
-  margin: 34px 0 0;
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin: 40px 0 0;
 
   text-align: center;
+}
+
+.note-line {
+  margin: 0;
 
   color: var(--muted);
 
-  font-size: 12.5px;
+  font-size: clamp(
+    12px,
+    1.2vw,
+    13.5px
+  );
 
   letter-spacing: 0.02em;
 }
 
 .collection-note strong {
   color: var(--studio-ink);
+}
+
+/*
+ * Lối thoát cho người xem hết lưới mà chưa chọn được mẫu —
+ * đặt ngay cuối danh sách, đúng lúc họ đang lưỡng lự.
+ */
+.note-cta {
+  padding: 12px 22px;
+
+  border: 1px dashed
+    var(--studio-line-strong, rgba(43, 33, 24, 0.24));
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: var(--studio-ink, #2b2118);
+
+  font-size: clamp(
+    12px,
+    1.2vw,
+    13.5px
+  );
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.note-cta:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    var(--studio-ink, #2b2118);
+
+  border-style: solid;
+
+  background:
+    rgba(255, 255, 255, 0.8);
 }
 
 .card-footer {
@@ -2865,978 +3199,6 @@ watch(
 }
 
 /* =========================================================
-   DETAIL MODAL
-========================================================= */
-
-.detail-modal {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 9999;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 30px;
-
-  background:
-    rgba(18, 11, 13, 0.78);
-
-  backdrop-filter:
-    blur(13px);
-}
-
-.detail-panel {
-  position: relative;
-
-  width: min(
-    1100px,
-    100%
-  );
-
-  max-height:
-    min(850px, calc(100vh - 60px));
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1.02fr)
-    minmax(390px, 0.98fr);
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.12);
-
-  border-radius: 25px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #3a2c28 0%,
-      #241a18 100%
-    );
-
-  color: #fff;
-
-  box-shadow:
-    0 40px 100px
-      rgba(0,0,0,0.5);
-}
-
-/* =========================================================
-   CLOSE
-========================================================= */
-
-.close-btn {
-  position: absolute;
-
-  top: 15px;
-  right: 15px;
-
-  z-index: 20;
-
-  width: 40px;
-  height: 40px;
-
-  display: grid;
-  place-items: center;
-
-  padding: 0;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.25);
-
-  border-radius: 50%;
-
-  background:
-    rgba(43, 33, 24, 0.6);
-
-  backdrop-filter: blur(12px);
-
-  cursor: pointer;
-
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
-}
-
-.close-btn:hover {
-  transform: rotate(90deg);
-
-  background:
-    rgba(255,255,255,0.15);
-}
-
-.close-btn span {
-  position: absolute;
-
-  width: 16px;
-  height: 1.5px;
-
-  background: #fff;
-
-  border-radius: 999px;
-}
-
-.close-btn span:first-child {
-  transform: rotate(45deg);
-}
-
-.close-btn span:last-child {
-  transform: rotate(-45deg);
-}
-
-/* =========================================================
-   PREVIEW
-========================================================= */
-
-.detail-preview {
-  position: relative;
-
-  min-height: 680px;
-
-  overflow: hidden;
-
-  background:
-    radial-gradient(
-      circle at 50% 40%,
-      color-mix(
-        in srgb,
-        var(--card-accent, #b9975b) 16%,
-        transparent
-      ),
-      transparent 38%
-    ),
-    linear-gradient(
-      145deg,
-      color-mix(
-        in srgb,
-        var(--card-seal, #3a2c28) 78%,
-        #1a1210
-      ),
-      #1a1210
-    );
-}
-
-.preview-header {
-  position: absolute;
-
-  top: 22px;
-  left: 25px;
-  right: 25px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  z-index: 5;
-
-  color:
-    rgba(255,255,255,0.52);
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.18em;
-}
-
-.preview-device {
-  display: flex;
-
-  align-items: center;
-  gap: 7px;
-
-  letter-spacing: 0.05em;
-}
-
-.device-dot {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background: var(--card-accent, #b9975b);
-
-  box-shadow:
-    0 0 10px
-      color-mix(
-        in srgb,
-        var(--card-accent, #b9975b) 80%,
-        transparent
-      );
-}
-
-.preview-stage {
-  position: absolute;
-
-  inset: 55px 30px 45px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-}
-
-.preview-phone {
-  position: relative;
-
-  width: min(
-    330px,
-    75%
-  );
-
-  height: min(
-    620px,
-    82%
-  );
-
-  overflow: hidden;
-
-  border:
-    7px solid
-    #1a1210;
-
-  border-radius: 34px;
-
-  background: #eee;
-
-  box-shadow:
-    0 30px 70px
-      rgba(0,0,0,0.55),
-
-    0 0 0 1px
-      rgba(255,255,255,0.1);
-
-  transform:
-    rotate(-1deg);
-
-  transition:
-    transform 0.5s ease;
-}
-
-.detail-panel:hover
-.preview-phone {
-  transform:
-    rotate(0deg)
-    translateY(-4px);
-}
-
-.phone-top {
-  position: absolute;
-
-  top: 0;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  width: 90px;
-  height: 19px;
-
-  z-index: 5;
-
-  border-radius:
-    0 0 14px 14px;
-
-  background: #1a1210;
-}
-
-.phone-top span {
-  position: absolute;
-
-  left: 50%;
-  top: 6px;
-
-  width: 28px;
-  height: 4px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 999px;
-
-  background: #2c211e;
-}
-
-.phone-screen {
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-}
-
-.phone-screen img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-}
-
-.phone-bottom {
-  position: absolute;
-
-  bottom: 5px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  width: 80px;
-  height: 4px;
-
-  border-radius: 999px;
-
-  background:
-    rgba(255,255,255,0.75);
-
-  z-index: 5;
-}
-
-.preview-decoration {
-  position: absolute;
-
-  color:
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 65%,
-      transparent
-    );
-
-  font-family: var(--font-heading);
-
-  font-size: 24px;
-
-  animation:
-    floating 4s ease-in-out infinite;
-}
-
-.decoration-1 {
-  top: 23%;
-  left: 13%;
-}
-
-.decoration-2 {
-  bottom: 20%;
-  right: 12%;
-
-  animation-delay: -1.5s;
-}
-
-.preview-footer {
-  position: absolute;
-
-  bottom: 17px;
-  left: 0;
-  right: 0;
-
-  display: flex;
-
-  justify-content: center;
-
-  gap: 8px;
-
-  color:
-    rgba(255,255,255,0.4);
-
-  font-size: 11px;
-
-  letter-spacing: 0.04em;
-}
-
-/* =========================================================
-   DETAIL CONTENT
-========================================================= */
-
-.detail-content {
-  min-width: 0;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,0.045),
-      rgba(255,255,255,0.018)
-    );
-}
-
-.detail-scroll {
-  height: 100%;
-
-  overflow-y: auto;
-
-  padding:
-    46px 36px 30px;
-
-  scrollbar-width: thin;
-
-  scrollbar-color:
-    rgba(255,255,255,0.15)
-    transparent;
-}
-
-.detail-topline {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 15px;
-}
-
-.info-badge {
-  display: inline-flex;
-
-  align-items: center;
-
-  min-height: 25px;
-
-  padding: 0 10px;
-
-  border:
-    1px solid
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 35%,
-      transparent
-    );
-
-  border-radius: 999px;
-
-  color: var(--card-accent, #b9975b);
-
-  background:
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 8%,
-      transparent
-    );
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-  text-transform: uppercase;
-}
-
-.template-code {
-  color:
-    rgba(255,255,255,0.25);
-
-  font-size: 11px;
-
-  letter-spacing: 0.08em;
-}
-
-.detail-content h2 {
-  margin: 17px 0 6px;
-
-  font-family:
-    var(--font-heading),
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: clamp(
-    36px,
-    4vw,
-    53px
-  );
-
-  line-height: 0.98;
-
-  font-weight: 500;
-
-  letter-spacing: -0.025em;
-
-  color: #fff;
-}
-
-.detail-date {
-  margin: 0;
-
-  color:
-    rgba(255,255,255,0.5);
-
-  font-size: 13px;
-}
-
-/* =========================================================
-   DETAIL IDENTITY (dải màu + bộ sưu tập trong modal)
-========================================================= */
-
-.detail-identity {
-  display: flex;
-
-  align-items: center;
-
-  gap: 6px;
-
-  margin-top: 14px;
-}
-
-.detail-identity .identity-swatch {
-  width: 22px;
-  height: 6px;
-
-  border-radius: 999px;
-
-  opacity: 0.9;
-}
-
-.detail-identity .identity-swatch:first-child {
-  width: 34px;
-}
-
-.detail-collection {
-  margin-left: auto;
-
-  color:
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 75%,
-      #ffffff
-    );
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
-
-  text-transform: uppercase;
-}
-
-.gold-rule {
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin: 20px 0;
-}
-
-.gold-rule span {
-  width: 38px;
-  height: 1px;
-
-  background:
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 45%,
-      transparent
-    );
-}
-
-.gold-rule i {
-  color: var(--card-accent, #b9975b);
-
-  font-family: var(--font-symbol, var(--font-heading));
-
-  font-size: 13px;
-
-  font-style: normal;
-
-  line-height: 1;
-}
-
-.description {
-  margin: 0;
-
-  color:
-    rgba(255,255,255,0.58);
-
-  font-size: 13px;
-
-  line-height: 1.8;
-}
-
-/* =========================================================
-   INFORMATION
-========================================================= */
-
-.detail-information {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0,1fr));
-
-  gap: 8px;
-
-  margin-top: 24px;
-}
-
-.information-item {
-  min-width: 0;
-
-  display: flex;
-
-  gap: 9px;
-
-  padding: 11px;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.06);
-
-  border-radius: 10px;
-
-  background:
-    rgba(255,255,255,0.025);
-}
-
-.information-icon {
-  flex: 0 0 auto;
-
-  color: var(--card-accent, #b9975b);
-
-  font-size: 15px;
-}
-
-.information-item > div {
-  min-width: 0;
-}
-
-.meta-label {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color:
-    rgba(255,255,255,0.3);
-
-  font-size: 10px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.09em;
-}
-
-.information-item strong {
-  display: block;
-
-  overflow: hidden;
-
-  color:
-    rgba(255,255,255,0.8);
-
-  font-size: 10px;
-
-  font-weight: 500;
-
-  line-height: 1.4;
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-}
-
-/* =========================================================
-   FEATURES
-========================================================= */
-
-.features-section {
-  margin-top: 27px;
-}
-
-.section-heading {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  margin-bottom: 12px;
-
-  color:
-    rgba(255,255,255,0.78);
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.09em;
-
-  text-transform: uppercase;
-}
-
-.section-heading i {
-  flex: 1;
-
-  height: 1px;
-
-  background:
-    rgba(255,255,255,0.07);
-}
-
-.features-grid {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap: 9px 20px;
-}
-
-.feature-item {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-}
-
-.feature-item > span {
-  width: 15px;
-
-  color: var(--card-accent, #b9975b);
-
-  font-size: 10px;
-
-  text-align: center;
-}
-
-.feature-item p {
-  margin: 0;
-
-  color:
-    rgba(255,255,255,0.53);
-
-  font-size: 10px;
-}
-
-/* =========================================================
-   QR
-========================================================= */
-
-.demo-section {
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-  margin-top: 27px;
-
-  padding-top: 21px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,0.07);
-}
-
-.qr-box {
-  width: 86px;
-  height: 86px;
-
-  flex: 0 0 auto;
-
-  display: grid;
-  place-items: center;
-
-  padding: 6px;
-
-  border-radius: 9px;
-
-  background: #fff;
-
-  box-shadow:
-    0 10px 25px
-      rgba(0,0,0,0.18);
-}
-
-.qr-box img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-}
-
-.qr-content strong {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color:
-    rgba(255,255,255,0.82);
-
-  font-size: 11px;
-}
-
-.qr-content p {
-  max-width: 230px;
-
-  margin: 0;
-
-  color:
-    rgba(255,255,255,0.4);
-
-  font-size: 11px;
-
-  line-height: 1.55;
-}
-
-.qr-content span {
-  display: block;
-
-  margin-top: 5px;
-
-  color:
-    rgba(255,255,255,0.25);
-
-  font-size: 10px;
-}
-
-/* =========================================================
-   ACTIONS
-========================================================= */
-
-.detail-actions {
-  display: grid;
-
-  grid-template-columns:
-    1.2fr 1fr;
-
-  gap: 9px;
-
-  margin-top: 20px;
-}
-
-.detail-actions button {
-  min-height: 44px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  border-radius: 10px;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
-}
-
-.detail-actions button:hover {
-  transform:
-    translateY(-2px);
-}
-
-.primary-btn {
-  border: none;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--card-seal, #a63a2e),
-      color-mix(
-        in srgb,
-        var(--card-seal, #7c2a20) 70%,
-        #1a1210
-      )
-    );
-
-  color: #fff;
-
-  box-shadow:
-    0 8px 25px
-      color-mix(
-        in srgb,
-        var(--card-seal, #7c2a20) 30%,
-        transparent
-      );
-}
-
-.primary-btn span {
-  font-size: 18px;
-
-  font-weight: 400;
-}
-
-.secondary-btn {
-  border:
-    1px solid
-    rgba(255,255,255,0.35);
-
-  background:
-    transparent;
-
-  color:
-    rgba(255,255,255,0.78);
-}
-
-.secondary-btn svg {
-  width: 15px;
-  height: 15px;
-}
-
-.share-btn {
-  width: 100%;
-
-  min-height: 38px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  margin-top: 9px;
-
-  border: none;
-
-  border-radius: 9px;
-
-  background:
-    rgba(255,255,255,0.035);
-
-  color:
-    rgba(255,255,255,0.4);
-
-  font-size: 10px;
-
-  cursor: pointer;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
-}
-
-.share-btn:hover {
-  background:
-    rgba(255,255,255,0.07);
-
-  color:
-    rgba(255,255,255,0.75);
-}
-
-.share-btn svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* =========================================================
    TOAST
 ========================================================= */
 
@@ -3900,44 +3262,6 @@ watch(
   }
 }
 
-/* modal */
-.detail-modal-enter-active,
-.detail-modal-leave-active {
-  transition:
-    opacity 0.35s ease;
-}
-
-.detail-modal-enter-active
-.detail-panel,
-.detail-modal-leave-active
-.detail-panel {
-  transition:
-    transform 0.4s
-      cubic-bezier(.2,.8,.2,1),
-    opacity 0.35s ease;
-}
-
-.detail-modal-enter-from,
-.detail-modal-leave-to {
-  opacity: 0;
-}
-
-.detail-modal-enter-from
-.detail-panel {
-  transform:
-    translateY(25px)
-    scale(0.97);
-  opacity: 0;
-}
-
-.detail-modal-leave-to
-.detail-panel {
-  transform:
-    translateY(15px)
-    scale(0.985);
-  opacity: 0;
-}
-
 /* toast */
 .toast-enter-active,
 .toast-leave-active {
@@ -3964,16 +3288,6 @@ watch(
       repeat(3, minmax(0,1fr));
 
     gap: 22px;
-  }
-
-  .detail-panel {
-    grid-template-columns:
-      1fr 1fr;
-  }
-
-  .detail-information {
-    grid-template-columns:
-      1fr;
   }
 }
 
@@ -4014,6 +3328,14 @@ watch(
     display: none;
   }
 
+  /*
+   * Quầng sáng lớn và nhoè rất tốn cho GPU điện thoại, mà màn
+   * nhỏ thì gần như không thấy khác biệt — bỏ hẳn.
+   */
+  .hero-aurora {
+    display: none;
+  }
+
   .page-seal {
     display: none;
   }
@@ -4038,29 +3360,6 @@ watch(
     flex: 1;
 
     width: auto;
-  }
-
-  .detail-modal {
-    padding: 18px;
-  }
-
-  .detail-panel {
-    max-height:
-      calc(100vh - 36px);
-
-    grid-template-columns:
-      1fr;
-  }
-
-  .detail-preview {
-    min-height: 370px;
-
-    height: 43vh;
-  }
-
-  .detail-scroll {
-    padding:
-      28px 28px 26px;
   }
 }
 
@@ -4107,22 +3406,46 @@ watch(
   .page-hero h1 {
     font-size:
       clamp(
-        38px,
-        12vw,
-        54px
+        32px,
+        10.5vw,
+        46px
       );
 
-    line-height: 0.98;
+    line-height: 1.04;
   }
 
-  .page-hero p {
-    margin-top: 18px;
+  .hero-lead {
+    margin-top: 16px;
 
-    padding: 0 7px;
+    padding: 0 6px;
+
+    font-size: 13.5px;
+
+    line-height: 1.72;
+  }
+
+  .hero-actions {
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .hero-btn {
+    flex: 1 1 auto;
+
+    min-height: 46px;
+
+    padding: 0 18px;
 
     font-size: 13px;
+  }
 
-    line-height: 1.75;
+  .hero-trust {
+    gap: 6px 14px;
+
+    margin-top: 16px;
+
+    font-size: 11.5px;
   }
 
   .hero-stats {
@@ -4132,7 +3455,7 @@ watch(
 
     padding: 11px 5px;
 
-    margin-top: 25px;
+    margin-top: 22px;
   }
 
   .hero-stat {
@@ -4166,8 +3489,16 @@ watch(
     margin-bottom: 20px;
   }
 
+  /*
+   * Giữ lại dòng đếm số mẫu trên điện thoại — đó là thông tin
+   * người xem cần biết trước khi cuộn qua cả danh sách.
+   */
   .toolbar-left {
-    display: none;
+    text-align: center;
+  }
+
+  .result-count {
+    justify-content: center;
   }
 
   .toolbar-right {
@@ -4253,7 +3584,15 @@ watch(
   }
 
   .card-body h3 {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .card-desc {
+    margin-top: 5px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
   }
 
   .identity-row {
@@ -4273,243 +3612,42 @@ watch(
   }
 
   .collection-note {
-    margin-top: 22px;
+    gap: 12px;
 
+    margin-top: 26px;
+  }
+
+  .note-line {
     font-size: 11.5px;
+  }
+
+  .note-cta {
+    width: 100%;
+
+    padding: 11px 16px;
+
+    font-size: 12px;
   }
 
   .card-footer {
     margin-top: 10px;
   }
 
+  /*
+   * Thẻ trên điện thoại chỉ rộng chừng nửa màn hình — để hai
+   * thứ nằm cạnh nhau thì nút bị bóp lại. Cả thẻ vốn đã bấm
+   * được nên bỏ dòng "Xem chi tiết", nhường chỗ cho nút.
+   */
   .view-detail {
-    font-size: 11px;
-  }
-
-  .use-template-btn {
-    padding:
-      7px 8px;
-
-    font-size: 10px;
-  }
-
-  /* ===============================
-     MODAL MOBILE
-  =============================== */
-
-  .detail-modal {
-    padding: 0;
-
-    align-items: flex-end;
-  }
-
-  .detail-panel {
-    width: 100%;
-
-    max-height: 100dvh;
-
-    height: 100dvh;
-
-    border-radius:
-      22px 22px 0 0;
-
-    grid-template-rows:
-      43dvh
-      57dvh;
-
-    grid-template-columns: 1fr;
-  }
-
-  .detail-preview {
-    min-height: 0;
-
-    height: auto;
-  }
-
-  .preview-header {
-    top: 13px;
-    left: 16px;
-    right: 62px;
-  }
-
-  .preview-stage {
-    inset:
-      35px 15px 30px;
-  }
-
-  .preview-phone {
-    width: min(
-      220px,
-      56vw
-    );
-
-    height: 88%;
-
-    border-width: 5px;
-
-    border-radius: 24px;
-  }
-
-  .phone-top {
-    width: 62px;
-    height: 13px;
-  }
-
-  .phone-top span {
-    top: 4px;
-
-    width: 20px;
-    height: 3px;
-  }
-
-  .phone-bottom {
-    bottom: 3px;
-
-    width: 55px;
-    height: 3px;
-  }
-
-  .preview-footer {
-    bottom: 10px;
-
-    font-size: 11px;
-  }
-
-  .preview-decoration {
-    font-size: 17px;
-  }
-
-  .detail-scroll {
-    padding:
-      25px 18px 28px;
-  }
-
-  .detail-content h2 {
-    font-size: 34px;
-  }
-
-  .detail-date {
-    font-size: 11px;
-  }
-
-  .detail-identity {
-    margin-top: 10px;
-  }
-
-  .detail-identity .identity-swatch {
-    width: 16px;
-    height: 5px;
-  }
-
-  .detail-identity .identity-swatch:first-child {
-    width: 26px;
-  }
-
-  .detail-collection {
-    font-size: 9px;
-  }
-
-  .description {
-    font-size: 11px;
-
-    line-height: 1.7;
-  }
-
-  .detail-information {
-    grid-template-columns:
-      repeat(3, minmax(0,1fr));
-
-    gap: 6px;
-
-    margin-top: 17px;
-  }
-
-  .information-item {
-    padding: 8px;
-
-    display: block;
-  }
-
-  .information-icon {
     display: none;
   }
 
-  .meta-label {
-    font-size: 11px;
-  }
+  .use-template-btn {
+    width: 100%;
 
-  .information-item strong {
-    font-size: 10px;
-  }
+    padding: 9px 10px;
 
-  .features-section {
-    margin-top: 19px;
-  }
-
-  .features-grid {
-    gap:
-      7px 10px;
-  }
-
-  .feature-item {
-    gap: 5px;
-  }
-
-  .feature-item > span {
-    width: 11px;
-
-    font-size: 10px;
-  }
-
-  .feature-item p {
-    font-size: 10px;
-  }
-
-  .demo-section {
-    margin-top: 18px;
-
-    padding-top: 15px;
-  }
-
-  .qr-box {
-    width: 65px;
-    height: 65px;
-  }
-
-  .qr-content strong {
-    font-size: 11px;
-  }
-
-  .qr-content p {
-    font-size: 11px;
-  }
-
-  .qr-content span {
-    font-size: 11px;
-  }
-
-  .detail-actions {
-    margin-top: 15px;
-  }
-
-  .detail-actions button {
-    min-height: 42px;
-
-    font-size: 11px;
-  }
-
-  .share-btn {
-    min-height: 34px;
-
-    font-size: 10px;
-  }
-
-  .close-btn {
-    top: 10px;
-    right: 10px;
-
-    width: 34px;
-    height: 34px;
+    font-size: 11.5px;
   }
 
   .state-box {
@@ -4533,7 +3671,11 @@ watch(
   }
 
   .card-body h3 {
-    font-size: 17px;
+    font-size: 16px;
+  }
+
+  .card-desc {
+    display: none;
   }
 
   .identity-row {
@@ -4548,28 +3690,14 @@ watch(
     width: 16px;
   }
 
-  .card-footer {
-    display: block;
-  }
-
   .use-template-btn {
-    width: 100%;
+    padding: 8px 8px;
 
-    margin-top: 8px;
+    font-size: 11px;
   }
 
-  .detail-panel {
-    grid-template-rows:
-      39dvh
-      61dvh;
-  }
-
-  .preview-phone {
-    width: 190px;
-  }
-
-  .detail-content h2 {
-    font-size: 30px;
+  .hero-btn {
+    flex: 1 1 100%;
   }
 
   .back-btn {

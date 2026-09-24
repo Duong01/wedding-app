@@ -110,8 +110,12 @@ function onSelect(item) {
     return;
   }
 
+  /*
+   * Bước 1 của luồng xem thiệp — trang giới thiệu mẫu.
+   * Từ đó khách bấm "Xem thiệp" mới sang bước 2 (phong bì).
+   */
   router.push({
-    name: "WeddingBySlug",
+    name: "WeddingIntro",
     params: { slug: item.slug },
   });
 }

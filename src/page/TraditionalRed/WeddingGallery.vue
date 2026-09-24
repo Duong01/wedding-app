@@ -21,6 +21,7 @@
       v-if="dialog"
       :images="images"
       :start-index="currentIndex"
+      accent="#680e0e"
       @close="closeLightbox"
     />
   </section>

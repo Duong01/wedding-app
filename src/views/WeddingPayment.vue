@@ -31,9 +31,9 @@
         </h1>
 
         <p>
-          Chuyển khoản theo thông tin bên dưới với nội dung
-          <strong class="slug-strong">/{{ slug }}</strong>
-          — thiệp sẽ được kích hoạt ngay sau khi admin xác nhận.
+          Quét mã QR bên dưới bằng app ngân hàng, sau đó bấm
+          <strong>“Tôi đã chuyển khoản”</strong> để chúng tôi đối soát và
+          kích hoạt thiệp <strong class="slug-strong">/{{ slug }}</strong>.
         </p>
       </div>
     </section>
@@ -120,109 +120,144 @@
             </span>
           </div>
 
-          <!-- CẢNH BÁO: API chưa có / đang dùng thông tin mẫu -->
-          <div v-if="usingFallbackInfo" class="fallback-warning">
-            <v-icon size="16"> mdi-information-outline </v-icon>
-
-            <span>
-              API <code>getPaymentInfo</code> chưa sẵn sàng — đang hiển thị
-              thông tin mẫu. Admin cần gọi
-              <code>updatePaymentInfo</code> hoặc cập nhật fallback trong
-              <code>WeddingPayment.vue</code>.
-            </span>
-          </div>
-
-          <!-- QR -->
-          <div class="qr-wrap">
-            <img
-              v-if="qrUrl"
-              :src="qrUrl"
-              alt="Mã QR chuyển khoản"
-              class="qr-image"
-            />
-
-            <div v-else class="qr-placeholder">
-              <v-icon size="30"> mdi-qrcode </v-icon>
-
-              <span> Không tạo được mã QR </span>
+          <!-- ==========================================
+               CHƯA CẤU HÌNH TÀI KHOẢN
+               Cố ý KHÔNG hiện số nào. Thà không thanh toán
+               được còn hơn chỉ sai số tài khoản.
+          =========================================== -->
+          <div v-if="!hasPaymentInfo" class="not-configured">
+            <div class="not-configured-icon">
+              <v-icon size="26"> mdi-bank-off-outline </v-icon>
             </div>
 
-            <p class="qr-hint">
-              Quét bằng app ngân hàng — thông tin đã điền sẵn
+            <h4>Chưa có thông tin tài khoản nhận thanh toán</h4>
+
+            <p>
+              Hệ thống chưa được cấu hình tài khoản nhận tiền, nên
+              <strong>chưa thể hiển thị mã QR</strong>. Vui lòng liên hệ hỗ
+              trợ để được kích hoạt thủ công — bạn chưa cần chuyển khoản gì.
             </p>
-          </div>
 
-          <!-- BANK ROWS -->
-          <div class="bank-rows">
-            <div class="bank-row">
-              <span class="bank-label">Ngân hàng</span>
-
-              <span class="bank-value">
-                {{ paymentInfo.bankName }}
-              </span>
-            </div>
-
-            <div class="bank-row">
-              <span class="bank-label">Chủ tài khoản</span>
-
-              <span class="bank-value">
-                {{ paymentInfo.accountName }}
-              </span>
-            </div>
-
-            <div class="bank-row copyable" @click="copyValue('Số tài khoản', paymentInfo.accountNumber)">
-              <span class="bank-label">Số tài khoản</span>
-
-              <span class="bank-value mono">
-                {{ paymentInfo.accountNumber }}
-              </span>
-
-              <button
-                type="button"
-                class="copy-btn"
-                title="Sao chép số tài khoản"
+            <div class="state-actions">
+              <a
+                v-if="supportPhone"
+                :href="`tel:${phoneHref(supportPhone)}`"
+                class="retry-btn"
               >
-                <v-icon size="15"> mdi-content-copy </v-icon>
-              </button>
-            </div>
+                Gọi {{ supportPhone }}
+              </a>
 
-            <div class="bank-row copyable" @click="copyValue('Số tiền', String(amount))">
-              <span class="bank-label">Số tiền</span>
-
-              <span class="bank-value strong">
-                {{ formatVnd(amount) }}
-              </span>
-
-              <button type="button" class="copy-btn" title="Sao chép số tiền">
-                <v-icon size="15"> mdi-content-copy </v-icon>
-              </button>
-            </div>
-
-            <div
-              class="bank-row copyable"
-              @click="copyValue('Nội dung chuyển khoản', transferContent)"
-            >
-              <span class="bank-label">Nội dung CK</span>
-
-              <span class="bank-value mono">
-                {{ transferContent }}
-              </span>
-
-              <button
-                type="button"
-                class="copy-btn"
-                title="Sao chép nội dung chuyển khoản"
+              <a
+                v-if="supportEmail"
+                :href="`mailto:${supportEmail}`"
+                class="ghost-btn"
               >
-                <v-icon size="15"> mdi-content-copy </v-icon>
-              </button>
+                Gửi email hỗ trợ
+              </a>
             </div>
           </div>
 
-          <p class="pay-note">
-            Nội dung chuyển khoản chính là
-            <strong>slug của thiệp</strong> — giúp admin đối soát và kích hoạt
-            đúng thiệp của bạn.
-          </p>
+          <!-- ==========================================
+               ĐÃ CẤU HÌNH — QR + THÔNG TIN
+          =========================================== -->
+          <template v-else>
+            <div class="qr-wrap">
+              <img
+                v-if="qrUrl"
+                :src="qrUrl"
+                alt="Mã QR chuyển khoản"
+                class="qr-image"
+              />
+
+              <div v-else class="qr-placeholder">
+                <v-icon size="30"> mdi-qrcode </v-icon>
+
+                <span> Không tạo được mã QR </span>
+              </div>
+
+              <p class="qr-hint">
+                Quét bằng app ngân hàng — số tiền và nội dung đã điền sẵn
+              </p>
+            </div>
+
+            <!-- BANK ROWS -->
+            <div class="bank-rows">
+              <div class="bank-row">
+                <span class="bank-label">Ngân hàng</span>
+
+                <span class="bank-value">
+                  {{ paymentInfo.bankName }}
+                </span>
+              </div>
+
+              <div class="bank-row">
+                <span class="bank-label">Chủ tài khoản</span>
+
+                <span class="bank-value">
+                  {{ paymentInfo.accountName }}
+                </span>
+              </div>
+
+              <div
+                class="bank-row copyable"
+                @click="copyValue('Số tài khoản', paymentInfo.accountNumber)"
+              >
+                <span class="bank-label">Số tài khoản</span>
+
+                <span class="bank-value mono">
+                  {{ paymentInfo.accountNumber }}
+                </span>
+
+                <button
+                  type="button"
+                  class="copy-btn"
+                  title="Sao chép số tài khoản"
+                >
+                  <v-icon size="15"> mdi-content-copy </v-icon>
+                </button>
+              </div>
+
+              <div
+                class="bank-row copyable"
+                @click="copyValue('Số tiền', String(payAmount))"
+              >
+                <span class="bank-label">Số tiền</span>
+
+                <span class="bank-value strong">
+                  {{ formatVnd(payAmount) }}
+                </span>
+
+                <button type="button" class="copy-btn" title="Sao chép số tiền">
+                  <v-icon size="15"> mdi-content-copy </v-icon>
+                </button>
+              </div>
+
+              <div
+                class="bank-row copyable"
+                @click="copyValue('Nội dung chuyển khoản', transferContent)"
+              >
+                <span class="bank-label">Nội dung CK</span>
+
+                <span class="bank-value mono">
+                  {{ transferContent }}
+                </span>
+
+                <button
+                  type="button"
+                  class="copy-btn"
+                  title="Sao chép nội dung chuyển khoản"
+                >
+                  <v-icon size="15"> mdi-content-copy </v-icon>
+                </button>
+              </div>
+            </div>
+
+            <p class="pay-note">
+              Nội dung chuyển khoản chính là
+              <strong>slug của thiệp</strong> — giúp chúng tôi đối soát và
+              kích hoạt đúng thiệp của bạn.
+            </p>
+          </template>
         </div>
 
         <!-- ==============================================
@@ -237,85 +272,141 @@
             </span>
           </div>
 
-          <!-- ĐÃ BÁO THÀNH CÔNG -->
-          <div v-if="noticeDone" class="notice-success">
-            <div class="notice-success-icon">
-              <v-icon size="26"> mdi-check-circle-outline </v-icon>
+          <!-- ==========================================
+               ĐÃ GỬI — TIẾN ĐỘ THẬT
+          =========================================== -->
+          <div v-if="currentRequest" class="notice-block">
+            <div
+              class="notice-success-icon"
+              :class="{ rejected: isRejected }"
+            >
+              <v-icon size="26">
+                {{
+                  isRejected
+                    ? "mdi-alert-circle-outline"
+                    : "mdi-check-circle-outline"
+                }}
+              </v-icon>
             </div>
 
-            <h4>Đã ghi nhận yêu cầu</h4>
+            <h4>
+              {{ isRejected ? "Yêu cầu chưa được chấp nhận" : "Đã ghi nhận yêu cầu" }}
+            </h4>
 
-            <p>
-              Hệ thống đã nhận báo cáo chuyển khoản của bạn. Admin sẽ đối soát
-              và kích hoạt thiệp trong thời gian sớm nhất.
+            <!-- BẰNG CHỨNG CẦM TAY — mã yêu cầu + giờ gửi -->
+            <div class="receipt">
+              <div class="receipt-row">
+                <span>Mã yêu cầu</span>
+                <strong>#{{ currentRequest.id }}</strong>
+              </div>
+
+              <div class="receipt-row">
+                <span>Gửi lúc</span>
+                <strong>{{ formatDateTime(currentRequest.createdAt) }}</strong>
+              </div>
+
+              <div class="receipt-row">
+                <span>Số tiền</span>
+                <strong>{{ formatVnd(currentRequest.amount) }}</strong>
+              </div>
+
+              <div class="receipt-row">
+                <span>Nội dung CK</span>
+                <strong class="mono">{{ currentRequest.content }}</strong>
+              </div>
+            </div>
+
+            <!-- LÝ DO TỪ CHỐI -->
+            <div v-if="isRejected && currentRequest.adminNote" class="reject-note">
+              <v-icon size="15"> mdi-information-outline </v-icon>
+
+              <span>
+                <strong>Lý do:</strong>
+                {{ currentRequest.adminNote }}
+              </span>
+            </div>
+
+            <!-- THANH TIẾN ĐỘ 3 BƯỚC -->
+            <ol class="timeline">
+              <li
+                v-for="step in timeline"
+                :key="step.key"
+                class="timeline-step"
+                :class="step.state"
+              >
+                <span class="timeline-dot">
+                  <v-icon v-if="step.state === 'done'" size="12">
+                    mdi-check
+                  </v-icon>
+                </span>
+
+                <span class="timeline-body">
+                  <span class="timeline-label">{{ step.label }}</span>
+
+                  <span v-if="step.time" class="timeline-time">
+                    {{ step.time }}
+                  </span>
+
+                  <span v-else-if="step.hint" class="timeline-hint">
+                    {{ step.hint }}
+                  </span>
+                </span>
+              </li>
+            </ol>
+
+            <p class="notice-copy">
+              Thông thường chúng tôi xác nhận trong
+              <strong>khoảng 5 phút</strong> (giờ hành chính
+              {{ supportHours }}). Quá 30 phút chưa thấy cập nhật, bạn gọi
+              <strong v-if="supportPhone">{{ supportPhone }}</strong>
+              <strong v-else>số hỗ trợ</strong> để được kiểm tra ngay.
             </p>
 
             <div class="state-actions">
-              <button type="button" class="retry-btn" @click="goManage">
-                Về quản lý thiệp
+              <button
+                type="button"
+                class="retry-btn"
+                :disabled="checking"
+                @click="loadAll"
+              >
+                <v-progress-circular
+                  v-if="checking"
+                  indeterminate
+                  size="13"
+                  width="2"
+                />
+
+                Kiểm tra trạng thái
               </button>
 
-              <button type="button" class="ghost-btn" @click="goView">
-                Xem thiệp
+              <button
+                v-if="isRejected"
+                type="button"
+                class="ghost-btn"
+                @click="resetNotice"
+              >
+                Gửi lại
+              </button>
+
+              <button v-else type="button" class="ghost-btn" @click="goManage">
+                Về quản lý thiệp
               </button>
             </div>
           </div>
 
-          <!-- FORM BÁO CHUYỂN KHOẢN -->
+          <!-- ==========================================
+               CHƯA GỬI — 1 NÚT DUY NHẤT
+          =========================================== -->
           <template v-else>
-            <p v-if="paymentPending" class="pending-note">
-              <v-icon size="15"> mdi-clock-outline </v-icon>
-
-              Bạn đã báo chuyển khoản trước đó — đang chờ admin duyệt. Gửi lại
-              chỉ khi bạn chuyển khoản lần mới.
+            <p class="confirm-copy">
+              Sau khi chuyển khoản xong, bấm nút bên dưới để chúng tôi biết
+              mà kiểm tra sao kê. Bạn <strong>không cần nhập gì thêm</strong>.
             </p>
-
-            <label class="field-label" for="pay-amount">
-              Số tiền bạn đã chuyển (VNĐ)
-            </label>
-
-            <input
-              id="pay-amount"
-              v-model.number="amount"
-              type="number"
-              min="0"
-              step="1000"
-              class="field-input"
-            />
-
-            <p v-if="amountMismatch" class="field-warn">
-              Số tiền nhập khác với giá gói
-              ({{ formatVnd(paymentInfo.amount) }}) — admin vẫn sẽ đối soát
-              theo sao kê.
-            </p>
-
-            <label class="field-label" for="pay-time">
-              Thời gian chuyển khoản
-            </label>
-
-            <input
-              id="pay-time"
-              v-model="transferAt"
-              type="datetime-local"
-              class="field-input"
-            />
-
-            <label class="field-label" for="pay-content">
-              Nội dung chuyển khoản
-            </label>
-
-            <input
-              id="pay-content"
-              :value="transferContent"
-              type="text"
-              class="field-input mono"
-              readonly
-            />
 
             <button
               type="button"
               class="submit-btn"
-              :disabled="submitting || !amount || amount <= 0"
+              :disabled="submitting || !hasPaymentInfo"
               @click="submitNotice"
             >
               <v-progress-circular
@@ -331,12 +422,86 @@
               Tôi đã chuyển khoản
             </button>
 
-            <p class="submit-hint">
-              Sau khi gửi, admin sẽ kiểm tra sao kê ngân hàng và kích hoạt
-              thiệp của bạn.
-            </p>
+            <ul class="reassure">
+              <li>
+                <v-icon size="14"> mdi-shield-check-outline </v-icon>
+                Bạn <strong>không cần chuyển khoản lại</strong> — nếu đã
+                chuyển rồi thì bỏ qua bước này.
+              </li>
+
+              <li>
+                <v-icon size="14"> mdi-shield-check-outline </v-icon>
+                Nội dung thiệp của bạn <strong>vẫn được giữ nguyên</strong>
+                trong lúc chờ xác nhận.
+              </li>
+
+              <li v-if="refundPolicy">
+                <v-icon size="14"> mdi-shield-check-outline </v-icon>
+                {{ refundPolicy }}
+              </li>
+
+              <li>
+                <v-icon size="14"> mdi-shield-check-outline </v-icon>
+                Thanh toán <strong>một lần</strong> — không phí gia hạn hằng
+                năm, không tự động trừ tiền.
+              </li>
+            </ul>
           </template>
         </div>
+      </div>
+
+      <!-- =====================================================
+           KHỐI NIỀM TIN — ai nhận tiền, liên hệ ai
+      ====================================================== -->
+      <div v-if="!loading && !loadError && !isActivated" class="trust-card">
+        <div class="trust-head">
+          <v-icon size="18"> mdi-domain </v-icon>
+
+          <span>Đơn vị cung cấp dịch vụ</span>
+        </div>
+
+        <dl class="trust-rows">
+          <template v-if="business.legalName">
+            <dt>Đơn vị</dt>
+            <dd>{{ business.legalName }}</dd>
+          </template>
+
+          <template v-if="business.taxCode">
+            <dt>Mã số thuế</dt>
+            <dd class="mono">{{ business.taxCode }}</dd>
+          </template>
+
+          <template v-if="business.address">
+            <dt>Địa chỉ</dt>
+            <dd>{{ business.address }}</dd>
+          </template>
+
+          <template v-if="supportPhone">
+            <dt>Hỗ trợ</dt>
+            <dd>
+              <a :href="`tel:${phoneHref(supportPhone)}`">{{ supportPhone }}</a>
+            </dd>
+          </template>
+
+          <template v-if="supportEmail">
+            <dt>Email</dt>
+            <dd>
+              <a :href="`mailto:${supportEmail}`">{{ supportEmail }}</a>
+            </dd>
+          </template>
+
+          <template v-if="supportHours">
+            <dt>Giờ làm việc</dt>
+            <dd>{{ supportHours }}</dd>
+          </template>
+        </dl>
+
+        <p class="trust-note">
+          <v-icon size="14"> mdi-information-outline </v-icon>
+          Thông tin trên là của đơn vị vận hành website này. Nếu có bất kỳ
+          điểm nào bạn thấy chưa rõ, hãy liên hệ trước khi chuyển khoản —
+          chúng tôi không cần bạn vội.
+        </p>
       </div>
     </section>
 
@@ -365,6 +530,14 @@ import {
 
 import { PUBLISH_STATE, WEDDING_STATUS } from "@/model/weddingAdmin";
 
+import {
+  BUSINESS,
+  CONTACT,
+  PAID_PLAN,
+  REFUND_POLICY,
+  phoneHref,
+} from "@/data/siteContent";
+
 defineOptions({
   name: "WeddingPayment",
 });
@@ -383,29 +556,12 @@ const slug = computed(() => {
 });
 
 /* =========================================================
-   FALLBACK — thông tin tài khoản MẪU
-   Dùng khi API getPaymentInfo chưa có.
-   ⚠ Thay bằng thông tin thật của admin (hoặc gọi
-   updatePaymentInfo để lưu vào server).
-========================================================= */
-
-const FALLBACK_PAYMENT_INFO = {
-  bankName: "Vietcombank",
-
-  bankId: "970436",
-
-  accountName: "CONG TY THIET KE THIEP CUOI",
-
-  accountNumber: "0123456789",
-
-  amount: 50000,
-};
-
-/* =========================================================
    STATE
 ========================================================= */
 
 const loading = ref(true);
+
+const checking = ref(false);
 
 const loadError = ref("");
 
@@ -419,19 +575,23 @@ const status = ref("");
  */
 const publishState = ref("");
 
-const paymentInfo = ref({ ...FALLBACK_PAYMENT_INFO });
+/*
+ * Thông tin tài khoản nhận tiền. null = server CHƯA cấu hình.
+ *
+ * Trước đây chỗ này rơi về một object hardcode (Vietcombank /
+ * 0123456789 / "CONG TY THIET KE THIEP CUOI") nên khách quét QR là
+ * chuyển tiền vào số không tồn tại. Nay null thì hiện khối "chưa cấu
+ * hình" và KHÔNG hiện số nào.
+ */
+const paymentInfo = ref(null);
 
-const usingFallbackInfo = ref(false);
+/* Yêu cầu thanh toán mới nhất của thiệp (từ server). */
+const paymentStatus = ref(null);
 
-const amount = ref(FALLBACK_PAYMENT_INFO.amount);
-
-const transferAt = ref(nowLocalInput());
+/* Bản ghi vừa gửi trong phiên này — hiện ngay, không chờ gọi lại API. */
+const notice = ref(null);
 
 const submitting = ref(false);
-
-const noticeDone = ref(false);
-
-const paymentPending = ref(false);
 
 const toast = ref("");
 
@@ -440,7 +600,13 @@ const toast = ref("");
 ========================================================= */
 
 async function loadAll() {
-  loading.value = true;
+  // Lần đầu thì hiện skeleton; các lần "Kiểm tra trạng thái" sau chỉ
+  // xoay nút, không làm trang nhấp nháy.
+  if (loading.value) {
+    loading.value = true;
+  } else {
+    checking.value = true;
+  }
 
   loadError.value = "";
 
@@ -450,8 +616,6 @@ async function loadAll() {
      *    getWeddingStatus là API công khai ([AllowAnonymous]) nên
      *    khách mở trang thanh toán không cần đăng nhập vẫn đọc được.
      */
-    let statusKnown = false;
-
     try {
       const statusResponse = await getWeddingStatus({ slug: slug.value });
 
@@ -469,11 +633,8 @@ async function loadAll() {
           statusResult.data.PublishState ||
           statusResult.data.publishState ||
           "";
-
-        statusKnown = true;
       } else if (statusResult && statusResult.status !== "success") {
-        loadError.value =
-          statusResult.message || "Không tìm thấy thiệp này.";
+        loadError.value = statusResult.message || "Không tìm thấy thiệp này.";
 
         return;
       }
@@ -483,7 +644,8 @@ async function loadAll() {
 
     /*
      * 2. Thông tin tài khoản nhận thanh toán.
-     *    API chưa có → dùng fallback và báo rõ trên UI.
+     *    Server trả error khi chưa cấu hình → paymentInfo giữ null →
+     *    UI hiện khối "chưa cấu hình", không hiện số nào.
      */
     try {
       const infoResponse = await getPaymentInfo();
@@ -499,38 +661,27 @@ async function loadAll() {
         const data = infoResult.data;
 
         paymentInfo.value = {
-          bankName: data.BankName || data.bankName || FALLBACK_PAYMENT_INFO.bankName,
+          bankName: data.BankName || data.bankName || "",
 
-          bankId: data.BankId || data.bankId || FALLBACK_PAYMENT_INFO.bankId,
+          bankId: data.BankId || data.bankId || "",
 
-          accountName:
-            data.AccountName || data.accountName || FALLBACK_PAYMENT_INFO.accountName,
+          accountName: data.AccountName || data.accountName || "",
 
-          accountNumber:
-            data.AccountNumber ||
-            data.accountNumber ||
-            FALLBACK_PAYMENT_INFO.accountNumber,
+          accountNumber: data.AccountNumber || data.accountNumber || "",
 
-          amount: Number(
-            data.Amount || data.amount || FALLBACK_PAYMENT_INFO.amount
-          ),
+          amount: Number(data.Amount || data.amount || 0),
         };
-
-        usingFallbackInfo.value = false;
-
-        amount.value = paymentInfo.value.amount;
       } else {
-        usingFallbackInfo.value = true;
+        paymentInfo.value = null;
       }
     } catch (infoError) {
       console.warn("[WeddingPayment] getPaymentInfo error:", infoError);
 
-      usingFallbackInfo.value = true;
+      paymentInfo.value = null;
     }
 
     /*
-     * 3. Trạng thái thanh toán (đã báo chưa / đã duyệt chưa).
-     *    API chưa có → bỏ qua im lặng.
+     * 3. Trạng thái thanh toán — dựng thanh tiến độ 3 bước từ đây.
      */
     try {
       const payResponse = await getPaymentStatus({ slug: slug.value });
@@ -540,26 +691,33 @@ async function loadAll() {
       if (payResult && payResult.status === "success" && payResult.data) {
         const data = payResult.data;
 
-        const payStatus = data.Status || data.status || "";
+        paymentStatus.value = {
+          id: Number(data.Id || data.id || 0),
 
-        paymentPending.value =
-          data.HasPendingRequest === true ||
-          payStatus === "Pending" ||
-          payStatus === "Waiting";
+          amount: Number(data.Amount || data.amount || 0),
+
+          content: data.Content || data.content || "",
+
+          status: data.Status || data.status || "",
+
+          createdAt: data.CreatedAt || data.createdAt || "",
+
+          reviewedAt: data.ReviewedAt || data.reviewedAt || "",
+
+          adminNote: data.AdminNote || data.adminNote || "",
+        };
+      } else {
+        paymentStatus.value = null;
       }
     } catch (payError) {
       console.warn("[WeddingPayment] getPaymentStatus error:", payError);
-    }
 
-    /*
-     * Không xác định được trạng thái thiệp (401...) →
-     * vẫn cho phép thanh toán, chỉ cảnh báo nhẹ.
-     */
-    if (!statusKnown && !status.value) {
-      status.value = "";
+      paymentStatus.value = null;
     }
   } finally {
     loading.value = false;
+
+    checking.value = false;
   }
 }
 
@@ -583,8 +741,32 @@ const isActivated = computed(() => {
   return publishState.value === PUBLISH_STATE.ACTIVE;
 });
 
+/*
+ * Chỉ coi là "đã cấu hình" khi có đủ số tài khoản + mã ngân hàng.
+ * Thiếu một trong hai thì QR sẽ trỏ sai chỗ → coi như chưa cấu hình.
+ */
+const hasPaymentInfo = computed(() => {
+  const info = paymentInfo.value;
+
+  return Boolean(info && info.bankId && info.accountNumber);
+});
+
 const transferContent = computed(() => {
   return slug.value;
+});
+
+/*
+ * Số tiền hiển thị: ưu tiên giá server cấu hình, chưa có thì lấy giá
+ * gói đang bán (PAID_PLAN) để QR vẫn điền sẵn số tiền.
+ */
+const payAmount = computed(() => {
+  const configured = Number(paymentInfo.value?.amount || 0);
+
+  if (configured > 0) {
+    return configured;
+  }
+
+  return Number(PAID_PLAN?.price || 0);
 });
 
 const statusLabel = computed(() => {
@@ -615,29 +797,106 @@ const statusChipClass = computed(() => {
   return "chip-pending";
 });
 
-const amountMismatch = computed(() => {
-  return (
-    Boolean(paymentInfo.value.amount) &&
-    Number(amount.value) > 0 &&
-    Number(amount.value) !== Number(paymentInfo.value.amount)
-  );
+/*
+ * Yêu cầu đang hiển thị: bản vừa gửi trong phiên này, hoặc bản mới nhất
+ * đọc từ server (trường hợp khách quay lại trang sau).
+ */
+const currentRequest = computed(() => {
+  if (notice.value) {
+    return notice.value;
+  }
+
+  const fromServer = paymentStatus.value;
+
+  if (fromServer && fromServer.id > 0) {
+    return fromServer;
+  }
+
+  return null;
+});
+
+const isRejected = computed(() => {
+  return currentRequest.value?.status === "Rejected";
 });
 
 /*
- * Mã QR VietQR — chuẩn img.vietqr.io:
- * /image/{bankId}-{accountNo}-{template}.png?amount=&addInfo=&accountName=
+ * Thanh tiến độ 3 bước — dựng từ trạng thái THẬT của server, không phải
+ * animation trang trí. Bước 1 luôn xong (đã có yêu cầu), bước 2 xong khi
+ * Admin đã xử lý, bước 3 xong khi thiệp thật sự được kích hoạt.
  */
+const timeline = computed(() => {
+  const request = currentRequest.value;
+
+  const approved = request?.status === "Approved";
+
+  const rejected = request?.status === "Rejected";
+
+  const activated = publishState.value === PUBLISH_STATE.ACTIVE;
+
+  return [
+    {
+      key: "sent",
+      label: "Đã gửi yêu cầu",
+      state: "done",
+      time: formatDateTime(request?.createdAt),
+      hint: "",
+    },
+    {
+      key: "review",
+      label: rejected ? "Đã kiểm tra — chưa khớp" : "Đang đối soát sao kê",
+      state: rejected ? "failed" : approved || activated ? "done" : "active",
+      time: approved || rejected ? formatDateTime(request?.reviewedAt) : "",
+      hint:
+        rejected || approved || activated
+          ? ""
+          : "Chúng tôi đang kiểm tra giao dịch trong sao kê ngân hàng",
+    },
+    {
+      key: "active",
+      label: "Đã kích hoạt thiệp",
+      state: activated ? "done" : "pending",
+      time: activated ? "" : "",
+      hint: activated ? "" : "Thiệp mở cho khách mời ngay khi bước 2 xong",
+    },
+  ];
+});
+
+/* =========================================================
+   TRUST BLOCK
+========================================================= */
+
+const business = BUSINESS;
+
+const supportPhone = computed(() => {
+  return BUSINESS.supportPhone || CONTACT.phone || "";
+});
+
+const supportEmail = computed(() => {
+  return BUSINESS.supportEmail || CONTACT.email || "";
+});
+
+const supportHours = computed(() => {
+  return CONTACT.hours || "";
+});
+
+const refundPolicy = REFUND_POLICY;
+
+/* =========================================================
+   QR — chuẩn img.vietqr.io
+   /image/{bankId}-{accountNo}-{template}.png?amount=&addInfo=&accountName=
+========================================================= */
+
 const qrUrl = computed(() => {
   const info = paymentInfo.value;
 
-  if (!info.bankId || !info.accountNumber) {
+  if (!hasPaymentInfo.value) {
     return "";
   }
 
   const params = new URLSearchParams();
 
-  if (Number(amount.value) > 0) {
-    params.set("amount", String(Math.round(Number(amount.value))));
+  if (payAmount.value > 0) {
+    params.set("amount", String(Math.round(payAmount.value)));
   }
 
   if (transferContent.value) {
@@ -656,7 +915,7 @@ const qrUrl = computed(() => {
 ========================================================= */
 
 async function submitNotice() {
-  if (submitting.value || !slug.value) {
+  if (submitting.value || !slug.value || !hasPaymentInfo.value) {
     return;
   }
 
@@ -666,45 +925,62 @@ async function submitNotice() {
     const response = await submitPaymentNotice({
       Slug: slug.value,
 
-      Amount: Math.round(Number(amount.value)),
+      Amount: Math.round(payAmount.value),
 
       Content: transferContent.value,
 
-      TransferAt: new Date(transferAt.value).toISOString(),
+      // Khách bấm nút ngay sau khi chuyển khoản → giờ hiện tại là mốc
+      // gần đúng nhất. Không bắt khách tự nhập lại thời gian.
+      TransferAt: new Date().toISOString(),
     });
 
     const result = response?.data;
 
     if (result && result.status === "success") {
-      noticeDone.value = true;
+      const saved = result.data || {};
 
-      paymentPending.value = true;
+      notice.value = {
+        id: Number(saved.Id || saved.id || 0),
+
+        amount: Number(saved.Amount || saved.amount || payAmount.value),
+
+        content: saved.Content || saved.content || transferContent.value,
+
+        status: saved.Status || saved.status || "Pending",
+
+        createdAt: saved.CreatedAt || saved.createdAt || new Date().toISOString(),
+
+        reviewedAt: "",
+
+        adminNote: "",
+      };
+
+      showToast("Đã ghi nhận. Chúng tôi sẽ kiểm tra và kích hoạt thiệp.");
     } else {
-      showToast(result?.message || "Không thể gửi báo cáo thanh toán.");
+      showToast(result?.message || "Không thể gửi báo chuyển khoản.");
     }
   } catch (error) {
     console.error("[WeddingPayment] submitPaymentNotice error:", error);
 
     showToast(
       error?.response?.data?.message ||
-        "Không thể gửi báo cáo. API submitPaymentNotice có thể chưa sẵn sàng."
+        "Không thể gửi báo chuyển khoản. Vui lòng thử lại."
     );
   } finally {
     submitting.value = false;
   }
 }
 
+/* Bị từ chối → cho gửi lại: xoá bản ghi tạm để hiện lại nút. */
+function resetNotice() {
+  notice.value = null;
+
+  paymentStatus.value = null;
+}
+
 /* =========================================================
    HELPERS
 ========================================================= */
-
-function nowLocalInput() {
-  const date = new Date();
-
-  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-
-  return date.toISOString().slice(0, 16);
-}
 
 function formatVnd(value) {
   const number = Number(value);
@@ -714,6 +990,25 @@ function formatVnd(value) {
   }
 
   return `${new Intl.NumberFormat("vi-VN").format(number)} ₫`;
+}
+
+function formatDateTime(value) {
+  if (!value) {
+    return "";
+  }
+
+  const parsed = new Date(value);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(parsed);
 }
 
 async function copyValue(label, value) {
@@ -848,47 +1143,67 @@ function goView() {
 }
 
 /* ==================================================
-   FALLBACK WARNING
+   CHƯA CẤU HÌNH TÀI KHOẢN
 ================================================== */
 
-.fallback-warning {
+.not-configured {
   display: flex;
 
-  align-items: flex-start;
+  flex-direction: column;
 
-  gap: 8px;
+  align-items: center;
 
-  margin-bottom: 16px;
+  text-align: center;
 
-  padding: 10px 13px;
+  gap: 10px;
 
-  border: 1px dashed rgba(154, 107, 31, 0.45);
+  padding: 26px 8px 8px;
+}
 
-  border-radius: 12px;
+.not-configured-icon {
+  width: 58px;
+
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
 
   background: var(--app-warn-soft, rgba(185, 151, 91, 0.18));
 
-  color: #7a5a1c;
-
-  font-size: 12px;
-
-  line-height: 1.55;
+  color: var(--app-warn, #9a6b1f);
 }
 
-.fallback-warning .v-icon {
-  flex-shrink: 0;
+.not-configured h4 {
+  margin: 0;
 
-  margin-top: 1px;
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 16px;
 }
 
-.fallback-warning code {
-  font-size: 11px;
+.not-configured p {
+  margin: 0;
 
-  background: rgba(122, 90, 28, 0.12);
+  max-width: 380px;
 
-  padding: 1px 5px;
+  color: var(--studio-ink-soft, #5c4f43);
 
-  border-radius: 5px;
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+.not-configured .state-actions {
+  margin-top: 6px;
+}
+
+.not-configured a {
+  text-decoration: none;
 }
 
 /* ==================================================
@@ -1080,100 +1395,19 @@ function goView() {
 }
 
 /* ==================================================
-   FORM
+   XÁC NHẬN
 ================================================== */
 
-.field-label {
-  display: block;
-
-  margin: 14px 0 6px;
+.confirm-copy {
+  margin: 0 0 4px;
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 12px;
+  font-size: 13px;
 
-  font-weight: 700;
+  line-height: 1.7;
 }
 
-.field-input {
-  width: 100%;
-
-  padding: 11px 14px;
-
-  border: 1px solid var(--studio-line-strong, rgba(43, 33, 24, 0.28));
-
-  border-radius: 12px;
-
-  background: var(--studio-card, #fffdf8);
-
-  color: var(--studio-ink, #2b2118);
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  outline: none;
-
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.field-input:focus {
-  border-color: var(--studio-foil, #b9975b);
-
-  box-shadow: 0 0 0 3px var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
-}
-
-.field-input.mono {
-  font-family: "SF Mono", "Consolas", monospace;
-
-  letter-spacing: 0.04em;
-
-  background: var(--studio-paper, #f7f1e6);
-}
-
-.field-warn {
-  margin: 7px 0 0;
-
-  color: var(--app-warn, #9a6b1f);
-
-  font-size: 12px;
-
-  line-height: 1.5;
-}
-
-.pending-note {
-  display: flex;
-
-  align-items: flex-start;
-
-  gap: 7px;
-
-  margin: 0 0 14px;
-
-  padding: 10px 13px;
-
-  border: 1px dashed rgba(154, 107, 31, 0.45);
-
-  border-radius: 12px;
-
-  background: var(--app-warn-soft, rgba(185, 151, 91, 0.18));
-
-  color: #7a5a1c;
-
-  font-size: 12px;
-
-  line-height: 1.55;
-}
-
-.pending-note .v-icon {
-  flex-shrink: 0;
-
-  margin-top: 1px;
-}
-
-/* ==================================================
-   SUBMIT
-================================================== */
 
 .submit-btn {
   width: 100%;
@@ -1186,7 +1420,7 @@ function goView() {
 
   gap: 8px;
 
-  margin-top: 20px;
+  margin-top: 18px;
 
   padding: 13px 20px;
 
@@ -1219,23 +1453,55 @@ function goView() {
   cursor: not-allowed;
 }
 
-.submit-hint {
-  margin: 12px 0 0;
+/* ==================================================
+   TRẤN AN — đặt ngay dưới nút, đúng chỗ khách do dự
+================================================== */
 
-  color: var(--studio-ink-faint, #8a7a68);
+.reassure {
+  list-style: none;
 
-  font-size: 12px;
+  margin: 18px 0 0;
+
+  padding: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+.reassure li {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 8px;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 12.5px;
 
   line-height: 1.6;
+}
 
-  text-align: center;
+.reassure .v-icon {
+  flex-shrink: 0;
+
+  margin-top: 2px;
+
+  color: var(--app-ok, #2e6b3f);
+}
+
+.reassure strong {
+  color: var(--studio-ink, #2b2118);
 }
 
 /* ==================================================
-   SUCCESS / NOTICE STATES
+   ĐÃ GỬI — BIÊN NHẬN + TIẾN ĐỘ
 ================================================== */
 
-.notice-success {
+.notice-block {
   display: flex;
 
   flex-direction: column;
@@ -1244,7 +1510,7 @@ function goView() {
 
   text-align: center;
 
-  padding: 18px 6px 6px;
+  padding: 6px 0 0;
 }
 
 .notice-success-icon {
@@ -1267,22 +1533,351 @@ function goView() {
   margin-bottom: 14px;
 }
 
-.notice-success h4 {
-  margin: 0 0 8px;
+.notice-success-icon.rejected {
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
+
+  color: var(--app-danger, #a03030);
+}
+
+.notice-block h4 {
+  margin: 0 0 16px;
 
   color: var(--studio-ink, #2b2118);
 
   font-size: 17px;
 }
 
-.notice-success p {
-  margin: 0 0 18px;
+/* Biên nhận — bằng chứng cầm tay để khách đối chiếu khi cần hỗ trợ */
+.receipt {
+  width: 100%;
 
-  color: var(--studio-ink-soft, #5c4f43);
+  padding: 12px 14px;
+
+  border: 1px dashed var(--studio-line-strong, rgba(43, 33, 24, 0.28));
+
+  border-radius: 12px;
+
+  background: var(--studio-paper, #f7f1e6);
+
+  text-align: left;
+}
+
+.receipt-row {
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 5px 0;
+
+  font-size: 12.5px;
+}
+
+.receipt-row span {
+  color: var(--studio-ink-faint, #8a7a68);
+}
+
+.receipt-row strong {
+  color: var(--studio-ink, #2b2118);
+
+  font-weight: 700;
+
+  word-break: break-word;
+
+  text-align: right;
+}
+
+.receipt-row strong.mono {
+  font-family: "SF Mono", "Consolas", monospace;
+}
+
+.reject-note {
+  width: 100%;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 7px;
+
+  margin-top: 12px;
+
+  padding: 10px 13px;
+
+  border-radius: 12px;
+
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
+
+  color: var(--app-danger, #a03030);
+
+  font-size: 12.5px;
+
+  line-height: 1.6;
+
+  text-align: left;
+}
+
+.reject-note .v-icon {
+  flex-shrink: 0;
+
+  margin-top: 2px;
+}
+
+/* Thanh tiến độ 3 bước */
+.timeline {
+  list-style: none;
+
+  width: 100%;
+
+  margin: 18px 0 0;
+
+  padding: 0;
+
+  text-align: left;
+}
+
+.timeline-step {
+  position: relative;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 11px;
+
+  padding-bottom: 16px;
+}
+
+.timeline-step:last-child {
+  padding-bottom: 0;
+}
+
+/* Đường nối giữa các bước */
+.timeline-step:not(:last-child)::before {
+  content: "";
+
+  position: absolute;
+
+  left: 8px;
+
+  top: 20px;
+
+  bottom: 2px;
+
+  width: 1px;
+
+  background: var(--studio-line, rgba(43, 33, 24, 0.14));
+}
+
+.timeline-dot {
+  position: relative;
+
+  z-index: 1;
+
+  flex-shrink: 0;
+
+  width: 17px;
+
+  height: 17px;
+
+  margin-top: 1px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 1.5px solid var(--studio-line-strong, rgba(43, 33, 24, 0.28));
+
+  background: var(--studio-card, #fffdf8);
+
+  color: #fff;
+}
+
+.timeline-step.done .timeline-dot {
+  border-color: var(--app-ok, #2e6b3f);
+
+  background: var(--app-ok, #2e6b3f);
+}
+
+.timeline-step.active .timeline-dot {
+  border-color: var(--app-warn, #9a6b1f);
+
+  background: var(--app-warn-soft, rgba(185, 151, 91, 0.18));
+}
+
+.timeline-step.failed .timeline-dot {
+  border-color: var(--app-danger, #a03030);
+
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
+}
+
+.timeline-body {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.timeline-label {
+  color: var(--studio-ink-faint, #8a7a68);
 
   font-size: 13px;
 
-  line-height: 1.65;
+  font-weight: 600;
+}
+
+.timeline-step.done .timeline-label,
+.timeline-step.active .timeline-label,
+.timeline-step.failed .timeline-label {
+  color: var(--studio-ink, #2b2118);
+}
+
+.timeline-time {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 11.5px;
+}
+
+.timeline-hint {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 11.5px;
+
+  line-height: 1.5;
+}
+
+.notice-copy {
+  margin: 18px 0 0;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 12.5px;
+
+  line-height: 1.7;
+}
+
+.notice-copy strong {
+  color: var(--studio-seal, #a63a2e);
+}
+
+.notice-block .state-actions {
+  margin-top: 18px;
+}
+
+/* ==================================================
+   KHỐI NIỀM TIN
+================================================== */
+
+.trust-card {
+  margin-top: 22px;
+
+  padding: 22px 26px;
+
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+
+  border-radius: 20px;
+
+  background: var(--studio-card, #fffdf8);
+}
+
+.trust-head {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 14px;
+
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+.trust-head .v-icon {
+  color: var(--studio-foil, #b9975b);
+}
+
+.trust-rows {
+  display: grid;
+
+  grid-template-columns: 130px 1fr;
+
+  gap: 8px 16px;
+
+  margin: 0;
+}
+
+.trust-rows dt {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 12.5px;
+
+  font-weight: 600;
+}
+
+.trust-rows dd {
+  margin: 0;
+
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  word-break: break-word;
+}
+
+.trust-rows dd.mono {
+  font-family: "SF Mono", "Consolas", monospace;
+}
+
+.trust-rows a {
+  color: var(--studio-seal, #a63a2e);
+
+  text-decoration: none;
+}
+
+.trust-rows a:hover {
+  text-decoration: underline;
+}
+
+.trust-note {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 7px;
+
+  margin: 16px 0 0;
+
+  padding-top: 14px;
+
+  border-top: 1px dashed var(--studio-line, rgba(43, 33, 24, 0.14));
+
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+.trust-note .v-icon {
+  flex-shrink: 0;
+
+  margin-top: 2px;
 }
 
 /* ==================================================
@@ -1310,6 +1905,20 @@ function goView() {
     width: 180px;
 
     height: 180px;
+  }
+
+  .trust-card {
+    padding: 18px;
+  }
+
+  .trust-rows {
+    grid-template-columns: 1fr;
+
+    gap: 2px;
+  }
+
+  .trust-rows dd {
+    margin-bottom: 8px;
   }
 }
 </style>

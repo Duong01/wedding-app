@@ -26,16 +26,31 @@
 
         <p>Thiệp cưới bạn đang tìm kiếm không tồn tại hoặc đã được thay đổi.</p>
 
-        <button type="button" class="back-button" @click="goHome">
-          Quay lại trang chủ
-        </button>
+        <div class="error-actions">
+          <button type="button" class="back-button" @click="goIntro">
+            Xem giới thiệu mẫu
+          </button>
+
+          <button type="button" class="back-button ghost" @click="goHome">
+            Quay lại trang chủ
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- =========================================================
-         WEDDING THEME
+         WEDDING THEME — BƯỚC 3
+
+         :start-opened="true" vì khách đã bấm mở phong bì ở
+         bước 2 rồi; vào đây phải thấy nội dung ngay, không
+         bắt mở lại lần nữa.
     ========================================================== -->
-    <component v-else-if="currentTheme" :is="currentTheme" :wedding="wedding" />
+    <component
+      v-else-if="currentTheme"
+      :is="currentTheme"
+      :wedding="wedding"
+      :start-opened="true"
+    />
 
     <!-- =========================================================
          KHÔNG TÌM THẤY THEME
@@ -94,7 +109,13 @@ async function loadWedding(slug) {
   }
 
   try {
-    await store.loadWeddingNoApi(slug);
+    /*
+     * loadWedding (KHÔNG phải loadWeddingNoApi): thử API thật
+     * trước, không có thì fallback về 19 mẫu mock. Bản cũ chỉ
+     * đọc mock nên thiệp thật của người dùng mở ra là màn hình
+     * "Không tìm thấy thiệp".
+     */
+    await store.loadWedding(slug);
   } catch (error) {
     console.error(
       "WeddingDetail load error:",
@@ -116,6 +137,17 @@ watch(
 function goHome() {
   router.push({
     name: "Home",
+  });
+}
+
+/*
+ * Về bước 1 — trang giới thiệu mẫu. Đây là "lùi một bước"
+ * đúng nghĩa trong luồng 3 bước, khác với về trang chủ.
+ */
+function goIntro() {
+  router.push({
+    name: "WeddingIntro",
+    params: { slug: route.params.slug },
   });
 }
 </script>
@@ -314,6 +346,29 @@ function goHome() {
   transform: translateY(-2px);
 
   box-shadow: 0 10px 25px rgba(43, 33, 24, 0.25);
+}
+
+/* Hai nút cạnh nhau ở màn hình lỗi — nút chính + nút phụ */
+.error-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.back-button.ghost {
+  border: 1px solid rgba(43, 33, 24, 0.2);
+
+  background: transparent;
+
+  color: var(--studio-ink, #2b2118);
+}
+
+.back-button.ghost:hover {
+  box-shadow: 0 10px 25px rgba(43, 33, 24, 0.12);
 }
 
 /* ============================================================

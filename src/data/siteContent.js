@@ -45,6 +45,25 @@ export function phoneHref(phone = CONTACT.phone) {
 }
 
 /*
+ * Danh tính đơn vị nhận thanh toán — hiển thị trên trang thanh toán
+ * để người chuyển khoản biết tiền đang đi đâu.
+ *
+ * ⚠ ĐỂ TRỐNG nếu chưa có. Dòng nào trống thì tự ẩn, KHÔNG hiện số giả
+ *   và KHÔNG bịa. Điền đủ trước khi phát hành.
+ *
+ * Vì sao cần: khách sắp chuyển tiền cho một website họ vừa mở lần đầu.
+ * Một cái tên pháp lý + mã số thuế + địa chỉ thật là thứ khiến họ dám bấm
+ * "chuyển khoản". Thiếu những dòng này thì trang vẫn chạy, chỉ là khó tin hơn.
+ */
+export const BUSINESS = {
+  legalName: "", // Tên pháp lý / hộ kinh doanh
+  taxCode: "", // Mã số thuế
+  address: "", // Địa chỉ đăng ký
+  supportPhone: "", // SĐT hỗ trợ — trống thì lấy CONTACT.phone
+  supportEmail: "", // Email hỗ trợ — trống thì lấy CONTACT.email
+};
+
+/*
  * Điều hướng chính — dùng cho header, menu di động
  * và cột "Khám phá" ở footer.
  */
@@ -582,6 +601,14 @@ export const PRICING_FAQS = [
     a: "Có. Nếu thiệp gặp lỗi kỹ thuật mà chúng tôi không khắc phục được, bạn được hoàn lại toàn bộ trong vòng 7 ngày kể từ lúc thanh toán.",
   },
 ];
+
+/*
+ * Chính sách hoàn tiền — trích thẳng từ PRICING_FAQS để trang thanh toán
+ * và trang Bảng giá không nói hai câu khác nhau. Sửa câu trả lời ở trên
+ * là trang thanh toán tự cập nhật theo.
+ */
+export const REFUND_POLICY =
+  PRICING_FAQS.find((item) => item.q.includes("hoàn tiền"))?.a || "";
 
 /*
  * Chủ đề cho form liên hệ.

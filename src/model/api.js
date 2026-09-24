@@ -120,13 +120,31 @@ export const submitPaymentNotice = (param, success, error) => {return https.Post
 export const getPaymentStatus = (param, success, error) => {return https.GetPublic(`/wedding/getPaymentStatus`, param, success, error);};
 
 /*
- * Admin: danh sách các yêu cầu thanh toán chờ duyệt.
+ * Admin: danh sách các yêu cầu thanh toán.
+ * param: { status } — "Pending" / "Approved" / "Rejected", bỏ trống = tất cả.
+ *
+ * ⚠ LUÔN gửi kèm ?status=, kể cả khi lấy tất cả (chuỗi rỗng).
+ *
+ * Lý do: WeddingController có [Route("{slug}")] (GetWeddingWithoutToken)
+ * nằm TRƯỚC [Route("getPaymentRequests")]. Khi request không có query
+ * string, Web API khớp "getPaymentRequests" vào {slug} trước → trả về
+ * "Không tìm thấy thiệp." với HTTP 200 (không phải lỗi 404, nên rất dễ
+ * tưởng là danh sách rỗng). Có query string thì route literal mới thắng.
+ *
+ * Cùng cơ chế này đang ảnh hưởng getRecipients / getAllWishes /
+ * getPaymentStatus / getWeddingStatus — các hàm đó vốn luôn được gọi
+ * kèm tham số nên không lộ lỗi.
  */
-export const getPaymentRequests = (success, error) => {return https.Get(`/wedding/getPaymentRequests`, {}, success, error);};
+export const getPaymentRequests = (param, success, error) => {
+  const { status = "" } = param || {};
+
+  return https.Get(`/wedding/getPaymentRequests`, { status }, success, error);
+};
 
 /*
  * Admin: xác nhận / từ chối 1 yêu cầu thanh toán.
- * Body: { Id, Approve } — Approve = true → kích hoạt thiệp.
+ * Body: { Id, Approve, Note } — Approve = true → kích hoạt thiệp.
+ * Note BẮT BUỘC khi Approve = false (lý do từ chối, chủ thiệp đọc được).
  */
 export const reviewPaymentRequest = (param, success, error) => {return https.Post(`/wedding/reviewPaymentRequest`, param, success, error);};
 

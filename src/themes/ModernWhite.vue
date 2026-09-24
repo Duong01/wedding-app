@@ -153,7 +153,7 @@
 
 
 <script setup>
-import { computed, nextTick, ref } from "vue";
+import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -183,7 +183,13 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  startOpened: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+const emit = defineEmits(["open"]);
 
 
 /* ==========================================================
@@ -219,7 +225,7 @@ const heroMusic = computed(() => {
    STATE
 ========================================================== */
 
-const opened = ref(false);
+const opened = ref(props.startOpened);
 
 const floatingMusicRef = ref(null);
 
@@ -370,10 +376,24 @@ const heroDateLabel = computed(() =>
 async function handleOpen() {
   opened.value = true;
 
+  emit("open");
+
   await nextTick();
 
   floatingMusicRef.value?.play?.();
 }
+
+/*
+ * Vào thẳng nội dung (bước 3 /open → /view): theme mount lại
+ * từ đầu nên handleOpen của bước 2 không còn — phải tự phát
+ * nhạc tại đây, nếu không bước 3 im lặng.
+ */
+onMounted(() => {
+  if (props.startOpened) {
+    floatingMusicRef.value?.play?.();
+  }
+});
+
 </script>
 
 

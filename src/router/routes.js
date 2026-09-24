@@ -155,6 +155,17 @@ export default [
   },
 
   {
+    path: "/admin/payments",
+    name: "AdminPayments",
+    component: () => import("@/views/AdminPayments.vue"),
+    meta: {
+      title: "Duyệt thanh toán",
+      requiresAuth: true,
+      roles: ["Admin"],
+    },
+  },
+
+  {
     path: "/manage/:slug/payment",
     name: "WeddingPayment",
     component: () => import("@/views/WeddingPayment.vue"),
@@ -221,8 +232,42 @@ export default [
     },
   },
 
+  /* =====================================================
+     THIỆP XEM MẪU — 2 BƯỚC, MỖI BƯỚC MỘT URL
+
+       1. /wedding/:slug       WeddingIntro  — giới thiệu mẫu
+       2. /wedding/:slug/open  WeddingOpen   — phong bì + nội dung
+
+     Bước 2 gộp cả phong bì lẫn nội dung thiệp trong CÙNG một
+     URL: bấm "Mở thiệp" là theme tự chuyển sang nội dung, không
+     đổi route. Đổi route ở đây làm theme unmount rồi mount lại
+     → nội dung render hai lần (nháy). Giữ nguyên URL cũng là
+     điều kiện để F5 bắt đầu lại từ phong bì.
+
+     /wedding/:slug/view (WeddingBySlug) vẫn giữ vì /manage,
+     trang thanh toán và nút "Xem thiệp" đang trỏ tới tên này —
+     vào thẳng nội dung, bỏ qua phong bì.
+
+     Link khách mời thật (/:slug/:token → WeddingByApi)
+     KHÔNG đi qua các bước này — mở là vào thẳng phong bì.
+  ====================================================== */
+
   {
     path: "/wedding/:slug",
+    name: "WeddingIntro",
+    component: () => import("@/views/WeddingIntro.vue"),
+    props: true,
+  },
+
+  {
+    path: "/wedding/:slug/open",
+    name: "WeddingOpen",
+    component: () => import("@/views/WeddingOpen.vue"),
+    props: true,
+  },
+
+  {
+    path: "/wedding/:slug/view",
     name: "WeddingBySlug",
     component: () => import("@/views/WeddingDetail.vue"),
     props: true,

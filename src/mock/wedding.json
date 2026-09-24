@@ -1,3 +1,4 @@
+
 [
   {
     "Id": 1,
@@ -35,8 +36,8 @@
         "Name": "Hà Uyên",
         "Nickname": "Uyên",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đinh Văn Tá",
         "Mother": "Nguyễn Thị Thu",
         "Address": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
@@ -46,8 +47,8 @@
         "Name": "Trần Hiếu",
         "Nickname": "Hiếu",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Trần Văn Bình",
         "Mother": "Nguyễn Thị Bảy",
         "Address": "Số 9 đường Cống Đồng, thôn Đức Hậu, xã Đa Phúc, TP Hà Nội",
@@ -60,8 +61,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-14T08:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh"
     },
     "story": {
@@ -182,7 +183,7 @@
         "BankName": "MB Bank",
         "AccountName": "TRẦN VĂN HIẾU",
         "AccountNumber": "0123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -191,7 +192,7 @@
         "BankName": "Momo",
         "AccountName": "HÀ THỊ UYÊN",
         "AccountNumber": "0123456789",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -239,7 +240,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So_Beautiful_In_White",
       "Autoplay": false
     }
@@ -280,8 +281,8 @@
         "Name": "Minh Anh",
         "Nickname": "Anh",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Lê Văn Đức",
         "Mother": "Trần Thị Hồng",
         "Address": "Số 12 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
@@ -291,8 +292,8 @@
         "Name": "Quốc Huy",
         "Nickname": "Huy",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Phạm Văn Tùng",
         "Mother": "Nguyễn Thị Lan",
         "Address": "Số 45 Lê Lợi, Hải Châu, Đà Nẵng",
@@ -305,8 +306,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-12-06T17:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Trung tâm Hội nghị White Palace, TP. Hồ Chí Minh"
     },
     "story": {
@@ -399,7 +400,7 @@
         "BankName": "Vietcombank",
         "AccountName": "PHẠM QUỐC HUY",
         "AccountNumber": "0071000123456",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -408,7 +409,7 @@
         "BankName": "Vietcombank",
         "AccountName": "PHẠM QUỐC HUY",
         "AccountNumber": "0071000123456",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -450,7 +451,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -491,8 +492,8 @@
         "Name": "Ngọc Linh",
         "Nickname": "Linh",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Vũ Đình Khánh",
         "Mother": "Đỗ Thị Bích",
         "Address": "Số 88 Trần Duy Hưng, Cầu Giấy, Hà Nội",
@@ -502,8 +503,8 @@
         "Name": "Hải Đăng",
         "Nickname": "Đăng",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Bùi Văn Sơn",
         "Mother": "Lê Thị Nga",
         "Address": "Số 21 Xuân Thủy, Cầu Giấy, Hà Nội",
@@ -516,8 +517,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-01-09T18:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Khách sạn Metropole, Hà Nội"
     },
     "story": {
@@ -610,7 +611,7 @@
         "BankName": "Vietcombank",
         "AccountName": "PHẠM QUỐC HUY",
         "AccountNumber": "0071000123456",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -619,7 +620,7 @@
         "BankName": "Vietcombank",
         "AccountName": "PHẠM QUỐC HUY",
         "AccountNumber": "0071000123456",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -661,7 +662,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -702,8 +703,8 @@
         "Name": "Thu Hà",
         "Nickname": "Hà",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
@@ -713,8 +714,8 @@
         "Name": "Minh Quân",
         "Nickname": "Quân",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -727,8 +728,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -824,7 +825,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -833,7 +834,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -875,7 +876,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -916,8 +917,8 @@
         "Name": "Thu Hà",
         "Nickname": "Hà",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
@@ -927,8 +928,8 @@
         "Name": "Minh Quân",
         "Nickname": "Quân",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -941,8 +942,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1038,7 +1039,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -1047,7 +1048,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -1089,7 +1090,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1130,8 +1131,8 @@
         "Name": "Thu Hà",
         "Nickname": "Hà",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
@@ -1141,8 +1142,8 @@
         "Name": "Minh Quân",
         "Nickname": "Quân",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -1155,8 +1156,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1252,7 +1253,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -1261,7 +1262,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -1303,7 +1304,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1344,8 +1345,8 @@
         "Name": "Thu Hà",
         "Nickname": "Hà",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
@@ -1355,8 +1356,8 @@
         "Name": "Minh Quân",
         "Nickname": "Quân",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -1369,8 +1370,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1466,7 +1467,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -1475,7 +1476,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -1517,7 +1518,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1558,8 +1559,8 @@
         "Name": "Thu Hà",
         "Nickname": "Hà",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
@@ -1569,8 +1570,8 @@
         "Name": "Minh Quân",
         "Nickname": "Quân",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -1583,8 +1584,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -1680,7 +1681,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -1689,7 +1690,7 @@
         "BankName": "MB Bank",
         "AccountName": "NGÔ THU HÀ",
         "AccountNumber": "0401123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
     ],
     "guestBook": {
@@ -1731,7 +1732,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "",
       "Autoplay": false
     }
@@ -1772,8 +1773,8 @@
         "Name": "Lan Anh",
         "Nickname": "Anh",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Lê Văn Hùng",
         "Mother": "Nguyễn Thu Hà",
         "Address": "Long Biên, Hà Nội",
@@ -1783,8 +1784,8 @@
         "Name": "Việt Trung",
         "Nickname": "Trung",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đỗ Văn Đạt",
         "Mother": "Lê Thị Hoa",
         "Address": "Cầu Giấy, Hà Nội",
@@ -1797,8 +1798,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-01-20T17:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Willow House, Hà Nội"
     },
     "story": {
@@ -1893,7 +1894,7 @@
         "BankName": "Vietcombank",
         "AccountName": "LÊ LAN ANH",
         "AccountNumber": "10123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -1902,7 +1903,7 @@
         "BankName": "ZaloPay",
         "AccountName": "VIỆT TRUNG",
         "AccountNumber": "0902345678",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -1944,7 +1945,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -1985,8 +1986,8 @@
         "Name": "Thư Thảo",
         "Nickname": "Thảo",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Nguyễn Phú Quý",
         "Mother": "Phạm Thị Bình",
         "Address": "Đống Đa, Hà Nội",
@@ -1996,8 +1997,8 @@
         "Name": "Đức Minh",
         "Nickname": "Minh",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Trần Mạnh Hùng",
         "Mother": "Lý Thị Bích",
         "Address": "Thanh Xuân, Hà Nội",
@@ -2010,8 +2011,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-03-17T18:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Amber Villa, Hà Nội"
     },
     "story": {
@@ -2106,7 +2107,7 @@
         "BankName": "HSBC",
         "AccountName": "NGUYỄN THƯ THẢO",
         "AccountNumber": "550001234567",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -2115,7 +2116,7 @@
         "BankName": "Momo",
         "AccountName": "ĐỨC MINH",
         "AccountNumber": "0909876543",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -2157,7 +2158,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2198,8 +2199,8 @@
         "Name": "Anh Thư",
         "Nickname": "Thư",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Mai Tuấn Anh",
         "Mother": "Lê Thị Nhi",
         "Address": "Tây Hồ, Hà Nội",
@@ -2209,8 +2210,8 @@
         "Name": "Nguyễn Hải",
         "Nickname": "Hải",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Nguyễn Văn Khang",
         "Mother": "Trần Thị Duyên",
         "Address": "Long Biên, Hà Nội",
@@ -2223,8 +2224,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-05-19T16:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Moonlight Hall, Hà Nội"
     },
     "story": {
@@ -2319,7 +2320,7 @@
         "BankName": "TPBank",
         "AccountName": "ANH THƯ",
         "AccountNumber": "062243219876",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -2328,7 +2329,7 @@
         "BankName": "Momo",
         "AccountName": "NGUYỄN HẢI",
         "AccountNumber": "0943215678",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -2370,7 +2371,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2411,8 +2412,8 @@
         "Name": "Mỹ Linh",
         "Nickname": "Linh",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Phạm Văn Tám",
         "Mother": "Nguyễn Thị Hằng",
         "Address": "Hà Đông, Hà Nội",
@@ -2422,8 +2423,8 @@
         "Name": "Đinh Nghĩa",
         "Nickname": "Nghĩa",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Đinh Văn Quý",
         "Mother": "Bùi Thị Kim",
         "Address": "Ba Đình, Hà Nội",
@@ -2436,8 +2437,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-07-28T17:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Palace Hall, Hà Nội"
     },
     "story": {
@@ -2532,7 +2533,7 @@
         "BankName": "Agribank",
         "AccountName": "MỸ LINH",
         "AccountNumber": "144123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -2541,7 +2542,7 @@
         "BankName": "Momo",
         "AccountName": "ĐINH NGHĨA",
         "AccountNumber": "0911122334",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -2583,7 +2584,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2624,8 +2625,8 @@
         "Name": "Hòa Mi",
         "Nickname": "Mi",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Nguyễn Văn Tân",
         "Mother": "Hà Thị Lan",
         "Address": "Mê Linh, Hà Nội",
@@ -2635,8 +2636,8 @@
         "Name": "Quang Huy",
         "Nickname": "Huy",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Phạm Đức Hòa",
         "Mother": "Nguyễn Thị Loan",
         "Address": "Hai Bà Trưng, Hà Nội",
@@ -2649,8 +2650,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-09-02T17:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Rose & Bloom, Hà Nội"
     },
     "story": {
@@ -2746,7 +2747,7 @@
         "BankName": "Sacombank",
         "AccountName": "HÒA MI",
         "AccountNumber": "030223456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -2755,7 +2756,7 @@
         "BankName": "Momo",
         "AccountName": "QUANG HUY",
         "AccountNumber": "0912348899",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -2797,7 +2798,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -2838,8 +2839,8 @@
         "Name": "Thảo",
         "Nickname": "Thảo",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Nguyễn Văn Sơn",
         "Mother": "Trần Thị Hồng",
         "Address": "Hai Bà Trưng, Hà Nội",
@@ -2849,8 +2850,8 @@
         "Name": "Lâm",
         "Nickname": "Lâm",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Trần Văn Mạnh",
         "Mother": "Lê Thị Hạnh",
         "Address": "Cầu Giấy, Hà Nội",
@@ -2863,8 +2864,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-01-16T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Nhà hàng Kim Đồng, Hà Nội"
     },
     "story": {
@@ -2960,7 +2961,7 @@
         "BankName": "Vietcombank",
         "AccountName": "LÂM",
         "AccountNumber": "0123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -2969,7 +2970,7 @@
         "BankName": "Momo",
         "AccountName": "LÂM & THẢO",
         "AccountNumber": "0912348899",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -3017,7 +3018,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3058,8 +3059,8 @@
         "Name": "Mai Phúc",
         "Nickname": "Mai Phúc",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Lê Văn Phúc",
         "Mother": "Nguyễn Thị Mai",
         "Address": "Tây Hồ, Hà Nội",
@@ -3069,8 +3070,8 @@
         "Name": "Tuấn Kiệt",
         "Nickname": "Tuấn Kiệt",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Phạm Văn Tuấn",
         "Mother": "Đỗ Thị Kiệt",
         "Address": "Đống Đa, Hà Nội",
@@ -3083,8 +3084,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-03-20T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
     "story": {
@@ -3194,7 +3195,7 @@
         "BankName": "Vietcombank",
         "AccountName": "TUẤN KIỆT",
         "AccountNumber": "0123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -3203,7 +3204,7 @@
         "BankName": "Momo",
         "AccountName": "TUẤN KIỆT & MAI PHÚC",
         "AccountNumber": "0912348899",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -3251,7 +3252,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3292,8 +3293,8 @@
         "Name": "Anh Thư",
         "Nickname": "Anh Thư",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Nguyễn Đức Thư",
         "Mother": "Vũ Thị Anh",
         "Address": "Ba Đình, Hà Nội",
@@ -3303,8 +3304,8 @@
         "Name": "Đức Anh",
         "Nickname": "Đức Anh",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Trần Văn Đức",
         "Mother": "Lê Thị Anh",
         "Address": "Hoàn Kiếm, Hà Nội",
@@ -3317,8 +3318,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-04-10T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Nhà hàng Sen Vàng, Hà Nội"
     },
     "story": {
@@ -3413,7 +3414,7 @@
         "BankName": "Vietcombank",
         "AccountName": "ĐỨC ANH",
         "AccountNumber": "0123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -3422,7 +3423,7 @@
         "BankName": "Momo",
         "AccountName": "ĐỨC ANH & ANH THƯ",
         "AccountNumber": "0912348899",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -3470,7 +3471,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3511,8 +3512,8 @@
         "Name": "Hà Vy",
         "Nickname": "Hà Vy",
         "Role": "Cô dâu",
-        "Avatar": "/images/bride.jpg",
-        "Cover": "/images/bride-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Trần Hà Vy",
         "Mother": "Phạm Thị Minh",
         "Address": "Hồng Bàng, Hải Phòng",
@@ -3522,8 +3523,8 @@
         "Name": "Minh Quân",
         "Nickname": "Minh Quân",
         "Role": "Chú rể",
-        "Avatar": "/images/groom.jpg",
-        "Cover": "/images/groom-cover.jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
+        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
         "Father": "Nguyễn Minh Quân",
         "Mother": "Hoàng Thị Hà",
         "Address": "Ngô Quyền, Hải Phòng",
@@ -3536,8 +3537,8 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-06-12T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "/images/hero.jpg",
-      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Khu nghỉ dưỡng Biển Xanh, Đồ Sơn"
     },
     "story": {
@@ -3632,7 +3633,7 @@
         "BankName": "Vietcombank",
         "AccountName": "MINH QUÂN",
         "AccountNumber": "0123456789",
-        "QrCode": "/images/qr-bank.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
       {
         "Id": 2,
@@ -3641,7 +3642,7 @@
         "BankName": "Momo",
         "AccountName": "MINH QUÂN & HÀ VY",
         "AccountNumber": "0912348899",
-        "QrCode": "/images/qr-momo.png"
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
       }
     ],
     "guestBook": {
@@ -3689,7 +3690,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -3924,7 +3925,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     }
@@ -4118,7 +4119,7 @@
     },
     "music": {
       "Enabled": true,
-      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
     },

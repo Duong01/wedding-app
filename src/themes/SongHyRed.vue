@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref } from "vue";
+import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -84,7 +84,9 @@ import WeddingGifts from "@/page/SongHyRed/WeddingGifts.vue";
 import WeddingWishes from "@/page/SongHyRed/WeddingWishes.vue";
 import WeddingFooter from "@/page/SongHyRed/WeddingFooter.vue";
 
-const props = defineProps({ wedding: { type: Object, required: true } });
+const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+const emit = defineEmits(["open"]);
 
 const wedding = computed(() => props.wedding || {});
 
@@ -109,7 +111,7 @@ const heroMusic = computed(() => {
   return { ...music, Url: heroUrl };
 });
 
-const opened = ref(false);
+const opened = ref(props.startOpened);
 const floatingMusicRef = ref(null);
 const currentYear = new Date().getFullYear();
 
@@ -198,10 +200,24 @@ const heroDateLabel = computed(() =>
 async function handleOpen() {
   opened.value = true;
 
+  emit("open");
+
   await nextTick();
 
   floatingMusicRef.value?.play?.();
 }
+
+/*
+ * Vào thẳng nội dung (bước 3 /open → /view): theme mount lại
+ * từ đầu nên handleOpen của bước 2 không còn — phải tự phát
+ * nhạc tại đây, nếu không bước 3 im lặng.
+ */
+onMounted(() => {
+  if (props.startOpened) {
+    floatingMusicRef.value?.play?.();
+  }
+});
+
 </script>
 
 <style scoped>

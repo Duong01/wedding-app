@@ -35,11 +35,17 @@ export function useWeddingPublish(wedding, routeSlug) {
     [PUBLISH_STATE.TRIAL, PUBLISH_STATE.ACTIVE].includes(publishState.value)
   );
 
-  /* Link gửi cho khách mời — chỉ có ý nghĩa khi thiệp đã có slug. */
+  /*
+   * Link gửi cho khách mời — chỉ có ý nghĩa khi thiệp đã có slug.
+   *
+   * Trỏ vào BƯỚC 2 (/open) chứ không phải trang giới thiệu: khách
+   * bấm vào là thấy phong bì và mở thiệp được ngay, không phải đi
+   * qua màn giới thiệu dành cho người đang chọn mẫu.
+   */
   const guestLink = computed(() => {
     const slug = routeSlug.value || wedding.value?.slug;
 
-    return slug ? `${window.location.origin}/${slug}` : "";
+    return slug ? `${window.location.origin}/wedding/${slug}/open` : "";
   });
 
   /*

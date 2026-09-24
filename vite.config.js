@@ -52,6 +52,30 @@ export default defineConfig({
   ],
 
   // ==========================================
+  // DEP PRE-BUNDLING
+  // ==========================================
+  /*
+   * vite-plugin-vuetify (autoImport) chỉ thấy được các component
+   * nằm trong file mà Vite đã quét tới. Component chỉ xuất hiện
+   * trong file tải muộn — các panel của trình soạn thảo, theme
+   * lazy-load — bị phát hiện giữa phiên, Vite phải tối ưu lại
+   * và đổi hash. Trình duyệt còn giữ URL ?v=<hash cũ> nên nhận
+   * 504 Outdated Optimize Dep, kéo theo "Failed to fetch
+   * dynamically imported module".
+   *
+   * Khai báo sẵn ở đây để chúng nằm trong lần tối ưu đầu tiên.
+   */
+  optimizeDeps: {
+    include: [
+      'vuetify/components/VApp',
+      'vuetify/components/VIcon',
+      'vuetify/components/VProgressCircular',
+      'vuetify/components/VProgressLinear',
+      'vuetify/components/VSwitch'
+    ]
+  },
+
+  // ==========================================
   // PRODUCTION BUILD
   // ==========================================
   build: {

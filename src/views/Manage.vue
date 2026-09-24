@@ -731,7 +731,12 @@ function goHome() {
 ========================================================= */
 
 async function copyLink(entry) {
-  const url = `${window.location.origin}/wedding/${entry.slug}`;
+  /*
+   * Link gửi khách mời trỏ vào BƯỚC 2 (/open) — khách bấm là
+   * thấy phong bì và mở thiệp được ngay, không phải qua màn
+   * giới thiệu dành cho người đang chọn mẫu.
+   */
+  const url = `${window.location.origin}/wedding/${entry.slug}/open`;
 
   try {
     await navigator.clipboard.writeText(url);

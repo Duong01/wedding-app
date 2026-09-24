@@ -18,6 +18,8 @@ const PUBLIC_ROUTE_NAMES = [
   "Contact",
   "EditorPreview",
   "PreviewBare",
+  "WeddingIntro",
+  "WeddingOpen",
   "WeddingBySlug",
   "WeddingByApi",
   "Login",
@@ -110,17 +112,6 @@ export function setupRouterGuards(router) {
         }
 
         return true;
-
-    });
-    router.afterEach(() => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
 
     });
 

@@ -15,97 +15,67 @@
       tabindex="-1"
       :style="dragStyle"
     >
-      <!-- =====================================================
-           NỀN
-      ====================================================== -->
+      <div class="gm__backdrop" aria-hidden="true"></div>
 
-      <div class="gm__bg" aria-hidden="true"></div>
+      <div class="gm__inner">
+        <!-- =====================================================
+             SỐ THỨ TỰ · ĐÓNG
+        ====================================================== -->
 
-      <!-- =====================================================
-           THANH TRÊN
-      ====================================================== -->
-
-      <header class="gm__bar">
         <p v-if="images.length" class="gm__counter">
-          <strong>{{ pad(index + 1) }}</strong>
-          <span aria-hidden="true">/</span>
-          <em>{{ pad(images.length) }}</em>
+          {{ index + 1 }} / {{ images.length }}
         </p>
 
-        <p class="gm__title">{{ title }}</p>
-
-        <div class="gm__tools">
-          <button
-            v-if="zoomed"
-            type="button"
-            class="gm__tool"
-            aria-label="Thu nhỏ ảnh"
-            @click="resetZoom"
-          >
-            <span class="gm__zoom-badge">{{ zoom.toFixed(1) }}×</span>
-          </button>
-
-          <button
-            type="button"
-            class="gm__tool gm__tool--close"
-            aria-label="Đóng album"
-            @click="close"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <!--
-          Thanh tiến độ: cho biết đang ở đâu trong album mà không
-          phải đếm số. Chạy bằng transform để không phải layout lại.
-        -->
-        <div v-if="images.length > 1" class="gm__progress" aria-hidden="true">
-          <span :style="{ transform: `scaleX(${progress})` }"></span>
-        </div>
-      </header>
-
-      <!-- =====================================================
-           ẢNH LỚN
-      ====================================================== -->
-
-      <main
-        class="gm__stage"
-        @pointerdown="onPointerDown"
-        @pointermove="onPointerMove"
-        @pointerup="onPointerUp"
-        @pointercancel="onPointerUp"
-        @dblclick="onDoubleClick"
-        @wheel="onWheel"
-      >
         <button
-          v-if="images.length > 1"
           type="button"
-          class="gm__arrow gm__arrow--prev"
-          aria-label="Ảnh trước"
-          @click.stop="prev"
+          class="gm__close"
+          aria-label="Đóng album"
+          @click="close"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
-              d="M15 5l-7 7 7 7"
+              d="M6 6l12 12M18 6L6 18"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.6"
+              stroke-width="1.7"
               stroke-linecap="round"
-              stroke-linejoin="round"
             />
           </svg>
         </button>
 
-        <div ref="frameRef" class="gm__frame">
-          <div class="gm__zoom" :style="zoomStyle">
+        <!-- =====================================================
+             ẢNH LỚN
+        ====================================================== -->
+
+        <div
+          class="gm__stage"
+          @pointerdown="onPointerDown"
+          @pointermove="onPointerMove"
+          @pointerup="onPointerUp"
+          @pointercancel="onPointerUp"
+          @dblclick="onDoubleClick"
+          @wheel="onWheel"
+        >
+          <button
+            v-if="images.length > 1"
+            type="button"
+            class="gm__arrow gm__arrow--prev"
+            aria-label="Ảnh trước"
+            @click.stop="prev"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M15 5l-7 7 7 7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+
+          <div class="gm__frame">
             <!--
               Không dùng mode="out-in": cần cả hai ảnh cùng tồn tại
               trong lúc chuyển để trượt chồng lên nhau. Ảnh nằm
@@ -115,89 +85,73 @@
               <img
                 v-if="current"
                 :key="current.key"
+                ref="setPhotoRef"
                 :src="current.src"
                 :alt="current.title || `Ảnh cưới ${index + 1}`"
                 class="gm__photo"
+                :class="{ 'is-loaded': loadedKeys.has(current.key) }"
+                :style="zoomed ? zoomStyle : null"
                 draggable="false"
                 decoding="async"
                 @load="markLoaded(current.key)"
                 @error="markLoaded(current.key)"
               />
             </Transition>
+
+            <span
+              v-if="current && !loadedKeys.has(current.key)"
+              class="gm__spinner"
+              aria-hidden="true"
+            ></span>
           </div>
 
-          <!--
-            Ảnh lớn thường đã nằm sẵn trong cache nhờ preload hàng
-            xóm, nhưng ảnh đầu tiên thì chưa — vòng xoay này lấp
-            khoảng trống đó.
-          -->
-          <span
-            v-if="current && !loadedKeys.has(current.key)"
-            class="gm__spinner"
-            aria-hidden="true"
-          ></span>
+          <button
+            v-if="images.length > 1"
+            type="button"
+            class="gm__arrow gm__arrow--next"
+            aria-label="Ảnh tiếp theo"
+            @click.stop="next"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M9 5l7 7-7 7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
         </div>
 
-        <button
-          v-if="images.length > 1"
-          type="button"
-          class="gm__arrow gm__arrow--next"
-          aria-label="Ảnh tiếp theo"
-          @click.stop="next"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M9 5l7 7-7 7"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </main>
+        <!-- =====================================================
+             DẢI ẢNH NHỎ
+        ====================================================== -->
 
-      <!-- =====================================================
-           CHÚ THÍCH
-      ====================================================== -->
-
-      <p v-if="current?.title" :key="current.key" class="gm__caption">
-        {{ current.title }}
-      </p>
-
-      <!-- =====================================================
-           DẢI ẢNH NHỎ
-      ====================================================== -->
-
-      <nav v-if="images.length > 1" class="gm__strip">
-        <button
-          v-for="(item, i) in images"
-          :key="item.id"
-          :ref="(el) => setThumbRef(el, i)"
-          type="button"
-          class="gm__thumb"
-          :class="{ 'is-active': i === index }"
-          :aria-label="`Xem ảnh ${i + 1}`"
-          :aria-current="i === index ? 'true' : undefined"
-          @click="goTo(i)"
-        >
-          <img :src="item.src" alt="" loading="lazy" decoding="async" />
-        </button>
-      </nav>
+        <nav v-if="images.length > 1" class="gm__strip">
+          <button
+            v-for="(item, i) in images"
+            :key="item.id"
+            :ref="(el) => setThumbRef(el, i)"
+            type="button"
+            class="gm__thumb"
+            :class="{ 'is-active': i === index }"
+            :style="i === index ? { outlineColor: accent } : null"
+            :aria-label="`Xem ảnh ${i + 1}`"
+            :aria-current="i === index ? 'true' : undefined"
+            @click="goTo(i)"
+          >
+            <img :src="item.src" alt="" loading="lazy" decoding="async" />
+          </button>
+        </nav>
+      </div>
     </div>
   </Teleport>
 </template>
 
 <script setup>
-import {
-  computed,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-} from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
 /*
  * =========================================================
@@ -225,18 +179,29 @@ import {
  * nên theme không cần đụng tới document.body.
  *
  * ---------------------------------------------------------
+ * BỐ CỤC
+ * ---------------------------------------------------------
+ * Nền đen mờ, ảnh nằm giữa khung, mọi thứ khác trôi nổi trên
+ * ảnh chứ không chiếm chỗ: số thứ tự góc trái, nút đóng góc
+ * phải, hai mũi tên hai bên, dải ảnh nhỏ dưới cùng. Nhờ vậy ảnh
+ * được rộng tối đa mà vẫn đủ điều khiển — đúng cách các thư viện
+ * xem ảnh hiện đại vẫn làm.
+ *
+ * ---------------------------------------------------------
  * NHỮNG THỨ LÀM NÊN CẢM GIÁC "MƯỢT"
  * ---------------------------------------------------------
- * 1. Chuyển ảnh có hướng — ảnh mới trượt vào từ phía mà người
- *    dùng vừa đi tới, ảnh cũ trượt ra ngược lại, hai ảnh chồng
- *    lớp nhau nên không có khoảng trắng ở giữa.
+ * 1. Chuyển ảnh có hướng — ảnh mới trượt vào từ phía người dùng
+ *    vừa đi tới, ảnh cũ trượt ra ngược lại, hai ảnh chồng lớp
+ *    nên không có khoảng trắng ở giữa.
  * 2. Tải trước hàng xóm — ảnh kế tiếp thường đã nằm trong cache
  *    trước khi người dùng bấm, nên chuyển gần như tức thì.
- * 3. Kéo xuống để đóng — khung ảnh đi theo ngón tay rồi mờ dần,
- *    đúng thói quen xem ảnh trên điện thoại.
- * 4. Phóng to tại điểm chạm — nhấp đúp hoặc chụm hai ngón để
- *    xem chi tiết, kéo để di chuyển khi đang phóng to.
- * 5. Tôn trọng prefers-reduced-motion — tắt hết chuyển động.
+ * 3. Thả tay có tính vận tốc — vuốt nhanh thì đi thêm một ảnh,
+ *    vuốt chậm thì trả về ảnh gần nhất.
+ * 4. Kéo xuống để đóng — cả khung trôi theo ngón tay rồi mờ dần,
+ *    người dùng thấy trước kết quả chứ không phải đoán.
+ * 5. Phóng to tại điểm chạm — nhấp đúp hoặc chụm hai ngón, kéo
+ *    để di chuyển khi đang phóng to.
+ * 6. Tôn trọng prefers-reduced-motion — tắt hết chuyển động.
  * =========================================================
  */
 
@@ -256,9 +221,29 @@ const props = defineProps({
     type: String,
     default: "Album ảnh",
   },
+
+  /*
+   * Màu nhấn của theme — dùng cho viền ảnh nhỏ đang xem. Mặc
+   * định là đỏ son, hợp với phần lớn bộ sưu tập.
+   *
+   * Nhận cả giá trị cụ thể (`#9c1f2c`) lẫn tham chiếu biến CSS
+   * (`var(--bq-accent)`) vì mỗi theme khai báo một kiểu. Tham
+   * chiếu vẫn giải được vì các theme chép biến màu của mình
+   * sang <body>, mà modal thì teleport ra đó.
+   */
+  accent: {
+    type: String,
+    default: "#a63a2e",
+  },
 });
 
 const emit = defineEmits(["close"]);
+
+/*
+ * Màu nhấn của theme, đã chắc chắn có giá trị. Gộp về một chỗ
+ * để template không phải lặp lại màu dự phòng.
+ */
+const accent = computed(() => props.accent || "#a63a2e");
 
 /* =========================================================
    CHUẨN HOÁ ẢNH
@@ -316,12 +301,6 @@ const current = computed(() => images.value[index.value] || null);
 /* Hướng đi của lần chuyển gần nhất: 1 = tới, -1 = lùi. */
 const dir = ref(1);
 
-const progress = computed(() => {
-  const total = images.value.length;
-
-  return total > 1 ? (index.value + 1) / total : 1;
-});
-
 /* =========================================================
    THEO DÕI ẢNH ĐÃ TẢI
 ========================================================= */
@@ -349,7 +328,11 @@ function preloadAround() {
   }
 
   [index.value + 1, index.value - 1].forEach((i) => {
-    const item = images.value[(i + total) % total];
+    if (i < 0 || i >= total) {
+      return;
+    }
+
+    const item = images.value[i];
 
     if (!item || loadedKeys.value.has(item.key)) {
       return;
@@ -382,28 +365,12 @@ function goTo(target) {
   preloadAround();
 }
 
-/*
- * Vòng qua hai đầu: ảnh cuối → ảnh đầu. Album cưới thường được
- * xem hết một lượt nên vòng lại tiện hơn là chặn cứng.
- */
 function prev() {
-  if (images.value.length < 2) {
-    return;
-  }
-
-  goTo(index.value === 0 ? images.value.length - 1 : index.value - 1);
+  goTo(index.value - 1);
 }
 
 function next() {
-  if (images.value.length < 2) {
-    return;
-  }
-
-  goTo(index.value === images.value.length - 1 ? 0 : index.value + 1);
-}
-
-function pad(number) {
-  return String(number).padStart(2, "0");
+  goTo(index.value + 1);
 }
 
 /* =========================================================
@@ -441,7 +408,7 @@ const zoom = ref(1);
 const panX = ref(0);
 const panY = ref(0);
 
-/* Gốc phóng to tính theo % kích thước khung — đặt tại điểm chạm. */
+/* Gốc phóng to tính theo % khung ảnh — đặt tại điểm chạm. */
 const originX = ref(50);
 const originY = ref(50);
 
@@ -462,14 +429,28 @@ function resetZoom() {
   originY.value = 50;
 }
 
+/*
+ * Phóng to quanh đúng điểm người dùng chạm. Gốc transform tính
+ * theo toạ độ tương đối trên chính tấm ảnh — ảnh giữ tỉ lệ nên
+ * nó không trùng khít khung, lấy khung làm mốc thì ảnh sẽ trôi
+ * lệch khỏi ngón tay.
+ */
 function zoomAt(clientX, clientY, factor) {
-  const frame = frameRef.value;
+  const photo = photoRef.value;
 
-  if (!frame) {
+  if (!photo) {
     return;
   }
 
-  const rect = frame.getBoundingClientRect();
+  const rect = photo.getBoundingClientRect();
+
+  /*
+   * Ảnh chưa tải xong thì kích thước bằng 0, chia cho nó sẽ ra
+   * NaN và làm hỏng cả transform lẫn phép giới hạn kéo.
+   */
+  if (!rect.width || !rect.height) {
+    return;
+  }
 
   originX.value = ((clientX - rect.left) / rect.width) * 100;
   originY.value = ((clientY - rect.top) / rect.height) * 100;
@@ -487,20 +468,28 @@ function zoomAt(clientX, clientY, factor) {
 
 /*
  * Chặn không cho kéo ảnh ra khỏi khung. Ở mức phóng to z, ảnh
- * rộng hơn khung (z - 1) lần, nên phần được phép dịch chuyển
- * mỗi chiều đúng bằng một nửa khoảng dư đó.
+ * rộng hơn kích thước gốc (z - 1) lần, nên phần được phép dịch
+ * chuyển mỗi chiều đúng bằng một nửa khoảng dư đó.
+ *
+ * Đo trên chính tấm ảnh chứ không phải khung: ảnh giữ đúng tỉ
+ * lệ nên thường thấp hơn khung, lấy khung sẽ cho phép kéo lố.
+ * Lúc này ảnh đang bị scale nên phải chia lại cho z mới ra
+ * kích thước thật.
  */
 function clampPan() {
-  const frame = frameRef.value;
+  const photo = photoRef.value;
 
-  if (!frame) {
+  if (!photo) {
     return;
   }
 
-  const rect = frame.getBoundingClientRect();
+  const rect = photo.getBoundingClientRect();
 
-  const maxX = (rect.width * (zoom.value - 1)) / 2;
-  const maxY = (rect.height * (zoom.value - 1)) / 2;
+  const baseW = rect.width / zoom.value;
+  const baseH = rect.height / zoom.value;
+
+  const maxX = (baseW * (zoom.value - 1)) / 2;
+  const maxY = (baseH * (zoom.value - 1)) / 2;
 
   panX.value = Math.min(Math.max(panX.value, -maxX), maxX);
   panY.value = Math.min(Math.max(panY.value, -maxY), maxY);
@@ -558,7 +547,22 @@ function onWheel(event) {
    KÉO & VUỐT
 ========================================================= */
 
-const frameRef = ref(null);
+/*
+ * Tham chiếu tới tấm ảnh đang xem. Cần cho việc phóng to: mọi
+ * phép tính gốc transform và giới hạn kéo đều dựa trên kích
+ * thước thật của ảnh, không phải của khung chứa.
+ *
+ * Ảnh nằm trong <Transition> nên lúc chuyển cảnh có hai tấm cùng
+ * tồn tại; gán qua hàm để chỉ giữ tấm mới nhất, tránh việc Vue
+ * ghi đè lẫn nhau khi tấm cũ gỡ ra.
+ */
+const photoRef = ref(null);
+
+function setPhotoRef(el) {
+  if (el) {
+    photoRef.value = el;
+  }
+}
 
 const drag = ref({ mode: null, x: 0, y: 0, dx: 0, dy: 0 });
 
@@ -572,11 +576,17 @@ const pointers = new Map();
 let pinchStart = 0;
 let pinchZoom = 1;
 
-const SWIPE_MIN = 45;
+/* Vận tốc ngón tay, dùng để quyết định có đi thêm một ảnh không. */
+let lastX = 0;
+let lastT = 0;
+let velocity = 0;
+
+const SWIPE_MIN = 42;
+const FLICK_VELOCITY = 0.45;
 const CLOSE_MIN = 90;
 
 /*
- * Kéo xuống để đóng: khung ảnh đi theo ngón tay và mờ dần, nên
+ * Kéo xuống để đóng: cả khung trôi theo ngón tay và mờ dần, nên
  * người dùng thấy trước là thả ra sẽ đóng — không phải đoán.
  */
 const dragStyle = computed(() => {
@@ -629,6 +639,10 @@ function onPointerDown(event) {
     return;
   }
 
+  lastX = event.clientX;
+  lastT = Date.now();
+  velocity = 0;
+
   drag.value = {
     mode: null,
     x: event.clientX,
@@ -666,6 +680,21 @@ function onPointerMove(event) {
 
   drag.value.dx = dx;
   drag.value.dy = dy;
+
+  /*
+   * Đo vận tốc trên mọi lần di chuyển, không chỉ lần đầu — lúc
+   * thả tay mới là lúc cần biết ngón tay đang đi nhanh hay chậm,
+   * mà lấy mẫu ở giữa chừng thì đã cũ.
+   */
+  const now = Date.now();
+  const dt = now - lastT;
+
+  if (dt > 0) {
+    velocity = (event.clientX - lastX) / dt;
+
+    lastX = event.clientX;
+    lastT = now;
+  }
 
   if (drag.value.mode) {
     return;
@@ -741,7 +770,20 @@ function onPointerUp(event) {
     return;
   }
 
-  if (mode === "nav" && Math.abs(dx) > SWIPE_MIN) {
+  if (mode !== "nav") {
+    return;
+  }
+
+  /*
+   * Quyết định điểm dừng: vuốt nhanh (flick) thì đi thêm một ảnh
+   * theo hướng vuốt, vuốt chậm thì về ảnh gần nhất. Đây là cách
+   * carousel trên điện thoại vẫn xử lý, và nó khớp với phản xạ
+   * của người dùng hơn là chỉ so khoảng cách.
+   */
+  const flicked = Math.abs(velocity) > FLICK_VELOCITY;
+  const far = Math.abs(dx) > SWIPE_MIN;
+
+  if (flicked || far) {
     if (dx < 0) {
       next();
     } else {
@@ -847,16 +889,6 @@ onBeforeUnmount(() => {
 
   window.removeEventListener("keydown", onKeydown);
 });
-
-/* Ảnh đổi từ bên ngoài (theme đổi bộ lọc) thì kéo chỉ số về. */
-watch(
-  () => images.value.length,
-  (total) => {
-    if (index.value > total - 1) {
-      index.value = Math.max(total - 1, 0);
-    }
-  }
-);
 </script>
 
 <style scoped>
@@ -870,28 +902,11 @@ watch(
 
   z-index: 99999;
 
-  display: grid;
-
-  /*
-   * THANH TRÊN · ẢNH · CHÚ THÍCH · DẢI ẢNH NHỎ
-   * Hàng ảnh dùng minmax(0, 1fr) để ảnh cao bao nhiêu cũng
-   * không đẩy các hàng còn lại ra khỏi màn hình.
-   */
-  grid-template-rows: 56px minmax(0, 1fr) auto auto;
-
-  overflow: hidden;
-
-  color: #f6efe4;
-
-  background: #0d0a09;
-
   outline: none;
-
-  isolation: isolate;
 
   opacity: 0;
 
-  transition: opacity 0.32s ease;
+  transition: opacity 0.3s ease;
 }
 
 .gm.is-open {
@@ -911,183 +926,96 @@ watch(
   transition: none;
 }
 
-.gm__bg {
+.gm__backdrop {
   position: absolute;
   inset: 0;
 
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.88);
 
-  background:
-    radial-gradient(
-      ellipse at 50% 38%,
-      rgba(255, 255, 255, 0.07),
-      transparent 42%
-    ),
-    linear-gradient(150deg, #1a1210 0%, #0b0807 52%, #16100d 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 
-  pointer-events: none;
+.gm__inner {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  height: 100dvh;
+
+  padding: 40px 8px 16px;
+
+  box-sizing: border-box;
 }
 
 /* =========================================================
-   THANH TRÊN
+   SỐ THỨ TỰ · NÚT ĐÓNG
 ========================================================= */
 
-.gm__bar {
-  position: relative;
-
-  z-index: 3;
-
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-
-  gap: 12px;
-
-  padding: 0 14px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-  background: rgba(11, 8, 7, 0.72);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-
-  transform: translateY(-100%);
-
-  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.gm.is-open .gm__bar {
-  transform: translateY(0);
-}
-
 .gm__counter {
-  display: flex;
-  align-items: baseline;
+  position: absolute;
 
-  gap: 5px;
+  top: 8px;
+  left: 8px;
+
+  z-index: 10;
 
   margin: 0;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  color: #fff;
+
+  font-size: 13px;
+  font-weight: 500;
 
   font-variant-numeric: tabular-nums;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
-.gm__counter strong {
-  color: #f0d9a4;
+.gm__close {
+  position: absolute;
 
-  font-size: 15px;
-  font-weight: 600;
-}
+  top: 8px;
+  right: 8px;
 
-.gm__counter span,
-.gm__counter em {
-  color: rgba(246, 239, 228, 0.42);
+  z-index: 10;
 
-  font-size: 12px;
-  font-style: normal;
-}
-
-.gm__title {
-  margin: 0;
-
-  color: #f0d9a4;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-
-  text-align: center;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.gm__tools {
-  justify-self: end;
-
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-}
-
-.gm__tool {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  height: 36px;
-  min-width: 36px;
+  width: 34px;
+  height: 34px;
 
-  padding: 0 10px;
+  padding: 0;
 
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 999px;
+  border: 0;
+  border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.05);
-  color: #f6efe4;
+  background: transparent;
+  color: #fff;
 
   cursor: pointer;
 
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.gm__tool svg {
-  width: 18px;
-  height: 18px;
+.gm__close svg {
+  width: 20px;
+  height: 20px;
 }
 
-.gm__tool:hover {
-  border-color: rgba(240, 217, 164, 0.5);
-
-  background: rgba(240, 217, 164, 0.14);
-}
-
-.gm__zoom-badge {
-  font-size: 11.5px;
-  font-weight: 600;
-
-  font-variant-numeric: tabular-nums;
-
-  letter-spacing: 0.02em;
-}
-
-/* =========================================================
-   THANH TIẾN ĐỘ
-========================================================= */
-
-.gm__progress {
-  position: absolute;
-
-  right: 0;
-  bottom: -1px;
-  left: 0;
-
-  height: 2px;
-
-  overflow: hidden;
-}
-
-.gm__progress span {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  transform-origin: left center;
-
-  background: linear-gradient(
-    90deg,
-    rgba(240, 217, 164, 0.35),
-    #f0d9a4
-  );
-
-  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+.gm__close:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* =========================================================
@@ -1098,12 +1026,19 @@ watch(
   position: relative;
 
   display: flex;
+  flex: 1;
+
   align-items: center;
   justify-content: center;
 
+  width: 100%;
+  max-width: 1024px;
+
   min-height: 0;
 
-  padding: 14px;
+  padding: 0 32px;
+
+  box-sizing: border-box;
 
   /*
    * Chặn trình duyệt tự cuộn/kéo trang khi người dùng vuốt —
@@ -1123,40 +1058,6 @@ watch(
   height: 100%;
 
   min-height: 0;
-
-  transform: scale(0.94);
-
-  opacity: 0;
-
-  transition:
-    transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.36s ease;
-}
-
-.gm.is-open .gm__frame {
-  transform: scale(1);
-
-  opacity: 1;
-}
-
-.gm__zoom {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/*
- * Khi đang kéo ảnh hoặc chụm ngón, bỏ hẳn hiệu ứng trượt của
- * transform — nếu giữ, ảnh sẽ đuổi theo ngón tay một cách trễ
- * nhịp và cảm giác rất "dính".
- */
-.gm.is-panning .gm__zoom {
-  transition: none;
 }
 
 .gm__photo {
@@ -1173,12 +1074,27 @@ watch(
 
   object-fit: contain;
 
-  border-radius: 4px;
+  border-radius: 12px;
 
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 
   user-select: none;
   -webkit-user-drag: none;
+
+  cursor: default;
+
+  /*
+   * Transition này dành cho lúc phóng to / kéo ảnh. Khi chuyển
+   * ảnh, lớp gm-swap-* của Vue khai báo sau nên đè lại — nhờ
+   * vậy hai hiệu ứng không giành nhau thuộc tính transform.
+   */
+  transition: transform 0.2s ease-out;
+
+  will-change: transform;
+}
+
+.gm.is-panning .gm__photo {
+  transition: none;
 }
 
 /* =========================================================
@@ -1194,30 +1110,30 @@ watch(
 .gm-swap-prev-enter-active,
 .gm-swap-prev-leave-active {
   transition:
-    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.34s ease;
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s ease;
 }
 
 .gm-swap-next-enter-from {
-  transform: translate3d(7%, 0, 0) scale(1.03);
+  transform: translate3d(6%, 0, 0) scale(1.02);
 
   opacity: 0;
 }
 
 .gm-swap-next-leave-to {
-  transform: translate3d(-7%, 0, 0) scale(0.97);
+  transform: translate3d(-6%, 0, 0) scale(0.98);
 
   opacity: 0;
 }
 
 .gm-swap-prev-enter-from {
-  transform: translate3d(-7%, 0, 0) scale(1.03);
+  transform: translate3d(-6%, 0, 0) scale(1.02);
 
   opacity: 0;
 }
 
 .gm-swap-prev-leave-to {
-  transform: translate3d(7%, 0, 0) scale(0.97);
+  transform: translate3d(6%, 0, 0) scale(0.98);
 
   opacity: 0;
 }
@@ -1232,8 +1148,8 @@ watch(
   width: 26px;
   height: 26px;
 
-  border: 2px solid rgba(240, 217, 164, 0.22);
-  border-top-color: #f0d9a4;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-top-color: #fff;
   border-radius: 50%;
 
   animation: gm-spin 0.8s linear infinite;
@@ -1253,53 +1169,47 @@ watch(
   position: absolute;
   top: 50%;
 
-  z-index: 2;
+  z-index: 10;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
 
   padding: 0;
 
   transform: translateY(-50%);
 
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 0;
   border-radius: 50%;
 
-  background: rgba(11, 8, 7, 0.55);
-  color: #f6efe4;
+  background: transparent;
+  color: #fff;
 
   cursor: pointer;
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
   transition:
     background-color 0.2s ease,
-    border-color 0.2s ease,
     opacity 0.3s ease;
 }
 
 .gm__arrow svg {
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
 }
 
 .gm__arrow:hover {
-  border-color: rgba(240, 217, 164, 0.5);
-
-  background: rgba(240, 217, 164, 0.16);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .gm__arrow--prev {
-  left: 10px;
+  left: 0;
 }
 
 .gm__arrow--next {
-  right: 10px;
+  right: 0;
 }
 
 /* Đang phóng to thì nút chuyển ảnh chỉ vướng mắt. */
@@ -1310,61 +1220,35 @@ watch(
 }
 
 /* =========================================================
-   CHÚ THÍCH
-========================================================= */
-
-.gm__caption {
-  margin: 0;
-
-  padding: 0 20px 12px;
-
-  color: rgba(246, 239, 228, 0.72);
-
-  font-size: 13px;
-
-  line-height: 1.6;
-
-  text-align: center;
-
-  animation: gm-caption-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@keyframes gm-caption-in {
-  from {
-    transform: translateY(6px);
-
-    opacity: 0;
-  }
-}
-
-/* =========================================================
    DẢI ẢNH NHỎ
 ========================================================= */
 
 .gm__strip {
   display: flex;
+  flex-shrink: 0;
 
-  gap: 7px;
+  gap: 8px;
 
-  padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+  max-width: 90vw;
+
+  margin-top: 12px;
+  padding: 8px;
 
   overflow-x: auto;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 
-  background: rgba(11, 8, 7, 0.6);
+  background: rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   overscroll-behavior-x: contain;
 
   scrollbar-width: none;
+  -ms-overflow-style: none;
 
-  transform: translateY(100%);
-
-  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.gm.is-open .gm__strip {
-  transform: translateY(0);
+  cursor: default;
 }
 
 .gm__strip::-webkit-scrollbar {
@@ -1372,28 +1256,28 @@ watch(
 }
 
 .gm__thumb {
-  flex: 0 0 auto;
+  flex-shrink: 0;
 
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
 
   padding: 0;
 
   overflow: hidden;
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 0;
   border-radius: 6px;
 
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
 
   cursor: pointer;
 
-  opacity: 0.45;
+  opacity: 0.6;
 
   transition:
-    opacity 0.24s ease,
-    border-color 0.24s ease,
-    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .gm__thumb img {
@@ -1406,56 +1290,101 @@ watch(
 }
 
 .gm__thumb:hover {
-  opacity: 0.85;
+  opacity: 1;
 }
 
+/*
+ * Ảnh đang xem: sáng hơn, nhích lên một chút và có viền màu
+ * nhấn của theme. Viền vẽ bằng outline để không làm ảnh bên
+ * cạnh xê dịch khi trạng thái đổi.
+ *
+ * Màu viền đặt qua inline style chứ không qua `v-bind()` trong
+ * <style>: theme có thể truyền `var(--bq-accent)`, mà cách đó
+ * chỉ nhận giá trị màu cụ thể. Màu ở đây chỉ là phương án dự
+ * phòng nếu theme không truyền gì.
+ */
 .gm__thumb.is-active {
-  border-color: #f0d9a4;
-
   opacity: 1;
 
-  transform: translateY(-3px);
+  transform: scale(1.05);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+
+  outline: 2px solid #a63a2e;
+  outline-offset: 2px;
 }
 
 /* =========================================================
    TABLET / DESKTOP
 ========================================================= */
 
-@media (min-width: 768px) {
-  .gm {
-    grid-template-rows: 62px minmax(0, 1fr) auto auto;
+@media (min-width: 640px) {
+  .gm__inner {
+    padding: 48px 16px 24px;
   }
 
-  .gm__bar {
-    padding: 0 22px;
+  .gm__counter {
+    top: 16px;
+    left: 16px;
+
+    padding: 4px 12px;
+
+    font-size: 16px;
+  }
+
+  .gm__close {
+    top: 16px;
+    right: 16px;
+
+    width: 40px;
+    height: 40px;
+  }
+
+  .gm__close svg {
+    width: 24px;
+    height: 24px;
   }
 
   .gm__stage {
-    padding: 22px 76px;
+    padding: 0 48px;
+  }
+
+  .gm__photo {
+    border-radius: 16px;
   }
 
   .gm__arrow {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .gm__arrow svg {
+    width: 34px;
+    height: 34px;
   }
 
   .gm__arrow--prev {
-    left: 18px;
+    left: 8px;
   }
 
   .gm__arrow--next {
-    right: 18px;
+    right: 8px;
   }
 
   .gm__strip {
-    justify-content: center;
+    gap: 12px;
 
-    padding: 12px 22px 16px;
+    max-width: 80vw;
+
+    margin-top: 16px;
+    padding: 12px 16px;
   }
 
   .gm__thumb {
     width: 64px;
     height: 64px;
+
+    border-radius: 8px;
   }
 }
 
@@ -1465,24 +1394,15 @@ watch(
 
 @media (prefers-reduced-motion: reduce) {
   .gm,
-  .gm__bar,
-  .gm__frame,
-  .gm__strip,
-  .gm__zoom,
   .gm__photo,
   .gm__thumb,
   .gm__arrow,
-  .gm__tool,
-  .gm__progress span,
+  .gm__close,
   .gm-swap-next-enter-active,
   .gm-swap-next-leave-active,
   .gm-swap-prev-enter-active,
   .gm-swap-prev-leave-active {
     transition: none;
-  }
-
-  .gm__caption {
-    animation: none;
   }
 
   .gm__spinner {

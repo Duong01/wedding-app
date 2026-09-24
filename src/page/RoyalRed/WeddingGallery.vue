@@ -59,6 +59,7 @@
       v-if="dialog"
       :images="gallery"
       :start-index="currentIndex"
+      accent="var(--rr-gold, #d0a85c)"
       @close="closeLightbox"
     />
 

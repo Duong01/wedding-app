@@ -24,6 +24,7 @@
       v-if="dialog"
       :images="gallery"
       :start-index="currentIndex"
+      accent="var(--mw-blue, #486c7d)"
       @close="closeLightbox"
     />
   </section>
