@@ -49,6 +49,10 @@
           type="text"
           placeholder="Trần Hiếu"
         />
+
+        <small class="field-help">
+          Tự điền sang Ảnh bìa, Chân thiệp và mục Cô dâu & Chú rể.
+        </small>
       </div>
 
       <div class="editor-field">
@@ -59,6 +63,10 @@
           type="text"
           placeholder="Hà Uyên"
         />
+
+        <small class="field-help">
+          Tự điền sang Ảnh bìa, Chân thiệp và mục Cô dâu & Chú rể.
+        </small>
       </div>
 
       <div class="editor-field full">
@@ -100,6 +108,10 @@
 
           <option value="en">English</option>
         </select>
+
+        <small class="field-help">
+          Ngôn ngữ hiển thị các dòng chữ mặc định của thiệp.
+        </small>
       </div>
 
       <div class="editor-field">
@@ -113,6 +125,10 @@
 
         <small v-if="weddingDateLabel" class="field-help">
           {{ weddingDateLabel }}
+        </small>
+
+        <small v-else class="field-help">
+          Ngày giờ chính — dùng cho Đếm ngược và Ảnh bìa.
         </small>
       </div>
 
@@ -138,6 +154,11 @@
           kind="image"
           button-text="Tải ảnh bìa lên"
         />
+
+        <small class="field-help">
+          Ảnh đại diện của thiệp — hiển thị ở trang Mẫu thiệp và danh
+          sách Thiệp của tôi.
+        </small>
       </div>
     </div>
   </section>

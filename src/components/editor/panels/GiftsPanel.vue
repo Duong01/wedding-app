@@ -73,14 +73,26 @@
           <div class="editor-field">
             <label>Tên tài khoản</label>
 
-            <input v-model="gift.AccountName" type="text" />
+            <input
+              v-model="gift.AccountName"
+              type="text"
+              placeholder="VD: TRAN THI HA UYEN"
+            />
+
+            <small class="field-help">
+              Tên chủ tài khoản — ghi đúng như trong app ngân hàng.
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Số tài khoản</label>
 
             <div class="copy-row">
-              <input v-model="gift.AccountNumber" type="text" />
+              <input
+                v-model="gift.AccountNumber"
+                type="text"
+                placeholder="VD: 0123456789"
+              />
 
               <button
                 type="button"
@@ -92,6 +104,10 @@
                 <v-icon size="16"> mdi-content-copy </v-icon>
               </button>
             </div>
+
+            <small class="field-help">
+              Khách bấm biểu tượng sao chép để dán vào app ngân hàng.
+            </small>
           </div>
 
           <div class="editor-field full">
@@ -103,15 +119,24 @@
               button-text="Tải mã QR lên"
             />
 
-            <small v-if="gift.QrCode" class="field-help">
-              Khách quét mã này để chuyển khoản nhanh.
+            <small class="field-help">
+              Chụp màn hình mã QR trong app ngân hàng rồi tải lên —
+              khách quét để chuyển khoản nhanh.
             </small>
           </div>
 
           <div class="editor-field full">
             <label>Mô tả</label>
 
-            <textarea v-model="gift.Description" rows="4" />
+            <textarea
+              v-model="gift.Description"
+              rows="4"
+              placeholder="VD: Mọi đóng góp xin gửi về tài khoản của cô dâu."
+            />
+
+            <small class="field-help">
+              Lời nhắn hiển thị cạnh thông tin tài khoản.
+            </small>
           </div>
         </div>
       </article>

@@ -80,6 +80,10 @@
         type="text"
         placeholder="Ví dụ: Beautiful In White"
       />
+
+      <small class="field-help">
+        Hiển thị trên nút nhạc của thiệp. Bỏ trống nếu không cần.
+      </small>
     </div>
 
     <!-- =====================================================

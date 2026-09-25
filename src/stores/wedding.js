@@ -61,7 +61,7 @@ export const useWeddingStore = defineStore("wedding", {
 
                 Nickname: item.couple?.Bride?.Nickname || "",
 
-                Rle: item.couple?.Bride?.Role || "Cô dâu",
+                Role: item.couple?.Bride?.Role || "Cô dâu",
               },
 
               Groom: {

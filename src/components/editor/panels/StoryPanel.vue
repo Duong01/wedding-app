@@ -18,6 +18,10 @@
         type="text"
         placeholder="VD: Chuyện của chúng mình"
       />
+
+      <small class="field-help">
+        Tiêu đề của mục trên thiệp. Bỏ trống dùng "Chuyện Tình Yêu".
+      </small>
     </div>
 
     <div class="editor-field">
@@ -28,6 +32,11 @@
         rows="12"
         placeholder="Viết câu chuyện tình yêu..."
       />
+
+      <small class="field-help">
+        Gợi ý: bắt đầu từ lúc hai bạn gặp nhau, khoảnh khắc nhớ nhất,
+        rồi đến lời cầu hôn. 150–300 từ là vừa đẹp.
+      </small>
 
       <div class="story-meta">
         <span>

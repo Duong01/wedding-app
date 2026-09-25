@@ -168,10 +168,15 @@
       <div class="editor-field">
         <label>Max width</label>
 
-        <input v-model="wedding.theme.Layout.MaxWidth" type="text" />
+        <input
+          v-model="wedding.theme.Layout.MaxWidth"
+          type="text"
+          placeholder="VD: 900px"
+        />
 
         <small class="field-help">
-          Bề rộng tối đa của nội dung thiệp.
+          Bề rộng tối đa của nội dung thiệp. Mặc định 900px — tăng
+          lên nếu muốn thiệp rộng hơn trên máy tính.
         </small>
       </div>
 
@@ -181,10 +186,12 @@
         <input
           v-model="wedding.theme.Layout.SectionPadding"
           type="text"
+          placeholder="VD: 80px"
         />
 
         <small class="field-help">
-          Khoảng cách dọc giữa các mục.
+          Khoảng cách dọc giữa các mục. Mặc định 80px — giảm xuống
+          (VD: 50px) để thiệp gọn hơn.
         </small>
       </div>
     </div>

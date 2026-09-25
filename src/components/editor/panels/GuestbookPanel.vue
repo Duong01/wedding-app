@@ -27,7 +27,15 @@
     <div class="editor-field">
       <label>Tiêu đề</label>
 
-      <input v-model="wedding.guestBook.Title" type="text" />
+      <input
+        v-model="wedding.guestBook.Title"
+        type="text"
+        placeholder="VD: Sổ Lưu Bút"
+      />
+
+      <small class="field-help">
+        Tiêu đề của mục trên thiệp. Bỏ trống dùng "Sổ lưu bút".
+      </small>
     </div>
 
     <p v-if="feedback" class="panel-feedback" :class="{ error: feedbackError }">

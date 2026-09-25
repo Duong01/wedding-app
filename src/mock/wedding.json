@@ -1,4 +1,3 @@
-
 [
   {
     "Id": 1,
@@ -7,7 +6,7 @@
     "brideName": "Hà Uyên",
     "language": "vi",
     "weddingDate": "2026-11-14T08:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/37106665/pexels-photo-37106665.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "traditional-red",
       "Colors": {
@@ -15,7 +14,7 @@
         "Secondary": "#9d2525",
         "Accent": "#c79d5c",
         "AccentLight": "#f7d8a3",
-        "Background": "#f8f5ed",
+        "Background": "https://images.pexels.com/photos/33986841/pexels-photo-33986841.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#eee8dc",
         "Text": "#5c4d46",
         "TextSecondary": "#806f66",
@@ -36,8 +35,8 @@
         "Name": "Hà Uyên",
         "Nickname": "Uyên",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/38776689/pexels-photo-38776689.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/13378326/pexels-photo-13378326.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Đinh Văn Tá",
         "Mother": "Nguyễn Thị Thu",
         "Address": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
@@ -47,8 +46,8 @@
         "Name": "Trần Hiếu",
         "Nickname": "Hiếu",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/33494715/pexels-photo-33494715.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Trần Văn Bình",
         "Mother": "Nguyễn Thị Bảy",
         "Address": "Số 9 đường Cống Đồng, thôn Đức Hậu, xã Đa Phúc, TP Hà Nội",
@@ -61,7 +60,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-14T08:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/19956239/pexels-photo-19956239.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh"
     },
@@ -104,27 +103,27 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/13111863/pexels-photo-13111863.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34668060/pexels-photo-34668060.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/11965604/pexels-photo-11965604.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/17845908/pexels-photo-17845908.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 5,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/10792774/pexels-photo-10792774.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 6,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/13111955/pexels-photo-13111955.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -252,7 +251,7 @@
     "brideName": "Minh Anh",
     "language": "vi",
     "weddingDate": "2026-12-06T17:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/33494620/pexels-photo-33494620.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "romantic-pink",
       "Colors": {
@@ -260,7 +259,7 @@
         "Secondary": "#933845",
         "Accent": "#cb5d6c",
         "AccentLight": "#f6dfe2",
-        "Background": "#fdf3f4",
+        "Background": "https://images.pexels.com/photos/19698116/pexels-photo-19698116.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#f6dfe2",
         "Text": "#933845",
         "TextSecondary": "#cb5d6c",
@@ -281,8 +280,8 @@
         "Name": "Minh Anh",
         "Nickname": "Anh",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/16800881/pexels-photo-16800881.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/9334774/pexels-photo-9334774.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Lê Văn Đức",
         "Mother": "Trần Thị Hồng",
         "Address": "Số 12 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
@@ -292,8 +291,8 @@
         "Name": "Quốc Huy",
         "Nickname": "Huy",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/19956233/pexels-photo-19956233.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/38766158/pexels-photo-38766158.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Phạm Văn Tùng",
         "Mother": "Nguyễn Thị Lan",
         "Address": "Số 45 Lê Lợi, Hải Châu, Đà Nẵng",
@@ -306,7 +305,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-12-06T17:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/33328292/pexels-photo-33328292.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Trung tâm Hội nghị White Palace, TP. Hồ Chí Minh"
     },
@@ -334,19 +333,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/35869233/pexels-photo-35869233.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29585803/pexels-photo-29585803.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34972467/pexels-photo-34972467.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/19791965/pexels-photo-19791965.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -463,7 +462,7 @@
     "brideName": "Ngọc Linh",
     "language": "vi",
     "WeddingDate": "2027-01-09T18:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/37303416/pexels-photo-37303416.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "elegant-gold",
       "Colors": {
@@ -471,7 +470,7 @@
         "Secondary": "#a30a15",
         "Accent": "#d70c1b",
         "AccentLight": "#fdecee",
-        "Background": "#ffffff",
+        "Background": "https://images.pexels.com/photos/35835961/pexels-photo-35835961.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#fdecee",
         "Text": "#000000",
         "TextSecondary": "#4a4a4a",
@@ -492,8 +491,8 @@
         "Name": "Ngọc Linh",
         "Nickname": "Linh",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/31857568/pexels-photo-31857568.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Vũ Đình Khánh",
         "Mother": "Đỗ Thị Bích",
         "Address": "Số 88 Trần Duy Hưng, Cầu Giấy, Hà Nội",
@@ -503,8 +502,8 @@
         "Name": "Hải Đăng",
         "Nickname": "Đăng",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/35455055/pexels-photo-35455055.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/35046294/pexels-photo-35046294.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Bùi Văn Sơn",
         "Mother": "Lê Thị Nga",
         "Address": "Số 21 Xuân Thủy, Cầu Giấy, Hà Nội",
@@ -517,7 +516,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-01-09T18:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/33986842/pexels-photo-33986842.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Khách sạn Metropole, Hà Nội"
     },
@@ -545,19 +544,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34530267/pexels-photo-34530267.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/39204563/pexels-photo-39204563.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/12591966/pexels-photo-12591966.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/35278862/pexels-photo-35278862.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -674,7 +673,7 @@
     "brideName": "Thu Hà",
     "language": "vi",
     "weddingDate": "2026-11-28T11:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/35381123/pexels-photo-35381123.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "modern-white",
       "Colors": {
@@ -682,7 +681,7 @@
         "Secondary": "#3a5666",
         "Accent": "#a4c4d4",
         "AccentLight": "#e8f0f4",
-        "Background": "#ffffff",
+        "Background": "https://images.pexels.com/photos/33921028/pexels-photo-33921028.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#e8f0f4",
         "Text": "#3a5666",
         "TextSecondary": "#6b8494",
@@ -703,8 +702,8 @@
         "Name": "Thu Hà",
         "Nickname": "Hà",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/23369888/pexels-photo-23369888.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/28880823/pexels-photo-28880823.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
@@ -714,8 +713,8 @@
         "Name": "Minh Quân",
         "Nickname": "Quân",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/29704394/pexels-photo-29704394.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/30122469/pexels-photo-30122469.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -728,7 +727,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/23369886/pexels-photo-23369886.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
@@ -756,19 +755,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33921018/pexels-photo-33921018.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29863307/pexels-photo-29863307.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/14581489/pexels-photo-14581489.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -884,11 +883,11 @@
   {
     "Id": 5,
     "slug": "thu-ha-minh-quan1",
-    "groomName": "Minh Quân",
-    "brideName": "Thu Hà",
+    "groomName": "Gia Hưng",
+    "brideName": "Ngọc Trâm",
     "language": "vi",
     "weddingDate": "2026-11-28T11:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/10792754/pexels-photo-10792754.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "nhat-binh-do",
       "Colors": {
@@ -896,7 +895,7 @@
         "Secondary": "#560207",
         "Accent": "#9c1f2c",
         "AccentLight": "#f6ecd9",
-        "Background": "#fbf8f3",
+        "Background": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#f6ecd9",
         "Text": "#560207",
         "TextSecondary": "#9c1f2c",
@@ -914,22 +913,22 @@
     },
     "couple": {
       "Bride": {
-        "Name": "Thu Hà",
-        "Nickname": "Hà",
+        "Name": "Ngọc Trâm",
+        "Nickname": "Trâm",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
         "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
       },
       "Groom": {
-        "Name": "Minh Quân",
-        "Nickname": "Quân",
+        "Name": "Gia Hưng",
+        "Nickname": "Hưng",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -937,12 +936,12 @@
       }
     },
     "hero": {
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà",
+      "GroomName": "Gia Hưng",
+      "BrideName": "Ngọc Trâm",
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
@@ -970,19 +969,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/37106654/pexels-photo-37106654.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -1037,7 +1036,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "NGO NGOC TRAM",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
@@ -1046,7 +1045,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "NGO NGOC TRAM",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
@@ -1069,9 +1068,9 @@
     },
     "footer": {
       "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
-      "Copyright": "Thu Hà & Minh Quân",
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà"
+      "Copyright": "Ngọc Trâm & Gia Hưng",
+      "GroomName": "Gia Hưng",
+      "BrideName": "Ngọc Trâm"
     },
     "settings": {
       "ShowHero": true,
@@ -1098,11 +1097,11 @@
   {
     "Id": 6,
     "slug": "royal-red",
-    "groomName": "Minh Quân",
-    "brideName": "Thu Hà",
+    "groomName": "Hoàng Long",
+    "brideName": "Diễm Quỳnh",
     "language": "vi",
     "weddingDate": "2026-11-28T11:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/28747538/pexels-photo-28747538.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "royal-red",
       "Colors": {
@@ -1110,7 +1109,7 @@
         "Secondary": "#8c171b",
         "Accent": "#d0a85c",
         "AccentLight": "#f4dca5",
-        "Background": "#f4eee2",
+        "Background": "https://images.pexels.com/photos/37106652/pexels-photo-37106652.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#e7decd",
         "Text": "#49352d",
         "TextSecondary": "#79645a",
@@ -1128,22 +1127,22 @@
     },
     "couple": {
       "Bride": {
-        "Name": "Thu Hà",
-        "Nickname": "Hà",
+        "Name": "Diễm Quỳnh",
+        "Nickname": "Quỳnh",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/29714408/pexels-photo-29714408.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/33986920/pexels-photo-33986920.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
         "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
       },
       "Groom": {
-        "Name": "Minh Quân",
-        "Nickname": "Quân",
+        "Name": "Hoàng Long",
+        "Nickname": "Long",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/29714409/pexels-photo-29714409.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/34481895/pexels-photo-34481895.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -1151,12 +1150,12 @@
       }
     },
     "hero": {
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà",
+      "GroomName": "Hoàng Long",
+      "BrideName": "Diễm Quỳnh",
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/30311766/pexels-photo-30311766.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
@@ -1184,19 +1183,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33986919/pexels-photo-33986919.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33207225/pexels-photo-33207225.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/35669902/pexels-photo-35669902.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33884990/pexels-photo-33884990.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -1251,7 +1250,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "DIEM QUYNH",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
@@ -1260,7 +1259,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "DIEM QUYNH",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
@@ -1283,9 +1282,9 @@
     },
     "footer": {
       "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
-      "Copyright": "Thu Hà & Minh Quân",
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà"
+      "Copyright": "Diễm Quỳnh & Hoàng Long",
+      "GroomName": "Hoàng Long",
+      "BrideName": "Diễm Quỳnh"
     },
     "settings": {
       "ShowHero": true,
@@ -1312,11 +1311,11 @@
   {
     "Id": 7,
     "slug": "dong-son",
-    "groomName": "Minh Quân",
-    "brideName": "Thu Hà",
+    "groomName": "Trường An",
+    "brideName": "Mai Chi",
     "language": "vi",
     "weddingDate": "2026-11-28T11:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/9087622/pexels-photo-9087622.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "dong-son",
       "Colors": {
@@ -1324,7 +1323,7 @@
         "Secondary": "#984a32",
         "Accent": "#b9824b",
         "AccentLight": "#e3c18d",
-        "Background": "#f3eadc",
+        "Background": "https://images.pexels.com/photos/33884967/pexels-photo-33884967.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#e5d8c4",
         "Text": "#49372d",
         "TextSecondary": "#806b5c",
@@ -1342,22 +1341,22 @@
     },
     "couple": {
       "Bride": {
-        "Name": "Thu Hà",
-        "Nickname": "Hà",
+        "Name": "Mai Chi",
+        "Nickname": "Chi",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/37106644/pexels-photo-37106644.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/19476299/pexels-photo-19476299.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
         "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
       },
       "Groom": {
-        "Name": "Minh Quân",
-        "Nickname": "Quân",
+        "Name": "Trường An",
+        "Nickname": "An",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/33897376/pexels-photo-33897376.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/32322729/pexels-photo-32322729.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -1365,12 +1364,12 @@
       }
     },
     "hero": {
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà",
+      "GroomName": "Trường An",
+      "BrideName": "Mai Chi",
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/28998346/pexels-photo-28998346.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
@@ -1398,19 +1397,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34481898/pexels-photo-34481898.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/28998608/pexels-photo-28998608.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/9061879/pexels-photo-9061879.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/9061880/pexels-photo-9061880.jpeg?auto=compress&cs=tinysrgb&w=1600"
       }
     ],
     "timeline": [
@@ -1465,7 +1464,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "MAI CHI",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
@@ -1474,7 +1473,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "MAI CHI",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
@@ -1497,9 +1496,9 @@
     },
     "footer": {
       "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
-      "Copyright": "Thu Hà & Minh Quân",
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà"
+      "Copyright": "Mai Chi & Trường An",
+      "GroomName": "Trường An",
+      "BrideName": "Mai Chi"
     },
     "settings": {
       "ShowHero": true,
@@ -1526,11 +1525,11 @@
   {
     "Id": 8,
     "slug": "ivory-gold",
-    "groomName": "Minh Quân",
-    "brideName": "Thu Hà",
+    "groomName": "Bảo Nam",
+    "brideName": "Thanh Hằng",
     "language": "vi",
     "weddingDate": "2026-11-28T11:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/33207222/pexels-photo-33207222.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "theme": {
       "Name": "ivory-gold",
       "Colors": {
@@ -1538,7 +1537,7 @@
         "Secondary": "#91484a",
         "Accent": "#c9a66b",
         "AccentLight": "#f0ddb5",
-        "Background": "#faf7ef",
+        "Background": "https://images.pexels.com/photos/36647727/pexels-photo-36647727.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "BackgroundSecondary": "#f0ebe0",
         "Text": "#51433c",
         "TextSecondary": "#82746b",
@@ -1556,22 +1555,22 @@
     },
     "couple": {
       "Bride": {
-        "Name": "Thu Hà",
-        "Nickname": "Hà",
+        "Name": "Thanh Hằng",
+        "Nickname": "Hằng",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/19956245/pexels-photo-19956245.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/19956238/pexels-photo-19956238.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Ngô Văn Bình",
         "Mother": "Phạm Thu Hương",
         "Address": "Số 5 Phố Huế, Hoàn Kiếm, Hà Nội",
         "Description": "Yêu thiên nhiên, cà phê sáng và những điều giản dị."
       },
       "Groom": {
-        "Name": "Minh Quân",
-        "Nickname": "Quân",
+        "Name": "Bảo Nam",
+        "Nickname": "Nam",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/8582450/pexels-photo-8582450.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "Cover": "https://images.pexels.com/photos/19791981/pexels-photo-19791981.jpeg?auto=compress&cs=tinysrgb&w=1600",
         "Father": "Đặng Trọng Nghĩa",
         "Mother": "Vũ Thị Mai",
         "Address": "Số 32 Kim Mã, Ba Đình, Hà Nội",
@@ -1579,12 +1578,12 @@
       }
     },
     "hero": {
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà",
+      "GroomName": "Bảo Nam",
+      "BrideName": "Thanh Hằng",
       "Title": "Save The Date",
       "WeddingDate": "2026-11-28T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/36647739/pexels-photo-36647739.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
@@ -1612,19 +1611,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/14350276/pexels-photo-14350276.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/19791978/pexels-photo-19791978.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33438374/pexels-photo-33438374.jpeg?auto=compress&cs=tinysrgb&w=1600"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/37106665/pexels-photo-37106665.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1400&fit=crop&crop=faces,center&v=90"
       }
     ],
     "timeline": [
@@ -1679,7 +1678,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "THANH HANG",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       },
@@ -1688,7 +1687,7 @@
         "Name": "Chuyển khoản",
         "Description": "Gửi lời chúc kèm món quà nhỏ.",
         "BankName": "MB Bank",
-        "AccountName": "NGÔ THU HÀ",
+        "AccountName": "THANH HANG",
         "AccountNumber": "0401123456789",
         "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
       }
@@ -1711,9 +1710,9 @@
     },
     "footer": {
       "Message": "Chúng mình rất mong được chào đón bạn trong ngày giản dị & ấm áp này.",
-      "Copyright": "Thu Hà & Minh Quân",
-      "GroomName": "Minh Quân",
-      "BrideName": "Thu Hà"
+      "Copyright": "Thanh Hằng & Bảo Nam",
+      "GroomName": "Bảo Nam",
+      "BrideName": "Thanh Hằng"
     },
     "settings": {
       "ShowHero": true,
@@ -1744,7 +1743,7 @@
     "brideName": "Lan Anh",
     "language": "vi",
     "weddingDate": "2028-01-20T17:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/33986841/pexels-photo-33986841.jpeg?auto=compress&cs=tinysrgb&w=800&h=1500&fit=crop&crop=faces,center&v=91",
     "theme": {
       "Name": "serene-green",
       "Colors": {
@@ -1752,7 +1751,7 @@
         "Secondary": "#6c8e7a",
         "Accent": "#c8d4c3",
         "AccentLight": "#edf4eb",
-        "Background": "#f5f8f4",
+        "Background": "https://images.pexels.com/photos/38776689/pexels-photo-38776689.jpeg?auto=compress&cs=tinysrgb&w=900&h=900&fit=crop&crop=faces,center&v=92",
         "BackgroundSecondary": "#e8efe6",
         "Text": "#2e3834",
         "TextSecondary": "#6d7c73",
@@ -1773,8 +1772,8 @@
         "Name": "Lan Anh",
         "Nickname": "Anh",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/13378326/pexels-photo-13378326.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=crop&crop=faces,center&v=93",
+        "Cover": "https://images.pexels.com/photos/33494715/pexels-photo-33494715.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1100&fit=crop&crop=faces,center&v=94",
         "Father": "Lê Văn Hùng",
         "Mother": "Nguyễn Thu Hà",
         "Address": "Long Biên, Hà Nội",
@@ -1784,8 +1783,8 @@
         "Name": "Việt Trung",
         "Nickname": "Trung",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1200&fit=crop&crop=faces,center&v=95",
+        "Cover": "https://images.pexels.com/photos/19956239/pexels-photo-19956239.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1300&fit=crop&crop=faces,center&v=96",
         "Father": "Đỗ Văn Đạt",
         "Mother": "Lê Thị Hoa",
         "Address": "Cầu Giấy, Hà Nội",
@@ -1798,7 +1797,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-01-20T17:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/13111863/pexels-photo-13111863.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1400&fit=crop&crop=faces,center&v=97",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Willow House, Hà Nội"
     },
@@ -1841,19 +1840,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34668060/pexels-photo-34668060.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1500&fit=crop&crop=faces,center&v=98"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/11965604/pexels-photo-11965604.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop&crop=faces,center&v=99"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/17845908/pexels-photo-17845908.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop&crop=faces,center&v=100"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/10792774/pexels-photo-10792774.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&fit=crop&crop=faces,center&v=101"
       }
     ],
     "timeline": [
@@ -1957,7 +1956,7 @@
     "brideName": "Thư Thảo",
     "language": "vi",
     "weddingDate": "2028-03-17T18:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/13111955/pexels-photo-13111955.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1200&fit=crop&crop=faces,center&v=102",
     "theme": {
       "Name": "sunset-peach",
       "Colors": {
@@ -1965,7 +1964,7 @@
         "Secondary": "#d67a63",
         "Accent": "#f4c6a9",
         "AccentLight": "#fbe5d5",
-        "Background": "#fffaf5",
+        "Background": "https://images.pexels.com/photos/33494620/pexels-photo-33494620.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1300&fit=crop&crop=faces,center&v=103",
         "BackgroundSecondary": "#fdeee4",
         "Text": "#523835",
         "TextSecondary": "#8a665e",
@@ -1986,8 +1985,8 @@
         "Name": "Thư Thảo",
         "Nickname": "Thảo",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/19698116/pexels-photo-19698116.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1400&fit=crop&crop=faces,center&v=104",
+        "Cover": "https://images.pexels.com/photos/16800881/pexels-photo-16800881.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1500&fit=crop&crop=faces,center&v=105",
         "Father": "Nguyễn Phú Quý",
         "Mother": "Phạm Thị Bình",
         "Address": "Đống Đa, Hà Nội",
@@ -1997,8 +1996,8 @@
         "Name": "Đức Minh",
         "Nickname": "Minh",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/9334774/pexels-photo-9334774.jpeg?auto=compress&cs=tinysrgb&w=1400&h=900&fit=crop&crop=faces,center&v=106",
+        "Cover": "https://images.pexels.com/photos/19956233/pexels-photo-19956233.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1000&fit=crop&crop=faces,center&v=107",
         "Father": "Trần Mạnh Hùng",
         "Mother": "Lý Thị Bích",
         "Address": "Thanh Xuân, Hà Nội",
@@ -2011,7 +2010,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-03-17T18:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/38766158/pexels-photo-38766158.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1100&fit=crop&crop=faces,center&v=108",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Amber Villa, Hà Nội"
     },
@@ -2054,19 +2053,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33328292/pexels-photo-33328292.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop&crop=faces,center&v=109"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/35869233/pexels-photo-35869233.jpeg?auto=compress&cs=tinysrgb&w=900&h=1300&fit=crop&crop=faces,center&v=110"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29585803/pexels-photo-29585803.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1400&fit=crop&crop=faces,center&v=111"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34972467/pexels-photo-34972467.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1500&fit=crop&crop=faces,center&v=112"
       }
     ],
     "timeline": [
@@ -2170,7 +2169,7 @@
     "brideName": "Anh Thư",
     "language": "vi",
     "weddingDate": "2028-05-19T16:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/19791965/pexels-photo-19791965.jpeg?auto=compress&cs=tinysrgb&w=1200&h=900&fit=crop&crop=faces,center&v=113",
     "theme": {
       "Name": "champagne-blush",
       "Colors": {
@@ -2178,7 +2177,7 @@
         "Secondary": "#b67f7d",
         "Accent": "#ead2b6",
         "AccentLight": "#f7ebdf",
-        "Background": "#fffaf7",
+        "Background": "https://images.pexels.com/photos/37303416/pexels-photo-37303416.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1000&fit=crop&crop=faces,center&v=114",
         "BackgroundSecondary": "#f4eee8",
         "Text": "#453533",
         "TextSecondary": "#806b67",
@@ -2199,8 +2198,8 @@
         "Name": "Anh Thư",
         "Nickname": "Thư",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/35835961/pexels-photo-35835961.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1100&fit=crop&crop=faces,center&v=115",
+        "Cover": "https://images.pexels.com/photos/31857568/pexels-photo-31857568.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1200&fit=crop&crop=faces,center&v=116",
         "Father": "Mai Tuấn Anh",
         "Mother": "Lê Thị Nhi",
         "Address": "Tây Hồ, Hà Nội",
@@ -2210,8 +2209,8 @@
         "Name": "Nguyễn Hải",
         "Nickname": "Hải",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1300&fit=crop&crop=faces,center&v=117",
+        "Cover": "https://images.pexels.com/photos/35455055/pexels-photo-35455055.jpeg?auto=compress&cs=tinysrgb&w=800&h=1400&fit=crop&crop=faces,center&v=118",
         "Father": "Nguyễn Văn Khang",
         "Mother": "Trần Thị Duyên",
         "Address": "Long Biên, Hà Nội",
@@ -2224,7 +2223,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-05-19T16:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/35046294/pexels-photo-35046294.jpeg?auto=compress&cs=tinysrgb&w=900&h=1500&fit=crop&crop=faces,center&v=119",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Moonlight Hall, Hà Nội"
     },
@@ -2267,19 +2266,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33986842/pexels-photo-33986842.jpeg?auto=compress&cs=tinysrgb&w=1000&h=900&fit=crop&crop=faces,center&v=120"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34530267/pexels-photo-34530267.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1000&fit=crop&crop=faces,center&v=121"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/39204563/pexels-photo-39204563.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1100&fit=crop&crop=faces,center&v=122"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/12591966/pexels-photo-12591966.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1200&fit=crop&crop=faces,center&v=123"
       }
     ],
     "timeline": [
@@ -2383,7 +2382,7 @@
     "brideName": "Mỹ Linh",
     "language": "vi",
     "weddingDate": "2028-07-28T17:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/35278862/pexels-photo-35278862.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1300&fit=crop&crop=faces,center&v=124",
     "theme": {
       "Name": "midnight-gold",
       "Colors": {
@@ -2391,7 +2390,7 @@
         "Secondary": "#9b7d4d",
         "Accent": "#d8b676",
         "AccentLight": "#f1e0b8",
-        "Background": "#f9f5f0",
+        "Background": "https://images.pexels.com/photos/35381123/pexels-photo-35381123.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1400&fit=crop&crop=faces,center&v=125",
         "BackgroundSecondary": "#f1ebe0",
         "Text": "#322a2f",
         "TextSecondary": "#726360",
@@ -2412,8 +2411,8 @@
         "Name": "Mỹ Linh",
         "Nickname": "Linh",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/33921028/pexels-photo-33921028.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1500&fit=crop&crop=faces,center&v=126",
+        "Cover": "https://images.pexels.com/photos/23369888/pexels-photo-23369888.jpeg?auto=compress&cs=tinysrgb&w=800&h=900&fit=crop&crop=faces,center&v=127",
         "Father": "Phạm Văn Tám",
         "Mother": "Nguyễn Thị Hằng",
         "Address": "Hà Đông, Hà Nội",
@@ -2423,8 +2422,8 @@
         "Name": "Đinh Nghĩa",
         "Nickname": "Nghĩa",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/28880823/pexels-photo-28880823.jpeg?auto=compress&cs=tinysrgb&w=900&h=1000&fit=crop&crop=faces,center&v=128",
+        "Cover": "https://images.pexels.com/photos/29704394/pexels-photo-29704394.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1100&fit=crop&crop=faces,center&v=129",
         "Father": "Đinh Văn Quý",
         "Mother": "Bùi Thị Kim",
         "Address": "Ba Đình, Hà Nội",
@@ -2437,7 +2436,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-07-28T17:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/30122469/pexels-photo-30122469.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1200&fit=crop&crop=faces,center&v=130",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Palace Hall, Hà Nội"
     },
@@ -2480,19 +2479,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/23369886/pexels-photo-23369886.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1300&fit=crop&crop=faces,center&v=131"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33921018/pexels-photo-33921018.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1400&fit=crop&crop=faces,center&v=132"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29863307/pexels-photo-29863307.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1500&fit=crop&crop=faces,center&v=133"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/14581489/pexels-photo-14581489.jpeg?auto=compress&cs=tinysrgb&w=1500&h=900&fit=crop&crop=faces,center&v=134"
       }
     ],
     "timeline": [
@@ -2596,7 +2595,7 @@
     "brideName": "Hòa Mi",
     "language": "vi",
     "weddingDate": "2028-09-02T17:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
     "theme": {
       "Name": "lavender-cream",
       "Colors": {
@@ -2604,7 +2603,7 @@
         "Secondary": "#a086b4",
         "Accent": "#d8c0de",
         "AccentLight": "#f2e7f6",
-        "Background": "#faf8fc",
+        "Background": "https://images.pexels.com/photos/10792754/pexels-photo-10792754.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop&crop=faces,center&v=136",
         "BackgroundSecondary": "#f1ebf4",
         "Text": "#433846",
         "TextSecondary": "#7e6d82",
@@ -2625,8 +2624,8 @@
         "Name": "Hòa Mi",
         "Nickname": "Mi",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
         "Father": "Nguyễn Văn Tân",
         "Mother": "Hà Thị Lan",
         "Address": "Mê Linh, Hà Nội",
@@ -2636,8 +2635,8 @@
         "Name": "Quang Huy",
         "Nickname": "Huy",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
         "Father": "Phạm Đức Hòa",
         "Mother": "Nguyễn Thị Loan",
         "Address": "Hai Bà Trưng, Hà Nội",
@@ -2650,7 +2649,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2028-09-02T17:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Rose & Bloom, Hà Nội"
     },
@@ -2694,19 +2693,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
       }
     ],
     "timeline": [
@@ -2810,7 +2809,7 @@
     "brideName": "Thảo",
     "language": "vi",
     "weddingDate": "2027-01-16T10:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/37106654/pexels-photo-37106654.jpeg?auto=compress&cs=tinysrgb&w=900&h=1400&fit=crop&crop=faces,center&v=146",
     "theme": {
       "Name": "double-happiness",
       "Colors": {
@@ -2818,7 +2817,7 @@
         "Secondary": "#a32a2a",
         "Accent": "#d9a441",
         "AccentLight": "#f3d9a4",
-        "Background": "#5c0e10",
+        "Background": "https://images.pexels.com/photos/28747538/pexels-photo-28747538.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1500&fit=crop&crop=faces,center&v=147",
         "BackgroundSecondary": "#6b1013",
         "Text": "#f7e6c4",
         "TextSecondary": "#d9b98a",
@@ -2839,8 +2838,8 @@
         "Name": "Thảo",
         "Nickname": "Thảo",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/37106652/pexels-photo-37106652.jpeg?auto=compress&cs=tinysrgb&w=1100&h=900&fit=crop&crop=faces,center&v=148",
+        "Cover": "https://images.pexels.com/photos/29714408/pexels-photo-29714408.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1000&fit=crop&crop=faces,center&v=149",
         "Father": "Nguyễn Văn Sơn",
         "Mother": "Trần Thị Hồng",
         "Address": "Hai Bà Trưng, Hà Nội",
@@ -2850,8 +2849,8 @@
         "Name": "Lâm",
         "Nickname": "Lâm",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/33986920/pexels-photo-33986920.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1100&fit=crop&crop=faces,center&v=150",
+        "Cover": "https://images.pexels.com/photos/29714409/pexels-photo-29714409.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1200&fit=crop&crop=faces,center&v=151",
         "Father": "Trần Văn Mạnh",
         "Mother": "Lê Thị Hạnh",
         "Address": "Cầu Giấy, Hà Nội",
@@ -2864,7 +2863,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-01-16T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/34481895/pexels-photo-34481895.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1300&fit=crop&crop=faces,center&v=152",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Nhà hàng Kim Đồng, Hà Nội"
     },
@@ -2908,19 +2907,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/30311766/pexels-photo-30311766.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1400&fit=crop&crop=faces,center&v=153"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33986919/pexels-photo-33986919.jpeg?auto=compress&cs=tinysrgb&w=800&h=1500&fit=crop&crop=faces,center&v=154"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33207225/pexels-photo-33207225.jpeg?auto=compress&cs=tinysrgb&w=900&h=900&fit=crop&crop=faces,center&v=155"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/35669902/pexels-photo-35669902.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=crop&crop=faces,center&v=156"
       }
     ],
     "timeline": [
@@ -3030,7 +3029,7 @@
     "brideName": "Mai Phúc",
     "language": "vi",
     "weddingDate": "2027-03-20T10:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/33884990/pexels-photo-33884990.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1100&fit=crop&crop=faces,center&v=157",
     "theme": {
       "Name": "boho-terracotta",
       "Colors": {
@@ -3038,7 +3037,7 @@
         "Secondary": "#7a1f24",
         "Accent": "#ffdfaf",
         "AccentLight": "#ffe9c9",
-        "Background": "#2b0303",
+        "Background": "https://images.pexels.com/photos/9087622/pexels-photo-9087622.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1200&fit=crop&crop=faces,center&v=158",
         "BackgroundSecondary": "#3a0607",
         "Text": "#ffefd6",
         "TextSecondary": "#e8cfa8",
@@ -3059,8 +3058,8 @@
         "Name": "Mai Phúc",
         "Nickname": "Mai Phúc",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/33884967/pexels-photo-33884967.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1300&fit=crop&crop=faces,center&v=159",
+        "Cover": "https://images.pexels.com/photos/37106644/pexels-photo-37106644.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1400&fit=crop&crop=faces,center&v=160",
         "Father": "Lê Văn Phúc",
         "Mother": "Nguyễn Thị Mai",
         "Address": "Tây Hồ, Hà Nội",
@@ -3070,8 +3069,8 @@
         "Name": "Tuấn Kiệt",
         "Nickname": "Tuấn Kiệt",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/19476299/pexels-photo-19476299.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1500&fit=crop&crop=faces,center&v=161",
+        "Cover": "https://images.pexels.com/photos/33897376/pexels-photo-33897376.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop&crop=faces,center&v=162",
         "Father": "Phạm Văn Tuấn",
         "Mother": "Đỗ Thị Kiệt",
         "Address": "Đống Đa, Hà Nội",
@@ -3084,7 +3083,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-03-20T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/32322729/pexels-photo-32322729.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop&crop=faces,center&v=163",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "The Garden Studio, Hà Nội"
     },
@@ -3142,19 +3141,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/28998346/pexels-photo-28998346.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&fit=crop&crop=faces,center&v=164"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34481898/pexels-photo-34481898.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1200&fit=crop&crop=faces,center&v=165"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/28998608/pexels-photo-28998608.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1300&fit=crop&crop=faces,center&v=166"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/9061879/pexels-photo-9061879.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1400&fit=crop&crop=faces,center&v=167"
       }
     ],
     "timeline": [
@@ -3264,7 +3263,7 @@
     "brideName": "Anh Thư",
     "language": "vi",
     "weddingDate": "2027-04-10T10:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/9061880/pexels-photo-9061880.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1500&fit=crop&crop=faces,center&v=168",
     "theme": {
       "Name": "song-hy-red",
       "Colors": {
@@ -3272,7 +3271,7 @@
         "Secondary": "#a52a2a",
         "Accent": "#fbbf24",
         "AccentLight": "#ffeed2",
-        "Background": "#fff7eb",
+        "Background": "https://images.pexels.com/photos/33207222/pexels-photo-33207222.jpeg?auto=compress&cs=tinysrgb&w=1400&h=900&fit=crop&crop=faces,center&v=169",
         "BackgroundSecondary": "#f7ead9",
         "Text": "#666666",
         "TextSecondary": "#800000",
@@ -3293,8 +3292,8 @@
         "Name": "Anh Thư",
         "Nickname": "Anh Thư",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/36647727/pexels-photo-36647727.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1000&fit=crop&crop=faces,center&v=170",
+        "Cover": "https://images.pexels.com/photos/19956245/pexels-photo-19956245.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1100&fit=crop&crop=faces,center&v=171",
         "Father": "Nguyễn Đức Thư",
         "Mother": "Vũ Thị Anh",
         "Address": "Ba Đình, Hà Nội",
@@ -3304,8 +3303,8 @@
         "Name": "Đức Anh",
         "Nickname": "Đức Anh",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/19956238/pexels-photo-19956238.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop&crop=faces,center&v=172",
+        "Cover": "https://images.pexels.com/photos/8582450/pexels-photo-8582450.jpeg?auto=compress&cs=tinysrgb&w=900&h=1300&fit=crop&crop=faces,center&v=173",
         "Father": "Trần Văn Đức",
         "Mother": "Lê Thị Anh",
         "Address": "Hoàn Kiếm, Hà Nội",
@@ -3318,7 +3317,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-04-10T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/19791981/pexels-photo-19791981.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1400&fit=crop&crop=faces,center&v=174",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Nhà hàng Sen Vàng, Hà Nội"
     },
@@ -3361,19 +3360,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/36647739/pexels-photo-36647739.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1500&fit=crop&crop=faces,center&v=175"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/14350276/pexels-photo-14350276.jpeg?auto=compress&cs=tinysrgb&w=1200&h=900&fit=crop&crop=faces,center&v=176"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/19791978/pexels-photo-19791978.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1000&fit=crop&crop=faces,center&v=177"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33438374/pexels-photo-33438374.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1100&fit=crop&crop=faces,center&v=178"
       }
     ],
     "timeline": [
@@ -3483,7 +3482,7 @@
     "brideName": "Hà Vy",
     "language": "vi",
     "weddingDate": "2027-06-12T10:30:00",
-    "coverImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/37106665/pexels-photo-37106665.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1200&fit=crop&crop=faces,center&v=179",
     "theme": {
       "Name": "to-duyen-xanh",
       "Colors": {
@@ -3491,7 +3490,7 @@
         "Secondary": "#1a3500",
         "Accent": "#d1db9c",
         "AccentLight": "#f3dfc5",
-        "Background": "#fefbf4",
+        "Background": "https://images.pexels.com/photos/33986841/pexels-photo-33986841.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1300&fit=crop&crop=faces,center&v=180",
         "BackgroundSecondary": "#f7f3e6",
         "Text": "#1a3500",
         "TextSecondary": "#5e813c",
@@ -3512,8 +3511,8 @@
         "Name": "Hà Vy",
         "Nickname": "Hà Vy",
         "Role": "Cô dâu",
-        "Avatar": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/38776689/pexels-photo-38776689.jpeg?auto=compress&cs=tinysrgb&w=800&h=1400&fit=crop&crop=faces,center&v=181",
+        "Cover": "https://images.pexels.com/photos/13378326/pexels-photo-13378326.jpeg?auto=compress&cs=tinysrgb&w=900&h=1500&fit=crop&crop=faces,center&v=182",
         "Father": "Trần Hà Vy",
         "Mother": "Phạm Thị Minh",
         "Address": "Hồng Bàng, Hải Phòng",
@@ -3523,8 +3522,8 @@
         "Name": "Minh Quân",
         "Nickname": "Minh Quân",
         "Role": "Chú rể",
-        "Avatar": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?cs=srgb&dl=pexels-tr-n-long-3093985-13378327.jpg&fm=jpg",
-        "Cover": "https://images.pexels.com/photos/19956242/pexels-photo-19956242.jpeg?cs=srgb&dl=pexels-letuantbvn-19956242.jpg&fm=jpg",
+        "Avatar": "https://images.pexels.com/photos/33494715/pexels-photo-33494715.jpeg?auto=compress&cs=tinysrgb&w=1000&h=900&fit=crop&crop=faces,center&v=183",
+        "Cover": "https://images.pexels.com/photos/13378327/pexels-photo-13378327.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1000&fit=crop&crop=faces,center&v=184",
         "Father": "Nguyễn Minh Quân",
         "Mother": "Hoàng Thị Hà",
         "Address": "Ngô Quyền, Hải Phòng",
@@ -3537,7 +3536,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-06-12T10:30:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?cs=srgb&dl=pexels-pham-hoang-kha-1582786-8325804.jpg&fm=jpg",
+      "Background": "https://images.pexels.com/photos/19956239/pexels-photo-19956239.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1100&fit=crop&crop=faces,center&v=185",
       "Music": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       "Location": "Khu nghỉ dưỡng Biển Xanh, Đồ Sơn"
     },
@@ -3580,19 +3579,19 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/13111863/pexels-photo-13111863.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1200&fit=crop&crop=faces,center&v=186"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34668060/pexels-photo-34668060.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1300&fit=crop&crop=faces,center&v=187"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/11965604/pexels-photo-11965604.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1400&fit=crop&crop=faces,center&v=188"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/17845908/pexels-photo-17845908.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1500&fit=crop&crop=faces,center&v=189"
       }
     ],
     "timeline": [
@@ -3702,7 +3701,7 @@
     "brideName": "Khánh Linh",
     "language": "vi",
     "weddingDate": "2027-02-06T11:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/10792774/pexels-photo-10792774.jpeg?auto=compress&cs=tinysrgb&w=800&h=900&fit=crop&crop=faces,center&v=190",
     "theme": {
       "Name": "emerald-luxe",
       "Colors": {
@@ -3710,7 +3709,7 @@
         "Secondary": "#e1c490",
         "Accent": "#e1c490",
         "AccentLight": "#f3ddb8",
-        "Background": "#fef0e0",
+        "Background": "https://images.pexels.com/photos/13111955/pexels-photo-13111955.jpeg?auto=compress&cs=tinysrgb&w=900&h=1000&fit=crop&crop=faces,center&v=191",
         "BackgroundSecondary": "#f7e6cd",
         "Text": "#4c2d1f",
         "TextSecondary": "#624537",
@@ -3731,8 +3730,8 @@
         "Name": "Khánh Linh",
         "Nickname": "Linh",
         "Role": "Cô dâu",
-        "Avatar": "",
-        "Cover": "",
+        "Avatar": "https://images.pexels.com/photos/33494620/pexels-photo-33494620.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1100&fit=crop&crop=faces,center&v=192",
+        "Cover": "https://images.pexels.com/photos/19698116/pexels-photo-19698116.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1200&fit=crop&crop=faces,center&v=193",
         "Father": "Ông Nguyễn Văn Hòa",
         "Mother": "Bà Trần Thị Mai",
         "Address": "Số 88 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",
@@ -3742,8 +3741,8 @@
         "Name": "Thành Đạt",
         "Nickname": "Đạt",
         "Role": "Chú rể",
-        "Avatar": "",
-        "Cover": "",
+        "Avatar": "https://images.pexels.com/photos/16800881/pexels-photo-16800881.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1300&fit=crop&crop=faces,center&v=194",
+        "Cover": "https://images.pexels.com/photos/9334774/pexels-photo-9334774.jpeg?auto=compress&cs=tinysrgb&w=1300&h=1400&fit=crop&crop=faces,center&v=195",
         "Father": "Ông Lê Văn Sơn",
         "Mother": "Bà Nguyễn Thị Hồng",
         "Address": "Số 12 Phố Huế, Hai Bà Trưng, Hà Nội",
@@ -3756,7 +3755,7 @@
       "Title": "Save The Date",
       "WeddingDate": "2027-02-06T11:00:00",
       "Subtitle": "Trân trọng kính mời",
-      "Background": "",
+      "Background": "https://images.pexels.com/photos/19956233/pexels-photo-19956233.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1500&fit=crop&crop=faces,center&v=196",
       "Music": "",
       "Location": "Trung tâm Hội nghị Emerald Palace, 123 Nguyễn Chí Thanh, Hà Nội"
     },
@@ -3799,27 +3798,27 @@
     "gallery": [
       {
         "Id": 1,
-        "Image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/38766158/pexels-photo-38766158.jpeg?auto=compress&cs=tinysrgb&w=1500&h=900&fit=crop&crop=faces,center&v=197"
       },
       {
         "Id": 2,
-        "Image": "https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/33328292/pexels-photo-33328292.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=198"
       },
       {
         "Id": 3,
-        "Image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/35869233/pexels-photo-35869233.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop&crop=faces,center&v=199"
       },
       {
         "Id": 4,
-        "Image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/29585803/pexels-photo-29585803.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=200"
       },
       {
         "Id": 5,
-        "Image": "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/34972467/pexels-photo-34972467.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=201"
       },
       {
         "Id": 6,
-        "Image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"
+        "Image": "https://images.pexels.com/photos/19791965/pexels-photo-19791965.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=202"
       }
     ],
     "timeline": [
@@ -3933,17 +3932,17 @@
   {
     "Id": 24,
     "slug": "long-phung-v3",
-    "groomName": "Thành Đạt",
-    "brideName": "Khánh Linh",
+    "groomName": "Vũ Phong",
+    "brideName": "Tuyết Nhi",
     "language": "vi",
     "weddingDate": "2026-07-12T18:00:00",
-    "coverImage": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80",
+    "coverImage": "https://images.pexels.com/photos/37303416/pexels-photo-37303416.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=203",
     "theme": {
       "Name": "long-phung-v3",
       "Colors": {
         "Primary": "#FFBE89",
         "Secondary": "#D4AF37",
-        "Background": "#7A0014",
+        "Background": "https://images.pexels.com/photos/35835961/pexels-photo-35835961.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=204",
         "Text": "#FFBE89",
         "White": "#fff4de"
       },
@@ -3959,11 +3958,11 @@
     },
     "couple": {
       "Bride": {
-        "Name": "Khánh Linh",
-        "Nickname": "Linh",
+        "Name": "Tuyết Nhi",
+        "Nickname": "Nhi",
         "Role": "Cô dâu",
-        "Avatar": "",
-        "Cover": "",
+        "Avatar": "https://images.pexels.com/photos/31857568/pexels-photo-31857568.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=205",
+        "Cover": "https://images.pexels.com/photos/8325804/pexels-photo-8325804.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=206",
         "Father": "Ông Trần Văn Long",
         "Mother": "Bà Phạm Thị Hoa",
         "Address": "12 Nguyễn Trãi, Thanh Xuân, Hà Nội",
@@ -3971,11 +3970,11 @@
         "BirthOrder": "Trưởng Nữ"
       },
       "Groom": {
-        "Name": "Thành Đạt",
-        "Nickname": "Đạt",
+        "Name": "Vũ Phong",
+        "Nickname": "Phong",
         "Role": "Chú rể",
-        "Avatar": "",
-        "Cover": "",
+        "Avatar": "https://images.pexels.com/photos/35455055/pexels-photo-35455055.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=207",
+        "Cover": "https://images.pexels.com/photos/35046294/pexels-photo-35046294.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=208",
         "Father": "Ông Nguyễn Văn Hùng",
         "Mother": "Bà Lê Thị Thu",
         "Address": "45 Phố Huế, Hai Bà Trưng, Hà Nội",
@@ -3984,8 +3983,8 @@
       }
     },
     "hero": {
-      "GroomName": "Thành Đạt",
-      "BrideName": "Khánh Linh",
+      "GroomName": "Vũ Phong",
+      "BrideName": "Tuyết Nhi",
       "Title": "Save The Date",
       "Subtitle": "Trân Trọng Kính Mời",
       "WeddingDate": "2026-07-12T18:00:00",
@@ -4061,7 +4060,7 @@
         "Id": 1,
         "Name": "NHÀ TRAI",
         "BankName": "Ngân hàng BIDV",
-        "AccountName": "Nguyễn Thành Đạt",
+        "AccountName": "Nguyễn Vũ Phong",
         "AccountNumber": "0399554682",
         "QrCode": ""
       },
@@ -4069,7 +4068,7 @@
         "Id": 2,
         "Name": "NHÀ GÁI",
         "BankName": "Ngân hàng Vietcombank",
-        "AccountName": "Trần Khánh Linh",
+        "AccountName": "Trần Tuyết Nhi",
         "AccountNumber": "099996586",
         "QrCode": ""
       }
@@ -4098,9 +4097,9 @@
     },
     "footer": {
       "Message": "Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi.",
-      "Copyright": "Thành Đạt & Khánh Linh",
-      "GroomName": "Thành Đạt",
-      "BrideName": "Khánh Linh"
+      "Copyright": "Vũ Phong & Tuyết Nhi",
+      "GroomName": "Vũ Phong",
+      "BrideName": "Tuyết Nhi"
     },
     "settings": {
       "ShowHero": true,

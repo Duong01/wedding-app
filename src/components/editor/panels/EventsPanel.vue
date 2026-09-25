@@ -55,6 +55,10 @@
               placeholder="VD: Lễ thành hôn"
             />
 
+            <small class="field-help">
+              Chọn trong danh sách gợi ý hoặc tự nhập.
+            </small>
+
             <datalist id="event-type-options">
               <option value="Lễ ăn hỏi" />
               <option value="Lễ thành hôn" />
@@ -67,7 +71,15 @@
           <div class="editor-field">
             <label>Tên sự kiện</label>
 
-            <input v-model="event.Title" type="text" />
+            <input
+              v-model="event.Title"
+              type="text"
+              placeholder="VD: Tiệc cưới nhà gái"
+            />
+
+            <small class="field-help">
+              Tên hiển thị của buổi tiệc trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field full">
@@ -88,6 +100,10 @@
             <label>Giờ</label>
 
             <input v-model="event.EventTime" type="time" />
+
+            <small class="field-help">
+              Giờ đón khách / bắt đầu buổi lễ.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -98,42 +114,78 @@
               type="text"
               placeholder="VD: 12 tháng 5 năm Bính Ngọ"
             />
+
+            <small class="field-help">
+              Hiển thị nhỏ bên cạnh ngày dương. Bỏ trống nếu không cần.
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Thứ</label>
 
             <input v-model="event.Weekday" type="text" />
+
+            <small class="field-help">
+              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Ngày</label>
 
             <input v-model="event.Day" type="text" />
+
+            <small class="field-help">
+              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Tháng</label>
 
             <input v-model="event.Month" type="text" />
+
+            <small class="field-help">
+              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Năm</label>
 
             <input v-model="event.Year" type="text" />
+
+            <small class="field-help">
+              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+            </small>
           </div>
 
           <div class="editor-field full">
             <label>Địa điểm</label>
 
-            <input v-model="event.Location" type="text" />
+            <input
+              v-model="event.Location"
+              type="text"
+              placeholder="VD: Trung tâm tiệc cưới Hoa Vàng"
+            />
+
+            <small class="field-help">
+              Tên nhà hàng / trung tâm / tư gia.
+            </small>
           </div>
 
           <div class="editor-field full">
             <label>Địa chỉ</label>
 
-            <input v-model="event.Address" type="text" />
+            <input
+              v-model="event.Address"
+              type="text"
+              placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"
+            />
+
+            <small class="field-help">
+              Địa chỉ cụ thể để khách tìm đường.
+            </small>
           </div>
 
           <div class="editor-field full">

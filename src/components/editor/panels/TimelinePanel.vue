@@ -49,18 +49,38 @@
             <label>Thời gian</label>
 
             <input v-model="item.Time" type="time" />
+
+            <small class="field-help">
+              Giờ diễn ra hoạt động này.
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Tiêu đề</label>
 
-            <input v-model="item.Title" type="text" />
+            <input
+              v-model="item.Title"
+              type="text"
+              placeholder="VD: Đón khách"
+            />
+
+            <small class="field-help">
+              VD: Đón khách, Lễ thành hôn, Khoảnh khắc chụp ảnh...
+            </small>
           </div>
 
           <div class="editor-field">
             <label>Địa điểm</label>
 
-            <input v-model="item.Location" type="text" />
+            <input
+              v-model="item.Location"
+              type="text"
+              placeholder="VD: Sảnh A"
+            />
+
+            <small class="field-help">
+              Nơi diễn ra — bỏ trống nếu không cần.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -87,7 +107,15 @@
           <div class="editor-field full">
             <label>Mô tả</label>
 
-            <textarea v-model="item.Description" rows="4" />
+            <textarea
+              v-model="item.Description"
+              rows="4"
+              placeholder="VD: Đón khách, phát kẹo bánh và chụp ảnh cùng hai họ."
+            />
+
+            <small class="field-help">
+              Một dòng ngắn mô tả hoạt động — bỏ trống nếu không cần.
+            </small>
           </div>
         </div>
       </article>

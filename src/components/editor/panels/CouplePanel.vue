@@ -92,6 +92,10 @@
               type="text"
               placeholder="Hà Uyên"
             />
+
+            <small class="field-help">
+              Tên đầy đủ hiển thị trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -102,6 +106,10 @@
               type="text"
               placeholder="Uyên"
             />
+
+            <small class="field-help">
+              Tên thân mật — một số mẫu hiển thị trong dấu ngoặc kép.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -112,6 +120,10 @@
               type="text"
               list="bride-role-options"
             />
+
+            <small class="field-help">
+              Chọn trong danh sách gợi ý hoặc tự nhập.
+            </small>
 
             <datalist id="bride-role-options">
               <option value="Trưởng Nữ" />
@@ -157,6 +169,10 @@
               kind="image"
               button-text="Tải avatar lên"
             />
+
+            <small class="field-help">
+              Ảnh chân dung tròn — nên dùng ảnh vuông, rõ mặt.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -167,6 +183,10 @@
               kind="image"
               button-text="Tải ảnh cover lên"
             />
+
+            <small class="field-help">
+              Ảnh nền ngang phía sau phần giới thiệu.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -177,6 +197,10 @@
               type="text"
               placeholder="Nguyễn Văn A"
             />
+
+            <small class="field-help">
+              Hiển thị ở phần thông tin gia đình trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -187,6 +211,10 @@
               type="text"
               placeholder="Trần Thị B"
             />
+
+            <small class="field-help">
+              Hiển thị ở phần thông tin gia đình trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field full">
@@ -209,7 +237,8 @@
             />
 
             <small class="field-help">
-              {{ (wedding.couple.Bride.Description || "").length }} ký tự
+              Vài dòng ngắn về nghề nghiệp, tính cách... (2–4 câu là
+              vừa đẹp). {{ (wedding.couple.Bride.Description || "").length }} ký tự
             </small>
           </div>
         </div>
@@ -240,6 +269,10 @@
               type="text"
               placeholder="Trần Hiếu"
             />
+
+            <small class="field-help">
+              Tên đầy đủ hiển thị trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -250,6 +283,10 @@
               type="text"
               placeholder="Hiếu"
             />
+
+            <small class="field-help">
+              Tên thân mật — một số mẫu hiển thị trong dấu ngoặc kép.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -260,6 +297,10 @@
               type="text"
               list="groom-role-options"
             />
+
+            <small class="field-help">
+              Chọn trong danh sách gợi ý hoặc tự nhập.
+            </small>
 
             <datalist id="groom-role-options">
               <option value="Trưởng Nam" />
@@ -305,6 +346,10 @@
               kind="image"
               button-text="Tải avatar lên"
             />
+
+            <small class="field-help">
+              Ảnh chân dung tròn — nên dùng ảnh vuông, rõ mặt.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -315,6 +360,10 @@
               kind="image"
               button-text="Tải ảnh cover lên"
             />
+
+            <small class="field-help">
+              Ảnh nền ngang phía sau phần giới thiệu.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -325,6 +374,10 @@
               type="text"
               placeholder="Trần Văn C"
             />
+
+            <small class="field-help">
+              Hiển thị ở phần thông tin gia đình trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -335,6 +388,10 @@
               type="text"
               placeholder="Lê Thị D"
             />
+
+            <small class="field-help">
+              Hiển thị ở phần thông tin gia đình trên thiệp.
+            </small>
           </div>
 
           <div class="editor-field full">
@@ -357,7 +414,8 @@
             />
 
             <small class="field-help">
-              {{ (wedding.couple.Groom.Description || "").length }} ký tự
+              Vài dòng ngắn về nghề nghiệp, tính cách... (2–4 câu là
+              vừa đẹp). {{ (wedding.couple.Groom.Description || "").length }} ký tự
             </small>
           </div>
         </div>

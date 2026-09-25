@@ -162,6 +162,10 @@
             <label>Token</label>
 
             <input v-model="recipient.token" type="text" readonly />
+
+            <small class="field-help">
+              Mã định danh tự sinh — dùng để tạo link riêng cho khách.
+            </small>
           </div>
 
           <div class="editor-field">
@@ -174,6 +178,10 @@
               :disabled="syncing"
               @blur="updateRecipientName(recipient)"
             />
+
+            <small class="field-help">
+              Tên hiện trên thiệp khi khách mở link cá nhân của họ.
+            </small>
           </div>
         </div>
       </article>

@@ -53,6 +53,10 @@
           type="text"
           placeholder="VD: Save The Date"
         />
+
+        <small class="field-help">
+          Dòng chữ lớn nhất trên màn hình mở thiệp.
+        </small>
       </div>
 
       <div class="editor-field">
@@ -63,6 +67,10 @@
           type="text"
           placeholder="VD: Trân trọng kính mời"
         />
+
+        <small class="field-help">
+          Dòng chữ nhỏ phía trên tên hai bạn.
+        </small>
       </div>
 
       <div class="editor-field">
@@ -107,6 +115,10 @@
           type="text"
           placeholder="VD: Tư gia nhà gái"
         />
+
+        <small class="field-help">
+          Hiển thị kèm ngày cưới trên màn hình mở thiệp.
+        </small>
       </div>
 
       <div class="editor-field full">
@@ -121,22 +133,6 @@
         <small class="field-help">
           Nên dùng ảnh dọc hoặc vuông, tối thiểu 1200px để không bị vỡ
           trên điện thoại.
-        </small>
-      </div>
-
-      <div class="editor-field full">
-        <label>Nhạc</label>
-
-        <UploadField
-          v-model="wedding.hero.Music"
-          kind="audio"
-          button-text="Tải nhạc lên"
-          icon="mdi-music-note-plus"
-        />
-
-        <small class="field-help">
-          Nhạc riêng cho màn hình mở thiệp. Để trống sẽ dùng nhạc ở mục
-          Âm nhạc.
         </small>
       </div>
     </div>

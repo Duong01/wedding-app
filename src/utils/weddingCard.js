@@ -79,6 +79,10 @@ export function coupleName(wedding) {
   const bride = wedding?.couple?.Bride?.Name || "";
   const groom = wedding?.couple?.Groom?.Name || "";
 
+  if (!bride && !groom) {
+    return "Cô dâu & Chú rể";
+  }
+
   return `${bride} & ${groom}`;
 }
 
@@ -97,6 +101,7 @@ export function cardStyle(wedding) {
 
   return {
     "--card-ink": palette.ink,
+    "--card-soft": palette.soft,
     "--card-accent": palette.accent,
     "--card-seal": palette.seal,
     "--card-bg": palette.bg,

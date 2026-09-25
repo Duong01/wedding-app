@@ -1,14 +1,6 @@
 <template>
   <main class="templates-page">
     <!-- =====================================================
-         BACKGROUND DECORATION
-    ====================================================== -->
-    <div class="page-glow page-glow-1"></div>
-    <div class="page-glow page-glow-2"></div>
-    <div class="page-glow page-glow-3"></div>
-    <div class="page-seal">囍</div>
-
-    <!-- =====================================================
          BACK TO HOME
     ====================================================== -->
     <div class="container back-row">
@@ -23,17 +15,7 @@
          HERO
     ====================================================== -->
     <section class="page-hero">
-      <div class="hero-aurora" aria-hidden="true"></div>
-
       <div class="container hero-inner">
-        <div class="hero-decoration hero-decoration-left">
-          囍
-        </div>
-
-        <div class="hero-decoration hero-decoration-right">
-          囍
-        </div>
-
         <span class="eyebrow">
           <span class="eyebrow-line"></span>
           Bộ sưu tập thiệp cưới
@@ -102,21 +84,21 @@
 
         <div class="hero-stats">
           <div class="hero-stat">
-            <strong>{{ templateCount }}</strong>
+            <strong>{{ weddings.length }}</strong>
             <span>Mẫu thiệp</span>
           </div>
 
           <div class="hero-stat-divider"></div>
 
           <div class="hero-stat">
-            <strong>{{ styleCount }}</strong>
+            <strong>{{ themes.length }}</strong>
             <span>Phong cách</span>
           </div>
 
           <div class="hero-stat-divider"></div>
 
           <div class="hero-stat">
-            <strong>{{ customPercent }}%</strong>
+            <strong>100%</strong>
             <span>Tùy chỉnh</span>
           </div>
         </div>
@@ -188,25 +170,6 @@
 
         <div class="toolbar-right">
 
-          <!-- Collection -->
-          <div class="filter-control">
-            <span class="control-icon">✦</span>
-
-            <select v-model="collectionSelect">
-              <option value="">Tất cả bộ sưu tập</option>
-
-              <option
-                v-for="col in activeCollections"
-                :key="col.id"
-                :value="col.id"
-              >
-                {{ col.name }}
-              </option>
-            </select>
-
-            <span class="select-arrow">⌄</span>
-          </div>
-
           <!-- Theme -->
           <div class="filter-control">
             <span class="control-icon">◈</span>
@@ -221,6 +184,19 @@
               >
                 {{ theme.label }}
               </option>
+            </select>
+
+            <span class="select-arrow">⌄</span>
+          </div>
+
+          <!-- Sắp xếp -->
+          <div class="filter-control">
+            <span class="control-icon">⇅</span>
+
+            <select v-model="sortMode">
+              <option value="">Mặc định</option>
+              <option value="noi-bat">Nổi bật</option>
+              <option value="yeu-thich">Được yêu thích</option>
             </select>
 
             <span class="select-arrow">⌄</span>
@@ -336,32 +312,27 @@
         class="template-grid"
       >
         <article
-          v-for="(wedding, index) in filteredWeddings"
+          v-for="wedding in filteredWeddings"
           :key="wedding.id || wedding.slug || wedding.Id"
           class="template-card"
           :class="{
-            'is-featured': index === 0
+            'is-featured': isFavorite(wedding)
           }"
           :style="getCardStyle(wedding)"
           @click="goToIntro(wedding)"
-          @pointermove="trackSpotlight"
-          @pointerleave="clearSpotlight"
         >
           <!-- IMAGE -->
           <div class="image-wrap">
 
             <img
-              :src="wedding.coverImage"
-              :alt="getCoupleName(wedding)"
+              :src="getPreviewSrc(wedding)"
+              :alt="getThemeLabel(wedding)"
               loading="lazy"
               @error="onImageError"
             />
 
             <!-- image gradient -->
             <div class="image-gradient"></div>
-
-            <!-- vệt sáng chạy ngang qua ảnh -->
-            <div class="image-sheen" aria-hidden="true"></div>
 
             <!-- hover overlay -->
             <div class="card-hover">
@@ -383,13 +354,8 @@
               <span>Xem mẫu</span>
             </div>
 
-            <!-- top badges -->
+            <!-- top-right: nút yêu thích -->
             <div class="card-top">
-
-              <span class="theme-tag">
-                {{ getThemeLabel(wedding) }}
-              </span>
-
               <button
                 type="button"
                 class="favorite-btn"
@@ -410,9 +376,9 @@
               </button>
             </div>
 
-            <!-- featured -->
+            <!-- featured: mẫu đang được người dùng lưu yêu thích -->
             <div
-              v-if="index === 0"
+              v-if="isFavorite(wedding)"
               class="featured-label"
             >
               <span>{{ getWeddingMeta(wedding).orn }}</span>
@@ -436,13 +402,17 @@
             </div>
 
             <h3>
-              {{ getCoupleName(wedding) }}
+              {{ getThemeLabel(wedding) }}
             </h3>
 
-            <!-- một dòng mô tả phong cách — cho người xem biết
-                 mẫu này đẹp ở chỗ nào trước khi bấm vào -->
+            <!-- tên cặp đôi của mẫu — dòng phụ dưới tên thiết kế -->
+            <p class="card-couple">
+              {{ getCoupleName(wedding) }}
+            </p>
+
+            <!-- mô tả thiết kế — nội dung chính của thẻ -->
             <p class="card-desc">
-              {{ getCollectionSub(wedding) }}
+              {{ getWeddingMeta(wedding).desc }}
             </p>
 
             <!-- dải màu nhận diện của mẫu -->
@@ -451,15 +421,25 @@
                 v-for="(swatch, swatchIndex) in getWeddingMeta(wedding).palette"
                 :key="swatchIndex"
                 class="identity-swatch"
-                :style="{
-                  background: swatch,
-                  '--swatch-delay': `${swatchIndex * 90}ms`
-                }"
+                :style="{ background: swatch }"
               ></span>
 
               <span class="identity-orn">
                 {{ getWeddingMeta(wedding).orn }}
               </span>
+            </div>
+
+            <!-- từ khóa phong cách — bấm để lọc nhanh -->
+            <div class="card-tags">
+              <button
+                v-for="tag in getWeddingMeta(wedding).tags"
+                :key="tag"
+                type="button"
+                class="card-tag"
+                @click.stop="searchFor(tag)"
+              >
+                {{ tag }}
+              </button>
             </div>
 
             <div class="card-footer">
@@ -502,6 +482,61 @@
     </section>
 
     <!-- =====================================================
+         FEATURES — mọi mẫu đều có đủ tính năng
+    ====================================================== -->
+    <section class="tpl-features">
+      <div class="container">
+        <span class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Đủ mọi tính năng
+          <span class="eyebrow-line"></span>
+        </span>
+
+        <h2>Mỗi mẫu là một thiệp hoàn chỉnh</h2>
+
+        <p class="section-lead">
+          Không chỉ là một trang đẹp — mọi mẫu đều đi kèm đầy đủ
+          tính năng để mời và lưu giữ trọn vẹn ngày cưới của bạn.
+        </p>
+
+        <ul class="features-grid">
+          <li
+            v-for="feature in TEMPLATE_FEATURES"
+            :key="feature.title"
+          >
+            <span class="feature-orn">{{ feature.orn }}</span>
+
+            <div>
+              <strong>{{ feature.title }}</strong>
+              <p>{{ feature.text }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         FAQ
+    ====================================================== -->
+    <section class="tpl-faq">
+      <div class="container">
+        <span class="eyebrow">
+          <span class="eyebrow-line"></span>
+          Câu hỏi thường gặp
+          <span class="eyebrow-line"></span>
+        </span>
+
+        <h2>Chọn mẫu thiệp</h2>
+
+        <p class="section-lead">
+          Vài điều bạn nên biết trước khi chọn mẫu cho ngày cưới của mình.
+        </p>
+
+        <FaqAccordion :items="TEMPLATE_FAQS" />
+      </div>
+    </section>
+
+    <!-- =====================================================
          TOAST
     ====================================================== -->
     <Transition name="toast">
@@ -519,9 +554,7 @@
 <script setup>
 import {
   computed,
-  onBeforeUnmount,
   onMounted,
-  reactive,
   ref,
   watch
 } from "vue";
@@ -531,11 +564,23 @@ import { useWeddingStore } from "@/stores/wedding";
 
 import {
   COLLECTIONS,
-  getCollection,
   getThemeMeta,
 } from "@/data/templateCollections";
 
-import { useSeo } from "@/composables/useSeo";
+import {
+  cardStyle,
+  collectionLabel,
+  coupleName,
+  formatDate,
+  handleImageError,
+  previewFor,
+  themeLabel,
+  themeMeta,
+} from "@/utils/weddingCard";
+
+import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
+import { BRAND } from "@/data/siteContent";
+import { faqJsonLd, useSeo } from "@/composables/useSeo";
 
 // ======================================================
 // Router / Store
@@ -642,22 +687,6 @@ function clearCollections() {
   activeCollectionIds.value = [];
 }
 
-/*
- * Ô chọn bộ sưu tập trong toolbar chỉ chọn được một mục —
- * khi preset đang gộp nhiều mục thì hiển thị "Tất cả".
- */
-const collectionSelect = computed({
-  get() {
-    return activeCollectionIds.value.length === 1
-      ? activeCollectionIds.value[0]
-      : "";
-  },
-
-  set(value) {
-    activeCollectionIds.value = value ? [value] : [];
-  },
-});
-
 const favorites = ref(
   JSON.parse(
     localStorage.getItem("wedding-template-favorites") || "[]"
@@ -665,110 +694,6 @@ const favorites = ref(
 );
 
 const toast = ref("");
-
-// ======================================================
-// HIỆU ỨNG CHUYỂN ĐỘNG
-// ======================================================
-
-/*
- * ======================================================
- * SỐ LIỆU ĐẾM LÊN
- * ======================================================
- * Ba con số ở hero đếm dần từ 0 thay vì hiện ra nguyên con.
- * Đích đến là giá trị thật (số mẫu, số phong cách) nên khi
- * dữ liệu về muộn thì số vẫn chạy tới đúng chỗ.
- */
-const counters = reactive({
-  templates: 0,
-  styles: 0,
-  custom: 0,
-});
-
-const templateCount = computed(() => counters.templates);
-const styleCount = computed(() => counters.styles);
-const customPercent = computed(() => counters.custom);
-
-/*
- * Mỗi con số giữ một khung hình riêng. Dùng chung một biến thì
- * lần chạy sau sẽ huỷ lần chạy trước — gọi ba lần liên tiếp
- * chỉ còn con số cuối cùng chạy.
- */
-const counterFrames = new Map();
-
-/*
- * Chạy một con số từ giá trị hiện tại tới đích trong `duration`
- * mili-giây. Dùng easeOutCubic để đoạn cuối chậm lại — cảm giác
- * "dừng đúng số" thay vì bị cắt ngang.
- */
-function runCounter(key, target, duration = 1100) {
-  const from = counters[key];
-
-  if (from === target) {
-    return;
-  }
-
-  const start = performance.now();
-
-  function step(now) {
-    const progress = Math.min((now - start) / duration, 1);
-
-    const eased = 1 - Math.pow(1 - progress, 3);
-
-    counters[key] = Math.round(from + (target - from) * eased);
-
-    if (progress < 1) {
-      counterFrames.set(key, requestAnimationFrame(step));
-    } else {
-      counterFrames.delete(key);
-    }
-  }
-
-  cancelAnimationFrame(counterFrames.get(key));
-
-  counterFrames.set(key, requestAnimationFrame(step));
-}
-
-function prefersReducedMotion() {
-  return (
-    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ??
-    false
-  );
-}
-
-/*
- * ======================================================
- * VỆT SÁNG THEO CON TRỎ
- * ======================================================
- * Thẻ mẫu có một vệt sáng mờ đi theo ngón tay / con trỏ, giống
- * ánh kim loại bắt sáng khi nghiêng tấm thiệp. Toạ độ ghi vào
- * biến CSS của chính thẻ đó nên mỗi thẻ sáng theo vị trí riêng.
- */
-function trackSpotlight(event) {
-  if (prefersReducedMotion()) {
-    return;
-  }
-
-  const card = event.currentTarget;
-
-  const rect = card.getBoundingClientRect();
-
-  card.style.setProperty(
-    "--spot-x",
-    `${((event.clientX - rect.left) / rect.width) * 100}%`
-  );
-
-  card.style.setProperty(
-    "--spot-y",
-    `${((event.clientY - rect.top) / rect.height) * 100}%`
-  );
-}
-
-function clearSpotlight(event) {
-  const card = event.currentTarget;
-
-  card.style.removeProperty("--spot-x");
-  card.style.removeProperty("--spot-y");
-}
 
 // ======================================================
 // Computed
@@ -874,25 +799,43 @@ const filteredWeddings = computed(() => {
         w?.theme ||
         "";
 
-      const themeLabel = getThemeMeta(themeName).name;
+      const meta = getThemeMeta(themeName);
 
-      return (
-        bride.toLowerCase().includes(keyword) ||
-        groom.toLowerCase().includes(keyword) ||
-        themeName.toLowerCase().includes(keyword) ||
-        themeLabel.toLowerCase().includes(keyword)
-      );
+      /*
+       * Khớp cả từ khóa phong cách và mô tả thiết kế —
+       * để bấm tag trên thẻ ("Song hỷ", "Truyền thống"...)
+       * luôn ra kết quả.
+       */
+      const haystack = [
+        bride,
+        groom,
+        themeName,
+        meta.name,
+        meta.desc,
+        ...meta.tags,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return haystack.includes(keyword);
     });
   }
 
   /*
-   * "noi-bat" — mẫu có ảnh bìa và ngày cưới đầy đủ lên
-   * trước, vì đó là những mẫu xem được trọn vẹn nhất.
+   * "noi-bat" — mẫu có ngày cưới đầy đủ lên trước, vì đó là
+   * những mẫu xem được trọn vẹn nhất.
+   *
+   * "yeu-thich" — mẫu người dùng đã lưu yêu thích lên đầu.
    */
   if (sortMode.value === "noi-bat") {
     list = [...list].sort((a, b) => {
-      const score = (w) =>
-        (w?.coverImage ? 2 : 0) + (w?.weddingDate ? 1 : 0);
+      const score = (w) => (w?.weddingDate ? 1 : 0);
+
+      return score(b) - score(a);
+    });
+  } else if (sortMode.value === "yeu-thich") {
+    list = [...list].sort((a, b) => {
+      const score = (w) => (isFavorite(w) ? 1 : 0);
 
       return score(b) - score(a);
     });
@@ -900,6 +843,79 @@ const filteredWeddings = computed(() => {
 
   return list;
 });
+
+// ======================================================
+// Nội dung hiển thị — tính năng & hỏi đáp của trang mẫu
+// ======================================================
+
+/*
+ * Tính năng đi kèm mọi mẫu — nội dung khối "Mỗi mẫu là một
+ * thiệp hoàn chỉnh" cuối trang. Đặt ở đây thay vì siteContent
+ * vì chỉ trang gallery dùng.
+ */
+const TEMPLATE_FEATURES = [
+  {
+    orn: "❊",
+    title: "Tùy chỉnh toàn bộ",
+    text: "Đổi tên, ngày giờ, địa điểm, ảnh và màu sắc — giữ khung thiết kế, thay nội dung thành của bạn.",
+  },
+  {
+    orn: "✦",
+    title: "Ảnh không giới hạn",
+    text: "Album ảnh cưới, câu chuyện tình yêu và từng khoảnh khắc — tất cả trong một link.",
+  },
+  {
+    orn: "◈",
+    title: "Bản đồ & lịch trình",
+    text: "Google Maps dẫn đường đến tiệc, kèm lịch trình từng khoảnh khắc của ngày cưới.",
+  },
+  {
+    orn: "♪",
+    title: "Nhạc nền riêng",
+    text: "Chọn bài hát của hai bạn — thiệp mở lên là có âm nhạc.",
+  },
+  {
+    orn: "✉",
+    title: "Xác nhận tham dự",
+    text: "Khách mời bấm RSVP ngay trong thiệp — hai bạn nhận danh sách dự tiệc tức thì.",
+  },
+  {
+    orn: "❦",
+    title: "Sổ lưu bút & mừng cưới",
+    text: "Lời chúc và tiền mừng qua QR — mọi thứ được lưu giữ vĩnh viễn.",
+  },
+];
+
+/*
+ * Hỏi đáp riêng cho trang mẫu — tập trung vào việc chọn và
+ * dùng mẫu (khác FAQS chung ở trang chủ, vốn nói về sản phẩm).
+ */
+const TEMPLATE_FAQS = [
+  {
+    q: "Chọn mẫu xong có đổi được mẫu khác không?",
+    a: "Được. Bạn đổi mẫu bất cứ lúc nào trong trình soạn thảo — toàn bộ nội dung đã điền (tên, ngày giờ, địa điểm, ảnh) được giữ nguyên và tự xếp vào bố cục mới.",
+  },
+  {
+    q: "Mẫu hiển thị có đúng như xem trước không?",
+    a: "Có. Ảnh xem trước chính là thiệp thật chạy trên trình duyệt — bấm vào bất kỳ mẫu nào để mở bản demo đầy đủ, cuộn và nghe nhạc được như thiệp đã xuất bản.",
+  },
+  {
+    q: "Tôi có chỉnh được màu sắc và hình ảnh của mẫu không?",
+    a: "Được. Mỗi mẫu có bảng màu nhận diện riêng, nhưng bạn có thể đổi màu, thay ảnh, chỉnh cỡ chữ và thêm bớt các mục trong trình soạn thảo.",
+  },
+  {
+    q: "Dùng mẫu này có tốn phí không?",
+    a: "Tạo và chỉnh sửa hoàn toàn miễn phí, không cần đăng ký thẻ. Sau khi xuất bản bạn được dùng thử 3 ngày chia sẻ cho khách mời — ưng ý rồi mới thanh toán một lần để giữ thiệp vĩnh viễn.",
+  },
+  {
+    q: "Mẫu có hiển thị tốt trên điện thoại không?",
+    a: "Có. Khách mời chủ yếu mở thiệp trên điện thoại nên mọi mẫu đều được dựng responsive — hiển thị đúng trên điện thoại, tablet và máy tính, không cần cài ứng dụng.",
+  },
+  {
+    q: "Có mẫu nào phù hợp với đám cưới truyền thống không?",
+    a: "Có. Bộ sưu tập Á Đông Sang Trọng gồm đỏ son, vàng son, trống đồng, song hỷ và long phụng — dành riêng cho lễ cưới đậm nét truyền thống.",
+  },
+];
 
 // ======================================================
 // SEO — mỗi route SEO có tiêu đề và mô tả riêng
@@ -936,7 +952,55 @@ const SEO_BY_ROUTE = {
   },
 };
 
-useSeo(() => SEO_BY_ROUTE[route.name] || SEO_BY_ROUTE.Templates);
+/*
+ * JSON-LD cho trang gallery:
+ *
+ * - ItemList: danh sách mẫu có cấu trúc — Google hiểu đây là
+ *   một thư viện nhiều mẫu thay vì một trang đơn lẻ, mỗi mục
+ *   kèm tên, mô tả và đường dẫn riêng.
+ * - FAQPage: khối hỏi đáp cuối trang — đủ điều kiện hiện rich
+ *   snippet trên kết quả tìm kiếm.
+ *
+ * Gộp bằng @graph để một thẻ script phục vụ cả hai.
+ */
+function templatesJsonLd() {
+  const items = (store.weddings || []).map((wedding, index) => {
+    const meta = getThemeMeta(
+      wedding?.theme?.Name || wedding?.theme || ""
+    );
+
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: `${meta.name} — ${BRAND.name}`,
+        description: meta.desc,
+        url: `${BRAND.siteUrl}/wedding/${wedding.slug}`,
+        keywords: meta.tags.join(", "),
+      },
+    };
+  });
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Mẫu thiệp cưới",
+        numberOfItems: items.length,
+        itemListElement: items,
+      },
+      faqJsonLd(TEMPLATE_FAQS),
+    ],
+  };
+}
+
+useSeo(() => ({
+  ...(SEO_BY_ROUTE[route.name] || SEO_BY_ROUTE.Templates),
+  jsonLd: templatesJsonLd(),
+}));
 
 // ======================================================
 // Load
@@ -946,10 +1010,6 @@ onMounted(async () => {
   applyRoutePreset();
 
   await store.loadWeddings();
-
-  runCounter("templates", weddings.value.length);
-  runCounter("styles", themes.value.length, 900);
-  runCounter("custom", 100, 1300);
 });
 
 /*
@@ -969,112 +1029,39 @@ watch(
  */
 watch([activeCollectionIds, sortMode, q], syncQuery);
 
-onBeforeUnmount(() => {
-  counterFrames.forEach((frame) => cancelAnimationFrame(frame));
-
-  counterFrames.clear();
-});
-
 // ======================================================
 // Helpers
 // ======================================================
 
+/*
+ * Các helper hiển thị thẻ (tên cặp đôi, nhãn theme, bảng màu,
+ * ảnh xem trước, ngày cưới) dùng chung từ weddingCard.js —
+ * nơi đã gom để gallery, trang chủ và trang đích SEO không
+ * lệch nhau sau vài lần sửa.
+ */
+
 function getCoupleName(wedding) {
-  const bride =
-    wedding?.couple?.Bride?.Name ||
-    "";
-
-  const groom =
-    wedding?.couple?.Groom?.Name ||
-    "";
-
-  if (!bride && !groom) {
-    return "Cô dâu & Chú rể";
-  }
-
-  return `${bride} & ${groom}`;
+  return coupleName(wedding);
 }
 
 function getThemeLabel(wedding) {
-  const themeName =
-    wedding?.theme?.Name ||
-    wedding?.theme ||
-    "";
-
-  return (
-    getThemeMeta(themeName).name ||
-    themeName ||
-    "Classic"
-  );
+  return themeLabel(wedding);
 }
 
-/*
- * Bản sắc màu của mẫu — dùng cho viền card, tag phong
- * cách và dải màu nhận diện dưới tên cặp đôi.
- */
 function getWeddingMeta(wedding) {
-  const themeName =
-    wedding?.theme?.Name ||
-    wedding?.theme ||
-    "";
-
-  return getThemeMeta(themeName);
+  return themeMeta(wedding);
 }
 
-/*
- * CSS variables theo bản sắc từng mẫu — mỗi card
- * mang màu riêng của theme (viền, tag, dải màu).
- */
 function getCardStyle(wedding) {
-  const meta = getWeddingMeta(wedding);
-  const p = meta.palette;
-
-  return {
-    "--card-ink": p.ink,
-    "--card-accent": p.accent,
-    "--card-seal": p.seal,
-    "--card-bg": p.bg,
-  };
+  return cardStyle(wedding);
 }
 
-/*
- * Tên bộ sưu tập của mẫu (dùng trong modal chi tiết).
- */
 function getCollectionLabel(wedding) {
-  const meta = getWeddingMeta(wedding);
-
-  return getCollection(meta.collection).name;
+  return collectionLabel(wedding);
 }
 
-/*
- * Mô tả ngắn của bộ sưu tập — hiện dưới tên cặp đôi trên thẻ,
- * để người xem biết ngay mẫu này thuộc phong cách nào.
- */
-function getCollectionSub(wedding) {
-  const meta = getWeddingMeta(wedding);
-
-  return getCollection(meta.collection).sub;
-}
-
-function formatDate(date) {
-  if (!date) {
-    return "";
-  }
-
-  const parsed = new Date(date);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return "";
-  }
-
-  return new Intl.DateTimeFormat(
-    "vi-VN",
-    {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    }
-  ).format(parsed);
+function getPreviewSrc(wedding) {
+  return previewFor(wedding);
 }
 
 // ======================================================
@@ -1173,6 +1160,19 @@ function resetFilters() {
   sortMode.value = "";
 }
 
+/*
+ * Bấm từ khóa trên thẻ → đổ vào ô tìm kiếm và cuộn lên đầu
+ * danh sách. Từ khóa khớp theo tên thiết kế và tên cặp đôi
+ * nên kết quả luôn có ít nhất mẫu vừa bấm.
+ */
+function searchFor(keyword) {
+  q.value = keyword;
+
+  document
+    .querySelector(".templates-content")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 // ======================================================
 // Toast
 // ======================================================
@@ -1193,41 +1193,28 @@ function showToast(message) {
 // Image error
 // ======================================================
 
+/*
+ * Ảnh lỗi (đường dẫn hỏng) quay về ảnh xem trước dự phòng
+ * chung — handleImageError của weddingCard.js.
+ */
 function onImageError(event) {
-  event.target.src =
-    "https://images.unsplash.com/" +
-    "photo-1520854221256-17451cc331bf" +
-    "?auto=format&fit=crop&w=900&q=80";
+  handleImageError(event);
 }
 </script>
 
 <style scoped>
 /* =========================================================
    DESIGN TOKENS
+
+   Trang dùng thẳng token studio toàn cục từ theme.css
+   (--studio-ink / -foil / -seal / -card / -line...) —
+   không định nghĩa lại ở đây để hai nơi không lệch nhau.
 ========================================================= */
 
 .templates-page {
-  --wine: var(--studio-seal, #a63a2e);
-  --wine-dark: #7c2a20;
-  --wine-soft: #b07a6e;
-
-  --gold: var(--studio-foil, #b9975b);
-  --gold-light: #d8bc7e;
-
-  --cream: #f7f1e6;
-  --cream-dark: #efe6d4;
-
+  /* bí danh ngắn cho chữ chính / chữ phụ trong trang này */
   --text: var(--studio-ink, #2b2118);
   --muted: var(--studio-ink-faint, #8a7a68);
-
-  --border: rgba(43, 33, 24, 0.1);
-
-  /* Studio tokens (đồng bộ theme.css) */
-  --studio-ink: #2b2118;
-  --studio-paper: #f7f1e6;
-  --studio-card: #fffdf8;
-  --studio-foil: #b9975b;
-  --studio-seal: #a63a2e;
 
   min-height: 100vh;
   position: relative;
@@ -1255,161 +1242,17 @@ function onImageError(event) {
   color: var(--text);
 }
 
+/*
+ * Độ rộng khung khớp .mk-container của marketing.css —
+ * mọi trang marketing đều 1200px nên gallery không rộng hơn.
+ */
 .container {
   width: min(
-    1380px,
-    calc(100% - 56px)
+    1200px,
+    calc(100% - 32px)
   );
 
   margin: 0 auto;
-}
-
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-.page-glow {
-  position: absolute;
-  width: 460px;
-  height: 460px;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  filter: blur(70px);
-  opacity: 0.5;
-
-  /* Ba quầng trôi lệch nhịp nhau, mỗi quầng một chu kỳ riêng
-     nên chúng không bao giờ trùng pha — nền vì thế luôn đổi
-     chỗ sáng tối một cách tự nhiên. */
-  animation: glow-drift 22s ease-in-out infinite;
-}
-
-@keyframes glow-drift {
-  0%,
-  100% {
-    transform:
-      translate(0, 0)
-      scale(1);
-  }
-
-  33% {
-    transform:
-      translate(40px, -30px)
-      scale(1.12);
-  }
-
-  66% {
-    transform:
-      translate(-30px, 25px)
-      scale(0.94);
-  }
-}
-
-.page-glow-1 {
-  top: 260px;
-  left: -350px;
-
-  background: rgba(
-    201,
-    166,
-    89,
-    0.1
-  );
-}
-
-.page-glow-2 {
-  top: 900px;
-  right: -350px;
-
-  background: rgba(
-    143,
-    77,
-    67,
-    0.07
-  );
-
-  animation-duration: 28s;
-  animation-delay: -8s;
-}
-
-/*
- * Quầng thứ ba nằm sâu trong trang, chỗ lưới mẫu — giữ cho
- * nền không phẳng dần khi cuộn xuống.
- */
-.page-glow-3 {
-  top: 1900px;
-  left: -280px;
-
-  background: rgba(
-    201,
-    166,
-    89,
-    0.08
-  );
-
-  animation-duration: 34s;
-  animation-delay: -16s;
-}
-
-/* =========================================================
-   ẤN SON
-========================================================= */
-
-/*
- * Ấn son lớn mờ ở góc trang — điểm nhấn Á Đông
- * rất tiết chế, chỉ hiện trên màn hình rộng.
- */
-.page-seal {
-  position: absolute;
-
-  top: 120px;
-  right: 4%;
-
-  width: 92px;
-  height: 92px;
-
-  display: grid;
-  place-items: center;
-
-  border: 2px solid
-    rgba(166, 58, 46, 0.16);
-
-  border-radius: 14px;
-
-  color: rgba(166, 58, 46, 0.14);
-
-  font-family: var(--font-symbol, serif);
-
-  font-size: 54px;
-
-  font-weight: 700;
-
-  transform: rotate(6deg);
-
-  pointer-events: none;
-
-  user-select: none;
-
-  /* Lắc lư rất chậm, như tờ giấy bị gió thổi — đủ để mắt nhận
-     ra trang đang sống mà không gây nhiễu. */
-  animation: seal-sway 9s ease-in-out infinite;
-}
-
-@keyframes seal-sway {
-  0%,
-  100% {
-    transform:
-      rotate(6deg)
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      rotate(3deg)
-      translateY(-10px);
-  }
 }
 
 /* =========================================================
@@ -1455,95 +1298,8 @@ function onImageError(event) {
   text-align: center;
 }
 
-/*
- * Quầng sáng chuyển động chậm phía sau tiêu đề. Ba lớp màu
- * (son, vàng kim, hồng đất) trôi lệch nhịp nhau nên vùng sáng
- * không đứng yên một chỗ — mắt thấy trang "thở" dù không có
- * gì di chuyển hẳn.
- *
- * Đặt sau nội dung và chặn sự kiện chuột để không ảnh hưởng
- * tới việc bấm nút.
- */
-.hero-aurora {
-  position: absolute;
-
-  top: -140px;
-  left: 50%;
-
-  width: min(1100px, 130vw);
-  height: 620px;
-
-  transform: translateX(-50%);
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 30% 40%,
-      rgba(166, 58, 46, 0.13),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 70% 55%,
-      rgba(185, 151, 91, 0.16),
-      transparent 58%
-    ),
-    radial-gradient(
-      circle at 50% 20%,
-      rgba(176, 122, 110, 0.1),
-      transparent 60%
-    );
-
-  filter: blur(30px);
-
-  animation: aurora-drift 18s ease-in-out infinite;
-}
-
-@keyframes aurora-drift {
-  0%,
-  100% {
-    transform:
-      translateX(-50%)
-      translateY(0)
-      scale(1);
-  }
-
-  50% {
-    transform:
-      translateX(-50%)
-      translateY(-26px)
-      scale(1.06);
-  }
-}
-
 .hero-inner {
   position: relative;
-}
-
-.hero-decoration {
-  position: absolute;
-
-  color: var(--studio-foil, var(--gold));
-
-  font-family: var(--font-symbol, var(--font-heading));
-
-  opacity: 0.4;
-
-  font-size: 26px;
-
-  animation: floating 5s ease-in-out infinite;
-}
-
-.hero-decoration-left {
-  left: 18%;
-  top: 20px;
-}
-
-.hero-decoration-right {
-  right: 18%;
-  top: 80px;
-
-  animation-delay: -2s;
 }
 
 .eyebrow {
@@ -1552,7 +1308,7 @@ function onImageError(event) {
   align-items: center;
   gap: 13px;
 
-  color: var(--studio-seal, var(--wine));
+  color: var(--studio-seal, #a63a2e);
 
   font-size: 11px;
   font-weight: 700;
@@ -1565,7 +1321,7 @@ function onImageError(event) {
   width: 28px;
   height: 1px;
 
-  background: var(--studio-foil, var(--gold));
+  background: var(--studio-foil, #b9975b);
 }
 
 .page-hero h1 {
@@ -1599,7 +1355,7 @@ function onImageError(event) {
 }
 
 .page-hero h1 span {
-  color: var(--studio-seal, var(--wine));
+  color: var(--studio-seal, #a63a2e);
 
   font-style: italic;
 }
@@ -1766,7 +1522,7 @@ function onImageError(event) {
   border-radius: 50%;
 
   background:
-    var(--studio-foil, var(--gold));
+    var(--studio-foil, #b9975b);
 }
 
 .hero-stats {
@@ -1804,7 +1560,7 @@ function onImageError(event) {
 }
 
 .hero-stat strong {
-  color: var(--studio-ink, var(--wine));
+  color: var(--studio-ink, #2b2118);
 
   font-family:
     var(--font-heading),
@@ -1974,16 +1730,18 @@ function onImageError(event) {
 ========================================================= */
 
 .templates-content {
-  padding-bottom: 100px;
+  padding-bottom: 24px;
 }
 
 .toolbar {
   display: flex;
 
+  flex-wrap: wrap;
+
   align-items: center;
   justify-content: space-between;
 
-  gap: 24px;
+  gap: 16px 20px;
 
   margin-bottom: 30px;
 
@@ -2080,7 +1838,7 @@ function onImageError(event) {
 }
 
 .control-icon {
-  color: var(--gold);
+  color: var(--studio-foil, #b9975b);
 
   font-size: 13px;
 }
@@ -2088,9 +1846,9 @@ function onImageError(event) {
 .filter-control select {
   appearance: none;
 
-  min-width: 170px;
+  min-width: 148px;
 
-  padding: 0 34px 0 9px;
+  padding: 0 30px 0 9px;
 
   border: none;
   outline: none;
@@ -2119,7 +1877,7 @@ function onImageError(event) {
 }
 
 .search-control {
-  width: 280px;
+  width: 240px;
 
   padding: 0 13px;
 }
@@ -2186,10 +1944,14 @@ function onImageError(event) {
 .template-grid {
   display: grid;
 
+  /*
+   * Bốn cột trên khung 1200px — thẻ rộng ~276px, vừa khít
+   * bậc thẻ của các trang marketing (mk-grid--4).
+   */
   grid-template-columns:
     repeat(4, minmax(0, 1fr));
 
-  gap: 28px;
+  gap: 18px;
 }
 
 /* =========================================================
@@ -2209,9 +1971,19 @@ function onImageError(event) {
       transparent
     );
 
-  border-radius: 18px;
+  border-radius: 20px;
 
-  background: var(--studio-card);
+  /*
+   * Nền thẻ nhuộm theo bảng màu của từng mẫu (giống
+   * carousel trang chủ) — mỗi thẻ mang đúng "giấy" của
+   * thiết kế nó thay vì một màu trắng chung.
+   */
+  background:
+    color-mix(
+      in srgb,
+      var(--card-bg, #fffdf8) 88%,
+      var(--card-accent, #b9975b)
+    );
 
   cursor: pointer;
 
@@ -2227,47 +1999,6 @@ function onImageError(event) {
     border-color 0.3s ease;
 }
 
-/*
- * Vệt sáng bám theo con trỏ — như ánh kim loại bắt sáng khi
- * nghiêng tấm thiệp. Toạ độ do JS ghi vào --spot-x/--spot-y;
- * chưa rê chuột thì vệt nằm ngoài khung nên không thấy gì.
- *
- * Chỉ hiện trên thiết bị có con trỏ thật: trên điện thoại
- * không có "hover" nên lớp này chỉ tổ vẽ thừa.
- */
-@media (hover: hover) and (pointer: fine) {
-  .template-card::after {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 4;
-
-    pointer-events: none;
-
-    opacity: 0;
-
-    background:
-      radial-gradient(
-        260px circle at var(--spot-x, -20%) var(--spot-y, -20%),
-        color-mix(
-          in srgb,
-          var(--card-accent, #b9975b) 22%,
-          transparent
-        ),
-        transparent 70%
-      );
-
-    transition: opacity 0.4s ease;
-  }
-
-  .template-card:hover::after {
-    opacity: 1;
-  }
-}
-
 .template-card:hover {
   transform:
     translateY(-10px);
@@ -2281,42 +2012,25 @@ function onImageError(event) {
 }
 
 /*
- * Thẻ nổi bật tự phát sáng nhịp nhàng — không cần rê chuột vẫn
- * thấy nó khác các thẻ còn lại. Chu kỳ 4.5s đủ chậm để không
- * gây phân tâm khi đang đọc.
+ * Thẻ đang được lưu yêu thích mang viền màu bản sắc đậm hơn —
+ * phân biệt với các thẻ còn lại mà không cần animation.
  */
 .template-card.is-featured {
-  animation: featured-glow 4.5s ease-in-out infinite;
-}
+  border-color:
+    color-mix(
+      in srgb,
+      var(--card-accent, #b9975b) 55%,
+      transparent
+    );
 
-@keyframes featured-glow {
-  0%,
-  100% {
-    box-shadow:
-      0 12px 35px rgba(43, 33, 24, 0.06),
-      0 0 0 0
-        color-mix(
-          in srgb,
-          var(--card-accent, #b9975b) 0%,
-          transparent
-        );
-  }
-
-  50% {
-    box-shadow:
-      0 18px 45px rgba(43, 33, 24, 0.1),
-      0 0 0 6px
-        color-mix(
-          in srgb,
-          var(--card-accent, #b9975b) 14%,
-          transparent
-        );
-  }
-}
-
-/* Đang rê chuột thì nhường hiệu ứng cho trạng thái hover. */
-.template-card.is-featured:hover {
-  animation: none;
+  box-shadow:
+    0 12px 35px rgba(43, 33, 24, 0.06),
+    0 0 0 4px
+      color-mix(
+        in srgb,
+        var(--card-accent, #b9975b) 12%,
+        transparent
+      );
 }
 
 .image-wrap {
@@ -2324,7 +2038,19 @@ function onImageError(event) {
 
   overflow: hidden;
 
-  aspect-ratio: 0.76;
+  /*
+   * Tỷ lệ chuẩn 3/4 — giống carousel trang chủ
+   * (TemplateCarousel3D) để cùng một mẫu hiện giống nhau
+   * ở mọi nơi. Nền dự phòng pha theo bảng màu của mẫu
+   * (hiện khi ảnh chưa tải xong hoặc lỗi).
+   */
+  aspect-ratio: 3 / 4;
+
+  background: color-mix(
+    in srgb,
+    var(--card-bg, #f7f1e6) 82%,
+    var(--card-accent, #b9975b)
+  );
 }
 
 .image-wrap img {
@@ -2366,61 +2092,6 @@ function onImageError(event) {
   pointer-events: none;
 }
 
-/*
- * Vệt sáng chạy chéo qua ảnh — chạy một lần mỗi khi rê chuột
- * vào thẻ, như ánh sáng quét qua mặt giấy bóng.
- *
- * Đặt sẵn ngoài khung (translateX(-120%)) rồi trượt sang phải;
- * chỉ chạy khi hover nên không tốn gì lúc trang đứng yên.
- */
-.image-sheen {
-  position: absolute;
-
-  top: -50%;
-  left: 0;
-
-  width: 55%;
-  height: 200%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      100deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.34) 50%,
-      transparent 100%
-    );
-
-  transform: translateX(-160%) rotate(8deg);
-
-  opacity: 0;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .template-card:hover .image-sheen {
-    animation: sheen-sweep 1.1s cubic-bezier(.3,.7,.3,1);
-  }
-}
-
-@keyframes sheen-sweep {
-  0% {
-    transform: translateX(-160%) rotate(8deg);
-
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(320%) rotate(8deg);
-
-    opacity: 0;
-  }
-}
-
 /* =========================================================
    CARD HOVER
 ========================================================= */
@@ -2441,11 +2112,16 @@ function onImageError(event) {
 
   color: #fff;
 
+  /*
+   * Lớp phủ hover nhuộm màu ấn son của từng mẫu —
+   * đồng nhất với veil của carousel trang chủ, thay vì
+   * một màu nâu chung cho mọi thẻ.
+   */
   background:
-    linear-gradient(
-      180deg,
-      rgba(58, 30, 26, 0.08),
-      rgba(58, 30, 26, 0.52)
+    color-mix(
+      in srgb,
+      var(--card-seal, #a63a2e) 44%,
+      rgba(20, 12, 8, 0.4)
     );
 
   opacity: 0;
@@ -2525,57 +2201,16 @@ function onImageError(event) {
 }
 
 /* =========================================================
-   CARD TOP
+   CARD TOP — nút yêu thích
 ========================================================= */
 
 .card-top {
   position: absolute;
 
   top: 14px;
-  left: 14px;
   right: 14px;
 
-  display: flex;
-
-  justify-content: space-between;
-
   z-index: 3;
-}
-
-.theme-tag {
-  display: inline-flex;
-
-  align-items: center;
-
-  min-height: 28px;
-
-  padding: 0 11px;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.45);
-
-  border-radius: 999px;
-
-  background:
-    color-mix(
-      in srgb,
-      var(--card-seal, #2c1e1e) 55%,
-      transparent
-    );
-
-  backdrop-filter:
-    blur(12px);
-
-  color: #fff;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-  text-transform: uppercase;
 }
 
 .favorite-btn {
@@ -2681,7 +2316,12 @@ function onImageError(event) {
 
   backdrop-filter: blur(12px);
 
-  color: var(--card-seal, var(--wine));
+  /*
+   * Chữ dùng mực studio cố định — với theme nền sẫm, màu
+   * seal là vàng kim nên đặt làm màu chữ trên nền trắng
+   * sẽ khó đọc. Ký tự orn phía trước vẫn mang màu bản sắc.
+   */
+  color: var(--studio-ink, #2b2118);
 
   font-size: 11px;
 
@@ -2692,25 +2332,10 @@ function onImageError(event) {
   text-transform: uppercase;
 
   z-index: 3;
-
-  /* Nhấp nhô nhẹ — huy hiệu "đang được chú ý" chứ không phải
-     một nhãn tĩnh nằm im. */
-  animation: badge-bob 3.2s ease-in-out infinite;
-}
-
-@keyframes badge-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-4px);
-  }
 }
 
 .featured-label span {
-  color: var(--card-accent, var(--gold));
+  color: var(--card-accent, #b9975b);
 }
 
 /* =========================================================
@@ -2730,7 +2355,7 @@ function onImageError(event) {
 
   margin-bottom: 7px;
 
-  color: #9a8a86;
+  color: var(--card-soft, #8a7a68);
 
   font-size: 10px;
 
@@ -2745,7 +2370,7 @@ function onImageError(event) {
 
   border-radius: 50%;
 
-  background: var(--card-accent, var(--gold));
+  background: var(--card-accent, #b9975b);
 }
 
 .card-body h3 {
@@ -2776,23 +2401,18 @@ function onImageError(event) {
 }
 
 /*
- * Một dòng mô tả phong cách của mẫu. Cắt sau hai dòng để các
- * thẻ trong cùng hàng luôn cao bằng nhau dù mô tả dài ngắn khác
- * nhau.
+ * Tên cặp đôi của mẫu — dòng phụ dưới tên thiết kế. Cắt sau
+ * một dòng để các thẻ trong cùng hàng luôn cao bằng nhau.
  */
-.card-desc {
-  display: -webkit-box;
-
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-
-  -webkit-box-orient: vertical;
-
+.card-couple {
   overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   margin: 7px 0 0;
 
-  color: #8a7a76;
+  color: var(--card-soft, #8a7a76);
 
   font-size: clamp(
     11px,
@@ -2801,6 +2421,91 @@ function onImageError(event) {
   );
 
   line-height: 1.55;
+}
+
+/*
+ * Mô tả thiết kế — nội dung chính của thẻ. Giới hạn hai dòng
+ * để thẻ không cao lệch nhau khi mô tả dài ngắn khác nhau.
+ */
+.card-desc {
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+
+  margin: 8px 0 0;
+
+  color: var(--card-soft, #8a7a68);
+
+  font-size: clamp(
+    11px,
+    1.05vw,
+    12.5px
+  );
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   CARD TAGS (từ khóa phong cách — bấm để lọc)
+========================================================= */
+
+.card-tags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  margin-top: 9px;
+}
+
+.card-tag {
+  padding: 3px 9px;
+
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--card-accent, #b9975b) 32%,
+      transparent
+    );
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: var(--card-ink, var(--text));
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
+
+  cursor: pointer;
+
+  opacity: 0.78;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.card-tag:hover {
+  border-color:
+    var(--card-accent, #b9975b);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--card-accent, #b9975b) 12%,
+      transparent
+    );
+
+  opacity: 1;
 }
 
 /* =========================================================
@@ -2828,19 +2533,6 @@ function onImageError(event) {
       rgba(43, 33, 24, 0.08);
 
   opacity: 0.9;
-
-  /*
-   * Dải màu bản sắc nở dần từ trái sang khi thẻ hiện ra — mỗi
-   * ô lệch nhau 90ms (do template đặt) nên chạy như một làn
-   * sóng nhỏ chạy ngang qua dải.
-   */
-  transform-origin: left center;
-
-  transition:
-    transform 0.5s cubic-bezier(.2,.8,.2,1),
-    opacity 0.5s ease;
-
-  transition-delay: var(--swatch-delay, 0ms);
 }
 
 .identity-swatch:first-child {
@@ -2850,23 +2542,13 @@ function onImageError(event) {
 .identity-orn {
   margin-left: auto;
 
-  color: var(--card-accent, var(--gold));
+  color: var(--card-accent, #b9975b);
 
   font-family: var(--font-symbol, var(--font-heading));
 
   font-size: 14px;
 
   line-height: 1;
-
-  /* Ấn ký xoay chậm — chi tiết nhỏ nhưng làm thẻ có sức sống
-     ngay cả khi người dùng không chạm vào. */
-  animation: orn-turn 14s linear infinite;
-}
-
-@keyframes orn-turn {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* =========================================================
@@ -2949,6 +2631,177 @@ function onImageError(event) {
     rgba(255, 255, 255, 0.8);
 }
 
+/* =========================================================
+   FEATURES & FAQ — hai khối cuối trang
+   (dùng chung .eyebrow / .eyebrow-line đã có ở hero)
+========================================================= */
+
+.tpl-features,
+.tpl-faq {
+  padding: 64px 0 8px;
+
+  text-align: center;
+}
+
+.tpl-faq {
+  padding-bottom: 96px;
+}
+
+.tpl-features h2,
+.tpl-faq h2 {
+  margin: 18px auto 0;
+
+  font-family:
+    var(--font-heading),
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: clamp(
+    26px,
+    3.4vw,
+    40px
+  );
+
+  line-height: 1.15;
+
+  font-weight: 500;
+
+  color: var(--text);
+}
+
+.section-lead {
+  max-width: 560px;
+
+  margin: 14px auto 0;
+
+  color: var(--muted);
+
+  font-size: clamp(
+    13px,
+    1.4vw,
+    15px
+  );
+
+  line-height: 1.75;
+}
+
+/*
+ * Lưới tính năng 3 cột — mỗi ô một tính năng, ký tự họa tiết
+ * đóng vai trò biểu tượng thay vì icon vector.
+ */
+.features-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin: 34px 0 0;
+
+  padding: 0;
+
+  list-style: none;
+
+  text-align: left;
+}
+
+.features-grid li {
+  display: flex;
+
+  gap: 14px;
+
+  padding: 20px 18px;
+
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+
+  border-radius: 16px;
+
+  background: var(--studio-card, #fffdf8);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.features-grid li:hover {
+  transform: translateY(-3px);
+
+  border-color:
+    rgba(185, 151, 91, 0.5);
+
+  box-shadow:
+    0 16px 34px
+      rgba(43, 33, 24, 0.08);
+}
+
+.feature-orn {
+  flex-shrink: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 12px;
+
+  background:
+    color-mix(
+      in srgb,
+      var(--studio-foil, #b9975b) 14%,
+      transparent
+    );
+
+  color: var(--studio-seal, #a63a2e);
+
+  font-family:
+    var(--font-symbol),
+    var(--font-heading),
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1;
+}
+
+.features-grid strong {
+  display: block;
+
+  color: var(--text);
+
+  font-size: 14.5px;
+
+  font-weight: 700;
+}
+
+.features-grid p {
+  margin: 5px 0 0;
+
+  color: var(--muted);
+
+  font-size: 12.5px;
+
+  line-height: 1.65;
+}
+
+/*
+ * FAQ — accordion dùng component FaqAccordion (style
+ * mk-faq-* nằm ở marketing.css, dùng chung với trang chủ).
+ * Chỉ cần căn khung và giới hạn bề rộng cho dễ đọc.
+ */
+.tpl-faq :deep(.mk-faq-list) {
+  max-width: 760px;
+
+  margin: 30px auto 0;
+
+  text-align: left;
+}
+
 .card-footer {
   display: flex;
 
@@ -2961,7 +2814,7 @@ function onImageError(event) {
 }
 
 .view-detail {
-  color: #8a7a76;
+  color: var(--card-soft, #8a7a76);
 
   font-size: 11px;
 
@@ -2978,7 +2831,7 @@ function onImageError(event) {
 
 .template-card:hover
 .view-detail {
-  color: var(--card-seal, var(--wine));
+  color: var(--card-seal, #a63a2e);
 }
 
 .template-card:hover
@@ -3007,7 +2860,7 @@ function onImageError(event) {
       transparent
     );
 
-  color: var(--card-seal, var(--wine));
+  color: var(--card-seal, #a63a2e);
 
   font-size: 10px;
 
@@ -3022,7 +2875,7 @@ function onImageError(event) {
 }
 
 .use-template-btn:hover {
-  background: var(--card-seal, var(--wine));
+  background: var(--card-seal, #a63a2e);
 
   color: #fff;
 
@@ -3044,7 +2897,7 @@ function onImageError(event) {
 }
 
 .skeleton-image {
-  aspect-ratio: 0.76;
+  aspect-ratio: 3 / 4;
 
   background:
     linear-gradient(
@@ -3249,19 +3102,6 @@ function onImageError(event) {
    ANIMATIONS
 ========================================================= */
 
-@keyframes floating {
-  0%,
-  100% {
-    transform:
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translateY(-8px);
-  }
-}
-
 /* toast */
 .toast-enter-active,
 .toast-leave-active {
@@ -3287,7 +3127,7 @@ function onImageError(event) {
     grid-template-columns:
       repeat(3, minmax(0,1fr));
 
-    gap: 22px;
+    gap: 16px;
   }
 }
 
@@ -3312,32 +3152,8 @@ function onImageError(event) {
     display: none;
   }
 
-  .container {
-    width:
-      min(
-        100% - 36px,
-        700px
-      );
-  }
-
   .page-hero {
     padding-top: 65px;
-  }
-
-  .hero-decoration {
-    display: none;
-  }
-
-  /*
-   * Quầng sáng lớn và nhoè rất tốn cho GPU điện thoại, mà màn
-   * nhỏ thì gần như không thấy khác biệt — bỏ hẳn.
-   */
-  .hero-aurora {
-    display: none;
-  }
-
-  .page-seal {
-    display: none;
   }
 
   .toolbar {
@@ -3361,6 +3177,11 @@ function onImageError(event) {
 
     width: auto;
   }
+
+  .features-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* =========================================================
@@ -3368,11 +3189,6 @@ function onImageError(event) {
 ========================================================= */
 
 @media (max-width: 640px) {
-  .container {
-    width:
-      calc(100% - 24px);
-  }
-
   .collection-strip {
     gap: 7px;
 
@@ -3520,37 +3336,20 @@ function onImageError(event) {
     grid-template-columns:
       repeat(2, minmax(0,1fr));
 
-    gap: 12px;
+    gap: 14px;
   }
 
   .template-card {
-    border-radius: 14px;
+    border-radius: 16px;
   }
 
   .image-wrap {
-    aspect-ratio: 0.72;
+    aspect-ratio: 3 / 4;
   }
 
   .card-top {
     top: 8px;
-    left: 8px;
     right: 8px;
-  }
-
-  .theme-tag {
-    max-width: 105px;
-
-    overflow: hidden;
-
-    min-height: 23px;
-
-    padding: 0 8px;
-
-    font-size: 11px;
-
-    white-space: nowrap;
-
-    text-overflow: ellipsis;
   }
 
   .favorite-btn {
@@ -3587,7 +3386,7 @@ function onImageError(event) {
     font-size: 18px;
   }
 
-  .card-desc {
+  .card-couple {
     margin-top: 5px;
 
     font-size: 11px;
@@ -3629,6 +3428,41 @@ function onImageError(event) {
     font-size: 12px;
   }
 
+  /* khối tính năng & FAQ cuối trang */
+  .tpl-features,
+  .tpl-faq {
+    padding-top: 44px;
+  }
+
+  .tpl-faq {
+    padding-bottom: 72px;
+  }
+
+  .features-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .features-grid li {
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding: 15px 14px;
+  }
+
+  .features-grid strong {
+    font-size: 13px;
+  }
+
+  .features-grid p {
+    font-size: 11.5px;
+  }
+
   .card-footer {
     margin-top: 10px;
   }
@@ -3667,15 +3501,31 @@ function onImageError(event) {
 
 @media (max-width: 380px) {
   .template-grid {
-    gap: 8px;
+    gap: 10px;
   }
 
   .card-body h3 {
     font-size: 16px;
   }
 
-  .card-desc {
+  .card-couple {
     display: none;
+  }
+
+  .card-desc {
+    -webkit-line-clamp: 2;
+
+    font-size: 10.5px;
+  }
+
+  .card-tags {
+    gap: 4px;
+  }
+
+  .card-tag {
+    padding: 2px 7px;
+
+    font-size: 9.5px;
   }
 
   .identity-row {

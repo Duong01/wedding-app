@@ -41,7 +41,8 @@
         />
 
         <small class="field-help">
-          {{ (wedding.footer.Message || "").length }} ký tự
+          VD: "Sự hiện diện của quý khách là niềm vinh hạnh của gia
+          đình chúng tôi." {{ (wedding.footer.Message || "").length }} ký tự
         </small>
       </div>
 
