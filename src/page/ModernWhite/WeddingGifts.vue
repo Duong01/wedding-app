@@ -2,33 +2,34 @@
   <section class="mw-gifts">
     <h2 class="mw-title">Hộp Quà Mừng</h2>
 
-    <div v-if="normalizedGifts.length" class="mw-gift-list">
-      <button
-        v-for="(gift, index) in normalizedGifts"
-        :key="gift.Id || index"
-        type="button"
-        class="mw-gift"
-        :aria-label="`Mở hộp mừng cưới — ${gift.title}`"
-        @click="openGift(index)"
-      >
-        <span class="mw-gift__sparkle mw-gift__sparkle--1" aria-hidden="true">✦</span>
-        <span class="mw-gift__sparkle mw-gift__sparkle--2" aria-hidden="true">✦</span>
-        <span class="mw-gift__sparkle mw-gift__sparkle--3" aria-hidden="true">✦</span>
-        <span class="mw-gift__sparkle mw-gift__sparkle--4" aria-hidden="true">✦</span>
+    <!-- =====================================================
+         MỘT PHONG BÌ — 2 phong bì chồng nhau (sau + trước),
+         bấm vào mở hộp thoại liệt kê tất cả tài khoản.
+    ====================================================== -->
+    <button
+      v-if="normalizedGifts.length"
+      type="button"
+      class="mw-gift"
+      aria-label="Mở hộp mừng cưới"
+      @click="openGift(0)"
+    >
+      <span class="mw-gift__sparkle mw-gift__sparkle--1" aria-hidden="true">✦</span>
+      <span class="mw-gift__sparkle mw-gift__sparkle--2" aria-hidden="true">✦</span>
+      <span class="mw-gift__sparkle mw-gift__sparkle--3" aria-hidden="true">✦</span>
+      <span class="mw-gift__sparkle mw-gift__sparkle--4" aria-hidden="true">✦</span>
 
-        <span class="mw-gift__stage">
-          <span class="mw-gift__shadow" aria-hidden="true"></span>
+      <span class="mw-gift__stage">
+        <span class="mw-gift__shadow" aria-hidden="true"></span>
 
-          <span class="mw-gift__box">
-            <img :src="envelope" alt="" class="mw-gift__back" />
+        <span class="mw-gift__box">
+          <img :src="envelope" alt="" class="mw-gift__back" />
 
-            <img :src="envelope" alt="" class="mw-gift__card" />
-          </span>
+          <img :src="envelope" alt="" class="mw-gift__card" />
         </span>
+      </span>
 
-        <span class="mw-gift__hint">Nhấn để mở</span>
-      </button>
-    </div>
+      <span class="mw-gift__hint">Nhấn để mở</span>
+    </button>
 
     <p v-else class="mw-gift-empty">Chưa có thông tin mừng cưới</p>
 
@@ -272,17 +273,11 @@ async function copyAccount(gift) {
 
 <style scoped>
 .mw-gifts {
-  text-align: center;
-}
-
-.mw-gift-list {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 8px;
+  flex-direction: column;
+  align-items: center;
 
-  margin-top: 20px;
+  text-align: center;
 }
 
 /* =========================================================

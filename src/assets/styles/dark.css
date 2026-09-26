@@ -1,0 +1,658 @@
+/* ===========================================================
+   DARK THEME — lớp phủ tối cho toàn bộ khung ứng dụng
+   -----------------------------------------------------------
+   Gắn class "theme-dark" trên <html> (xem stores/theme.js).
+   Chỉ ĐẢO các token + nền hardcoded sáng; mọi component đã
+   dùng var(--studio-*) tự động theo. Trang thiệp khách mời
+   (src/page/*) có hệ màu riêng theo từng mẫu thiệp nên KHÔNG
+   bị đảo — chỉ khung quanh thiệp (loading, lỗi, intro) đổi.
+
+   Bảng màu tối: "đêm giấy dó" — nền nâu mực rất tối, thẻ nâu
+   nhạt hơn một bậc, vàng foil sáng lên làm điểm nhấn, đỏ son
+   nhạt bớt để dịu mắt trên nền tối.
+=========================================================== */
+
+/* ===========================================================
+   1. TOKEN STUDIO — đảo toàn bộ hệ màu
+=========================================================== */
+
+html.theme-dark {
+  /* Mực nho → ngà sáng: chữ chính trên nền tối */
+  --studio-ink: #f0e9dc;
+
+  --studio-ink-soft: #c4b6a4;
+
+  --studio-ink-faint: #94866f;
+
+  /* Giấy dó → mực đêm: nền trang */
+  --studio-paper: #17120d;
+
+  --studio-paper-deep: #1f1913;
+
+  /* Thẻ — nhạt hơn nền một bậc */
+  --studio-card: #241d15;
+
+  /* Vàng foil — sáng hơn để nổi trên nền tối */
+  --studio-foil: #d3b271;
+
+  --studio-foil-bright: #e6cd97;
+
+  --studio-foil-soft: rgba(211, 178, 113, 0.14);
+
+  /* Đỏ ấn son — nhạt bớt cho dịu mắt */
+  --studio-seal: #c96b5b;
+
+  --studio-line: rgba(240, 233, 220, 0.13);
+
+  --studio-line-strong: rgba(240, 233, 220, 0.3);
+
+  /* Nền đối cực — đảo: nền sáng, chữ mực */
+  --studio-contrast-bg: #f0e9dc;
+
+  --studio-contrast-ink: #2b2118;
+
+  /* Kính mờ tối */
+  --studio-glass: rgba(36, 29, 21, 0.72);
+
+  --studio-glass-strong: rgba(36, 29, 21, 0.9);
+}
+
+/*
+ * body dùng var(--paper) → var(--surface) sáng của hệ thiệp;
+ * đảo theo để không ló nền kem khi cuộn quá khung (bounce).
+ */
+html.theme-dark body {
+  background: var(--studio-paper);
+}
+
+/* ===========================================================
+   2. NỀN TRANG — các gradient hardcoded sáng → tối
+=========================================================== */
+
+/* Trang marketing (trang chủ, landing, giới thiệu...) */
+html.theme-dark .mk-page {
+  background:
+    radial-gradient(circle at 6% 2%, rgba(211, 178, 113, 0.07), transparent 32%),
+    radial-gradient(circle at 94% 8%, rgba(201, 107, 91, 0.05), transparent 28%),
+    linear-gradient(180deg, #1a140e 0%, #17120d 45%, #120e09 100%);
+}
+
+/* Section xen kẽ */
+html.theme-dark .mk-section--alt {
+  background:
+    linear-gradient(180deg, rgba(211, 178, 113, 0.05), rgba(211, 178, 113, 0.02));
+}
+
+/* Trang thư viện mẫu */
+html.theme-dark .templates-page {
+  background:
+    radial-gradient(circle at 8% 6%, rgba(211, 178, 113, 0.08), transparent 30%),
+    radial-gradient(circle at 92% 24%, rgba(201, 107, 91, 0.04), transparent 28%),
+    linear-gradient(180deg, #1a140e 0%, #17120d 45%, #120e09 100%);
+}
+
+/* Trang giới thiệu mẫu thiệp */
+html.theme-dark .intro-page {
+  background:
+    radial-gradient(circle at 8% 4%, rgba(211, 178, 113, 0.06), transparent 30%),
+    linear-gradient(180deg, #1a140e 0%, #17120d 50%, #120e09 100%);
+}
+
+/* Footer */
+html.theme-dark .site-footer {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(211, 178, 113, 0.06), transparent 60%),
+    linear-gradient(180deg, #1f1913 0%, #17120d 100%);
+}
+
+html.theme-dark .footer-bottom {
+  background: rgba(240, 233, 220, 0.04);
+}
+
+/* Trang đăng nhập */
+html.theme-dark .auth-page {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(211, 178, 113, 0.08), transparent 34%),
+    radial-gradient(circle at 88% 92%, rgba(201, 107, 91, 0.05), transparent 36%),
+    var(--studio-paper);
+}
+
+/* Trang quản lý / admin / thanh toán — nền trang */
+html.theme-dark .manage-page,
+html.theme-dark .admin-page,
+html.theme-dark .payment-page,
+html.theme-dark .profile-page {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(211, 178, 113, 0.06), transparent 30%),
+    var(--studio-paper);
+}
+
+/* Màn hình loading / lỗi của trang thiệp khách mời */
+html.theme-dark .wedding-loading,
+html.theme-dark .wedding-error,
+html.theme-dark .theme-error {
+  background: linear-gradient(135deg, #1a140e, #17120d);
+}
+
+html.theme-dark .error-content,
+html.theme-dark .theme-error-content {
+  background: var(--studio-card);
+}
+
+/* Màn hình loading toàn trang (trái tim đập) */
+html.theme-dark .loading-heart {
+  background: var(--studio-card);
+}
+
+/* ===========================================================
+   3. THẺ / NÚT / CHIP — nền trắng hardcoded → thẻ tối
+=========================================================== */
+
+/* Nút ghost / outline của marketing */
+html.theme-dark .mk-btn--ghost {
+  background: var(--studio-glass);
+
+  color: var(--studio-ink);
+}
+
+html.theme-dark .mk-btn--ghost:hover {
+  background: var(--studio-glass-strong);
+}
+
+html.theme-dark .mk-btn--outline:hover {
+  background: var(--studio-card);
+
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Nút sáng trên hộp CTA đỏ cuối trang — giữ nguyên tông đỏ */
+html.theme-dark .mk-btn--light {
+  background: #f0e9dc;
+
+  color: #a63a2e;
+}
+
+/*
+ * Skeleton shimmer — gradient sáng hardcoded trong từng view
+ * (Admin/AdminWeddings/AdminPayments) → gradient tối cùng nhịp.
+ */
+html.theme-dark .skeleton-image,
+html.theme-dark .skeleton-line,
+html.theme-dark .skeleton-avatar,
+html.theme-dark .skeleton-role,
+html.theme-dark .skeleton-thumb,
+html.theme-dark .skeleton-status,
+html.theme-dark .skeleton-card {
+  background: linear-gradient(
+    100deg,
+    #1f1913 40%,
+    #2a2218 50%,
+    #1f1913 60%
+  );
+
+  background-size: 200% 100%;
+}
+
+/* Nhãn tên mẫu trên ảnh trong trang quản lý */
+html.theme-dark .theme-tag {
+  background: var(--studio-glass-strong);
+
+  color: var(--studio-ink-soft);
+}
+
+/* Chip trạng thái "đang dùng thử" — vàng kim trên nền tối */
+html.theme-dark .status-chip.chip-trial {
+  background: rgba(211, 178, 113, 0.15);
+
+  color: #d3b271;
+}
+
+/* Nút phát video trên khung video đỏ son */
+html.theme-dark .video-play {
+  background: #f0e9dc;
+
+  color: #a63a2e;
+}
+
+/* Nút mũi tên + chấm carousel 3D */
+html.theme-dark .carousel__btn:hover {
+  background: var(--studio-glass-strong);
+}
+
+/* Nút "Dùng mẫu này" hover — đỏ son */
+html.theme-dark .use-template-btn:hover {
+  background: var(--studio-seal);
+}
+
+/* Nút thử lại khi lỗi tải */
+html.theme-dark .retry-btn:hover {
+  background: var(--studio-foil);
+}
+
+/* ===========================================================
+   4. VUỒNG SÁNG CỤC BỘ — giữ nguyên chủ ý thiết kế
+=========================================================== */
+
+/*
+ * Khung xem trước thiệp trong editor + trang intro: nền TRẮNG
+ * cố ý — thiệp được render trong iframe nền trắng, viền trắng
+ * quanh khung giúp tách khung với nền tối bên ngoài.
+ */
+html.theme-dark .preview-frame,
+html.theme-dark .preview-device,
+html.theme-dark .preview-loading-card,
+html.theme-dark .preview-error-card,
+html.theme-dark .preview-topbar,
+html.theme-dark .preview-back,
+html.theme-dark .preview-save,
+html.theme-dark .confirm-box,
+html.theme-dark .publish-box,
+html.theme-dark .mobile-menu-sheet,
+html.theme-dark .editor-sidebar,
+html.theme-dark .editor-card,
+html.theme-dark .editor-topbar,
+html.theme-dark .loading-card {
+  background: var(--studio-card);
+}
+
+/* Trang preview (EditorPreview) — nền xám nhạt → tối */
+html.theme-dark .wedding-preview-page {
+  background: #14100b;
+}
+
+/* ===========================================================
+   5. EDITOR — đảo bảng màu cục bộ của .wedding-editor
+=========================================================== */
+
+/*
+ * editor.css định nghĩa bảng màu riêng trong .wedding-editor
+ * (--editor-bg, --panel-bg, --border...). Đảo các biến đó là
+ * đủ cho phần lớn editor; vài giá trị hardcoded còn lại được
+ * xử lý ở mục 4 phía trên.
+ */
+html.theme-dark .wedding-editor {
+  --editor-bg: #17120d;
+
+  --panel-bg: #241d15;
+
+  --border: #33291d;
+
+  --border-strong: #453826;
+
+  --muted: #94866f;
+
+  --dark: #f0e9dc;
+
+  --gold: #d3b271;
+
+  --wine: #c96b5b;
+
+  --wine-dark: #a34a3c;
+}
+
+/* Nút top bar của editor */
+html.theme-dark .top-button {
+  background: var(--panel-bg);
+
+  color: var(--dark);
+
+  border-color: var(--border);
+}
+
+html.theme-dark .top-button:hover {
+  background: #2c241a;
+
+  border-color: var(--border-strong);
+}
+
+/* Chip trạng thái xuất bản trong editor */
+html.theme-dark .publish-state {
+  background: var(--panel-bg);
+}
+
+html.theme-dark .publish-state.trial {
+  background: rgba(211, 178, 113, 0.15);
+
+  color: #d3b271;
+}
+
+html.theme-dark .publish-state.active {
+  color: #7fbf8f;
+}
+
+html.theme-dark .publish-state.locked {
+  color: var(--muted);
+}
+
+/* Cảnh báo đăng nhập trong editor */
+html.theme-dark .editor-login-notice.warn {
+  background: rgba(211, 178, 113, 0.12);
+
+  color: #d3b271;
+}
+
+/* Menu mục lục sidebar */
+html.theme-dark .editor-menu {
+  color: var(--muted);
+}
+
+html.theme-dark .editor-menu:hover,
+html.theme-dark .menu-icon,
+html.theme-dark .mobile-menu-icon,
+html.theme-dark .image-placeholder,
+html.theme-dark .hero-preview {
+  background: #2c241a;
+}
+
+html.theme-dark .menu-icon,
+html.theme-dark .mobile-menu-icon {
+  color: var(--muted);
+}
+
+/* Tiêu đề panel + nhãn field */
+html.theme-dark .panel-header h1,
+html.theme-dark .card-header strong,
+html.theme-dark .person-heading strong,
+html.theme-dark .switch-card strong,
+html.theme-dark .setting-item strong,
+html.theme-dark .theme-current-info strong,
+html.theme-dark .sub-heading,
+html.theme-dark .sheet-header strong,
+html.theme-dark .mobile-menu-item strong,
+html.theme-dark .draft-body strong,
+html.theme-dark .guest-content strong {
+  color: var(--dark);
+}
+
+html.theme-dark .panel-header p,
+html.theme-dark .editor-field label,
+html.theme-dark .empty-card strong,
+html.theme-dark .guest-content p,
+html.theme-dark .draft-btn.ghost {
+  color: var(--muted);
+}
+
+html.theme-dark .editor-field select {
+  color: var(--dark);
+}
+
+/* Nút thiết bị preview (desktop/mobile) */
+html.theme-dark .preview-device button {
+  color: var(--muted);
+}
+
+html.theme-dark .preview-title span,
+html.theme-dark .preview-overlay-title span {
+  color: var(--muted);
+}
+
+/* Nút trong thanh tác vụ mobile */
+html.theme-dark .mobile-editor-actions button {
+  color: var(--muted);
+}
+
+/* Thẻ người / thẻ khách / thẻ cài đặt... */
+html.theme-dark .person-editor,
+html.theme-dark .add-button,
+html.theme-dark .gallery-item,
+html.theme-dark .switch-card,
+html.theme-dark .guest-card,
+html.theme-dark .setting-item,
+html.theme-dark .theme-current,
+html.theme-dark .draft-prompt,
+html.theme-dark .empty-card,
+html.theme-dark .countdown-preview,
+html.theme-dark .couple-preview,
+html.theme-dark .music-preview,
+html.theme-dark .swatch-picker,
+html.theme-dark .swatch-text,
+html.theme-dark .inline-button,
+html.theme-dark .slug-button,
+html.theme-dark .copy-button,
+html.theme-dark .wish-search,
+html.theme-dark .recipient-search,
+html.theme-dark .section-search,
+html.theme-dark .field-clear,
+html.theme-dark .settings-toolbar,
+html.theme-dark .toolbar-btn,
+html.theme-dark .preset-card,
+html.theme-dark .icon-chip,
+html.theme-dark .bulk-card,
+html.theme-dark .story-idea,
+html.theme-dark .progress-card,
+html.theme-dark .sheet-search,
+html.theme-dark .sidebar-search,
+html.theme-dark .upload-url-input,
+html.theme-dark .icon-button,
+html.theme-dark .item-icon-button,
+html.theme-dark .small-icon-button,
+html.theme-dark .map-open,
+html.theme-dark .section-reset,
+html.theme-dark .search-clear,
+html.theme-dark .sheet-search-clear,
+html.theme-dark .sidebar-search-clear {
+  background: var(--panel-bg);
+}
+
+/* Hover các nút nhỏ — đậm hơn một bậc */
+html.theme-dark .inline-button:hover,
+html.theme-dark .inline-button:hover:not(:disabled),
+html.theme-dark .slug-button:hover,
+html.theme-dark .copy-button:hover:not(:disabled),
+html.theme-dark .field-clear:hover,
+html.theme-dark .toolbar-btn:hover,
+html.theme-dark .icon-button:hover:not(:disabled),
+html.theme-dark .publish-close:hover,
+html.theme-dark .preview-icon-button:hover {
+  background: #2c241a;
+}
+
+/* Vùng gợi ý / upload mờ */
+html.theme-dark .bulk-upload,
+html.theme-dark .story-ideas {
+  background: rgba(36, 29, 21, 0.7);
+}
+
+/* Thanh tiến trình */
+html.theme-dark .progress-bar {
+  background: #2c241a;
+}
+
+/* Nút xóa khách — đỏ dịu trên nền tối */
+html.theme-dark .guest-delete:hover {
+  background: rgba(208, 112, 112, 0.15);
+}
+
+/* Vùng nhập hàng loạt */
+html.theme-dark .bulk-card textarea {
+  background: var(--panel-bg);
+
+  color: var(--dark);
+}
+
+/* Thẻ <code> trong chú thích field */
+html.theme-dark .field-help code {
+  background: #2c241a;
+}
+
+/* Ô màu + input màu */
+html.theme-dark .color-control input[type="text"],
+html.theme-dark .color-control input[type="color"] {
+  background: var(--panel-bg);
+}
+
+html.theme-dark .person-heading {
+  border-bottom-color: var(--border);
+}
+
+/* Avatar cô dâu hồng nhạt → tím đất ấm */
+html.theme-dark .person-avatar.bride,
+html.theme-dark .preview-avatar.bride {
+  background: #4a2f33;
+}
+
+/* Nút nhỏ trong panel */
+html.theme-dark .sheet-close {
+  background: #2c241a;
+}
+
+html.theme-dark .draft-btn.ghost {
+  background: #2c241a;
+}
+
+/* Thanh công cụ preview tối sẵn — chỉ chỉnh viền */
+html.theme-dark .preview-toolbar,
+html.theme-dark .preview-overlay-bar {
+  border-bottom-color: rgba(240, 233, 220, 0.08);
+}
+
+/* Thanh tác vụ mobile của editor */
+html.theme-dark .mobile-editor-actions {
+  background: rgba(36, 29, 21, 0.95);
+}
+
+/* ===========================================================
+   5b. DIALOG EDITOR — chữ tối hardcoded → ngà sáng
+=========================================================== */
+
+html.theme-dark .publish-title,
+html.theme-dark .confirm-title {
+  color: var(--studio-ink);
+}
+
+html.theme-dark .publish-sub,
+html.theme-dark .confirm-message,
+html.theme-dark .publish-label,
+html.theme-dark .publish-price__label,
+html.theme-dark .publish-price__note,
+html.theme-dark .publish-btn.ghost,
+html.theme-dark .confirm-btn.ghost {
+  color: var(--studio-ink-soft);
+}
+
+/* Icon cảnh báo đỏ trong dialog xác nhận */
+html.theme-dark .confirm-icon.danger {
+  background: rgba(208, 112, 112, 0.15);
+
+  color: #d07070;
+}
+
+/* Trang preview (EditorPreview) — chữ xám → ngà */
+html.theme-dark .preview-back,
+html.theme-dark .preview-title span,
+html.theme-dark .preview-loading-card strong,
+html.theme-dark .preview-error-card h2 {
+  color: var(--studio-ink);
+}
+
+html.theme-dark .preview-loading-card span,
+html.theme-dark .preview-error-card p,
+html.theme-dark .theme-error p {
+  color: var(--studio-ink-soft);
+}
+
+html.theme-dark .preview-error-icon {
+  background: rgba(208, 112, 112, 0.15);
+}
+
+html.theme-dark .preview-back:hover {
+  background: #2c241a;
+}
+
+/* ===========================================================
+   5c. PUBLISH DIALOG — các ô vàng kem hardcoded
+=========================================================== */
+
+html.theme-dark .publish-icon,
+html.theme-dark .publish-trial {
+  background: rgba(211, 178, 113, 0.15);
+}
+
+html.theme-dark .publish-price,
+html.theme-dark .publish-link input {
+  background: #2c241a;
+}
+
+html.theme-dark .publish-btn.ghost,
+html.theme-dark .confirm-btn.ghost {
+  background: #2c241a;
+}
+
+/* Ảnh preview upload */
+html.theme-dark .upload-preview img {
+  background: #2c241a;
+}
+
+/* ===========================================================
+   5d. EDITOR PREVIEW — viền xám sáng hardcoded
+=========================================================== */
+
+html.theme-dark .preview-topbar {
+  border-bottom-color: var(--studio-line);
+}
+
+html.theme-dark .preview-back {
+  border-color: var(--studio-line);
+}
+
+html.theme-dark .preview-loading-card,
+html.theme-dark .preview-error-card {
+  border-color: var(--studio-line);
+}
+
+/* ===========================================================
+   6. VUỒNG TRẮNG CỐC — QR, ảnh, khung thiệp
+=========================================================== */
+
+/*
+ * Khung QR thanh toán + khung ảnh trong trang intro giữ nền
+ * trắng — QR cần nền sáng để quét được.
+ */
+html.theme-dark .qr-image,
+html.theme-dark .preview-card {
+  background: #fff;
+}
+
+/* ===========================================================
+   7. CHỮ / VIỀN SÁNG HARDCODED
+=========================================================== */
+
+/* Chữ mờ "✕" trong bảng so sánh bảng giá */
+html.theme-dark .cross,
+html.theme-dark .no {
+  color: rgba(240, 233, 220, 0.3);
+}
+
+/* Placeholder input liên hệ */
+html.theme-dark .field input::placeholder,
+html.theme-dark .field textarea::placeholder {
+  color: rgba(240, 233, 220, 0.35);
+}
+
+/* Dấu tick xanh trong bảng so sánh — xanh lá sáng hơn */
+html.theme-dark .yes {
+  color: #7fbf8f;
+}
+
+/* Chữ trên nút đỏ son (đã trắng sẵn) — không đổi */
+
+/* ===========================================================
+   8. VUỒNG SÁNG THEO Ý NGHĨA — giữ trắng
+=========================================================== */
+
+/*
+ * Toast thông báo Templates: nền mực đậm + chữ trắng — đã hợp
+ * cả hai theme, không cần đảo.
+ */
+
+/* ===========================================================
+   9. CHUYỂN ĐỘNG MỀM MẠI KHI ĐỔI THEME
+=========================================================== */
+
+html.theme-dark,
+html.theme-dark body,
+html.theme-dark .app-root {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}

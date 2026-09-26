@@ -145,6 +145,7 @@ export function toCardItem(wedding) {
     couple: coupleName(wedding),
     date: formatDate(wedding.weddingDate),
     orn: themeMeta(wedding).orn,
+    isNew: Boolean(themeMeta(wedding).isNew),
     style: cardStyle(wedding),
     raw: wedding,
   };

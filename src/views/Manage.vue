@@ -4,37 +4,13 @@
     <div class="page-glow page-glow-2"></div>
 
     <!-- =====================================================
-         BACK TO HOME
+         HERO — gọn, căn giữa (kiểu dashboard)
     ====================================================== -->
-    <div class="container back-row">
-      <button type="button" class="back-btn" @click="goHome">
-        <v-icon size="16"> mdi-arrow-left </v-icon>
-
-        Trang chủ
-      </button>
-    </div>
-
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
-    <section class="page-hero">
+    <section class="page-hero manage-hero">
       <div class="container hero-inner">
-        <span class="eyebrow">
-          <span class="eyebrow-line"></span>
-          Quản lý thiệp
-          <span class="eyebrow-line"></span>
-        </span>
+        <h1>Thiệp của tôi</h1>
 
-        <h1>
-          Những thiệp cưới
-          <span>đã lưu</span>
-          của bạn.
-        </h1>
-
-        <p>
-          Mở lại trình chỉnh sửa, xem thiệp trực tiếp hoặc chia sẻ cho khách mời
-          qua link và mã QR.
-        </p>
+        <p>Quản lý và theo dõi các thiệp của bạn</p>
 
         <div class="hero-actions">
           <button type="button" class="primary-btn" @click="goCreate">
@@ -49,15 +25,49 @@
          CONTENT
     ====================================================== -->
     <section class="container manage-content">
+      <!-- BANNER: CHƯA ĐĂNG NHẬP — nháp chỉ nằm trên máy này -->
+      <div v-if="isGuest" class="guest-banner">
+        <v-icon size="22"> mdi-information-outline </v-icon>
+
+        <div class="guest-banner-text">
+          <strong>Đăng nhập để bảo vệ thiệp của bạn</strong>
+
+          <p>
+            Thiệp hiện chỉ lưu trên thiết bị này. Đăng nhập để truy cập từ mọi
+            nơi và tránh mất dữ liệu.
+          </p>
+        </div>
+
+        <button type="button" class="primary-btn" @click="goLogin">
+          Đăng nhập ngay
+        </button>
+      </div>
+
+      <!-- TAB LỌC: Tất cả / Xuất bản / Nháp -->
+      <div v-if="!loading && !loadError" class="filter-tabs">
+        <button
+          v-for="tab in filterTabs"
+          :key="tab.key"
+          type="button"
+          class="filter-tab"
+          :class="{ active: activeFilter === tab.key }"
+          @click="activeFilter = tab.key"
+        >
+          {{ tab.label }} ({{ tab.count }})
+        </button>
+      </div>
+
       <!-- LOADING -->
       <div v-if="loading" class="manage-grid">
         <article v-for="i in 4" :key="i" class="manage-card">
-          <div class="skeleton-image"></div>
-
           <div class="skeleton-body">
             <div class="skeleton-line small"></div>
-            <div class="skeleton-line"></div>
             <div class="skeleton-line tiny"></div>
+            <div class="skeleton-line"></div>
+          </div>
+
+          <div class="card-bar">
+            <div class="skeleton-line tiny bar-skeleton"></div>
           </div>
         </article>
       </div>
@@ -76,10 +86,10 @@
       </div>
 
       <!-- EMPTY -->
-      <div v-else-if="entries.length === 0" class="state-box empty">
+      <div v-else-if="filteredEntries.length === 0" class="state-box empty">
         <div class="empty-icon">♡</div>
 
-        <h3>Chưa có thiệp nào được lưu</h3>
+        <h3>Chưa có thiệp nào ở mục này</h3>
 
         <p>
           Hãy tạo thiệp mới hoặc chỉnh sửa một mẫu có sẵn, sau đó bấm "Lưu
@@ -91,48 +101,84 @@
         </button>
       </div>
 
-      <!-- GRID -->
+      <!-- GRID — thẻ compact kiểu dashboard -->
       <div v-else class="manage-grid">
-        <article v-for="entry in entries" :key="entry.slug" class="manage-card">
-          <!-- IMAGE -->
-          <div class="image-wrap">
-            <img
-              :src="entry.coverImage || fallbackImage"
-              :alt="getCoupleName(entry)"
-              loading="lazy"
-              @error="onImageError"
-            />
-
-            <div class="image-gradient"></div>
-
-            <span class="theme-tag">
-              {{ entry.theme || "classic" }}
-            </span>
-          </div>
-
+        <article
+          v-for="entry in filteredEntries"
+          :key="entry.isLocalDraft ? 'local-draft' : entry.slug"
+          class="manage-card"
+        >
           <!-- BODY -->
           <div class="card-body">
-            <div class="card-meta">
-              <span>{{ formatDate(entry.weddingDate) }}</span>
+            <div class="card-head">
+              <h3>{{ getCoupleName(entry) }}</h3>
 
-              <span class="dot"></span>
+              <span class="card-open-hint">
+                Chỉnh sửa thiệp
+                <v-icon size="14"> mdi-chevron-right </v-icon>
+              </span>
+            </div>
 
+            <div class="card-chips">
               <span
                 class="status-chip"
                 :class="statusChipClass(entry)"
               >
                 {{ statusChipLabel(entry) }}
               </span>
+
+              <span v-if="entry.theme" class="card-theme">
+                {{ entry.theme }}
+              </span>
             </div>
 
-            <h3>{{ getCoupleName(entry) }}</h3>
+            <div class="card-meta">
+              <span v-if="formatDate(entry.weddingDate)">
+                {{ formatDate(entry.weddingDate) }}
+              </span>
 
-            <p class="card-slug">/{{ entry.slug }}</p>
+              <span v-if="entry.slug">/{{ entry.slug }}</span>
 
-            <div class="card-actions">
+              <span v-if="entry.isLocalDraft">
+                Lưu trên máy — tạo {{ formatDate(entry.createdAt) }}
+              </span>
+
+              <span v-else-if="formatDate(entry.createdAt)">
+                Ngày tạo: {{ formatDate(entry.createdAt) }}
+              </span>
+            </div>
+          </div>
+
+          <!-- ACTION BAR — tách đáy thẻ -->
+          <div class="card-bar">
+            <!-- Thẻ bản nháp (chưa đăng nhập) -->
+            <template v-if="entry.isLocalDraft">
               <button
                 type="button"
-                class="action-btn primary"
+                class="bar-btn primary"
+                @click="editDraft"
+              >
+                <v-icon size="16"> mdi-pencil-outline </v-icon>
+
+                Chỉnh sửa
+              </button>
+
+              <button
+                type="button"
+                class="bar-btn danger"
+                @click="deleteDraft"
+              >
+                <v-icon size="16"> mdi-delete-outline </v-icon>
+
+                Xóa
+              </button>
+            </template>
+
+            <!-- Thẻ thiệp đã lưu trên server -->
+            <template v-else>
+              <button
+                type="button"
+                class="bar-btn primary"
                 @click="editWedding(entry)"
               >
                 <v-icon size="16"> mdi-pencil-outline </v-icon>
@@ -142,7 +188,7 @@
 
               <button
                 type="button"
-                class="action-btn"
+                class="bar-btn"
                 @click="viewWedding(entry)"
               >
                 <v-icon size="16"> mdi-eye-outline </v-icon>
@@ -151,29 +197,9 @@
               </button>
 
               <button
-                type="button"
-                class="action-btn pay"
-                @click="goPayment(entry)"
-              >
-                <v-icon size="16"> mdi-credit-card-outline </v-icon>
-
-                Thanh toán
-              </button>
-
-              <button
-                type="button"
-                class="action-btn"
-                @click="openGuests(entry)"
-              >
-                <v-icon size="16"> mdi-account-multiple-outline </v-icon>
-
-                Khách mời
-              </button>
-
-              <button
                 v-if="canPublish(entry)"
                 type="button"
-                class="action-btn publish"
+                class="bar-btn publish"
                 :disabled="publishing === entry.slug"
                 @click="publishEntry(entry)"
               >
@@ -189,7 +215,21 @@
                 Xuất bản
               </button>
 
-              <button type="button" class="action-btn" @click="copyLink(entry)">
+              <button
+                type="button"
+                class="bar-btn"
+                @click="openGuests(entry)"
+              >
+                <v-icon size="16"> mdi-account-multiple-outline </v-icon>
+
+                Khách mời
+              </button>
+
+              <button
+                type="button"
+                class="bar-btn"
+                @click="copyLink(entry)"
+              >
                 <v-icon size="16"> mdi-link-variant </v-icon>
 
                 {{ canPublish(entry) ? "Link (chưa mở)" : "Link" }}
@@ -197,7 +237,17 @@
 
               <button
                 type="button"
-                class="action-btn danger"
+                class="bar-btn"
+                @click="goPayment(entry)"
+              >
+                <v-icon size="16"> mdi-credit-card-outline </v-icon>
+
+                Thanh toán
+              </button>
+
+              <button
+                type="button"
+                class="bar-btn danger"
                 :disabled="deleting === entry.slug"
                 @click="confirmDelete(entry)"
               >
@@ -212,7 +262,7 @@
 
                 Xóa
               </button>
-            </div>
+            </template>
           </div>
         </article>
       </div>
@@ -440,8 +490,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed, onMounted, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 import {
   addRecipient as addRecipientApi,
@@ -454,7 +504,16 @@ import {
 
 import { PUBLISH_STATE } from "@/model/weddingAdmin";
 
+import { useAuthStore } from "@/stores/auth";
+import { useWeddingEditorStore } from "@/stores/weddingEditor";
+
 const router = useRouter();
+
+const route = useRoute();
+
+const auth = useAuthStore();
+
+const editorStore = useWeddingEditorStore();
 
 /* =========================================================
    STATE
@@ -469,6 +528,115 @@ const toast = ref("");
 
 /* Slug của thiệp đang gọi API xuất bản ("" = không có). */
 const publishing = ref("");
+
+/* =========================================================
+   CHƯA ĐĂNG NHẬP — bản nháp trên máy (localStorage)
+   Thẻ hiển thị dạng "Bản nháp": chỉ sửa / xóa nháp,
+   mọi tính năng server (xuất bản, khách mời...) ẩn đi.
+========================================================= */
+
+const localDraft = ref(null);
+
+const isGuest = computed(() => !auth.isLoggedIn);
+
+function loadLocalDraft() {
+  localDraft.value = editorStore.readDraft();
+}
+
+/* Đưa bản nháp về đúng dạng thẻ trong grid (giống entry API). */
+const draftEntry = computed(() => {
+  if (!localDraft.value?.wedding) {
+    return null;
+  }
+
+  const wedding = localDraft.value.wedding;
+
+  return {
+    slug: wedding.slug || "",
+    groomName: wedding.groomName || "",
+    brideName: wedding.brideName || "",
+    weddingDate: wedding.weddingDate || "",
+    theme: wedding.theme?.Name || "",
+    coverImage: wedding.coverImage || "",
+    status: "",
+    createdAt: localDraft.value.savedAt || "",
+    publishState: "draft-local",
+    publishedAt: "",
+    trialEndsAt: "",
+    paidAt: "",
+    daysLeft: 0,
+    isLocalDraft: true,
+  };
+});
+
+/* Danh sách hiển thị: API khi đã đăng nhập, nháp khi chưa. */
+const visibleEntries = computed(() => {
+  return isGuest.value
+    ? draftEntry.value
+      ? [draftEntry.value]
+      : []
+    : entries.value;
+});
+
+/* =========================================================
+   TAB LỌC — Tất cả / Xuất bản / Nháp
+   "Xuất bản" = đã publish (dùng thử / hết hạn / đã kích
+   hoạt / khóa). "Nháp" = chưa xuất bản (draft server hoặc
+   bản nháp trên máy khi chưa đăng nhập).
+========================================================= */
+
+const activeFilter = ref("all");
+
+function isPublishedEntry(entry) {
+  if (entry?.isLocalDraft) {
+    return false;
+  }
+
+  return entry?.publishState !== PUBLISH_STATE.DRAFT;
+}
+
+const filterTabs = computed(() => {
+  const all = visibleEntries.value;
+
+  const published = all.filter(isPublishedEntry);
+
+  return [
+    { key: "all", label: "Tất cả", count: all.length },
+    { key: "published", label: "Xuất bản", count: published.length },
+    { key: "draft", label: "Nháp", count: all.length - published.length },
+  ];
+});
+
+const filteredEntries = computed(() => {
+  if (activeFilter.value === "published") {
+    return visibleEntries.value.filter(isPublishedEntry);
+  }
+
+  if (activeFilter.value === "draft") {
+    return visibleEntries.value.filter((entry) => !isPublishedEntry(entry));
+  }
+
+  return visibleEntries.value;
+});
+
+function editDraft() {
+  router.push({ name: "Editor" });
+}
+
+async function deleteDraft() {
+  editorStore.clearDraft();
+
+  localDraft.value = null;
+
+  showToast("Đã xóa bản nháp trên máy này");
+}
+
+function goLogin() {
+  router.push({
+    name: "Login",
+    query: { redirect: route.fullPath },
+  });
+}
 
 /* =========================================================
    GUESTS
@@ -486,14 +654,18 @@ const newGuestName = ref("");
 const editingToken = ref("");
 const editingName = ref("");
 
-const fallbackImage =
-  "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80";
-
 /* =========================================================
    LOAD — danh sách thiệp CỦA TÀI KHOẢN từ API
 ========================================================= */
 
 async function loadEntries() {
+  /* Chưa đăng nhập → chỉ có bản nháp trên máy, không gọi API. */
+  if (!auth.isLoggedIn) {
+    loadLocalDraft();
+
+    return;
+  }
+
   loading.value = true;
 
   loadError.value = "";
@@ -551,6 +723,19 @@ onMounted(() => {
   loadEntries();
 });
 
+/*
+ * Đăng nhập / đăng xuất ngay trên trang này (qua header)
+ * → đổi nguồn dữ liệu: nháp máy ↔ danh sách API.
+ */
+watch(
+  () => auth.isLoggedIn,
+  () => {
+    entries.value = [];
+
+    loadEntries();
+  }
+);
+
 /* =========================================================
    RETRY
 ========================================================= */
@@ -590,10 +775,6 @@ function formatDate(date) {
     month: "2-digit",
     year: "numeric",
   }).format(parsed);
-}
-
-function onImageError(event) {
-  event.target.src = fallbackImage;
 }
 
 /* =========================================================
@@ -642,6 +823,8 @@ function goPayment(entry) {
 function statusChipLabel(entry) {
   const state = entry?.publishState;
 
+  if (state === "draft-local") return "Bản nháp";
+
   if (state === PUBLISH_STATE.DRAFT) return "Chưa xuất bản";
 
   if (state === PUBLISH_STATE.TRIAL) {
@@ -665,6 +848,8 @@ function statusChipLabel(entry) {
 
 function statusChipClass(entry) {
   const state = entry?.publishState;
+
+  if (state === "draft-local") return "chip-pending";
 
   if (state === PUBLISH_STATE.TRIAL) return "chip-trial";
 
@@ -720,10 +905,6 @@ async function publishEntry(entry) {
   } finally {
     publishing.value = "";
   }
-}
-
-function goHome() {
-  router.push({ name: "Home" });
 }
 
 /* =========================================================
@@ -1057,20 +1238,163 @@ function showToast(message) {
   overflow: hidden;
 }
 
+/* Hero gọn kiểu dashboard — không eyebrow, tiêu đề nhỏ hơn */
+.manage-hero {
+  padding: 40px 0 8px;
+}
+
+.manage-hero h1 {
+  margin: 0 0 6px;
+
+  font-size: clamp(24px, 3vw, 30px);
+}
+
+.manage-hero p {
+  font-size: 14px;
+}
+
+.manage-hero .hero-actions {
+  margin-top: 18px;
+}
+
 .manage-content {
   padding: 20px 0 80px;
 }
 
 /* ==================================================
-   GRID
+   BANNER CHƯA ĐĂNG NHẬP — nháp chỉ nằm trên máy này
+================================================== */
+
+.guest-banner {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 22px;
+
+  padding: 16px 18px;
+
+  border: 1px solid rgba(185, 151, 91, 0.4);
+
+  border-radius: 16px;
+
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.12));
+
+  color: var(--studio-ink, #2b2118);
+}
+
+.guest-banner > .v-icon {
+  flex: 0 0 auto;
+
+  color: var(--studio-foil, #b9975b);
+}
+
+.guest-banner-text {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.guest-banner-text strong {
+  display: block;
+
+  font-size: 14.5px;
+}
+
+.guest-banner-text p {
+  margin: 3px 0 0;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.guest-banner .primary-btn {
+  flex: 0 0 auto;
+
+  margin: 0;
+
+  padding: 10px 18px;
+
+  font-size: 13px;
+}
+
+/* ==================================================
+   TAB LỌC — Tất cả / Xuất bản / Nháp
+================================================== */
+
+.filter-tabs {
+  display: flex;
+
+  gap: 2px;
+
+  width: fit-content;
+
+  max-width: 100%;
+
+  margin-bottom: 18px;
+
+  padding: 3px;
+
+  border-radius: 12px;
+
+  background: var(--studio-line, rgba(43, 33, 24, 0.08));
+
+  overflow-x: auto;
+}
+
+.filter-tab {
+  padding: 7px 14px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: transparent;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 12.5px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.filter-tab:hover {
+  color: var(--studio-ink, #2b2118);
+}
+
+.filter-tab.active {
+  background: var(--studio-card, #fffdf8);
+
+  color: var(--studio-seal, #a63a2e);
+
+  box-shadow: 0 2px 8px rgba(43, 33, 24, 0.1);
+}
+
+/* ==================================================
+   GRID — thẻ compact kiểu dashboard (không ảnh lớn)
 ================================================== */
 
 .manage-grid {
   display: grid;
 
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 
-  gap: 22px;
+  gap: 14px;
+
+  align-items: stretch;
 }
 
 .manage-card {
@@ -1080,7 +1404,7 @@ function showToast(message) {
 
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
 
-  border-radius: 20px;
+  border-radius: 18px;
 
   background: var(--studio-card, #fffdf8);
 
@@ -1090,57 +1414,9 @@ function showToast(message) {
 }
 
 .manage-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 
-  box-shadow: 0 22px 50px rgba(43, 33, 24, 0.12);
-}
-
-.image-wrap {
-  position: relative;
-
-  aspect-ratio: 16 / 10;
-
-  overflow: hidden;
-
-  background: var(--studio-paper-deep, #efe6d4);
-}
-
-.image-wrap img {
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-}
-
-.image-gradient {
-  position: absolute;
-
-  inset: 0;
-
-  background: linear-gradient(180deg, transparent 55%, rgba(30, 20, 12, 0.35));
-}
-
-.theme-tag {
-  position: absolute;
-
-  top: 12px;
-
-  left: 12px;
-
-  padding: 5px 12px;
-
-  border-radius: 999px;
-
-  background: rgba(255, 253, 248, 0.92);
-
-  color: var(--studio-ink-soft, #5c4f43);
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.04em;
+  box-shadow: 0 18px 40px rgba(43, 33, 24, 0.12);
 }
 
 /* ==================================================
@@ -1148,67 +1424,186 @@ function showToast(message) {
 ================================================== */
 
 .card-body {
+  flex: 1;
+
   display: flex;
 
   flex-direction: column;
 
-  gap: 8px;
+  gap: 10px;
 
-  padding: 16px 18px 18px;
+  padding: 16px 18px;
 }
 
-.card-meta {
+.card-head {
   display: flex;
 
   align-items: center;
 
-  gap: 8px;
+  justify-content: space-between;
 
-  color: var(--studio-ink-faint, #8a7a68);
-
-  font-size: 12px;
+  gap: 12px;
 }
 
-.card-meta .dot {
-  width: 3px;
-
-  height: 3px;
-
-  border-radius: 50%;
-
-  background: rgba(185, 151, 91, 0.6);
-}
-
-.card-body h3 {
+.card-head h3 {
   margin: 0;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 
   color: var(--studio-ink, #2b2118);
 
   font-family: var(--font-heading);
 
-  font-size: 19px;
+  font-size: 18px;
 
   line-height: 1.3;
 }
 
-.card-slug {
-  margin: 0;
+.card-open-hint {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 2px;
+
+  flex: 0 0 auto;
 
   color: var(--studio-ink-faint, #8a7a68);
 
   font-size: 12px;
 
-  font-family: monospace;
+  white-space: nowrap;
 }
 
-.card-actions {
+.card-chips {
   display: flex;
 
   flex-wrap: wrap;
 
-  gap: 8px;
+  align-items: center;
 
-  margin-top: 8px;
+  gap: 8px;
+}
+
+.card-theme {
+  padding: 3px 10px;
+
+  border-radius: 999px;
+
+  background: var(--studio-line, rgba(43, 33, 24, 0.07));
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 11.5px;
+
+  font-weight: 600;
+}
+
+.card-meta {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 4px 12px;
+
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 12px;
+}
+
+/* ==================================================
+   ACTION BAR — tách đáy thẻ, nút chia đều
+================================================== */
+
+.card-bar {
+  display: flex;
+
+  border-top: 1px solid var(--studio-line, rgba(43, 33, 24, 0.08));
+}
+
+.bar-btn {
+  flex: 1;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 11px 6px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.bar-btn + .bar-btn {
+  border-left: 1px solid var(--studio-line, rgba(43, 33, 24, 0.08));
+}
+
+.bar-btn:hover {
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.12));
+
+  color: var(--studio-ink, #2b2118);
+}
+
+.bar-btn.primary {
+  color: var(--studio-seal, #a63a2e);
+}
+
+.bar-btn.primary:hover {
+  background: rgba(166, 58, 46, 0.07);
+
+  color: var(--studio-seal, #a63a2e);
+}
+
+.bar-btn.publish {
+  color: var(--app-gold-text, #8a6a2f);
+}
+
+.bar-btn.danger {
+  color: var(--studio-ink-faint, #8a7a68);
+}
+
+.bar-btn.danger:hover {
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.08));
+
+  color: var(--app-danger, #a03030);
+}
+
+.bar-btn:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* Skeleton dòng nút đáy thẻ khi đang tải */
+.bar-skeleton {
+  width: 60%;
+
+  margin: 12px auto;
 }
 
 /* ==================================================
@@ -1538,6 +1933,40 @@ function showToast(message) {
 @media (max-width: 600px) {
   .manage-grid {
     grid-template-columns: 1fr;
+  }
+
+  .guest-banner {
+    flex-wrap: wrap;
+  }
+
+  .guest-banner .primary-btn {
+    width: 100%;
+  }
+
+  .filter-tabs {
+    width: 100%;
+  }
+
+  .filter-tab {
+    flex: 1;
+
+    text-align: center;
+  }
+
+  .card-bar {
+    flex-wrap: wrap;
+  }
+
+  .bar-btn {
+    flex: 1 1 33%;
+  }
+
+  .bar-btn + .bar-btn {
+    border-left: 0;
+  }
+
+  .bar-btn:nth-child(n + 4) {
+    border-top: 1px solid var(--studio-line, rgba(43, 33, 24, 0.08));
   }
 
   .guests-panel {

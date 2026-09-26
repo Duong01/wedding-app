@@ -109,7 +109,7 @@ function handleImageError(event) {
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
   border-radius: 999px;
 
-  background: rgba(255, 253, 248, 0.7);
+  background: var(--studio-glass, rgba(255, 253, 248, 0.7));
   color: var(--studio-ink-soft, #5c4f43);
 
   font-family: inherit;
@@ -129,10 +129,10 @@ function handleImageError(event) {
 }
 
 .tab.is-active {
-  background: var(--studio-ink, #2b2118);
-  color: #f7f1e6;
+  background: var(--studio-contrast-bg, #2b2118);
+  color: var(--studio-contrast-ink, #f7f1e6);
 
-  border-color: var(--studio-ink, #2b2118);
+  border-color: var(--studio-contrast-bg, #2b2118);
 }
 
 .panel {

@@ -1,5 +1,5 @@
 <template>
-  <main class="intro-page" :style="cardStyle">
+  <main class="intro-page">
     <!-- =========================================================
          TOPBAR — quay lại danh sách + chia sẻ
     ========================================================== -->
@@ -76,271 +76,125 @@
     </div>
 
     <!-- =========================================================
-         BƯỚC 1 — GIỚI THIỆU MẪU
+         GIỚI THIỆU MẪU — một màn: ảnh xem trước + thông tin gọn
     ========================================================== -->
     <template v-else>
       <section class="intro-hero">
         <div class="hero-inner">
           <!-- =========================================
-               LEFT — XEM TRƯỚC THIỆP
+               XEM TRƯỚC — thẻ ảnh 9/16 vừa màn hình
           ========================================== -->
           <aside class="preview-col">
-            <div class="preview-stage">
-              <div class="preview-phone">
-                <div class="phone-notch"></div>
-
-                <div class="phone-screen">
-                  <img
-                    :src="previewFor(wedding)"
-                    :alt="getThemeLabel(wedding)"
-                    @error="onImageError"
-                  />
-                </div>
-
-                <div class="phone-home"></div>
-              </div>
-            </div>
-
-            <div class="preview-caption">
-              <span class="caption-dot"></span>
-
-              Thiết kế responsive · Tối ưu cho điện thoại
+            <div class="preview-card">
+              <img
+                :src="previewFor(wedding)"
+                :alt="getThemeLabel(wedding)"
+                @error="onImageError"
+              />
             </div>
           </aside>
 
           <!-- =========================================
-               RIGHT — THÔNG TIN MẪU
+               THÔNG TIN MẪU — gọn, đủ, không cuộn
           ========================================== -->
           <div class="info-col">
-            <!-- badges -->
-            <div class="info-badges">
-              <span class="badge badge-theme">
-                {{ getThemeLabel(wedding) }}
-              </span>
+            <span class="info-eyebrow">
+              {{ meta.orn }} {{ getCollectionLabel(wedding) }}
+            </span>
 
-              <span class="badge badge-collection">
-                {{ getCollectionLabel(wedding) }}
-              </span>
-            </div>
-
-            <!-- title -->
             <h1 class="info-title">
-              {{ getCoupleName(wedding) }}
+              {{ getThemeLabel(wedding) }}
             </h1>
 
-            <!-- date + place -->
-            <p class="info-date">
-              <span>
-                {{ formatFullDate(wedding.weddingDate) || "Save the date" }}
-              </span>
-
-              <span v-if="wedding.hero?.Location" class="date-sep">·</span>
-
-              <span v-if="wedding.hero?.Location">
-                {{ wedding.hero.Location }}
-              </span>
+            <p class="info-couple">
+              {{ getCoupleName(wedding) }}
             </p>
 
-            <!-- dải màu bản sắc -->
-            <div class="identity-row">
-              <span
-                v-for="(swatch, swatchIndex) in meta.palette"
-                :key="swatchIndex"
-                class="identity-swatch"
-                :style="{ background: swatch }"
-              ></span>
+            <!-- ngày cưới + địa điểm — lấy từ sự kiện đầu tiên -->
+            <div v-if="mainEvent" class="info-event">
+              <div class="event-date">
+                <span class="date-day">{{ mainEvent.Day }}</span>
 
-              <span class="identity-orn">
-                {{ meta.orn }}
+                <span class="date-rest">
+                  tháng {{ mainEvent.Month }} {{ mainEvent.Year }}
+                </span>
+              </div>
+
+              <p class="event-meta">
+                {{ mainEvent.Title }} · {{ mainEvent.EventTime }} ·
+                {{ mainEvent.Location }}
+              </p>
+            </div>
+
+            <p class="info-desc">
+              {{ meta.desc }}
+            </p>
+
+            <!-- từ khóa phong cách -->
+            <div class="info-tags">
+              <span
+                v-for="tag in meta.tags"
+                :key="tag"
+                class="info-tag"
+              >
+                {{ tag }}
               </span>
             </div>
 
-            <!-- description -->
-            <p class="info-description">
-              {{
-                wedding.story?.Description ||
-                "Thiệp cưới được thiết kế theo phong cách hiện đại, đầy cảm xúc và dễ tùy chỉnh theo thông tin ngày cưới của bạn."
-              }}
-            </p>
-
             <!-- =====================================
-                 CẶP ĐÔI — dữ liệu thật của từng thiệp
+                 HÀNH ĐỘNG — tin cậy + hai nút
             ====================================== -->
-            <section class="couple-section">
-              <div class="section-heading">
-                <span>Cặp đôi</span>
-                <i></i>
-              </div>
+            <div class="cta-block">
+              <p class="cta-trust">
+                Tạo miễn phí · Thử 3 ngày · Đẹp mới thanh toán
+              </p>
 
-              <div class="couple-grid">
-                <div class="couple-card">
-                  <div class="couple-avatar">
-                    <img
-                      v-if="wedding.couple?.Bride?.Avatar"
-                      :src="wedding.couple.Bride.Avatar"
-                      :alt="wedding.couple.Bride.Name"
-                      loading="lazy"
-                      @error="onAvatarError"
+              <div class="cta-actions">
+                <button
+                  type="button"
+                  class="primary-btn"
+                  @click="goEditor"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
                     />
+                  </svg>
 
-                    <span v-else class="avatar-fallback">
-                      {{ meta.orn }}
-                    </span>
-                  </div>
+                  Dùng mẫu này
+                </button>
 
-                  <div class="couple-body">
-                    <strong class="couple-name">
-                      {{ wedding.couple?.Bride?.Name || "Cô dâu" }}
-                    </strong>
-
-                    <span class="couple-role">
-                      {{ wedding.couple?.Bride?.Role || "Cô dâu" }}
-                    </span>
-                  </div>
-                </div>
-
-                <span class="couple-amp">&amp;</span>
-
-                <div class="couple-card">
-                  <div class="couple-avatar">
-                    <img
-                      v-if="wedding.couple?.Groom?.Avatar"
-                      :src="wedding.couple.Groom.Avatar"
-                      :alt="wedding.couple.Groom.Name"
-                      loading="lazy"
-                      @error="onAvatarError"
-                    />
-
-                    <span v-else class="avatar-fallback">
-                      {{ meta.orn }}
-                    </span>
-                  </div>
-
-                  <div class="couple-body">
-                    <strong class="couple-name">
-                      {{ wedding.couple?.Groom?.Name || "Chú rể" }}
-                    </strong>
-
-                    <span class="couple-role">
-                      {{ wedding.couple?.Groom?.Role || "Chú rể" }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- =====================================
-                 LỄ CƯỚI — sự kiện thật của từng thiệp
-            ====================================== -->
-            <section v-if="events.length" class="events-section">
-              <div class="section-heading">
-                <span>Lễ cưới</span>
-                <i></i>
-              </div>
-
-              <div class="events-list">
-                <div
-                  v-for="event in events"
-                  :key="event.Id || event.Title"
-                  class="event-card"
+                <button
+                  type="button"
+                  class="outline-btn"
+                  @click="goOpen"
                 >
-                  <div class="event-date">
-                    <strong>{{ event.Day || "—" }}</strong>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z" />
+                  </svg>
 
-                    <span>
-                      {{ event.Month ? `Tháng ${event.Month}` : "" }}
-                    </span>
-
-                    <small>{{ event.Year || "" }}</small>
-                  </div>
-
-                  <div class="event-info">
-                    <strong class="event-title">
-                      {{ event.Title || "Lễ cưới" }}
-                    </strong>
-
-                    <span
-                      v-if="event.EventTime"
-                      class="event-meta"
-                    >
-                      ◷ {{ event.EventTime }}
-                    </span>
-
-                    <span
-                      v-if="event.Location"
-                      class="event-meta"
-                    >
-                      ♧ {{ event.Location }}
-                    </span>
-
-                    <a
-                      v-if="event.Map"
-                      :href="event.Map"
-                      target="_blank"
-                      rel="noopener"
-                      class="event-map"
-                    >
-                      Xem bản đồ
-                      <span>→</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- =====================================
-                 TÍNH NĂNG
-            ====================================== -->
-            <section class="features-section">
-              <div class="section-heading">
-                <span>Tính năng</span>
-                <i></i>
+                  Xem demo
+                </button>
               </div>
 
-              <div class="features-grid">
-                <div
-                  v-for="feature in FEATURES"
-                  :key="feature.label"
-                  class="feature-item"
-                >
-                  <span>{{ feature.icon }}</span>
-                  <p>{{ feature.label }}</p>
-                </div>
-              </div>
-            </section>
-
-            <!-- =====================================
-                 HÀNH ĐỘNG
-            ====================================== -->
-            <div class="cta-actions">
-              <button
-                type="button"
-                class="primary-btn"
-                @click="goOpen"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                >
-                  <path
-                    d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
-                  />
-                  <circle cx="12" cy="12" r="2.5" />
-                </svg>
-
-                Xem thiệp
-              </button>
-
-              <button
-                type="button"
-                class="secondary-btn"
-                @click="goEditor"
-              >
-                <span>＋</span>
-                Dùng mẫu này
-              </button>
+              <p class="cta-note">
+                Bạn có thể đổi mẫu bất cứ lúc nào khi chỉnh sửa
+              </p>
             </div>
           </div>
         </div>
@@ -352,18 +206,18 @@
       <div class="mobile-cta">
         <button
           type="button"
-          class="secondary-btn"
-          @click="goEditor"
+          class="outline-btn"
+          @click="goOpen"
         >
-          Dùng mẫu này
+          Xem demo
         </button>
 
         <button
           type="button"
           class="primary-btn"
-          @click="goOpen"
+          @click="goEditor"
         >
-          Xem thiệp
+          Dùng mẫu này
         </button>
       </div>
     </template>
@@ -400,13 +254,16 @@ import {
 import { useSeo } from "@/composables/useSeo";
 
 /* =========================================================
-   BƯỚC 1 — TRANG GIỚI THIỆU MẪU
+   TRANG GIỚI THIỆU MẪU — gọn theo cấu trúc thẻ mẫu:
+
+   ảnh xem trước 9/16 · tên thiết kế · mô tả · từ khóa
+   phong cách · dòng tin cậy · hai nút hành động.
 
    Luồng: /wedding/:slug (ở đây) → /open (phong bì) → /view
 
-   Trang dùng theme studio sáng (giấy dó, mực nho, vàng foil)
-   đồng nhất với Templates.vue — mỗi mẫu mang bảng màu bản sắc
-   riêng qua --card-accent / --card-seal.
+   Toàn trang dùng hệ màu studio chung (giấy dó, mực nho,
+   vàng foil) — bản sắc từng mẫu nằm ở ảnh, tên, mô tả
+   và từ khóa.
 ========================================================= */
 
 const route = useRoute();
@@ -419,26 +276,6 @@ const wedding = computed(() => store.wedding);
 const FALLBACK_ORN = "囍";
 
 const meta = computed(() => getWeddingMeta(themeNameOf(wedding.value)));
-
-const cardStyle = computed(() => {
-  const p = meta.value.palette;
-
-  return {
-    "--card-ink": p.ink,
-    "--card-accent": p.accent,
-    "--card-seal": p.seal,
-    "--card-bg": p.bg,
-  };
-});
-
-const FEATURES = [
-  { icon: "✦", label: "Tùy chỉnh nội dung" },
-  { icon: "◉", label: "Ảnh không giới hạn" },
-  { icon: "⌖", label: "Google Maps" },
-  { icon: "♪", label: "Nhạc nền" },
-  { icon: "♡", label: "Xác nhận tham dự" },
-  { icon: "↗", label: "Chia sẻ qua link" },
-];
 
 /* =========================================================
    HELPERS — đọc dữ liệu hiển thị của mẫu
@@ -473,52 +310,21 @@ function getCollectionLabel(item) {
   return getCollection(getWeddingMeta(themeNameOf(item)).collection).name;
 }
 
-function formatFullDate(date) {
-  if (!date) {
-    return "";
-  }
+/*
+ * Sự kiện chính — Lễ Thành Hôn nếu có, không thì sự kiện
+ * đầu tiên. Hiển thị ngày giờ địa điểm gọn trên trang.
+ */
+const mainEvent = computed(() => {
+  const events = wedding.value?.events || [];
 
-  const parsed = new Date(date);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return "";
-  }
-
-  const day = new Intl.DateTimeFormat("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  }).format(parsed);
-
-  const time = new Intl.DateTimeFormat("vi-VN", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(parsed);
-
-  return `${day} · ${time}`;
-}
+  return (
+    events.find((event) => event.EventType === "tanthanh") || events[0] || null
+  );
+});
 
 function onImageError(event) {
   handleImageError(event);
 }
-
-/*
- * Ảnh đại diện lỗi (link ngoài hỏng) → ẩn img, fallback
- * chữ ký họa tiết hiện lên nhờ v-else.
- */
-function onAvatarError(event) {
-  event.target.style.display = "none";
-}
-
-/* =========================================================
-   SỰ KIỆN LỄ CƯỚI — dữ liệu thật của từng thiệp
-========================================================= */
-
-const events = computed(() => {
-  const list = wedding.value?.events;
-
-  return Array.isArray(list) ? list : [];
-});
 
 /* =========================================================
    LINK BƯỚC 2 — chia sẻ phải mở đúng phong bì,
@@ -533,7 +339,7 @@ const openUrl = computed(() => {
 
 /* =========================================================
    SEO — mỗi mẫu một thẻ riêng để chia sẻ lên Facebook/Zalo
-   hiện đúng tên cặp đôi và ảnh bìa.
+   hiện đúng tên thiết kế và ảnh xem trước.
 ========================================================= */
 
 useSeo(() => {
@@ -547,14 +353,14 @@ useSeo(() => {
     };
   }
 
-  const couple = getCoupleName(item);
+  const label = getThemeLabel(item);
 
   return {
-    title: `Thiệp cưới ${couple} — ${getThemeLabel(item)}`,
+    title: `${label} — Mẫu thiệp cưới`,
     description:
+      meta.value.desc ||
       item.story?.Description ||
-      `Mẫu thiệp cưới ${getThemeLabel(item)} cho ${couple}. ` +
-        "Xem trước và tùy chỉnh theo ngày cưới của bạn.",
+      `Mẫu thiệp cưới ${label}. Xem trước và tùy chỉnh theo ngày cưới của bạn.`,
     path: route.path,
     image: previewFor(item),
   };
@@ -649,7 +455,7 @@ async function shareTemplate() {
   try {
     if (navigator.share) {
       await navigator.share({
-        title: getCoupleName(wedding.value),
+        title: getThemeLabel(wedding.value),
         text: "Xem mẫu thiệp cưới này",
         url: openUrl.value,
       });
@@ -668,9 +474,10 @@ async function shareTemplate() {
 
 <style scoped>
 /* =========================================================
-   TRANG — theme studio sáng, đồng nhất với Templates.vue:
-   giấy dó ấm, mực nho, vàng foil; mỗi mẫu tô điểm bằng bảng
-   màu bản sắc riêng (--card-accent / --card-seal).
+   TRANG — khung sáng "giấy dó", đồng nhất với Templates.vue:
+   nền kem sáng, chữ mực nho, vàng foil, đỏ ấn son. Thẻ ảnh
+   thiệp nổi bật trên nền sáng; bản sắc từng mẫu nằm ở nội
+   dung (ảnh, tên, mô tả, từ khóa).
 ========================================================= */
 
 .intro-page {
@@ -687,9 +494,9 @@ async function shareTemplate() {
     ),
     linear-gradient(
       180deg,
-      #faf6ee 0%,
-      #f7f1e6 50%,
-      #f4ecdd 100%
+      #fdfbf5 0%,
+      #faf7ef 50%,
+      #f6f1e4 100%
     );
 
   color: var(--text);
@@ -708,7 +515,7 @@ async function shareTemplate() {
 
   padding: 14px 0;
 
-  background: rgba(250, 246, 238, 0.85);
+  background: var(--studio-glass-strong, rgba(250, 246, 238, 0.85));
 
   backdrop-filter: blur(14px);
 
@@ -771,7 +578,7 @@ async function shareTemplate() {
 
   background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
 
-  color: var(--card-seal, #a63a2e);
+  color: var(--studio-seal, #a63a2e);
 }
 
 /* =========================================================
@@ -796,7 +603,7 @@ async function shareTemplate() {
 
   background: var(--studio-card, #fffdf8);
 
-  box-shadow: 0 20px 50px rgba(43, 33, 24, 0.07);
+  box-shadow: 0 20px 50px rgba(43, 33, 24, 0.12);
 }
 
 .state-orn {
@@ -812,7 +619,7 @@ async function shareTemplate() {
 
   background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
 
-  color: var(--card-seal, #a63a2e);
+  color: var(--studio-seal, #a63a2e);
 
   font-family: var(--font-symbol, serif);
 
@@ -854,7 +661,7 @@ async function shareTemplate() {
   border-radius: 50%;
 
   border: 3px solid rgba(185, 151, 91, 0.25);
-  border-top-color: var(--card-accent, #b9975b);
+  border-top-color: var(--studio-foil, #b9975b);
 
   animation: spinner 0.8s linear infinite;
 }
@@ -865,7 +672,7 @@ async function shareTemplate() {
 
   border-radius: 999px;
 
-  background: var(--card-seal, #a63a2e);
+  background: var(--studio-seal, #a63a2e);
 
   color: #fff;
 
@@ -883,11 +690,17 @@ async function shareTemplate() {
 }
 
 /* =========================================================
-   HERO — hai cột: xem trước + thông tin
+   HERO — một màn: ảnh xem trước + thông tin gọn, không cuộn
 ========================================================= */
 
 .intro-hero {
-  padding: 44px 0 0;
+  /* trừ chiều cao topbar — hero chiếm đúng phần còn lại của màn */
+  height: calc(100vh - 68px);
+
+  display: flex;
+  align-items: center;
+
+  padding: 20px 0;
 }
 
 .hero-inner {
@@ -895,618 +708,246 @@ async function shareTemplate() {
 
   display: grid;
 
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 
   gap: 56px;
 
   margin: 0 auto;
 
-  align-items: start;
+  align-items: center;
 }
 
 /* =========================================================
-   PREVIEW — điện thoại mockup, dính khi cuộn
+   PREVIEW — thẻ ảnh 9/16 vừa chiều cao màn hình
+
+   Ảnh xem trước là ảnh chụp toàn trang thiệp (rất dài) nên
+   khung 9/16 + object-top hiển thị phần đầu thiệp — đúng
+   cách các trang mẫu hiển thị.
 ========================================================= */
 
 .preview-col {
-  position: sticky;
-  top: 96px;
-}
-
-.preview-stage {
   display: flex;
-  align-items: center;
   justify-content: center;
-
-  padding: 34px 20px 26px;
-
-  border: 1px solid
-    color-mix(in srgb, var(--card-accent, #b9975b) 22%, transparent);
-
-  border-radius: 26px;
-
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      color-mix(in srgb, var(--card-accent, #b9975b) 10%, transparent),
-      transparent 65%
-    ),
-    var(--studio-card, #fffdf8);
-
-  box-shadow: 0 24px 60px rgba(43, 33, 24, 0.08);
 }
 
-.preview-phone {
-  position: relative;
+.preview-card {
+  /*
+   * Vừa bề ngang cột, vừa chiều cao màn hình: 9/16 của
+   * 400px là ~711px — trên màn thấp sẽ vượt viewport nên
+   * chặn bằng max-height theo viewport (trừ topbar + đệm).
+   * Khi bị chặn, khung thấp hơn tỉ lệ 9/16 nhưng ảnh vẫn
+   * cover từ đầu trang thiệp.
+   */
+  width: min(400px, 100%);
+  max-height: calc(100vh - 150px);
 
-  width: min(300px, 100%);
-
-  aspect-ratio: 9 / 19;
+  aspect-ratio: 9 / 16;
 
   overflow: hidden;
 
-  border: 6px solid var(--studio-ink, #2b2118);
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+  border-radius: 24px;
 
-  border-radius: 32px;
-
-  background: #eee;
+  background: #fff;
 
   box-shadow:
-    0 24px 55px rgba(43, 33, 24, 0.22),
-    0 0 0 1px rgba(255, 255, 255, 0.35);
+    0 30px 70px rgba(43, 33, 24, 0.18),
+    0 0 0 4px rgba(185, 151, 91, 0.16);
 }
 
-.phone-notch {
-  position: absolute;
-  top: 0;
-  left: 50%;
-
-  width: 86px;
-  height: 18px;
-
-  transform: translateX(-50%);
-
-  z-index: 5;
-
-  border-radius: 0 0 13px 13px;
-
-  background: var(--studio-ink, #2b2118);
-}
-
-.phone-screen {
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-}
-
-.phone-screen img {
+.preview-card img {
   width: 100%;
   height: 100%;
 
   display: block;
 
   object-fit: cover;
-}
-
-.phone-home {
-  position: absolute;
-  bottom: 5px;
-  left: 50%;
-
-  width: 76px;
-  height: 4px;
-
-  transform: translateX(-50%);
-
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.75);
-
-  z-index: 5;
-}
-
-.preview-caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  margin-top: 16px;
-
-  color: var(--muted);
-
-  font-size: var(--text-xs);
-
-  letter-spacing: 0.04em;
-}
-
-.caption-dot {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background: var(--card-accent, #b9975b);
+  object-position: top;
 }
 
 /* =========================================================
-   INFO — cột nội dung
+   INFO — tên thiết kế, mô tả, từ khóa, hành động
 ========================================================= */
 
 .info-col {
   min-width: 0;
 }
 
-.info-badges {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-
-  gap: 8px;
-}
-
-.badge {
+.info-eyebrow {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
 
-  min-height: 26px;
-  padding: 0 12px;
+  color: var(--studio-seal, #a63a2e);
 
-  border-radius: 999px;
-
-  font-size: var(--text-xs);
-
+  font-size: 11px;
   font-weight: 700;
 
-  letter-spacing: 0.1em;
-
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
-.badge-theme {
-  border: 1px solid
-    color-mix(in srgb, var(--card-accent, #b9975b) 40%, transparent);
-
-  background: color-mix(
-    in srgb,
-    var(--card-accent, #b9975b) 10%,
-    transparent
-  );
-
-  color: var(--card-seal, #a63a2e);
-}
-
-.badge-collection {
-  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
-
-  background: var(--studio-card, #fffdf8);
-
-  color: var(--studio-ink-soft, #5c4f43);
-}
-
 .info-title {
-  margin: 18px 0 8px;
+  margin: 14px 0 0;
 
   font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
 
-  font-size: clamp(32px, 4.6vw, 54px);
+  font-size: clamp(32px, 4.2vw, 52px);
 
-  line-height: 1.04;
+  line-height: 1.05;
 
   font-weight: 500;
 
   letter-spacing: -0.02em;
 
-  color: var(--card-ink, var(--text));
+  color: var(--text);
 }
 
-.info-date {
+.info-couple {
+  margin: 10px 0 0;
+
+  color: var(--muted);
+
+  font-size: clamp(13px, 1.4vw, 15px);
+}
+
+/* =========================================================
+   NGÀY CƯỚI — khối ngày + giờ + địa điểm gọn
+========================================================= */
+
+.info-event {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 
-  gap: 8px;
-
-  margin: 0;
-
-  color: var(--muted);
-
-  font-size: var(--text-md);
-}
-
-.date-sep {
-  color: var(--card-accent, #b9975b);
-}
-
-/* dải màu bản sắc */
-
-.identity-row {
-  display: flex;
-  align-items: center;
-
-  gap: 6px;
-
-  margin-top: 16px;
-}
-
-.identity-swatch {
-  width: 22px;
-  height: 6px;
-
-  border-radius: 999px;
-
-  box-shadow: inset 0 0 0 1px rgba(43, 33, 24, 0.08);
-
-  opacity: 0.9;
-}
-
-.identity-swatch:first-child {
-  width: 34px;
-}
-
-.identity-orn {
-  margin-left: auto;
-
-  color: var(--card-accent, #b9975b);
-
-  font-family: var(--font-symbol, var(--font-heading));
-
-  font-size: 16px;
-
-  line-height: 1;
-}
-
-.info-description {
-  margin: 18px 0 0;
-
-  color: var(--studio-ink-soft, #5c4f43);
-
-  font-size: var(--text-md);
-
-  line-height: 1.85;
-}
-
-/* =========================================================
-   SECTION HEADING — dùng chung cho các khối
-========================================================= */
-
-.section-heading {
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-
-  margin-bottom: 14px;
-
-  color: var(--studio-ink-soft, #5c4f43);
-
-  font-size: var(--text-xs);
-
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-  text-transform: uppercase;
-}
-
-.section-heading i {
-  flex: 1;
-  height: 1px;
-
-  background: var(--studio-line, rgba(43, 33, 24, 0.14));
-}
-
-/* =========================================================
-   CẶP ĐÔI
-========================================================= */
-
-.couple-section {
-  margin-top: 30px;
-}
-
-.couple-grid {
-  display: grid;
-
-  grid-template-columns: 1fr auto 1fr;
-
   gap: 14px;
 
-  align-items: stretch;
-}
+  margin-top: 18px;
+  padding: 12px 18px;
 
-.couple-card {
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-
-  text-align: center;
-
-  padding: 22px 16px 18px;
-
-  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
-  border-radius: 18px;
-
-  background: var(--studio-card, #fffdf8);
-
-  box-shadow: 0 10px 28px rgba(43, 33, 24, 0.05);
-}
-
-.couple-avatar {
-  width: 72px;
-  height: 72px;
-
-  overflow: hidden;
-
-  margin-bottom: 12px;
-
-  border-radius: 50%;
-
-  border: 2px solid
-    color-mix(in srgb, var(--card-accent, #b9975b) 45%, transparent);
-
-  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
-
-  display: grid;
-  place-items: center;
-}
-
-.couple-avatar img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-}
-
-.avatar-fallback {
-  color: var(--card-seal, #a63a2e);
-
-  font-family: var(--font-symbol, serif);
-
-  font-size: 24px;
-}
-
-.couple-body {
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-}
-
-.couple-name {
-  font-family: var(--font-heading), Georgia, serif;
-
-  font-size: var(--text-lg);
-
-  font-weight: 600;
-
-  color: var(--card-ink, var(--text));
-}
-
-.couple-role {
-  margin-top: 3px;
-
-  color: var(--card-accent, #b9975b);
-
-  font-size: var(--text-xs);
-
-  font-weight: 700;
-
-  letter-spacing: 0.1em;
-
-  text-transform: uppercase;
-}
-
-.couple-amp {
-  align-self: center;
-
-  font-family: var(--font-heading), Georgia, serif;
-
-  font-size: 30px;
-
-  font-style: italic;
-
-  color: var(--card-accent, #b9975b);
-}
-
-/* =========================================================
-   LỄ CƯỚI
-========================================================= */
-
-.events-section {
-  margin-top: 30px;
-}
-
-.events-list {
-  display: flex;
-  flex-direction: column;
-
-  gap: 12px;
-}
-
-.event-card {
-  display: flex;
-
-  gap: 18px;
-
-  padding: 16px 18px;
-
-  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+  border: 1px solid rgba(185, 151, 91, 0.35);
   border-radius: 16px;
 
   background: var(--studio-card, #fffdf8);
 
-  box-shadow: 0 10px 28px rgba(43, 33, 24, 0.05);
+  box-shadow: 0 8px 24px rgba(43, 33, 24, 0.06);
 }
 
 .event-date {
-  flex: 0 0 auto;
-
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
 
-  align-items: center;
-  justify-content: center;
-
-  min-width: 74px;
-
-  padding: 10px 14px;
-
-  border-radius: 12px;
-
-  background:
-    color-mix(
-      in srgb,
-      var(--card-seal, #a63a2e) 7%,
-      transparent
-    );
-
-  border: 1px solid
-    color-mix(in srgb, var(--card-seal, #a63a2e) 18%, transparent);
+  gap: 6px;
 }
 
-.event-date strong {
+.date-day {
+  color: var(--studio-seal, #a63a2e);
+
   font-family: var(--font-heading), Georgia, serif;
 
-  font-size: 26px;
-
+  font-size: 34px;
   font-weight: 600;
 
   line-height: 1;
-
-  color: var(--card-seal, #a63a2e);
 }
 
-.event-date span {
-  margin-top: 4px;
+.date-rest {
+  color: var(--studio-ink-soft, #5c4f43);
 
-  color: var(--card-seal, #a63a2e);
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.06em;
-
-  text-transform: uppercase;
-}
-
-.event-date small {
-  color: var(--muted);
-
-  font-size: 10px;
-}
-
-.event-info {
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 4px;
-}
-
-.event-title {
-  font-family: var(--font-heading), Georgia, serif;
-
-  font-size: var(--text-lg);
-
+  font-size: 13px;
   font-weight: 600;
-
-  color: var(--card-ink, var(--text));
 }
 
 .event-meta {
-  color: var(--studio-ink-soft, #5c4f43);
+  flex: 1;
 
-  font-size: var(--text-sm);
-}
+  min-width: 200px;
 
-.event-map {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-
-  margin-top: 4px;
-
-  color: var(--card-seal, #a63a2e);
-
-  font-size: var(--text-xs);
-
-  font-weight: 700;
-
-  text-decoration: none;
-}
-
-.event-map span {
-  transition: transform 0.2s ease;
-}
-
-.event-map:hover span {
-  display: inline-block;
-
-  transform: translateX(3px);
-}
-
-/* =========================================================
-   TÍNH NĂNG
-========================================================= */
-
-.features-section {
-  margin-top: 30px;
-}
-
-.features-grid {
-  display: grid;
-
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 10px 22px;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 10px 14px;
-
-  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
-  border-radius: 12px;
-
-  background: rgba(255, 253, 248, 0.7);
-}
-
-.feature-item > span {
-  flex: 0 0 auto;
-
-  width: 16px;
-
-  color: var(--card-accent, #b9975b);
-
-  font-size: var(--text-sm);
-
-  text-align: center;
-}
-
-.feature-item p {
   margin: 0;
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: var(--text-xs);
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+.info-desc {
+  max-width: 520px;
+
+  margin: 16px 0 0;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: clamp(14px, 1.5vw, 15.5px);
+
+  line-height: 1.75;
+}
+
+/* từ khóa phong cách — cùng dạng pill với thẻ ở gallery */
+
+.info-tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 18px;
+}
+
+.info-tag {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 12px;
+
+  border: 1px solid var(--studio-line-strong, rgba(43, 33, 24, 0.24));
+
+  border-radius: 999px;
+
+  background: var(--studio-card, #fffdf8);
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 11.5px;
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
 }
 
 /* =========================================================
-   HÀNH ĐỘNG
+   CTA — dòng tin cậy + hai nút hành động
 ========================================================= */
+
+.cta-block {
+  margin-top: 22px;
+  padding-top: 20px;
+
+  border-top: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+
+  text-align: left;
+}
+
+.cta-trust {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+}
+
+.cta-note {
+  margin: 10px 0 0;
+
+  color: var(--studio-ink-faint, #8a7a68);
+
+  opacity: 0.75;
+
+  font-size: 12px;
+}
 
 .cta-actions {
   display: flex;
@@ -1514,25 +955,24 @@ async function shareTemplate() {
 
   gap: 10px;
 
-  margin-top: 32px;
+  margin-top: 14px;
 }
 
 .cta-actions button {
-  min-height: 46px;
+  min-height: 50px;
 
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  gap: 7px;
+  gap: 8px;
 
-  padding: 0 22px;
+  padding: 0 26px;
 
   border-radius: 999px;
 
-  font-size: var(--text-sm);
-
+  font-size: 14px;
   font-weight: 700;
 
   cursor: pointer;
@@ -1540,41 +980,45 @@ async function shareTemplate() {
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
-    background 0.25s ease;
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .cta-actions button:hover {
   transform: translateY(-2px);
 }
 
+.cta-actions svg {
+  width: 17px;
+  height: 17px;
+}
+
 .primary-btn {
-  border: none;
+  border: 1px solid var(--studio-contrast-bg, #2b2118);
 
-  background: var(--card-seal, #a63a2e);
+  background: var(--studio-contrast-bg, #2b2118);
 
-  color: #fff;
+  color: var(--studio-contrast-ink, #f7f1e6);
 
-  box-shadow: 0 10px 26px
-    color-mix(in srgb, var(--card-seal, #a63a2e) 32%, transparent);
+  box-shadow: 0 14px 32px rgba(43, 33, 24, 0.22);
 }
 
-.primary-btn svg {
-  width: 15px;
-  height: 15px;
+.primary-btn:hover {
+  box-shadow: 0 20px 42px rgba(43, 33, 24, 0.3);
 }
 
-.secondary-btn {
+.outline-btn {
   border: 1px solid var(--studio-line-strong, rgba(43, 33, 24, 0.28));
 
-  background: transparent;
+  background: var(--studio-glass, rgba(255, 255, 255, 0.7));
 
   color: var(--text);
 }
 
-.secondary-btn span {
-  font-size: 17px;
+.outline-btn:hover {
+  border-color: var(--studio-ink, #2b2118);
 
-  font-weight: 400;
+  background: var(--studio-glass-strong, #fff);
 }
 
 /* =========================================================
@@ -1606,7 +1050,7 @@ async function shareTemplate() {
 
   transform: translateX(-50%);
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(43, 33, 24, 0.1);
 
   border-radius: 999px;
 
@@ -1616,7 +1060,7 @@ async function shareTemplate() {
 
   color: #fff;
 
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 15px 35px rgba(43, 33, 24, 0.25);
 
   font-size: var(--text-sm);
 }
@@ -1650,34 +1094,33 @@ async function shareTemplate() {
 }
 
 /* =========================================================
-   TABLET — xếp chồng, ảnh to giữa màn
+   TABLET — xếp chồng, ảnh trên info dưới, vẫn gọn một màn
 ========================================================= */
 
 @media (max-width: 1024px) {
+  .intro-hero {
+    height: auto;
+    min-height: calc(100vh - 68px);
+
+    align-items: stretch;
+  }
+
   .hero-inner {
     grid-template-columns: 1fr;
 
-    gap: 30px;
+    gap: 24px;
   }
 
   .preview-col {
-    position: static;
+    justify-content: stretch;
   }
 
-  .preview-stage {
-    max-width: 480px;
+  .preview-card {
+    width: min(340px, 100%);
 
     margin: 0 auto;
 
-    padding: 26px 18px 20px;
-  }
-
-  .preview-phone {
-    width: min(250px, 100%);
-  }
-
-  .preview-caption {
-    margin-top: 12px;
+    max-height: 52vh;
   }
 }
 
@@ -1704,123 +1147,73 @@ async function shareTemplate() {
   }
 
   .intro-hero {
-    padding-top: 20px;
+    height: auto;
+
+    padding: 16px 0 0;
   }
 
   .hero-inner {
     width: calc(100% - 24px);
 
-    gap: 20px;
+    gap: 18px;
   }
 
-  /* bỏ khung điện thoại — ảnh to trực tiếp, bắt mắt hơn */
-  .preview-stage {
-    padding: 0;
-
-    border: 0;
-
-    border-radius: 18px;
-
-    background: transparent;
-
-    box-shadow: none;
-  }
-
-  .preview-phone {
+  /* thẻ ảnh chiếm trọn bề rộng, cao tối đa nửa màn */
+  .preview-card {
     width: 100%;
 
-    aspect-ratio: 3 / 4;
-
-    border: 0;
+    max-height: 46vh;
 
     border-radius: 18px;
 
     box-shadow: 0 18px 44px rgba(43, 33, 24, 0.16);
   }
 
-  .phone-notch,
-  .phone-home {
-    display: none;
-  }
-
-  .preview-caption {
-    margin-top: 10px;
-  }
-
   .info-title {
+    margin-top: 8px;
+
+    font-size: clamp(26px, 8vw, 34px);
+  }
+
+  .info-event {
     margin-top: 14px;
 
-    font-size: clamp(28px, 8.5vw, 38px);
-  }
-
-  .couple-grid {
-    grid-template-columns: 1fr;
+    padding: 10px 14px;
 
     gap: 10px;
   }
 
-  .couple-amp {
-    padding: 2px 0;
+  .date-day {
+    font-size: 28px;
   }
 
-  .couple-card {
-    flex-direction: row;
+  .event-meta {
+    min-width: 100%;
 
-    align-items: center;
-    text-align: left;
-
-    gap: 14px;
-
-    padding: 14px 16px;
+    font-size: 12.5px;
   }
 
-  .couple-avatar {
-    width: 56px;
-    height: 56px;
+  .info-desc {
+    margin-top: 12px;
 
-    flex: 0 0 auto;
-
-    margin-bottom: 0;
+    font-size: 14px;
   }
 
-  .couple-body {
-    align-items: flex-start;
+  .info-tags {
+    margin-top: 12px;
   }
 
-  .event-card {
-    flex-direction: column;
-
-    gap: 12px;
-
-    padding: 14px;
+  .cta-block {
+    margin-top: 18px;
+    padding-top: 16px;
   }
 
-  .event-date {
-    flex-direction: row;
-
-    gap: 8px;
-
-    min-width: 0;
-
-    justify-content: flex-start;
-  }
-
-  .event-date strong {
-    font-size: 22px;
-  }
-
-  .event-date span {
-    margin-top: 0;
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 8px;
-  }
-
-  /* ẩn nút cuối trang — đã có thanh cố định */
+  /* ẩn hàng nút cuối trang — đã có thanh cố định */
   .cta-actions {
+    display: none;
+  }
+
+  .cta-note {
     display: none;
   }
 
@@ -1840,7 +1233,7 @@ async function shareTemplate() {
 
     padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
 
-    background: rgba(250, 246, 238, 0.92);
+    background: var(--studio-glass-strong, rgba(250, 246, 238, 0.92));
 
     backdrop-filter: blur(14px);
 
@@ -1878,6 +1271,12 @@ async function shareTemplate() {
 
   .info-title {
     font-size: 26px;
+  }
+
+  .info-tag {
+    padding: 4px 10px;
+
+    font-size: 10.5px;
   }
 }
 

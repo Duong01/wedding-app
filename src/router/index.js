@@ -172,6 +172,24 @@ const router = createRouter({
             return to.hash !== from.hash ? undefined : false;
         }
 
+        /*
+         * SANG TRANG MỚI → luôn bắt đầu từ đầu trang.
+         * Chỉ QUAY LẠI trang đã xem (bấm nút back của trình
+         * duyệt, hoặc vào lại đường dẫn cũ trong phiên này)
+         * mới khôi phục đúng chỗ đang xem dở.
+         *
+         * savedPosition: có khi bấm back/forward — trình duyệt
+         * nhớ sẵn. recallPosition: vị trí App đã ghi khi rời
+         * trang đó trước đó (điều hướng trong app).
+         */
+        const isBack =
+            Boolean(savedPosition) ||
+            (from.name && positions.has(to.path));
+
+        if (!isBack) {
+            return { top: 0 };
+        }
+
         const target = savedPosition?.top ?? recallPosition(to.path);
 
         if (!target) {

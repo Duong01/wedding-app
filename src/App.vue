@@ -7,37 +7,58 @@
           <span>Duyên</span>
         </router-link>
 
-        <nav class="top-nav" aria-label="Main navigation">
-          <router-link
-            v-for="link in publicNavLinks"
-            :key="link.routeName"
-            :to="{ name: link.routeName }"
-            class="nav-link"
+        <!-- =========================================
+             2 MỤC CHÍNH NỔI BẬT — Mẫu thiệp cưới +
+             Thiệp của tôi.
+             Màn lớn: pill trên thanh header, ngay sau brand.
+             Màn nhỏ: Teleport ra body thành thanh cố định
+             đáy màn hình (header có backdrop-filter tạo
+             containing block nên phần tử fixed phải thoát
+             khỏi header mới cố định theo viewport được).
+        ========================================== -->
+        <Teleport to="body" :disabled="!isSmallScreen">
+          <nav
+            v-if="showTopNav"
+            class="quick-nav"
+            :class="{ 'quick-nav--bottom': isSmallScreen }"
+            aria-label="Điều hướng nhanh"
           >
-            {{ link.label }}
-          </router-link>
+            <router-link :to="{ name: 'Templates' }" class="quick-link">
+              <v-icon size="16"> mdi-card-multiple-outline </v-icon>
 
-          <router-link
-            v-if="auth.isLoggedIn && auth.can('manage')"
-            to="/manage"
-            class="nav-link"
-          >
-            Thiệp của tôi
-          </router-link>
+              <span>Mẫu thiệp cưới</span>
+            </router-link>
 
-          <router-link
-            v-if="auth.can('editor')"
-            to="/editor"
-            class="nav-link"
-          >
-            Editor
-          </router-link>
+            <button
+              type="button"
+              class="quick-link"
+              :class="{ 'router-link-active': isMyWeddingsActive }"
+              :title="
+                auth.isLoggedIn
+                  ? 'Danh sách thiệp của bạn'
+                  : 'Bản nháp trên máy này — đăng nhập để lưu lên tài khoản'
+              "
+              @click="goMyWeddings"
+            >
+              <v-icon size="16"> mdi-heart-multiple-outline </v-icon>
 
-          <router-link
-            v-if="auth.isAdmin"
-            to="/admin"
-            class="nav-link admin-link"
-          >
+              <span>Thiệp của tôi</span>
+
+              <span v-if="myWeddingCount > 0" class="quick-count">
+                {{ myWeddingCount }}
+              </span>
+            </button>
+          </nav>
+        </Teleport>
+
+        <!-- =========================================
+             TOP NAV — CHỈ LINK QUẢN TRỊ (Admin)
+             Người dùng thường trên desktop cũng chỉ
+             thấy 2 mục chính (quick-nav) như mobile;
+             các link còn lại vào menu ☰.
+        ========================================== -->
+        <nav v-if="auth.isAdmin" class="top-nav" aria-label="Main navigation">
+          <router-link to="/admin" class="nav-link admin-link">
             <v-icon size="15"> mdi-shield-account-outline </v-icon>
             Phân quyền
           </router-link>
@@ -64,7 +85,6 @@
             </span>
           </router-link>
         </nav>
-
         <!-- =========================================
              AUTH AREA
         ========================================== -->
@@ -179,17 +199,31 @@
 
         <!-- =========================================
              MOBILE NAV TOGGLE
+             Nút đổi theme nằm cùng nhóm, cạnh nút menu
+             — hiển thị cả desktop lẫn mobile.
         ========================================== -->
-        <button
-          type="button"
-          class="nav-toggle"
-          aria-label="Mở menu điều hướng"
-          @click="mobileNavOpen = !mobileNavOpen"
-        >
-          <v-icon size="22">
-            {{ mobileNavOpen ? "mdi-close" : "mdi-menu" }}
-          </v-icon>
-        </button>
+        <div class="header-actions">
+          <button
+            type="button"
+            class="theme-toggle"
+            :title="`Chế độ ${theme.preferenceLabel.toLowerCase()} — bấm để đổi`"
+            :aria-label="`Chế độ ${theme.preferenceLabel.toLowerCase()} — bấm để đổi`"
+            @click="theme.toggle()"
+          >
+            <v-icon size="18">{{ theme.preferenceIcon }}</v-icon>
+          </button>
+
+          <button
+            type="button"
+            class="nav-toggle"
+            aria-label="Mở menu điều hướng"
+            @click="mobileNavOpen = !mobileNavOpen"
+          >
+            <v-icon size="22">
+              {{ mobileNavOpen ? "mdi-close" : "mdi-menu" }}
+            </v-icon>
+          </button>
+        </div>
       </div>
 
       <!-- =========================================
@@ -210,11 +244,7 @@
             {{ link.label }}
           </router-link>
 
-          <router-link
-            v-if="auth.isLoggedIn && auth.can('manage')"
-            to="/manage"
-            class="mobile-nav-link"
-          >
+          <router-link to="/manage" class="mobile-nav-link">
             Thiệp của tôi
           </router-link>
 
@@ -401,10 +431,14 @@ import "@/assets/styles/chungdoi.css";
 
 import { NAV_LINKS } from "@/data/siteContent";
 
-import { getPaymentRequests } from "@/model/api";
+import { getPaymentRequests, getMyWeddings } from "@/model/api";
 
 // Auth store
 import { useAuthStore } from "@/stores/auth";
+
+// Theme sáng/tối — khởi tạo + đồng bộ Vuetify
+import { useThemeStore } from "@/stores/theme";
+import { useTheme as useVuetifyTheme } from "vuetify";
 
 // --------------------------------------------------
 // Router
@@ -419,6 +453,19 @@ const router = useRouter();
 
 const auth = useAuthStore();
 
+const theme = useThemeStore();
+
+/* Theme Vuetify (v-dialog, v-select...) đổi theo store theme */
+const vuetifyTheme = useVuetifyTheme();
+
+watch(
+  () => theme.isDark,
+  (isDark) => {
+    vuetifyTheme.global.name.value = isDark ? "dark" : "light";
+  },
+  { immediate: true }
+);
+
 const userMenuOpen = ref(false);
 const loggingOut = ref(false);
 const userMenuRef = ref(null);
@@ -427,8 +474,96 @@ const avatarBroken = ref(false);
 
 const mobileNavOpen = ref(false);
 
+/*
+ * Màn hình nhỏ (≤768px)? Quyết định 2 mục chính nằm trên
+ * header (màn lớn) hay Teleport thành thanh cố định đáy
+ * màn hình (màn nhỏ). Theo dõi resize để chuyển mượt.
+ */
+const isSmallScreen = ref(
+  typeof window !== "undefined" && window.innerWidth <= 768
+);
+
+function handleResize() {
+  isSmallScreen.value = window.innerWidth <= 768;
+}
+
 /* Số yêu cầu thanh toán chờ duyệt — badge cho Admin. */
 const pendingPayments = ref(0);
+
+/*
+ * Số thiệp của user — badge trên mục "Thiệp của tôi".
+ *
+ * Đã đăng nhập: đếm từ API getMyWeddings (cache số ở
+ * localStorage để lần sau hiện ngay khi API đang tải).
+ *
+ * Chưa đăng nhập: đếm từ bản nháp editor trong localStorage
+ * (khóa "wedding-editor-draft") — có nháp = 1, không = 0.
+ * Người dùng chưa đăng nhập vẫn tạo được thiệp (Editor cho
+ * phép), bản nháp nằm trên máy cho tới khi lưu lên server.
+ */
+const myWeddingCount = ref(0);
+
+function readCachedWeddingCount() {
+  try {
+    const cached = localStorage.getItem("thiepduyen:myWeddingCount");
+
+    return cached ? Number(cached) || 0 : 0;
+  } catch {
+    return 0;
+  }
+}
+
+/* Có bản nháp editor trên máy này? */
+function hasLocalDraft() {
+  try {
+    const raw = localStorage.getItem("wedding-editor-draft");
+
+    if (!raw) {
+      return false;
+    }
+
+    return Boolean(JSON.parse(raw)?.wedding);
+  } catch {
+    return false;
+  }
+}
+
+async function loadMyWeddingCount() {
+  if (!auth.isLoggedIn) {
+    /* Chưa đăng nhập — đếm bản nháp trên máy */
+    myWeddingCount.value = hasLocalDraft() ? 1 : 0;
+
+    return;
+  }
+
+  if (!auth.can("manage")) {
+    myWeddingCount.value = 0;
+
+    return;
+  }
+
+  try {
+    const response = await getMyWeddings();
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      myWeddingCount.value = result.data.length;
+
+      try {
+        localStorage.setItem(
+          "thiepduyen:myWeddingCount",
+          String(result.data.length)
+        );
+      } catch {
+        /* localStorage bị chặn — bỏ qua, chỉ mất cache */
+      }
+    }
+  } catch (error) {
+    /* Lỗi mạng — giữ số cache ở localStorage */
+    console.warn("[App] getMyWeddings error:", error);
+  }
+}
 
 /*
  * Link công khai trên header / menu di động — khai báo
@@ -471,6 +606,21 @@ function goAdminPayments() {
 
   router.push({ name: "AdminPayments" });
 }
+
+/*
+ * Bấm "Thiệp của tôi" → trang quản lý thiệp (/manage).
+ * Trang này mở cho cả khách chưa đăng nhập: chưa đăng
+ * nhập thì hiển thị bản nháp trên máy (localStorage),
+ * đăng nhập rồi thì lấy danh sách thiệp từ API.
+ */
+function goMyWeddings() {
+  router.push({ name: "Manage" });
+}
+
+/* Nút "Thiệp của tôi" sáng khi đang ở Manage hoặc Editor */
+const isMyWeddingsActive = computed(() =>
+  ["Manage", "Editor"].includes(route.name)
+);
 
 /*
  * Số yêu cầu thanh toán đang chờ duyệt — hiện thành badge trên
@@ -595,6 +745,32 @@ const showFooter = computed(() => {
 });
 
 /*
+ * Nhóm trang marketing (trang chủ, thư viện mẫu, trang đích
+ * SEO, trang giới thiệu mẫu thiệp) — nay dùng chung khung
+ * sáng studio với các trang ứng dụng; danh sách này giữ lại
+ * làm tham chiếu nhóm trang công khai.
+ */
+const marketingFrameRoutes = [
+  "Home",
+  "Templates",
+  "TemplatesFeatured",
+  "TemplatesModern",
+  "TemplatesTraditional",
+  "WeddingOnline",
+  "CreateInvitation",
+  "About",
+  "Pricing",
+  "Guide",
+  "Contact",
+  "WeddingIntro",
+  "NotFound",
+];
+
+const isMarketingFrame = computed(() => {
+  return marketingFrameRoutes.includes(route.name);
+});
+
+/*
  * Đổi trang (bấm link trong menu mobile) →
  * đóng menu để nội dung trang hiển thị trọn vẹn.
  */
@@ -602,6 +778,19 @@ watch(
   () => route.fullPath,
   () => {
     mobileNavOpen.value = false;
+  }
+);
+
+/*
+ * Rời trang Editor → bản nháp có thể vừa được lưu / xoá,
+ * đếm lại số "Thiệp của tôi" cho khớp.
+ */
+watch(
+  () => route.name,
+  (name, oldName) => {
+    if (oldName === "Editor" && name !== "Editor") {
+      loadMyWeddingCount();
+    }
   }
 );
 
@@ -633,13 +822,30 @@ onMounted(() => {
 
   syncThemeClass();
 
+  // Theme sáng/tối — đọc lựa chọn đã lưu + theo dõi trình duyệt
+  theme.init();
+
   document.addEventListener("click", onDocumentClick);
 
+  window.addEventListener("resize", handleResize);
+
   loadPendingPayments();
+
+  loadMyWeddingCount();
 });
+
+/* Đăng nhập / đăng xuất → tải lại số thiệp cho badge */
+watch(
+  () => auth.isLoggedIn,
+  () => {
+    loadMyWeddingCount();
+  }
+);
 
 onBeforeUnmount(() => {
   document.removeEventListener("click", onDocumentClick);
+
+  window.removeEventListener("resize", handleResize);
 });
 </script>
 
@@ -674,7 +880,7 @@ body {
   top: 0;
   z-index: 20;
   backdrop-filter: blur(14px);
-  background: rgba(255, 253, 248, 0.82);
+  background: var(--studio-glass-strong, rgba(255, 253, 248, 0.82));
   border-bottom: 1px solid var(--studio-line, rgba(43, 33, 24, 0.1));
 }
 
@@ -689,6 +895,104 @@ body {
 }
 
 /* ==================================================
+   2 MỤC CHÍNH NỔI BẬT — Mẫu thiệp cưới + Thiệp của tôi
+   Desktop: pill nổi trên thanh header.
+   Mobile: cố định bên dưới header (xem media query).
+================================================== */
+
+.quick-nav {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  /*
+   * Dồn mọi thứ phía sau (user, nút) sang phải —
+   * 2 mục chính luôn nằm sát brand như mobile.
+   */
+  margin-right: auto;
+}
+
+.quick-link {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  min-height: 38px;
+  padding: 0 16px;
+
+  border: 1px solid rgba(185, 151, 91, 0.4);
+  border-radius: 999px;
+
+  background: var(--studio-card, #fffdf8);
+
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.quick-link:hover {
+  transform: translateY(-1px);
+
+  border-color: var(--studio-seal, #a63a2e);
+
+  box-shadow: 0 8px 20px rgba(43, 33, 24, 0.1);
+}
+
+.quick-link.router-link-active {
+  background: linear-gradient(
+    135deg,
+    var(--studio-seal, #a63a2e),
+    #7c2a20
+  );
+
+  border-color: transparent;
+
+  color: #fdf6ec;
+
+  box-shadow: 0 10px 24px rgba(166, 58, 46, 0.32);
+}
+
+.quick-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.22);
+
+  color: inherit;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.quick-link:not(.router-link-active) .quick-count {
+  background: var(--studio-seal, #a63a2e);
+
+  color: #fff;
+}
+
+/* ==================================================
    AUTH AREA (header)
 ================================================== */
 
@@ -697,6 +1001,74 @@ body {
   align-items: center;
   gap: 12px;
   margin-left: auto;
+}
+
+/* ==================================================
+   HEADER ACTIONS — nhóm nút theme + menu (☰)
+   Luôn hiển thị cả desktop lẫn mobile.
+================================================== */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+  border-radius: 10px;
+
+  background: var(--studio-card, #fffdf8);
+  color: var(--studio-seal, #a63a2e);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(20deg) scale(1.06);
+
+  border-color: rgba(185, 151, 91, 0.55);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.nav-toggle {
+  display: inline-flex;
+
+  width: 40px;
+
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+
+  border-radius: 10px;
+
+  background: var(--studio-card, #fffdf8);
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  cursor: pointer;
 }
 
 .login-button {
@@ -718,7 +1090,7 @@ body {
 
 .login-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(43, 33, 24, 0.25);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
 }
 
 .user-menu-wrap {
@@ -741,7 +1113,7 @@ body {
 
 .user-button:hover {
   border-color: rgba(185, 151, 91, 0.55);
-  box-shadow: 0 6px 18px rgba(43, 33, 24, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .user-avatar {
@@ -808,7 +1180,7 @@ body {
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.12));
   border-radius: 16px;
   background: var(--studio-card, #fffdf8);
-  box-shadow: 0 24px 60px rgba(43, 33, 24, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 
 .dropdown-header {
@@ -988,26 +1360,34 @@ body {
 
 /* ==================================================
    PAGE TRANSITION
+   Trang cũ mờ dần + nhích nhẹ lên rồi trang mới trượt
+   vào từ dưới — chuyển động một chiều, tự nhiên như
+   lật trang. Dùng cubic-bezier khởi động nhanh, hạ
+   mềm để cảm giác "mượt" chứ không lề mề.
 ================================================== */
 
-.page-enter-active,
+.page-enter-active {
+  transition:
+    opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .page-leave-active {
   transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
-    filter 0.35s ease;
+    opacity 0.18s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.18s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateY(12px);
-  filter: blur(3px);
+
+  transform: translateY(18px);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateY(-8px);
-  filter: blur(2px);
+
+  transform: translateY(-10px) scale(0.995);
 }
 
 /* ==================================================
@@ -1063,35 +1443,151 @@ body {
 }
 
 /* ==================================================
-   MOBILE NAV TOGGLE + PANEL
+   MENU ☰ — DROPDOWN (desktop) / PANEL TRỞI (mobile)
+   Desktop: các link công khai đã rời thanh header,
+   chỉ còn 2 mục chính — mọi link khác vào menu này.
 ================================================== */
 
-.nav-toggle {
-  display: none;
+.mobile-nav {
+  position: absolute;
 
-  width: 40px;
+  top: calc(100% - 1px);
 
-  height: 40px;
+  /* Căn phải theo mép khung nội dung header (1200px) */
+  right: max(16px, calc((100% - 1200px) / 2));
 
-  flex: 0 0 40px;
+  z-index: 30;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+  min-width: 250px;
+
+  padding: 10px;
+
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.12));
+
+  border-radius: 14px;
+
+  background: var(--studio-card, #fffdf8);
+
+  box-shadow: 0 18px 44px rgba(43, 33, 24, 0.18);
+}
+
+.mobile-nav-link {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 11px 10px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  text-align: left;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: background 0.15s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.router-link-active {
+  background: rgba(185, 151, 91, 0.12);
+
+  color: var(--studio-seal, #a63a2e);
+}
+
+.mobile-nav-link.logout {
+  color: var(--app-danger, #a03030);
+}
+
+.mobile-nav-link.logout:hover {
+  background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
+
+  color: var(--app-danger, #a03030);
+}
+
+.mobile-nav-link:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+.mobile-nav-divider {
+  height: 1px;
+
+  margin: 8px 4px;
+
+  background: var(--studio-line, rgba(43, 33, 24, 0.12));
+}
+
+.mobile-nav-user {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+  padding: 10px 10px 6px;
+}
+
+.mobile-nav-user strong {
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 14px;
+}
+
+.mobile-nav-user span {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 12px;
+}
+
+.mobile-nav-login {
+  display: flex;
 
   align-items: center;
 
   justify-content: center;
 
-  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+  gap: 7px;
 
-  border-radius: 10px;
+  margin-top: 8px;
 
-  background: var(--studio-card, #fffdf8);
+  padding: 12px;
 
-  color: var(--studio-ink-soft, #5c4f43);
+  border-radius: 999px;
 
-  cursor: pointer;
-}
+  background: linear-gradient(
+    135deg,
+    var(--studio-seal, #a63a2e),
+    #7c2a20
+  );
 
-.mobile-nav {
-  display: none;
+  color: #fdf6ec;
+
+  font-size: 13.5px;
+
+  font-weight: 600;
+
+  text-decoration: none;
 }
 
 /* ==================================================
@@ -1104,166 +1600,142 @@ body {
   }
 
   /*
+   * 2 mục chính trên mobile: thanh cố định ĐÁY màn hình
+   * (đã Teleport ra body). Dạng tab bar dọc: icon trên,
+   * chữ dưới — bấm dễ bằng ngón tay.
+   */
+  .quick-nav--bottom {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 45;
+
+    display: flex;
+
+    gap: 8px;
+
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+
+    background: var(--studio-glass-strong, rgba(255, 253, 248, 0.94));
+
+    backdrop-filter: blur(14px);
+
+    border-top: 1px solid var(--studio-line, rgba(43, 33, 24, 0.1));
+  }
+
+  .quick-nav--bottom .quick-link {
+    position: relative;
+
+    flex: 1;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    min-height: 54px;
+    padding: 6px 8px;
+
+    border-radius: 14px;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    line-height: 1.2;
+  }
+
+  .quick-nav--bottom .quick-link .v-icon {
+    font-size: 20px;
+  }
+
+  .quick-nav--bottom .quick-count {
+    position: absolute;
+
+    top: 4px;
+    right: 12px;
+  }
+
+  /* Chừa chỗ cho thanh 2 mục chính cố định đáy màn hình */
+  .app-root > main,
+  .app-root > .mk-page,
+  .app-root > .templates-page,
+  .app-root > .intro-page,
+  .app-root > .manage-page,
+  .app-root > .admin-page,
+  .app-root > .profile-page,
+  .app-root > .auth-page,
+  .app-root > .payment-page {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+
+  /*
+   * Nút lên đầu trang nằm trên thanh 2 mục chính cố định
+   * đáy màn hình (cao ~70px) — nâng lên không bị che.
+   * Đặt qua biến CSS vì style của nút là scoped: rule
+   * :deep() ở đây không có scoped nên bị bỏ qua.
+   */
+  :root {
+    --scroll-top-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+
+  /*
    * Trên mobile: ẩn dải link ngang + khu user,
-   * thay bằng nút ☰ mở menu dọc gọn gàng.
+   * thay bằng nút ☰ mở menu dọc. Nút theme nằm
+   * cùng nhóm với nút ☰ nên luôn bấm được.
    */
   .top-nav,
   .auth-area {
     display: none;
   }
 
-  .nav-toggle {
-    display: inline-flex;
-
+  /* Khu user đã ẩn — nhóm nút tự dồn sang phải */
+  .header-actions {
     margin-left: auto;
   }
 
+  /* Menu ☰ trên mobile: panel trởi chiếm hết chiều ngang */
   .mobile-nav {
-    display: flex;
+    top: 100%;
 
-    flex-direction: column;
+    right: 0;
 
-    gap: 2px;
+    left: 0;
 
-    padding: 10px 16px calc(14px + env(safe-area-inset-bottom));
-
-    border-top: 1px solid var(--studio-line, rgba(43, 33, 24, 0.1));
-
-    background: rgba(255, 253, 248, 0.98);
-  }
-
-  .mobile-nav-link {
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    padding: 12px 10px;
+    min-width: 0;
 
     border: 0;
 
-    border-radius: 10px;
+    border-radius: 0 0 14px 14px;
 
-    background: transparent;
+    padding: 10px 16px calc(14px + env(safe-area-inset-bottom));
 
-    color: var(--studio-ink-soft, #5c4f43);
+    background: var(--studio-glass-strong, rgba(255, 253, 248, 0.98));
 
-    font-size: 14px;
+    backdrop-filter: blur(14px);
 
-    font-weight: 600;
-
-    text-align: left;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    transition: background 0.15s ease;
-  }
-
-  .mobile-nav-link:hover,
-  .mobile-nav-link.router-link-active {
-    background: rgba(185, 151, 91, 0.12);
-
-    color: var(--studio-seal, #a63a2e);
-  }
-
-  .mobile-nav-link.logout {
-    color: var(--app-danger, #a03030);
-  }
-
-  .mobile-nav-link.logout:hover {
-    background: var(--app-danger-soft, rgba(160, 48, 48, 0.1));
-
-    color: var(--app-danger, #a03030);
-  }
-
-  .mobile-nav-link:disabled {
-    opacity: 0.6;
-
-    cursor: not-allowed;
-  }
-
-  .mobile-nav-divider {
-    height: 1px;
-
-    margin: 8px 4px;
-
-    background: var(--studio-line, rgba(43, 33, 24, 0.12));
-  }
-
-  .mobile-nav-user {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2px;
-
-    padding: 10px 10px 6px;
-  }
-
-  .mobile-nav-user strong {
-    color: var(--studio-ink, #2b2118);
-
-    font-size: 14px;
-  }
-
-  .mobile-nav-user span {
-    color: var(--studio-ink-faint, #8a7a68);
-
-    font-size: 11px;
-  }
-
-  .mobile-nav-login {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
-
-    margin-top: 8px;
-
-    padding: 12px;
-
-    border-radius: 999px;
-
-    background: linear-gradient(
-      135deg,
-      var(--studio-seal, #a63a2e),
-      #7c2a20
-    );
-
-    color: #fdf6ec;
-
-    font-size: 13.5px;
-
-    font-weight: 600;
-
-    text-decoration: none;
+    box-shadow: none;
   }
 
   .global-decoration {
     display: none;
   }
 
-  .page-enter-active,
-  .page-leave-active {
+  /* Mobile: nhích ngắn hơn, bỏ scale cho nhẹ GPU */
+  .page-enter-active {
     transition:
-      opacity 0.28s ease,
-      transform 0.28s ease;
+      opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .page-enter-from {
-    transform: translateY(8px);
-    filter: none;
+    transform: translateY(12px);
   }
 
   .page-leave-to {
-    transform: translateY(-5px);
-    filter: none;
+    transform: translateY(-6px);
   }
 }
 

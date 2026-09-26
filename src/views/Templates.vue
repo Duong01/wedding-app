@@ -318,10 +318,9 @@
           :class="{
             'is-featured': isFavorite(wedding)
           }"
-          :style="getCardStyle(wedding)"
           @click="goToIntro(wedding)"
         >
-          <!-- IMAGE -->
+          <!-- IMAGE — ảnh phủ toàn thẻ, tên thiệp trên gradient -->
           <div class="image-wrap">
 
             <img
@@ -331,27 +330,43 @@
               @error="onImageError"
             />
 
-            <!-- image gradient -->
+            <!-- gradient chân ảnh — tách tên khỏi ảnh -->
             <div class="image-gradient"></div>
 
-            <!-- hover overlay -->
-            <div class="card-hover">
+            <!-- badge theme mới ra mắt -->
+            <span
+              v-if="getWeddingMeta(wedding).isNew"
+              class="new-badge"
+            >
+              Mới
+            </span>
 
-              <div class="preview-circle">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
+            <!-- tên thiệp nằm trên ảnh, kiểu gallery -->
+            <div class="image-caption">
+              <p class="caption-collection">
+                {{ getCollectionLabel(wedding) }}
+              </p>
+
+              <h3>{{ getThemeLabel(wedding) }}</h3>
+            </div>
+
+            <!-- hover overlay — mô tả + nút hành động -->
+            <div class="card-hover">
+              <p class="hover-desc">
+                {{ getWeddingMeta(wedding).desc }}
+              </p>
+
+              <div class="hover-tags">
+                <span
+                  v-for="tag in getWeddingMeta(wedding).tags"
+                  :key="tag"
+                  class="hover-tag"
                 >
-                  <path
-                    d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
-                  />
-                  <circle cx="12" cy="12" r="2.5" />
-                </svg>
+                  {{ tag }}
+                </span>
               </div>
 
-              <span>Xem mẫu</span>
+              <span class="hover-cta">Xem thiệp →</span>
             </div>
 
             <!-- top-right: nút yêu thích -->
@@ -386,7 +401,7 @@
             </div>
           </div>
 
-          <!-- BODY -->
+          <!-- BODY — gọn: meta + cặp đôi + dải màu + hành động -->
           <div class="card-body">
 
             <div class="card-meta">
@@ -397,23 +412,9 @@
               <span class="dot"></span>
 
               <span>
-                {{ getCollectionLabel(wedding) }}
+                {{ getCoupleName(wedding) }}
               </span>
             </div>
-
-            <h3>
-              {{ getThemeLabel(wedding) }}
-            </h3>
-
-            <!-- tên cặp đôi của mẫu — dòng phụ dưới tên thiết kế -->
-            <p class="card-couple">
-              {{ getCoupleName(wedding) }}
-            </p>
-
-            <!-- mô tả thiết kế — nội dung chính của thẻ -->
-            <p class="card-desc">
-              {{ getWeddingMeta(wedding).desc }}
-            </p>
 
             <!-- dải màu nhận diện của mẫu -->
             <div class="identity-row">
@@ -427,19 +428,6 @@
               <span class="identity-orn">
                 {{ getWeddingMeta(wedding).orn }}
               </span>
-            </div>
-
-            <!-- từ khóa phong cách — bấm để lọc nhanh -->
-            <div class="card-tags">
-              <button
-                v-for="tag in getWeddingMeta(wedding).tags"
-                :key="tag"
-                type="button"
-                class="card-tag"
-                @click.stop="searchFor(tag)"
-              >
-                {{ tag }}
-              </button>
             </div>
 
             <div class="card-footer">
@@ -568,7 +556,6 @@ import {
 } from "@/data/templateCollections";
 
 import {
-  cardStyle,
   collectionLabel,
   coupleName,
   formatDate,
@@ -1052,10 +1039,6 @@ function getWeddingMeta(wedding) {
   return themeMeta(wedding);
 }
 
-function getCardStyle(wedding) {
-  return cardStyle(wedding);
-}
-
 function getCollectionLabel(wedding) {
   return collectionLabel(wedding);
 }
@@ -1160,19 +1143,6 @@ function resetFilters() {
   sortMode.value = "";
 }
 
-/*
- * Bấm từ khóa trên thẻ → đổ vào ô tìm kiếm và cuộn lên đầu
- * danh sách. Từ khóa khớp theo tên thiết kế và tên cặp đôi
- * nên kết quả luôn có ít nhất mẫu vừa bấm.
- */
-function searchFor(keyword) {
-  q.value = keyword;
-
-  document
-    .querySelector(".templates-content")
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 // ======================================================
 // Toast
 // ======================================================
@@ -1220,7 +1190,7 @@ function onImageError(event) {
   position: relative;
   overflow: hidden;
 
-  /* Giấy dó ấm — nền studio thay vì trắng phẳng */
+  /* Giấy dó sáng — nền sáng khiến ảnh thiệp nổi bật */
   background:
     radial-gradient(
       circle at 8% 6%,
@@ -1234,9 +1204,9 @@ function onImageError(event) {
     ),
     linear-gradient(
       180deg,
-      #faf6ee 0%,
-      #f7f1e6 45%,
-      #f4ecdd 100%
+      #fdfbf5 0%,
+      #faf7ef 45%,
+      #f6f1e4 100%
     );
 
   color: var(--text);
@@ -1435,16 +1405,16 @@ function onImageError(event) {
 
 .hero-btn-primary {
   border: 1px solid
-    var(--studio-ink, #2b2118);
+    var(--studio-contrast-bg, #2b2118);
 
   background:
-    var(--studio-ink, #2b2118);
+    var(--studio-contrast-bg, #2b2118);
 
-  color: #f7f1e6;
+  color: var(--studio-contrast-ink, #f7f1e6);
 
   box-shadow:
     0 14px 32px
-      rgba(43, 33, 24, 0.2);
+      rgba(43, 33, 24, 0.22);
 }
 
 .hero-btn-primary:hover {
@@ -1452,7 +1422,7 @@ function onImageError(event) {
 
   box-shadow:
     0 20px 42px
-      rgba(43, 33, 24, 0.26);
+      rgba(43, 33, 24, 0.3);
 }
 
 .hero-btn-primary:hover svg {
@@ -1464,7 +1434,7 @@ function onImageError(event) {
     var(--studio-line-strong, rgba(43, 33, 24, 0.2));
 
   background:
-    rgba(255, 255, 255, 0.7);
+    var(--studio-glass, rgba(255, 255, 255, 0.7));
 
   color: var(--studio-ink, #2b2118);
 }
@@ -1475,7 +1445,7 @@ function onImageError(event) {
   border-color:
     var(--studio-ink, #2b2118);
 
-  background: #fff;
+  background: var(--studio-glass-strong, #fff);
 }
 
 /* =========================================================
@@ -1535,18 +1505,18 @@ function onImageError(event) {
   padding: 13px 22px;
 
   border: 1px solid
-    rgba(95, 63, 68, 0.08);
+    var(--studio-line, rgba(95, 63, 68, 0.08));
 
   border-radius: 999px;
 
   background:
-    rgba(255, 255, 255, 0.72);
+    var(--studio-glass, rgba(255, 255, 255, 0.72));
 
   backdrop-filter: blur(12px);
 
   box-shadow:
     0 12px 35px
-      rgba(61, 39, 42, 0.05);
+      rgba(43, 33, 24, 0.1);
 }
 
 .hero-stat {
@@ -1591,7 +1561,7 @@ function onImageError(event) {
   height: 24px;
 
   background:
-    rgba(70, 45, 49, 0.12);
+    var(--studio-line, rgba(70, 45, 49, 0.12));
 }
 
 /* =========================================================
@@ -1646,18 +1616,18 @@ function onImageError(event) {
   transform: translateY(-1px);
 
   box-shadow:
-    0 8px 22px rgba(43, 33, 24, 0.07);
+    0 8px 22px rgba(43, 33, 24, 0.1);
 }
 
 .collection-chip.is-active {
-  border-color: var(--studio-ink);
+  border-color: var(--studio-contrast-bg);
 
-  background: var(--studio-ink);
+  background: var(--studio-contrast-bg);
 
-  color: #f7f1e6;
+  color: var(--studio-contrast-ink);
 
   box-shadow:
-    0 10px 26px rgba(43, 33, 24, 0.18);
+    0 10px 26px rgba(43, 33, 24, 0.16);
 }
 
 .collection-chip.is-active .chip-swatch {
@@ -1748,12 +1718,7 @@ function onImageError(event) {
   padding-bottom: 18px;
 
   border-bottom:
-    1px solid rgba(
-      64,
-      40,
-      44,
-      0.08
-    );
+    1px solid var(--studio-line, rgba(64, 40, 44, 0.08));
 }
 
 .result-count {
@@ -1806,16 +1771,16 @@ function onImageError(event) {
   min-height: 44px;
 
   border: 1px solid
-    rgba(43, 33, 24, 0.12);
+    var(--studio-line, rgba(43, 33, 24, 0.12));
 
   border-radius: 12px;
 
   background:
-    rgba(255, 253, 248, 0.85);
+    var(--studio-glass, rgba(255, 253, 248, 0.85));
 
   box-shadow:
     0 5px 18px
-      rgba(43, 33, 24, 0.04);
+      rgba(43, 33, 24, 0.07);
 
   transition:
     border-color 0.25s ease,
@@ -1888,7 +1853,7 @@ function onImageError(event) {
 
   flex: 0 0 auto;
 
-  color: #8a7a76;
+  color: var(--muted, #8a7a76);
 }
 
 .search-icon svg {
@@ -1914,7 +1879,7 @@ function onImageError(event) {
 }
 
 .search-control input::placeholder {
-  color: #9a8a86;
+  color: var(--studio-ink-faint, #9a8a86);
 }
 
 .clear-search {
@@ -1930,9 +1895,9 @@ function onImageError(event) {
 
   border-radius: 50%;
 
-  background: #eee7e2;
+  background: var(--studio-foil-soft, #eee7e2);
 
-  color: #675853;
+  color: var(--studio-ink-soft, #675853);
 
   cursor: pointer;
 }
@@ -1965,31 +1930,22 @@ function onImageError(event) {
 
   border:
     1px solid
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 30%,
-      transparent
-    );
+    var(--studio-line, rgba(43, 33, 24, 0.14));
 
   border-radius: 20px;
 
   /*
-   * Nền thẻ nhuộm theo bảng màu của từng mẫu (giống
-   * carousel trang chủ) — mỗi thẻ mang đúng "giấy" của
-   * thiết kế nó thay vì một màu trắng chung.
+   * Khung thẻ dùng hệ màu studio chung — mọi thẻ đồng nhất
+   * như một bộ sưu tập. Bản sắc từng mẫu nằm ở nội dung:
+   * ảnh, tên thiết kế, dải màu và từ khóa.
    */
-  background:
-    color-mix(
-      in srgb,
-      var(--card-bg, #fffdf8) 88%,
-      var(--card-accent, #b9975b)
-    );
+  background: var(--studio-card, #ffffff);
 
   cursor: pointer;
 
   box-shadow:
-    0 12px 35px
-      rgba(43, 33, 24, 0.06);
+    0 10px 28px
+      rgba(43, 33, 24, 0.08);
 
   transition:
     transform 0.45s
@@ -2004,33 +1960,25 @@ function onImageError(event) {
     translateY(-10px);
 
   border-color:
-    var(--card-accent, rgba(166, 58, 46, 0.18));
+    rgba(185, 151, 91, 0.55);
 
   box-shadow:
-    0 28px 65px
-      rgba(43, 33, 24, 0.14);
+    0 28px 60px
+      rgba(43, 33, 24, 0.16);
 }
 
 /*
- * Thẻ đang được lưu yêu thích mang viền màu bản sắc đậm hơn —
+ * Thẻ đang được lưu yêu thích mang viền vàng kim đậm hơn —
  * phân biệt với các thẻ còn lại mà không cần animation.
  */
 .template-card.is-featured {
   border-color:
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 55%,
-      transparent
-    );
+    rgba(185, 151, 91, 0.6);
 
   box-shadow:
-    0 12px 35px rgba(43, 33, 24, 0.06),
+    0 10px 28px rgba(43, 33, 24, 0.08),
     0 0 0 4px
-      color-mix(
-        in srgb,
-        var(--card-accent, #b9975b) 12%,
-        transparent
-      );
+      rgba(185, 151, 91, 0.18);
 }
 
 .image-wrap {
@@ -2041,16 +1989,11 @@ function onImageError(event) {
   /*
    * Tỷ lệ chuẩn 3/4 — giống carousel trang chủ
    * (TemplateCarousel3D) để cùng một mẫu hiện giống nhau
-   * ở mọi nơi. Nền dự phòng pha theo bảng màu của mẫu
-   * (hiện khi ảnh chưa tải xong hoặc lỗi).
+   * ở mọi nơi. Nền dự phòng giấy dó chung cho mọi thẻ.
    */
   aspect-ratio: 3 / 4;
 
-  background: color-mix(
-    in srgb,
-    var(--card-bg, #f7f1e6) 82%,
-    var(--card-accent, #b9975b)
-  );
+  background: var(--studio-paper-deep, #f1e9da);
 }
 
 .image-wrap img {
@@ -2084,16 +2027,106 @@ function onImageError(event) {
   background:
     linear-gradient(
       180deg,
-      rgba(0,0,0,0.05) 0%,
-      transparent 42%,
-      rgba(30,15,15,0.28) 100%
+      rgba(0,0,0,0.14) 0%,
+      transparent 30%,
+      transparent 46%,
+      rgba(24, 12, 10, 0.66) 100%
     );
 
   pointer-events: none;
 }
 
 /* =========================================================
-   CARD HOVER
+   NEW BADGE — theme mới ra mắt
+========================================================= */
+
+.new-badge {
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+
+  z-index: 3;
+
+  padding: 4px 11px;
+
+  border-radius: 999px;
+
+  background: var(--studio-seal, #a63a2e);
+
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  box-shadow: 0 6px 16px rgba(166, 58, 46, 0.4);
+}
+
+/* =========================================================
+   CAPTION — tên thiệp nằm trên gradient chân ảnh
+========================================================= */
+
+.image-caption {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 14px 16px 15px;
+
+  color: #fff;
+
+  pointer-events: none;
+}
+
+.caption-collection {
+  margin: 0 0 3px;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 9.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.image-caption h3 {
+  margin: 0;
+
+  font-family:
+    var(--font-heading),
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: clamp(
+    17px,
+    1.7vw,
+    22px
+  );
+
+  line-height: 1.15;
+
+  font-weight: 600;
+
+  color: #fff;
+
+  /*
+   * Tên dài không xuống dòng — cắt một dòng cho các thẻ
+   * trong cùng hàng luôn cao bằng nhau.
+   */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   CARD HOVER — mô tả + từ khóa + CTA trượt lên từ chân ảnh
 ========================================================= */
 
 .card-hover {
@@ -2102,102 +2135,90 @@ function onImageError(event) {
   inset: 0;
 
   display: flex;
-
   flex-direction: column;
 
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-end;
 
-  gap: 12px;
+  gap: 10px;
+
+  padding: 16px;
 
   color: #fff;
 
-  /*
-   * Lớp phủ hover nhuộm màu ấn son của từng mẫu —
-   * đồng nhất với veil của carousel trang chủ, thay vì
-   * một màu nâu chung cho mọi thẻ.
-   */
   background:
-    color-mix(
-      in srgb,
-      var(--card-seal, #a63a2e) 44%,
-      rgba(20, 12, 8, 0.4)
+    linear-gradient(
+      180deg,
+      rgba(43, 33, 24, 0.06),
+      rgba(43, 33, 24, 0.78) 62%
     );
 
   opacity: 0;
 
-  transform: scale(0.98);
+  transform: translateY(10px);
 
   transition:
     opacity 0.4s ease,
-    transform 0.5s ease;
+    transform 0.45s ease;
 }
 
 .template-card:hover
 .card-hover {
   opacity: 1;
 
-  transform: scale(1);
+  transform: translateY(0);
 }
 
-.preview-circle {
-  width: 52px;
-  height: 52px;
+.hover-desc {
+  display: -webkit-box;
 
-  display: grid;
-  place-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 
-  border: 1px solid
-    rgba(255,255,255,0.75);
+  overflow: hidden;
 
-  border-radius: 50%;
+  margin: 0;
 
-  background:
-    rgba(255,255,255,0.08);
+  color: rgba(255, 255, 255, 0.92);
 
-  backdrop-filter: blur(10px);
-
-  transform:
-    translateY(12px)
-    scale(0.85);
-
-  transition:
-    transform 0.45s
-      cubic-bezier(.2,.8,.2,1);
-}
-
-.template-card:hover
-.preview-circle {
-  transform:
-    translateY(0)
-    scale(1);
-}
-
-.preview-circle svg {
-  width: 22px;
-  height: 22px;
-}
-
-.card-hover > span {
   font-size: 12px;
 
+  line-height: 1.55;
+}
+
+.hover-tags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 5px;
+}
+
+.hover-tag {
+  padding: 3px 9px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(6px);
+
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.hover-cta {
+  margin-top: 2px;
+
+  color: #fff;
+
+  font-size: 11px;
   font-weight: 700;
 
   letter-spacing: 0.12em;
-
   text-transform: uppercase;
-
-  transform:
-    translateY(8px);
-
-  transition:
-    transform 0.45s ease 0.04s;
-}
-
-.template-card:hover
-.card-hover > span {
-  transform:
-    translateY(0);
 }
 
 /* =========================================================
@@ -2246,11 +2267,7 @@ function onImageError(event) {
   transform: scale(1.1);
 
   background:
-    color-mix(
-      in srgb,
-      var(--card-seal, #a63a2e) 85%,
-      transparent
-    );
+    rgba(166, 58, 46, 0.85);
 }
 
 /*
@@ -2260,11 +2277,7 @@ function onImageError(event) {
  */
 .favorite-btn.is-on {
   background:
-    color-mix(
-      in srgb,
-      var(--card-seal, #a63a2e) 92%,
-      transparent
-    );
+    rgba(166, 58, 46, 0.92);
 
   border-color:
     rgba(255, 255, 255, 0.85);
@@ -2335,15 +2348,15 @@ function onImageError(event) {
 }
 
 .featured-label span {
-  color: var(--card-accent, #b9975b);
+  color: var(--studio-foil, #b9975b);
 }
 
 /* =========================================================
-   CARD BODY
+   CARD BODY — gọn: meta, dải màu, hành động
 ========================================================= */
 
 .card-body {
-  padding: 17px 17px 18px;
+  padding: 13px 16px 15px;
 }
 
 .card-meta {
@@ -2353,9 +2366,9 @@ function onImageError(event) {
 
   gap: 7px;
 
-  margin-bottom: 7px;
+  margin-bottom: 9px;
 
-  color: var(--card-soft, #8a7a68);
+  color: var(--muted);
 
   font-size: 10px;
 
@@ -2370,142 +2383,7 @@ function onImageError(event) {
 
   border-radius: 50%;
 
-  background: var(--card-accent, #b9975b);
-}
-
-.card-body h3 {
-  margin: 0;
-
-  font-family:
-    var(--font-heading),
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  /*
-   * Cỡ chữ theo bề rộng khung nhìn: thẻ nằm trong lưới 2–4 cột
-   * nên bề rộng thẻ cũng co giãn theo màn hình — dùng chung một
-   * công thức thì chữ và thẻ luôn cân nhau.
-   */
-  font-size: clamp(
-    19px,
-    1.9vw,
-    26px
-  );
-
-  line-height: 1.12;
-
-  font-weight: 600;
-
-  color: var(--card-ink, var(--text));
-}
-
-/*
- * Tên cặp đôi của mẫu — dòng phụ dưới tên thiết kế. Cắt sau
- * một dòng để các thẻ trong cùng hàng luôn cao bằng nhau.
- */
-.card-couple {
-  overflow: hidden;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  margin: 7px 0 0;
-
-  color: var(--card-soft, #8a7a76);
-
-  font-size: clamp(
-    11px,
-    1.05vw,
-    12.5px
-  );
-
-  line-height: 1.55;
-}
-
-/*
- * Mô tả thiết kế — nội dung chính của thẻ. Giới hạn hai dòng
- * để thẻ không cao lệch nhau khi mô tả dài ngắn khác nhau.
- */
-.card-desc {
-  display: -webkit-box;
-
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-
-  overflow: hidden;
-
-  margin: 8px 0 0;
-
-  color: var(--card-soft, #8a7a68);
-
-  font-size: clamp(
-    11px,
-    1.05vw,
-    12.5px
-  );
-
-  line-height: 1.6;
-}
-
-/* =========================================================
-   CARD TAGS (từ khóa phong cách — bấm để lọc)
-========================================================= */
-
-.card-tags {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 5px;
-
-  margin-top: 9px;
-}
-
-.card-tag {
-  padding: 3px 9px;
-
-  border: 1px solid
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 32%,
-      transparent
-    );
-
-  border-radius: 999px;
-
-  background: transparent;
-
-  color: var(--card-ink, var(--text));
-
-  font-size: 10px;
-
-  font-weight: 600;
-
-  letter-spacing: 0.02em;
-
-  cursor: pointer;
-
-  opacity: 0.78;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.card-tag:hover {
-  border-color:
-    var(--card-accent, #b9975b);
-
-  background:
-    color-mix(
-      in srgb,
-      var(--card-accent, #b9975b) 12%,
-      transparent
-    );
-
-  opacity: 1;
+  background: var(--studio-foil, #b9975b);
 }
 
 /* =========================================================
@@ -2530,7 +2408,7 @@ function onImageError(event) {
 
   box-shadow:
     inset 0 0 0 1px
-      rgba(43, 33, 24, 0.08);
+      rgba(0, 0, 0, 0.35);
 
   opacity: 0.9;
 }
@@ -2542,7 +2420,7 @@ function onImageError(event) {
 .identity-orn {
   margin-left: auto;
 
-  color: var(--card-accent, #b9975b);
+  color: var(--studio-foil, #b9975b);
 
   font-family: var(--font-symbol, var(--font-heading));
 
@@ -2628,7 +2506,7 @@ function onImageError(event) {
   border-style: solid;
 
   background:
-    rgba(255, 255, 255, 0.8);
+    var(--studio-glass, rgba(255, 255, 255, 0.8));
 }
 
 /* =========================================================
@@ -2730,11 +2608,11 @@ function onImageError(event) {
   transform: translateY(-3px);
 
   border-color:
-    rgba(185, 151, 91, 0.5);
+    rgba(185, 151, 91, 0.55);
 
   box-shadow:
     0 16px 34px
-      rgba(43, 33, 24, 0.08);
+      rgba(43, 33, 24, 0.12);
 }
 
 .feature-orn {
@@ -2814,7 +2692,7 @@ function onImageError(event) {
 }
 
 .view-detail {
-  color: var(--card-soft, #8a7a76);
+  color: var(--muted);
 
   font-size: 11px;
 
@@ -2831,7 +2709,7 @@ function onImageError(event) {
 
 .template-card:hover
 .view-detail {
-  color: var(--card-seal, #a63a2e);
+  color: var(--studio-seal, #a63a2e);
 }
 
 .template-card:hover
@@ -2845,22 +2723,14 @@ function onImageError(event) {
   padding: 9px 12px;
 
   border: 1px solid
-    color-mix(
-      in srgb,
-      var(--card-seal, #a63a2e) 30%,
-      transparent
-    );
+    rgba(166, 58, 46, 0.3);
 
   border-radius: 999px;
 
   background:
-    color-mix(
-      in srgb,
-      var(--card-seal, #a63a2e) 6%,
-      transparent
-    );
+    rgba(166, 58, 46, 0.06);
 
-  color: var(--card-seal, #a63a2e);
+  color: var(--studio-seal, #a63a2e);
 
   font-size: 10px;
 
@@ -2875,7 +2745,7 @@ function onImageError(event) {
 }
 
 .use-template-btn:hover {
-  background: var(--card-seal, #a63a2e);
+  background: var(--studio-seal, #a63a2e);
 
   color: #fff;
 
@@ -2902,9 +2772,9 @@ function onImageError(event) {
   background:
     linear-gradient(
       100deg,
-      #ece4d4 20%,
-      #f6f0e3 40%,
-      #ece4d4 60%
+      var(--studio-paper-deep, #ece4d4) 20%,
+      var(--studio-card, #f6f0e3) 40%,
+      var(--studio-paper-deep, #ece4d4) 60%
     );
 
   background-size: 200% 100%;
@@ -2924,7 +2794,7 @@ function onImageError(event) {
 
   border-radius: 6px;
 
-  background: #ece4d4;
+  background: var(--studio-paper-deep, #ece4d4);
 
   margin-bottom: 12px;
 }
@@ -2973,7 +2843,7 @@ function onImageError(event) {
   border-radius: 22px;
 
   background:
-    rgba(255, 253, 248, 0.72);
+    var(--studio-glass, rgba(255, 253, 248, 0.72));
 }
 
 .state-icon,
@@ -3020,8 +2890,8 @@ function onImageError(event) {
 }
 
 .state-box.error .state-icon {
-  background: #fdf1f1;
-  color: #c62828;
+  background: rgba(207, 91, 71, 0.16);
+  color: var(--studio-seal, #c62828);
 }
 
 .retry-btn {
@@ -3033,9 +2903,9 @@ function onImageError(event) {
 
   border-radius: 999px;
 
-  background: var(--studio-ink);
+  background: var(--studio-contrast-bg, var(--studio-ink));
 
-  color: #f7f1e6;
+  color: var(--studio-contrast-ink, #f7f1e6);
 
   font-size: 12px;
 
@@ -3048,7 +2918,7 @@ function onImageError(event) {
 }
 
 .retry-btn:hover {
-  background: #443627;
+  background: var(--studio-foil, #443627);
 }
 
 /* =========================================================
@@ -3076,12 +2946,12 @@ function onImageError(event) {
 
   border:
     1px solid
-    rgba(255,255,255,0.1);
+    rgba(43, 33, 24, 0.1);
 
   border-radius: 999px;
 
   background:
-    rgba(43,33,24,0.92);
+    rgba(43, 33, 24, 0.92);
 
   backdrop-filter: blur(15px);
 
@@ -3089,7 +2959,7 @@ function onImageError(event) {
 
   box-shadow:
     0 15px 35px
-      rgba(0,0,0,0.25);
+      rgba(43, 33, 24, 0.25);
 
   font-size: 12px;
 }
@@ -3382,16 +3252,8 @@ function onImageError(event) {
     font-size: 11px;
   }
 
-  .card-body h3 {
-    font-size: 18px;
-  }
-
-  .card-couple {
-    margin-top: 5px;
-
-    font-size: 11px;
-
-    line-height: 1.5;
+  .image-caption h3 {
+    font-size: 16px;
   }
 
   .identity-row {
@@ -3504,28 +3366,12 @@ function onImageError(event) {
     gap: 10px;
   }
 
-  .card-body h3 {
-    font-size: 16px;
+  .image-caption h3 {
+    font-size: 15px;
   }
 
-  .card-couple {
-    display: none;
-  }
-
-  .card-desc {
-    -webkit-line-clamp: 2;
-
-    font-size: 10.5px;
-  }
-
-  .card-tags {
-    gap: 4px;
-  }
-
-  .card-tag {
-    padding: 2px 7px;
-
-    font-size: 9.5px;
+  .hover-desc {
+    font-size: 11px;
   }
 
   .identity-row {

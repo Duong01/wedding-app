@@ -13,6 +13,7 @@
  * palette.seal   — màu ấn son
  * dark           — nền tối (thiệp nền sẫm)
  * script         — tên cô dâu chú rể dùng chữ ký (Allura)
+ * isNew          — theme mới ra mắt, hiển thị badge "Mới" ở gallery
  * orn            — ký tự họa tiết đặc trưng
  * desc           — mô tả ngắn về thiết kế (thẻ mẫu + JSON-LD)
  * tags           — từ khóa phong cách (thẻ mẫu, tìm kiếm, JSON-LD)
@@ -336,6 +337,7 @@ export const THEME_META = {
     name: "Baroque Đỏ Sẫm",
     collection: "kim-lua",
     dark: true,
+    isNew: true,
     desc: "Nền đỏ sẫm, hoa văn baroque và vàng đồng.",
     tags: ["Cổ điển", "Đỏ sẫm", "Baroque"],
     palette: {
@@ -351,6 +353,7 @@ export const THEME_META = {
   "to-duyen-xanh": {
     name: "Tơ Duyên Xanh",
     collection: "thien-nhien",
+    isNew: true,
     desc: "Xanh rêu dịu, hoa rum trắng và nét tơ duyên mềm mại.",
     tags: ["Thiên nhiên", "Xanh rêu", "Tinh giản"],
     palette: {
@@ -370,6 +373,7 @@ export const THEME_META = {
   "modern-white": {
     name: "Trắng Hiện Đại",
     collection: "toi-gian",
+    isNew: true,
     desc: "Nền trắng tinh, nét mực gọn và một điểm đỏ nhấn.",
     tags: ["Tối giản", "Trắng", "Hiện đại"],
     palette: {

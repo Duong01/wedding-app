@@ -62,7 +62,14 @@ onBeforeUnmount(() => {
   position: fixed;
 
   right: 20px;
-  bottom: calc(20px + env(safe-area-inset-bottom));
+
+  /*
+   * Vị trí đáy có thể override từ ngoài qua biến này —
+   * App.vue dùng để nâng nút lên trên thanh 2 mục chính
+   * cố định đáy màn hình trên mobile (không cần đụng độ
+   * specificity với style scoped ở đây).
+   */
+  bottom: var(--scroll-top-bottom, calc(20px + env(safe-area-inset-bottom)));
 
   z-index: 40;
 
@@ -78,12 +85,12 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(185, 151, 91, 0.45);
   border-radius: 50%;
 
-  background: rgba(255, 253, 248, 0.92);
+  background: var(--studio-glass-strong, rgba(255, 253, 248, 0.92));
   color: var(--studio-seal, #a63a2e);
 
   backdrop-filter: blur(10px);
 
-  box-shadow: 0 14px 32px rgba(43, 33, 24, 0.18);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
 
   cursor: pointer;
 
@@ -96,9 +103,9 @@ onBeforeUnmount(() => {
 .scroll-top:hover {
   transform: translateY(-3px);
 
-  background: #fffdf8;
+  background: var(--studio-card, #fffdf8);
 
-  box-shadow: 0 20px 40px rgba(43, 33, 24, 0.24);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .scroll-top:active {
@@ -159,7 +166,14 @@ onBeforeUnmount(() => {
 @media (min-width: 768px) {
   .scroll-top {
     right: 28px;
-    bottom: 28px;
+
+    /*
+     * Desktop không có thanh đáy — về 28px. Vẫn đọc qua biến
+     * để ở đúng điểm giao 768px (cả hai media query cùng khớp)
+     * giá trị mobile của App.vue thắng, nút không bị thanh
+     * 2 mục chính che mất.
+     */
+    bottom: var(--scroll-top-bottom, 28px);
 
     width: 52px;
     height: 52px;

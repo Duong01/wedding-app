@@ -1,5 +1,5 @@
 <template>
-  <section class="mk-section">
+  <section class="mk-section mk-section--alt">
     <div class="mk-container support-grid">
       <div class="support-copy">
         <p class="mk-eyebrow">Hỗ trợ</p>

@@ -438,7 +438,7 @@ useSeo({
   border: 1px solid var(--studio-line-strong, rgba(43, 33, 24, 0.22));
   border-radius: 12px;
 
-  background: #fffdfb;
+  background: var(--studio-card, #fffdfb);
   color: var(--studio-ink, #2b2118);
 
   font-family: inherit;

@@ -31,7 +31,17 @@
     <button type="button" class="cr-envelope" aria-label="Mở hộp quà mừng" @click="openGift">
       <span class="cr-envelope__glow" aria-hidden="true"></span>
 
-      <span class="cr-envelope__body">
+      <!-- Phong bì sau — lật ngược, nghiêng lệch ra sau -->
+      <span class="cr-envelope__body cr-envelope__body--back" aria-hidden="true">
+        <span class="cr-envelope__flap"></span>
+
+        <span class="cr-envelope__seal">
+          <img :src="doubleHappiness" alt="" draggable="false" />
+        </span>
+      </span>
+
+      <!-- Phong bì trước -->
+      <span class="cr-envelope__body cr-envelope__body--front">
         <span class="cr-envelope__flap" aria-hidden="true"></span>
 
         <span class="cr-envelope__seal" aria-hidden="true">
@@ -408,8 +418,39 @@ onBeforeUnmount(() => {
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.cr-envelope:hover .cr-envelope__body {
-  transform: translateY(-5px);
+/*
+ * Hai phong bì chồng nhau — phong bì sau lật ngược
+ * (scale âm theo trục X) rồi nghiêng lệch ra sau, phong
+ * bì trước nằm đè lên hơi xoay. Màu vẫn lấy từ biến
+ * --cr-* của theme để đồng bộ bảng màu.
+ */
+.cr-envelope__body--back {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  z-index: 1;
+
+  transform-origin: 50% 100%;
+
+  transform: translateX(20%) translateY(-10%) scale(-0.8, 0.8) rotate(-15deg);
+
+  opacity: 0.92;
+}
+
+.cr-envelope__body--front {
+  z-index: 2;
+
+  transform: rotate(-10deg);
+}
+
+.cr-envelope:hover .cr-envelope__body--back {
+  transform: translateX(26%) translateY(-14%) scale(-0.84, 0.84) rotate(-18deg);
+}
+
+.cr-envelope:hover .cr-envelope__body--front {
+  transform: rotate(-7deg) translateY(-6px);
 }
 
 /* Nắp phong bì */
@@ -875,7 +916,9 @@ onBeforeUnmount(() => {
     animation: none;
   }
 
-  .cr-envelope__body {
+  .cr-envelope__body,
+  .cr-envelope__body--back,
+  .cr-envelope__body--front {
     transition: none;
   }
 }

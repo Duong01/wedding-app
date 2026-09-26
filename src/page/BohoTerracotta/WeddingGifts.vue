@@ -11,7 +11,17 @@
       <span class="bq-envelope__spark bq-envelope__spark--3" aria-hidden="true">✦</span>
       <span class="bq-envelope__spark bq-envelope__spark--4" aria-hidden="true">✦</span>
 
-      <span class="bq-envelope__body">
+      <!-- Phong bì sau — lật ngược, nghiêng lệch ra sau -->
+      <span class="bq-envelope__body bq-envelope__body--back" aria-hidden="true">
+        <span class="bq-envelope__flap"></span>
+
+        <span class="bq-envelope__seal">
+          <img :src="goldenLine" alt="" draggable="false" />
+        </span>
+      </span>
+
+      <!-- Phong bì trước -->
+      <span class="bq-envelope__body bq-envelope__body--front">
         <span class="bq-envelope__flap" aria-hidden="true"></span>
 
         <span class="bq-envelope__seal" aria-hidden="true">
@@ -297,8 +307,34 @@ onBeforeUnmount(() => {
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.bq-envelope:hover .bq-envelope__body {
-  transform: translateY(-5px);
+/*
+ * Hai phong bì chồng nhau — phong bì sau lật ngược
+ * (scale âm theo trục X) rồi nghiêng lệch ra sau, phong
+ * bì trước nằm đè lên hơi xoay. Mọi màu vẫn lấy từ
+ * biến --bq-* của theme để đồng bộ bảng màu.
+ */
+.bq-envelope__body--back {
+  z-index: 1;
+
+  transform-origin: 50% 100%;
+
+  transform: translateX(20%) translateY(-10%) scale(-0.8, 0.8) rotate(-15deg);
+
+  opacity: 0.92;
+}
+
+.bq-envelope__body--front {
+  z-index: 2;
+
+  transform: rotate(-10deg);
+}
+
+.bq-envelope:hover .bq-envelope__body--back {
+  transform: translateX(26%) translateY(-14%) scale(-0.84, 0.84) rotate(-18deg);
+}
+
+.bq-envelope:hover .bq-envelope__body--front {
+  transform: rotate(-7deg) translateY(-6px);
 }
 
 /* Nắp phong bì */
@@ -354,7 +390,8 @@ onBeforeUnmount(() => {
 .bq-envelope__spark {
   position: absolute;
 
-  z-index: 2;
+  /* Trên cả hai phong bì (phong bì trước cũng z-index 2). */
+  z-index: 3;
 
   color: var(--bq-ink);
 
@@ -772,7 +809,9 @@ onBeforeUnmount(() => {
     animation: none;
   }
 
-  .bq-envelope__body {
+  .bq-envelope__body,
+  .bq-envelope__body--back,
+  .bq-envelope__body--front {
     transition: none;
   }
 }

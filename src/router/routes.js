@@ -127,7 +127,13 @@ export default [
     component: () => import("@/views/Manage.vue"),
     meta: {
       title: "Quản lý thiệp",
-      requiresAuth: true,
+      /*
+       * Cho phép vào KHÔNG cần đăng nhập — chưa đăng
+       * nhập thì trang hiển thị bản nháp lưu trên máy
+       * (localStorage). Đăng nhập rồi mới lấy danh
+       * sách thiệp từ API (xử lý trong Manage.vue).
+       */
+      requiresAuth: false,
       roles: ["Admin", "User"],
     },
   },

@@ -33,6 +33,38 @@ export function useWeddingTheme(wedding) {
     const layout =
       data.Layout || data.layout || {};
 
+    /*
+     * Dữ liệu cũ (mock, thiệp lưu sớm) có chỗ lưu URL ảnh
+     * vào trường màu — vd Colors.Background là link pexels.
+     * URL không phải màu: gán vào biến thì mọi chỗ viết
+     * `background-color: var(--background, ...)` thành giá
+     * trị vô hiệu lúc tính toán → nền TRONG SUỐT (fallback
+     * sau var() không có tác dụng vì biến vẫn được định
+     * nghĩa).
+     *
+     * Gặp URL thì trả về undefined — Vue bỏ qua thuộc tính
+     * style có giá trị undefined, biến không được gán, và
+     * fallback ngay trong CSS của TỪNG THEME (màu thiết kế
+     * đúng của theme đó) tự có hiệu lực.
+     */
+    const isImageUrl = (value) =>
+      typeof value === "string" &&
+      /^(https?:|data:|url\()/i.test(value.trim());
+
+    const pickColor = (value, fallback) =>
+      isImageUrl(value) ? undefined : value || fallback;
+
+    const primary =
+      pickColor(colors.Primary || colors.primary, "#7b0d0d");
+
+    const accent =
+      pickColor(colors.Accent || colors.accent, "#c79d5c");
+
+    const white =
+      pickColor(colors.White || colors.white, "#fffaf4");
+
+    const textSecondary =
+      pickColor(colors.TextSecondary || colors.textSecondary, "#806f66");
 
     return {
 
@@ -40,46 +72,39 @@ export function useWeddingTheme(wedding) {
          COLORS
       ==================================================== */
 
-      "--primary":
-        colors.Primary || colors.primary || "#7b0d0d",
+      "--primary": primary,
 
       "--secondary":
-        colors.Secondary || colors.secondary || "#9d2525",
+        pickColor(colors.Secondary || colors.secondary, "#9d2525"),
 
-      "--accent":
-        colors.Accent || colors.accent || "#c79d5c",
+      "--accent": accent,
 
       "--accent-light":
-        colors.AccentLight || colors.accentLight || "#f7d8a3",
+        pickColor(colors.AccentLight || colors.accentLight, "#f7d8a3"),
 
       "--background":
-        colors.Background || colors.background || "#f8f5ed",
+        pickColor(colors.Background || colors.background, "#f8f5ed"),
 
       "--background-secondary":
-        colors.BackgroundSecondary ||
-        colors.backgroundSecondary ||
-        "#eee8dc",
+        pickColor(
+          colors.BackgroundSecondary || colors.backgroundSecondary,
+          "#eee8dc"
+        ),
 
       "--text":
-        colors.Text || colors.text || "#5c4d46",
+        pickColor(colors.Text || colors.text, "#5c4d46"),
 
-      "--text-secondary":
-        colors.TextSecondary || colors.textSecondary || "#806f66",
+      "--text-secondary": textSecondary,
 
-      "--white":
-        colors.White || colors.white || "#fffaf4",
-
+      "--white": white,
 
       /* ====================================================
          DERIVED COLORS
       ==================================================== */
 
-      "--surface":
-        colors.White || colors.white || "#fffdf9",
+      "--surface": white,
 
-      "--heading":
-        colors.Primary || colors.primary || "#5d1717",
-
+      "--heading": primary,
 
       /* ====================================================
          FONTS
@@ -100,7 +125,6 @@ export function useWeddingTheme(wedding) {
           ? `"${fonts.Script || fonts.script}", cursive`
           : '"Allura", cursive',
 
-
       /* ====================================================
          LEGACY
       ==================================================== */
@@ -110,15 +134,11 @@ export function useWeddingTheme(wedding) {
           ? `"${fonts.Heading || fonts.heading}", Georgia, serif`
           : '"Cormorant Garamond", Georgia, serif',
 
-      "--gold":
-        colors.Accent || colors.accent || "#c79d5c",
+      "--gold": accent,
 
-      "--paper":
-        colors.White || colors.white || "#fffdf9",
+      "--paper": white,
 
-      "--sub-text":
-        colors.TextSecondary || colors.textSecondary || "#806f66",
-
+      "--sub-text": textSecondary,
 
       /* ====================================================
          LAYOUT

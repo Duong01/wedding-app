@@ -337,7 +337,7 @@ useSeo({
 }
 
 .compare-card.is-muted {
-  background: rgba(255, 253, 248, 0.6);
+  background: var(--studio-glass, rgba(255, 253, 248, 0.6));
 }
 
 .compare-card.is-strong {
@@ -457,7 +457,7 @@ useSeo({
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
   border-radius: 22px;
 
-  background: rgba(255, 253, 248, 0.75);
+  background: var(--studio-glass, rgba(255, 253, 248, 0.75));
 }
 
 .flow-seal {

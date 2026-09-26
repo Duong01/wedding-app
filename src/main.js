@@ -22,6 +22,10 @@ import "./assets/styles/app.css";
 // Khung dùng chung cho trang chủ + các trang marketing/hỗ trợ
 // (Giới thiệu, Bảng giá, Hướng dẫn, Liên hệ, trang đích SEO).
 import "./assets/styles/marketing.css";
+
+// Lớp phủ tối — đảo token studio khi <html> có class theme-dark
+// (xem stores/theme.js + script inline trong index.html).
+import "./assets/styles/dark.css";
 import * as directives from "vuetify/directives";
 
 const vuetify = createVuetify({
@@ -45,6 +49,23 @@ const vuetify = createVuetify({
                     error: "#a03030",
                     info: "#2196F3",
                     warning: "#9a6b1f"
+                }
+            },
+
+            // Đồng bộ với dark.css (class theme-dark trên <html>)
+            // — App.vue đổi theme Vuetify theo store theme.
+            dark: {
+                dark: true,
+
+                colors: {
+                    primary: "#c96b5b",
+                    secondary: "#d3b271",
+                    background: "#17120d",
+                    surface: "#241d15",
+                    success: "#7fbf8f",
+                    error: "#d07070",
+                    info: "#64a8e8",
+                    warning: "#d3b271"
                 }
             }
         }

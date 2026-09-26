@@ -320,15 +320,26 @@ function openInvitation() {
   position: absolute;
   inset: 0;
 
+  z-index: 2;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   padding: 16px;
 
+  /*
+   * Thiệp nhô lên trên miệng phong bì để tên cô dâu
+   * chú rể + ngày cưới nhìn thấy được ngay từ đầu,
+   * không bị mặt trước phong bì che khuất.
+   */
+  transform: translateY(-16%);
+
   transform-origin: 50% 100%;
 
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease;
 }
 
 .mw-card__outer {
@@ -491,16 +502,26 @@ function openInvitation() {
 }
 
 /* =========================================================
-   MẶT TRƯỚC PHONG BÌ
+   MẶT TRƯỚC PHONG BÌ — túi đáy, chỉ che nửa dưới
+   để phần trên của thiệp (tên + ngày) lộ ra ngoài.
 ========================================================= */
 
 .mw-envelope__front {
   position: absolute;
-  inset: 0;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 3;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  height: 46%;
+
+  overflow: hidden;
 
   border: 1px solid var(--mw-hairline);
   border-radius: 16px;
@@ -510,6 +531,26 @@ function openInvitation() {
   transform-origin: 50% 100%;
 
   transition: transform 0.9s cubic-bezier(0.5, 0, 0.75, 0.4), opacity 0.6s ease;
+}
+
+/*
+ * Nắp tam giác gắn mép trên của túi — nhìn như phong bì
+ * thật đang hé miệng, thiệp chui lên từ trong.
+ */
+.mw-envelope__front::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 90px;
+
+  background: linear-gradient(180deg, var(--mw-paper), var(--mw-blue-mist));
+
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
 }
 
 .mw-envelope__flower {
@@ -533,12 +574,19 @@ function openInvitation() {
 }
 
 .mw-envelope__seal {
+  position: absolute;
+
+  top: 46px;
+  left: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 76px;
   height: 76px;
+
+  transform: translateX(-50%);
 
   border: 1px solid var(--mw-blue);
   border-radius: 50%;
@@ -603,11 +651,11 @@ function openInvitation() {
 }
 
 .is-opening .mw-card {
-  transform: translateY(-40px) scale(1.04);
+  transform: translateY(-26%) scale(1.04);
 }
 
 .is-opened .mw-card {
-  transform: translateY(-120px) scale(1.06);
+  transform: translateY(-16%) scale(1.06);
 
   opacity: 0;
 }

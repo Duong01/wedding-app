@@ -42,6 +42,13 @@
               @error="handleImageError"
             />
 
+            <span
+              v-if="item.isNew"
+              class="carousel__new"
+            >
+              Mới
+            </span>
+
             <span class="carousel__orn" aria-hidden="true">
               {{ item.orn }}
             </span>
@@ -476,6 +483,31 @@ function handleImageError(event) {
   -webkit-user-drag: none;
 }
 
+.carousel__new {
+  position: absolute;
+
+  top: 10px;
+  left: 10px;
+
+  z-index: 2;
+
+  padding: 3px 10px;
+
+  border-radius: 999px;
+
+  background: var(--studio-seal, #a63a2e);
+
+  color: #fff;
+
+  font-size: 9.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  box-shadow: 0 6px 16px rgba(166, 58, 46, 0.4);
+}
+
 .carousel__orn {
   position: absolute;
 
@@ -641,7 +673,7 @@ function handleImageError(event) {
   border: 0;
   border-radius: 50%;
 
-  background: rgba(43, 33, 24, 0.2);
+  background: rgba(43, 33, 24, 0.18);
 
   cursor: pointer;
 

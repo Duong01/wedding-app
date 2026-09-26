@@ -203,6 +203,8 @@ import { computed } from "vue";
 
 import { THEME_META } from "@/data/templateCollections";
 
+import { THEME_PALETTES } from "@/stores/weddingEditor";
+
 import { parseWeddingDate } from "@/utils/datetime";
 
 const props = defineProps({
@@ -230,9 +232,11 @@ const COLOR_FIELDS = [
 ];
 
 /*
- * Bảng màu lấy từ THEME_META của bộ sưu tập — người dùng
- * chọn 1 nút là có ngay bộ màu hài hoà, không phải tự
- * phối 9 màu bằng tay.
+ * Bảng màu có sẵn — lấy đúng bộ màu của từng mẫu thiệp
+ * (THEME_PALETTES, cùng nguồn với init() của editor store)
+ * để bấm preset là thiệp ra đúng màu bản demo. Swatch trên
+ * nút vẫn dùng màu nhận diện của gallery (THEME_META) cho
+ * đồng bộ với thẻ mẫu.
  */
 const PRESETS = Object.entries(THEME_META)
   .map(([slug, meta]) => ({
@@ -244,7 +248,7 @@ const PRESETS = Object.entries(THEME_META)
       meta.palette.accent,
       meta.palette.seal,
     ],
-    palette: meta.palette,
+    palette: THEME_PALETTES[slug] || meta.palette,
   }))
   .filter((preset) => preset.palette);
 
@@ -252,9 +256,9 @@ function isPresetActive(preset) {
   const colors = props.wedding.theme?.Colors || {};
 
   return (
-    colors.Background === preset.palette.bg &&
-    colors.Text === preset.palette.ink &&
-    colors.Accent === preset.palette.accent
+    colors.Background === preset.palette.Background &&
+    colors.Text === preset.palette.Text &&
+    colors.Accent === preset.palette.Accent
   );
 }
 
@@ -263,15 +267,15 @@ function applyPreset(preset) {
 
   const palette = preset.palette;
 
-  colors.Background = palette.bg;
-  colors.BackgroundSecondary = palette.bg;
-  colors.Text = palette.ink;
-  colors.TextSecondary = palette.soft;
-  colors.Accent = palette.accent;
-  colors.AccentLight = palette.accent;
-  colors.Primary = palette.seal;
-  colors.Secondary = palette.seal;
-  colors.White = palette.bg;
+  colors.Primary = palette.Primary;
+  colors.Secondary = palette.Secondary;
+  colors.Accent = palette.Accent;
+  colors.AccentLight = palette.AccentLight;
+  colors.Background = palette.Background;
+  colors.BackgroundSecondary = palette.BackgroundSecondary;
+  colors.Text = palette.Text;
+  colors.TextSecondary = palette.TextSecondary;
+  colors.White = palette.White;
 }
 
 /* =====================================================

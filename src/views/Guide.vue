@@ -511,10 +511,10 @@ useSeo({
   border-radius: 22px;
 
   background:
-    radial-gradient(circle at 70% 20%, rgba(185, 151, 91, 0.28), transparent 60%),
-    linear-gradient(135deg, #241b12, #4a3a28);
+    radial-gradient(circle at 70% 20%, rgba(233, 189, 118, 0.3), transparent 60%),
+    linear-gradient(135deg, #a63a2e, #7c2a20);
 
-  box-shadow: 0 24px 56px rgba(43, 33, 24, 0.2);
+  box-shadow: 0 24px 56px rgba(166, 58, 46, 0.24);
 }
 
 .video-frame iframe {
@@ -552,7 +552,7 @@ useSeo({
 
   border-radius: 50%;
 
-  background: rgba(247, 241, 230, 0.94);
+  background: var(--studio-contrast-bg, rgba(247, 241, 230, 0.94));
   color: var(--studio-seal, #a63a2e);
 
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);

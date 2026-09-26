@@ -1,5 +1,5 @@
 <template>
-  <section class="mk-section">
+  <section class="mk-section mk-section--alt">
     <div class="mk-container">
       <header class="mk-head mk-head--center">
         <p class="mk-eyebrow">Vì sao chọn chúng tôi</p>

@@ -471,19 +471,20 @@ label {
 =========================================================== */
 
 :root {
-  /* Mực nho ấm — chữ và nền tối */
+  /* Mực nho ấm — chữ chính */
   --studio-ink: #2b2118;
 
   --studio-ink-soft: #5c4f43;
 
   --studio-ink-faint: #8a7a68;
 
-  /* Giấy dó — nền trang */
-  --studio-paper: #f7f1e6;
+  /* Giấy dó sáng — nền trang */
+  --studio-paper: #faf7ef;
 
-  --studio-paper-deep: #efe6d4;
+  --studio-paper-deep: #f3ecdd;
 
-  --studio-card: #fffdf8;
+  /* Thẻ trắng sạch — nổi trên nền kem */
+  --studio-card: #ffffff;
 
   /* Vàng kim foil */
   --studio-foil: #b9975b;
@@ -492,10 +493,32 @@ label {
 
   --studio-foil-soft: rgba(185, 151, 91, 0.16);
 
-  /* Đỏ ấn son — điểm nhấn rất tiết chế */
+  /* Đỏ ấn son — điểm nhấn chủ đạo */
   --studio-seal: #a63a2e;
 
   --studio-line: rgba(43, 33, 24, 0.14);
 
   --studio-line-strong: rgba(43, 33, 24, 0.28);
+
+  /* Nền đối cực — nút/chip đảo màu */
+  --studio-contrast-bg: #2b2118;
+
+  --studio-contrast-ink: #f7f1e6;
+
+  /* Kính mờ cho tab, thanh công cụ, nút ghost */
+  --studio-glass: rgba(255, 255, 255, 0.72);
+
+  --studio-glass-strong: rgba(255, 255, 255, 0.9);
 }
+
+/*
+ * KHUNG SÁNG (marketing frame)
+ * -----------------------------------------------------------
+ * Toàn bộ trang công khai (trang chủ, thư viện mẫu, trang đích
+ * SEO, trang giới thiệu mẫu) dùng thẳng token studio sáng ở
+ * trên: nền giấy dó kem sáng, thẻ trắng, chữ mực nho. Ảnh thiệp
+ * vốn dày màu (đỏ son, kem, vàng) nên nổi bật trên nền sáng;
+ * đỏ ấn son giữ vai trò điểm nhấn cho nút bấm và tiêu đề phụ.
+ * Các trang ứng dụng (editor, quản lý, tài khoản, thanh toán)
+ * dùng chung token này nên luôn đồng nhất nhận diện.
+ */
