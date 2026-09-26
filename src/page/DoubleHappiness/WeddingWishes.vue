@@ -611,7 +611,7 @@ async function submitWish() {
 
 .dh-wishes input::placeholder,
 .dh-wishes textarea::placeholder {
-  color: #bda08a;
+  color: #7b685a;
 }
 
 .dh-wishes textarea {
@@ -628,7 +628,7 @@ async function submitWish() {
   right: 7px;
   bottom: -15px;
 
-  color: #bda08a;
+  color: #7b685a;
 
   font-size: 10px;
 }
@@ -695,7 +695,7 @@ async function submitWish() {
 
   padding: 25px 10px 20px;
 
-  color: #a89488;
+  color: #76685f;
 }
 
 .dh-empty-seal {
@@ -728,7 +728,7 @@ async function submitWish() {
 }
 
 .dh-no-wishes span {
-  color: #a89488;
+  color: #76685f;
 
   font-size: 11px;
 
@@ -895,7 +895,7 @@ async function submitWish() {
 }
 
 .dh-wish-header span {
-  color: #b09a8c;
+  color: #7b6c62;
 
   font-size: 10px;
 }

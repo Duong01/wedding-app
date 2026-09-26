@@ -138,7 +138,7 @@ function formatTime(index) {
 .lc-eyebrow {
   margin: 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -165,7 +165,7 @@ function formatTime(index) {
 
   margin: 0 auto;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 13px;
 
@@ -293,7 +293,7 @@ function formatTime(index) {
 
   margin-bottom: 8px;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 11px;
   font-weight: 700;
@@ -309,7 +309,7 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #a086b4;
+  color: #766384;
 
   border-radius: 50%;
 
@@ -335,7 +335,7 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #a086b4;
+  color: #766384;
 
   border: 1px solid rgba(185, 160, 208, 0.35);
   border-radius: 50%;
@@ -386,7 +386,7 @@ function formatTime(index) {
 
   border-top: 1px solid rgba(185, 160, 208, 0.2);
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 11px;
 
@@ -394,7 +394,7 @@ function formatTime(index) {
 }
 
 .lc-timeline__location .v-icon {
-  color: #a086b4;
+  color: #766384;
 
   flex: 0 0 auto;
 }
@@ -413,7 +413,7 @@ function formatTime(index) {
 
   margin-top: 27px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-timeline__footer span {

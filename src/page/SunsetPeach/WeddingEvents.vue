@@ -561,7 +561,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-mini-divider span {
@@ -597,7 +597,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-event-main-date {
@@ -629,7 +629,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-date-side strong {
@@ -643,7 +643,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
   font-style: italic;
 
-  color: #a3806f;
+  color: #846859;
 }
 
 /* =====================================================
@@ -675,7 +675,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-event-time strong {
@@ -735,7 +735,7 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #e0a37e;
+  border: 1px solid #86624c;
 
   background: #fffaf5;
 
@@ -745,7 +745,7 @@ onBeforeUnmount(() => {
 .sp-schedule-dot span {
   font-size: 11px;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-schedule-content {
@@ -762,7 +762,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #a3806f;
+  color: #846859;
 }
 
 .sp-schedule-content strong {
@@ -800,7 +800,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-calendar__header strong {
@@ -831,7 +831,7 @@ onBeforeUnmount(() => {
   font-size: 10px;
   font-weight: 700;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-calendar__cell {
@@ -864,7 +864,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-active-day span:last-child {
@@ -890,7 +890,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 /* =====================================================
@@ -914,7 +914,7 @@ onBeforeUnmount(() => {
 
   color: #fff6ef;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   box-shadow: 0 10px 24px rgba(122, 74, 61, 0.24);
 
@@ -948,7 +948,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-event-bottom span {
@@ -1042,7 +1042,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #d67a63;
+  color: #995746;
 
   background: transparent;
 
@@ -1058,7 +1058,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-modal-header > span {
@@ -1066,7 +1066,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-modal-header h3 {
@@ -1108,7 +1108,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-form-group input {
@@ -1131,7 +1131,7 @@ onBeforeUnmount(() => {
 }
 
 .sp-form-group input:focus {
-  border-color: #d67a63;
+  border-color: #995746;
 
   box-shadow: 0 0 0 3px rgba(214, 122, 99, 0.14);
 }
@@ -1162,7 +1162,7 @@ onBeforeUnmount(() => {
 }
 
 .sp-attendance-option.selected {
-  border-color: #d67a63;
+  border-color: #995746;
 
   background: rgba(214, 122, 99, 0.12);
 
@@ -1172,7 +1172,7 @@ onBeforeUnmount(() => {
 .sp-attendance-option span {
   margin-right: 8px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-people-control {
@@ -1186,7 +1186,7 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #e0a37e;
+  border: 1px solid #86624c;
   border-radius: 50%;
 
   font-size: 20px;
@@ -1228,7 +1228,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-recipient-box strong {
@@ -1262,7 +1262,7 @@ onBeforeUnmount(() => {
 }
 
 .sp-form-success {
-  color: #66805d;
+  color: #5c7354;
 
   background: rgba(102, 128, 93, 0.08);
 }
@@ -1284,7 +1284,7 @@ onBeforeUnmount(() => {
 
   color: #fff6ef;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   box-shadow: 0 10px 24px rgba(122, 74, 61, 0.24);
 

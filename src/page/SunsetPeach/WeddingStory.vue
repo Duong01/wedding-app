@@ -38,7 +38,7 @@ const storyTitle = computed(() =>
 .sp-eyebrow {
   margin: 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -60,7 +60,7 @@ const storyTitle = computed(() =>
 .sp-quote {
   height: 35px;
 
-  color: #e0a37e;
+  color: #86624c;
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -79,7 +79,7 @@ const storyTitle = computed(() =>
 .sp-tail {
   margin-top: 18px;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 15px;
 }

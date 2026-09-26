@@ -260,7 +260,7 @@ const weddingTime = computed(() => {
 .cb-eyebrow {
   margin: 0;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -288,7 +288,7 @@ const weddingTime = computed(() => {
 
   margin: 0 auto;
 
-  color: #c9a06a;
+  color: #896d48;
 
   font-size: 14px;
 }
@@ -353,7 +353,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-person__parents {
@@ -363,7 +363,7 @@ const weddingTime = computed(() => {
 .cb-parents {
   margin: 2px 0;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 11px;
 
@@ -387,7 +387,7 @@ const weddingTime = computed(() => {
 .cb-person__role {
   display: block;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 11px;
 
@@ -415,7 +415,7 @@ const weddingTime = computed(() => {
 }
 
 .cb-couple-divider i {
-  color: #c9a06a;
+  color: #896d48;
 
   font-family: "Allura", cursive;
   font-size: 34px;
@@ -481,7 +481,7 @@ const weddingTime = computed(() => {
 }
 
 .cb-date-side span {
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -512,7 +512,7 @@ const weddingTime = computed(() => {
 .cb-lunar {
   margin-top: 12px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 11px;
   font-style: italic;
@@ -544,7 +544,7 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.2em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-time-content strong {

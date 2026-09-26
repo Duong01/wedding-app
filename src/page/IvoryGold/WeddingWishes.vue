@@ -303,7 +303,7 @@ async function submitWish() {
 
   margin-bottom: 5px;
 
-  color: #a77b3d;
+  color: #8e6934;
 
   font-size: 10px;
 
@@ -543,7 +543,7 @@ async function submitWish() {
 }
 
 .form-title-icon {
-  color: #b18443;
+  color: #8e6a36;
 
   font-size: 11px;
 }
@@ -587,7 +587,7 @@ async function submitWish() {
 
   z-index: 2;
 
-  color: #b18443;
+  color: #8e6a36;
 
   font-size: 11px;
 
@@ -640,12 +640,12 @@ async function submitWish() {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #ae9a82;
+  color: #7a6c5b;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #a77b3d;
+  border-color: #8e6934;
 
   background: #fffdf7;
 
@@ -856,7 +856,7 @@ async function submitWish() {
 
   padding: 20px;
 
-  color: #987b5d;
+  color: #81694f;
 
   border: 1px dashed rgba(181, 139, 67, 0.35);
 

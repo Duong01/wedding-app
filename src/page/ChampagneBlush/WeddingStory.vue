@@ -38,7 +38,7 @@ const storyTitle = computed(() =>
 .cb-eyebrow {
   margin: 0;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -60,7 +60,7 @@ const storyTitle = computed(() =>
 .cb-quote {
   height: 35px;
 
-  color: #c9a06a;
+  color: #896d48;
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -79,7 +79,7 @@ const storyTitle = computed(() =>
 .cb-tail {
   margin-top: 18px;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 15px;
 }

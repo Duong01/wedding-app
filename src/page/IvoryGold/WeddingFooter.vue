@@ -287,7 +287,7 @@ const copyrightText = computed(() => {
 .footer-monogram {
   margin-top: 15px;
 
-  color: #a77c3e;
+  color: #8e6935;
 
   font-family:
     Arial,
@@ -338,7 +338,7 @@ const copyrightText = computed(() => {
     0
     7px;
 
-  color: #b28a4c;
+  color: #866839;
 
   font-family:
     Georgia,
@@ -492,7 +492,7 @@ const copyrightText = computed(() => {
 
   padding-top: 23px;
 
-  color: #a68b66;
+  color: #856f52;
 
   font-family:
     Arial,

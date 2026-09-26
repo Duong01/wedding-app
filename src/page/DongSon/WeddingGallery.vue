@@ -77,7 +77,7 @@ function closeLightbox() {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .4em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 h2 {
@@ -91,13 +91,13 @@ h2 {
   font-family: Georgia, serif;
   font-style: italic;
   font-size: 13px;
-  color: #80675f;
+  color: #765f57;
 }
 
 .gallery-empty {
   padding: 60px 20px;
   text-align: center;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .gallery-empty p {

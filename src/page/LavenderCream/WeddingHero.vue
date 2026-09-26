@@ -146,10 +146,10 @@ const dateText = computed(() => {
 <style scoped>
 .lc-hero {
   --lc-deep: #584a5b;
-  --lc-lavender: #a086b4;
+  --lc-lavender: #766384;
   --lc-plum: #7d6390;
   --lc-lilac: #d8c0de;
-  --lc-line: #b9a0d0;
+  --lc-line: #736482;
   --lc-cream: #faf8fc;
 
   position: relative;

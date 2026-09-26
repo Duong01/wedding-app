@@ -83,7 +83,7 @@ defineProps({
 .title small {
   font-size: 10px;
   letter-spacing: .4em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 h2 {
@@ -94,7 +94,7 @@ h2 {
 }
 
 .title-mark {
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .event-list {
@@ -124,7 +124,7 @@ h2 {
 
 .event-number {
   font-family: Georgia, serif;
-  color: #a96b32;
+  color: #8b5829;
   font-size: 12px;
 }
 
@@ -135,9 +135,9 @@ h2 {
   height: 50px;
   display: grid;
   place-items: center;
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   border-radius: 50%;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .event-content {
@@ -148,7 +148,7 @@ h2 {
 .event-type {
   font-size: 10px;
   letter-spacing: .3em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 h3 {
@@ -167,7 +167,7 @@ h3 {
 .event-row b {
   font-size: 11px;
   letter-spacing: .2em;
-  color: #9b6257;
+  color: #8f5a50;
 }
 
 .event-row span {
@@ -182,7 +182,7 @@ h3 {
   display: inline-block;
   margin-top: 18px;
   padding: 9px 14px;
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   color: #641914;
   text-decoration: none;
   font-size: 10px;
@@ -192,7 +192,7 @@ h3 {
 }
 
 .map-button:hover {
-  background: #a96b32;
+  background: #8b5829;
   color: #fffaf0;
 }
 

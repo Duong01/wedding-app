@@ -436,7 +436,7 @@ async function copyAccount(gift) {
 
   margin-bottom: 5px;
 
-  color: #a37a3d;
+  color: #8b6834;
 
   font-size: 10px;
   font-weight: 900;
@@ -772,7 +772,7 @@ async function copyAccount(gift) {
 
   margin-top: 3px;
 
-  color: #a17a40;
+  color: #896836;
 
   font-size: 10px;
   font-weight: 900;
@@ -997,7 +997,7 @@ async function copyAccount(gift) {
 
   margin-top: 4px;
 
-  color: #a27a40;
+  color: #8a6836;
 
   font-size: 11px;
   font-weight: 800;
@@ -1156,7 +1156,7 @@ async function copyAccount(gift) {
 
   margin-top: 6px;
 
-  color: #a0793e;
+  color: #906d38;
 
   font-size: 10px;
   font-weight: 900;

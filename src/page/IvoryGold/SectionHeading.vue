@@ -45,7 +45,7 @@ defineProps({
 }
 
 .heading-line i {
-  color: #b28a42;
+  color: #8e6e35;
   font-size: 10px;
   font-style: normal;
 }

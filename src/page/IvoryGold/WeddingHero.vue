@@ -400,7 +400,7 @@ const coupleImage = computed(() => {
 .hero-intro {
   margin-top: -2px;
 
-  color: #a17b43;
+  color: #896939;
 
   font-size: 10px;
 
@@ -546,7 +546,7 @@ const coupleImage = computed(() => {
 
   gap: 8px;
 
-  color: #b58a45;
+  color: #886834;
 }
 
 
@@ -600,7 +600,7 @@ const coupleImage = computed(() => {
 
 
 .date-label {
-  color: #a17b43;
+  color: #896939;
 
   font-size: 11px;
 
@@ -630,7 +630,7 @@ const coupleImage = computed(() => {
 .subtitle {
   margin-top: 18px;
 
-  color: #a17b43;
+  color: #896939;
 
   font-size: 10px;
 
@@ -679,7 +679,7 @@ const coupleImage = computed(() => {
 
 
 .bottom-symbol b {
-  color: #b58a45;
+  color: #886834;
 
   font-size: 10px;
 

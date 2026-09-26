@@ -71,7 +71,7 @@ const values = computed(() => {
 .lc-eyebrow {
   margin: 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -126,6 +126,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #a086b4;
+  color: #766384;
 }
 </style>

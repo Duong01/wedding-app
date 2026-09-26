@@ -142,7 +142,7 @@ const dateText = computed(() => {
 <style scoped>
 .cb-hero {
   --cb-deep: #6c4b4a;
-  --cb-rose: #b67f7d;
+  --cb-rose: #926664;
   --cb-gold: #c9a06a;
   --cb-cream: #fffaf7;
 

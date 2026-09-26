@@ -274,7 +274,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 18px;
 
-  color: #a67d3e;
+  color: #8d6a35;
 
   font-size: 11px;
 
@@ -482,7 +482,7 @@ onBeforeUnmount(() => {
 
   margin-top: 6px;
 
-  color: #99754f;
+  color: #8a6947;
 
   font-size: 10px;
 
@@ -505,7 +505,7 @@ onBeforeUnmount(() => {
 
   margin-top: 5px;
 
-  color: #b48a45;
+  color: #876834;
 
   font-family:
     Georgia,

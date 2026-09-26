@@ -306,7 +306,7 @@ const storyText = computed(() => {
 
   margin-bottom: 10px;
 
-  color: #a27a3c;
+  color: #8a6833;
 
   font-size: 11px;
   font-weight: 700;
@@ -464,7 +464,7 @@ const storyText = computed(() => {
 .quote {
   position: absolute;
 
-  color: #a77b3c;
+  color: #8e6933;
 
   font-family:
     Georgia,

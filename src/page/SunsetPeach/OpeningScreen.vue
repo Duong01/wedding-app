@@ -132,9 +132,9 @@ function openInvitation() {
 <style scoped>
 .sp-opening {
   --sp-deep: #7a4a3d;
-  --sp-coral: #d67a63;
+  --sp-coral: #995746;
   --sp-peach: #f4c6a9;
-  --sp-gold: #e0a37e;
+  --sp-gold: #86624c;
   --sp-cream: #fffaf5;
 
   position: relative;
@@ -396,7 +396,7 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  background: radial-gradient(circle at 34% 30%, #e89a7e, #d67a63 58%, #b85c48 100%);
+  background: radial-gradient(circle at 34% 30%, #e89a7e, #995746 58%, #b85c48 100%);
 
   box-shadow:
     0 10px 24px rgba(184, 92, 72, 0.35),
@@ -538,7 +538,7 @@ function openInvitation() {
 
   color: #fff6ef;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   box-shadow: 0 14px 30px rgba(122, 74, 61, 0.32);
 

@@ -60,7 +60,7 @@ const values = computed(() => {
 .cb-eyebrow {
   margin: 0;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -115,6 +115,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 </style>

@@ -300,7 +300,7 @@ const weddingDate = computed(() => {
 .lc-footer__monogram-label {
   margin: 16px 0 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 11px;
 
@@ -333,7 +333,7 @@ const weddingDate = computed(() => {
 
   margin: 0 8px;
 
-  color: #b9a0d0;
+  color: #736482;
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -372,7 +372,7 @@ const weddingDate = computed(() => {
 }
 
 .lc-footer__line i {
-  color: #a086b4;
+  color: #766384;
 
   font-size: 12px;
 
@@ -388,7 +388,7 @@ const weddingDate = computed(() => {
 
   margin: 0 auto;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 11px;
 
@@ -430,7 +430,7 @@ const weddingDate = computed(() => {
 
   padding-top: 24px;
 
-  color: #a99cb0;
+  color: #716976;
 
   font-size: 11px;
 

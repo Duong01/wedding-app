@@ -100,7 +100,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -129,7 +129,7 @@ function closeLightbox() {
 
   margin-top: 13px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-gallery__ornament span {
@@ -151,7 +151,7 @@ function closeLightbox() {
 .cb-gallery__intro {
   margin: 13px 0 0;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 12px;
 
@@ -167,7 +167,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #b09a92;
+  color: #7b6c66;
 }
 
 .cb-gallery__empty p {

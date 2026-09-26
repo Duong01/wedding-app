@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 12px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-gifts__ornament span {
@@ -353,7 +353,7 @@ onBeforeUnmount(() => {
 
   margin: 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -380,7 +380,7 @@ onBeforeUnmount(() => {
 
   margin: 0 0 27px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 14px;
 
@@ -475,7 +475,7 @@ onBeforeUnmount(() => {
 
   border-radius: 32px;
 
-  background: linear-gradient(140deg, #d67a63, #b85c48 60%, #9c4a38);
+  background: linear-gradient(140deg, #995746, #b85c48 60%, #9c4a38);
 
   box-shadow:
     0 20px 40px rgba(156, 74, 56, 0.35),
@@ -532,7 +532,7 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 6;
 
-  color: #e0a37e;
+  color: #86624c;
 
   font-family: Georgia, serif;
 
@@ -563,7 +563,7 @@ onBeforeUnmount(() => {
 
   transform: translateX(-50%);
 
-  color: #b85c48;
+  color: #af5744;
 
   font-size: 11px;
   font-weight: 700;
@@ -585,7 +585,7 @@ onBeforeUnmount(() => {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(90deg, transparent, #e0a37e, transparent);
+  background: linear-gradient(90deg, transparent, #86624c, transparent);
 }
 
 /* =========================================================
@@ -708,7 +708,7 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   box-shadow: 0 7px 18px rgba(184, 92, 72, 0.28);
 
@@ -729,7 +729,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
 
-  color: #b85c48;
+  color: #af5744;
 
   border: 1px solid rgba(224, 163, 126, 0.35);
   border-radius: 50%;
@@ -752,7 +752,7 @@ onBeforeUnmount(() => {
 
   margin-top: 6px;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -780,7 +780,7 @@ onBeforeUnmount(() => {
 
   margin: 0 auto 22px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 12px;
 
@@ -842,7 +842,7 @@ onBeforeUnmount(() => {
 
   flex: 0 0 auto;
 
-  color: #b85c48;
+  color: #af5744;
 
   border: 1px solid rgba(224, 163, 126, 0.4);
   border-radius: 50%;
@@ -862,7 +862,7 @@ onBeforeUnmount(() => {
 .sp-account-bank {
   margin-top: 2px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 10px;
 }
@@ -933,7 +933,7 @@ onBeforeUnmount(() => {
   width: 18px;
   height: 18px;
 
-  border-color: #e0a37e;
+  border-color: #86624c;
   border-style: solid;
 
   pointer-events: none;
@@ -952,7 +952,7 @@ onBeforeUnmount(() => {
 
   margin-top: 7px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 11px;
   font-weight: 700;
@@ -991,7 +991,7 @@ onBeforeUnmount(() => {
 }
 
 .sp-info-label {
-  color: #d67a63;
+  color: #995746;
 
   font-size: 11px;
   font-weight: 700;
@@ -1009,7 +1009,7 @@ onBeforeUnmount(() => {
 }
 
 .sp-account-number {
-  color: #b85c48;
+  color: #af5744;
 
   letter-spacing: 0.06em;
 }
@@ -1032,7 +1032,7 @@ onBeforeUnmount(() => {
 
   flex: 0 0 auto;
 
-  color: #b85c48;
+  color: #af5744;
 
   border: 1px solid rgba(224, 163, 126, 0.35);
   border-radius: 50%;
@@ -1053,7 +1053,7 @@ onBeforeUnmount(() => {
 .sp-account-desc {
   margin-top: 9px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 10px;
   font-style: italic;
@@ -1071,7 +1071,7 @@ onBeforeUnmount(() => {
 
   margin-top: 20px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-gift-dialog__footer span {
@@ -1142,7 +1142,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
 
-  color: #b85c48;
+  color: #af5744;
 
   border: 1px solid rgba(224, 163, 126, 0.32);
   border-radius: 50%;
@@ -1189,7 +1189,7 @@ onBeforeUnmount(() => {
 .sp-qr-preview__card p {
   margin: 14px 0;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 11px;
   font-style: italic;
@@ -1207,7 +1207,7 @@ onBeforeUnmount(() => {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   font-size: 11px;
   font-weight: 700;

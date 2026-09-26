@@ -53,7 +53,7 @@ export const THEME_PALETTES = {
     Background: "#f8f5ed",
     BackgroundSecondary: "#eee8dc",
     Text: "#5c4d46",
-    TextSecondary: "#806f66",
+    TextSecondary: "#73645c",
     White: "#fffaf4",
   },
 
@@ -65,7 +65,7 @@ export const THEME_PALETTES = {
     Background: "#fdf3f4",
     BackgroundSecondary: "#f6dfe2",
     Text: "#933845",
-    TextSecondary: "#cb5d6c",
+    TextSecondary: "#984651",
     White: "#ffffff",
   },
 
@@ -89,7 +89,7 @@ export const THEME_PALETTES = {
     Background: "#ffffff",
     BackgroundSecondary: "#e8f0f4",
     Text: "#3a5666",
-    TextSecondary: "#6b8494",
+    TextSecondary: "#566a76",
     White: "#ffffff",
   },
 
@@ -113,7 +113,7 @@ export const THEME_PALETTES = {
     Background: "#f4eee2",
     BackgroundSecondary: "#e7decd",
     Text: "#49352d",
-    TextSecondary: "#79645a",
+    TextSecondary: "#6d5a51",
     White: "#fff9ed",
   },
 
@@ -125,7 +125,7 @@ export const THEME_PALETTES = {
     Background: "#24100e",
     BackgroundSecondary: "#e5d8c4",
     Text: "#f3ead8",
-    TextSecondary: "#806b5c",
+    TextSecondary: "#d4a35f",
     White: "#fffaf1",
   },
 
@@ -137,7 +137,7 @@ export const THEME_PALETTES = {
     Background: "#fffdf8",
     BackgroundSecondary: "#f0ebe0",
     Text: "#51433c",
-    TextSecondary: "#82746b",
+    TextSecondary: "#6f635b",
     White: "#fffdf8",
   },
 
@@ -149,7 +149,7 @@ export const THEME_PALETTES = {
     Background: "#f5f8f4",
     BackgroundSecondary: "#e8efe6",
     Text: "#2e3834",
-    TextSecondary: "#6d7c73",
+    TextSecondary: "#5d6962",
     White: "#ffffff",
   },
 
@@ -161,7 +161,7 @@ export const THEME_PALETTES = {
     Background: "#fffaf5",
     BackgroundSecondary: "#fdeee4",
     Text: "#523835",
-    TextSecondary: "#8a665e",
+    TextSecondary: "#836159",
     White: "#ffffff",
   },
 
@@ -173,7 +173,7 @@ export const THEME_PALETTES = {
     Background: "#fffaf7",
     BackgroundSecondary: "#f4eee8",
     Text: "#453533",
-    TextSecondary: "#806b67",
+    TextSecondary: "#7a6662",
     White: "#ffffff",
   },
 
@@ -185,7 +185,7 @@ export const THEME_PALETTES = {
     Background: "#17121b",
     BackgroundSecondary: "#f1ebe0",
     Text: "#f0e6d2",
-    TextSecondary: "#726360",
+    TextSecondary: "#b9a88f",
     White: "#ffffff",
   },
 
@@ -197,7 +197,7 @@ export const THEME_PALETTES = {
     Background: "#faf8fc",
     BackgroundSecondary: "#f1ebf4",
     Text: "#433846",
-    TextSecondary: "#7e6d82",
+    TextSecondary: "#716275",
     White: "#ffffff",
   },
 
@@ -245,7 +245,7 @@ export const THEME_PALETTES = {
     Background: "#fefbf4",
     BackgroundSecondary: "#f7f3e6",
     Text: "#1a3500",
-    TextSecondary: "#5e813c",
+    TextSecondary: "#557436",
     White: "#ffffff",
   },
 

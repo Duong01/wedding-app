@@ -507,7 +507,7 @@ onBeforeUnmount(() => {
 .lc-eyebrow {
   margin: 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -612,7 +612,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-mini-divider span {
@@ -648,7 +648,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-event-main-date {
@@ -680,7 +680,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-date-side strong {
@@ -694,7 +694,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
   font-style: italic;
 
-  color: #8d7f92;
+  color: #736877;
 }
 
 /* =====================================================
@@ -726,7 +726,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-event-time strong {
@@ -786,7 +786,7 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #b9a0d0;
+  border: 1px solid #736482;
 
   background: #faf8fc;
 
@@ -796,7 +796,7 @@ onBeforeUnmount(() => {
 .lc-schedule-dot span {
   font-size: 11px;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-schedule-content {
@@ -813,7 +813,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #8d7f92;
+  color: #736877;
 }
 
 .lc-schedule-content strong {
@@ -851,7 +851,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-calendar__header strong {
@@ -882,7 +882,7 @@ onBeforeUnmount(() => {
   font-size: 10px;
   font-weight: 700;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-calendar__cell {
@@ -915,7 +915,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-active-day span:last-child {
@@ -941,7 +941,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 /* =====================================================
@@ -965,7 +965,7 @@ onBeforeUnmount(() => {
 
   color: #fbf9ff;
 
-  background: linear-gradient(135deg, #a086b4, #7d6390);
+  background: linear-gradient(135deg, #766384, #7d6390);
 
   box-shadow: 0 10px 24px rgba(88, 74, 91, 0.24);
 
@@ -999,7 +999,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-event-bottom span {
@@ -1093,7 +1093,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #a086b4;
+  color: #766384;
 
   background: transparent;
 
@@ -1109,7 +1109,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-modal-header > span {
@@ -1117,7 +1117,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-modal-header h3 {
@@ -1159,7 +1159,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-form-group input {
@@ -1182,7 +1182,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-form-group input:focus {
-  border-color: #a086b4;
+  border-color: #766384;
 
   box-shadow: 0 0 0 3px rgba(160, 134, 180, 0.14);
 }
@@ -1213,7 +1213,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-attendance-option.selected {
-  border-color: #a086b4;
+  border-color: #766384;
 
   background: rgba(160, 134, 180, 0.12);
 
@@ -1223,7 +1223,7 @@ onBeforeUnmount(() => {
 .lc-attendance-option span {
   margin-right: 8px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-people-control {
@@ -1237,7 +1237,7 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #b9a0d0;
+  border: 1px solid #736482;
   border-radius: 50%;
 
   font-size: 20px;
@@ -1279,7 +1279,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #a086b4;
+  color: #766384;
 }
 
 .lc-recipient-box strong {
@@ -1313,7 +1313,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-form-success {
-  color: #66805d;
+  color: #5c7354;
 
   background: rgba(102, 128, 93, 0.08);
 }
@@ -1335,7 +1335,7 @@ onBeforeUnmount(() => {
 
   color: #fbf9ff;
 
-  background: linear-gradient(135deg, #a086b4, #7d6390);
+  background: linear-gradient(135deg, #766384, #7d6390);
 
   box-shadow: 0 10px 24px rgba(88, 74, 91, 0.24);
 

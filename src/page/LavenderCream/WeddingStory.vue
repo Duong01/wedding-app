@@ -57,7 +57,7 @@ const storyTitle = computed(() => {
 .lc-eyebrow {
   margin: 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -79,7 +79,7 @@ const storyTitle = computed(() => {
 .lc-quote {
   height: 35px;
 
-  color: #b9a0d0;
+  color: #736482;
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -98,7 +98,7 @@ const storyTitle = computed(() => {
 .lc-tail {
   margin-top: 18px;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 15px;
 

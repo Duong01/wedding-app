@@ -165,7 +165,7 @@ const mapSrc = computed(() => {
 
   margin-bottom: 12px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-map__ornament span {
@@ -186,7 +186,7 @@ const mapSrc = computed(() => {
 
   margin: 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -353,7 +353,7 @@ const mapSrc = computed(() => {
   align-items: center;
   justify-content: center;
 
-  color: #b85c48;
+  color: #af5744;
 
   border: 1px solid rgba(224, 163, 126, 0.45);
   border-radius: 50%;
@@ -370,7 +370,7 @@ const mapSrc = computed(() => {
 
   margin-bottom: 2px;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -409,7 +409,7 @@ const mapSrc = computed(() => {
   border: 1px solid #b85c48;
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   box-shadow: 0 5px 13px rgba(122, 74, 61, 0.2);
 
@@ -445,7 +445,7 @@ const mapSrc = computed(() => {
 
   margin-top: 24px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-map__footer-ornament span {

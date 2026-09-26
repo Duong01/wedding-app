@@ -281,7 +281,7 @@ const weddingDate = computed(() => {
 
   font-size: 30px;
 
-  color: #b85c48;
+  color: #af5744;
 
   line-height: 1;
 }
@@ -293,7 +293,7 @@ const weddingDate = computed(() => {
 .sp-footer__monogram-label {
   margin: 16px 0 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 11px;
 
@@ -326,7 +326,7 @@ const weddingDate = computed(() => {
 
   margin: 0 8px;
 
-  color: #e0a37e;
+  color: #86624c;
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -365,7 +365,7 @@ const weddingDate = computed(() => {
 }
 
 .sp-footer__line i {
-  color: #d67a63;
+  color: #995746;
 
   font-size: 12px;
 
@@ -381,7 +381,7 @@ const weddingDate = computed(() => {
 
   margin: 0 auto;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 11px;
 
@@ -399,7 +399,7 @@ const weddingDate = computed(() => {
 
   padding: 8px 18px;
 
-  color: #b85c48;
+  color: #af5744;
 
   font-size: 12px;
 
@@ -423,7 +423,7 @@ const weddingDate = computed(() => {
 
   padding-top: 24px;
 
-  color: #b09a8c;
+  color: #7b6c62;
 
   font-size: 11px;
 

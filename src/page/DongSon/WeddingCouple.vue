@@ -178,13 +178,13 @@ function initials(name) {
 .heading-line {
   width: 42px;
   height: 1px;
-  background: #a96b32;
+  background: #8b5829;
 }
 
 .section-heading small {
   font-size: 10px;
   letter-spacing: .35em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 h2 {
@@ -226,7 +226,7 @@ h2 {
 .portrait-ring {
   position: absolute;
   inset: -10px;
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   border-radius: 50%;
 }
 
@@ -263,7 +263,7 @@ h2 {
   margin-top: 28px;
   font-size: 10px;
   letter-spacing: .35em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 h3 {
@@ -278,12 +278,12 @@ h3 {
   max-width: 150px;
   font-size: 11px;
   line-height: 1.7;
-  color: #80675f;
+  color: #765f57;
 }
 
 .between {
   align-self: center;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .drum-symbol {
@@ -303,13 +303,13 @@ h3 {
   gap: 12px;
   width: 180px;
   margin: 45px auto 0;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .bottom-symbol i {
   flex: 1;
   height: 1px;
-  background: #a96b32;
+  background: #8b5829;
 }
 
 @media (max-width: 480px) {

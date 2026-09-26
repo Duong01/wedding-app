@@ -378,7 +378,7 @@ const normalizedEvents = computed(() => {
 
   margin-bottom: 6px;
 
-  color: #a47b3f;
+  color: #8b6936;
 
   font-size: 10px;
 
@@ -525,7 +525,7 @@ const normalizedEvents = computed(() => {
 
   padding: 20px;
 
-  color: #927b62;
+  color: #836f58;
 
   font-size: 11px;
 
@@ -1014,7 +1014,7 @@ const normalizedEvents = computed(() => {
 
   padding: 30px 15px;
 
-  color: #927b62;
+  color: #836f58;
 
   font-size: 11px;
 

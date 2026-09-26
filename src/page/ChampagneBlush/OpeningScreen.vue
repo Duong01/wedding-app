@@ -131,7 +131,7 @@ function openInvitation() {
 <style scoped>
 .cb-opening {
   --cb-deep: #6c4b4a;
-  --cb-rose: #b67f7d;
+  --cb-rose: #926664;
   --cb-champagne: #ead2b6;
   --cb-gold: #c9a06a;
   --cb-cream: #fffaf7;
@@ -510,7 +510,7 @@ function openInvitation() {
 
   color: #fff8ee;
 
-  background: linear-gradient(135deg, #b67f7d, #8f5a56);
+  background: linear-gradient(135deg, #926664, #8f5a56);
 
   box-shadow: 0 14px 30px rgba(108, 75, 74, 0.32);
 

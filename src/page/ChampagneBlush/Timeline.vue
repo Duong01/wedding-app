@@ -117,7 +117,7 @@ function formatTime(index) {
 .cb-eyebrow {
   margin: 0;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -144,7 +144,7 @@ function formatTime(index) {
 
   margin: 0 auto;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 13px;
 
@@ -269,7 +269,7 @@ function formatTime(index) {
 
   margin-bottom: 8px;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 11px;
   font-weight: 700;
@@ -285,7 +285,7 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #b67f7d;
+  color: #926664;
 
   border-radius: 50%;
 
@@ -311,7 +311,7 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #b67f7d;
+  color: #926664;
 
   border: 1px solid rgba(201, 160, 106, 0.35);
   border-radius: 50%;
@@ -362,7 +362,7 @@ function formatTime(index) {
 
   border-top: 1px solid rgba(201, 160, 106, 0.2);
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 11px;
 
@@ -370,7 +370,7 @@ function formatTime(index) {
 }
 
 .cb-timeline__location .v-icon {
-  color: #b67f7d;
+  color: #926664;
 
   flex: 0 0 auto;
 }
@@ -389,7 +389,7 @@ function formatTime(index) {
 
   margin-top: 27px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-timeline__footer span {

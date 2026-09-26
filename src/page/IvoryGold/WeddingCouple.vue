@@ -548,7 +548,7 @@ const address = computed(() =>
 
   margin-bottom: 5px;
 
-  color: #a8875a;
+  color: #866c48;
 
   font-size: 11px;
   font-weight: 800;
@@ -572,7 +572,7 @@ const address = computed(() =>
 .double-happiness {
   margin-top: 7px;
 
-  color: #c9a45c;
+  color: #836b3c;
 
   font-family: "Times New Roman", serif;
 
@@ -619,7 +619,7 @@ const address = computed(() =>
 .family-label {
   margin-bottom: 10px;
 
-  color: #a8875a;
+  color: #866c48;
 
   font-size: 10px;
   font-weight: 800;
@@ -642,7 +642,7 @@ const address = computed(() =>
 }
 
 .parent-role {
-  color: #9a8266;
+  color: #836f57;
 
   font-size: 10px;
   font-weight: 700;
@@ -664,7 +664,7 @@ const address = computed(() =>
 
   padding: 0 8px;
 
-  color: #c9a45c;
+  color: #836b3c;
 
   font-family: "Times New Roman", serif;
 
@@ -672,7 +672,7 @@ const address = computed(() =>
 }
 
 .family-divider b {
-  color: #c9a45c;
+  color: #836b3c;
 
   font-family: "Times New Roman", serif;
 
@@ -737,13 +737,13 @@ const address = computed(() =>
   font-size: 40px;
   font-weight: 600;
 
-  color: #c9a45c;
+  color: #836b3c;
 }
 
 .person-role {
   margin-bottom: 7px;
 
-  color: #a8875a;
+  color: #866c48;
 
   font-size: 11px;
   font-weight: 800;
@@ -782,7 +782,7 @@ const address = computed(() =>
 }
 
 .name-decoration i {
-  color: #c9a45c;
+  color: #836b3c;
 
   font-size: 11px;
 
@@ -805,7 +805,7 @@ const address = computed(() =>
 }
 
 .couple-mark strong {
-  color: #c9a45c;
+  color: #836b3c;
 
   font-family: "Times New Roman", serif;
 
@@ -829,7 +829,7 @@ const address = computed(() =>
 .date-label {
   margin-bottom: 9px;
 
-  color: #a8875a;
+  color: #866c48;
 
   font-size: 10px;
   font-weight: 800;
@@ -880,7 +880,7 @@ const address = computed(() =>
 }
 
 .day {
-  color: #c9a45c;
+  color: #836b3c;
 
   font-family: Georgia, "Times New Roman", serif;
 
@@ -905,7 +905,7 @@ const address = computed(() =>
 .year {
   margin-top: 8px;
 
-  color: #8a7a5e;
+  color: #7c6e55;
 
   font-family: Georgia, "Times New Roman", serif;
 
@@ -936,7 +936,7 @@ const address = computed(() =>
 .location-icon {
   margin-bottom: 5px;
 
-  color: #a8875a;
+  color: #866c48;
 
   font-size: 14px;
 }

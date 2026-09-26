@@ -1338,7 +1338,7 @@ onBeforeUnmount(() => {
 }
 
 .dh-form-success {
-  color: #66805d;
+  color: #5c7354;
 
   background: rgba(102, 128, 93, 0.08);
 }

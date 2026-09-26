@@ -943,7 +943,7 @@ const firstEvent = computed(() => {
 
   margin-bottom: 6px;
 
-  color: #a07839;
+  color: #906c33;
 
   font-size: 10px;
   font-weight: 700;
@@ -1071,7 +1071,7 @@ const firstEvent = computed(() => {
   align-items: center;
   justify-content: center;
 
-  color: #a87c39;
+  color: #8f6930;
 
   background:
     linear-gradient(
@@ -1145,7 +1145,7 @@ const firstEvent = computed(() => {
 
   margin-bottom: 7px;
 
-  color: #a37b3e;
+  color: #8b6935;
 
   font-size: 10px;
   font-weight: 700;
@@ -1383,7 +1383,7 @@ const firstEvent = computed(() => {
 .schedule-icon {
   margin-bottom: 5px;
 
-  color: #ad8142;
+  color: #8a6735;
 
   font-size: 14px;
 }
@@ -1391,7 +1391,7 @@ const firstEvent = computed(() => {
 .schedule-label {
   margin-bottom: 7px;
 
-  color: #98723d;
+  color: #906c3a;
 
   font-size: 11px;
   font-weight: 700;
@@ -1456,7 +1456,7 @@ const firstEvent = computed(() => {
 .calendar-label {
   margin-bottom: 4px;
 
-  color: #a07839;
+  color: #906c33;
 
   font-size: 11px;
   font-weight: 700;
@@ -1679,7 +1679,7 @@ const firstEvent = computed(() => {
 .location-symbol {
   margin-bottom: 7px;
 
-  color: #a77c3d;
+  color: #8e6934;
 
   font-size: 15px;
 }
@@ -2133,7 +2133,7 @@ const firstEvent = computed(() => {
 .modal-symbol {
   margin-bottom: 8px;
 
-  color: #a97931 !important;
+  color: #90672a !important;
 
   font-size: 23px;
 
@@ -2199,7 +2199,7 @@ const firstEvent = computed(() => {
 .recipient-label {
   margin-bottom: 5px;
 
-  color: #a97931 !important;
+  color: #90672a !important;
 
   font-size: 11px;
 
@@ -2271,11 +2271,11 @@ const firstEvent = computed(() => {
 }
 
 .form-group input::placeholder {
-  color: #9a8b80 !important;
+  color: #7b6f66 !important;
 }
 
 .form-group input:focus {
-  border-color: #a97931 !important;
+  border-color: #90672a !important;
 
   box-shadow: 0 0 0 3px rgba(169, 121, 49, 0.1);
 }
@@ -2328,7 +2328,7 @@ const firstEvent = computed(() => {
 }
 
 .attendance-option:hover {
-  border-color: #b89455 !important;
+  border-color: #8a6f40 !important;
 
   background: #fffaf4 !important;
 }

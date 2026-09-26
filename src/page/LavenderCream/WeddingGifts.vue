@@ -353,7 +353,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 12px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-gifts__ornament span {
@@ -372,7 +372,7 @@ onBeforeUnmount(() => {
 
   margin: 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -399,7 +399,7 @@ onBeforeUnmount(() => {
 
   margin: 0 0 27px;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 14px;
 
@@ -497,7 +497,7 @@ onBeforeUnmount(() => {
 
   border-radius: 32px;
 
-  background: linear-gradient(140deg, #a086b4, #7d6390 60%, #584a5b);
+  background: linear-gradient(140deg, #766384, #7d6390 60%, #584a5b);
 
   box-shadow:
     0 20px 40px rgba(125, 99, 144, 0.35),
@@ -554,7 +554,7 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 6;
 
-  color: #b9a0d0;
+  color: #736482;
 
   font-family: Georgia, serif;
 
@@ -607,7 +607,7 @@ onBeforeUnmount(() => {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(90deg, transparent, #b9a0d0, transparent);
+  background: linear-gradient(90deg, transparent, #736482, transparent);
 }
 
 /* =========================================================
@@ -730,7 +730,7 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: linear-gradient(135deg, #a086b4, #7d6390);
+  background: linear-gradient(135deg, #766384, #7d6390);
 
   box-shadow: 0 7px 18px rgba(125, 99, 144, 0.25);
 
@@ -774,7 +774,7 @@ onBeforeUnmount(() => {
 
   margin-top: 6px;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -802,7 +802,7 @@ onBeforeUnmount(() => {
 
   margin: 0 auto 22px;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 12px;
 
@@ -884,7 +884,7 @@ onBeforeUnmount(() => {
 .lc-account-bank {
   margin-top: 2px;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 10px;
 }
@@ -955,7 +955,7 @@ onBeforeUnmount(() => {
   width: 18px;
   height: 18px;
 
-  border-color: #b9a0d0;
+  border-color: #736482;
   border-style: solid;
 
   pointer-events: none;
@@ -974,7 +974,7 @@ onBeforeUnmount(() => {
 
   margin-top: 7px;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 11px;
   font-weight: 700;
@@ -1013,7 +1013,7 @@ onBeforeUnmount(() => {
 }
 
 .lc-info-label {
-  color: #a086b4;
+  color: #766384;
 
   font-size: 11px;
   font-weight: 700;
@@ -1075,7 +1075,7 @@ onBeforeUnmount(() => {
 .lc-account-desc {
   margin-top: 9px;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 10px;
   font-style: italic;
@@ -1093,7 +1093,7 @@ onBeforeUnmount(() => {
 
   margin-top: 20px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-gift-dialog__footer span {
@@ -1211,7 +1211,7 @@ onBeforeUnmount(() => {
 .lc-qr-preview__card p {
   margin: 14px 0;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 11px;
   font-style: italic;
@@ -1229,7 +1229,7 @@ onBeforeUnmount(() => {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #a086b4, #7d6390);
+  background: linear-gradient(135deg, #766384, #7d6390);
 
   font-size: 11px;
   font-weight: 700;

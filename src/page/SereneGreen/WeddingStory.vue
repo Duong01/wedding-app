@@ -38,7 +38,7 @@ const storyTitle = computed(() =>
 .sg-eyebrow {
   margin: 0;
 
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 10px;
   font-weight: 700;
@@ -60,7 +60,7 @@ const storyTitle = computed(() =>
 .sg-quote {
   height: 35px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -79,7 +79,7 @@ const storyTitle = computed(() =>
 .sg-tail {
   margin-top: 18px;
 
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 15px;
 }

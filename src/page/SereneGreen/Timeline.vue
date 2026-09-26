@@ -117,7 +117,7 @@ function formatTime(index) {
 .sg-eyebrow {
   margin: 0;
 
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 10px;
   font-weight: 700;
@@ -144,7 +144,7 @@ function formatTime(index) {
 
   margin: 0 auto;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 13px;
 
@@ -269,7 +269,7 @@ function formatTime(index) {
 
   margin-bottom: 8px;
 
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 11px;
   font-weight: 700;
@@ -285,7 +285,7 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #6c8e7a;
+  color: #567262;
 
   border-radius: 50%;
 
@@ -311,7 +311,7 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #6c8e7a;
+  color: #567262;
 
   border: 1px solid rgba(108, 142, 122, 0.35);
   border-radius: 50%;
@@ -341,7 +341,7 @@ function formatTime(index) {
 .sg-timeline__desc {
   margin: 9px 0 0;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 13px;
 
@@ -362,7 +362,7 @@ function formatTime(index) {
 
   border-top: 1px solid rgba(108, 142, 122, 0.2);
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 11px;
 
@@ -370,7 +370,7 @@ function formatTime(index) {
 }
 
 .sg-timeline__location .v-icon {
-  color: #6c8e7a;
+  color: #567262;
 
   flex: 0 0 auto;
 }
@@ -389,7 +389,7 @@ function formatTime(index) {
 
   margin-top: 27px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-timeline__footer span {

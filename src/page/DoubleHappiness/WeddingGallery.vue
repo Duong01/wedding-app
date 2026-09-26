@@ -199,7 +199,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #b09a8c;
+  color: #7b6c62;
 }
 
 .dh-gallery__empty p {

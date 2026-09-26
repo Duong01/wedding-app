@@ -368,7 +368,7 @@ async function submitWish() {
 
   margin-bottom: 11px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-wishes__ornament span {
@@ -391,7 +391,7 @@ async function submitWish() {
 
   margin: 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -418,7 +418,7 @@ async function submitWish() {
 
   margin: 0 0 25px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 13px;
 
@@ -467,7 +467,7 @@ async function submitWish() {
 .sp-form-decoration {
   position: absolute;
 
-  color: #e0a37e;
+  color: #86624c;
 
   opacity: 0.65;
 
@@ -487,14 +487,14 @@ async function submitWish() {
 
   margin-bottom: 18px;
 
-  color: #b85c48;
+  color: #af5744;
 
   font-size: 13px;
   font-weight: 600;
 }
 
 .sp-form-title .v-icon {
-  color: #e0a37e;
+  color: #86624c;
 }
 
 /* =========================================================
@@ -514,7 +514,7 @@ async function submitWish() {
 
   margin: 0 0 5px 5px;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -553,7 +553,7 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-wishes input,
@@ -574,7 +574,7 @@ async function submitWish() {
 
 .sp-wishes input::placeholder,
 .sp-wishes textarea::placeholder {
-  color: #c4a08c;
+  color: #7f685b;
 }
 
 .sp-wishes textarea {
@@ -591,7 +591,7 @@ async function submitWish() {
   right: 7px;
   bottom: -15px;
 
-  color: #c4a08c;
+  color: #7f685b;
 
   font-size: 10px;
 }
@@ -619,7 +619,7 @@ async function submitWish() {
 
   color: #fff6ef;
 
-  background: linear-gradient(135deg, #d67a63, #b85c48);
+  background: linear-gradient(135deg, #995746, #b85c48);
 
   box-shadow: 0 7px 16px rgba(122, 74, 61, 0.2);
 
@@ -658,7 +658,7 @@ async function submitWish() {
 
   padding: 25px 10px 20px;
 
-  color: #b09a8c;
+  color: #7b6c62;
 }
 
 .sp-empty-flower {
@@ -671,7 +671,7 @@ async function submitWish() {
 
   margin: 0 auto 9px;
 
-  color: #d67a63;
+  color: #995746;
 
   background: rgba(255, 255, 255, 0.5);
 
@@ -681,14 +681,14 @@ async function submitWish() {
 .sp-no-wishes p {
   margin: 0 0 3px;
 
-  color: #b85c48;
+  color: #af5744;
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .sp-no-wishes span {
-  color: #b09a8c;
+  color: #7b6c62;
 
   font-size: 11px;
 
@@ -714,7 +714,7 @@ async function submitWish() {
 
   margin: 0 5px 15px;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-list-heading > span {
@@ -743,7 +743,7 @@ async function submitWish() {
 }
 
 .sp-list-heading .v-icon {
-  color: #d67a63;
+  color: #995746;
 }
 
 /* =========================================================
@@ -786,7 +786,7 @@ async function submitWish() {
   right: 8px;
   bottom: -8px;
 
-  color: #e0a37e;
+  color: #86624c;
 
   font-size: 28px;
 
@@ -811,7 +811,7 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #b85c48;
+  color: #af5744;
 
   background: linear-gradient(145deg, #fdeee4, #fbdcc9);
 
@@ -855,7 +855,7 @@ async function submitWish() {
 }
 
 .sp-wish-header span {
-  color: #b09a8c;
+  color: #7b6c62;
 
   font-size: 10px;
 }
@@ -863,7 +863,7 @@ async function submitWish() {
 .sp-wish-header > .v-icon {
   flex: 0 0 auto;
 
-  color: #d67a63;
+  color: #995746;
 
   margin-top: 2px;
 }
@@ -918,7 +918,7 @@ async function submitWish() {
 
   margin-top: 24px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-wishes__bottom span {
@@ -974,7 +974,7 @@ async function submitWish() {
   justify-content: center;
   gap: 1px;
 
-  color: #b85c48;
+  color: #af5744;
 
   background: linear-gradient(90deg, rgba(255, 250, 245, 1) 72%, rgba(255, 250, 245, 0));
 
@@ -982,7 +982,7 @@ async function submitWish() {
 }
 
 .sp-marquee-label .v-icon {
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-marquee-label span {
@@ -1039,7 +1039,7 @@ async function submitWish() {
 }
 
 .sp-wish-marquee-item i {
-  color: #d67a63;
+  color: #995746;
 
   font-size: 11px;
   font-style: normal;
@@ -1054,7 +1054,7 @@ async function submitWish() {
 }
 
 .sp-wish-marquee-item em {
-  color: #9c7361;
+  color: #8c6857;
 
   font-style: italic;
 
@@ -1062,7 +1062,7 @@ async function submitWish() {
 }
 
 .sp-marquee-dot {
-  color: #e0a37e;
+  color: #86624c;
 
   font-size: 11px;
   font-weight: 400;

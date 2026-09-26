@@ -368,7 +368,7 @@ async function submitWish() {
 
   margin-bottom: 11px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-wishes__ornament span {
@@ -391,7 +391,7 @@ async function submitWish() {
 
   margin: 0;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -418,7 +418,7 @@ async function submitWish() {
 
   margin: 0 0 25px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 13px;
 
@@ -467,7 +467,7 @@ async function submitWish() {
 .cb-form-decoration {
   position: absolute;
 
-  color: #c9a06a;
+  color: #896d48;
 
   opacity: 0.65;
 
@@ -494,7 +494,7 @@ async function submitWish() {
 }
 
 .cb-form-title .v-icon {
-  color: #c9a06a;
+  color: #896d48;
 }
 
 /* =========================================================
@@ -514,7 +514,7 @@ async function submitWish() {
 
   margin: 0 0 5px 5px;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -553,7 +553,7 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-wishes input,
@@ -574,7 +574,7 @@ async function submitWish() {
 
 .cb-wishes input::placeholder,
 .cb-wishes textarea::placeholder {
-  color: #bda394;
+  color: #7b6a60;
 }
 
 .cb-wishes textarea {
@@ -591,7 +591,7 @@ async function submitWish() {
   right: 7px;
   bottom: -15px;
 
-  color: #bda394;
+  color: #7b6a60;
 
   font-size: 10px;
 }
@@ -619,7 +619,7 @@ async function submitWish() {
 
   color: #fff8ee;
 
-  background: linear-gradient(135deg, #b67f7d, #8f5a56);
+  background: linear-gradient(135deg, #926664, #8f5a56);
 
   box-shadow: 0 7px 16px rgba(108, 75, 74, 0.2);
 
@@ -658,7 +658,7 @@ async function submitWish() {
 
   padding: 25px 10px 20px;
 
-  color: #a89488;
+  color: #7e6f66;
 }
 
 .cb-empty-flower {
@@ -671,7 +671,7 @@ async function submitWish() {
 
   margin: 0 auto 9px;
 
-  color: #b67f7d;
+  color: #926664;
 
   background: rgba(255, 255, 255, 0.5);
 
@@ -688,7 +688,7 @@ async function submitWish() {
 }
 
 .cb-no-wishes span {
-  color: #a89488;
+  color: #7e6f66;
 
   font-size: 11px;
 
@@ -714,7 +714,7 @@ async function submitWish() {
 
   margin: 0 5px 15px;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-list-heading > span {
@@ -743,7 +743,7 @@ async function submitWish() {
 }
 
 .cb-list-heading .v-icon {
-  color: #b67f7d;
+  color: #926664;
 }
 
 /* =========================================================
@@ -786,7 +786,7 @@ async function submitWish() {
   right: 8px;
   bottom: -8px;
 
-  color: #c9a06a;
+  color: #896d48;
 
   font-size: 28px;
 
@@ -855,7 +855,7 @@ async function submitWish() {
 }
 
 .cb-wish-header span {
-  color: #b09a8c;
+  color: #7b6c62;
 
   font-size: 10px;
 }
@@ -863,7 +863,7 @@ async function submitWish() {
 .cb-wish-header > .v-icon {
   flex: 0 0 auto;
 
-  color: #b67f7d;
+  color: #926664;
 
   margin-top: 2px;
 }
@@ -918,7 +918,7 @@ async function submitWish() {
 
   margin-top: 24px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-wishes__bottom span {
@@ -982,7 +982,7 @@ async function submitWish() {
 }
 
 .cb-marquee-label .v-icon {
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-marquee-label span {
@@ -1039,7 +1039,7 @@ async function submitWish() {
 }
 
 .cb-wish-marquee-item i {
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 11px;
   font-style: normal;
@@ -1062,7 +1062,7 @@ async function submitWish() {
 }
 
 .cb-marquee-dot {
-  color: #c9a06a;
+  color: #896d48;
 
   font-size: 11px;
   font-weight: 400;

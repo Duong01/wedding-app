@@ -242,7 +242,7 @@ function getDefaultIcon(type) {
 
   margin-bottom: 7px;
 
-  color: #a57a3d;
+  color: #8c6834;
 
   font-size: 11px;
   font-weight: 700;
@@ -534,7 +534,7 @@ function getDefaultIcon(type) {
 
   margin-top: 7px;
 
-  color: #947247;
+  color: #8d6c43;
 
   font-size: 11px;
 
@@ -543,7 +543,7 @@ function getDefaultIcon(type) {
 
 
 .timeline-location span {
-  color: #a67b3e;
+  color: #8d6935;
 
   font-size: 11px;
 }
@@ -556,7 +556,7 @@ function getDefaultIcon(type) {
 .timeline-empty {
   padding: 30px 10px;
 
-  color: #92775b;
+  color: #836b52;
 
   font-size: 11px;
 }

@@ -561,7 +561,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-mini-divider span {
@@ -597,7 +597,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-event-main-date {
@@ -629,7 +629,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-date-side strong {
@@ -643,7 +643,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
   font-style: italic;
 
-  color: #7a8a80;
+  color: #606c64;
 }
 
 /* =====================================================
@@ -675,7 +675,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-event-time strong {
@@ -735,7 +735,7 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #8fae9b;
+  border: 1px solid #5a6e62;
 
   background: #f5f8f4;
 
@@ -745,7 +745,7 @@ onBeforeUnmount(() => {
 .sg-schedule-dot span {
   font-size: 11px;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-schedule-content {
@@ -762,7 +762,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #7a8a80;
+  color: #606c64;
 }
 
 .sg-schedule-content strong {
@@ -800,7 +800,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-calendar__header strong {
@@ -831,7 +831,7 @@ onBeforeUnmount(() => {
   font-size: 10px;
   font-weight: 700;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-calendar__cell {
@@ -845,7 +845,7 @@ onBeforeUnmount(() => {
 .sg-normal-day {
   font-size: 12px;
 
-  color: #7a8a80;
+  color: #606c64;
 }
 
 .sg-active-day {
@@ -864,7 +864,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-active-day span:last-child {
@@ -890,7 +890,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 /* =====================================================
@@ -914,7 +914,7 @@ onBeforeUnmount(() => {
 
   color: #f2f8f0;
 
-  background: linear-gradient(135deg, #6c8e7a, #3f6f63);
+  background: linear-gradient(135deg, #567262, #3f6f63);
 
   box-shadow: 0 10px 24px rgba(40, 81, 75, 0.24);
 
@@ -948,7 +948,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-event-bottom span {
@@ -1042,7 +1042,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #6c8e7a;
+  color: #567262;
 
   background: transparent;
 
@@ -1058,7 +1058,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-modal-header > span {
@@ -1066,7 +1066,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-modal-header h3 {
@@ -1085,7 +1085,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #7a8a80;
+  color: #606c64;
 }
 
 /* =====================================================
@@ -1108,7 +1108,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-form-group input {
@@ -1131,7 +1131,7 @@ onBeforeUnmount(() => {
 }
 
 .sg-form-group input:focus {
-  border-color: #6c8e7a;
+  border-color: #567262;
 
   box-shadow: 0 0 0 3px rgba(108, 142, 122, 0.14);
 }
@@ -1162,7 +1162,7 @@ onBeforeUnmount(() => {
 }
 
 .sg-attendance-option.selected {
-  border-color: #6c8e7a;
+  border-color: #567262;
 
   background: rgba(108, 142, 122, 0.12);
 
@@ -1172,7 +1172,7 @@ onBeforeUnmount(() => {
 .sg-attendance-option span {
   margin-right: 8px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-people-control {
@@ -1186,7 +1186,7 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #8fae9b;
+  border: 1px solid #5a6e62;
   border-radius: 50%;
 
   font-size: 20px;
@@ -1228,7 +1228,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #6c8e7a;
+  color: #567262;
 }
 
 .sg-recipient-box strong {
@@ -1284,7 +1284,7 @@ onBeforeUnmount(() => {
 
   color: #f2f8f0;
 
-  background: linear-gradient(135deg, #6c8e7a, #3f6f63);
+  background: linear-gradient(135deg, #567262, #3f6f63);
 
   box-shadow: 0 10px 24px rgba(40, 81, 75, 0.24);
 

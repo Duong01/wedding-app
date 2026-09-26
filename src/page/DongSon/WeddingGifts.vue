@@ -199,9 +199,9 @@ onBeforeUnmount(() => {
   margin: auto;
   display: grid;
   place-items: center;
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   border-radius: 50%;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .title {
@@ -212,7 +212,7 @@ onBeforeUnmount(() => {
 .title small {
   font-size: 10px;
   letter-spacing: .4em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 h2 {
@@ -225,7 +225,7 @@ h2 {
 .title p {
   font-family: Georgia, serif;
   font-style: italic;
-  color: #80675f;
+  color: #765f57;
   line-height: 1.7;
 }
 
@@ -245,7 +245,7 @@ h2 {
 .gift-top {
   display: flex;
   justify-content: space-between;
-  color: #a96b32;
+  color: #8b5829;
   font-size: 11px;
 }
 
@@ -279,7 +279,7 @@ h2 {
   margin: auto;
   display: grid;
   place-items: center;
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   background: #fffaf0;
 
   transition: transform .25s ease, box-shadow .25s ease;
@@ -298,7 +298,7 @@ h2 {
 }
 
 .qr-placeholder--empty span {
-  color: #a96b32;
+  color: #8b5829;
   font-size: 12px;
 }
 
@@ -312,13 +312,13 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .16em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 /* ACCOUNT */
 .gift-card p {
   margin: 14px 0 5px;
-  color: #80675f;
+  color: #765f57;
   font-size: 12px;
 }
 
@@ -342,7 +342,7 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   border-radius: 50%;
 
   color: #641914;
@@ -446,7 +446,7 @@ h2 {
 
   padding: 12px;
 
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
 
   background: #fffaf0;
 
@@ -465,7 +465,7 @@ h2 {
 .qr-preview__card p {
   margin: 14px 0;
 
-  color: #80675f;
+  color: #765f57;
 
   font-size: 11px;
   font-style: italic;
@@ -481,7 +481,7 @@ h2 {
 
   color: #f3ead8;
 
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
 
   background: #741c17;
 

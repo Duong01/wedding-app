@@ -173,7 +173,7 @@ function closeLightbox() {
 
   margin-bottom: 6px;
 
-  color: #a17b43;
+  color: #896939;
 
   font-size: 11px;
   font-weight: 800;
@@ -237,7 +237,7 @@ function closeLightbox() {
 
 
 .heading-decoration b {
-  color: #a17b43;
+  color: #896939;
 
   font-family:
     "Times New Roman",
@@ -256,7 +256,7 @@ function closeLightbox() {
 .gallery-empty {
   padding: 35px 20px;
 
-  color: #a17b43;
+  color: #896939;
 
   font-size: 12px;
 

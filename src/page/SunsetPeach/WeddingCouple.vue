@@ -260,7 +260,7 @@ const weddingTime = computed(() => {
 .sp-eyebrow {
   margin: 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -288,7 +288,7 @@ const weddingTime = computed(() => {
 
   margin: 0 auto;
 
-  color: #e0a37e;
+  color: #86624c;
 
   font-size: 14px;
 }
@@ -353,7 +353,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #e0a37e;
+  color: #86624c;
 }
 
 .sp-person__parents {
@@ -363,7 +363,7 @@ const weddingTime = computed(() => {
 .sp-parents {
   margin: 2px 0;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 11px;
 
@@ -387,7 +387,7 @@ const weddingTime = computed(() => {
 .sp-person__role {
   display: block;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 11px;
 
@@ -415,7 +415,7 @@ const weddingTime = computed(() => {
 }
 
 .sp-couple-divider i {
-  color: #e0a37e;
+  color: #86624c;
 
   font-family: "Allura", cursive;
   font-size: 34px;
@@ -481,7 +481,7 @@ const weddingTime = computed(() => {
 }
 
 .sp-date-side span {
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -512,7 +512,7 @@ const weddingTime = computed(() => {
 .sp-lunar {
   margin-top: 12px;
 
-  color: #a3806f;
+  color: #846859;
 
   font-size: 11px;
   font-style: italic;
@@ -544,7 +544,7 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.2em;
 
-  color: #d67a63;
+  color: #995746;
 }
 
 .sp-time-content strong {

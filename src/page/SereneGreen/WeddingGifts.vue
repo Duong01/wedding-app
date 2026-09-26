@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 12px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-gifts__ornament span {
@@ -353,7 +353,7 @@ onBeforeUnmount(() => {
 
   margin: 0;
 
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 10px;
   font-weight: 700;
@@ -380,7 +380,7 @@ onBeforeUnmount(() => {
 
   margin: 0 0 27px;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 14px;
 
@@ -475,7 +475,7 @@ onBeforeUnmount(() => {
 
   border-radius: 32px;
 
-  background: linear-gradient(140deg, #6c8e7a, #3f6f63 60%, #28514b);
+  background: linear-gradient(140deg, #567262, #3f6f63 60%, #28514b);
 
   box-shadow:
     0 20px 40px rgba(63, 111, 99, 0.35),
@@ -532,7 +532,7 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 6;
 
-  color: #8fae9b;
+  color: #5a6e62;
 
   font-family: Georgia, serif;
 
@@ -585,7 +585,7 @@ onBeforeUnmount(() => {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(90deg, transparent, #8fae9b, transparent);
+  background: linear-gradient(90deg, transparent, #5a6e62, transparent);
 }
 
 /* =========================================================
@@ -708,7 +708,7 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: linear-gradient(135deg, #6c8e7a, #3f6f63);
+  background: linear-gradient(135deg, #567262, #3f6f63);
 
   box-shadow: 0 7px 18px rgba(63, 111, 99, 0.25);
 
@@ -752,7 +752,7 @@ onBeforeUnmount(() => {
 
   margin-top: 6px;
 
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 10px;
   font-weight: 700;
@@ -780,7 +780,7 @@ onBeforeUnmount(() => {
 
   margin: 0 auto 22px;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 12px;
 
@@ -862,7 +862,7 @@ onBeforeUnmount(() => {
 .sg-account-bank {
   margin-top: 2px;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 10px;
 }
@@ -933,7 +933,7 @@ onBeforeUnmount(() => {
   width: 18px;
   height: 18px;
 
-  border-color: #8fae9b;
+  border-color: #5a6e62;
   border-style: solid;
 
   pointer-events: none;
@@ -952,7 +952,7 @@ onBeforeUnmount(() => {
 
   margin-top: 7px;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 11px;
   font-weight: 700;
@@ -991,7 +991,7 @@ onBeforeUnmount(() => {
 }
 
 .sg-info-label {
-  color: #6c8e7a;
+  color: #567262;
 
   font-size: 11px;
   font-weight: 700;
@@ -1053,7 +1053,7 @@ onBeforeUnmount(() => {
 .sg-account-desc {
   margin-top: 9px;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 10px;
   font-style: italic;
@@ -1071,7 +1071,7 @@ onBeforeUnmount(() => {
 
   margin-top: 20px;
 
-  color: #8fae9b;
+  color: #5a6e62;
 }
 
 .sg-gift-dialog__footer span {
@@ -1189,7 +1189,7 @@ onBeforeUnmount(() => {
 .sg-qr-preview__card p {
   margin: 14px 0;
 
-  color: #7a8a80;
+  color: #606c64;
 
   font-size: 11px;
   font-style: italic;
@@ -1207,7 +1207,7 @@ onBeforeUnmount(() => {
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #6c8e7a, #3f6f63);
+  background: linear-gradient(135deg, #567262, #3f6f63);
 
   font-size: 11px;
   font-weight: 700;

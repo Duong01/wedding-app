@@ -176,7 +176,7 @@ const mapSrc = computed(() => {
 
   margin-bottom: 12px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-map__ornament span {
@@ -197,7 +197,7 @@ const mapSrc = computed(() => {
 
   margin: 0;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -381,7 +381,7 @@ const mapSrc = computed(() => {
 
   margin-bottom: 2px;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -420,7 +420,7 @@ const mapSrc = computed(() => {
   border: 1px solid #7d6390;
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #a086b4, #7d6390);
+  background: linear-gradient(135deg, #766384, #7d6390);
 
   box-shadow: 0 5px 13px rgba(88, 74, 91, 0.2);
 
@@ -456,7 +456,7 @@ const mapSrc = computed(() => {
 
   margin-top: 24px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-map__footer-ornament span {

@@ -159,10 +159,10 @@ function openInvitation() {
 <style scoped>
 .lc-opening {
   --lc-deep: #584a5b;
-  --lc-lavender: #a086b4;
+  --lc-lavender: #766384;
   --lc-plum: #7d6390;
   --lc-lilac: #d8c0de;
-  --lc-line: #b9a0d0;
+  --lc-line: #736482;
   --lc-cream: #faf8fc;
 
   position: relative;
@@ -394,7 +394,7 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  background: radial-gradient(circle at 34% 30%, #c3a8d4, #a086b4 58%, #7d6390 100%);
+  background: radial-gradient(circle at 34% 30%, #c3a8d4, #766384 58%, #7d6390 100%);
 
   box-shadow:
     0 10px 24px rgba(125, 99, 144, 0.35),
@@ -536,7 +536,7 @@ function openInvitation() {
 
   color: #fbf9ff;
 
-  background: linear-gradient(135deg, #a086b4, #7d6390);
+  background: linear-gradient(135deg, #766384, #7d6390);
 
   box-shadow: 0 14px 30px rgba(88, 74, 91, 0.32);
 

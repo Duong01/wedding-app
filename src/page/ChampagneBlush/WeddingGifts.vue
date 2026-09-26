@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 12px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-gifts__ornament span {
@@ -353,7 +353,7 @@ onBeforeUnmount(() => {
 
   margin: 0;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -380,7 +380,7 @@ onBeforeUnmount(() => {
 
   margin: 0 0 27px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 14px;
 
@@ -532,7 +532,7 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 6;
 
-  color: #c9a06a;
+  color: #896d48;
 
   font-family: Georgia, serif;
 
@@ -752,7 +752,7 @@ onBeforeUnmount(() => {
 
   margin-top: 6px;
 
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 10px;
   font-weight: 700;
@@ -780,7 +780,7 @@ onBeforeUnmount(() => {
 
   margin: 0 auto 22px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 12px;
 
@@ -862,7 +862,7 @@ onBeforeUnmount(() => {
 .cb-account-bank {
   margin-top: 2px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 10px;
 }
@@ -933,7 +933,7 @@ onBeforeUnmount(() => {
   width: 18px;
   height: 18px;
 
-  border-color: #c9a06a;
+  border-color: #896d48;
   border-style: solid;
 
   pointer-events: none;
@@ -952,7 +952,7 @@ onBeforeUnmount(() => {
 
   margin-top: 7px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 11px;
   font-weight: 700;
@@ -991,7 +991,7 @@ onBeforeUnmount(() => {
 }
 
 .cb-info-label {
-  color: #b67f7d;
+  color: #926664;
 
   font-size: 11px;
   font-weight: 700;
@@ -1053,7 +1053,7 @@ onBeforeUnmount(() => {
 .cb-account-desc {
   margin-top: 9px;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 10px;
   font-style: italic;
@@ -1071,7 +1071,7 @@ onBeforeUnmount(() => {
 
   margin-top: 20px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-gift-dialog__footer span {
@@ -1189,7 +1189,7 @@ onBeforeUnmount(() => {
 .cb-qr-preview__card p {
   margin: 14px 0;
 
-  color: #9a7a72;
+  color: #886b64;
 
   font-size: 11px;
   font-style: italic;

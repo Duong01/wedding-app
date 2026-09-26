@@ -158,10 +158,10 @@ const dateText = computed(() => {
 <style scoped>
 .sg-hero {
   --sg-deep: #28514b;
-  --sg-leaf: #6c8e7a;
+  --sg-leaf: #567262;
   --sg-pine: #3f6f63;
   --sg-sage: #c8d4c3;
-  --sg-line: #8fae9b;
+  --sg-line: #5a6e62;
   --sg-cream: #f5f8f4;
 
   position: relative;

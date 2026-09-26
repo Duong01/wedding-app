@@ -142,9 +142,9 @@ const dateText = computed(() => {
 <style scoped>
 .sp-hero {
   --sp-deep: #7a4a3d;
-  --sp-coral: #d67a63;
+  --sp-coral: #995746;
   --sp-peach: #f4c6a9;
-  --sp-gold: #e0a37e;
+  --sp-gold: #86624c;
   --sp-cream: #fffaf5;
 
   position: relative;

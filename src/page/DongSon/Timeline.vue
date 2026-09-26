@@ -66,7 +66,7 @@ const items = computed(() => {
 }
 
 .timeline-title small {
-  color: #a96b32;
+  color: #8b5829;
   font-size: 10px;
   letter-spacing: .4em;
 }
@@ -90,7 +90,7 @@ h2 {
   bottom: 0;
   left: 24px;
   width: 1px;
-  background: #a96b32;
+  background: #8b5829;
 }
 
 .timeline-item {
@@ -108,10 +108,10 @@ h2 {
   height: 49px;
   display: grid;
   place-items: center;
-  border: 1px solid #a96b32;
+  border: 1px solid #8b5829;
   border-radius: 50%;
   background: #f3ead8;
-  color: #a96b32;
+  color: #8b5829;
   font-size: 10px;
 }
 
@@ -122,7 +122,7 @@ h2 {
 .timeline-content > span {
   font-size: 10px;
   letter-spacing: .25em;
-  color: #a96b32;
+  color: #8b5829;
 }
 
 .timeline-content h3 {
@@ -134,7 +134,7 @@ h2 {
 
 .timeline-content p {
   margin: 0;
-  color: #80675f;
+  color: #765f57;
   font-family: Georgia, serif;
   font-size: 13px;
   line-height: 1.8;

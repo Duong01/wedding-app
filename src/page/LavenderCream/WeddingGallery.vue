@@ -19,7 +19,7 @@
     <ModernGalleryCarousel
       v-if="gallery.length"
       :images="gallery"
-      accent="#a086b4"
+      accent="#766384"
       text-color="#584a5b"
       @open="openLightbox"
     />
@@ -119,7 +119,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: #a086b4;
+  color: #766384;
 
   font-size: 10px;
   font-weight: 700;
@@ -148,7 +148,7 @@ function closeLightbox() {
 
   margin-top: 13px;
 
-  color: #b9a0d0;
+  color: #736482;
 }
 
 .lc-gallery__ornament span {
@@ -170,7 +170,7 @@ function closeLightbox() {
 .lc-gallery__intro {
   margin: 13px 0 0;
 
-  color: #8d7f92;
+  color: #736877;
 
   font-size: 12px;
 
@@ -189,7 +189,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #a99cb0;
+  color: #716976;
 }
 
 .lc-gallery__empty p {

@@ -561,7 +561,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-mini-divider span {
@@ -597,7 +597,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-event-main-date {
@@ -629,7 +629,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-date-side strong {
@@ -643,7 +643,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
   font-style: italic;
 
-  color: #9a7a72;
+  color: #886b64;
 }
 
 /* =====================================================
@@ -675,7 +675,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-event-time strong {
@@ -745,7 +745,7 @@ onBeforeUnmount(() => {
 .cb-schedule-dot span {
   font-size: 11px;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-schedule-content {
@@ -762,7 +762,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #9a7a72;
+  color: #886b64;
 }
 
 .cb-schedule-content strong {
@@ -800,7 +800,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-calendar__header strong {
@@ -831,7 +831,7 @@ onBeforeUnmount(() => {
   font-size: 10px;
   font-weight: 700;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-calendar__cell {
@@ -864,7 +864,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-active-day span:last-child {
@@ -890,7 +890,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 /* =====================================================
@@ -914,7 +914,7 @@ onBeforeUnmount(() => {
 
   color: #fff8ee;
 
-  background: linear-gradient(135deg, #b67f7d, #8f5a56);
+  background: linear-gradient(135deg, #926664, #8f5a56);
 
   box-shadow: 0 10px 24px rgba(108, 75, 74, 0.24);
 
@@ -948,7 +948,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-event-bottom span {
@@ -1042,7 +1042,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #b67f7d;
+  color: #926664;
 
   background: transparent;
 
@@ -1058,7 +1058,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-modal-header > span {
@@ -1066,7 +1066,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-modal-header h3 {
@@ -1108,7 +1108,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-form-group input {
@@ -1131,7 +1131,7 @@ onBeforeUnmount(() => {
 }
 
 .cb-form-group input:focus {
-  border-color: #b67f7d;
+  border-color: #926664;
 
   box-shadow: 0 0 0 3px rgba(182, 127, 125, 0.14);
 }
@@ -1162,7 +1162,7 @@ onBeforeUnmount(() => {
 }
 
 .cb-attendance-option.selected {
-  border-color: #b67f7d;
+  border-color: #926664;
 
   background: rgba(182, 127, 125, 0.12);
 
@@ -1172,7 +1172,7 @@ onBeforeUnmount(() => {
 .cb-attendance-option span {
   margin-right: 8px;
 
-  color: #c9a06a;
+  color: #896d48;
 }
 
 .cb-people-control {
@@ -1228,7 +1228,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #b67f7d;
+  color: #926664;
 }
 
 .cb-recipient-box strong {
@@ -1262,7 +1262,7 @@ onBeforeUnmount(() => {
 }
 
 .cb-form-success {
-  color: #66805d;
+  color: #5c7354;
 
   background: rgba(102, 128, 93, 0.08);
 }
@@ -1284,7 +1284,7 @@ onBeforeUnmount(() => {
 
   color: #fff8ee;
 
-  background: linear-gradient(135deg, #b67f7d, #8f5a56);
+  background: linear-gradient(135deg, #926664, #8f5a56);
 
   box-shadow: 0 10px 24px rgba(108, 75, 74, 0.24);
 

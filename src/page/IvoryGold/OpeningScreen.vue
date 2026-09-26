@@ -933,7 +933,7 @@ function openInvitation() {
 
   letter-spacing: .38em;
 
-  color: #9a6d3d;
+  color: #92683a;
 
 }
 
@@ -1187,7 +1187,7 @@ function openInvitation() {
 
   line-height: 1.7;
 
-  color: #92786c;
+  color: #836c61;
 
 }
 

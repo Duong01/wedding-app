@@ -60,7 +60,7 @@ const values = computed(() => {
 .sp-eyebrow {
   margin: 0;
 
-  color: #d67a63;
+  color: #995746;
 
   font-size: 10px;
   font-weight: 700;
@@ -115,6 +115,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #d67a63;
+  color: #995746;
 }
 </style>
