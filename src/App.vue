@@ -370,8 +370,12 @@
 
       <!-- =======================================
            GLOBAL WEDDING MUSIC
+           Đã bỏ: bản này không nhận prop music nên
+           musicEnabled luôn false — vô dụng nhưng vẫn
+           kéo FloatingMusic + useMusic + music store
+           vào bundle chính. Nhạc thiệp do TỪNG THEME
+           render FloatingMusic riêng có prop đúng.
       ======================================== -->
-      <FloatingMusic />
 
       <!-- =======================================
            SITE FOOTER (contact admin → Facebook)
@@ -424,7 +428,6 @@ const AppLoading = defineAsyncComponent(() =>
   import("@/components/common/Loading.vue")
 );
 
-import FloatingMusic from "@/components/common/FloatingMusic.vue";
 import SiteFooter from "@/components/common/SiteFooter.vue";
 import ScrollTop from "@/components/common/ScrollTop.vue";
 import "@/assets/styles/chungdoi.css";

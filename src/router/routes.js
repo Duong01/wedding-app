@@ -239,7 +239,10 @@ export default [
   },
 
   /* =====================================================
-     THIỆP XEM MẪU — 2 BƯỚC, MỖI BƯỚC MỘT URL
+     MẪU DEMO — 2 BƯỚC, MỖI BƯỚC MỘT URL, KHÔNG GỌI API
+
+     Dữ liệu lấy thẳng từ src/mock/wedding.json (19 mẫu) —
+     mở tức thì, không đợi server.
 
        1. /wedding/:slug       WeddingIntro  — giới thiệu mẫu
        2. /wedding/:slug/open  WeddingOpen   — phong bì + nội dung
@@ -250,12 +253,13 @@ export default [
      → nội dung render hai lần (nháy). Giữ nguyên URL cũng là
      điều kiện để F5 bắt đầu lại từ phong bì.
 
-     /wedding/:slug/view (WeddingBySlug) vẫn giữ vì /manage,
-     trang thanh toán và nút "Xem thiệp" đang trỏ tới tên này —
-     vào thẳng nội dung, bỏ qua phong bì.
+     /wedding/:slug/view (WeddingBySlug) vẫn giữ vì một số nút
+     cũ trỏ tới tên này — vào thẳng nội dung, bỏ qua phong bì.
 
-     Link khách mời thật (/:slug/:token → WeddingByApi)
-     KHÔNG đi qua các bước này — mở là vào thẳng phong bì.
+     THIỆP THẬT CỦA KHÁCH MỜI: /:slug/:token (WeddingByApi)
+     — load API, chặn thiệp chưa xuất bản/khóa/hết dùng thử.
+     Mọi nút "Xem thiệp" / link chia sẻ của thiệp thật đều
+     trỏ về đây, KHÔNG đi qua các bước mẫu demo.
   ====================================================== */
 
   {

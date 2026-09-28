@@ -28,6 +28,12 @@ import "./assets/styles/marketing.css";
 import "./assets/styles/dark.css";
 import * as directives from "vuetify/directives";
 
+// Font khung app — nạp động (index.html chỉ còn preconnect,
+// không chèn sẵn 25 font nữa). Xem utils/fontLoader.js.
+import { loadAppFonts } from "./utils/fontLoader";
+
+loadAppFonts();
+
 const vuetify = createVuetify({
     directives,
     icons: {

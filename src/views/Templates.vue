@@ -674,10 +674,25 @@ function clearCollections() {
   activeCollectionIds.value = [];
 }
 
+/*
+ * Danh sách mẫu yêu thích — đọc từ localStorage.
+ *
+ * Bọc try/catch: giá trị hỏng (bị cắt giữa chừng khi đóng
+ * tab, quota đầy, extension chèn rác...) văng exception
+ * ngay trong setup → cả trang Templates trắng và F5 bao
+ * nhiêu lần cũng trắng (giá trị hỏng vẫn nằm trong storage).
+ * Đọc hỏng thì coi như chưa yêu thích mẫu nào.
+ */
 const favorites = ref(
-  JSON.parse(
-    localStorage.getItem("wedding-template-favorites") || "[]"
-  )
+  (() => {
+    try {
+      return JSON.parse(
+        localStorage.getItem("wedding-template-favorites") || "[]"
+      );
+    } catch {
+      return [];
+    }
+  })()
 );
 
 const toast = ref("");

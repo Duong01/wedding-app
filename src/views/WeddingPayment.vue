@@ -1042,8 +1042,13 @@ function goManage() {
 }
 
 function goView() {
+  /*
+   * Thiệp thật xem qua /:slug (WeddingByApi — load API).
+   * /wedding/:slug* giờ chỉ dành cho mẫu demo trong
+   * wedding.json, không có dữ liệu thiệp thật.
+   */
   router.push({
-    name: "WeddingBySlug",
+    name: "WeddingByApi",
     params: { slug: slug.value },
   });
 }

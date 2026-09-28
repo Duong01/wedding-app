@@ -199,13 +199,17 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 import { THEME_META } from "@/data/templateCollections";
 
 import { THEME_PALETTES } from "@/stores/weddingEditor";
 
 import { parseWeddingDate } from "@/utils/datetime";
+
+/* Font chọn trong panel nạp khi mở panel — index.html không
+ * còn chèn sẵn 25 font nữa (xem utils/fontLoader.js). */
+import { ensureFonts } from "@/utils/fontLoader";
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -308,6 +312,14 @@ const FONT_OPTIONS = [
   "Uchen",
   "Oswald",
 ];
+
+/*
+ * Mở panel → nạp toàn bộ font trong danh sách chọn để ô
+ * preview hiển thị đúng font (mỗi font chỉ nạp 1 lần).
+ */
+onMounted(() => {
+  ensureFonts(FONT_OPTIONS);
+});
 
 function fontPreview(key) {
   const name = props.wedding.theme?.Fonts?.[key];

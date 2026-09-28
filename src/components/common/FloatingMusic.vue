@@ -6,7 +6,7 @@
     <audio
       ref="audio"
       loop
-      preload="auto"
+      preload="metadata"
     ></audio>
 
     <button

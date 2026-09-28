@@ -796,8 +796,13 @@ function editWedding(entry) {
 }
 
 function viewWedding(entry) {
+  /*
+   * Thiệp thật xem qua /:slug (WeddingByApi — load API).
+   * /wedding/:slug* giờ chỉ dành cho mẫu demo trong
+   * wedding.json, không có dữ liệu thiệp thật.
+   */
   router.push({
-    name: "WeddingBySlug",
+    name: "WeddingByApi",
     params: { slug: entry.slug },
   });
 }
@@ -913,11 +918,11 @@ async function publishEntry(entry) {
 
 async function copyLink(entry) {
   /*
-   * Link gửi khách mời trỏ vào BƯỚC 2 (/open) — khách bấm là
-   * thấy phong bì và mở thiệp được ngay, không phải qua màn
-   * giới thiệu dành cho người đang chọn mẫu.
+   * Link gửi khách mời trỏ vào /:slug (WeddingByApi — load
+   * API, có chặn thiệp chưa xuất bản/khóa). /wedding/:slug*
+   * giờ chỉ dành cho mẫu demo trong wedding.json.
    */
-  const url = `${window.location.origin}/wedding/${entry.slug}/open`;
+  const url = `${window.location.origin}/${entry.slug}`;
 
   try {
     await navigator.clipboard.writeText(url);

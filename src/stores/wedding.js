@@ -1,7 +1,27 @@
 import { defineStore } from "pinia";
 
-import weddingData from "./../mock/wedding.json";
 import { GetWedding } from "@/model/api";
+
+/*
+ * 19 mẫu demo (144KB JSON) — import LAZY, không import tĩnh.
+ *
+ * Import tĩnh kéo cả file vào bundle chính: khách mời mở
+ * link thiệp thật cũng phải tải 19 mẫu demo không bao giờ
+ * dùng tới. Lazy thì JSON chỉ tải khi thật sự cần danh sách
+ * mẫu (Home/Templates) hoặc khi thiệp API không tồn tại
+ * (fallback demo).
+ */
+let weddingDataPromise = null;
+
+function loadMockData() {
+  if (!weddingDataPromise) {
+    weddingDataPromise = import("./../mock/wedding.json").then(
+      (module) => module.default
+    );
+  }
+
+  return weddingDataPromise;
+}
 
 export const useWeddingStore = defineStore("wedding", {
   state: () => ({
@@ -34,6 +54,8 @@ export const useWeddingStore = defineStore("wedding", {
       this.error = null;
 
       try {
+        const weddingData = await loadMockData();
+
         if (!Array.isArray(weddingData)) {
           throw new Error("wedding.json phải có dạng Array []");
         }
@@ -90,7 +112,11 @@ export const useWeddingStore = defineStore("wedding", {
     },
 
     /*
-     * Load 1 thiệp theo slug.
+     * Load 1 thiệp theo slug — API TRƯỚC, mock sau.
+     *
+     * CHỈ dùng cho editor và /preview (chỉnh sửa thiệp thật lưu
+     * trên server). Các trang /wedding/:slug* (giới thiệu + mở
+     * mẫu demo) KHÔNG dùng hàm này — xem loadWeddingNoApi.
      *
      * Ưu tiên API thật (GetWedding), nếu API lỗi
      * (thiệp chưa lưu trên server) thì fallback về mock.
@@ -137,6 +163,8 @@ export const useWeddingStore = defineStore("wedding", {
         /*
          * Fallback về mock (mẫu thiệp demo).
          */
+        const weddingData = await loadMockData();
+
         if (!Array.isArray(weddingData)) {
           throw new Error("wedding.json phải có dạng Array []");
         }
@@ -169,6 +197,16 @@ export const useWeddingStore = defineStore("wedding", {
       }
     },
 
+    /*
+     * Load 1 thiệp theo slug — CHỈ đọc mock (wedding.json),
+     * KHÔNG gọi API.
+     *
+     * Dùng cho các trang /wedding/:slug* (giới thiệu mẫu, mở
+     * phong bì, xem mẫu): đây là luồng xem MẪU DEMO, dữ liệu có
+     * sẵn trong bundle nên mở tức thì, không đợi server. Thiệp
+     * thật của khách mời đi qua /:slug/:token (WeddingApi.vue)
+     * và luôn load API.
+     */
     async loadWeddingNoApi(slug) {
       this.loading = true;
       this.error = null;
@@ -187,6 +225,8 @@ export const useWeddingStore = defineStore("wedding", {
         /*
          * Fallback về mock (mẫu thiệp demo).
          */
+        const weddingData = await loadMockData();
+
         if (!Array.isArray(weddingData)) {
           throw new Error("wedding.json phải có dạng Array []");
         }
@@ -225,7 +265,9 @@ export const useWeddingStore = defineStore("wedding", {
       };
     },
 
-    reset() {
+    async reset() {
+      const weddingData = await loadMockData();
+
       this.wedding = structuredClone(weddingData[0]);
     },
 

@@ -86,6 +86,10 @@ import { useWeddingStore } from "@/stores/wedding";
 
 import themes from "@/themes";
 
+/* Font riêng của theme đang mở — nạp đúng lúc cần. */
+import { ensureFonts } from "@/utils/fontLoader";
+import { fontsForTheme } from "@/data/themeFonts";
+
 const route = useRoute();
 const router = useRouter();
 
@@ -100,6 +104,17 @@ const currentTheme = computed(() => {
     : null;
 });
 
+/* Thiệp tải xong → nạp đúng font của theme (2-3 font). */
+watch(
+  wedding,
+  (value) => {
+    if (value) {
+      ensureFonts(fontsForTheme(value));
+    }
+  },
+  { immediate: true }
+);
+
 async function loadWedding(slug) {
 
   if (!slug) {
@@ -110,12 +125,11 @@ async function loadWedding(slug) {
 
   try {
     /*
-     * loadWedding (KHÔNG phải loadWeddingNoApi): thử API thật
-     * trước, không có thì fallback về 19 mẫu mock. Bản cũ chỉ
-     * đọc mock nên thiệp thật của người dùng mở ra là màn hình
-     * "Không tìm thấy thiệp".
+     * loadWeddingNoApi: /wedding/:slug/view là bước 3 của luồng
+     * XEM MẪU — đọc thẳng wedding.json, không gọi API. Thiệp
+     * thật của khách mời mở qua /:slug/:token (WeddingApi.vue).
      */
-    await store.loadWedding(slug);
+    await store.loadWeddingNoApi(slug);
   } catch (error) {
     console.error(
       "WeddingDetail load error:",

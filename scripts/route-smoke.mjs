@@ -202,6 +202,17 @@ const vite = await createServer({
   logLevel: "error",
   plugins: [stubCss],
   /*
+   * CacheDir RIÊNG — KHÔNG dùng mặc định node_modules/.vite.
+   *
+   * Không có dòng này thì chạy script khi `npm run dev` đang
+   * mở sẽ XÓA cache deps của dev server (Vite re-optimize do
+   * configHash khác) → trình duyệt 504 "Outdated Optimize Dep"
+   * trên vue.js/pinia.js/vue-router.js → trắng trang cho tới
+   * khi restart dev server. Xem comment tương tự trong
+   * theme-test.mjs.
+   */
+  cacheDir: "node_modules/.vite-route-smoke",
+  /*
    * Tắt quét dependency trước — script này chỉ render
    * trong bộ nhớ, không cần Vite tối ưu gì cho trình duyệt.
    */

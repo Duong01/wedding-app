@@ -43,12 +43,16 @@
 
     <meta name="twitter:card" content="summary_large_image" />
 
+    <!--
+      Font Google nạp ĐỘNG theo trang đang mở (xem
+      src/utils/fontLoader.js + src/data/themeFonts.js):
+      khung app nạp 7 font lõi lúc khởi động, theme thiệp nạp
+      đúng 2-3 font của theme đó. Trước đây chèn sẵn 25 font
+      (~40 file woff2) ở đây — khách mời mở thiệp phải tải
+      cả đám font không bao giờ dùng tới.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Alex+Brush&family=Allura&family=Babylonica&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bungee&family=Carattere&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Ms+Madi&family=Noto+Serif+SC:wght@400;600;700&family=Oswald:wght@400;500;600;700&family=Patrick+Hand&family=Pattaya&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=The+Nautigal:wght@400;700&family=Uchen&family=Viaoda+Libre&family=Whisper&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="app"></div>

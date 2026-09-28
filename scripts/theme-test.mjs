@@ -333,6 +333,21 @@ const vite = await createServer({
   appType: "custom",
   logLevel: "error",
   plugins: [stubCss],
+  /*
+   * CacheDir RIÊNG — KHÔNG dùng mặc định node_modules/.vite.
+   *
+   * Mặc định server Vite nào cũng ghi vào node_modules/.vite.
+   * Chạy script này khi `npm run dev` đang mở → Vite thấy
+   * configHash khác (noDiscovery, include rỗng) → XÓA HẲN
+   * cache deps của dev server (vue.js, pinia.js, vue-router.js...)
+   * và ghi đè bằng bộ chỉ có vài component. Dev server còn
+   * giữ hash cũ trong bộ nhớ → trình duyệt request
+   * /node_modules/.vite/deps/vue.js?v=<hash cũ> → 504
+   * "Outdated Optimize Dep" → trắng trang, F5 không cứu được
+   * (phải restart dev server). CacheDir riêng thì hai bên
+   * không đụng nhau.
+   */
+  cacheDir: "node_modules/.vite-theme-test",
   optimizeDeps: { noDiscovery: true, include: [] },
   ssr: { noExternal: ["vuetify"] },
 });

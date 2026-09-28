@@ -16,24 +16,6 @@
     </div>
 
     <!-- =========================================================
-         THIỆP CHƯA MỞ CHO KHÁCH — ba lý do khác nhau, ba màn hình
-         (đặt trước nhánh error để thông báo cụ thể ưu tiên hơn)
-    ========================================================== -->
-    <div v-else-if="blockReason" class="wedding-error">
-      <div class="error-content">
-        <div class="error-icon">{{ blockIcon }}</div>
-
-        <h1>{{ blockTitle }}</h1>
-
-        <p>{{ blockMessage }}</p>
-
-        <button type="button" class="back-button" @click="goHome">
-          Quay lại trang chủ
-        </button>
-      </div>
-    </div>
-
-    <!-- =========================================================
          ERROR
     ========================================================== -->
     <div v-else-if="store.error || !wedding" class="wedding-error">
@@ -95,15 +77,11 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, watch } from "vue";
 
 import { useRoute, useRouter } from "vue-router";
 
-import { getWeddingStatus } from "@/model/api";
-
 import { useWeddingStore } from "@/stores/wedding";
-
-import { PUBLISH_STATE } from "@/model/weddingAdmin";
 
 /* =========================================================
    THEMES
@@ -112,6 +90,11 @@ import { PUBLISH_STATE } from "@/model/weddingAdmin";
 ========================================================= */
 
 import themes from "@/themes";
+
+/* Font riêng của theme đang mở — nạp đúng lúc cần thay vì
+ * chèn sẵn toàn bộ 25 font trong index.html. */
+import { ensureFonts } from "@/utils/fontLoader";
+import { fontsForTheme } from "@/data/themeFonts";
 
 /* =========================================================
    ROUTER
@@ -123,10 +106,10 @@ const router = useRouter();
 /* =========================================================
    STORE
 
-   Dùng useWeddingStore (KHÔNG phải useWeddingDetailStore):
-   store này thử API thật trước rồi fallback về 19 mẫu mock,
-   nên bước 2 chạy được cho cả thiệp thật lẫn mẫu demo trong
-   /mau-thiep-cuoi. Bản API-only sẽ chặn đứng mọi mẫu demo.
+   Dùng useWeddingStore với loadWeddingNoApi: bước 2 của luồng
+   XEM MẪU đọc thẳng wedding.json, không gọi API. Thiệp thật
+   của khách mời mở qua /:slug/:token (WeddingApi.vue) — việc
+   chặn thiệp chưa xuất bản/khóa chỉ diễn ra ở bên đó.
 ========================================================= */
 
 const store = useWeddingStore();
@@ -134,95 +117,6 @@ const store = useWeddingStore();
 const wedding = computed(() => {
   return store.wedding;
 });
-
-/* =========================================================
-   CHẶN THIỆP — trạng thái lấy từ API getWeddingStatus
-   (server là nguồn duy nhất; khách mời không cần đăng nhập)
-
-   Ba lý do khác nhau, ba thông báo khác nhau:
-     locked  — Admin khóa thiệp
-     expired — hết hạn dùng thử mà chưa thanh toán
-     draft   — chủ thiệp chưa bấm "Xuất bản"
-========================================================= */
-
-const blockReason = ref(null);
-
-const blockIcon = computed(() => {
-  switch (blockReason.value) {
-    case "expired":
-      return "⏳";
-    case "draft":
-      return "✎";
-    default:
-      return "🔒";
-  }
-});
-
-const blockTitle = computed(() => {
-  switch (blockReason.value) {
-    case "expired":
-      return "Thiệp tạm ẩn";
-    case "draft":
-      return "Thiệp chưa được xuất bản";
-    default:
-      return "Thiệp chưa được kích hoạt";
-  }
-});
-
-const blockMessage = computed(() => {
-  switch (blockReason.value) {
-    case "expired":
-      return (
-        "Thời gian dùng thử của thiệp đã kết thúc và thiệp chưa được " +
-        "thanh toán. Toàn bộ nội dung vẫn được giữ nguyên — vui lòng " +
-        "liên hệ cô dâu chú rể."
-      );
-    case "draft":
-      return (
-        "Cô dâu chú rể chưa xuất bản thiệp này cho khách mời. " +
-        "Vui lòng quay lại sau."
-      );
-    default:
-      return (
-        "Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ " +
-        "với cô dâu chú rể hoặc quay lại sau."
-      );
-  }
-});
-
-async function checkWeddingStatus(slug) {
-  blockReason.value = null;
-
-  if (typeof slug !== "string" || !slug.trim()) {
-    return;
-  }
-
-  try {
-    const response = await getWeddingStatus({ slug });
-
-    const result = response?.data;
-
-    if (result && result.status === "success" && result.data) {
-      const state = result.data.PublishState || result.data.publishState;
-
-      if (state === PUBLISH_STATE.LOCKED) {
-        blockReason.value = "locked";
-      } else if (state === PUBLISH_STATE.EXPIRED) {
-        blockReason.value = "expired";
-      } else if (state === PUBLISH_STATE.DRAFT) {
-        blockReason.value = "draft";
-      } else {
-        blockReason.value = null;
-      }
-    }
-  } catch (error) {
-    /*
-     * Không lấy được trạng thái (mạng lỗi, API chưa có...)
-     * → mặc định cho xem thiệp, không chặn khách.
-     */
-    console.warn("[WeddingOpen] getWeddingStatus error:", error);
-  }
-}
 
 /* =========================================================
    THEME HIỆN TẠI
@@ -236,6 +130,20 @@ const currentTheme = computed(() => {
 
   return themes[themeName] || null;
 });
+
+/*
+ * Thiệp tải xong → nạp đúng font của theme này (2-3 font)
+ * thay vì 25 font mọi trang như trước.
+ */
+watch(
+  wedding,
+  (value) => {
+    if (value) {
+      ensureFonts(fontsForTheme(value));
+    }
+  },
+  { immediate: true }
+);
 
 /* =========================================================
    LOAD WEDDING
@@ -271,20 +179,14 @@ async function loadWedding() {
   }
 
   try {
-    await store.loadWedding(slug);
+    /*
+     * loadWeddingNoApi: bước 2 của luồng XEM MẪU — đọc thẳng
+     * wedding.json, không gọi API. Thiệp thật của khách mời
+     * mở qua /:slug/:token (WeddingApi.vue), không qua đây.
+     */
+    await store.loadWeddingNoApi(slug);
   } catch (error) {
     console.error("[WeddingOpen] load error:", error);
-
-    /*
-     * Không tìm thấy thiệp — có thể thiệp chưa kích hoạt
-     * (Pending/Locked, IsActive = 0). Hỏi trạng thái để hiển
-     * thị đúng màn hình khóa thay vì báo lỗi chung chung.
-     *
-     * CHỈ gọi khi tải lỗi (giống WeddingApi.vue): 19 mẫu demo
-     * trong /mau-thiep-cuoi không có trên server, gọi trạng
-     * thái cho chúng là vô nghĩa và có thể chặn nhầm.
-     */
-    await checkWeddingStatus(slug);
   }
 }
 

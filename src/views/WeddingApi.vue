@@ -103,6 +103,10 @@ import { PUBLISH_STATE } from "@/model/weddingAdmin";
 
 import themes from "@/themes";
 
+/* Font riêng của theme đang mở — nạp đúng lúc cần. */
+import { ensureFonts } from "@/utils/fontLoader";
+import { fontsForTheme } from "@/data/themeFonts";
+
 /* =========================================================
    ROUTER
 ========================================================= */
@@ -221,6 +225,17 @@ const currentTheme = computed(() => {
 
   return themes[themeName] || null;
 });
+
+/* Thiệp tải xong → nạp đúng font của theme (2-3 font). */
+watch(
+  wedding,
+  (value) => {
+    if (value) {
+      ensureFonts(fontsForTheme(value));
+    }
+  },
+  { immediate: true }
+);
 
 /* =========================================================
    LOAD WEDDING

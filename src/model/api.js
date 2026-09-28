@@ -1,8 +1,22 @@
 import https from "./https";
 
 // api GetWedding
+/*
+ * Token là TÙY CHỌN (xem thiệp không có link khách riêng).
+ * Không truyền thì phải gọi route 1 đoạn /wedding/{slug} —
+ * nếu vẫn nối /{token} thì encodeURIComponent(undefined)
+ * thành chuỗi "undefined" và request đi tới
+ * /api/wedding/<slug>/undefined (vô nghĩa, backend chỉ thấy
+ * token rác).
+ */
 export const GetWedding = (slug, token) => {
-  return https.Get( `/wedding/${encodeURIComponent(slug)}/${encodeURIComponent(token)}`,);
+  const hasToken = typeof token === "string" && token.trim();
+
+  const path = hasToken
+    ? `/wedding/${encodeURIComponent(slug)}/${encodeURIComponent(token.trim())}`
+    : `/wedding/${encodeURIComponent(slug)}`;
+
+  return https.Get(path);
 };
 export const Confirm = (param, success, error) => {return https.Post(`/wedding/confirm`, param, success, error);};
 export const AddDataWedding = (param, success, error) => {return https.Post(`/wedding/AddDataWedding`, param, success, error);};

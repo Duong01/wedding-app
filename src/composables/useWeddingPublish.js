@@ -38,14 +38,14 @@ export function useWeddingPublish(wedding, routeSlug) {
   /*
    * Link gửi cho khách mời — chỉ có ý nghĩa khi thiệp đã có slug.
    *
-   * Trỏ vào BƯỚC 2 (/open) chứ không phải trang giới thiệu: khách
-   * bấm vào là thấy phong bì và mở thiệp được ngay, không phải đi
-   * qua màn giới thiệu dành cho người đang chọn mẫu.
+   * Trỏ vào /:slug (WeddingByApi — load API, có chặn thiệp
+   * chưa xuất bản/khóa). /wedding/:slug* giờ chỉ dành cho mẫu
+   * demo trong wedding.json.
    */
   const guestLink = computed(() => {
     const slug = routeSlug.value || wedding.value?.slug;
 
-    return slug ? `${window.location.origin}/wedding/${slug}/open` : "";
+    return slug ? `${window.location.origin}/${slug}` : "";
   });
 
   /*

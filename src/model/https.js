@@ -3,7 +3,16 @@ import router from "@/router";
 
 const api = axios.create({
   baseURL: "/api",
-  timeout: 300000,
+
+  /*
+   * 30 giây — đủ cho mọi API JSON thường. Đặt quá dài
+   * (trước đây 5 phút) thì khi server treo (app pool IIS
+   * ngủ, mất kết nối...) người dùng đứng trước màn hình
+   * loading vô hạn: F5 cũng chỉ treo lại lần nữa.
+   * Riêng upload file lớn (PostFile) giữ hạn dài hơn.
+   */
+  timeout: 30000,
+
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
   },
@@ -73,13 +82,6 @@ api.interceptors.response.use(
           "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại."
         )
       );
-
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("role");
-      localStorage.removeItem("favoriteMovies");
-      localStorage.removeItem("name");
-      localStorage.removeItem("nameShow");
 
       if (router.currentRoute.value.path !== "/login") {
         router.push({
@@ -254,6 +256,9 @@ function PostFile(url, form, success, error) {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+
+      /* Upload ảnh/nhạc lớn qua mạng chậm — hạn riêng, dài hơn JSON. */
+      timeout: 300000,
     })
     .then((response) => {
       if (success) {

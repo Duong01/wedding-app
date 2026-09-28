@@ -210,6 +210,67 @@ const router = createRouter({
 setupRouterGuards(router);
 
 /*
+ * =========================================================
+ * TỰ HỒI PHỤC KHI LAZY-CHUNK TẢI HỎNG
+ * =========================================================
+ * Mọi view/theme đều import() lazy. Hai tình huống làm
+ * import đó fail:
+ *
+ *  - Dev: Vite phát hiện dependency mới giữa phiên (theme,
+ *    panel editor tải muộn) → tối ưu lại → đổi hash →
+ *    trình duyệt còn giữ URL ?v=<hash cũ> → 504 Outdated
+ *    Optimize Dep / "Failed to fetch dynamically imported
+ *    module".
+ *  - Production: deploy mới xóa file assets hash cũ, tab
+ *    còn mở (hoặc index.html nằm trong cache) vẫn trỏ tới
+ *    file đã bị xóa → 404.
+ *
+ * vue-router KHÔNG tự thử lại — navigation fail âm thầm,
+ * RouterView trắng ngòm. Ở đây bắt lỗi đó rồi tải lại toàn
+ * bộ trang đúng URL đích: lần tải mới nhận hash mới từ
+ * server là hết.
+ *
+ * Cờ sessionStorage chặn reload lặp: chunk thật sự không
+ * tồn tại (deploy lỗi) thì chỉ reload 1 lần trong 10 giây,
+ * không xoay vòng vô hạn.
+ */
+const CHUNK_FAIL_PATTERNS = [
+    "Failed to fetch dynamically imported module",
+    "Importing a module script failed",
+    "error loading dynamically imported module",
+    "Outdated Optimize Dep",
+    "Unable to preload CSS",
+];
+
+const CHUNK_RELOAD_FLAG = "wedding:chunk-reloaded";
+
+router.onError((error, to) => {
+    const message = String(error?.message || "");
+
+    const isChunkFail = CHUNK_FAIL_PATTERNS.some((pattern) =>
+        message.includes(pattern)
+    );
+
+    if (!isChunkFail || !to?.fullPath) {
+        return;
+    }
+
+    try {
+        const last = Number(sessionStorage.getItem(CHUNK_RELOAD_FLAG) || 0);
+
+        if (Date.now() - last < 10000) {
+            return;
+        }
+
+        sessionStorage.setItem(CHUNK_RELOAD_FLAG, String(Date.now()));
+    } catch {
+        /* sessionStorage bị chặn — vẫn reload, chấp nhận rủi ro lặp */
+    }
+
+    window.location.assign(to.fullPath);
+});
+
+/*
  * Chốt vị trí cuộn của trang đang rời đi, trước khi DOM đổi.
  */
 router.beforeEach((to, from) => {
