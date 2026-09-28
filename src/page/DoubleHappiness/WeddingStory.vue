@@ -48,17 +48,18 @@ const storyTitle = computed(() => {
   --dh-red: #7a1216;
   --dh-red-bright: #a32a2a;
   --dh-gold: #d9a441;
-  --dh-ink: #5a3d2e;
+  --dh-gold-light: #f3d9a4;
+  --dh-cream-on-red: #f7e6c4;
 
   text-align: center;
 
-  color: var(--dh-ink);
+  color: rgba(247, 230, 196, 0.85);
 }
 
 .dh-eyebrow {
   margin: 0;
 
-  color: var(--dh-red-bright);
+  color: var(--dh-gold-light);
 
   font-size: 10px;
   font-weight: 700;
@@ -74,7 +75,7 @@ const storyTitle = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: var(--dh-red);
+  color: var(--dh-cream-on-red);
 }
 
 .dh-quote {

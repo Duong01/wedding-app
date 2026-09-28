@@ -518,7 +518,7 @@ onBeforeUnmount(() => {
 .dh-eyebrow {
   margin: 0;
 
-  color: var(--dh-red-bright);
+  color: var(--dh-gold-light);
 
   font-size: 10px;
   font-weight: 700;
@@ -535,7 +535,7 @@ onBeforeUnmount(() => {
   font-size: clamp(27px, 7vw, 34px);
   font-weight: 600;
 
-  color: var(--dh-red);
+  color: var(--dh-cream-on-red, #f7e6c4);
 }
 
 /* =====================================================
@@ -575,7 +575,7 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(217, 164, 65, 0.55);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.96), rgba(247, 230, 196, 0.88));
+  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
 
   box-shadow: 0 18px 44px rgba(60, 10, 12, 0.14);
 
@@ -704,7 +704,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
   font-style: italic;
 
-  color: #8a6a52;
+  color: #6e5542;
 }
 
 /* =====================================================
@@ -826,7 +826,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #8a6a52;
+  color: #6e5542;
 }
 
 .dh-schedule-content strong {
@@ -909,7 +909,7 @@ onBeforeUnmount(() => {
 .dh-normal-day {
   font-size: 12px;
 
-  color: #7d5c46;
+  color: #6a4e3c;
 }
 
 .dh-active-day {
@@ -1161,7 +1161,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #7d5c46;
+  color: #6a4e3c;
 }
 
 /* =====================================================

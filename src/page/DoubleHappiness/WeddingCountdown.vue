@@ -78,7 +78,7 @@ const values = computed(() => {
 .dh-eyebrow {
   margin: 0;
 
-  color: var(--dh-red-bright);
+  color: var(--dh-gold-light);
 
   font-size: 10px;
   font-weight: 700;
@@ -95,7 +95,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: var(--dh-red);
+  color: var(--dh-cream-on-red, #f7e6c4);
 }
 
 .dh-countdown__grid {
@@ -112,7 +112,7 @@ const values = computed(() => {
   border: 1px solid rgba(217, 164, 65, 0.5);
   border-radius: 10px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.92), rgba(243, 217, 164, 0.55));
+  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
 
   box-shadow: 0 8px 22px rgba(60, 10, 12, 0.09);
 }

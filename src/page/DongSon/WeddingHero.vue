@@ -104,7 +104,7 @@ const brideName = computed(() =>
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #f3e5c8;
+  color: #ead7b5;
   background:
     radial-gradient(circle at 50% 32%, rgba(172,92,39,.22), transparent 30%),
     linear-gradient(180deg, #741c17 0%, #641914 50%, #54120f 100%);
@@ -216,7 +216,7 @@ const brideName = computed(() =>
   font-size: 15px;
   line-height: 1.8;
   font-style: italic;
-  color: #dcc8a5;
+  color: #cdb99b;
 }
 
 h1 {
@@ -274,7 +274,7 @@ h1 small {
   margin-top: 24px;
   font-family: Georgia, serif;
   line-height: 1.8;
-  color: #d6c09b;
+  color: #cdb99b;
 }
 
 .hero-bird {
@@ -322,7 +322,7 @@ h1 small {
   width: 80%;
   font-size: 10px;
   letter-spacing: .3em;
-  color: #b9823f;
+  color: #c99552;
 }
 
 .hero-bottom span {

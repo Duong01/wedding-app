@@ -325,7 +325,7 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(217, 164, 65, 0.55);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.7), rgba(243, 217, 164, 0.4));
+  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
 
   box-shadow: 0 12px 35px rgba(60, 10, 12, 0.1);
 
@@ -409,7 +409,7 @@ onBeforeUnmount(() => {
 
   margin: 0 0 27px;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 14px;
 
@@ -824,7 +824,7 @@ onBeforeUnmount(() => {
 
   margin: 0 auto 22px;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 12px;
 
@@ -906,7 +906,7 @@ onBeforeUnmount(() => {
 .dh-account-bank {
   margin-top: 2px;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 10px;
 }
@@ -996,7 +996,7 @@ onBeforeUnmount(() => {
 
   margin-top: 7px;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 11px;
   font-weight: 700;
@@ -1097,7 +1097,7 @@ onBeforeUnmount(() => {
 .dh-account-desc {
   margin-top: 9px;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 10px;
   font-style: italic;
@@ -1233,7 +1233,7 @@ onBeforeUnmount(() => {
 .dh-qr-preview__card p {
   margin: 14px 0;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 11px;
   font-style: italic;

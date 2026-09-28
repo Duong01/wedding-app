@@ -188,7 +188,7 @@ const guestName = computed(() => {
   font-size: clamp(54px, 16vw, 88px);
   font-weight: 400;
   letter-spacing: -.08em;
-  color: #e1bd80;
+  color: #d4a35f;
   text-shadow: 0 5px 30px rgba(0,0,0,.35);
 }
 
@@ -218,7 +218,7 @@ const guestName = computed(() => {
   font-family: Georgia, serif;
   font-size: 17px;
   font-style: italic;
-  color: #ddc8a4;
+  color: #cdb99b;
 }
 
 h1 {
@@ -241,7 +241,7 @@ h1 {
   height: 48px;
   border: 1px solid #b9823f;
   background: rgba(0,0,0,.15);
-  color: #e8d4b1;
+  color: #ead7b5;
   letter-spacing: .2em;
   font-size: 10px;
   cursor: pointer;
@@ -255,7 +255,7 @@ h1 {
 
 .button-icon {
   margin-right: 9px;
-  color: #d6a45f;
+  color: #d4a35f;
 }
 
 .bird {

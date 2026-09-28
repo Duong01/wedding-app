@@ -151,7 +151,7 @@ const mapSrc = computed(() => {
   border: 1px solid rgba(217, 164, 65, 0.55);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.8), rgba(243, 217, 164, 0.45));
+  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
 
   box-shadow: 0 12px 35px rgba(60, 10, 12, 0.11);
 

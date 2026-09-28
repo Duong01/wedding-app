@@ -129,7 +129,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: var(--dh-red-bright);
+  color: var(--dh-gold-light);
 
   font-size: 10px;
   font-weight: 700;
@@ -147,7 +147,7 @@ function closeLightbox() {
 
   line-height: 1.05;
 
-  color: var(--dh-red);
+  color: var(--dh-cream-on-red, #f7e6c4);
 }
 
 .dh-gallery__ornament {
@@ -180,7 +180,7 @@ function closeLightbox() {
 .dh-gallery__intro {
   margin: 13px 0 0;
 
-  color: #8a6a52;
+  color: rgba(247, 230, 196, 0.85);
 
   font-size: 12px;
 
@@ -199,7 +199,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #7b6c62;
+  color: rgba(247, 230, 196, 0.85);
 }
 
 .dh-gallery__empty p {

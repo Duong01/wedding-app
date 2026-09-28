@@ -407,7 +407,7 @@ h2 {
 
 .marquee-item strong {
   font-weight: 700;
-  color: #d7bb82;
+  color: #d4a35f;
 }
 
 .marquee-item em {
@@ -455,7 +455,7 @@ h2 {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: .08em;
-  color: #d7bb82;
+  color: #d4a35f;
 
   white-space: nowrap;
 }
@@ -512,7 +512,7 @@ h2 {
 
 .wish-form-card input::placeholder,
 .wish-form-card textarea::placeholder {
-  color: rgba(234,215,181,.4);
+  color: rgba(234,215,181,.65);
 }
 
 .wish-form-card input:focus,
@@ -528,7 +528,7 @@ h2 {
   text-align: right;
 
   font-size: 11px;
-  color: rgba(234,215,181,.5);
+  color: rgba(234,215,181,.65);
 }
 
 .wish-submit {
@@ -544,7 +544,7 @@ h2 {
   letter-spacing: .24em;
 
   color: #641914;
-  background: linear-gradient(180deg, #d7bb82, #c99552);
+  background: linear-gradient(180deg, #d4a35f, #c99552);
 
   cursor: pointer;
 
@@ -629,7 +629,7 @@ h2 {
   font-size: 15px;
   font-weight: 700;
 
-  color: #d7bb82;
+  color: #d4a35f;
   background: rgba(201,149,82,.14);
 }
 
@@ -684,7 +684,7 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .06em;
-  color: rgba(234,215,181,.5);
+  color: rgba(234,215,181,.65);
 
   white-space: nowrap;
 }

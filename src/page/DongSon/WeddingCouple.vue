@@ -199,7 +199,7 @@ h2 {
   font-family: Georgia, serif;
   font-style: italic;
   line-height: 1.8;
-  color: #805148;
+  color: #765f57;
 }
 
 .couple-grid {

@@ -361,7 +361,7 @@ async function submitWish() {
 
   color: var(--dh-ink);
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.7), rgba(243, 217, 164, 0.42));
+  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
 
   box-shadow: 0 12px 35px rgba(60, 10, 12, 0.1), inset 0 0 0 1px rgba(255, 252, 244, 0.7);
 
@@ -451,7 +451,7 @@ async function submitWish() {
 
   margin: 0 0 25px;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 13px;
 
@@ -474,7 +474,7 @@ async function submitWish() {
 
   max-width: 460px;
 
-  background: linear-gradient(170deg, rgba(255, 253, 250, 0.78), rgba(253, 246, 236, 0.62));
+  background: linear-gradient(170deg, rgba(255, 253, 250, 0.97), rgba(253, 246, 236, 0.94));
 
   box-shadow: 0 8px 25px rgba(60, 10, 12, 0.08);
 
@@ -805,7 +805,7 @@ async function submitWish() {
   border: 1px solid rgba(217, 164, 65, 0.28);
   border-radius: 12px;
 
-  background: linear-gradient(170deg, rgba(255, 253, 250, 0.8), rgba(253, 246, 236, 0.62));
+  background: linear-gradient(170deg, rgba(255, 253, 250, 0.97), rgba(253, 246, 236, 0.94));
 
   box-shadow: 0 5px 17px rgba(60, 10, 12, 0.06);
 
@@ -895,7 +895,7 @@ async function submitWish() {
 }
 
 .dh-wish-header span {
-  color: #7b6c62;
+  color: #6a4e3c;
 
   font-size: 10px;
 }
@@ -914,7 +914,7 @@ async function submitWish() {
   margin: 5px 0 0;
   padding-right: 8px;
 
-  color: #7d5c46;
+  color: #6a4e3c;
 
   font-size: 12px;
 
@@ -1069,7 +1069,7 @@ async function submitWish() {
 
   padding-right: 30px;
 
-  color: #7d5c46;
+  color: #6a4e3c;
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -1094,7 +1094,7 @@ async function submitWish() {
 }
 
 .dh-wish-marquee-item em {
-  color: #8a6a52;
+  color: #6e5542;
 
   font-style: italic;
 

@@ -167,7 +167,7 @@ h3 {
 .event-row b {
   font-size: 11px;
   letter-spacing: .2em;
-  color: #8f5a50;
+  color: #765f57;
 }
 
 .event-row span {

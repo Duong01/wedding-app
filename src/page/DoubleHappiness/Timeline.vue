@@ -111,7 +111,7 @@ function formatTime(index) {
   border: 1px solid rgba(217, 164, 65, 0.55);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.75), rgba(243, 217, 164, 0.4));
+  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
 
   box-shadow: 0 12px 35px rgba(60, 10, 12, 0.1);
 
@@ -172,7 +172,7 @@ function formatTime(index) {
 
   margin: 0 auto;
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 13px;
 
@@ -372,7 +372,7 @@ function formatTime(index) {
 .dh-timeline__desc {
   margin: 9px 0 0;
 
-  color: #7d5c46;
+  color: #6a4e3c;
 
   font-size: 13px;
 
@@ -393,7 +393,7 @@ function formatTime(index) {
 
   border-top: 1px solid rgba(217, 164, 65, 0.25);
 
-  color: #8a6a52;
+  color: #6e5542;
 
   font-size: 11px;
 

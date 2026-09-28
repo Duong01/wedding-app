@@ -96,7 +96,7 @@ onUnmounted(() => {
 .countdown {
   padding: 65px 20px;
   background: #641914;
-  color: #e9d7b5;
+  color: #ead7b5;
   text-align: center;
 }
 

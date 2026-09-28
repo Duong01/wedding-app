@@ -126,7 +126,7 @@ h3 {
   font-family: Georgia, serif;
   line-height: 2;
   font-size: 15px;
-  color: #d8c3a1;
+  color: #cdb99b;
 }
 
 .quote {

@@ -293,7 +293,7 @@ h2 span {
   margin-top: 45px;
   font-size: 11px;
   letter-spacing: .3em;
-  color: #806052;
+  color: rgba(234,215,181,.65);
 }
 
 @media (max-width: 480px) {
