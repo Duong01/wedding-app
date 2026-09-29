@@ -271,7 +271,7 @@ onBeforeUnmount(() => {
 
   color: var(--cfr-red);
 
-  font-family: var(--cfr-font-body);
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 29px;
   font-weight: 700;
 

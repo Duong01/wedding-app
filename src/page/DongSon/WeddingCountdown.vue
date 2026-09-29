@@ -152,7 +152,7 @@ h2 {
 
 .time-box strong {
   display: block;
-  font-family: Georgia, serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: clamp(28px, 8vw, 43px);
   font-weight: 400;
   color: #d4a35f;

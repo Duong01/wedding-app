@@ -800,7 +800,7 @@ onBeforeUnmount(() => {
 }
 
 .tdx-countdown__cell strong {
-  font-family: Baskerville, "Times New Roman", serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 26px;
   font-weight: 400;
 

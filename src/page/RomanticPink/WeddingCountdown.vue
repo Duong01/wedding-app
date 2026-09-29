@@ -89,7 +89,7 @@ const values = computed(() => {
   margin-bottom: 4px;
 
   color: var(--gg-rose, #cb5d6c);
-  font-family: "EB Garamond", serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 24px;
   font-weight: 600;
   line-height: 1;

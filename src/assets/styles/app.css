@@ -221,7 +221,7 @@
 
   border-radius: 999px;
 
-  background: rgba(255, 253, 248, 0.75);
+  background: var(--studio-glass);
 }
 
 .hero-stat strong {
@@ -396,9 +396,9 @@
 }
 
 .action-btn.primary:hover {
-  background: #3d2f22;
+  background: var(--studio-ink-soft);
 
-  border-color: #3d2f22;
+  border-color: var(--studio-ink-soft);
 
   color: var(--studio-paper);
 }

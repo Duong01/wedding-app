@@ -81,7 +81,7 @@ const values = computed(() => {
 
   color: var(--la-red);
 
-  font-family: var(--la-font-hand);
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: clamp(22px, 7vw, 30px);
   font-weight: 500;
 

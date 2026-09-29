@@ -445,7 +445,7 @@ useSeo({
 .plan-price strong {
   color: var(--studio-seal, #a63a2e);
 
-  font-family: var(--font-heading);
+  font-family: var(--font-num), var(--font-heading);
   font-size: 36px;
   font-weight: 600;
 

@@ -134,7 +134,7 @@ const values = computed(() => {
 
   display: block;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
   color: var(--dh-red);
 

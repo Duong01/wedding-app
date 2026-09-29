@@ -86,7 +86,7 @@ const values = computed(() => {
 
   color: var(--bq-ink);
 
-  font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 18px;
   font-weight: 600;
 

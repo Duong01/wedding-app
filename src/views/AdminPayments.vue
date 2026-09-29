@@ -1231,7 +1231,7 @@ function showToast(message, isError = false) {
 
   background: var(--app-warn-soft, rgba(185, 151, 91, 0.18));
 
-  color: #7a5a1c;
+  color: var(--app-warn, #7a5a1c);
 
   font-size: 12px;
 

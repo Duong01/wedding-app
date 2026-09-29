@@ -100,7 +100,7 @@ const values = computed(() => {
 .mg-countdown__item b {
   display: block;
 
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
   color: #d8b676;
 

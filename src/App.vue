@@ -1170,7 +1170,7 @@ body {
 
 .user-role.role-guest {
   background: rgba(120, 120, 140, 0.12);
-  color: #5c5c70;
+  color: var(--studio-ink-faint, #5c5c70);
 }
 
 .user-dropdown {

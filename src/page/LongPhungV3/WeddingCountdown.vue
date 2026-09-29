@@ -117,7 +117,7 @@ const values = computed(() => {
 }
 
 .lp-countdown__item b {
-  font-family: "Big Caslon", "Baskerville", "Times New Roman", serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
   font-size: clamp(22px, 6vw, 30px);
   font-weight: 600;

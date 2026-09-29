@@ -76,6 +76,7 @@
      - --font-heading: tiêu đề, tên, ngày tháng         -> Cormorant Garamond
      - --font-main   : nội dung thân bài thiệp          -> Lora
      - --font-ui     : giao diện ứng dụng (UI sans)     -> Be Vietnam Pro
+     - --font-num    : con số (đếm ngược, giá, thống kê) -> Be Vietnam Pro
      - --font-symbol : ký tự trang trí CJK (囍)        -> Noto Serif SC / SimSun
      Không dùng font-family literal trong component.
   ========================================================= */
@@ -99,6 +100,14 @@
     "Cormorant Garamond",
     Georgia,
     serif;
+
+  /* Số — đếm ngược, ngày tháng, giá, thống kê: font số
+     thẳng, dễ đọc, không lẫn với chữ serif trang trí */
+  --font-num:
+    "Be Vietnam Pro",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
 
   /* Tên cô dâu / chú rể - chữ ký */
   --font-script:

@@ -320,8 +320,16 @@
           }"
           @click="goToIntro(wedding)"
         >
-          <!-- IMAGE — ảnh phủ toàn thẻ, tên thiệp trên gradient -->
-          <div class="image-wrap">
+          <!-- IMAGE — ảnh phủ toàn thẻ, tên thiệp trên gradient.
+
+               Ảnh là ảnh chụp NGUYÊN TRANG thiệp (~1:12) —
+               hover vào thẻ, ảnh tự cuộn xuống cho xem trọn
+               bộ thiết kế (useHoverAutoScroll). -->
+          <div
+            class="image-wrap"
+            @mouseenter="cardScroll.start"
+            @mouseleave="cardScroll.stop"
+          >
 
             <img
               :src="getPreviewSrc(wedding)"
@@ -401,20 +409,8 @@
             </div>
           </div>
 
-          <!-- BODY — gọn: meta + cặp đôi + dải màu + hành động -->
+          <!-- BODY — gọn: dải màu + hành động -->
           <div class="card-body">
-
-            <div class="card-meta">
-              <span>
-                {{ formatDate(wedding.weddingDate) }}
-              </span>
-
-              <span class="dot"></span>
-
-              <span>
-                {{ getCoupleName(wedding) }}
-              </span>
-            </div>
 
             <!-- dải màu nhận diện của mẫu -->
             <div class="identity-row">
@@ -557,8 +553,6 @@ import {
 
 import {
   collectionLabel,
-  coupleName,
-  formatDate,
   handleImageError,
   previewFor,
   themeLabel,
@@ -568,6 +562,7 @@ import {
 import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
 import { BRAND } from "@/data/siteContent";
 import { faqJsonLd, useSeo } from "@/composables/useSeo";
+import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
 
 // ======================================================
 // Router / Store
@@ -576,6 +571,12 @@ import { faqJsonLd, useSeo } from "@/composables/useSeo";
 const route = useRoute();
 const router = useRouter();
 const store = useWeddingStore();
+
+/*
+ * Thẻ mẫu trong gallery — hover để tự cuộn ảnh nguyên trang
+ * (hiệu ứng nằm ở composables/useHoverAutoScroll.js).
+ */
+const cardScroll = useHoverAutoScroll();
 
 function goHome() {
   router.push({ name: "Home" });
@@ -1036,15 +1037,11 @@ watch([activeCollectionIds, sortMode, q], syncQuery);
 // ======================================================
 
 /*
- * Các helper hiển thị thẻ (tên cặp đôi, nhãn theme, bảng màu,
- * ảnh xem trước, ngày cưới) dùng chung từ weddingCard.js —
- * nơi đã gom để gallery, trang chủ và trang đích SEO không
- * lệch nhau sau vài lần sửa.
+ * Các helper hiển thị thẻ (nhãn theme, bảng màu, ảnh xem
+ * trước) dùng chung từ weddingCard.js — nơi đã gom để
+ * gallery, trang chủ và trang đích SEO không lệch nhau
+ * sau vài lần sửa.
  */
-
-function getCoupleName(wedding) {
-  return coupleName(wedding);
-}
 
 function getThemeLabel(wedding) {
   return themeLabel(wedding);
@@ -1548,6 +1545,7 @@ function onImageError(event) {
   color: var(--studio-ink, #2b2118);
 
   font-family:
+    var(--font-num),
     var(--font-heading),
     Georgia,
     serif;
@@ -1756,6 +1754,7 @@ function onImageError(event) {
   color: var(--text);
 
   font-family:
+    var(--font-num),
     var(--font-heading),
     Georgia,
     serif;
@@ -2012,23 +2011,20 @@ function onImageError(event) {
 }
 
 .image-wrap img {
+  /*
+   * height:auto — ảnh nguyên trang tràn xuống dưới khung
+   * 3/4, phần tràn bị overflow:hidden che. Bình thường chỉ
+   * thấy trang bìa; hover: tự cuộn bằng translateY (xem
+   * composables/useHoverAutoScroll.js), rời chuột về đầu.
+   */
   width: 100%;
-  height: 100%;
+  height: auto;
 
   display: block;
-
-  object-fit: cover;
-
-  transition:
-    transform 0.9s
-      cubic-bezier(.2,.8,.2,1),
-    filter 0.6s ease;
 }
 
 .template-card:hover
 .image-wrap img {
-  transform: scale(1.07);
-
   filter:
     saturate(1.05)
     contrast(1.01);
@@ -2367,38 +2363,11 @@ function onImageError(event) {
 }
 
 /* =========================================================
-   CARD BODY — gọn: meta, dải màu, hành động
+   CARD BODY — gọn: dải màu, hành động
 ========================================================= */
 
 .card-body {
-  padding: 13px 16px 15px;
-}
-
-.card-meta {
-  display: flex;
-
-  align-items: center;
-
-  gap: 7px;
-
-  margin-bottom: 9px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-
-  letter-spacing: 0.04em;
-
-  text-transform: uppercase;
-}
-
-.card-meta .dot {
-  width: 3px;
-  height: 3px;
-
-  border-radius: 50%;
-
-  background: var(--studio-foil, #b9975b);
+  padding: 12px 16px 14px;
 }
 
 /* =========================================================
@@ -3258,13 +3227,7 @@ function onImageError(event) {
 
   .card-body {
     padding:
-      11px 10px 12px;
-  }
-
-  .card-meta {
-    margin-bottom: 5px;
-
-    font-size: 11px;
+      10px 10px 11px;
   }
 
   .image-caption h3 {
@@ -3345,20 +3308,17 @@ function onImageError(event) {
   }
 
   /*
-   * Thẻ trên điện thoại chỉ rộng chừng nửa màn hình — để hai
-   * thứ nằm cạnh nhau thì nút bị bóp lại. Cả thẻ vốn đã bấm
-   * được nên bỏ dòng "Xem chi tiết", nhường chỗ cho nút.
+   * Thẻ trên điện thoại chỉ rộng nửa màn hình — cả thẻ vốn
+   * đã bấm được (mở trang giới thiệu mẫu) nên không cần nút
+   * "Dùng mẫu này" lẫn dòng "Xem chi tiết" nữa.
    */
-  .view-detail {
+  .view-detail,
+  .use-template-btn {
     display: none;
   }
 
-  .use-template-btn {
-    width: 100%;
-
-    padding: 9px 10px;
-
-    font-size: 11.5px;
+  .card-footer {
+    display: none;
   }
 
   .state-box {
@@ -3399,12 +3359,6 @@ function onImageError(event) {
 
   .identity-swatch:first-child {
     width: 16px;
-  }
-
-  .use-template-btn {
-    padding: 8px 8px;
-
-    font-size: 11px;
   }
 
   .hero-btn {

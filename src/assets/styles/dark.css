@@ -55,6 +55,25 @@ html.theme-dark {
   --studio-glass: rgba(36, 29, 21, 0.72);
 
   --studio-glass-strong: rgba(36, 29, 21, 0.9);
+
+  /*
+   * Token trạng thái (app.css) — xanh/vàng/đỏ đậm đọc được trên
+   * giấy sáng nhưng lẫn vào nền tối; sáng lên một bậc ở đây thì
+   * mọi chip trạng thái, nút "Xuất bản", eyebrow... tự theo.
+   */
+  --app-ok: #7fbf8f;
+
+  --app-ok-soft: rgba(127, 191, 143, 0.14);
+
+  --app-warn: #d3b271;
+
+  --app-warn-soft: rgba(211, 178, 113, 0.16);
+
+  --app-danger: #d07070;
+
+  --app-danger-soft: rgba(208, 112, 112, 0.14);
+
+  --app-gold-text: #d3b271;
 }
 
 /*
@@ -376,6 +395,81 @@ html.theme-dark .editor-field select {
   color: var(--dark);
 }
 
+/* Ô nhập trong editor — nền trắng + chữ mực hardcoded */
+html.theme-dark .editor-field input,
+html.theme-dark .editor-field textarea,
+html.theme-dark .editor-field select,
+html.theme-dark .color-control input[type="text"] {
+  background: var(--panel-bg);
+
+  color: var(--dark);
+}
+
+html.theme-dark .editor-field input:hover,
+html.theme-dark .editor-field textarea:hover,
+html.theme-dark .editor-field select:hover {
+  border-color: var(--border-strong);
+}
+
+/* Chú thích dưới field */
+html.theme-dark .field-help {
+  color: var(--muted);
+}
+
+/*
+ * editor.css — các chữ xám/mực hardcoded còn lại:
+ * sidebar menu, sheet header, person/card header, switch-card,
+ * setting-item, theme-current, draft, mobile-menu...
+ */
+html.theme-dark .editor-menu {
+  color: var(--muted);
+}
+
+html.theme-dark .menu-icon {
+  color: var(--muted);
+}
+
+html.theme-dark .sidebar-section-title,
+html.theme-dark .sheet-header span,
+html.theme-dark .person-heading span,
+html.theme-dark .card-header span,
+html.theme-dark .empty-card span,
+html.theme-dark .image-placeholder,
+html.theme-dark .switch-card small,
+html.theme-dark .setting-item small,
+html.theme-dark .guest-content small,
+html.theme-dark .theme-current-info span,
+html.theme-dark .mobile-menu-item small,
+html.theme-dark .draft-body span {
+  color: var(--muted);
+}
+
+html.theme-dark .person-heading strong,
+html.theme-dark .card-header strong,
+html.theme-dark .empty-card strong,
+html.theme-dark .switch-card strong,
+html.theme-dark .setting-item strong,
+html.theme-dark .theme-current-info strong,
+html.theme-dark .sub-heading,
+html.theme-dark .sheet-header strong,
+html.theme-dark .mobile-menu-item strong,
+html.theme-dark .draft-body strong,
+html.theme-dark .guest-content strong {
+  color: var(--dark);
+}
+
+html.theme-dark .guest-content p,
+html.theme-dark .empty-card p {
+  color: var(--muted);
+}
+
+/* Icon lỗi đỏ đậm → đỏ dịu */
+html.theme-dark .error-icon {
+  color: #d07070;
+
+  background: rgba(208, 112, 112, 0.15);
+}
+
 /* Nút thiết bị preview (desktop/mobile) */
 html.theme-dark .preview-device button {
   color: var(--muted);
@@ -444,6 +538,128 @@ html.theme-dark .toolbar-btn:hover,
 html.theme-dark .icon-button:hover:not(:disabled),
 html.theme-dark .publish-close:hover,
 html.theme-dark .preview-icon-button:hover {
+  background: #2c241a;
+}
+
+/*
+ * Icon trong các nút nhỏ — nền đã đảo ở trên nhưng màu icon
+ * #6b5a4e hardcoded trong component → ngà mờ trên nền tối.
+ */
+html.theme-dark .item-icon-button,
+html.theme-dark .sidebar-search-clear,
+html.theme-dark .search-clear {
+  color: var(--muted);
+}
+
+/* Chú thích xám trong ô tìm kiếm sidebar */
+html.theme-dark .sidebar-empty {
+  color: var(--muted);
+}
+
+/* Dấu tick xanh "đã xong" trong mục lục sidebar */
+html.theme-dark .menu-done {
+  color: #7fbf8f;
+}
+
+/* Ô chi tiết trong dialog xác nhận — nền kem hardcoded */
+html.theme-dark .confirm-detail {
+  background: #2c241a;
+
+  color: var(--muted);
+}
+
+/*
+ * Chữ #6b5a4e / #3a2c26 / #a8988a hardcoded trong các panel
+ * editor (MapPanel, GiftsPanel, FooterPanel, GeneralPanel,
+ * DressCodePanel, GuestbookPanel, CouplePanel, StoryPanel,
+ * MusicPanel, GalleryPanel, SectionTitlesPanel, SettingsPanel,
+ * EditorHeader, EditorMobileSheet...) — nền đã đảo ở trên
+ * nhưng màu chữ thì chưa.
+ */
+html.theme-dark .map-hint,
+html.theme-dark .map-open,
+html.theme-dark .copy-button,
+html.theme-dark .inline-button,
+html.theme-dark .progress-head strong,
+html.theme-dark .settings-toolbar strong,
+html.theme-dark .story-ideas-head strong,
+html.theme-dark .section-title-head strong,
+html.theme-dark .music-meta strong,
+html.theme-dark .bulk-info strong,
+html.theme-dark .preview-text strong,
+html.theme-dark .icon-button,
+html.theme-dark .sheet-search-clear,
+html.theme-dark .mobile-menu-group,
+html.theme-dark .sheet-empty {
+  color: var(--dark);
+}
+
+/* Nhãn phụ mờ hơn một bậc */
+html.theme-dark .preview-text span,
+html.theme-dark .settings-toolbar span,
+html.theme-dark .map-hint span,
+html.theme-dark .music-meta span,
+html.theme-dark .bulk-info small {
+  color: var(--muted);
+}
+
+/* Dấu tick xanh trong sheet mobile */
+html.theme-dark .mobile-done {
+  color: #7fbf8f;
+}
+
+/*
+ * Thông báo thành công / lỗi trong panel editor — xanh/đỏ đậm
+ * hardcoded (UploadField, GuestbookPanel, RecipientPanel,
+ * GeneralPanel) → sáng hơn trên nền tối.
+ */
+html.theme-dark .upload-message,
+html.theme-dark .panel-feedback,
+html.theme-dark .sync-message,
+html.theme-dark .progress-list li.done {
+  color: #7fbf8f;
+}
+
+html.theme-dark .upload-message.error,
+html.theme-dark .panel-feedback.error,
+html.theme-dark .sync-message.error {
+  color: #d07070;
+}
+
+/*
+ * Nút nhỏ trong panel editor (toolbar-btn, slug-button,
+ * field-clear, section-reset, icon-chip, small-icon-button...)
+ * — nền đã đảo ở mục 4 nhưng màu chữ nâu #6b5a4e / xám #a8988a
+ * hardcoded trong từng component → ngà sáng.
+ */
+html.theme-dark .toolbar-btn,
+html.theme-dark .slug-button,
+html.theme-dark .field-clear,
+html.theme-dark .section-reset,
+html.theme-dark .icon-chip,
+html.theme-dark .small-icon-button {
+  color: var(--dark);
+}
+
+/* Input chữ trong panel — chữ mực #2b2118 hardcoded */
+html.theme-dark .swatch-text,
+html.theme-dark .sheet-search input,
+html.theme-dark .sidebar-search input {
+  color: var(--dark);
+}
+
+/* Hover nút nhỏ — nền kem hardcoded → tối hơn một bậc */
+html.theme-dark .toolbar-btn:hover,
+html.theme-dark .slug-button:hover,
+html.theme-dark .copy-button:hover:not(:disabled),
+html.theme-dark .inline-button:hover,
+html.theme-dark .inline-button:hover:not(:disabled),
+html.theme-dark .map-open:hover,
+html.theme-dark .small-icon-button:hover,
+html.theme-dark .small-icon-button:hover:not(:disabled),
+html.theme-dark .item-icon-button:hover:not(:disabled),
+html.theme-dark .section-reset:hover,
+html.theme-dark .field-clear:hover {
   background: #2c241a;
 }
 
@@ -540,6 +756,7 @@ html.theme-dark .confirm-icon.danger {
 /* Trang preview (EditorPreview) — chữ xám → ngà */
 html.theme-dark .preview-back,
 html.theme-dark .preview-title span,
+html.theme-dark .preview-title strong,
 html.theme-dark .preview-loading-card strong,
 html.theme-dark .preview-error-card h2 {
   color: var(--studio-ink);

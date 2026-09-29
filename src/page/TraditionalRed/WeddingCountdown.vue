@@ -95,6 +95,7 @@ onUnmounted(() => {
 
   text-align: center;
 
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 18px;
 
   font-weight: 600;

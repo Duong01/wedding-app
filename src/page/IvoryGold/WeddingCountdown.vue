@@ -367,9 +367,10 @@ onBeforeUnmount(() => {
   color: #8e1418;
 
   font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+    var(--font-num, "Be Vietnam Pro"),
+    "Segoe UI",
+    system-ui,
+    sans-serif;
 
   font-size: 29px;
 

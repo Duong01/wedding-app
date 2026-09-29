@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
 .mw-countdown__item strong {
   color: var(--mw-blue);
 
-  font-family: var(--mw-font-serif);
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 24px;
   font-weight: 500;
 

@@ -174,6 +174,7 @@ onUnmounted(() => clearInterval(timer));
 
   color: var(--rr-red);
 
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 27px;
   font-weight: 500;
 

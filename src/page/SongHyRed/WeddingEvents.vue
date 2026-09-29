@@ -721,7 +721,7 @@ onBeforeUnmount(() => {
 .shy-countdown__cell strong {
   color: var(--shy-red);
 
-  font-family: "Times New Roman", serif;
+  font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: 22px;
   font-weight: 700;
 

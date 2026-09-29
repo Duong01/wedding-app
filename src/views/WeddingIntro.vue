@@ -78,7 +78,8 @@
     <!-- =========================================================
          TRANG GIỚI THIỆU MẪU — đầy đủ nội dung
 
-         1. Hero một màn: ảnh xem trước + thông tin + hành động
+         0. Giới thiệu mẫu: tên, cặp đôi, mô tả ngắn
+         1. Hero: ảnh xem trước + thông tin + hành động
          2. Điểm nổi bật
          3. Giới thiệu + toàn cảnh thiệp (khung cuộn được)
          4. Phù hợp cho + link hướng dẫn
@@ -89,6 +90,28 @@
          9. CTA cuối trang
     ========================================================== -->
     <template v-else>
+      <!-- =========================================
+           0. GIỚI THIỆU MẪU — khối chào trên cùng:
+           tên thiết kế, cặp đôi, mô tả ngắn gọn.
+      ========================================== -->
+      <section class="intro-brief">
+        <div class="brief-inner">
+          <span class="brief-orn">{{ meta.orn }}</span>
+
+          <h1 class="brief-title">
+            {{ getThemeLabel(wedding) }}
+          </h1>
+
+          <p class="brief-couple">
+            {{ getCoupleName(wedding) }}
+          </p>
+
+          <p class="brief-desc">
+            {{ meta.desc }}
+          </p>
+        </div>
+      </section>
+
       <!-- =========================================
            1. HERO — một màn: ảnh xem trước + thông tin
       ========================================== -->
@@ -143,9 +166,9 @@
               {{ meta.orn }} {{ getCollectionLabel(wedding) }}
             </span>
 
-            <h1 class="info-title">
+            <h2 class="info-title">
               {{ getThemeLabel(wedding) }}
-            </h1>
+            </h2>
 
             <p class="info-couple">
               {{ getCoupleName(wedding) }}
@@ -424,7 +447,7 @@
         <!-- =========================================
              5. TÍNH NĂNG
         ========================================== -->
-        <section class="detail-section">
+        <section class="detail-section sec-features">
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
@@ -500,7 +523,11 @@
                 class="related-card"
                 @click="goRelated(tpl.slug)"
               >
-                <div class="related-thumb">
+                <div
+                  class="related-thumb"
+                  @mouseenter="relatedScroll.start"
+                  @mouseleave="relatedScroll.stop"
+                >
                   <img
                     :src="tpl.src"
                     :alt="tpl.label"
@@ -629,6 +656,8 @@ import {
 import { BRAND } from "@/data/siteContent";
 
 import { faqJsonLd, useSeo } from "@/composables/useSeo";
+
+import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
 
 import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
 
@@ -850,7 +879,11 @@ watch(heroFrame, (frame) => {
 /* Đổi mẫu (thẻ liên quan) → dừng cuộn cũ, chờ ảnh mới load. */
 watch(
   () => wedding.value?.slug,
-  () => stopHeroAutoScroll()
+  () => {
+    stopHeroAutoScroll();
+
+    relatedScroll.stop();
+  }
 );
 
 onBeforeUnmount(() => {
@@ -1108,6 +1141,12 @@ const relatedTemplates = computed(() => {
 
   return [...sameCollection, ...others].slice(0, 3).map(decorate);
 });
+
+/*
+ * Thẻ mẫu liên quan — hover để tự cuộn ảnh nguyên trang
+ * (hiệu ứng nằm ở composables/useHoverAutoScroll.js).
+ */
+const relatedScroll = useHoverAutoScroll();
 
 /* =========================================================
    CẬP NHẬT — nhãn "Cập nhật T9/2026" dưới từ khóa
@@ -1545,6 +1584,76 @@ async function shareTemplate() {
 }
 
 /* =========================================================
+   GIỚI THIỆU MẪU — khối chào trên cùng
+========================================================= */
+
+.intro-brief {
+  padding: clamp(28px, 5vw, 56px) 0 0;
+
+  text-align: center;
+}
+
+.brief-inner {
+  width: min(760px, calc(100% - 32px));
+
+  margin: 0 auto;
+}
+
+.brief-orn {
+  display: inline-grid;
+  place-items: center;
+
+  width: clamp(44px, 6vw, 56px);
+  height: clamp(44px, 6vw, 56px);
+
+  border-radius: 50%;
+
+  background: var(--studio-foil-soft, rgba(185, 151, 91, 0.16));
+
+  color: var(--studio-seal, #a63a2e);
+
+  font-family: var(--font-symbol, serif);
+
+  font-size: clamp(18px, 2.4vw, 22px);
+}
+
+.brief-title {
+  margin: 14px 0 0;
+
+  font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
+
+  font-size: clamp(26px, 4.5vw, 44px);
+
+  line-height: 1.1;
+
+  font-weight: 500;
+
+  letter-spacing: -0.02em;
+
+  color: var(--text);
+}
+
+.brief-couple {
+  margin: 8px 0 0;
+
+  color: var(--muted);
+
+  font-size: clamp(13px, 1.6vw, 15px);
+}
+
+.brief-desc {
+  max-width: 560px;
+
+  margin: 12px auto 0;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: clamp(13.5px, 1.6vw, 15px);
+
+  line-height: 1.75;
+}
+
+/* =========================================================
    HERO — một màn: ảnh xem trước + thông tin
 ========================================================= */
 
@@ -1556,7 +1665,7 @@ async function shareTemplate() {
   display: flex;
   align-items: center;
 
-  padding: 20px 0;
+  padding: clamp(16px, 3vw, 28px) 0;
 }
 
 .hero-inner {
@@ -1566,7 +1675,7 @@ async function shareTemplate() {
 
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 
-  gap: 56px;
+  gap: clamp(28px, 4vw, 56px);
 
   margin: 0 auto;
 
@@ -1583,20 +1692,20 @@ async function shareTemplate() {
 }
 
 .preview-card {
-  width: min(400px, 100%);
-  max-height: calc(100vh - 150px);
+  width: min(360px, 100%);
+  max-height: calc(100vh - 220px);
 
   aspect-ratio: 9 / 16;
 
   overflow: hidden;
 
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
-  border-radius: 24px;
+  border-radius: clamp(16px, 2.5vw, 24px);
 
   background: #fff;
 
   box-shadow:
-    0 30px 70px rgba(43, 33, 24, 0.18),
+    0 24px 60px rgba(43, 33, 24, 0.16),
     0 0 0 4px rgba(185, 151, 91, 0.16);
 }
 
@@ -1689,7 +1798,7 @@ async function shareTemplate() {
 
   font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
 
-  font-size: clamp(32px, 4.2vw, 52px);
+  font-size: clamp(26px, 3.6vw, 46px);
 
   line-height: 1.05;
 
@@ -1740,9 +1849,9 @@ async function shareTemplate() {
 .date-day {
   color: var(--studio-seal, #a63a2e);
 
-  font-family: var(--font-heading), Georgia, serif;
+  font-family: var(--font-num, var(--font-heading)), Georgia, serif;
 
-  font-size: 34px;
+  font-size: clamp(26px, 3vw, 34px);
   font-weight: 600;
 
   line-height: 1;
@@ -1751,7 +1860,7 @@ async function shareTemplate() {
 .date-rest {
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 13px;
+  font-size: clamp(12px, 1.3vw, 13px);
   font-weight: 600;
 }
 
@@ -1764,7 +1873,7 @@ async function shareTemplate() {
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 13px;
+  font-size: clamp(12px, 1.3vw, 13px);
 
   line-height: 1.6;
 }
@@ -1776,7 +1885,7 @@ async function shareTemplate() {
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: clamp(14px, 1.5vw, 15.5px);
+  font-size: clamp(13.5px, 1.5vw, 15.5px);
 
   line-height: 1.75;
 }
@@ -1806,7 +1915,7 @@ async function shareTemplate() {
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 11.5px;
+  font-size: clamp(11px, 1.2vw, 11.5px);
   font-weight: 600;
 
   letter-spacing: 0.02em;
@@ -1880,7 +1989,7 @@ async function shareTemplate() {
 
   border-radius: 999px;
 
-  font-size: 14px;
+  font-size: clamp(13px, 1.4vw, 14px);
   font-weight: 700;
 
   cursor: pointer;
@@ -1986,7 +2095,7 @@ async function shareTemplate() {
 
   font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
 
-  font-size: clamp(24px, 3.2vw, 38px);
+  font-size: clamp(22px, 3.2vw, 38px);
 
   line-height: 1.15;
 
@@ -2084,7 +2193,7 @@ async function shareTemplate() {
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 14px;
+  font-size: clamp(13px, 1.4vw, 14px);
 
   line-height: 1.7;
 }
@@ -2102,7 +2211,7 @@ async function shareTemplate() {
 
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 
-  gap: 48px;
+  gap: clamp(28px, 4vw, 48px);
 
   margin-top: 34px;
 
@@ -2116,7 +2225,7 @@ async function shareTemplate() {
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: clamp(14px, 1.5vw, 15.5px);
+  font-size: clamp(13.5px, 1.5vw, 15.5px);
 
   line-height: 1.85;
 }
@@ -2125,24 +2234,24 @@ async function shareTemplate() {
   position: sticky;
   top: 88px;
 
-  width: min(380px, 100%);
+  width: min(340px, 100%);
 
   margin: 0 auto;
 
   overflow: hidden;
 
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
-  border-radius: 20px;
+  border-radius: clamp(14px, 2vw, 20px);
 
   background: #fff;
 
   box-shadow:
-    0 24px 60px rgba(43, 33, 24, 0.16),
+    0 20px 50px rgba(43, 33, 24, 0.14),
     0 0 0 4px rgba(185, 151, 91, 0.14);
 }
 
 .frame-scroll {
-  max-height: min(68vh, 680px);
+  max-height: min(64vh, 620px);
 
   overflow-y: auto;
 
@@ -2286,7 +2395,7 @@ async function shareTemplate() {
 
   color: var(--studio-ink-soft, #5c4f43);
 
-  font-size: 13.5px;
+  font-size: clamp(12.5px, 1.4vw, 13.5px);
   font-weight: 600;
 
   line-height: 1.4;
@@ -2396,20 +2505,17 @@ async function shareTemplate() {
   background: #fff;
 }
 
+/*
+ * Ảnh thẻ là ảnh nguyên trang (~1:12) — height:auto, phần
+ * tràn nằm dưới khung 3/4 nên bình thường chỉ thấy trang
+ * bìa. Hover: ảnh tự cuộn xuống bằng translateY (xem
+ * composables/useHoverAutoScroll.js), rời chuột thì về đầu.
+ */
 .related-thumb img {
   width: 100%;
-  height: 100%;
+  height: auto;
 
   display: block;
-
-  object-fit: cover;
-  object-position: top;
-
-  transition: transform 0.4s ease;
-}
-
-.related-card:hover .related-thumb img {
-  transform: scale(1.04);
 }
 
 .related-body {
@@ -2436,7 +2542,7 @@ async function shareTemplate() {
 
   font-family: var(--font-heading), Georgia, serif;
 
-  font-size: 18px;
+  font-size: clamp(16px, 1.8vw, 18px);
   font-weight: 600;
 
   color: var(--text);
@@ -2447,7 +2553,7 @@ async function shareTemplate() {
 
   color: var(--muted);
 
-  font-size: 12.5px;
+  font-size: clamp(12px, 1.3vw, 12.5px);
 
   line-height: 1.65;
 
@@ -2514,7 +2620,7 @@ async function shareTemplate() {
 
   font-family: var(--font-heading), Georgia, serif;
 
-  font-size: 17px;
+  font-size: clamp(15px, 1.8vw, 17px);
   font-weight: 600;
 
   color: var(--text);
@@ -2525,7 +2631,7 @@ async function shareTemplate() {
 
   color: var(--muted);
 
-  font-size: 13px;
+  font-size: clamp(12.5px, 1.4vw, 13px);
 
   line-height: 1.7;
 }
@@ -2586,7 +2692,7 @@ async function shareTemplate() {
 
   font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
 
-  font-size: clamp(24px, 3vw, 34px);
+  font-size: clamp(22px, 3vw, 34px);
 
   font-weight: 500;
 }
@@ -2598,7 +2704,7 @@ async function shareTemplate() {
 
   color: var(--muted);
 
-  font-size: 14.5px;
+  font-size: clamp(13.5px, 1.5vw, 14.5px);
 
   line-height: 1.75;
 }
@@ -2686,6 +2792,10 @@ async function shareTemplate() {
 ========================================================= */
 
 @media (max-width: 1024px) {
+  .intro-brief {
+    padding-top: clamp(20px, 4vw, 32px);
+  }
+
   .intro-hero {
     align-items: stretch;
   }
@@ -2701,7 +2811,7 @@ async function shareTemplate() {
   }
 
   .preview-card {
-    width: min(340px, 100%);
+    width: min(320px, 100%);
 
     margin: 0 auto;
 
@@ -2746,104 +2856,58 @@ async function shareTemplate() {
   }
 
   .intro-hero {
-    padding: 16px 0 0;
+    min-height: auto;
+
+    padding: 12px 0 0;
   }
 
   .hero-inner {
     width: calc(100% - 24px);
-
-    gap: 18px;
   }
 
-  /* ---- gọn dữ liệu như bản tham khảo: tiêu đề + mô tả
-     ngắn + tags, phần còn lại xuống dưới hoặc ẩn ---- */
+  /* ---- điện thoại CHỈ giữ: GIỚI THIỆU + ẢNH + MỤC TÍNH NĂNG ----
 
-  .info-col {
-    order: 1;
-  }
+     Cột chữ của hero lẫn mọi section khác (điểm nổi
+     bật, giới thiệu, hỏi đáp, mẫu liên quan, bài viết,
+     CTA cuối) đều ẩn — nội dung đầy đủ xem trên máy
+     tính. Hành động chuyển đổi nằm ở thanh cố định dưới
+     đáy màn hình. */
 
-  .preview-col {
-    order: 2;
-
-    justify-content: stretch;
-  }
-
-  .breadcrumb,
-  .info-couple,
-  .info-event,
-  .info-updated,
-  .cta-block {
+  .info-col,
+  .final-cta {
     display: none;
   }
 
-  .info-title {
-    margin-top: 8px;
-
-    font-size: clamp(26px, 8vw, 34px);
-  }
-
-  .info-desc {
-    margin-top: 10px;
-
-    font-size: 14px;
-
-    /* mô tả rút gọn 2 dòng — chi tiết nằm ở section Giới thiệu */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-
-    overflow: hidden;
-  }
-
-  .info-tags {
-    margin-top: 12px;
-  }
-
-  /* thẻ ảnh chiếm trọn bề rộng — khung cho ảnh tự cuộn */
-  .preview-card {
-    width: 100%;
-
-    max-height: 52vh;
-
-    border-radius: 18px;
-
-    box-shadow: 0 18px 44px rgba(43, 33, 24, 0.16);
-  }
-
-  /* ---- section nội dung ---- */
-
+  /* mặc định ẩn mọi section — chỉ hiện mục được đánh dấu */
   .detail-section {
-    padding: 48px 0 8px;
+    display: none;
+  }
+
+  .detail-section.sec-features {
+    display: block;
+
+    padding: 40px 0 8px;
   }
 
   .detail-section .container {
     width: calc(100% - 24px);
   }
 
-  .highlights-grid {
-    grid-template-columns: 1fr;
+  /* thẻ ảnh chiếm trọn bề rộng — khung cho ảnh tự cuộn */
+  .preview-card {
+    width: 100%;
 
-    gap: 10px;
-  }
+    max-height: 64vh;
 
-  .highlights-grid li {
-    padding: 16px 14px;
-  }
+    border-radius: 16px;
 
-  .overview-text p {
-    font-size: 14px;
-  }
-
-  .frame-scroll {
-    max-height: 56vh;
-  }
-
-  .suitable {
-    padding: 16px;
+    box-shadow: 0 18px 44px rgba(43, 33, 24, 0.16);
   }
 
   .features-grid {
     gap: 8px;
+
+    margin-top: 24px;
   }
 
   .features-grid li {
@@ -2857,59 +2921,6 @@ async function shareTemplate() {
     height: 30px;
 
     font-size: 13px;
-  }
-
-  /* thẻ mẫu liên quan gọn ngang: ảnh trái, chữ phải */
-  .related-grid {
-    grid-template-columns: 1fr;
-
-    gap: 12px;
-  }
-
-  .related-card {
-    display: grid;
-
-    grid-template-columns: 92px minmax(0, 1fr);
-
-    align-items: stretch;
-  }
-
-  .related-thumb {
-    aspect-ratio: auto;
-  }
-
-  .related-thumb img {
-    height: 100%;
-  }
-
-  .related-body {
-    gap: 3px;
-
-    padding: 12px 14px;
-  }
-
-  .related-name {
-    font-size: 15.5px;
-  }
-
-  .related-desc {
-    display: none;
-  }
-
-  .articles-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .article-card {
-    padding: 18px;
-  }
-
-  .final-cta {
-    padding: 56px 0 16px;
-  }
-
-  .final-inner {
-    padding: 34px 20px;
   }
 
   /* ---- thanh hành động cố định dưới màn hình ---- */
@@ -2994,18 +3005,16 @@ async function shareTemplate() {
     width: calc(100% - 20px);
   }
 
-  .detail-section .container {
+  .brief-inner {
     width: calc(100% - 20px);
   }
 
-  .info-title {
-    font-size: 26px;
+  .brief-title {
+    font-size: 24px;
   }
 
-  .info-tag {
-    padding: 4px 10px;
-
-    font-size: 10.5px;
+  .detail-section .container {
+    width: calc(100% - 20px);
   }
 
   .features-grid li {
