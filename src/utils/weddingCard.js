@@ -51,6 +51,7 @@ export const THEME_PREVIEW = {
   "serene-green": "elegant_leaf_green",
   "boho-terracotta": "boho_floral_green",
   "song-hy-red": "song_hy_red",
+  "song-hac-red": "song_hy_red",
   "to-duyen-xanh": "spring_garden_green",
   "modern-white": "jasmine_white",
 };

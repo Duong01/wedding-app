@@ -743,11 +743,17 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 900px) {
+  .cfr-theme {
+    background-color: #f2ead8;
+  }
+
   .cfr-invitation {
     width: min(900px, 100%);
 
     border-left: 1px solid var(--cfr-hairline-soft);
     border-right: 1px solid var(--cfr-hairline-soft);
+
+    box-shadow: 0 0 44px rgba(86, 2, 7, 0.14);
   }
 
   .cfr-garland {

@@ -39,6 +39,8 @@ const themes = {
 
   "song-hy-red": defineAsyncComponent(() => import("./SongHyRed.vue")),
 
+  "song-hac-red": defineAsyncComponent(() => import("./SongHacRed.vue")),
+
   "to-duyen-xanh": defineAsyncComponent(() => import("./ToDuyenXanh.vue")),
 
   "long-phung-v3": defineAsyncComponent(() => import("./LongPhungV3.vue")),

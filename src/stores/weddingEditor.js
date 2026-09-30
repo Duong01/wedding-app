@@ -237,6 +237,18 @@ export const THEME_PALETTES = {
     White: "#ffffff",
   },
 
+  "song-hac-red": {
+    Primary: "#920002",
+    Secondary: "#990000",
+    Accent: "#ffe8a4",
+    AccentLight: "#ffe8a4",
+    Background: "#920002",
+    BackgroundSecondary: "#990000",
+    Text: "#ffe8a4",
+    TextSecondary: "#001232",
+    White: "#f6efea",
+  },
+
   "to-duyen-xanh": {
     Primary: "#5e813c",
     Secondary: "#1a3500",

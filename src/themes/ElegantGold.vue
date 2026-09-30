@@ -352,11 +352,17 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 900px) {
+  .la-theme {
+    background-color: #f2ead8;
+  }
+
   .la-invitation {
     width: min(900px, 100%);
 
     border-left: 1px solid var(--la-hairline-soft);
     border-right: 1px solid var(--la-hairline-soft);
+
+    box-shadow: 0 0 44px rgba(163, 10, 21, 0.14);
   }
 
   .la-content {

@@ -551,8 +551,16 @@ onMounted(() => {
    ========================================================= */
 
 @media (min-width: 900px) {
+  .romantic-pink {
+    background-color: #f2ead8;
+  }
+
   .romantic-invitation {
     width: min(900px, 100%);
+
+    box-shadow: 0 0 0 1px rgba(203, 93, 108, 0.08),
+      0 24px 70px rgba(147, 56, 69, 0.18),
+      0 0 44px rgba(147, 56, 69, 0.12);
   }
 
   .romantic-pink :deep(.gg-title) {

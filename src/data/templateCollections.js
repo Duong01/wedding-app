@@ -149,6 +149,23 @@ export const THEME_META = {
     orn: "囍",
   },
 
+  "song-hac-red": {
+    name: "Song Hạc Đỏ",
+    collection: "a-dong",
+    dark: true,
+    isNew: true,
+    desc: "Trăng soi đôi hạc, mây hoa và chữ hỷ trên nền đỏ thẫm.",
+    tags: ["Truyền thống", "Đỏ thẫm", "Chim hạc"],
+    palette: {
+      bg: "#920002",
+      ink: "#ffe8a4",
+      soft: "rgba(255, 232, 164, 0.65)",
+      accent: "#ffe8a4",
+      seal: "#ffe8a4",
+    },
+    orn: "囍",
+  },
+
   /* =====================================================
      BỘ SƯU TẬP B — KIM TUYẾN & LỤA
   ====================================================== */

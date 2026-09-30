@@ -135,4 +135,21 @@ onMounted(() => {
 .midnight-invitation { width: 100%; }
 .midnight-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(216, 182, 118, 0.05), rgba(18, 14, 21, 0.55)); }
 .midnight-section { max-width: 1100px; margin: 0 auto 22px; }
+
+/* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
+   giữ nguyên nền như bản mobile. */
+@media (min-width: 768px) {
+  .midnight-gold-theme {
+    background: #f2ead8;
+  }
+
+  .midnight-invitation {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    background:
+      radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),
+      linear-gradient(180deg, #1d1622 0%, #17121b 45%, #120e15 100%);
+    box-shadow: 0 0 44px rgba(0, 0, 0, 0.3);
+  }
+}
 </style>

@@ -464,6 +464,8 @@ onMounted(() => {
   margin: 0 auto;
 
   overflow: hidden;
+
+  background-color: var(--bq-bg);
 }
 
 /* Hoa văn nền lặp lại — ảnh gán qua inline style */
@@ -499,11 +501,17 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 768px) {
+  .baroque {
+    background-color: #f2ead8;
+  }
+
   .bq-invitation {
     max-width: 900px;
 
     border-left: 1px solid var(--bq-line);
     border-right: 1px solid var(--bq-line);
+
+    box-shadow: 0 0 44px rgba(43, 3, 3, 0.22);
   }
 
   .bq-invitation__inner {

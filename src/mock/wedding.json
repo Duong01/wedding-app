@@ -4128,5 +4128,254 @@
     },
     "weddingLunar": "12 tháng 5 năm Bính Ngọ",
     "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+  },
+  {
+    "Id": 25,
+    "slug": "quang-duy-ha-linh",
+    "groomName": "Quang Duy",
+    "brideName": "Hà Linh",
+    "language": "vi",
+    "weddingDate": "2027-04-10T18:30:00",
+    "coverImage": "https://assets.chungdoi.com/photo-library/design/de3e8039b2f2bf41da45df7b82a46f812a4691cd636a73a949afd702d7303e5e.webp",
+    "theme": {
+      "Name": "song-hac-red",
+      "Colors": {
+        "Primary": "#920002",
+        "Secondary": "#990000",
+        "Accent": "#ffe8a4",
+        "AccentLight": "#ffe8a4",
+        "Background": "#920002",
+        "BackgroundSecondary": "#990000",
+        "Text": "#ffe8a4",
+        "TextSecondary": "#001232",
+        "White": "#f6efea"
+      },
+      "Fonts": {
+        "Main": "Times New Roman",
+        "Heading": "Fraunces",
+        "Script": "Carattere"
+      },
+      "Layout": {
+        "MaxWidth": "480px",
+        "SectionPadding": "23px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Nguyễn Hà Linh",
+        "Nickname": "Hà Linh",
+        "Role": "Út nữ",
+        "Avatar": "https://assets.chungdoi.com/photo-library/design/d5e03e9a077ddd65a1a9a62297e733e43d10c2d688a5bd1779476541138b61c6.webp",
+        "Cover": "https://assets.chungdoi.com/photo-library/design/c4dbc318e259b49f88db7f319ae3b884efa85404451d1590d891cdce441a5504.webp",
+        "Father": "Nguyễn Đức Khoa",
+        "Mother": "Vũ Thị Kim Yến",
+        "Address": "Thôn Trung Hành, xã Đằng Lâm, quận Hải An, Hải Phòng",
+        "Description": "Dịu dàng, tinh tế và luôn mang hơi ấm của biển cả quê nhà."
+      },
+      "Groom": {
+        "Name": "Trần Quang Duy",
+        "Nickname": "Quang Duy",
+        "Role": "Trưởng nam",
+        "Avatar": "https://assets.chungdoi.com/photo-library/design/bd68293000f2d3aa0ea148675a20a99df2d55e76c4f046c4b30fd1688900bb6f.webp",
+        "Cover": "https://assets.chungdoi.com/photo-library/design/93e74b21915b419a1e009dc9a5316dd15f42c03dfaccfcf4154253c773d36164.webp",
+        "Father": "Trần Văn Hoạch",
+        "Mother": "Phạm Thị Thu Nga",
+        "Address": "Số 18 ngõ Hàng Kênh, phường An Biên, quận Lê Chân, Hải Phòng",
+        "Description": "Trầm tĩnh, đáng tin cậy và luôn vững vàng như ngọn hải đăng."
+      }
+    },
+    "hero": {
+      "GroomName": "Trần Quang Duy",
+      "BrideName": "Nguyễn Hà Linh",
+      "Title": "Save The Date",
+      "WeddingDate": "2027-04-10T18:30:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "Trung tâm Tiệc cưới Hạc Vàng, Hải Phòng"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Trăng soi đôi hạc, vạn sự song toàn — chúng tôi tin rằng mỗi cuộc gặp gỡ đều là duyên trời se. Và giờ đây, chúng tôi muốn viết tiếp câu chuyện ấy cùng sự chứng kiến của quý vị."
+    },
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "lethanhon",
+        "Title": "Lễ Thành Hôn",
+        "Weekday": "THỨ BẢY",
+        "Day": "24",
+        "Month": "10",
+        "Year": "2026",
+        "EventDate": "2026-10-24",
+        "EventTime": "09:00",
+        "Lunar": "Tức ngày 15 tháng 9 năm Bính Ngọ",
+        "Location": "Tư gia nhà trai",
+        "Address": "Số 18 ngõ Hàng Kênh, phường An Biên, quận Lê Chân, Hải Phòng",
+        "Map": "https://maps.google.com/?q=20.8394,106.6923"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm Tiệc Cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "10",
+        "Month": "04",
+        "Year": "2027",
+        "EventDate": "2027-04-10",
+        "EventTime": "18:30",
+        "Lunar": "Tức ngày 4 tháng 3 năm Đinh Mùi",
+        "Location": "Trung tâm Tiệc cưới Hạc Vàng",
+        "Address": "279 Lạch Tray, phường Đằng Giang, thành phố Hải Phòng",
+        "Map": "https://maps.google.com/?q=20.8394,106.6923"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://assets.chungdoi.com/photo-library/design/de3e8039b2f2bf41da45df7b82a46f812a4691cd636a73a949afd702d7303e5e.webp"
+      },
+      {
+        "Id": 2,
+        "Image": "https://assets.chungdoi.com/photo-library/design/d5e03e9a077ddd65a1a9a62297e733e43d10c2d688a5bd1779476541138b61c6.webp"
+      },
+      {
+        "Id": 3,
+        "Image": "https://assets.chungdoi.com/photo-library/design/c4dbc318e259b49f88db7f319ae3b884efa85404451d1590d891cdce441a5504.webp"
+      },
+      {
+        "Id": 4,
+        "Image": "https://assets.chungdoi.com/photo-library/design/bd68293000f2d3aa0ea148675a20a99df2d55e76c4f046c4b30fd1688900bb6f.webp"
+      },
+      {
+        "Id": 5,
+        "Image": "https://assets.chungdoi.com/photo-library/design/93e74b21915b419a1e009dc9a5316dd15f42c03dfaccfcf4154253c773d36164.webp"
+      },
+      {
+        "Id": 6,
+        "Image": "https://assets.chungdoi.com/photo-library/design/0c000a8535de02dab675e9b33d619beddb03d98b2fc69360b08ed37c04c628d4.webp"
+      },
+      {
+        "Id": 7,
+        "Image": "https://assets.chungdoi.com/photo-library/design/d068f6f70786621ad78e8d5133da79a45ddf28adbf26ef5971f5e425acb70ba6.webp"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "17:30",
+        "Title": "Đón khách",
+        "Description": "Đón tiếp quý khách đến dự tiệc.",
+        "Location": "Sảnh chính",
+        "Icon": "❦"
+      },
+      {
+        "Id": 2,
+        "Time": "18:30",
+        "Title": "Khai tiệc",
+        "Description": "Nghi thức tuyên bố khai tiệc.",
+        "Location": "Sảnh chính",
+        "Icon": "❦"
+      },
+      {
+        "Id": 3,
+        "Time": "18:45",
+        "Title": "Rót rượu, cắt bánh",
+        "Description": "Nghi thức rót rượu và cắt bánh cưới.",
+        "Location": "Sảnh chính",
+        "Icon": "✦"
+      },
+      {
+        "Id": 4,
+        "Time": "19:00",
+        "Title": "Phục vụ món chính",
+        "Description": "Mở đầu màn tiệc chính.",
+        "Location": "Sảnh chính",
+        "Icon": "✦"
+      },
+      {
+        "Id": 5,
+        "Time": "21:00",
+        "Title": "Kết thúc tiệc",
+        "Description": "Cảm ơn và tiễn quý khách.",
+        "Location": "Sảnh chính",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "halinh2027",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "NHÀ TRAI",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Ngân hàng Vietcombank",
+        "AccountName": "TRẦN QUANG DUY",
+        "AccountNumber": "0123456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20QUANG%20DUY%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "NHÀ GÁI",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "NGUYỄN HÀ LINH",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CNGUY%E1%BB%84N%20H%C3%80%20LINH%7C0912348899"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Minh Anh",
+          "Message": "Trăng soi đôi hạc, chúc hai bạn trăm năm hạnh phúc!",
+          "CreatedAt": "10:12 05/12/2026"
+        },
+        {
+          "Id": 2,
+          "Name": "Quốc Bảo",
+          "Message": "Chúc hai bạn mãi yêu thương nhau như ngày đầu.",
+          "CreatedAt": "10:45 05/12/2026"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2027-04-10T18:30:00"
+    },
+    "footer": {
+      "Message": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi.",
+      "Copyright": "Quang Duy & Hà Linh",
+      "GroomName": "Trần Quang Duy",
+      "BrideName": "Nguyễn Hà Linh"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "weddingLunar": "4 tháng 3 năm Đinh Mùi",
+    "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
   }
 ]

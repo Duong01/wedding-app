@@ -416,6 +416,10 @@ onMounted(() => {
 
 /* Desktop */
 @media (min-width: 768px) {
+  .dong-son-wedding {
+    background: #f2ead8;
+  }
+
   .invitation {
     margin-top: 20px;
     margin-bottom: 20px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="shy-theme" :data-theme="theme.Name" :style="themeStyle">
+  <div ref="rootRef" class="shc-theme" :data-theme="theme.Name" :style="themeStyle">
     <!-- =====================================================
          MÀN HÌNH MỞ THIỆP
     ====================================================== -->
@@ -16,7 +16,7 @@
          THIỆP
     ====================================================== -->
 
-    <main v-else class="shy-invitation">
+    <main v-else class="shc-invitation">
       <!-- ============ HERO ============ -->
 
       <WeddingHero
@@ -50,7 +50,11 @@
 
       <WeddingStory v-if="showStory && wedding?.story" :story="wedding.story" />
 
-      <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" />
+      <WeddingGifts
+        v-if="showGift && gifts.length"
+        :gifts="gifts"
+        :wishes="wishes"
+      />
 
       <WeddingFooter
         v-if="showFooter"
@@ -65,24 +69,24 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref, onMounted } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
 import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
-import OpeningScreen from "@/page/SongHyRed/OpeningScreen.vue";
-import WeddingHero from "@/page/SongHyRed/WeddingHero.vue";
-import WeddingCouple from "@/page/SongHyRed/WeddingCouple.vue";
-import WeddingStory from "@/page/SongHyRed/WeddingStory.vue";
-import WeddingEvents from "@/page/SongHyRed/WeddingEvents.vue";
-import WeddingGallery from "@/page/SongHyRed/WeddingGallery.vue";
-import WeddingMap from "@/page/SongHyRed/WeddingMap.vue";
-import DressCode from "@/page/SongHyRed/DressCode.vue";
-import Timeline from "@/page/SongHyRed/Timeline.vue";
-import WeddingGifts from "@/page/SongHyRed/WeddingGifts.vue";
-import WeddingWishes from "@/page/SongHyRed/WeddingWishes.vue";
-import WeddingFooter from "@/page/SongHyRed/WeddingFooter.vue";
+import OpeningScreen from "@/page/SongHacRed/OpeningScreen.vue";
+import WeddingHero from "@/page/SongHacRed/WeddingHero.vue";
+import WeddingCouple from "@/page/SongHacRed/WeddingCouple.vue";
+import WeddingStory from "@/page/SongHacRed/WeddingStory.vue";
+import WeddingEvents from "@/page/SongHacRed/WeddingEvents.vue";
+import WeddingGallery from "@/page/SongHacRed/WeddingGallery.vue";
+import WeddingMap from "@/page/SongHacRed/WeddingMap.vue";
+import DressCode from "@/page/SongHacRed/DressCode.vue";
+import Timeline from "@/page/SongHacRed/Timeline.vue";
+import WeddingGifts from "@/page/SongHacRed/WeddingGifts.vue";
+import WeddingWishes from "@/page/SongHacRed/WeddingWishes.vue";
+import WeddingFooter from "@/page/SongHacRed/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
 
@@ -92,7 +96,7 @@ const wedding = computed(() => props.wedding || {});
 
 /*
  * Bảng màu / font lấy từ theme của thiệp (xem useWeddingTheme),
- * fallback về tông "song hỷ đỏ" khi dữ liệu chưa có.
+ * fallback về tông "song hạc đỏ" khi dữ liệu chưa có.
  */
 const { theme, themeStyle } = useWeddingTheme(props.wedding);
 
@@ -113,6 +117,7 @@ const heroMusic = computed(() => {
 
 const opened = ref(props.startOpened);
 const floatingMusicRef = ref(null);
+const rootRef = ref(null);
 const currentYear = new Date().getFullYear();
 
 const settings = computed(() => wedding.value?.settings || {});
@@ -197,6 +202,49 @@ const heroDateLabel = computed(() =>
   )
 );
 
+/* =========================================================
+   BIẾN MÀU CHO MODAL TELEPORT
+   ---------------------------------------------------------
+   Dialog quà / lightbox teleport ra <body> — ngoài .shc-theme
+   nên không kế thừa biến màu. Chép sang <body> như
+   BohoTerracotta / EmeraldLuxe để modal không mất màu.
+========================================================= */
+
+const BODY_VARS = [
+  "--primary",
+  "--secondary",
+  "--accent",
+  "--accent-light",
+  "--background",
+  "--text",
+  "--text-secondary",
+  "--white",
+];
+
+function syncBodyVars() {
+  const root = rootRef.value;
+
+  if (!root) return;
+
+  const computedStyle = window.getComputedStyle(root);
+
+  BODY_VARS.forEach((name) => {
+    const value = computedStyle.getPropertyValue(name).trim();
+
+    if (value) document.body.style.setProperty(name, value);
+  });
+}
+
+function clearBodyVars() {
+  BODY_VARS.forEach((name) => document.body.style.removeProperty(name));
+}
+
+onMounted(syncBodyVars);
+
+watch(themeStyle, () => nextTick(syncBodyVars), { deep: true });
+
+onBeforeUnmount(clearBodyVars);
+
 async function handleOpen() {
   opened.value = true;
 
@@ -225,7 +273,7 @@ onMounted(() => {
    TRANG
 ========================================================= */
 
-.shy-theme {
+.shc-theme {
   position: relative;
 
   width: 100%;
@@ -233,11 +281,11 @@ onMounted(() => {
 
   overflow-x: hidden;
 
-  background-color: var(--background, #fff7eb);
+  background-color: var(--background, #920002);
 
-  color: var(--text, #666666);
+  color: var(--text, #ffe8a4);
 
-  font-family: var(--font-main, Baskerville, "Times New Roman", serif);
+  font-family: "Times New Roman", Times, serif;
 
   -webkit-font-smoothing: antialiased;
 
@@ -248,7 +296,7 @@ onMounted(() => {
    KHUNG THIỆP
 ========================================================= */
 
-.shy-invitation {
+.shc-invitation {
   position: relative;
 
   width: 100%;
@@ -260,27 +308,30 @@ onMounted(() => {
 
   overflow: hidden;
 
-  background-color: var(--background, #fff7eb);
+  background-color: var(--background, #920002);
 
-  color: var(--text, #666666);
+  color: var(--text, #ffe8a4);
 }
 
 /* =========================================================
    TABLET / DESKTOP
+   ---------------------------------------------------------
+   Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở
+   giữa giữ nguyên nền đỏ như bản mobile.
 ========================================================= */
 
 @media (min-width: 768px) {
-  .shy-theme {
+  .shc-theme {
     background-color: #f2ead8;
   }
 
-  .shy-invitation {
+  .shc-invitation {
     max-width: 900px;
 
-    border-left: 1px solid color-mix(in srgb, var(--primary, #800000) 13%, transparent);
-    border-right: 1px solid color-mix(in srgb, var(--primary, #800000) 13%, transparent);
+    border-left: 1px solid rgba(255, 232, 164, 0.2);
+    border-right: 1px solid rgba(255, 232, 164, 0.2);
 
-    box-shadow: 0 0 44px rgba(128, 0, 0, 0.18);
+    box-shadow: 0 0 44px rgba(92, 8, 8, 0.28);
   }
 }
 </style>

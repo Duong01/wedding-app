@@ -492,6 +492,10 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 768px) {
+  .chipi-red {
+    background-color: #f2ead8;
+  }
+
   .cr-invitation {
     max-width: 900px;
 
@@ -499,6 +503,8 @@ onMounted(() => {
 
     border-left: 1px solid var(--cr-line);
     border-right: 1px solid var(--cr-line);
+
+    box-shadow: 0 0 44px rgba(76, 45, 31, 0.16);
   }
 
   .cr-invitation__body {

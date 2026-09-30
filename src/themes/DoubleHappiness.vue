@@ -143,4 +143,21 @@ onMounted(() => {
 }
 
 .dh-section { max-width: 1100px; margin: 0 auto 22px; }
+
+/* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
+   giữ nguyên nền như bản mobile. */
+@media (min-width: 768px) {
+  .double-happiness-theme {
+    background: #f2ead8;
+  }
+
+  .dh-invitation {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    background:
+      radial-gradient(900px 420px at 50% -120px, rgba(217, 164, 65, 0.14), transparent 65%),
+      linear-gradient(180deg, #7a1216 0%, #6b1013 40%, #5c0e10 100%);
+    box-shadow: 0 0 44px rgba(0, 0, 0, 0.35);
+  }
+}
 </style>

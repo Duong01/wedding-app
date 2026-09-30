@@ -736,11 +736,17 @@ onMounted(() => {
 ========================================================== */
 
 @media (min-width: 768px) {
+  .royal-red {
+    background-color: #f2ead8;
+  }
+
   .royal-invitation {
     width: min(900px, 100%);
 
     border-left: 1px solid var(--rr-hairline-soft);
     border-right: 1px solid var(--rr-hairline-soft);
+
+    box-shadow: 0 0 44px rgba(92, 8, 12, 0.16);
   }
 
   .rr-content {

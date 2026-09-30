@@ -134,4 +134,19 @@ onMounted(() => {
 .lavender-invitation { width: 100%; }
 .lavender-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(241,235,244,0.8)); }
 .lavender-section { max-width: 1100px; margin: 0 auto 22px; }
+
+/* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
+   giữ nguyên nền như bản mobile. */
+@media (min-width: 768px) {
+  .lavender-cream-theme {
+    background: #f2ead8;
+  }
+
+  .lavender-invitation {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    background: var(--theme-bg);
+    box-shadow: 0 0 44px rgba(88, 74, 91, 0.16);
+  }
+}
 </style>

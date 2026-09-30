@@ -216,6 +216,7 @@ const EXPECTATIONS = {
   "double-happiness": { type: "box" },
   "boho-terracotta": { type: "envelope" },
   "song-hy-red": { type: "envelope" },
+  "song-hac-red": { type: "envelope" },
   "to-duyen-xanh": { type: "box" },
   "emerald-luxe": { type: "envelope" },
   "long-phung-v3": { type: "box" },
@@ -247,6 +248,9 @@ const GIFT_MARKERS = {
   },
   "song-hy-red": {
     envelope: /shy-gift-envelope--(?:back|front)\b/g,
+  },
+  "song-hac-red": {
+    envelope: /shc-gift-envelope--(?:back|front)\b/g,
   },
   "boho-terracotta": {
     envelope: /bq-envelope__body--(?:back|front)\b/g,
@@ -511,7 +515,7 @@ try {
 console.log(
   failed
     ? `\n${failed} check(s) failed, ${passed} passed`
-    : `\nAll ${passed} checks passed — 19 mẫu: màu đồng bộ, phong bì = 2, hộp quà = 1`
+    : `\nAll ${passed} checks passed — 20 mẫu: màu đồng bộ, phong bì = 2, hộp quà = 1`
 );
 
 process.exit(failed ? 1 : 0);

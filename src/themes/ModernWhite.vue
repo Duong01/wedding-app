@@ -663,11 +663,17 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 900px) {
+  .mw-theme {
+    background-color: #f2ead8;
+  }
+
   .mw-invitation {
     width: min(900px, 100%);
 
     border-left: 1px solid var(--mw-hairline-soft);
     border-right: 1px solid var(--mw-hairline-soft);
+
+    box-shadow: 0 0 44px rgba(58, 86, 102, 0.14);
   }
 
   .mw-bg--top {

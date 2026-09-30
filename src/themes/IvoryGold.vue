@@ -665,6 +665,14 @@ onMounted(() => {
   background: linear-gradient(135deg, #fffdf8 0%, #f5ede1 50%, #faf6f0 100%);
 }
 
+/* Màn hình rộng: nền ngoài thiệp là màu giấy — thiệp (48rem,
+   đã có gradient + box-shadow riêng) giữ nguyên như bản mobile. */
+@media (min-width: 768px) {
+  .nb-wedding {
+    background: #f2ead8;
+  }
+}
+
 
 /* ==========================================================
    RESET

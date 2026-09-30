@@ -270,11 +270,17 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 768px) {
+  .tdx-theme {
+    background-color: #f2ead8;
+  }
+
   .tdx-invitation {
     max-width: 900px;
 
     border-left: 1px solid var(--accent, #d1db9c);
     border-right: 1px solid var(--accent, #d1db9c);
+
+    box-shadow: 0 0 44px rgba(26, 53, 0, 0.16);
   }
 }
 </style>

@@ -241,7 +241,7 @@ export default [
   /* =====================================================
      MẪU DEMO — 2 BƯỚC, MỖI BƯỚC MỘT URL, KHÔNG GỌI API
 
-     Dữ liệu lấy thẳng từ src/mock/wedding.json (19 mẫu) —
+     Dữ liệu lấy thẳng từ src/mock/wedding.json (20 mẫu) —
      mở tức thì, không đợi server.
 
        1. /wedding/:slug       WeddingIntro  — giới thiệu mẫu

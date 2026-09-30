@@ -161,4 +161,18 @@ onMounted(() => {
   max-width: 720px;
   margin: 0 auto;
 }
+
+/* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
+   giữ nguyên nền như bản mobile. */
+@media (min-width: 768px) {
+  .lpv3-theme {
+    background: #f2ead8;
+  }
+
+  .lpv3-invitation {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    box-shadow: 0 0 44px rgba(90, 0, 20, 0.3);
+  }
+}
 </style>

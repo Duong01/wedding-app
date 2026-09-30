@@ -479,11 +479,17 @@ onMounted(() => {
 ========================================================= */
 
 @media (min-width: 768px) {
+  .traditional-red {
+    background-color: #f2ead8;
+  }
+
   .tr-invitation {
     max-width: 900px;
 
     border-left: 1px solid rgba(255, 227, 177, 0.13);
     border-right: 1px solid rgba(255, 227, 177, 0.13);
+
+    box-shadow: 0 0 44px rgba(74, 8, 8, 0.22);
   }
 
   .tr-invitation__body {
