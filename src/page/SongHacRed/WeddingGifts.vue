@@ -44,25 +44,7 @@
       </button>
     </div>
 
-    <!-- =====================================================
-         DÒNG CHỮ CHẠY LỜI CHÚC
-    ====================================================== -->
-
-    <div v-if="wishItems.length" class="shc-wish-marquee" aria-hidden="true">
-      <div class="shc-wish-marquee__track">
-        <span
-          v-for="(wish, index) in marqueeItems"
-          :key="`wish-${index}`"
-          class="shc-wish-marquee__item"
-        >
-          <span class="shc-wish-marquee__name">{{ wish.name }}</span>
-
-          <span class="shc-wish-marquee__sep" aria-hidden="true">❦</span>
-
-          <span class="shc-wish-marquee__message">{{ wish.message }}</span>
-        </span>
-      </div>
-    </div>
+    
 
     <!-- =====================================================
          HỘP MỪNG CƯỚI
@@ -243,22 +225,7 @@ const props = defineProps({
 const showGiftDialog = ref(false);
 const previewQr = ref(null);
 
-/*
- * Lời chúc của khách — chạy ngang dưới hộp quà.
- * Nhân đôi danh sách để vòng lặp marquee liền mạch
- * (nửa sau nối tiếp nửa đầu, translateX(-50%) về 0).
- */
-const wishItems = computed(() =>
-  (props.wishes || [])
-    .map((wish) => ({
-      name: wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời",
-      message:
-        wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương",
-    }))
-    .filter((wish) => wish.name || wish.message)
-);
 
-const marqueeItems = computed(() => [...wishItems.value, ...wishItems.value]);
 
 function openGift() {
   showGiftDialog.value = true;
@@ -482,90 +449,6 @@ onBeforeUnmount(() => {
   font-weight: 500;
 
   white-space: nowrap;
-}
-
-/* =========================================================
-   DÒNG CHỮ CHẠY LỜI CHÚC
-========================================================= */
-
-.shc-wish-marquee {
-  position: relative;
-
-  overflow: hidden;
-
-  padding: 10px 0 18px;
-
-  border-top: 1px solid rgba(255, 232, 164, 0.18);
-  border-bottom: 1px solid rgba(255, 232, 164, 0.18);
-
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-}
-
-.shc-wish-marquee__track {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-
-  width: max-content;
-
-  animation: shc-wish-scroll 30s linear infinite;
-}
-
-.shc-wish-marquee__item {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-
-  padding-right: 34px;
-
-  white-space: nowrap;
-}
-
-.shc-wish-marquee__name {
-  color: var(--shc-cream, #ffe8a4);
-
-  font-size: 13px;
-  font-weight: 700;
-
-  letter-spacing: 0.02em;
-}
-
-.shc-wish-marquee__sep {
-  margin: 0 8px;
-
-  color: rgba(255, 232, 164, 0.55);
-
-  font-size: 11px;
-}
-
-.shc-wish-marquee__message {
-  color: rgba(255, 232, 164, 0.85);
-
-  font-size: 13px;
-  font-style: italic;
-}
-
-@keyframes shc-wish-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 /* =========================================================
@@ -1095,14 +978,6 @@ onBeforeUnmount(() => {
     padding: 36px 5px 44px;
   }
 
-  .shc-wish-marquee {
-    padding: 12px 0 22px;
-  }
-
-  .shc-wish-marquee__name,
-  .shc-wish-marquee__message {
-    font-size: 15px;
-  }
 
   .shc-gift-dialog__header h3 {
     font-size: 24px;
@@ -1130,31 +1005,4 @@ onBeforeUnmount(() => {
   }
 }
 
-/* =========================================================
-   GIẢM CHUYỂN ĐỘNG
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .shc-gift-sparkle {
-    animation: none;
-  }
-
-  .shc-wish-marquee__track {
-    animation: none;
-  }
-
-  .shc-wish-marquee {
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  .shc-gift-envelope,
-  .shc-copy-button,
-  .shc-gift-dialog-enter-active,
-  .shc-gift-dialog-leave-active,
-  .shc-qr-preview-enter-active,
-  .shc-qr-preview-leave-active {
-    transition: none;
-  }
-}
 </style>

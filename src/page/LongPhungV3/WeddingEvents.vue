@@ -50,7 +50,7 @@
         </div>
 
         <!-- LỊCH ÂM DƯƠNG — khung frame-calendar -->
-        <div v-if="event.date && event.calendarDays?.length" class="lp-calendar">
+        <div v-if="index === 0 && event.date && event.calendarDays?.length" class="lp-calendar">
           <div class="lp-calendar__inner">
             <div class="lp-calendar__header">
               <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
@@ -78,7 +78,7 @@
             </div>
 
             <a
-              v-if="event.calendarUrl"
+              v-if="index === 0 && event.calendarUrl"
               :href="event.calendarUrl"
               target="_blank"
               rel="noopener noreferrer"
@@ -93,7 +93,9 @@
         <button type="button" class="lp-rsvp-btn" @click="openConfirmModal(event)">
           XÁC NHẬN THAM DỰ
         </button>
+      <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
+      
     </div>
 
     <!-- RSVP MODAL -->
@@ -176,15 +178,22 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
 import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();

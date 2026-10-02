@@ -15,7 +15,7 @@
     ====================================================== -->
 
     <div
-      v-for="event in normalizedEvents"
+      v-for="(event, index) in normalizedEvents"
       :key="event.id"
       class="cfr-party__event"
     >
@@ -88,7 +88,7 @@
            LỊCH THÁNG
       ========================================== -->
 
-      <div v-if="event.calendarDays.length" class="cfr-party__calendar">
+      <div v-if="index === 0 && event.calendarDays.length" class="cfr-party__calendar">
         <img
           :src="calendarFrame"
           class="cfr-party__calendar-frame"
@@ -144,7 +144,7 @@
       ========================================== -->
 
       <a
-        v-if="event.calendarUrl"
+        v-if="index === 0 && event.calendarUrl"
         :href="event.calendarUrl"
         target="_blank"
         rel="noopener noreferrer"
@@ -166,7 +166,10 @@
         XÁC NHẬN THAM DỰ
       </button>
 
+    <EventMap v-if="index === 0 && showMap" :event="event" />
+
     </div>
+    
 
 
     <!-- =====================================================
@@ -306,7 +309,14 @@ import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
 import { sectionText } from "@/data/sectionTitles";
 
+import EventMap from "@/components/common/EventMap.vue";
+
 import { calendarFrame } from "./crystalFloralAssets";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 
 /* =========================================================
@@ -325,6 +335,11 @@ const props = defineProps({
   },
 
   sections: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  settings: {
     type: Object,
     default: () => ({}),
   },
@@ -379,6 +394,13 @@ const normalizedEvents = computed(() =>
     const item = event || {};
 
     return {
+      /*
+       * Giữ nguyên field gốc (Map, Location, Address…) —
+       * EventMap đọc trực tiếp từ event nên nếu chỉ trả về
+       * object mới thì bản đồ mất trắng.
+       */
+      ...item,
+
       id: item.Id || index,
 
       time: item.EventTime || "",

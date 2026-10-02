@@ -93,7 +93,7 @@
         </div>
 
         <!-- LỊCH -->
-        <div v-if="event.date && event.calendarDays?.length" class="cr-calendar">
+        <div v-if="index === 0 && event.date && event.calendarDays?.length" class="cr-calendar">
           <div class="cr-calendar__header">
             <span>LỊCH</span>
             <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
@@ -133,7 +133,7 @@
           </div>
 
           <a
-            v-if="event.calendarUrl"
+            v-if="index === 0 && event.calendarUrl"
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -147,7 +147,9 @@
         <button type="button" class="cr-rsvp-btn" @click="openConfirmModal(event)">
           XÁC NHẬN THAM DỰ
         </button>
+      <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
+      
     </div>
 
     <!-- =====================================================
@@ -246,11 +248,19 @@ import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
 
+import EventMap from "@/components/common/EventMap.vue";
+
 import { decorativeDiamond, doubleHappiness } from "./emeraldLuxeAssets";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();

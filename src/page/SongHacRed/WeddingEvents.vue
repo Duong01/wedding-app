@@ -1,7 +1,7 @@
 <template>
   <section class="shc-events" ref="sectionRef">
     <!-- =====================================================
-         KHUNG TRẮNG VIỀN
+         KHUNG HOẠ TIẾT
     ====================================================== -->
 
     <div class="shc-events__frame">
@@ -90,7 +90,7 @@
 
             <!-- LỊCH THÁNG -->
 
-            <div v-if="event.calendarDays.length" class="shc-calendar">
+            <div v-if="index === 0 && event.calendarDays.length" class="shc-calendar">
               <p class="shc-calendar__month">Tháng {{ Number(event.month) }} / {{ event.year }}</p>
 
               <div class="shc-calendar__weekdays">
@@ -123,7 +123,7 @@
             </div>
 
             <a
-              v-if="event.calendarUrl"
+              v-if="index === 0 && event.calendarUrl"
               :href="event.calendarUrl"
               target="_blank"
               rel="noopener noreferrer"
@@ -138,7 +138,9 @@
           <button type="button" class="shc-rsvp-btn" @click="openConfirmModal(event)">
             XÁC NHẬN THAM DỰ
           </button>
+        <EventMap v-if="index === 0 && showMap" :event="event" />
         </article>
+        
       </div>
     </div>
 
@@ -239,10 +241,16 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 import {
   cloud1Decoration,
@@ -254,6 +262,7 @@ import {
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();
@@ -292,7 +301,7 @@ const hasRecipient = computed(() => !!recipientName.value);
 ========================================= */
 
 const normalizedEvents = computed(() => {
-  return (props.events || []).map((item) => {
+  return (props.events || []).slice(0, 1).map((item) => {
     const rawDate = item.EventDate || item.Date || item.StartDate;
 
     const date = dayjs(rawDate);
@@ -595,7 +604,6 @@ onBeforeUnmount(() => {
   overflow: hidden;
 
   margin-top: 23px;
-  padding: 40px 0 52px;
 
   color: var(--shc-frame-red);
 
@@ -605,21 +613,21 @@ onBeforeUnmount(() => {
 }
 
 /* =========================================================
-   KHUNG TRẮNG VIỀN (border-image)
+   KHUNG HOẠ TIẾT (border-image) — giống Timeline
 ========================================================= */
 
 .shc-events__frame {
   position: relative;
 
-  width: min(100% - 40px, 401px);
+  width: min(100% - 16px, 460px);
 
   margin: 0 auto;
 
-  border: 76px solid transparent;
+  border: 65px solid transparent;
 
   /* url() trực tiếp — xem ghi chú ở WeddingCouple (v-bind làm khung vô hiệu) */
-  border-image-source: url("@/assets/song-hac-do/white-frame.svg");
-  border-image-slice: 76 fill;
+  border-image-source: url("@/assets/song-hac-do/timeline-panel.webp");
+  border-image-slice: 130 fill;
   border-image-repeat: stretch;
 }
 
@@ -676,7 +684,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
 
-  padding: 0 17.5px 37.5px;
+  padding: 0 8px 37.5px;
 
   text-align: center;
 }
@@ -713,7 +721,7 @@ onBeforeUnmount(() => {
   color: var(--shc-navy);
 
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
 
   text-transform: uppercase;
 }
@@ -731,7 +739,7 @@ onBeforeUnmount(() => {
 
   font-family: "Times New Roman", Times, serif;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
 
   text-transform: uppercase;
 
@@ -753,6 +761,7 @@ onBeforeUnmount(() => {
 .shc-event__day {
   font-family: Baskerville, "Times New Roman", serif;
   font-size: 57px;
+  font-weight: 600;
 
   line-height: 1;
 }
@@ -773,6 +782,7 @@ onBeforeUnmount(() => {
 
   font-family: "Times New Roman", Times, serif;
   font-size: 17px;
+  font-weight: 600;
 
   line-height: 1;
 
@@ -786,7 +796,7 @@ onBeforeUnmount(() => {
   color: var(--shc-navy);
 
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
 
   text-transform: uppercase;
 }
@@ -815,6 +825,7 @@ onBeforeUnmount(() => {
   color: var(--shc-navy);
 
   font-size: 11px;
+  font-weight: 600;
 
   text-transform: uppercase;
 }
@@ -825,7 +836,7 @@ onBeforeUnmount(() => {
   color: var(--shc-frame-red);
 
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* =========================================================
@@ -846,6 +857,7 @@ onBeforeUnmount(() => {
   color: var(--shc-navy);
 
   font-size: 20px;
+  font-weight: 600;
 
   text-transform: uppercase;
 }
@@ -856,7 +868,7 @@ onBeforeUnmount(() => {
   color: var(--shc-navy);
 
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* =========================================================
@@ -1368,9 +1380,9 @@ onBeforeUnmount(() => {
   }
 
   .shc-events__frame {
-    width: min(100% - 54px, 546px);
+    width: min(100% - 32px, 640px);
 
-    border-width: 103px;
+    border-width: 88px;
   }
 
   .shc-events__ornament--cloud-top {
@@ -1382,7 +1394,7 @@ onBeforeUnmount(() => {
   }
 
   .shc-events__content {
-    padding: 0 24px 51px;
+    padding: 0 14px 51px;
   }
 
   .shc-events__title {

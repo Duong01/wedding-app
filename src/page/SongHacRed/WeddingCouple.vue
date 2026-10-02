@@ -1,7 +1,7 @@
 <template>
   <section class="shc-couple">
     <!-- =====================================================
-         KHUNG TRẮNG VIỀN
+         KHUNG HOẠ TIẾT
     ====================================================== -->
 
     <div class="shc-couple__frame">
@@ -282,7 +282,6 @@ const weddingTime = computed(() => {
   overflow: hidden;
 
   margin-top: 23px;
-  padding: 16px 0 29px;
 
   color: var(--shc-frame-red);
 
@@ -292,26 +291,26 @@ const weddingTime = computed(() => {
 }
 
 /* =========================================================
-   KHUNG TRẮNG VIỀN (border-image)
+   KHUNG HOẠ TIẾT (border-image) — giống Timeline
 ========================================================= */
 
 .shc-couple__frame {
   position: relative;
 
-  width: min(100% - 40px, 401px);
+  width: min(100% - 16px, 460px);
 
   margin: 0 auto;
 
-  border: 76px solid transparent;
+  border: 65px solid transparent;
 
   /*
-   * KHÔNG dùng v-bind(whiteFrame) — v-bind inject chuỗi URL thô vào
+   * KHÔNG dùng v-bind(...) — v-bind inject chuỗi URL thô vào
    * CSS var, border-image-source cần bọc url() nên khung sẽ vô hiệu
    * (trong suốt) → chữ đỏ nằm trên nền đỏ. Dùng url() trực tiếp
-   * như LongPhungV3 để Vite tự inline asset.
+   * để Vite tự inline asset.
    */
-  border-image-source: url("@/assets/song-hac-do/white-frame.svg");
-  border-image-slice: 76 fill;
+  border-image-source: url("@/assets/song-hac-do/timeline-panel.webp");
+  border-image-slice: 130 fill;
   border-image-repeat: stretch;
 }
 
@@ -368,8 +367,6 @@ const weddingTime = computed(() => {
   flex-direction: column;
   align-items: center;
 
-  padding: 0 17.5px 33.5px;
-
   text-align: center;
 }
 
@@ -398,6 +395,8 @@ const weddingTime = computed(() => {
 
   gap: 14px;
 
+  width: 100%;
+
   margin-top: 16px;
 }
 
@@ -416,13 +415,14 @@ const weddingTime = computed(() => {
   color: var(--shc-navy);
 
   font-size: 12px;
+  font-weight: 600;
 }
 
 .shc-parents__name {
   color: var(--shc-frame-red);
 
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
 
   overflow-wrap: anywhere;
 }
@@ -434,6 +434,7 @@ const weddingTime = computed(() => {
 
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
+  font-weight: 500;
 
   line-height: 1.25;
 
@@ -458,6 +459,7 @@ const weddingTime = computed(() => {
   color: var(--shc-frame-red);
 
   font-size: 12px;
+  font-weight: 600;
 
   line-height: 1.6;
 
@@ -503,6 +505,7 @@ const weddingTime = computed(() => {
 
   font-family: "Uchen", serif;
   font-size: 10px;
+  font-weight: 600;
 
   letter-spacing: 0.18em;
 
@@ -540,6 +543,7 @@ const weddingTime = computed(() => {
   color: var(--shc-frame-red);
 
   font-size: 12px;
+  font-weight: 600;
 
   line-height: 1.6;
 
@@ -559,6 +563,7 @@ const weddingTime = computed(() => {
 
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
+  font-weight: 600;
 
   text-transform: uppercase;
 
@@ -578,6 +583,7 @@ const weddingTime = computed(() => {
 .shc-couple__day {
   font-family: Baskerville, "Times New Roman", serif;
   font-size: 57px;
+  font-weight: 600;
 
   line-height: 1;
 }
@@ -598,6 +604,7 @@ const weddingTime = computed(() => {
 
   font-family: "Times New Roman", Times, serif;
   font-size: 17px;
+  font-weight: 600;
 
   line-height: 1;
 
@@ -612,6 +619,7 @@ const weddingTime = computed(() => {
 
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
+  font-weight: 600;
 
   text-transform: uppercase;
 }
@@ -627,9 +635,9 @@ const weddingTime = computed(() => {
   }
 
   .shc-couple__frame {
-    width: min(100% - 54px, 546px);
+    width: min(100% - 32px, 640px);
 
-    border-width: 103px;
+    border-width: 88px;
   }
 
   .shc-couple__ornament--cloud-top {
@@ -641,7 +649,7 @@ const weddingTime = computed(() => {
   }
 
   .shc-couple__content {
-    padding: 0 24px 46px;
+    padding: 0 14px 46px;
   }
 
   .shc-couple__title {

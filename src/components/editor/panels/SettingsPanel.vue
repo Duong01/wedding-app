@@ -89,6 +89,11 @@ const SETTINGS_META = {
     label: "Chuyện tình yêu",
     description: "Câu chuyện của hai bạn.",
   },
+  ShowVideo: {
+    icon: "mdi-play-circle-outline",
+    label: "Video cưới",
+    description: "Video YouTube / TikTok nhúng trong thiệp.",
+  },
   ShowEvents: {
     icon: "mdi-calendar-heart-outline",
     label: "Sự kiện cưới",
@@ -114,10 +119,15 @@ const SETTINGS_META = {
     label: "Album ảnh",
     description: "Khoảnh khắc đáng nhớ.",
   },
+  ShowGame: {
+    icon: "mdi-party-popper",
+    label: "Trò chơi",
+    description: "Vòng quay, trắc nghiệm, cào quà, ghép hình.",
+  },
   ShowMap: {
     icon: "mdi-map-marker-outline",
     label: "Bản đồ",
-    description: "Địa điểm và Google Maps.",
+    description: "Bản đồ nhúng trong từng sự kiện cưới.",
   },
   ShowGift: {
     icon: "mdi-gift-outline",
@@ -139,6 +149,12 @@ const SETTINGS_META = {
     label: "Footer",
     description: "Thông tin cuối thiệp.",
   },
+  ShowSeasonFx: {
+    icon: "mdi-weather-snowy-rainy",
+    label: "Hiệu ứng mùa",
+    description:
+      "Hoa rơi / nắng / lá rơi / tuyết theo mùa của ngày cưới.",
+  },
 };
 
 /*
@@ -147,6 +163,17 @@ const SETTINGS_META = {
  * trong object (dữ liệu cũ có thể thiếu/thừa key).
  */
 const SETTINGS_ORDER = Object.keys(SETTINGS_META);
+
+/*
+ * Cờ mới mặc định TẮT. Nếu ép mọi cờ thiếu thành true
+ * thì thiệp cũ vừa mở editor đã tự bật video/game (dù
+ * chưa có nội dung) — và tệ hơn là ghi giá trị đó
+ * ngược lại DB khi save.
+ */
+const SETTINGS_DEFAULTS = {
+  ShowVideo: false,
+  ShowGame: false,
+};
 
 /*
  * Dữ liệu cũ có thể chưa có ShowDressCode → bổ sung
@@ -161,7 +188,7 @@ const settings = computed(() => {
 
   SETTINGS_ORDER.forEach((key) => {
     if (typeof props.wedding.settings[key] !== "boolean") {
-      props.wedding.settings[key] = true;
+      props.wedding.settings[key] = SETTINGS_DEFAULTS[key] ?? true;
     }
   });
 

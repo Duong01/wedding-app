@@ -2,7 +2,7 @@
  * =========================================================
  * THEME TEST — render từng mẫu thiệp và kiểm tra quy tắc
  * =========================================================
- * Kiểm tra 3 nhóm quy tắc trên cả 19 mẫu:
+ * Kiểm tra 3 nhóm quy tắc trên cả 26 mẫu:
  *
  *  1. MÀU ĐỒNG BỘ
  *     - theme.Colors trong mock không chứa URL ảnh (URL
@@ -220,6 +220,12 @@ const EXPECTATIONS = {
   "to-duyen-xanh": { type: "box" },
   "emerald-luxe": { type: "envelope" },
   "long-phung-v3": { type: "box" },
+  "watercolor-blush": { type: "box" },
+  "botanical-leaf": { type: "box" },
+  "chateau-blue": { type: "box" },
+  "jade-phoenix": { type: "box" },
+  "modern-noir": { type: "box" },
+  "ruby-romance": { type: "box" },
 };
 
 /*
@@ -297,6 +303,24 @@ const GIFT_MARKERS = {
   },
   "sunset-peach": {
     box: /sp-gift-box\b/g,
+  },
+  "watercolor-blush": {
+    box: /wb-gift-box\b/g,
+  },
+  "botanical-leaf": {
+    box: /bl-gift-box\b/g,
+  },
+  "chateau-blue": {
+    box: /ct-gift-box\b/g,
+  },
+  "jade-phoenix": {
+    box: /jp-gift-box\b/g,
+  },
+  "modern-noir": {
+    box: /mn-gift-box\b/g,
+  },
+  "ruby-romance": {
+    box: /rr-gift-box\b/g,
   },
   "dong-son": {},
 };
@@ -515,7 +539,7 @@ try {
 console.log(
   failed
     ? `\n${failed} check(s) failed, ${passed} passed`
-    : `\nAll ${passed} checks passed — 20 mẫu: màu đồng bộ, phong bì = 2, hộp quà = 1`
+    : `\nAll ${passed} checks passed — 26 mẫu: màu đồng bộ, phong bì = 2, hộp quà = 1`
 );
 
 process.exit(failed ? 1 : 0);

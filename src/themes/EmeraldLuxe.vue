@@ -36,7 +36,15 @@
       <div class="cr-invitation__body">
         <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" />
 
-        <WeddingStory v-if="showStory && wedding?.story" :story="wedding.story" />
+        <StoryMilestones
+          v-if="showStory && useMilestoneStory"
+          :wedding="wedding"
+        />
+
+        <WeddingStory
+          v-else-if="showStory && wedding?.story"
+          :story="wedding.story"
+        />
 
         <WeddingGallery v-if="showGallery && gallery.length" :gallery="gallery" />
 
@@ -44,9 +52,16 @@
           v-if="showEvents && events.length"
           :events="events"
           :recipient-name="wedding?.recipientName"
+          :settings="settings"
         />
 
-        <WeddingMap v-if="showMap && events.length" :events="events" />
+        <!-- ============ VIDEO CƯỚI ============ -->
+
+        <VideoSection v-if="showVideo" :wedding="wedding" />
+
+        <!-- ============ TRÒ CHƠI ============ -->
+
+        <GameSection v-if="showGame" :wedding="wedding" />
 
         <Timeline v-if="showTimeline && timeline.length" :timeline="timeline" :events="events" />
 
@@ -74,7 +89,10 @@
 
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
-  </div>
+
+  <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+  <SeasonFx :wedding="wedding" />
+</div>
 </template>
 
 <script setup>
@@ -84,13 +102,17 @@ import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
 
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
+
 import OpeningScreen from "@/page/EmeraldLuxe/OpeningScreen.vue";
 import WeddingHero from "@/page/EmeraldLuxe/WeddingHero.vue";
 import WeddingCouple from "@/page/EmeraldLuxe/WeddingCouple.vue";
 import WeddingStory from "@/page/EmeraldLuxe/WeddingStory.vue";
 import WeddingGallery from "@/page/EmeraldLuxe/WeddingGallery.vue";
 import WeddingEvents from "@/page/EmeraldLuxe/WeddingEvents.vue";
-import WeddingMap from "@/page/EmeraldLuxe/WeddingMap.vue";
 import Timeline from "@/page/EmeraldLuxe/Timeline.vue";
 import WeddingCountdown from "@/page/EmeraldLuxe/WeddingCountdown.vue";
 import WeddingWishes from "@/page/EmeraldLuxe/WeddingWishes.vue";
@@ -167,7 +189,17 @@ const showFooter = computed(() => settings.value.ShowFooter !== false);
 
 const showCountdown = computed(() => settings.value.ShowCountdown === true);
 const showGallery = computed(() => settings.value.ShowGallery === true);
-const showMap = computed(() => settings.value.ShowMap === true);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+const showGame = computed(() => settings.value.ShowGame === true);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+);
 const showGift = computed(() => settings.value.ShowGift === true);
 const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
 

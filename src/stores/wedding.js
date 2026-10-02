@@ -3,10 +3,10 @@ import { defineStore } from "pinia";
 import { GetWedding } from "@/model/api";
 
 /*
- * 19 mẫu demo (144KB JSON) — import LAZY, không import tĩnh.
+ * 26 mẫu demo (JSON) — import LAZY, không import tĩnh.
  *
  * Import tĩnh kéo cả file vào bundle chính: khách mời mở
- * link thiệp thật cũng phải tải 19 mẫu demo không bao giờ
+ * link thiệp thật cũng phải tải 26 mẫu demo không bao giờ
  * dùng tới. Lazy thì JSON chỉ tải khi thật sự cần danh sách
  * mẫu (Home/Templates) hoặc khi thiệp API không tồn tại
  * (fallback demo).

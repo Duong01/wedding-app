@@ -22,34 +22,46 @@
 
 export const COLLECTIONS = [
   {
-    id: "a-dong",
-    name: "Á Đông Sang Trọng",
-    sub: "Đỏ son · vàng son · họa tiết truyền thống",
+    id: "truyen-thong",
+    name: "Truyền thống Việt Nam",
+    sub: "Đỏ son · chữ hỷ · trống đồng · long phụng",
     swatches: ["#7b0d0d", "#c79d5c", "#f6ecd9"],
   },
   {
-    id: "kim-lua",
-    name: "Kim Tuyến & Lụa",
-    sub: "Foil vàng · lụa ngà · nền sẫm sang",
-    swatches: ["#b58a45", "#d4af85", "#17121b"],
-  },
-  {
     id: "lang-man",
-    name: "Lãng Mạn Đương Đại",
-    sub: "Hồng phấn · đào · oải hương",
+    name: "Romantic / Lãng mạn",
+    sub: "Hồng phấn · đào · oải hương · ruby",
     swatches: ["#c56f88", "#d67a63", "#a086b4"],
   },
   {
-    id: "thien-nhien",
-    name: "Thiên Nhiên & Vintage",
-    sub: "Lá xanh · đất nung · giấy cũ",
-    swatches: ["#28514b", "#c97b5d", "#97745a"],
+    id: "hien-dai",
+    name: "Modern Luxury / Sang trọng hiện đại",
+    sub: "Nền sẫm · foil vàng · nét mực tối giản",
+    swatches: ["#2b2b2b", "#b8a07a", "#17121b"],
   },
   {
-    id: "toi-gian",
-    name: "Tối Giản Hiện Đại",
-    sub: "Nét mực · khoảng trắng · đỏ điểm xuyết",
-    swatches: ["#2a2a2a", "#7f151a", "#ffffff"],
+    id: "co-dien",
+    name: "Elegant / Cổ điển châu Âu",
+    sub: "Navy cổ điển · vàng đồng · ngà lụa",
+    swatches: ["#2f3e5c", "#b58a45", "#faf8f3"],
+  },
+  {
+    id: "nghe-thuat",
+    name: "Watercolor / Nghệ thuật",
+    sub: "Màu nước loang · hồng đào · phấn pastel",
+    swatches: ["#8a4a5c", "#d98ca0", "#fdf8fa"],
+  },
+  {
+    id: "thien-nhien",
+    name: "Botanical / Thiên nhiên",
+    sub: "Lá xanh · eucalyptus · đất nung",
+    swatches: ["#3d5a47", "#7fa389", "#f5f8f4"],
+  },
+  {
+    id: "a-dong",
+    name: "Á Đông / Chinese-inspired",
+    sub: "Đỏ thẫm · vàng kim · ngọc phượng · baroque",
+    swatches: ["#6e1f24", "#d9a441", "#2b0303"],
   },
 ];
 
@@ -60,7 +72,7 @@ export const THEME_META = {
 
   "traditional-red": {
     name: "Đỏ Son Truyền Thống",
-    collection: "a-dong",
+    collection: "truyen-thong",
     desc: "Đỏ son cổ điển, khung ảnh vòm và hoạ tiết song hỷ trang trọng.",
     tags: ["Truyền thống", "Đỏ son", "Song hỷ"],
     palette: {
@@ -75,7 +87,7 @@ export const THEME_META = {
 
   "nhat-binh-do": {
     name: "Nhật Bình Đỏ",
-    collection: "a-dong",
+    collection: "truyen-thong",
     desc: "Giấy kem ấm, chữ nâu cổ điển và điểm nhấn đỏ son — gợi áo nhật bình cổ trang.",
     tags: ["Cổ trang", "Đỏ son", "Giấy kem"],
     palette: {
@@ -90,7 +102,7 @@ export const THEME_META = {
 
   "dong-son": {
     name: "Trống Đông Sơn",
-    collection: "a-dong",
+    collection: "truyen-thong",
     desc: "Hoạ tiết trống đồng, nâu đất và vàng đồng đậm chất Việt cổ.",
     tags: ["Truyền thống", "Đất nung", "Trống đồng"],
     palette: {
@@ -136,7 +148,7 @@ export const THEME_META = {
 
   "song-hy-red": {
     name: "Song Hỷ Đỏ",
-    collection: "a-dong",
+    collection: "truyen-thong",
     desc: "Nền kem ấm, chữ hỷ đỏ son và điểm nhấn vàng đồng.",
     tags: ["Truyền thống", "Đỏ son", "Vàng đồng"],
     palette: {
@@ -151,7 +163,7 @@ export const THEME_META = {
 
   "song-hac-red": {
     name: "Song Hạc Đỏ",
-    collection: "a-dong",
+    collection: "truyen-thong",
     dark: true,
     isNew: true,
     desc: "Trăng soi đôi hạc, mây hoa và chữ hỷ trên nền đỏ thẫm.",
@@ -172,7 +184,7 @@ export const THEME_META = {
 
   "elegant-gold": {
     name: "Vàng Sang Trọng",
-    collection: "kim-lua",
+    collection: "co-dien",
     desc: "Foil vàng trên nền ngà — thanh lịch kiểu châu Âu.",
     tags: ["Sang trọng", "Vàng kim", "Thanh lịch"],
     palette: {
@@ -187,7 +199,7 @@ export const THEME_META = {
 
   "ivory-gold": {
     name: "Ngà Vàng",
-    collection: "kim-lua",
+    collection: "co-dien",
     desc: "Nền ngà mềm, hoa lụa và nét vàng đồng tinh tế.",
     tags: ["Thanh lịch", "Ngà", "Lụa"],
     palette: {
@@ -202,7 +214,7 @@ export const THEME_META = {
 
   "midnight-gold": {
     name: "Đêm Hoàng Kim",
-    collection: "kim-lua",
+    collection: "hien-dai",
     dark: true,
     desc: "Nền sẫm như đêm, foil vàng le lói — sang trọng mà bí ẩn.",
     tags: ["Sang trọng", "Nền sẫm", "Vàng kim"],
@@ -218,7 +230,7 @@ export const THEME_META = {
 
   "emerald-luxe": {
     name: "Chibi Đỏ",
-    collection: "kim-lua",
+    collection: "thien-nhien",
     desc: "Minh hoạ chibi đáng yêu trên nền kem ấm — vui tươi, cá tính.",
     tags: ["Dễ thương", "Minh hoạ", "Kem"],
     palette: {
@@ -233,7 +245,7 @@ export const THEME_META = {
 
   "royal-red": {
     name: "Hoàng Gia Đỏ",
-    collection: "kim-lua",
+    collection: "a-dong",
     dark: true,
     desc: "Đỏ thẫm hoàng gia với khung tranh vàng kim.",
     tags: ["Sang trọng", "Đỏ thẫm", "Vàng kim"],
@@ -352,7 +364,7 @@ export const THEME_META = {
 
   "boho-terracotta": {
     name: "Baroque Đỏ Sẫm",
-    collection: "kim-lua",
+    collection: "thien-nhien",
     dark: true,
     isNew: true,
     desc: "Nền đỏ sẫm, hoa văn baroque và vàng đồng.",
@@ -389,7 +401,7 @@ export const THEME_META = {
 
   "modern-white": {
     name: "Trắng Hiện Đại",
-    collection: "toi-gian",
+    collection: "hien-dai",
     isNew: true,
     desc: "Nền trắng tinh, nét mực gọn và một điểm đỏ nhấn.",
     tags: ["Tối giản", "Trắng", "Hiện đại"],
@@ -402,6 +414,108 @@ export const THEME_META = {
     },
     orn: "囍",
   },
+
+  /* =====================================================
+     6 MẪU MỚI — THEO 7 PHONG CÁCH
+  ====================================================== */
+
+  "watercolor-blush": {
+    name: "Màu Nước Hồng",
+    collection: "nghe-thuat",
+    script: true,
+    isNew: true,
+    desc: "Nước màu hồng đào loang nhẹ như tranh vẽ tay — mềm mại và nghệ thuật.",
+    tags: ["Màu nước", "Hồng đào", "Nghệ thuật"],
+    palette: {
+      bg: "#fdf8fa",
+      ink: "#8a4a5c",
+      soft: "#a06a7c",
+      accent: "#d98ca0",
+      seal: "#b04a62",
+    },
+    orn: "❁",
+  },
+
+  "botanical-leaf": {
+    name: "Lá Botanical",
+    collection: "thien-nhien",
+    isNew: true,
+    desc: "Lá eucalyptus xanh mướt trên nền giấy sáng — gần gũi thiên nhiên.",
+    tags: ["Botanical", "Xanh lá", "Eucalyptus"],
+    palette: {
+      bg: "#f9fbf9",
+      ink: "#3d5a47",
+      soft: "#5a7362",
+      accent: "#7fa389",
+      seal: "#3d5a47",
+    },
+    orn: "❧",
+  },
+
+  "chateau-blue": {
+    name: "Xanh Chateau",
+    collection: "co-dien",
+    isNew: true,
+    desc: "Navy cổ điển châu Âu điểm vàng đồng — trang nhã như lâu đài Pháp.",
+    tags: ["Cổ điển", "Navy", "Vàng đồng"],
+    palette: {
+      bg: "#fafbfd",
+      ink: "#2f3e5c",
+      soft: "#5a6378",
+      accent: "#b58a45",
+      seal: "#8a6a3a",
+    },
+    orn: "❦",
+  },
+
+  "jade-phoenix": {
+    name: "Ngọc Phượng",
+    collection: "a-dong",
+    isNew: true,
+    desc: "Đỏ thẫm pha vàng kim, hoạ tiết phượng hoàng đậm chất Á Đông.",
+    tags: ["Á Đông", "Đỏ thẫm", "Vàng kim"],
+    palette: {
+      bg: "#fdfaf3",
+      ink: "#6e1f24",
+      soft: "#7a3a3f",
+      accent: "#b98a4b",
+      seal: "#a33d2e",
+    },
+    orn: "囍",
+  },
+
+  "modern-noir": {
+    name: "Noir Hiện Đại",
+    collection: "hien-dai",
+    isNew: true,
+    desc: "Nền than tối giản với foil champagne — sang trọng, hiện đại.",
+    tags: ["Sang trọng", "Nền tối", "Champagne"],
+    palette: {
+      bg: "#fbf8f0",
+      ink: "#3a3a3a",
+      soft: "#5c5c5c",
+      accent: "#b8a07a",
+      seal: "#8a6a3a",
+    },
+    orn: "✧",
+  },
+
+  "ruby-romance": {
+    name: "Ruby Lãng Mạn",
+    collection: "lang-man",
+    script: true,
+    isNew: true,
+    desc: "Đỏ ruby đậm cùng tim hồng — lãng mạn, nồng nàn.",
+    tags: ["Lãng mạn", "Ruby", "Đỏ hồng"],
+    palette: {
+      bg: "#fdf7f8",
+      ink: "#8c2f42",
+      soft: "#7a4450",
+      accent: "#c46a7e",
+      seal: "#a33d4e",
+    },
+    orn: "❥",
+  },
 };
 
 /*
@@ -410,7 +524,7 @@ export const THEME_META = {
  */
 export const FALLBACK_META = {
   name: "Cổ Điển",
-  collection: "kim-lua",
+  collection: "co-dien",
   desc: "Thiết kế cổ điển với bảng màu ấm áp, dễ tùy chỉnh cho ngày cưới của bạn.",
   tags: ["Cổ điển"],
   palette: {

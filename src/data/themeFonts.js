@@ -48,6 +48,12 @@ export const THEME_FONTS = {
   "to-duyen-xanh": ["Aguafina Script", "The Nautigal"],
   "long-phung-v3": ["EB Garamond"],
   "emerald-luxe": ["Babylonica", "Be Vietnam Pro", "Noto Serif SC", "Viaoda Libre"],
+  "watercolor-blush": ["Allura", "Cormorant Garamond"],
+  "botanical-leaf": ["Allura", "Cormorant Garamond"],
+  "chateau-blue": ["Allura", "Cormorant Garamond"],
+  "jade-phoenix": ["Allura", "Cormorant Garamond"],
+  "modern-noir": ["Allura", "Cormorant Garamond"],
+  "ruby-romance": ["Allura", "Cormorant Garamond"],
 };
 
 /*

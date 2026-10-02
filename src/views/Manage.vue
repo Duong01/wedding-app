@@ -228,6 +228,16 @@
               <button
                 type="button"
                 class="bar-btn"
+                @click="openWinners(entry)"
+              >
+                <v-icon size="16"> mdi-gift-outline </v-icon>
+
+                Quà trò chơi
+              </button>
+
+              <button
+                type="button"
+                class="bar-btn"
                 @click="copyLink(entry)"
               >
                 <v-icon size="16"> mdi-link-variant </v-icon>
@@ -479,6 +489,83 @@
     </Teleport>
 
     <!-- =====================================================
+         WINNERS MODAL — khách trúng quà trò chơi
+    ====================================================== -->
+    <Teleport to="body">
+      <Transition name="detail-modal">
+        <div
+          v-if="winnersTarget"
+          class="detail-modal"
+          @click.self="closeWinners"
+        >
+          <div class="guests-panel">
+            <div class="guests-head">
+              <div>
+                <span class="guests-eyebrow"> QUÀ TRÒ CHƠI </span>
+
+                <h3>{{ getCoupleName(winnersTarget) }}</h3>
+
+                <p class="guests-slug">/{{ winnersTarget.slug }}</p>
+              </div>
+
+              <button
+                type="button"
+                class="guests-close"
+                @click="closeWinners"
+              >
+                <v-icon size="20"> mdi-close </v-icon>
+              </button>
+            </div>
+
+            <p v-if="winnersMessage" class="guests-message" :class="{ error: winnersError }">
+              {{ winnersMessage }}
+            </p>
+
+            <div v-if="winnersLoading" class="guests-loading">
+              <v-progress-circular indeterminate size="26" width="2" />
+
+              <span> Đang tải danh sách trúng quà... </span>
+            </div>
+
+            <div v-else-if="winners.length === 0" class="guests-empty">
+              Chưa có khách nào nhận quà. Khách trúng quà trong thiệp sẽ được
+              lưu vào đây để bạn đối chiếu khi khách đến lễ.
+            </div>
+
+            <div v-else class="guests-list winners-list">
+              <div
+                v-for="winner in winners"
+                :key="winner.Id"
+                class="winner-row"
+              >
+                <div class="winner-info">
+                  <strong>{{ winner.GuestName }}</strong>
+
+                  <span class="winner-prize"> 🎁 {{ winner.PrizeTitle }} </span>
+                </div>
+
+                <div class="winner-meta">
+                  <span class="winner-game">
+                    {{ gameLabel(winner.GameType) }}
+                  </span>
+
+                  <span v-if="winner.CreatedAt" class="winner-time">
+                    {{ formatWinnerTime(winner.CreatedAt) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p class="guests-hint">
+              Mỗi khách chỉ nhận 1 quà. Đối chiếu tên + quà này khi khách đến
+              lễ cưới nhé!
+            </p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- =====================================================
          TOAST
     ====================================================== -->
     <Transition name="toast">
@@ -498,11 +585,14 @@ import {
   deleteRecipient as deleteRecipientApi,
   getRecipients as getRecipientsApi,
   updateRecipient as updateRecipientApi,
+  getGameWinners as getGameWinnersApi,
   getMyWeddings,
   publishWedding as publishWeddingApi,
 } from "@/model/api";
 
 import { PUBLISH_STATE } from "@/model/weddingAdmin";
+
+import { gameTypeMeta } from "@/data/gameData";
 
 import { useAuthStore } from "@/stores/auth";
 import { useWeddingEditorStore } from "@/stores/weddingEditor";
@@ -653,6 +743,71 @@ const newGuestName = ref("");
 
 const editingToken = ref("");
 const editingName = ref("");
+
+/* =========================================================
+   WINNERS — khách trúng quà trò chơi
+========================================================= */
+
+const winnersTarget = ref(null);
+const winners = ref([]);
+const winnersLoading = ref(false);
+const winnersMessage = ref("");
+const winnersError = ref(false);
+
+function gameLabel(type) {
+  return gameTypeMeta(type).label;
+}
+
+function formatWinnerTime(value) {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toLocaleString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+async function openWinners(entry) {
+  winnersTarget.value = entry;
+  winners.value = [];
+  winnersMessage.value = "";
+  winnersError.value = false;
+
+  winnersLoading.value = true;
+
+  try {
+    const response = await getGameWinnersApi({ slug: entry.slug });
+
+    const result = response?.data;
+
+    if (result && result.status === "success" && Array.isArray(result.data)) {
+      winners.value = result.data;
+    } else {
+      winnersMessage.value =
+        result?.message || "Không thể tải danh sách trúng quà.";
+      winnersError.value = true;
+    }
+  } catch (error) {
+    console.error("[Manage] getGameWinners error:", error);
+
+    winnersMessage.value =
+      error?.response?.data?.message || "Không thể tải danh sách trúng quà.";
+    winnersError.value = true;
+  } finally {
+    winnersLoading.value = false;
+  }
+}
+
+function closeWinners() {
+  winnersTarget.value = null;
+}
 
 /* =========================================================
    LOAD — danh sách thiệp CỦA TÀI KHOẢN từ API
@@ -1929,6 +2084,88 @@ function showToast(message) {
   font-size: 12px;
 
   line-height: 1.6;
+}
+
+/* ==================================================
+   WINNERS — khách trúng quà trò chơi
+================================================== */
+
+.winners-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.winner-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 11px 14px;
+
+  border: 1px solid rgba(138, 122, 104, 0.22);
+  border-radius: 12px;
+
+  background: rgba(255, 253, 251, 0.7);
+}
+
+.winner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.winner-info strong {
+  color: var(--studio-ink, #5c4d46);
+
+  font-size: 13.5px;
+}
+
+.winner-prize {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 12px;
+}
+
+.winner-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+
+  flex-shrink: 0;
+}
+
+.winner-game {
+  padding: 3px 10px;
+
+  color: #6b5a4e;
+  border-radius: 999px;
+
+  background: rgba(199, 157, 92, 0.16);
+
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.winner-time {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 11px;
+}
+
+@media (max-width: 520px) {
+  .winner-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .winner-meta {
+    align-items: flex-start;
+  }
 }
 
 /* ==================================================

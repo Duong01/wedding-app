@@ -620,8 +620,8 @@ const sortMode = ref("");
 
 const ROUTE_PRESETS = {
   TemplatesFeatured: { sort: "noi-bat" },
-  TemplatesModern: { collections: ["toi-gian", "lang-man"] },
-  TemplatesTraditional: { collections: ["a-dong"] },
+  TemplatesModern: { collections: ["hien-dai", "lang-man", "nghe-thuat"] },
+  TemplatesTraditional: { collections: ["truyen-thong", "a-dong"] },
 };
 
 function applyRoutePreset() {

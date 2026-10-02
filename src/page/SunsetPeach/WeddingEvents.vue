@@ -69,7 +69,7 @@
         </div>
 
         <!-- CALENDAR -->
-        <div v-if="event.date && event.calendarDays?.length" class="sp-calendar">
+        <div v-if="index === 0 && event.date && event.calendarDays?.length" class="sp-calendar">
           <div class="sp-calendar__header">
             <span>LỊCH</span>
             <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
@@ -104,7 +104,7 @@
           </div>
 
           <a
-            v-if="event.calendarUrl"
+            v-if="index === 0 && event.calendarUrl"
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -127,7 +127,9 @@
           <i>✧</i>
           <span></span>
         </div>
+      <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
+      
     </div>
 
     <!-- RSVP MODAL -->
@@ -212,14 +214,21 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();

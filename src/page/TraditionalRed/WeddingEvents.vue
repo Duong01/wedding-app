@@ -1,99 +1,121 @@
 <template>
   <section class="tr-events">
     <!-- =====================================================
-         TIỆC CƯỚI
+         TIỆC CƯỚI — mỗi sự kiện một khối
     ====================================================== -->
 
     <h2 class="tr-events__title">Thông tin tiệc cưới</h2>
 
-    <div class="tr-events__reception">
-      <h3 class="tr-events__reception-lead">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+    <div
+      v-for="(event, index) in normalizedEvents"
+      :key="event.Id || event.id || index"
+      class="tr-events__item"
+    >
+      <h3 v-if="event.Title" class="tr-events__item-title">
+        {{ event.Title }}
+      </h3>
 
-      <div v-if="receptionTime" class="tr-events__reception-time">
-        {{ receptionTime }}
-      </div>
+      <div class="tr-events__reception">
+        <h3 class="tr-events__reception-lead">Tiệc cưới sẽ diễn ra vào lúc:</h3>
 
-      <div v-if="hasDate" class="tr-events__date">
-        <span class="tr-events__date-side">{{ weekday }}</span>
-
-        <span class="tr-events__date-sep" aria-hidden="true">|</span>
-
-        <span class="tr-events__date-day">{{ day }}</span>
-
-        <span class="tr-events__date-sep" aria-hidden="true">|</span>
-
-        <span class="tr-events__date-side">{{ monthLabel }}</span>
-      </div>
-
-      <div v-if="year" class="tr-events__year">{{ year }}</div>
-
-      <div v-if="lunar" class="tr-events__lunar">({{ lunar }})</div>
-
-      <!-- ĐÓN KHÁCH / KHAI TIỆC -->
-
-      <div v-if="guestTime || receptionTime" class="tr-events__milestones">
-        <div v-if="guestTime" class="tr-events__milestone">
-          <span class="tr-events__milestone-label">Đón khách</span>
-
-          <span class="tr-events__milestone-time">{{ guestTime }}</span>
+        <div v-if="event.receptionTime" class="tr-events__reception-time">
+          {{ event.receptionTime }}
         </div>
 
-        <div v-if="receptionTime" class="tr-events__milestone">
-          <span class="tr-events__milestone-label">Khai tiệc</span>
+        <div v-if="event.hasDate" class="tr-events__date">
+          <span class="tr-events__date-side">{{ event.weekday }}</span>
 
-          <span class="tr-events__milestone-time">{{ receptionTime }}</span>
+          <span class="tr-events__date-sep" aria-hidden="true">|</span>
+
+          <span class="tr-events__date-day">{{ event.day }}</span>
+
+          <span class="tr-events__date-sep" aria-hidden="true">|</span>
+
+          <span class="tr-events__date-side">THÁNG {{ event.month }}</span>
         </div>
-      </div>
 
-      <!-- ĐẾM NGƯỢC -->
+        <div v-if="event.year" class="tr-events__year">{{ event.year }}</div>
 
-      <WeddingCountdown v-if="showCountdown" :target="countdownTarget" />
+        <div v-if="event.lunar" class="tr-events__lunar">({{ event.lunar }})</div>
 
-      <!-- LỊCH THÁNG -->
+        <!-- ĐÓN KHÁCH / KHAI TIỆC -->
 
-      <div v-if="calendarDays.length" class="tr-events__calendar-wrap">
-        <div class="tr-events__calendar">
-          <div class="tr-events__calendar-head">
-            Tháng {{ monthNumber }} / {{ year }}
+        <div
+          v-if="event.guestTime || event.receptionTime"
+          class="tr-events__milestones"
+        >
+          <div v-if="event.guestTime" class="tr-events__milestone">
+            <span class="tr-events__milestone-label">Đón khách</span>
+
+            <span class="tr-events__milestone-time">{{ event.guestTime }}</span>
           </div>
 
-          <div class="tr-events__calendar-week">
-            <div v-for="label in WEEK_LABELS" :key="label">{{ label }}</div>
+          <div v-if="event.receptionTime" class="tr-events__milestone">
+            <span class="tr-events__milestone-label">Khai tiệc</span>
+
+            <span class="tr-events__milestone-time">
+              {{ event.receptionTime }}
+            </span>
           </div>
+        </div>
 
-          <div class="tr-events__calendar-grid">
-            <div
-              v-for="(value, index) in calendarDays"
-              :key="index"
-              class="tr-events__calendar-cell"
-            >
-              <div v-if="value === weddingDay" class="tr-events__heart">
-                <svg viewBox="0 0 24 22" fill="#680e0e" aria-hidden="true">
-                  <path
-                    d="M12 21C12 21 1.5 13.5 1.5 7.5C1.5 4.46 3.96 2 7 2C8.76 2 10.35 2.81 11.4 4.09L12 4.8L12.6 4.09C13.65 2.81 15.24 2 17 2C20.04 2 22.5 4.46 22.5 7.5C22.5 13.5 12 21 12 21Z"
-                  />
-                </svg>
+        <!-- ĐẾM NGƯỢC — chỉ sự kiện đầu (mốc chung của cả đám cưới) -->
 
-                <span>{{ value }}</span>
+        <WeddingCountdown
+          v-if="index === 0 && showCountdown"
+          :target="countdownTarget"
+        />
+
+        <!-- LỊCH THÁNG -->
+
+        <div v-if="index === 0 && event.calendarDays.length" class="tr-events__calendar-wrap">
+          <div class="tr-events__calendar">
+            <div class="tr-events__calendar-head">
+              Tháng {{ Number(event.month) }} / {{ event.year }}
+            </div>
+
+            <div class="tr-events__calendar-week">
+              <div v-for="label in WEEK_LABELS" :key="label">{{ label }}</div>
+            </div>
+
+            <div class="tr-events__calendar-grid">
+              <div
+                v-for="(value, dayIndex) in event.calendarDays"
+                :key="dayIndex"
+                class="tr-events__calendar-cell"
+              >
+                <div v-if="value === Number(event.day)" class="tr-events__heart">
+                  <svg viewBox="0 0 24 22" fill="#680e0e" aria-hidden="true">
+                    <path
+                      d="M12 21C12 21 1.5 13.5 1.5 7.5C1.5 4.46 3.96 2 7 2C8.76 2 10.35 2.81 11.4 4.09L12 4.8L12.6 4.09C13.65 2.81 15.24 2 17 2C20.04 2 22.5 4.46 22.5 7.5C22.5 13.5 12 21 12 21Z"
+                    />
+                  </svg>
+
+                  <span>{{ value }}</span>
+                </div>
+
+                <span v-else-if="value">{{ value }}</span>
               </div>
-
-              <span v-else-if="value">{{ value }}</span>
             </div>
           </div>
         </div>
+
+        <!-- THÊM VÀO LỊCH -->
+
+        <a
+          v-if="index === 0 && event.calendarUrl"
+          :href="event.calendarUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="tr-events__calendar-link"
+        >
+          Thêm vào lịch
+        </a>
+
+        <!-- BẢN ĐỒ — theo từng sự kiện -->
+
+        <EventMap v-if="index === 0 && showMap" :event="event" />
       </div>
-
-      <!-- THÊM VÀO LỊCH -->
-
-      <a
-        v-if="calendarUrl"
-        :href="calendarUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="tr-events__calendar-link"
-      >
-        Thêm vào lịch
-      </a>
     </div>
 
     <!-- =====================================================
@@ -204,6 +226,8 @@ import { Confirm } from "@/model/api";
 
 import WeddingCountdown from "./WeddingCountdown.vue";
 
+import EventMap from "@/components/common/EventMap.vue";
+
 const props = defineProps({
   events: {
     type: Array,
@@ -234,14 +258,10 @@ const props = defineProps({
 const route = useRoute();
 
 /* =========================================================
-   SỰ KIỆN ĐẦU TIÊN
+   DANH SÁCH SỰ KIỆN — chuẩn hoá từng sự kiện
+   (trước đây section này chỉ render sự kiện ĐẦU TIÊN;
+   giờ mỗi sự kiện một khối như các theme khác)
 ========================================================= */
-
-const firstEvent = computed(() => {
-  const list = Array.isArray(props.events) ? props.events : [];
-
-  return list[0] || null;
-});
 
 const WEEK_LABELS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
@@ -275,127 +295,12 @@ function toTimeLabel(raw) {
   return value.slice(0, 5);
 }
 
-const receptionTime = computed(() =>
-  toTimeLabel(
-    firstEvent.value?.ReceptionTime ||
-      firstEvent.value?.Reception_time ||
-      firstEvent.value?.EventTime
-  )
-);
+function buildCalendarDays(yearNum, monthNum) {
+  if (!yearNum || !monthNum) return [];
 
-const guestTime = computed(() =>
-  toTimeLabel(
-    firstEvent.value?.GuestTime ||
-      firstEvent.value?.Guest_time ||
-      firstEvent.value?.CeremonyTime ||
-      firstEvent.value?.Ceremony_time
-  )
-);
+  const firstDay = new Date(yearNum, monthNum - 1, 1).getDay();
 
-/* =========================================================
-   NGÀY
-========================================================= */
-
-const dateObject = computed(() => {
-  const raw =
-    firstEvent.value?.EventDate ||
-    props.wedding?.weddingDate ||
-    props.wedding?.WeddingDate ||
-    "";
-
-  if (!raw) return null;
-
-  const date = new Date(raw);
-
-  return Number.isNaN(date.getTime()) ? null : date;
-});
-
-const hasDate = computed(() => Boolean(dateObject.value));
-
-const weekday = computed(() => {
-  if (firstEvent.value?.Weekday) {
-    return String(firstEvent.value.Weekday).toUpperCase();
-  }
-
-  return dateObject.value ? WEEKDAYS[dateObject.value.getDay()] : "";
-});
-
-const day = computed(() => {
-  if (firstEvent.value?.Day) {
-    return String(firstEvent.value.Day).padStart(2, "0");
-  }
-
-  return dateObject.value
-    ? String(dateObject.value.getDate()).padStart(2, "0")
-    : "";
-});
-
-const monthNumber = computed(() => {
-  if (firstEvent.value?.Month) {
-    return String(firstEvent.value.Month).padStart(2, "0");
-  }
-
-  return dateObject.value
-    ? String(dateObject.value.getMonth() + 1).padStart(2, "0")
-    : "";
-});
-
-const monthLabel = computed(() =>
-  monthNumber.value ? `THÁNG ${monthNumber.value}` : ""
-);
-
-const year = computed(() => {
-  if (firstEvent.value?.Year) {
-    return String(firstEvent.value.Year);
-  }
-
-  return dateObject.value ? String(dateObject.value.getFullYear()) : "";
-});
-
-const lunar = computed(
-  () =>
-    firstEvent.value?.Lunar ||
-    props.wedding?.weddingLunar ||
-    props.wedding?.WeddingLunar ||
-    ""
-);
-
-const weddingDay = computed(() => {
-  const value = Number(day.value);
-
-  return Number.isFinite(value) && value > 0 ? value : null;
-});
-
-/* =========================================================
-   ĐẾM NGƯỢC
-========================================================= */
-
-const showCountdown = computed(
-  () => props.settings?.ShowCountdown ?? props.countdown?.Enabled ?? false
-);
-
-const countdownTarget = computed(
-  () =>
-    props.countdown?.Target ||
-    props.countdown?.Date ||
-    firstEvent.value?.EventDate ||
-    props.wedding?.weddingDate ||
-    props.wedding?.WeddingDate ||
-    null
-);
-
-/* =========================================================
-   LỊCH THÁNG
-========================================================= */
-
-const calendarDays = computed(() => {
-  const y = Number(year.value);
-  const m = Number(monthNumber.value);
-
-  if (!y || !m) return [];
-
-  const firstDay = new Date(y, m - 1, 1).getDay();
-  const totalDays = new Date(y, m, 0).getDate();
+  const totalDays = new Date(yearNum, monthNum, 0).getDate();
 
   const days = [];
 
@@ -408,15 +313,9 @@ const calendarDays = computed(() => {
   }
 
   return days;
-});
+}
 
-/* =========================================================
-   GOOGLE CALENDAR
-========================================================= */
-
-const calendarUrl = computed(() => {
-  const event = firstEvent.value;
-
+function buildCalendarUrl(event) {
   const explicit = event?.calendarUrl || event?.calendar_url;
 
   if (explicit) return explicit;
@@ -448,10 +347,95 @@ const calendarUrl = computed(() => {
   });
 
   return `https://www.google.com/calendar/render?${params.toString()}`;
+}
+
+const normalizedEvents = computed(() => {
+  const list = Array.isArray(props.events) ? props.events : [];
+
+  return list.map((item) => {
+    const rawDate = item.EventDate || item.Date || item.StartDate || "";
+
+    const date = new Date(rawDate);
+
+    const hasDate = rawDate && !Number.isNaN(date.getTime());
+
+    let day = "";
+    let month = "";
+    let year = "";
+    let weekday = "";
+
+    if (hasDate) {
+      day = String(date.getDate()).padStart(2, "0");
+      month = String(date.getMonth() + 1).padStart(2, "0");
+      year = String(date.getFullYear());
+      weekday = WEEKDAYS[date.getDay()];
+    }
+
+    if (item.Day) day = String(item.Day).padStart(2, "0");
+    if (item.Month) month = String(item.Month).padStart(2, "0");
+    if (item.Year) year = String(item.Year);
+    if (item.Weekday) weekday = String(item.Weekday).toUpperCase();
+
+    const receptionTime = toTimeLabel(
+      item.ReceptionTime || item.Reception_time || item.EventTime
+    );
+
+    const guestTime = toTimeLabel(
+      item.GuestTime ||
+        item.Guest_time ||
+        item.CeremonyTime ||
+        item.Ceremony_time
+    );
+
+    return {
+      ...item,
+
+      hasDate,
+
+      day,
+      month,
+      year,
+      weekday,
+
+      receptionTime,
+      guestTime,
+
+      lunar: item.Lunar || item.lunar || "",
+
+      calendarDays: buildCalendarDays(Number(year), Number(month)),
+
+      calendarUrl: buildCalendarUrl(item),
+    };
+  });
 });
 
+const firstEvent = computed(() => normalizedEvents.value[0] || null);
+
 /* =========================================================
-   LỊCH THÁNG
+   ĐẾM NGƯỢC
+========================================================= */
+
+const showCountdown = computed(
+  () => props.settings?.ShowCountdown ?? props.countdown?.Enabled ?? false
+);
+
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap như trước.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
+const countdownTarget = computed(
+  () =>
+    props.countdown?.Target ||
+    props.countdown?.Date ||
+    firstEvent.value?.EventDate ||
+    props.wedding?.weddingDate ||
+    props.wedding?.WeddingDate ||
+    null
+);
+
+/* =========================================================
+   TÊN CÔ DÂU CHÚ RỂ (Google Calendar)
 ========================================================= */
 
 const groomName = computed(
@@ -611,6 +595,46 @@ async function submitConfirmation() {
   font-weight: 700;
 
   letter-spacing: 0.05em;
+}
+
+/* =========================================================
+   KHỐI SỰ KIỆN — mỗi sự kiện một khối
+========================================================= */
+
+.tr-events__item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  width: 100%;
+}
+
+.tr-events__item + .tr-events__item {
+  margin-top: 40px;
+
+  padding-top: 32px;
+
+  border-top: 1px solid color-mix(in srgb, #680e0e 22%, transparent);
+}
+
+.tr-events__item-title {
+  margin: 0 0 14px;
+
+  color: #680e0e;
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+  font-family: "Times New Roman", Times, serif;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
 }
 
 /* =========================================================

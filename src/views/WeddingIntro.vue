@@ -914,27 +914,33 @@ const ORN_LABELS = {
 };
 
 const AUDIENCE_BY_COLLECTION = {
-  "a-dong": "các cặp đôi giữ nét truyền thống Á Đông trong ngày trọng đại",
-  "kim-lua": "cặp đôi chuộng sự sang trọng và tinh tế",
-  "lang-man": "cặp đôi lãng mạn theo phong cách đương đại",
+  "truyen-thong": "các cặp đôi giữ nét truyền thống Việt trong ngày trọng đại",
+  "lang-man": "cặp đôi lãng mạn, ngọt ngào",
+  "hien-dai": "cặp đôi chuộng sự sang trọng và tinh tế",
+  "co-dien": "cặp đôi yêu vẻ cổ điển châu Âu",
+  "nghe-thuat": "cặp đôi yêu nghệ thuật và màu nước",
   "thien-nhien": "cặp đôi yêu thiên nhiên và sự mộc mạc",
-  "toi-gian": "cặp đôi thích sự tối giản, hiện đại",
+  "a-dong": "các cặp đôi đam mê hoạ tiết Á Đông",
 };
 
 const FEELING_BY_COLLECTION = {
-  "a-dong": "trang trọng, đậm đà ngày lễ",
-  "kim-lua": "sang trọng mà ấm áp",
+  "truyen-thong": "trang trọng, đậm đà ngày lễ",
   "lang-man": "ngọt ngào, dịu dàng",
+  "hien-dai": "sang trọng, hiện đại",
+  "co-dien": "trang nhã, quý phái",
+  "nghe-thuat": "mềm mại, bay bổng",
   "thien-nhien": "thanh bình, gần gũi thiên nhiên",
-  "toi-gian": "tinh tế, nhiều khoảng thở",
+  "a-dong": "huyền bí, rực rỡ",
 };
 
 const SUITABLE_BY_COLLECTION = {
-  "a-dong": ["Đám cưới truyền thống", "Lễ gia tiên", "Tiệc cưới trang trọng"],
-  "kim-lua": ["Tiệc cưới sang trọng", "Đám cưới nhà hàng", "Lễ cưới trang trọng"],
+  "truyen-thong": ["Đám cưới truyền thống", "Lễ gia tiên", "Tiệc cưới trang trọng"],
   "lang-man": ["Tiệc cưới ngoài trời", "Đám cưới hiện đại", "Tiệc cưới sân vườn"],
+  "hien-dai": ["Tiệc cưới sang trọng", "Đám cưới nhà hàng", "Đám cưới thành phố"],
+  "co-dien": ["Tiệc cưới sang trọng", "Lễ cưới trang trọng", "Đám cưới nhà hàng"],
+  "nghe-thuat": ["Tiệc cưới ngoài trời", "Đám cưới sáng tạo", "Tiệc cưới sân vườn"],
   "thien-nhien": ["Tiệc cưới ngoài trời", "Đám cưới gần gũi thiên nhiên", "Tiệc cưới sân vườn"],
-  "toi-gian": ["Đám cưới hiện đại", "Tiệc cưới tối giản", "Đám cưới thành phố"],
+  "a-dong": ["Đám cưới truyền thống", "Lễ gia tiên", "Tiệc cưới trang trọng"],
 };
 
 /* Các mục nội dung của thiệp — đọc từ settings trong wedding.json. */
@@ -981,7 +987,7 @@ const content = computed(() => {
   );
 
   const suitable =
-    SUITABLE_BY_COLLECTION[m.collection] || SUITABLE_BY_COLLECTION["kim-lua"];
+    SUITABLE_BY_COLLECTION[m.collection] || SUITABLE_BY_COLLECTION["co-dien"];
 
   const audience = AUDIENCE_BY_COLLECTION[m.collection] || "mọi cặp đôi";
 

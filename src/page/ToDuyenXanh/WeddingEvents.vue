@@ -95,7 +95,7 @@
         </div>
 
         <!-- LỊCH THÁNG -->
-        <div v-if="event.hasDate && event.calendarDays.length" class="tdx-calendar">
+        <div v-if="index === 0 && event.hasDate && event.calendarDays.length" class="tdx-calendar">
           <p class="tdx-calendar__month">Tháng {{ event.month }}</p>
 
           <div class="tdx-calendar__weekdays">
@@ -132,7 +132,7 @@
           </div>
 
           <a
-            v-if="event.calendarUrl"
+            v-if="index === 0 && event.calendarUrl"
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -147,7 +147,9 @@
         <button type="button" class="tdx-rsvp-btn" @click="openConfirmModal(event)">
           XÁC NHẬN THAM DỰ
         </button>
+      <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
+      
     </div>
 
     <!-- =====================================================
@@ -243,10 +245,16 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 import {
   flowerDecoration,
@@ -257,6 +265,7 @@ import {
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();

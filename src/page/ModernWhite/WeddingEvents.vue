@@ -31,7 +31,7 @@
            LỊCH
       ================================================== -->
 
-      <div v-if="event.calendarDays.length" class="mw-calendar">
+      <div v-if="index === 0 && event.calendarDays.length" class="mw-calendar">
         <div class="mw-calendar__head">
           Tháng {{ event.month }} / {{ event.year }}
         </div>
@@ -63,7 +63,7 @@
         </div>
 
         <a
-          v-if="event.calendarUrl"
+          v-if="index === 0 && event.calendarUrl"
           :href="event.calendarUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -111,7 +111,9 @@
       <button type="button" class="mw-pill mw-event__rsvp" @click="openConfirmModal">
         XÁC NHẬN THAM DỰ
       </button>
+    <EventMap v-if="index === 0 && showMap" :event="event" />
     </div>
+    
 
     <!-- =====================================================
          CONFIRM MODAL
@@ -211,11 +213,17 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import dayjs from "dayjs";
 
 import { Confirm } from "@/model/api";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
@@ -227,6 +235,11 @@ const props = defineProps({
   recipientName: {
     type: [Object, Array, String],
     default: null,
+  },
+
+  settings: {
+    type: Object,
+    default: () => ({}),
   },
 });
 

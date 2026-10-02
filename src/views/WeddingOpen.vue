@@ -86,7 +86,7 @@ import { useWeddingStore } from "@/stores/wedding";
 /* =========================================================
    THEMES
    Dùng map lazy-load từ @/themes — chỉ tải đúng theme
-   mà thiệp đang dùng, không tải 19 theme cùng lúc.
+   mà thiệp đang dùng, không tải 26 theme cùng lúc.
 ========================================================= */
 
 import themes from "@/themes";

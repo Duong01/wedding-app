@@ -46,7 +46,6 @@
           alt=""
         />
 
-
         <!-- =================================================
              HERO
              KHÔNG KHUNG
@@ -62,7 +61,6 @@
             :date-label="heroDateLabel"
           />
         </section>
-
 
         <!-- =================================================
              THÔNG TIN LỄ CƯỚI
@@ -112,23 +110,21 @@
 
         </section>
 
-
         <!-- =================================================
              STORY
              KHÔNG KHUNG
         ================================================== -->
 
-        <section
-          v-if="showStory && wedding?.story"
-          class="section story-section"
-        >
-
-          <WeddingStory
-            :story="wedding.story"
-          />
-
+        <section v-if="showStory && useMilestoneStory" class="section story-section">
+          <StoryMilestones :wedding="wedding" />
         </section>
 
+        <section
+          v-else-if="showStory && wedding?.story"
+          class="section story-section"
+        >
+          <WeddingStory :story="wedding.story" />
+        </section>
 
         <!-- =================================================
              ALBUM
@@ -143,7 +139,6 @@
           <WeddingGallery :gallery="gallery" />
 
         </section>
-
 
         <!-- =================================================
              THÔNG TIN TIỆC CƯỚI
@@ -188,12 +183,24 @@
             <WeddingEvents
               :events="events"
               :recipient-name="wedding?.recipientName"
+              :settings="settings"
             />
 
           </div>
 
         </section>
 
+        <!-- ============ VIDEO CƯỚI ============ -->
+
+        <section v-if="showVideo" class="section story-section">
+        <VideoSection :wedding="wedding" />
+        </section>
+
+        <!-- ============ TRÒ CHƠI ============ -->
+
+        <section v-if="showGame" class="section gallery-section">
+        <GameSection :wedding="wedding" />
+        </section>
 
         <!-- =================================================
              COUNTDOWN
@@ -207,23 +214,6 @@
 
           <WeddingCountdown
             :countdown="wedding?.countdown"
-          />
-
-        </section>
-
-
-        <!-- =================================================
-             MAP
-             KHÔNG KHUNG
-        ================================================== -->
-
-        <section
-          v-if="showMap && events.length"
-          class="section map-section"
-        >
-
-          <WeddingMap
-            :events="events"
           />
 
         </section>
@@ -245,7 +235,6 @@
 
         </section>
 
-
         <!-- =================================================
              HỘP QUÀ MỪNG
              KHÔNG KHUNG
@@ -261,7 +250,6 @@
           />
 
         </section>
-
 
         <!-- =================================================
              SỔ LƯU BÚT
@@ -280,7 +268,6 @@
 
         </section>
 
-
         <!-- =================================================
              FOOTER
              KHÔNG KHUNG
@@ -298,7 +285,6 @@
           />
 
         </section>
-
 
         <!-- =================================================
              BOTTOM DECORATION
@@ -330,7 +316,6 @@
 
       </main>
 
-
       <!-- =================================================
            MUSIC
       ================================================== -->
@@ -343,9 +328,11 @@
 
     </template>
 
+    <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+    <SeasonFx :wedding="wedding" />
+
   </div>
 </template>
-
 
 <script setup>
 import { computed, nextTick, ref, onMounted } from "vue";
@@ -353,6 +340,10 @@ import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
 
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
 import OpeningScreen from "@/page/IvoryGold/OpeningScreen.vue";
 import WeddingHero from "@/page/IvoryGold/WeddingHero.vue";
 import WeddingCouple from "@/page/IvoryGold/WeddingCouple.vue";
@@ -360,7 +351,6 @@ import WeddingStory from "@/page/IvoryGold/WeddingStory.vue";
 import WeddingEvents from "@/page/IvoryGold/WeddingEvents.vue";
 import WeddingCountdown from "@/page/IvoryGold/WeddingCountdown.vue";
 import WeddingGallery from "@/page/IvoryGold/WeddingGallery.vue";
-import WeddingMap from "@/page/IvoryGold/WeddingMap.vue";
 import Timeline from "@/page/IvoryGold/Timeline.vue";
 import WeddingGifts from "@/page/IvoryGold/WeddingGifts.vue";
 import WeddingWishes from "@/page/IvoryGold/WeddingWishes.vue";
@@ -378,7 +368,6 @@ import {
   corner,
 } from "@/page/NhatBinhDo/nhatBinhDoAssets";
 
-
 /* ==========================================================
    PROPS
 ========================================================== */
@@ -395,7 +384,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["open"]);
-
 
 /* ==========================================================
    WEDDING
@@ -418,7 +406,6 @@ const heroMusic = computed(() => {
   return { ...music, Url: heroUrl };
 });;
 
-
 /* ==========================================================
    STATE
 ========================================================== */
@@ -428,7 +415,6 @@ const opened = ref(props.startOpened);
 const floatingMusicRef = ref(null);
 
 const currentYear = new Date().getFullYear();
-
 
 /* ==========================================================
    ASSETS
@@ -445,7 +431,6 @@ const assets = {
   quat,
   corner,
 };
-
 
 /* ==========================================================
    DATA
@@ -468,13 +453,11 @@ const gallery = computed(() => {
     : [];
 });
 
-
 const gifts = computed(() => {
   return Array.isArray(wedding.value?.gifts)
     ? wedding.value.gifts
     : [];
 });
-
 
 const wishes = computed(() => {
   return Array.isArray(
@@ -484,7 +467,6 @@ const wishes = computed(() => {
     : [];
 });
 
-
 /* ==========================================================
    SETTINGS
 ========================================================== */
@@ -493,51 +475,55 @@ const settings = computed(() => {
   return wedding.value?.settings || {};
 });
 
-
 const showHero = computed(() => {
   return settings.value.ShowHero !== false;
 });
-
 
 const showCouple = computed(() => {
   return settings.value.ShowCouple !== false;
 });
 
-
 const showStory = computed(() => {
   return settings.value.ShowStory !== false;
 });
-
 
 const showEvents = computed(() => {
   return settings.value.ShowEvents !== false;
 });
 
-
 const showCountdown = computed(() => {
   return settings.value.ShowCountdown === true;
 });
-
 
 const showGallery = computed(() => {
   return settings.value.ShowGallery === true;
 });
 
-
-const showMap = computed(() => {
-  return settings.value.ShowMap === true;
+const showVideo = computed(() => {
+  return settings.value.ShowVideo === true;
 });
 
+const showGame = computed(() => {
+  return settings.value.ShowGame === true;
+});
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(() => {
+  return (
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+  );
+});
 
 const showGift = computed(() => {
   return settings.value.ShowGift === true;
 });
 
-
 const showGuestBook = computed(() => {
   return settings.value.ShowGuestBook === true;
 });
-
 
 const showMusic = computed(() => {
   return (
@@ -546,14 +532,12 @@ const showMusic = computed(() => {
   );
 });
 
-
 const showFooter = computed(() => {
   return settings.value.ShowFooter !== false;
 });
 const showTimeLine = computed(() => {
   return settings.value.ShowTimeline !== false;
 });
-
 
 /* ==========================================================
    MONOGRAM
@@ -573,7 +557,6 @@ const monogram = computed(() => {
   return `${groom}&${bride}`.toUpperCase();
 });
 
-
 /* ==========================================================
    DATE
 ========================================================== */
@@ -592,13 +575,11 @@ function formatDate(date) {
   return parsed.format("DD · MM · YYYY");
 }
 
-
 const openDateLabel = computed(() => {
   return formatDate(
     wedding.value?.weddingDate,
   );
 });
-
 
 const heroDateLabel = computed(() => {
   return formatDate(
@@ -607,7 +588,6 @@ const heroDateLabel = computed(() => {
     wedding.value?.weddingDate,
   );
 });
-
 
 /* ==========================================================
    OPEN
@@ -634,14 +614,11 @@ onMounted(() => {
   }
 });
 
-
-
 /* ==========================================================
    GALLERY
 ========================================================== */
 
 </script>
-
 
 <style scoped>
 
@@ -673,7 +650,6 @@ onMounted(() => {
   }
 }
 
-
 /* ==========================================================
    RESET
 ========================================================== */
@@ -684,19 +660,16 @@ onMounted(() => {
   box-sizing: border-box;
 }
 
-
 .nb-wedding img {
   display: block;
   max-width: 100%;
 }
-
 
 .nb-wedding button,
 .nb-wedding input,
 .nb-wedding textarea {
   font: inherit;
 }
-
 
 /* ==========================================================
    MAIN INVITATION
@@ -721,7 +694,6 @@ onMounted(() => {
     0 15px 60px rgba(90, 72, 53, 0.12),
     inset 0 0 0 1px rgba(212, 175, 133, 0.15);
 }
-
 
 /* ==========================================================
    PAPER TEXTURE
@@ -750,7 +722,6 @@ onMounted(() => {
   opacity: 0.08;
 }
 
-
 /* ==========================================================
    GENERIC SECTION - WITH SOFT ANIMATIONS
 ========================================================== */
@@ -763,7 +734,7 @@ onMounted(() => {
   width: 100%;
 
   padding: 40px 25px;
-  
+
   animation: softSlideIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
@@ -783,7 +754,6 @@ onMounted(() => {
   }
 }
 
-
 /* ==========================================================
    HERO SECTION
 ========================================================== */
@@ -796,7 +766,7 @@ onMounted(() => {
   padding: 0;
 
   z-index: 2;
-  
+
   animation: fadeInDown 0.9s ease-out both;
 }
 
@@ -810,7 +780,6 @@ onMounted(() => {
     transform: translateY(0);
   }
 }
-
 
 /* ==========================================================
    FRAMED SECTIONS - ELEGANT HOVER
@@ -838,9 +807,9 @@ onMounted(() => {
     inset 0 0 25px
     rgba(212, 175, 133, 0.08),
     0 8px 24px rgba(90, 72, 53, 0.08);
-    
+
   border-radius: 6px;
-  
+
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -854,7 +823,6 @@ onMounted(() => {
   transform: translateY(-2px);
 }
 
-
 /* ==========================================================
    FRAME CORNERS - SOFT GLOW
 ========================================================== */
@@ -865,9 +833,9 @@ onMounted(() => {
   width: 82px;
 
   pointer-events: none;
-  
+
   filter: drop-shadow(0 0 2px rgba(212, 175, 133, 0.2));
-  
+
   transition: filter 0.4s ease;
 }
 
@@ -875,12 +843,10 @@ onMounted(() => {
   filter: drop-shadow(0 0 5px rgba(212, 175, 133, 0.5));
 }
 
-
 .frame-corner-tl {
   top: 0;
   left: 0;
 }
-
 
 .frame-corner-tr {
   top: 0;
@@ -888,20 +854,17 @@ onMounted(() => {
   transform: scaleX(-1);
 }
 
-
 .frame-corner-bl {
   bottom: 0;
   left: 0;
   transform: scaleY(-1);
 }
 
-
 .frame-corner-br {
   bottom: 0;
   right: 0;
   transform: scaleX(-1) scaleY(-1);
 }
-
 
 /* ==========================================================
    ORNAMENTS
@@ -915,14 +878,13 @@ onMounted(() => {
   opacity: 0.6;
 
   pointer-events: none;
-  
+
   transition: opacity 0.4s ease;
 }
 
 .framed-section:hover .ornament {
   opacity: 0.85;
 }
-
 
 /* ==========================================================
    HERO DECORATIONS - GENTLE ANIMATIONS
@@ -934,12 +896,11 @@ onMounted(() => {
   pointer-events: none;
 }
 
-
 .hero-cloud {
   width: 280px;
 
   opacity: 0.5;
-  
+
   animation: gentleFloat 8s ease-in-out infinite;
 }
 
@@ -948,13 +909,11 @@ onMounted(() => {
   50% { transform: translateY(-10px); opacity: 0.7; }
 }
 
-
 .hero-cloud-left {
   top: 20px;
 
   left: -50px;
 }
-
 
 .hero-cloud-small-right {
   width: 140px;
@@ -962,16 +921,15 @@ onMounted(() => {
   top: 280px;
 
   right: -40px;
-  
+
   animation: gentleFloat 10s ease-in-out infinite reverse;
 }
-
 
 .hero-flower {
   width: 120px;
 
   opacity: 0.5;
-  
+
   animation: gentleSway 9s ease-in-out infinite;
 }
 
@@ -980,13 +938,11 @@ onMounted(() => {
   50% { transform: rotate(2deg); opacity: 0.7; }
 }
 
-
 .hero-flower-left {
   top: 100px;
 
   left: -35px;
 }
-
 
 .hero-flower-right {
   bottom: 120px;
@@ -994,10 +950,9 @@ onMounted(() => {
   right: -40px;
 
   transform: scaleX(-1);
-  
+
   animation-delay: -1.5s;
 }
-
 
 /* ==========================================================
    BOTTOM DECORATIONS - REFINED
@@ -1019,10 +974,9 @@ onMounted(() => {
   pointer-events: none;
 
   transform: scaleX(-1);
-  
+
   animation: gentleFloat 9s ease-in-out infinite;
 }
-
 
 .lantern-bottom {
   position: absolute;
@@ -1038,7 +992,7 @@ onMounted(() => {
   opacity: 0.8;
 
   pointer-events: none;
-  
+
   animation: gentleSwing 4s ease-in-out infinite;
 }
 
@@ -1046,7 +1000,6 @@ onMounted(() => {
   0%, 100% { transform: rotate(-1.5deg); }
   50% { transform: rotate(1.5deg); }
 }
-
 
 .fan-bottom {
   position: absolute;
@@ -1064,7 +1017,7 @@ onMounted(() => {
   pointer-events: none;
 
   transform: rotate(-8deg);
-  
+
   animation: slowSpin 12s linear infinite;
 }
 
@@ -1072,7 +1025,6 @@ onMounted(() => {
   from { transform: rotate(-8deg); }
   to { transform: rotate(352deg); }
 }
-
 
 .flower-bottom {
   position: absolute;
@@ -1088,7 +1040,7 @@ onMounted(() => {
   opacity: 0.65;
 
   pointer-events: none;
-  
+
   animation: gentleGlow 5s ease-in-out infinite;
 }
 
@@ -1096,7 +1048,6 @@ onMounted(() => {
   0%, 100% { opacity: 0.5; filter: brightness(1); }
   50% { opacity: 0.8; filter: brightness(1.1); }
 }
-
 
 /* ==========================================================
    WEDDING INFO FRAME
@@ -1107,15 +1058,13 @@ onMounted(() => {
   border-radius: 18px 18px 4px 4px;
 }
 
-
 /* ==========================================================
-   PARTY INFO FRAME  
+   PARTY INFO FRAME
 ========================================================== */
 
 .party-info-frame {
   margin-top: 15px;
 }
-
 
 /* ==========================================================
    FRAME DECORATION
@@ -1124,7 +1073,6 @@ onMounted(() => {
 .frame-decoration {
   position: relative;
 }
-
 
 /* ==========================================================
    MOBILE
@@ -1175,7 +1123,6 @@ onMounted(() => {
 
 }
 
-
 /* ==========================================================
    SMALL MOBILE
 ========================================================== */
@@ -1217,7 +1164,6 @@ onMounted(() => {
 
 }
 
-
 /* ==========================================================
    RESET
 ========================================================== */
@@ -1228,19 +1174,16 @@ onMounted(() => {
   box-sizing: border-box;
 }
 
-
 .nb-wedding img {
   display: block;
   max-width: 100%;
 }
-
 
 .nb-wedding button,
 .nb-wedding input,
 .nb-wedding textarea {
   font: inherit;
 }
-
 
 /* ==========================================================
    MAIN
@@ -1264,7 +1207,6 @@ onMounted(() => {
   box-shadow:
     0 15px 60px rgba(64, 35, 15, 0.16);
 }
-
 
 /* ==========================================================
    PAPER
@@ -1294,7 +1236,6 @@ onMounted(() => {
   opacity: 0.15;
 }
 
-
 /* ==========================================================
    GENERIC SECTION
 ========================================================== */
@@ -1310,7 +1251,6 @@ onMounted(() => {
     40px 25px;
 }
 
-
 /* ==========================================================
    HERO
    KHÔNG KHUNG
@@ -1325,7 +1265,6 @@ onMounted(() => {
 
   z-index: 2;
 }
-
 
 /* ==========================================================
    2 KHUNG CHÍNH
@@ -1356,7 +1295,6 @@ onMounted(() => {
     rgba(151, 21, 25, 0.025);
 }
 
-
 /* ==========================================================
    KHUNG THÔNG TIN LỄ CƯỚI
 ========================================================== */
@@ -1369,7 +1307,6 @@ onMounted(() => {
     18px 18px 4px 4px;
 
 }
-
 
 /* ==========================================================
    KHUNG THÔNG TIN TIỆC CƯỚI
@@ -1385,7 +1322,6 @@ onMounted(() => {
 
 }
 
-
 /* ==========================================================
    FRAME CONTENT
 ========================================================== */
@@ -1397,7 +1333,6 @@ onMounted(() => {
 
   width: 100%;
 }
-
 
 /* ==========================================================
    FRAME CORNERS
@@ -1413,7 +1348,6 @@ onMounted(() => {
   z-index: 8;
 }
 
-
 .frame-corner {
   position: absolute;
 
@@ -1424,12 +1358,10 @@ onMounted(() => {
   user-select: none;
 }
 
-
 .frame-corner-tl {
   top: -1px;
   left: -1px;
 }
-
 
 .frame-corner-tr {
   top: -1px;
@@ -1438,7 +1370,6 @@ onMounted(() => {
   transform: scaleX(-1);
 }
 
-
 .frame-corner-bl {
   bottom: -1px;
   left: -1px;
@@ -1446,14 +1377,12 @@ onMounted(() => {
   transform: scaleY(-1);
 }
 
-
 .frame-corner-br {
   right: -1px;
   bottom: -1px;
 
   transform: scale(-1);
 }
-
 
 /* ==========================================================
    HERO CLOUD
@@ -1469,7 +1398,6 @@ onMounted(() => {
   user-select: none;
 }
 
-
 .hero-cloud-left {
   top: -15px;
 
@@ -1480,7 +1408,6 @@ onMounted(() => {
   opacity: .9;
 }
 
-
 .hero-cloud-small {
   position: absolute;
 
@@ -1488,7 +1415,6 @@ onMounted(() => {
 
   pointer-events: none;
 }
-
 
 .hero-cloud-small-right {
   top: 105px;
@@ -1502,7 +1428,6 @@ onMounted(() => {
   transform:
     scaleX(-1);
 }
-
 
 /* ==========================================================
    HERO FLOWER
@@ -1518,7 +1443,6 @@ onMounted(() => {
   user-select: none;
 }
 
-
 .hero-flower-left {
   top: 20px;
 
@@ -1531,7 +1455,6 @@ onMounted(() => {
   transform:
     rotate(-10deg);
 }
-
 
 .hero-flower-right {
   top: 30px;
@@ -1547,49 +1470,40 @@ onMounted(() => {
     rotate(-10deg);
 }
 
-
 /* ==========================================================
    STORY
    KHÔNG KHUNG
 ========================================================== */
-
 
 /* ==========================================================
    ALBUM
    KHÔNG KHUNG
 ========================================================== */
 
-
-
 /* ==========================================================
    COUNTDOWN
    KHÔNG KHUNG
 ========================================================== */
-
 
 /* ==========================================================
    MAP
    KHÔNG KHUNG
 ========================================================== */
 
-
 /* ==========================================================
    GIFT
    KHÔNG KHUNG
 ========================================================== */
-
 
 /* ==========================================================
    GUESTBOOK
    KHÔNG KHUNG
 ========================================================== */
 
-
 /* ==========================================================
    FOOTER
    KHÔNG KHUNG
 ========================================================== */
-
 
 /* ==========================================================
    BOTTOM DECORATION
@@ -1614,7 +1528,6 @@ onMounted(() => {
     scaleX(-1);
 }
 
-
 .lantern-bottom {
   position: absolute;
 
@@ -1630,7 +1543,6 @@ onMounted(() => {
 
   pointer-events: none;
 }
-
 
 .fan-bottom {
   position: absolute;
@@ -1651,7 +1563,6 @@ onMounted(() => {
     rotate(-8deg);
 }
 
-
 .flower-bottom {
   position: absolute;
 
@@ -1668,7 +1579,6 @@ onMounted(() => {
   pointer-events: none;
 }
 
-
 /* ==========================================================
    MOBILE
 ========================================================== */
@@ -1681,13 +1591,11 @@ onMounted(() => {
     box-shadow: none;
   }
 
-
   .section {
     padding-left: 18px;
 
     padding-right: 18px;
   }
-
 
   .framed-section {
     width: calc(100% - 24px);
@@ -1696,16 +1604,13 @@ onMounted(() => {
       42px 18px;
   }
 
-
   .frame-corner {
     width: 68px;
   }
 
-
   .hero-section {
     min-height: 620px;
   }
-
 
   .hero-cloud-left {
     width: 190px;
@@ -1713,25 +1618,21 @@ onMounted(() => {
     left: -45px;
   }
 
-
   .hero-cloud-small-right {
     width: 110px;
 
     right: -30px;
   }
 
-
   .hero-flower-left {
     width: 85px;
   }
-
 
   .hero-flower-right {
     width: 80px;
   }
 
 }
-
 
 /* ==========================================================
    SMALL MOBILE
@@ -1743,7 +1644,6 @@ onMounted(() => {
     min-height: 580px;
   }
 
-
   .framed-section {
     width: calc(100% - 18px);
 
@@ -1751,31 +1651,25 @@ onMounted(() => {
       38px 14px;
   }
 
-
   .frame-corner {
     width: 60px;
   }
-
 
   .hero-cloud-left {
     width: 165px;
   }
 
-
   .hero-cloud-small-right {
     width: 95px;
   }
-
 
   .hero-flower-left {
     width: 72px;
   }
 
-
   .hero-flower-right {
     width: 70px;
   }
-
 
   .cloud-bottom {
     width: 200px;

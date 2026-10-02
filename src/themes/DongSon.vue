@@ -26,8 +26,12 @@
         </section>
 
         <!-- STORY -->
+        <section v-if="showStory && useMilestoneStory" class="section story-section">
+          <StoryMilestones :wedding="wedding" />
+        </section>
+
         <section
-          v-if="showStory && wedding?.story"
+          v-else-if="showStory && wedding?.story"
           class="section story-section"
         >
           <WeddingStory :story="wedding.story" />
@@ -38,7 +42,19 @@
           v-if="showEvents && events.length"
           class="section events-section"
         >
-          <WeddingEvents :events="events" />
+          <WeddingEvents :events="events" :settings="settings" />
+        </section>
+
+        <!-- ============ VIDEO CƯỚI ============ -->
+
+        <section v-if="showVideo" class="section story-section">
+        <VideoSection :wedding="wedding" />
+        </section>
+
+        <!-- ============ TRÒ CHƠI ============ -->
+
+        <section v-if="showGame" class="section gallery-section">
+        <GameSection :wedding="wedding" />
         </section>
 
         <!-- COUNTDOWN -->
@@ -52,11 +68,6 @@
           class="section gallery-section"
         >
           <WeddingGallery :gallery="gallery" />
-        </section>
-
-        <!-- MAP -->
-        <section v-if="showMap && events.length" class="section map-section">
-          <WeddingMap :events="events" />
         </section>
 
         <!-- TIMELINE -->
@@ -93,6 +104,9 @@
         :music="heroMusic"
       />
     </template>
+
+    <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+    <SeasonFx :wedding="wedding" />
   </div>
 </template>
 
@@ -102,6 +116,11 @@ import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
 
 import OpeningScreen from "@/page/DongSon/OpeningScreen.vue";
 
@@ -116,8 +135,6 @@ import WeddingEvents from "@/page/DongSon/WeddingEvents.vue";
 import WeddingCountdown from "@/page/DongSon/WeddingCountdown.vue";
 
 import WeddingGallery from "@/page/DongSon/WeddingGallery.vue";
-
-import WeddingMap from "@/page/DongSon/WeddingMap.vue";
 
 import Timeline from "@/page/DongSon/Timeline.vue";
 
@@ -198,7 +215,18 @@ const showCountdown = computed(() => settings.value.ShowCountdown === true);
 
 const showGallery = computed(() => settings.value.ShowGallery === true);
 
-const showMap = computed(() => settings.value.ShowMap === true);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+
+const showGame = computed(() => settings.value.ShowGame === true);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+);
 
 const showTimeLine = computed(() => settings.value.ShowTimeline !== false);
 
@@ -320,7 +348,7 @@ onMounted(() => {
     ),
     var(--dong-paper);
 
-  box-shadow: 
+  box-shadow:
     0 20px 70px rgba(0, 0, 0, 0.5),
     inset 0 0 0 1px rgba(169, 107, 50, 0.2);
 }

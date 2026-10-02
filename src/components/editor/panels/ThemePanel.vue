@@ -37,6 +37,44 @@
     </div>
 
     <!-- =====================================================
+         PHONG CÁCH THIỆP
+    ====================================================== -->
+
+    <h3 class="sub-heading">Phong cách thiệp</h3>
+
+    <p class="sub-hint">
+      Đổi sang mẫu thiệp khác — nội dung (tên, ngày cưới, sự kiện,
+      album...) giữ nguyên, chỉ đổi giao diện. Màu và font sẽ về
+      mặc định của mẫu mới.
+    </p>
+
+    <div class="style-grid">
+      <button
+        v-for="style in THEME_STYLES"
+        :key="style.slug"
+        type="button"
+        class="style-card"
+        :class="{ active: style.slug === currentThemeName }"
+        :title="style.name"
+        @click="applyThemeStyle(style)"
+      >
+        <span class="style-thumb">
+          <img :src="style.preview" :alt="style.name" loading="lazy" />
+
+          <span
+            v-if="style.slug === currentThemeName"
+            class="style-check"
+            aria-hidden="true"
+          >
+            <v-icon size="14">mdi-check</v-icon>
+          </span>
+        </span>
+
+        <span class="style-name">{{ style.name }}</span>
+      </button>
+    </div>
+
+    <!-- =====================================================
          BẢNG MÀU CÓ SẴN
     ====================================================== -->
 
@@ -207,6 +245,10 @@ import { THEME_PALETTES } from "@/stores/weddingEditor";
 
 import { parseWeddingDate } from "@/utils/datetime";
 
+import { PREVIEWS, THEME_PREVIEW } from "@/utils/weddingCard";
+
+import { confirmDialog } from "@/composables/useConfirm";
+
 /* Font chọn trong panel nạp khi mở panel — index.html không
  * còn chèn sẵn 25 font nữa (xem utils/fontLoader.js). */
 import { ensureFonts } from "@/utils/fontLoader";
@@ -214,6 +256,201 @@ import { ensureFonts } from "@/utils/fontLoader";
 const props = defineProps({
   wedding: { type: Object, required: true },
 });
+
+/* =====================================================
+   PHONG CÁCH THIỆP
+===================================================== */
+
+/*
+ * Font + layout mặc định của từng mẫu — trùng bản demo
+ * (src/mock/wedding.json) để bấm đổi là thiệp ra đúng
+ * như gallery.
+ */
+const THEME_DEFAULTS = {
+  "traditional-red": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "romantic-pink": {
+    fonts: { Main: "Baskerville", Heading: "Times New Roman", Script: "Alex Brush" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "elegant-gold": {
+    fonts: { Main: "Patrick Hand", Heading: "Plus Jakarta Sans", Script: "Patrick Hand" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "modern-white": {
+    fonts: { Main: "Baskerville", Heading: "Baskerville", Script: "Pinyon Script" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "nhat-binh-do": {
+    fonts: { Main: "Baskerville", Heading: "Times New Roman", Script: "Alex Brush" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "royal-red": {
+    fonts: { Main: "Baskerville", Heading: "Times New Roman", Script: "Great Vibes" },
+    layout: { MaxWidth: "900px", SectionPadding: "85px" },
+  },
+  "dong-son": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cinzel", Script: "Allura" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "ivory-gold": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Ballet" },
+    layout: { MaxWidth: "900px", SectionPadding: "80px" },
+  },
+  "serene-green": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "sunset-peach": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "80px" },
+  },
+  "champagne-blush": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "80px" },
+  },
+  "midnight-gold": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "lavender-cream": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "double-happiness": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "boho-terracotta": {
+    fonts: { Main: "Libre Baskerville", Heading: "Viaoda Libre", Script: "Ms Madi" },
+    layout: { MaxWidth: "900px", SectionPadding: "44px" },
+  },
+  "song-hy-red": {
+    fonts: { Main: "Baskerville", Heading: "Times New Roman", Script: "EB Garamond" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "song-hac-red": {
+    fonts: { Main: "Times New Roman", Heading: "Fraunces", Script: "Carattere" },
+    layout: { MaxWidth: "480px", SectionPadding: "23px" },
+  },
+  "to-duyen-xanh": {
+    fonts: { Main: "Baskerville", Heading: "Times New Roman", Script: "Carattere" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "emerald-luxe": {
+    fonts: { Main: "Be Vietnam Pro", Heading: "Viaoda Libre", Script: "Babylonica" },
+    layout: { MaxWidth: "900px", SectionPadding: "48px" },
+  },
+  "long-phung-v3": {
+    fonts: { Main: "Baskerville", Heading: "Big Caslon", Script: "EB Garamond" },
+    layout: { MaxWidth: "720px", SectionPadding: "60px" },
+  },
+  "watercolor-blush": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "botanical-leaf": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "chateau-blue": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "jade-phoenix": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "modern-noir": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+  "ruby-romance": {
+    fonts: { Main: "Cormorant Garamond", Heading: "Cormorant Garamond", Script: "Allura" },
+    layout: { MaxWidth: "930px", SectionPadding: "82px" },
+  },
+};
+
+/*
+ * Danh sách mẫu có thể đổi — chỉ những theme đã đăng ký
+ * render (THEME_PALETTES) và có ảnh xem trước. "soft-rose"
+ * nằm trong THEME_META nhưng chưa có component nên loại.
+ */
+const THEME_STYLES = Object.entries(THEME_META)
+  .filter(([slug]) => THEME_PALETTES[slug])
+  .map(([slug, meta]) => ({
+    slug,
+    name: meta.name,
+    preview: PREVIEWS[THEME_PREVIEW[slug]] || "",
+  }));
+
+const currentThemeName = computed(() => props.wedding.theme?.Name || "");
+
+async function applyThemeStyle(style) {
+  if (style.slug === currentThemeName.value) {
+    return;
+  }
+
+  /*
+   * Đổi mẫu là ghi đè màu + font + layout người dùng đã
+   * tinh chỉnh — hỏi trước để không mất công vô ý.
+   */
+  const ok = await confirmDialog({
+    title: `Đổi sang "${style.name}"?`,
+    message:
+      "Toàn bộ nội dung thiệp (tên, ngày cưới, sự kiện, album, lời chúc...) được giữ nguyên. " +
+      "Màu sắc, font và bố cục sẽ về mặc định của mẫu mới — các tùy chỉnh riêng của bạn ở phần dưới sẽ bị thay thế.",
+    confirmText: "Đổi mẫu",
+    cancelText: "Giữ mẫu hiện tại",
+  });
+
+  if (!ok) {
+    return;
+  }
+
+  const theme = props.wedding.theme;
+
+  const palette = THEME_PALETTES[style.slug];
+
+  const defaults = THEME_DEFAULTS[style.slug] || {};
+
+  /*
+   * Thiệp cũ lưu trước khi có Fonts/Layout có thể thiếu
+   * object này — tạo lại để không crash khi ghi.
+   */
+  if (!theme.Colors) {
+    theme.Colors = {};
+  }
+
+  if (!theme.Fonts) {
+    theme.Fonts = {};
+  }
+
+  if (!theme.Layout) {
+    theme.Layout = {};
+  }
+
+  theme.Name = style.slug;
+
+  if (palette) {
+    Object.assign(theme.Colors, palette);
+  }
+
+  if (defaults.fonts) {
+    Object.assign(theme.Fonts, defaults.fonts);
+  }
+
+  if (defaults.layout) {
+    Object.assign(theme.Layout, defaults.layout);
+  }
+
+  /* Nạp font của mẫu mới để preview iframe hiển thị đúng. */
+  ensureFonts(
+    defaults.fonts ? Object.values(defaults.fonts) : []
+  );
+}
 
 /* =====================================================
    MÀU SẮC
@@ -443,6 +680,114 @@ const weddingDateLabel = computed(() => {
   font-size: 11px;
 
   line-height: 1.5;
+}
+
+/* =====================================================
+   PHONG CÁCH THIỆP
+===================================================== */
+
+.style-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+
+  gap: 9px;
+
+  margin-bottom: 26px;
+}
+
+.style-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  padding: 6px;
+
+  border: 1px solid var(--border, #ece4da);
+  border-radius: 12px;
+
+  background: #fffdfb;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.style-card:hover {
+  transform: translateY(-2px);
+
+  border-color: var(--border-strong, #e0d4c5);
+
+  box-shadow: 0 8px 20px rgba(120, 80, 50, 0.08);
+}
+
+.style-card.active {
+  border-color: var(--wine, #a63a2e);
+
+  box-shadow: 0 0 0 2px rgba(166, 58, 46, 0.14);
+}
+
+.style-thumb {
+  position: relative;
+
+  display: block;
+
+  overflow: hidden;
+
+  aspect-ratio: 3 / 4;
+
+  border-radius: 8px;
+
+  background: #f4ede3;
+}
+
+.style-thumb img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.style-check {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: var(--wine, #a63a2e);
+
+  color: #fff;
+}
+
+.style-name {
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  padding: 0 2px;
+
+  color: #6b5a4e;
+
+  font-size: 10.5px;
+  font-weight: 650;
+
+  text-align: center;
 }
 
 .preset-grid {

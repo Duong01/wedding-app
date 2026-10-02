@@ -56,7 +56,7 @@
       <!-- =====================================================
            LỊCH THÁNG
       ====================================================== -->
-      <div v-if="event.hasDate && event.calendarDays.length" class="la-calendar">
+      <div v-if="index === 0 && event.hasDate && event.calendarDays.length" class="la-calendar">
         <img :src="calendarFrame" alt="" class="la-calendar__frame" aria-hidden="true" />
 
         <div class="la-calendar__body">
@@ -111,7 +111,7 @@
            THÊM VÀO LỊCH
       ====================================================== -->
       <a
-        v-if="event.calendarUrl"
+        v-if="index === 0 && event.calendarUrl"
         :href="event.calendarUrl"
         target="_blank"
         rel="noopener noreferrer"
@@ -126,7 +126,9 @@
       <button type="button" class="la-pill la-event__rsvp" @click="openConfirmModal(event)">
         XÁC NHẬN THAM DỰ
       </button>
+    <EventMap v-if="index === 0 && showMap" :event="event" />
     </article>
+    
 
     <!-- =====================================================
          RSVP MODAL
@@ -221,6 +223,7 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
@@ -229,12 +232,18 @@ import { Confirm } from "@/model/api";
 
 import calendarFrame from "@/assets/love-art/lich.webp";
 import calendarHeart from "@/assets/love-art/tim.webp";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();

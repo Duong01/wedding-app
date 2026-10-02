@@ -112,7 +112,7 @@
           </div>
 
           <!-- LỊCH -->
-          <div v-if="event.date && event.calendarDays?.length" class="bq-calendar">
+          <div v-if="index === 0 && event.date && event.calendarDays?.length" class="bq-calendar">
             <div class="bq-calendar__header">
               Tháng {{ event.month }} / {{ event.year }}
             </div>
@@ -152,7 +152,7 @@
           </div>
 
           <a
-            v-if="event.calendarUrl"
+            v-if="index === 0 && event.calendarUrl"
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -160,7 +160,9 @@
           >
             Thêm vào lịch
           </a>
+        <EventMap v-if="index === 0 && showMap" :event="event" />
         </article>
+        
       </div>
 
       <!-- XÁC NHẬN THAM DỰ -->
@@ -258,11 +260,19 @@ import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
 
+import EventMap from "@/components/common/EventMap.vue";
+
 import { flower3, flower4, line2, line4 } from "./bohoTerracottaAssets";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const props = defineProps({
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
+  settings: { type: Object, default: () => ({}) },
 });
 
 const route = useRoute();

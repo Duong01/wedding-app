@@ -148,7 +148,7 @@ export function useWeddingTheme(wedding) {
         layout.MaxWidth || layout.maxWidth || "900px",
 
       "--section-padding":
-        layout.SectionPadding || layout.sectionPadding || "80px",
+        layout.SectionPadding || layout.sectionPadding || "40px",
 
     };
 

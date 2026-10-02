@@ -81,7 +81,7 @@
              CALENDAR
         ====================================== -->
         <div
-          v-if="event.date && event.calendarDays?.length"
+          v-if="index === 0 && event.date && event.calendarDays?.length"
           class="calendar"
         >
           <div class="calendar-header">
@@ -120,7 +120,7 @@
           </div>
 
           <a
-            v-if="event.calendarUrl"
+            v-if="index === 0 && event.calendarUrl"
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -140,7 +140,9 @@
         >
           XÁC NHẬN THAM DỰ
         </button>
+      <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
+      
     </div>
 
     <!-- =========================================
@@ -258,11 +260,17 @@
 </template>
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
 import calendarHeart from "@/assets/glass-garden-pink/calendar-heart.webp";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 const props = defineProps({
   events: {
@@ -272,6 +280,11 @@ const props = defineProps({
   recipientName: {
     type: [Object, Array, String],
     default: null,
+  },
+
+  settings: {
+    type: Object,
+    default: () => ({}),
   },
 });
 

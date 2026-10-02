@@ -37,7 +37,7 @@
   --text-display: clamp(56px, 14vw, 96px);
   --text-4xl: clamp(36px, 10vw, 64px);
 
-  --section-padding: 64px;
+  --section-padding: 54px;
   --content-width: 1100px;
 }
 
@@ -90,7 +90,7 @@
 @media (max-width: 768px) {
   :root.theme-chungdoi {
     --text-display: clamp(40px, 18vw, 64px);
-    --section-padding: 44px;
+    --section-padding: 33px;
   }
   .theme-chungdoi .hero-section { padding: 4rem 1rem; }
 }

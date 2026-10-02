@@ -201,7 +201,7 @@ function formatTime(index) {
 
   gap: 13px;
 
-  padding: 37px 41px;
+  /* padding: 37px 41px; */
 }
 
 .shc-timeline__title {

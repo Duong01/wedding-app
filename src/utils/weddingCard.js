@@ -54,6 +54,12 @@ export const THEME_PREVIEW = {
   "song-hac-red": "song_hy_red",
   "to-duyen-xanh": "spring_garden_green",
   "modern-white": "jasmine_white",
+  "watercolor-blush": "glass_garden_pink",
+  "botanical-leaf": "elegant_leaf_green",
+  "chateau-blue": "chateau_blue",
+  "jade-phoenix": "porcelain_v2_red",
+  "modern-noir": "minimalism_darkblue",
+  "ruby-romance": "lien_hoa_pink",
 };
 
 export const FALLBACK_PREVIEW = "minimalism_red";

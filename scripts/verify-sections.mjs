@@ -115,7 +115,11 @@ await vite.close();
 const checks = [
   ["Couple section", html.includes("shc-couple")],
   ["Events section", html.includes("shc-events")],
-  ["Map section", html.includes("shc-map")],
+  /*
+   * Map giờ gộp vào từng thẻ sự kiện (EventMap) — không còn
+   * section shc-map standalone.
+   */
+  ["EventMap in events", html.includes("event-map")],
   ["DressCode section", html.includes("shc-dress")],
   ["Timeline section", html.includes("shc-timeline")],
   ["Wishes section", html.includes("shc-wishes")],

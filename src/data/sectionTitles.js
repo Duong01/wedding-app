@@ -62,6 +62,20 @@ export const SECTION_TITLES = [
   },
 
   {
+    key: "video",
+    label: "Video cưới",
+    icon: "mdi-play-circle-outline",
+    fields: [
+      { name: "Eyebrow", label: "Dòng nhỏ", default: "KHOẢNH KHẮC YÊU THƯƠNG" },
+      /*
+       * Heading mặc định lấy từ video.Title (panel
+       * "Video cưới") nên default để trống.
+       */
+      { name: "Heading", label: "Tiêu đề", default: "" },
+    ],
+  },
+
+  {
     key: "events",
     label: "Thông tin tiệc cưới",
     icon: "mdi-glass-cocktail",
@@ -123,12 +137,21 @@ export const SECTION_TITLES = [
   },
 
   {
-    key: "map",
-    label: "Bản đồ",
-    icon: "mdi-map-marker-outline",
+    key: "game",
+    label: "Trò chơi",
+    icon: "mdi-party-popper",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "ĐƯỜNG ĐẾN NGÀY VUI" },
-      { name: "Heading", label: "Tiêu đề", default: "Bản đồ địa điểm" },
+      { name: "Eyebrow", label: "Dòng nhỏ", default: "CÙNG VUI CHƠI" },
+      /*
+       * Heading mặc định lấy từ game.Title (panel
+       * "Trò chơi") nên default để trống.
+       */
+      { name: "Heading", label: "Tiêu đề", default: "" },
+      /*
+       * Intro mặc định lấy theo loại game
+       * (gameTypeMeta(type).intro) — để trống.
+       */
+      { name: "Intro", label: "Mô tả", default: "" },
     ],
   },
 

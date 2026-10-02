@@ -199,7 +199,7 @@
         ====================================== -->
 
         <div
-          v-if="event.date"
+          v-if="index === 0 && event.date"
           class="calendar"
         >
 
@@ -275,7 +275,7 @@
           <!-- ADD TO CALENDAR -->
 
           <a
-            v-if="event.calendarUrl"
+            v-if="index === 0 && event.calendarUrl"
             :href="event.calendarUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -358,7 +358,10 @@
 
       </div>
 
+    <EventMap v-if="index === 0 && showMap" :event="event" />
+
     </div>
+    
     <!-- =====================================================
          CONFIRM MODAL
     ====================================================== -->
@@ -493,9 +496,15 @@
 
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, reactive, ref } from "vue";
 import { Confirm } from "@/model/api";
 import { useRoute } from "vue-router";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 const props = defineProps({
   events: {
     type: Array,
@@ -504,6 +513,11 @@ const props = defineProps({
   recipientName: {
     type: [Object, Array, String],
     default: null,
+  },
+
+  settings: {
+    type: Object,
+    default: () => ({}),
   },
 });
 

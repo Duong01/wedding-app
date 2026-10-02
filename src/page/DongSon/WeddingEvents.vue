@@ -54,18 +54,34 @@
             XEM BẢN ĐỒ
           </a>
         </div>
+      <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
+      
     </div>
   </section>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+import EventMap from "@/components/common/EventMap.vue";
+
+const props = defineProps({
   events: {
     type: Array,
     default: () => [],
   },
+
+  settings: {
+    type: Object,
+    default: () => ({}),
+  },
 });
+
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
 </script>
 
 <style scoped>

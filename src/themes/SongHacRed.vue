@@ -31,16 +31,26 @@
       <!-- ============ NỘI DUNG ============ -->
 
       <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" />
-
+      <WeddingStory
+        v-else-if="showStory && wedding?.story"
+        :story="wedding.story"
+      />
       <WeddingGallery v-if="showGallery && gallery.length" :gallery="gallery" />
 
       <WeddingEvents
         v-if="showEvents && events.length"
         :events="events"
         :recipient-name="wedding?.recipientName"
+        :settings="settings"
       />
 
-      <WeddingMap v-if="showMap && events.length" :events="events" />
+      <!-- ============ VIDEO CƯỚI ============ -->
+
+      <VideoSection v-if="showVideo" :wedding="wedding" />
+
+      <!-- ============ TRÒ CHƠI ============ -->
+
+      <GameSection v-if="showGame" :wedding="wedding" />
 
       <DressCode v-if="showDressCode" />
 
@@ -48,7 +58,12 @@
 
       <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" />
 
-      <WeddingStory v-if="showStory && wedding?.story" :story="wedding.story" />
+      <StoryMilestones
+        v-if="showStory && useMilestoneStory"
+        :wedding="wedding"
+      />
+
+      
 
       <WeddingGifts
         v-if="showGift && gifts.length"
@@ -65,7 +80,10 @@
 
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
-  </div>
+
+  <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+  <SeasonFx :wedding="wedding" />
+</div>
 </template>
 
 <script setup>
@@ -73,6 +91,12 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
+
 import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
 import OpeningScreen from "@/page/SongHacRed/OpeningScreen.vue";
@@ -81,7 +105,6 @@ import WeddingCouple from "@/page/SongHacRed/WeddingCouple.vue";
 import WeddingStory from "@/page/SongHacRed/WeddingStory.vue";
 import WeddingEvents from "@/page/SongHacRed/WeddingEvents.vue";
 import WeddingGallery from "@/page/SongHacRed/WeddingGallery.vue";
-import WeddingMap from "@/page/SongHacRed/WeddingMap.vue";
 import DressCode from "@/page/SongHacRed/DressCode.vue";
 import Timeline from "@/page/SongHacRed/Timeline.vue";
 import WeddingGifts from "@/page/SongHacRed/WeddingGifts.vue";
@@ -159,13 +182,23 @@ const showStory = computed(() => settings.value.ShowStory !== false);
 const showEvents = computed(() => settings.value.ShowEvents !== false);
 const showTimeline = computed(() => settings.value.ShowTimeline !== false);
 const showGallery = computed(() => settings.value.ShowGallery === true);
-const showMap = computed(() => settings.value.ShowMap === true);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+const showGame = computed(() => settings.value.ShowGame === true);
 const showDressCode = computed(() => settings.value.ShowDressCode !== false);
 const showGift = computed(() => settings.value.ShowGift === true);
 const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
 const showFooter = computed(() => settings.value.ShowFooter !== false);
 const showMusic = computed(
   () => wedding.value?.music?.Enabled === true && settings.value.ShowMusic === true
+);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
 );
 
 const monogram = computed(() => {

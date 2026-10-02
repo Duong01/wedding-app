@@ -23,9 +23,14 @@ import {
   onMounted,
   onBeforeUnmount,
   ref,
+  watch,
 } from "vue";
 
 import themes from "@/themes";
+
+import { ensureFonts } from "@/utils/fontLoader";
+
+import { fontsForTheme } from "@/data/themeFonts";
 
 defineOptions({
   name: "PreviewRenderer",
@@ -57,6 +62,20 @@ const themeName = computed(() => {
 const currentTheme = computed(() => {
   return themes[themeName.value] || null;
 });
+
+/*
+ * Iframe là document riêng — font nạp ở trang editor
+ * không ăn vào đây. Nạp theo theme đang xem trước để
+ * đổi mẫu trong editor là preview hiện đúng font luôn.
+ */
+watch(
+  wedding,
+  (value) => {
+    if (value) {
+      ensureFonts(fontsForTheme(value));
+    }
+  }
+);
 
 /* =========================================================
    POSTMESSAGE BRIDGE

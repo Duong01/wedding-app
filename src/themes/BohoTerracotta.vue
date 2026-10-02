@@ -42,7 +42,15 @@
 
         <!-- ============ CHUYỆN TÌNH YÊU ============ -->
 
-        <WeddingStory v-if="showStory && wedding?.story" :story="wedding.story" />
+        <StoryMilestones
+          v-if="showStory && useMilestoneStory"
+          :wedding="wedding"
+        />
+
+        <WeddingStory
+          v-else-if="showStory && wedding?.story"
+          :story="wedding.story"
+        />
 
         <!-- ============ ALBUM ẢNH ============ -->
 
@@ -54,7 +62,16 @@
           v-if="showEvents && events.length"
           :events="events"
           :recipient-name="wedding?.recipientName"
+          :settings="settings"
         />
+
+        <!-- ============ VIDEO CƯỚI ============ -->
+
+        <VideoSection v-if="showVideo" :wedding="wedding" />
+
+        <!-- ============ TRÒ CHƠI ============ -->
+
+        <GameSection v-if="showGame" :wedding="wedding" />
 
         <!-- ============ ĐẾM NGƯỢC ============ -->
 
@@ -63,10 +80,6 @@
           :countdown="countdownTarget"
           :wedding-date="wedding?.weddingDate"
         />
-
-        <!-- ============ BẢN ĐỒ ============ -->
-
-        <WeddingMap v-if="showMap && events.length" :events="events" />
 
         <!-- ============ DRESS CODE ============ -->
 
@@ -98,7 +111,10 @@
 
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
-  </div>
+
+  <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+  <SeasonFx :wedding="wedding" />
+</div>
 </template>
 
 <script setup>
@@ -108,6 +124,11 @@ import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
 
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
+
 import OpeningScreen from "@/page/BohoTerracotta/OpeningScreen.vue";
 import WeddingHero from "@/page/BohoTerracotta/WeddingHero.vue";
 import WeddingCouple from "@/page/BohoTerracotta/WeddingCouple.vue";
@@ -115,7 +136,6 @@ import WeddingStory from "@/page/BohoTerracotta/WeddingStory.vue";
 import WeddingGallery from "@/page/BohoTerracotta/WeddingGallery.vue";
 import WeddingEvents from "@/page/BohoTerracotta/WeddingEvents.vue";
 import WeddingCountdown from "@/page/BohoTerracotta/WeddingCountdown.vue";
-import WeddingMap from "@/page/BohoTerracotta/WeddingMap.vue";
 import DressCode from "@/page/BohoTerracotta/DressCode.vue";
 import Timeline from "@/page/BohoTerracotta/Timeline.vue";
 import WeddingWishes from "@/page/BohoTerracotta/WeddingWishes.vue";
@@ -194,10 +214,20 @@ const showFooter = computed(() => settings.value.ShowFooter !== false);
 
 const showCountdown = computed(() => settings.value.ShowCountdown === true);
 const showGallery = computed(() => settings.value.ShowGallery === true);
-const showMap = computed(() => settings.value.ShowMap === true);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+const showGame = computed(() => settings.value.ShowGame === true);
 const showDressCode = computed(() => settings.value.ShowDressCode === true);
 const showGift = computed(() => settings.value.ShowGift === true);
 const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+);
 
 const showMusic = computed(
   () => wedding.value?.music?.Enabled === true && settings.value.ShowMusic === true

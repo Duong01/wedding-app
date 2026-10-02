@@ -79,8 +79,17 @@
             :events="events"
             :recipient-name="wedding?.recipientName"
             :sections="sections"
+            :settings="settings"
           />
         </section>
+
+        <!-- ============ VIDEO CƯỚI ============ -->
+
+        <section v-if="showVideo" class="rr-section"><VideoSection :wedding="wedding" /></section>
+
+        <!-- ============ TRÒ CHƠI ============ -->
+
+        <section v-if="showGame" class="rr-section"><GameSection :wedding="wedding" /></section>
 
         <!-- ===============================================
              ĐẾM NGƯỢC
@@ -98,10 +107,6 @@
              ĐỊA ĐIỂM
         ================================================ -->
 
-        <section v-if="showMap && events.length" class="rr-section">
-          <WeddingMap :events="events" :sections="sections" />
-        </section>
-
         <!-- ===============================================
              LỊCH TRÌNH NGÀY CƯỚI
         ================================================ -->
@@ -118,9 +123,8 @@
              CHUYỆN TÌNH YÊU
         ================================================ -->
 
-        <section v-if="showStory && wedding?.story" class="rr-section">
-          <WeddingStory :story="wedding.story" :sections="sections" />
-        </section>
+        <section v-if="showStory && useMilestoneStory" class="rr-section"><StoryMilestones :wedding="wedding" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="rr-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
         <!-- ===============================================
              SỔ LƯU BÚT
@@ -172,15 +176,22 @@
       :music="heroMusic"
     />
 
-  </div>
+  <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+  <SeasonFx :wedding="wedding" />
+</div>
 </template>
-
 
 <script setup>
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
+
 import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
 import OpeningScreen from "@/page/RoyalRed/OpeningScreen.vue";
@@ -190,14 +201,12 @@ import WeddingStory from "@/page/RoyalRed/WeddingStory.vue";
 import WeddingEvents from "@/page/RoyalRed/WeddingEvents.vue";
 import WeddingCountdown from "@/page/RoyalRed/WeddingCountdown.vue";
 import WeddingGallery from "@/page/RoyalRed/WeddingGallery.vue";
-import WeddingMap from "@/page/RoyalRed/WeddingMap.vue";
 import Timeline from "@/page/RoyalRed/Timeline.vue";
 import WeddingGifts from "@/page/RoyalRed/WeddingGifts.vue";
 import WeddingWishes from "@/page/RoyalRed/WeddingWishes.vue";
 import WeddingFooter from "@/page/RoyalRed/WeddingFooter.vue";
 
 import { flower } from "@/page/RoyalRed/royalRedAssets";
-
 
 /* ==========================================================
    PROPS
@@ -216,13 +225,11 @@ const props = defineProps({
 
 const emit = defineEmits(["open"]);
 
-
 /* ==========================================================
    THEME
 ========================================================== */
 
 const { theme, themeStyle } = useWeddingTheme(props.wedding);
-
 
 /* ==========================================================
    WEDDING
@@ -245,7 +252,6 @@ const heroMusic = computed(() => {
   return { ...music, Url: heroUrl };
 });
 
-
 /* ==========================================================
    STATE
 ========================================================== */
@@ -255,7 +261,6 @@ const opened = ref(props.startOpened);
 const floatingMusicRef = ref(null);
 
 const currentYear = new Date().getFullYear();
-
 
 /* ==========================================================
    NỀN HOA
@@ -271,7 +276,6 @@ const blooms = [
   { id: 6, src: flower, side: "is-right", top: "72%" },
   { id: 7, src: flower, side: "is-left", top: "86%" },
 ];
-
 
 /* ==========================================================
    DATA
@@ -299,13 +303,11 @@ const wishes = computed(() =>
     : []
 );
 
-
 /* ==========================================================
    TIÊU ĐỀ MỤC
 ========================================================== */
 
 const sections = computed(() => wedding.value?.sections || {});
-
 
 /* ==========================================================
    SETTINGS
@@ -327,7 +329,17 @@ const showCountdown = computed(() => settings.value.ShowCountdown === true);
 
 const showGallery = computed(() => settings.value.ShowGallery === true);
 
-const showMap = computed(() => settings.value.ShowMap === true);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+const showGame = computed(() => settings.value.ShowGame === true);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+);
 
 const showGift = computed(() => settings.value.ShowGift === true);
 
@@ -340,7 +352,6 @@ const showMusic = computed(
     wedding.value?.music?.Enabled === true &&
     settings.value.ShowMusic === true
 );
-
 
 /* ==========================================================
    NGƯỜI ĐƯỢC MỜI
@@ -358,7 +369,6 @@ const guestName = computed(
     wedding.value?.guestName ||
     "Quý khách"
 );
-
 
 /* ==========================================================
    MONOGRAM
@@ -388,7 +398,6 @@ const monogram = computed(() => {
   return `${groom}&${bride}`.toUpperCase();
 });
 
-
 /* ==========================================================
    NGÀY
 ========================================================== */
@@ -414,7 +423,6 @@ const openDateLabel = computed(() =>
 const heroDateLabel = computed(() =>
   formatDate(wedding.value?.hero?.WeddingDate || wedding.value?.weddingDate)
 );
-
 
 /* ==========================================================
    MỞ THIỆP
@@ -443,11 +451,9 @@ onMounted(() => {
 
 </script>
 
-
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&family=Pattaya&family=Great+Vibes&display=swap");
 </style>
-
 
 <style scoped>
 /* ==========================================================
@@ -518,7 +524,6 @@ onMounted(() => {
   font: inherit;
 }
 
-
 /* ==========================================================
    KHUNG THIỆP
 ========================================================== */
@@ -536,7 +541,6 @@ onMounted(() => {
 
   background-color: var(--rr-cream);
 }
-
 
 /* ==========================================================
    NỀN HOA VĂN
@@ -592,7 +596,6 @@ onMounted(() => {
   transform: scaleX(-1) rotate(-18deg);
 }
 
-
 /* ==========================================================
    NỘI DUNG
 ========================================================== */
@@ -619,7 +622,6 @@ onMounted(() => {
 .rr-section--hero {
   padding: 0;
 }
-
 
 /* ==========================================================
    TIÊU ĐỀ DÙNG CHUNG
@@ -730,7 +732,6 @@ onMounted(() => {
   opacity: 0.7;
 }
 
-
 /* ==========================================================
    TABLET / DESKTOP
 ========================================================== */
@@ -773,7 +774,6 @@ onMounted(() => {
     font-size: 16px;
   }
 }
-
 
 /* ==========================================================
    GIẢM CHUYỂN ĐỘNG

@@ -71,6 +71,11 @@
         <div class="tr-paper">
           <WeddingInfo :wedding="wedding" />
 
+          <StoryMilestones
+            v-if="showStory && useMilestoneStory"
+            :wedding="wedding"
+          />
+
           <WeddingGallery
             v-if="showGallery && gallery.length"
             :gallery="gallery"
@@ -84,10 +89,18 @@
             :countdown="wedding.countdown"
             :settings="settings"
           />
+
+          <!-- ============ VIDEO CƯỚI ============ -->
+
+          <VideoSection v-if="showVideo" :wedding="wedding" />
+
+          <!-- ============ TRÒ CHƠI ============ -->
+
+          <GameSection v-if="showGame" :wedding="wedding" />
         </div>
       </div>
 
-      <!-- ============ BẢN ĐỒ ============ -->
+      <!-- ============ LỊCH TRÌNH / LƯU BÚT / QUÀ ============ -->
 
       <div class="tr-invitation__map">
         <div
@@ -95,8 +108,6 @@
           aria-hidden="true"
           :style="{ backgroundImage: `url(${rongPhuong})` }"
         ></div>
-
-        <WeddingMap v-if="showMap && events.length" :events="events" />
 
         <Timeline
           v-if="showTimeline && timeline.length"
@@ -128,7 +139,10 @@
         :music="heroMusic"
       />
     </main>
-  </div>
+
+  <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+  <SeasonFx :wedding="wedding" />
+</div>
 </template>
 
 <script setup>
@@ -138,12 +152,15 @@ import dayjs from "dayjs";
 
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
 
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
 import OpeningScreen from "@/page/TraditionalRed/OpeningScreen.vue";
 import WeddingHero from "@/page/TraditionalRed/WeddingHero.vue";
 import WeddingInfo from "@/page/TraditionalRed/WeddingInfo.vue";
 import WeddingGallery from "@/page/TraditionalRed/WeddingGallery.vue";
 import WeddingEvents from "@/page/TraditionalRed/WeddingEvents.vue";
-import WeddingMap from "@/page/TraditionalRed/WeddingMap.vue";
 import Timeline from "@/page/TraditionalRed/Timeline.vue";
 import WeddingWishes from "@/page/TraditionalRed/WeddingWishes.vue";
 import WeddingGifts from "@/page/TraditionalRed/WeddingGifts.vue";
@@ -213,10 +230,23 @@ const settings = computed(() => wedding.value?.settings || {});
 const showEvents = computed(() => settings.value.ShowEvents !== false);
 const showTimeline = computed(() => settings.value.ShowTimeline !== false);
 const showGallery = computed(() => settings.value.ShowGallery === true);
-const showMap = computed(() => settings.value.ShowMap === true);
+const showStory = computed(() => settings.value.ShowStory !== false);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+const showGame = computed(() => settings.value.ShowGame === true);
 const showGift = computed(() => settings.value.ShowGift === true);
 const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
 const showFooter = computed(() => settings.value.ShowFooter !== false);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ * TraditionalRed không có section story văn bản — chỉ render
+ * khi người dùng chọn chế độ dấu mốc.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+);
 
 const showMusic = computed(
   () =>

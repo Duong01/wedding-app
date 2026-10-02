@@ -435,30 +435,40 @@ export const FAQS = [
  * Dùng cho khối "Bộ sưu tập theo phong cách" ở trang chủ.
  */
 export const COLLECTION_LANDING = {
-  "a-dong": {
+  "truyen-thong": {
     routeName: "TemplatesTraditional",
-    title: "Á Đông sang trọng",
-    text: "Đỏ son, vàng son, họa tiết trống đồng và chữ song hỷ — cho đám cưới đậm lễ nghi truyền thống.",
-  },
-  "kim-lua": {
-    routeName: "TemplatesFeatured",
-    title: "Kim tuyến & lụa",
-    text: "Foil vàng trên nền lụa ngà hoặc nền sẫm — sang trọng nhưng không phô trương.",
+    title: "Truyền thống Việt Nam",
+    text: "Đỏ son, chữ hỷ, trống đồng và long phụng — cho đám cưới đậm lễ nghi Việt.",
   },
   "lang-man": {
     routeName: "TemplatesModern",
-    title: "Lãng mạn đương đại",
-    text: "Hồng phấn, đào, oải hương với chữ viết tay mềm mại — nhẹ nhàng và nữ tính.",
+    title: "Romantic / Lãng mạn",
+    text: "Hồng phấn, đào, oải hương, ruby với chữ viết tay mềm mại — nhẹ nhàng và nữ tính.",
+  },
+  "hien-dai": {
+    routeName: "TemplatesModern",
+    title: "Modern Luxury / Sang trọng hiện đại",
+    text: "Nền sẫm, foil vàng, nét mực tối giản — sang trọng và rất hiện đại.",
+  },
+  "co-dien": {
+    routeName: "TemplatesFeatured",
+    title: "Elegant / Cổ điển châu Âu",
+    text: "Navy cổ điển, vàng đồng, ngà lụa — trang nhã như những lâu đài châu Âu.",
+  },
+  "nghe-thuat": {
+    routeName: "TemplatesFeatured",
+    title: "Watercolor / Nghệ thuật",
+    text: "Màu nước loang nhẹ, pastel mềm — mềm mại như tranh vẽ tay.",
   },
   "thien-nhien": {
     routeName: "TemplatesFeatured",
-    title: "Thiên nhiên & vintage",
-    text: "Lá xanh, đất nung, giấy cũ — gần gũi như một khu vườn buổi sớm.",
+    title: "Botanical / Thiên nhiên",
+    text: "Lá xanh, eucalyptus, đất nung — gần gũi như một khu vườn buổi sớm.",
   },
-  "toi-gian": {
-    routeName: "TemplatesModern",
-    title: "Tối giản hiện đại",
-    text: "Nét mực gọn, khoảng trắng rộng, một điểm đỏ nhấn — tinh tế và rất hiện đại.",
+  "a-dong": {
+    routeName: "TemplatesTraditional",
+    title: "Á Đông / Chinese-inspired",
+    text: "Đỏ thẫm, vàng kim, phượng hoàng, baroque — đậm chất Á Đông huyền bí.",
   },
 };
 
@@ -466,15 +476,15 @@ export const COLLECTION_LANDING = {
  * Số liệu tin cậy — dùng ở hero và trang Giới thiệu.
  */
 export const STATS = [
-  { value: "20+", label: "Mẫu thiệp" },
-  { value: "5", label: "Bộ sưu tập" },
+  { value: "26+", label: "Mẫu thiệp" },
+  { value: "7", label: "Bộ sưu tập" },
   { value: "3 ngày", label: "Dùng thử" },
 ];
 
 export const ABOUT_STATS = [
   { value: "12.000+", label: "Thiệp đã tạo" },
-  { value: "20+", label: "Mẫu thiết kế" },
-  { value: "5", label: "Bộ sưu tập" },
+  { value: "26+", label: "Mẫu thiết kế" },
+  { value: "7", label: "Bộ sưu tập" },
   { value: "4,9/5", label: "Đánh giá trung bình" },
 ];
 

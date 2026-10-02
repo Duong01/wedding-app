@@ -66,7 +66,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Từ những người bạn, chúng mình đã cùng nhau đi qua nhiều chặng đường và quyết định nắm tay nhau suốt cuộc đời."
+      "Description": "Từ những người bạn, chúng mình đã cùng nhau đi qua nhiều chặng đường và quyết định nắm tay nhau suốt cuộc đời.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -235,14 +236,48 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So_Beautiful_In_White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "memory-match",
+      "Title": "Ghép hình cặp đôi"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/13111863/pexels-photo-13111863.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/34668060/pexels-photo-34668060.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/11965604/pexels-photo-11965604.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/17845908/pexels-photo-17845908.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      }
+    ]
   },
   {
     "Id": 2,
@@ -310,8 +345,9 @@
       "Location": "Trung tâm Hội nghị White Palace, TP. Hồ Chí Minh"
     },
     "story": {
-      "Title": "Chuyện Tình Yêu",
-      "Description": "Từ một lời chào ngọt ngào, chúng mình đã viết nên câu chuyện của riêng mình."
+      "Title": "Hành trình của chúng mình",
+      "Description": "Từ một lời chào ngọt ngào, chúng mình đã viết nên câu chuyện của riêng mình.",
+      "Mode": "milestones"
     },
     "events": [
       {
@@ -446,14 +482,81 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [
+      {
+        "Id": 1,
+        "Date": "Mùa hè 2018",
+        "Title": "Lần đầu gặp nhau",
+        "Description": "Cùng tham gia một buổi tình nguyện ở trường. Cơn mưa bất chợt, một chiếc ô, và câu chuyện bắt đầu từ đó.",
+        "Image": ""
+      },
+      {
+        "Id": 2,
+        "Date": "Tháng 3 năm 2020",
+        "Title": "Lời tỏ tình",
+        "Description": "Một buổi tối se lạnh bên hồ. Không hoa, không nhạc — chỉ một câu nói giản dị mà cả hai nhớ mãi.",
+        "Image": ""
+      },
+      {
+        "Id": 3,
+        "Date": "Tháng 12 năm 2025",
+        "Title": "Ngày cầu hôn",
+        "Description": "Giữa tiếng cười của gia đình, chiếc nhẫn được trao đi và câu trả lời là một cái gật đầu thật khẽ.",
+        "Image": ""
+      }
+    ],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "couple-quiz",
+      "Title": "Bạn hiểu chúng mình đến đâu?"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [
+      {
+        "Id": 1,
+        "Question": "Hai người gặp nhau lần đầu ở đâu?",
+        "OptionA": "Ở trường",
+        "OptionB": "Qua bạn bè giới thiệu",
+        "OptionC": "Trong một chuyến đi",
+        "OptionD": "Tại nơi làm việc",
+        "CorrectIndex": 1
+      },
+      {
+        "Id": 2,
+        "Question": "Ai tỏ tình trước?",
+        "OptionA": "Chú rể",
+        "OptionB": "Cô dâu",
+        "OptionC": "Cả hai cùng lúc",
+        "OptionD": "Không ai nhớ nữa",
+        "CorrectIndex": 0
+      },
+      {
+        "Id": 3,
+        "Question": "Chuyến du lịch đầu tiên của hai người là ở đâu?",
+        "OptionA": "Đà Lạt",
+        "OptionB": "Đà Nẵng",
+        "OptionC": "Phú Quốc",
+        "OptionD": "Sapa",
+        "CorrectIndex": 0
+      }
+    ],
+    "gameImages": []
   },
   {
     "Id": 3,
@@ -522,7 +625,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Một đêm Gatsby, một ánh mắt và rồi cả một đời gắn bó."
+      "Description": "Một đêm Gatsby, một ánh mắt và rồi cả một đời gắn bó.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -657,14 +761,47 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "scratch-card",
+      "Title": "Cào quà cưới"
+    },
+    "gamePrizes": [
+      {
+        "Id": 1,
+        "Title": "Thiệp cảm ơn",
+        "Description": "Kèm lời viết tay từ cô dâu chú rể"
+      },
+      {
+        "Id": 2,
+        "Title": "Hộp kẹo dâu",
+        "Description": "Làm thủ công bởi cô dâu"
+      },
+      {
+        "Id": 3,
+        "Title": "Voucher cà phê",
+        "Description": "Một ly cà phê cùng chúng mình"
+      }
+    ],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 4,
@@ -733,7 +870,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -871,14 +1009,52 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay quà cưới"
+    },
+    "gamePrizes": [
+      {
+        "Id": 1,
+        "Title": "Thiệp cảm ơn",
+        "Description": "Kèm lời viết tay từ cô dâu chú rể"
+      },
+      {
+        "Id": 2,
+        "Title": "Hộp kẹo dâu",
+        "Description": "Làm thủ công bởi cô dâu"
+      },
+      {
+        "Id": 3,
+        "Title": "Voucher cà phê",
+        "Description": "Một ly cà phê cùng chúng mình"
+      },
+      {
+        "Id": 4,
+        "Title": "Nến thơm cưới",
+        "Description": "Hương hoa hồng trắng"
+      }
+    ],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 5,
@@ -947,7 +1123,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -1085,14 +1262,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 6,
@@ -1161,7 +1355,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -1299,14 +1494,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 7,
@@ -1375,7 +1587,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -1513,14 +1726,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 8,
@@ -1589,7 +1819,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh."
+      "Description": "Hai người, một mái nhà nhỏ và thật nhiều cây xanh.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -1727,14 +1958,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 15,
@@ -1803,7 +2051,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người gặp nhau trong một mùa đầu năm, và cùng nhau chọn một cuộc sống chậm rãi nhưng đầy tình yêu."
+      "Description": "Hai người gặp nhau trong một mùa đầu năm, và cùng nhau chọn một cuộc sống chậm rãi nhưng đầy tình yêu.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -1940,14 +2189,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 16,
@@ -2016,7 +2282,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Mỗi ngày trôi qua, chúng mình đều tìm thấy thêm một lý do để yêu nhau nhiều hơn."
+      "Description": "Mỗi ngày trôi qua, chúng mình đều tìm thấy thêm một lý do để yêu nhau nhiều hơn.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -2153,14 +2420,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 17,
@@ -2229,7 +2513,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Từ lời chào đầu tiên cho tới ngày hôm nay, mỗi khoảnh khắc đều khiến chúng mình tin rằng tình yêu thật đẹp."
+      "Description": "Từ lời chào đầu tiên cho tới ngày hôm nay, mỗi khoảnh khắc đều khiến chúng mình tin rằng tình yêu thật đẹp.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -2366,14 +2651,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 18,
@@ -2442,7 +2744,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Nhiều người nghĩ tình yêu là một điều ngẫu nhiên, nhưng với hai người, đó là sự chậm rãi và rất chắc chắn."
+      "Description": "Nhiều người nghĩ tình yêu là một điều ngẫu nhiên, nhưng với hai người, đó là sự chậm rãi và rất chắc chắn.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -2579,14 +2882,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 19,
@@ -2655,7 +2975,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm."
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
     },
     "sections": {},
     "events": [
@@ -2793,14 +3114,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 20,
@@ -2869,7 +3207,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Từ một buổi chiều đông giá lạnh, hai người gặp nhau và nhận ra rằng hạnh phúc là được nắm tay nhau đi về nhà."
+      "Description": "Từ một buổi chiều đông giá lạnh, hai người gặp nhau và nhận ra rằng hạnh phúc là được nắm tay nhau đi về nhà.",
+      "Mode": "text"
     },
     "sections": {},
     "events": [
@@ -3013,14 +3352,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 21,
@@ -3089,7 +3445,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Hai người yêu nhau từ những chuyến đi phượt, và quyết định tiếp tục hành trình cùng nhau suốt đời."
+      "Description": "Hai người yêu nhau từ những chuyến đi phượt, và quyết định tiếp tục hành trình cùng nhau suốt đời.",
+      "Mode": "text"
     },
     "dressCode": {
       "Note": "Trang phục dự tiệc",
@@ -3247,14 +3604,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 22,
@@ -3323,7 +3697,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Tình yêu bắt đầu từ một cuốn sách cũ trong thư viện, và giờ đây họ viết tiếp câu chuyện của riêng mình."
+      "Description": "Tình yêu bắt đầu từ một cuốn sách cũ trong thư viện, và giờ đây họ viết tiếp câu chuyện của riêng mình.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -3466,14 +3841,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 23,
@@ -3542,7 +3934,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Họ gặp nhau trên một bãi biển vào mùa hạ, và từ đó hứa sẽ cùng nhau ngắm mặt trời lặn mỗi ngày."
+      "Description": "Họ gặp nhau trên một bãi biển vào mùa hạ, và từ đó hứa sẽ cùng nhau ngắm mặt trời lặn mỗi ngày.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -3685,14 +4078,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 23,
@@ -3761,7 +4171,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Một buổi chiều thu, chúng mình tình cờ gặp nhau tại quán cà phê nhỏ trên phố cổ. Từ một ly cà phê, chúng mình đã cùng nhau đi qua bốn mùa và quyết định nắm tay nhau suốt cuộc đời."
+      "Description": "Một buổi chiều thu, chúng mình tình cờ gặp nhau tại quán cà phê nhỏ trên phố cổ. Từ một ly cà phê, chúng mình đã cùng nhau đi qua bốn mùa và quyết định nắm tay nhau suốt cuộc đời.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -3920,14 +4331,31 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
       "Url": "/music/So_Beautiful_In_White.mp3",
       "Title": "So Beautiful In White",
       "Autoplay": false
-    }
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 24,
@@ -3999,7 +4427,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Một buổi chiều thu, chúng mình tình cờ gặp nhau tại quán cà phê nhỏ trên phố cổ. Từ một ly cà phê, chúng mình đã cùng nhau đi qua bốn mùa và quyết định nắm tay nhau suốt cuộc đời."
+      "Description": "Một buổi chiều thu, chúng mình tình cờ gặp nhau tại quán cà phê nhỏ trên phố cổ. Từ một ly cà phê, chúng mình đã cùng nhau đi qua bốn mùa và quyết định nắm tay nhau suốt cuộc đời.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -4118,7 +4547,10 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
@@ -4127,7 +4559,21 @@
       "Autoplay": false
     },
     "weddingLunar": "12 tháng 5 năm Bính Ngọ",
-    "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!",
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   },
   {
     "Id": 25,
@@ -4196,7 +4642,8 @@
     },
     "story": {
       "Title": "Chuyện Tình Yêu",
-      "Description": "Trăng soi đôi hạc, vạn sự song toàn — chúng tôi tin rằng mỗi cuộc gặp gỡ đều là duyên trời se. Và giờ đây, chúng tôi muốn viết tiếp câu chuyện ấy cùng sự chứng kiến của quý vị."
+      "Description": "Trăng soi đôi hạc, vạn sự song toàn — chúng tôi tin rằng mỗi cuộc gặp gỡ đều là duyên trời se. Và giờ đây, chúng tôi muốn viết tiếp câu chuyện ấy cùng sự chứng kiến của quý vị.",
+      "Mode": "text"
     },
     "events": [
       {
@@ -4367,7 +4814,10 @@
       "ShowGift": true,
       "ShowGuestBook": true,
       "ShowMusic": true,
-      "ShowFooter": true
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
     },
     "music": {
       "Enabled": true,
@@ -4376,6 +4826,1412 @@
       "Autoplay": false
     },
     "weddingLunar": "4 tháng 3 năm Đinh Mùi",
-    "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    "thankYouNote": "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!",
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
+  },
+  {
+    "Id": 26,
+    "slug": "khanh-vy-tuan-minh",
+    "groomName": "Tuấn Minh",
+    "brideName": "Khánh Vy",
+    "language": "vi",
+    "weddingDate": "2028-09-02T17:00:00",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
+    "theme": {
+      "Name": "watercolor-blush",
+      "Colors": {
+        "Primary": "#8a4a5c",
+        "Secondary": "#b06a80",
+        "Accent": "#d98ca0",
+        "AccentLight": "#f2ccd8",
+        "Background": "#fdf8fa",
+        "BackgroundSecondary": "#fdeff3",
+        "Text": "#5a3f4a",
+        "TextSecondary": "#a06a7c",
+        "White": "#ffffff"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "930px",
+        "SectionPadding": "82px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Khánh Vy",
+        "Nickname": "Vy",
+        "Role": "Cô dâu",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
+        "Father": "Nguyễn Văn Bình",
+        "Mother": "Trần Thị Thắm",
+        "Address": "Tây Hồ, Hà Nội",
+        "Description": "Tự tin và dịu dàng, tạo nên sự cân bằng hoàn hảo cho mọi không gian."
+      },
+      "Groom": {
+        "Name": "Tuấn Minh",
+        "Nickname": "Minh",
+        "Role": "Chú rể",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
+        "Father": "Phạm Văn Cường",
+        "Mother": "Lê Thị Nga",
+        "Address": "Cầu Giấy, Hà Nội",
+        "Description": "Kiên định, biết yêu thương và luôn giữ sự ấm áp trong gia đình."
+      }
+    },
+    "hero": {
+      "GroomName": "Tuấn Minh",
+      "BrideName": "Khánh Vy",
+      "Title": "Save The Date",
+      "WeddingDate": "2028-09-02T17:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "Hoa Sữa Garden, Hà Nội"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
+    },
+    "sections": {},
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "09:30",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà gái — Tây Hồ, Hà Nội",
+        "Address": "Tây Hồ, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.1467,105.7187"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm tiệc cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "17:00",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Hoa Sữa Garden, Hà Nội",
+        "Address": "Hoa Sữa Garden, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0116,105.8227"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "09:30",
+        "Title": "Đón khách",
+        "Description": "Khởi đầu cho một ngày vui thật đặc biệt.",
+        "Location": "Sảnh chính",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "10:30",
+        "Title": "Lễ gia tiên",
+        "Description": "Mời mọi người cùng ngồi xuống đó, lắng nghe niềm vui của hai gia đình.",
+        "Location": "Nhà gái",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "17:00",
+        "Title": "Khai tiệc",
+        "Description": "Đêm tiệc lên sắc màu và tràn ngập tiếng cười.",
+        "Location": "Rose & Bloom",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "khanh2028",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Sacombank",
+        "AccountName": "HÒA MI",
+        "AccountNumber": "030223456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "QUANG HUY",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Hồng Ngọc",
+          "Message": "Chúc hai bạn luôn giữ được sự ngọt ngào trong tình yêu.",
+          "CreatedAt": "20:10 28/08/2028"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2028-09-02T17:00:00"
+    },
+    "footer": {
+      "Message": "Mỗi lời chúc từ bạn là một phần ký ức đẹp cho ngày cưới của chúng tôi.",
+      "Copyright": "Khánh Vy & Tuấn Minh",
+      "GroomName": "Tuấn Minh",
+      "BrideName": "Khánh Vy"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
+  },
+  {
+    "Id": 27,
+    "slug": "thao-nguyen-cong-minh",
+    "groomName": "Công Minh",
+    "brideName": "Thảo Nguyên",
+    "language": "vi",
+    "weddingDate": "2028-09-02T17:00:00",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
+    "theme": {
+      "Name": "botanical-leaf",
+      "Colors": {
+        "Primary": "#3d5a47",
+        "Secondary": "#57806a",
+        "Accent": "#7fa389",
+        "AccentLight": "#cfe3d2",
+        "Background": "#f9fbf9",
+        "BackgroundSecondary": "#f0f6f1",
+        "Text": "#2f3a33",
+        "TextSecondary": "#5a7362",
+        "White": "#ffffff"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "930px",
+        "SectionPadding": "82px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Thảo Nguyên",
+        "Nickname": "Nguyên",
+        "Role": "Cô dâu",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
+        "Father": "Nguyễn Văn Sơn",
+        "Mother": "Phạm Thị Hoa",
+        "Address": "Đà Lạt, Lâm Đồng",
+        "Description": "Tự tin và dịu dàng, tạo nên sự cân bằng hoàn hảo cho mọi không gian."
+      },
+      "Groom": {
+        "Name": "Công Minh",
+        "Nickname": "Minh",
+        "Role": "Chú rể",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
+        "Father": "Trần Văn Đức",
+        "Mother": "Vũ Thị Mai",
+        "Address": "Hai Bà Trưng, Hà Nội",
+        "Description": "Kiên định, biết yêu thương và luôn giữ sự ấm áp trong gia đình."
+      }
+    },
+    "hero": {
+      "GroomName": "Công Minh",
+      "BrideName": "Thảo Nguyên",
+      "Title": "Save The Date",
+      "WeddingDate": "2028-09-02T17:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "Vườn Eucalyptus, Đà Lạt"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
+    },
+    "sections": {},
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "09:30",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà gái — Đà Lạt, Lâm Đồng",
+        "Address": "Đà Lạt, Lâm Đồng",
+        "Map": "https://maps.google.com/?q=21.1467,105.7187"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm tiệc cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "17:00",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Vườn Eucalyptus, Đà Lạt",
+        "Address": "Vườn Eucalyptus, Đà Lạt",
+        "Map": "https://maps.google.com/?q=21.0116,105.8227"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "09:30",
+        "Title": "Đón khách",
+        "Description": "Khởi đầu cho một ngày vui thật đặc biệt.",
+        "Location": "Sảnh chính",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "10:30",
+        "Title": "Lễ gia tiên",
+        "Description": "Mời mọi người cùng ngồi xuống đó, lắng nghe niềm vui của hai gia đình.",
+        "Location": "Nhà gái",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "17:00",
+        "Title": "Khai tiệc",
+        "Description": "Đêm tiệc lên sắc màu và tràn ngập tiếng cười.",
+        "Location": "Rose & Bloom",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "thao2028",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Sacombank",
+        "AccountName": "HÒA MI",
+        "AccountNumber": "030223456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "QUANG HUY",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Hồng Ngọc",
+          "Message": "Chúc hai bạn luôn giữ được sự ngọt ngào trong tình yêu.",
+          "CreatedAt": "20:10 28/08/2028"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2028-09-02T17:00:00"
+    },
+    "footer": {
+      "Message": "Mỗi lời chúc từ bạn là một phần ký ức đẹp cho ngày cưới của chúng tôi.",
+      "Copyright": "Thảo Nguyên & Công Minh",
+      "GroomName": "Công Minh",
+      "BrideName": "Thảo Nguyên"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
+  },
+  {
+    "Id": 28,
+    "slug": "bach-cuc-hoang-nam",
+    "groomName": "Hoàng Nam",
+    "brideName": "Bạch Cúc",
+    "language": "vi",
+    "weddingDate": "2028-09-02T17:00:00",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
+    "theme": {
+      "Name": "chateau-blue",
+      "Colors": {
+        "Primary": "#2f3e5c",
+        "Secondary": "#5c6d8f",
+        "Accent": "#b58a45",
+        "AccentLight": "#ccd6e8",
+        "Background": "#fafbfd",
+        "BackgroundSecondary": "#eef1f8",
+        "Text": "#2c3242",
+        "TextSecondary": "#5a6378",
+        "White": "#ffffff"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "930px",
+        "SectionPadding": "82px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Bạch Cúc",
+        "Nickname": "Cúc",
+        "Role": "Cô dâu",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
+        "Father": "Nguyễn Văn Lâm",
+        "Mother": "Đỗ Thị Hạnh",
+        "Address": "Hoàn Kiếm, Hà Nội",
+        "Description": "Tự tin và dịu dàng, tạo nên sự cân bằng hoàn hảo cho mọi không gian."
+      },
+      "Groom": {
+        "Name": "Hoàng Nam",
+        "Nickname": "Nam",
+        "Role": "Chú rể",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
+        "Father": "Phạm Văn Tú",
+        "Mother": "Nguyễn Thị Dung",
+        "Address": "Ba Đình, Hà Nội",
+        "Description": "Kiên định, biết yêu thương và luôn giữ sự ấm áp trong gia đình."
+      }
+    },
+    "hero": {
+      "GroomName": "Hoàng Nam",
+      "BrideName": "Bạch Cúc",
+      "Title": "Save The Date",
+      "WeddingDate": "2028-09-02T17:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "Le Jardin, Hà Nội"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
+    },
+    "sections": {},
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "09:30",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà gái — Hoàn Kiếm, Hà Nội",
+        "Address": "Hoàn Kiếm, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.1467,105.7187"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm tiệc cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "17:00",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Le Jardin, Hà Nội",
+        "Address": "Le Jardin, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0116,105.8227"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "09:30",
+        "Title": "Đón khách",
+        "Description": "Khởi đầu cho một ngày vui thật đặc biệt.",
+        "Location": "Sảnh chính",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "10:30",
+        "Title": "Lễ gia tiên",
+        "Description": "Mời mọi người cùng ngồi xuống đó, lắng nghe niềm vui của hai gia đình.",
+        "Location": "Nhà gái",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "17:00",
+        "Title": "Khai tiệc",
+        "Description": "Đêm tiệc lên sắc màu và tràn ngập tiếng cười.",
+        "Location": "Rose & Bloom",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "bach2028",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Sacombank",
+        "AccountName": "HÒA MI",
+        "AccountNumber": "030223456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "QUANG HUY",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Hồng Ngọc",
+          "Message": "Chúc hai bạn luôn giữ được sự ngọt ngào trong tình yêu.",
+          "CreatedAt": "20:10 28/08/2028"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2028-09-02T17:00:00"
+    },
+    "footer": {
+      "Message": "Mỗi lời chúc từ bạn là một phần ký ức đẹp cho ngày cưới của chúng tôi.",
+      "Copyright": "Bạch Cúc & Hoàng Nam",
+      "GroomName": "Hoàng Nam",
+      "BrideName": "Bạch Cúc"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
+  },
+  {
+    "Id": 29,
+    "slug": "phuong-thao-dai-cat",
+    "groomName": "Đại Cát",
+    "brideName": "Phượng Thảo",
+    "language": "vi",
+    "weddingDate": "2028-09-02T17:00:00",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
+    "theme": {
+      "Name": "jade-phoenix",
+      "Colors": {
+        "Primary": "#6e1f24",
+        "Secondary": "#8a3a40",
+        "Accent": "#b98a4b",
+        "AccentLight": "#e8c98a",
+        "Background": "#fdfaf3",
+        "BackgroundSecondary": "#f3e3c4",
+        "Text": "#4a2328",
+        "TextSecondary": "#7a3a3f",
+        "White": "#fffdf8"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "930px",
+        "SectionPadding": "82px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Phượng Thảo",
+        "Nickname": "Thảo",
+        "Role": "Cô dâu",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
+        "Father": "Nguyễn Văn Phúc",
+        "Mother": "Trần Thị Vân",
+        "Address": "Quận 5, TP.HCM",
+        "Description": "Tự tin và dịu dàng, tạo nên sự cân bằng hoàn hảo cho mọi không gian."
+      },
+      "Groom": {
+        "Name": "Đại Cát",
+        "Nickname": "Cát",
+        "Role": "Chú rể",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
+        "Father": "Lý Văn Thịnh",
+        "Mother": "Tăng Thị Hồng",
+        "Address": "Quận 11, TP.HCM",
+        "Description": "Kiên định, biết yêu thương và luôn giữ sự ấm áp trong gia đình."
+      }
+    },
+    "hero": {
+      "GroomName": "Đại Cát",
+      "BrideName": "Phượng Thảo",
+      "Title": "Save The Date",
+      "WeddingDate": "2028-09-02T17:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "Nhà hàng Hương Việt, TP.HCM"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
+    },
+    "sections": {},
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "09:30",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà gái — Quận 5, TP.HCM",
+        "Address": "Quận 5, TP.HCM",
+        "Map": "https://maps.google.com/?q=21.1467,105.7187"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm tiệc cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "17:00",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà hàng Hương Việt, TP.HCM",
+        "Address": "Nhà hàng Hương Việt, TP.HCM",
+        "Map": "https://maps.google.com/?q=21.0116,105.8227"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "09:30",
+        "Title": "Đón khách",
+        "Description": "Khởi đầu cho một ngày vui thật đặc biệt.",
+        "Location": "Sảnh chính",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "10:30",
+        "Title": "Lễ gia tiên",
+        "Description": "Mời mọi người cùng ngồi xuống đó, lắng nghe niềm vui của hai gia đình.",
+        "Location": "Nhà gái",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "17:00",
+        "Title": "Khai tiệc",
+        "Description": "Đêm tiệc lên sắc màu và tràn ngập tiếng cười.",
+        "Location": "Rose & Bloom",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "phuong2028",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Sacombank",
+        "AccountName": "HÒA MI",
+        "AccountNumber": "030223456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "QUANG HUY",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Hồng Ngọc",
+          "Message": "Chúc hai bạn luôn giữ được sự ngọt ngào trong tình yêu.",
+          "CreatedAt": "20:10 28/08/2028"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2028-09-02T17:00:00"
+    },
+    "footer": {
+      "Message": "Mỗi lời chúc từ bạn là một phần ký ức đẹp cho ngày cưới của chúng tôi.",
+      "Copyright": "Phượng Thảo & Đại Cát",
+      "GroomName": "Đại Cát",
+      "BrideName": "Phượng Thảo"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
+  },
+  {
+    "Id": 30,
+    "slug": "ha-anh-tien-dat",
+    "groomName": "Tiến Đạt",
+    "brideName": "Hà Anh",
+    "language": "vi",
+    "weddingDate": "2028-09-02T17:00:00",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
+    "theme": {
+      "Name": "modern-noir",
+      "Colors": {
+        "Primary": "#3a3a3a",
+        "Secondary": "#6b6b6b",
+        "Accent": "#b8a07a",
+        "AccentLight": "#dcc9a4",
+        "Background": "#fbf8f0",
+        "BackgroundSecondary": "#f4ead4",
+        "Text": "#2b2b2b",
+        "TextSecondary": "#5c5c5c",
+        "White": "#ffffff"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "930px",
+        "SectionPadding": "82px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Hà Anh",
+        "Nickname": "Anh",
+        "Role": "Cô dâu",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
+        "Father": "Nguyễn Văn Khải",
+        "Mother": "Trịnh Thị Bích",
+        "Address": "Nam Từ Liêm, Hà Nội",
+        "Description": "Tự tin và dịu dàng, tạo nên sự cân bằng hoàn hảo cho mọi không gian."
+      },
+      "Groom": {
+        "Name": "Tiến Đạt",
+        "Nickname": "Đạt",
+        "Role": "Chú rể",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
+        "Father": "Đỗ Văn Lực",
+        "Mother": "Phan Thị Nhung",
+        "Address": "Cầu Giấy, Hà Nội",
+        "Description": "Kiên định, biết yêu thương và luôn giữ sự ấm áp trong gia đình."
+      }
+    },
+    "hero": {
+      "GroomName": "Tiến Đạt",
+      "BrideName": "Hà Anh",
+      "Title": "Save The Date",
+      "WeddingDate": "2028-09-02T17:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "The Galleria, Hà Nội"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
+    },
+    "sections": {},
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "09:30",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà gái — Nam Từ Liêm, Hà Nội",
+        "Address": "Nam Từ Liêm, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.1467,105.7187"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm tiệc cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "17:00",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "The Galleria, Hà Nội",
+        "Address": "The Galleria, Hà Nội",
+        "Map": "https://maps.google.com/?q=21.0116,105.8227"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "09:30",
+        "Title": "Đón khách",
+        "Description": "Khởi đầu cho một ngày vui thật đặc biệt.",
+        "Location": "Sảnh chính",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "10:30",
+        "Title": "Lễ gia tiên",
+        "Description": "Mời mọi người cùng ngồi xuống đó, lắng nghe niềm vui của hai gia đình.",
+        "Location": "Nhà gái",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "17:00",
+        "Title": "Khai tiệc",
+        "Description": "Đêm tiệc lên sắc màu và tràn ngập tiếng cười.",
+        "Location": "Rose & Bloom",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "ha2028",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Sacombank",
+        "AccountName": "HÒA MI",
+        "AccountNumber": "030223456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "QUANG HUY",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Hồng Ngọc",
+          "Message": "Chúc hai bạn luôn giữ được sự ngọt ngào trong tình yêu.",
+          "CreatedAt": "20:10 28/08/2028"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2028-09-02T17:00:00"
+    },
+    "footer": {
+      "Message": "Mỗi lời chúc từ bạn là một phần ký ức đẹp cho ngày cưới của chúng tôi.",
+      "Copyright": "Hà Anh & Tiến Đạt",
+      "GroomName": "Tiến Đạt",
+      "BrideName": "Hà Anh"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
+  },
+  {
+    "Id": 31,
+    "slug": "minh-chau-bao-long",
+    "groomName": "Bảo Long",
+    "brideName": "Minh Châu",
+    "language": "vi",
+    "weddingDate": "2028-09-02T17:00:00",
+    "coverImage": "https://images.pexels.com/photos/9087621/pexels-photo-9087621.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop&crop=faces,center&v=135",
+    "theme": {
+      "Name": "ruby-romance",
+      "Colors": {
+        "Primary": "#8c2f42",
+        "Secondary": "#b04a62",
+        "Accent": "#c46a7e",
+        "AccentLight": "#e8b4be",
+        "Background": "#fdf7f8",
+        "BackgroundSecondary": "#fce8ec",
+        "Text": "#5c2430",
+        "TextSecondary": "#7a4450",
+        "White": "#ffffff"
+      },
+      "Fonts": {
+        "Main": "Cormorant Garamond",
+        "Heading": "Cormorant Garamond",
+        "Script": "Allura"
+      },
+      "Layout": {
+        "MaxWidth": "930px",
+        "SectionPadding": "82px"
+      }
+    },
+    "couple": {
+      "Bride": {
+        "Name": "Minh Châu",
+        "Nickname": "Châu",
+        "Role": "Cô dâu",
+        "Avatar": "https://images.pexels.com/photos/32216637/pexels-photo-32216637.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces,center&v=137",
+        "Cover": "https://images.pexels.com/photos/19956232/pexels-photo-19956232.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1300&fit=crop&crop=faces,center&v=138",
+        "Father": "Nguyễn Văn Tâm",
+        "Mother": "Lê Thị Thu",
+        "Address": "Vũng Tàu, Bà Rịa",
+        "Description": "Tự tin và dịu dàng, tạo nên sự cân bằng hoàn hảo cho mọi không gian."
+      },
+      "Groom": {
+        "Name": "Bảo Long",
+        "Nickname": "Long",
+        "Role": "Chú rể",
+        "Avatar": "https://images.pexels.com/photos/37153490/pexels-photo-37153490.jpeg?auto=compress&cs=tinysrgb&w=1100&h=1400&fit=crop&crop=faces,center&v=139",
+        "Cover": "https://images.pexels.com/photos/29496067/pexels-photo-29496067.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop&crop=faces,center&v=140",
+        "Father": "Trần Văn Bảy",
+        "Mother": "Đỗ Thị Lệ",
+        "Address": "Thủ Đức, TP.HCM",
+        "Description": "Kiên định, biết yêu thương và luôn giữ sự ấm áp trong gia đình."
+      }
+    },
+    "hero": {
+      "GroomName": "Bảo Long",
+      "BrideName": "Minh Châu",
+      "Title": "Save The Date",
+      "WeddingDate": "2028-09-02T17:00:00",
+      "Subtitle": "Trân trọng kính mời",
+      "Background": "https://images.pexels.com/photos/758898/pexels-photo-758898.jpeg?auto=compress&cs=tinysrgb&w=1300&h=900&fit=crop&crop=faces,center&v=141",
+      "Music": "/music/So_Beautiful_In_White.mp3",
+      "Location": "Ruby Hall, TP.HCM"
+    },
+    "story": {
+      "Title": "Chuyện Tình Yêu",
+      "Description": "Mỗi quyết định lớn của hai người đều bắt đầu từ những điều nhỏ, nghiêm túc và yêu thương nhau thật chậm.",
+      "Mode": "text"
+    },
+    "sections": {},
+    "events": [
+      {
+        "Id": 1,
+        "EventType": "vuquy",
+        "Title": "Lễ Vu Quy",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "09:30",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Nhà gái — Vũng Tàu, Bà Rịa",
+        "Address": "Vũng Tàu, Bà Rịa",
+        "Map": "https://maps.google.com/?q=21.1467,105.7187"
+      },
+      {
+        "Id": 2,
+        "EventType": "tanthanh",
+        "Title": "Đêm tiệc cưới",
+        "Weekday": "THỨ BẢY",
+        "Day": "02",
+        "Month": "09",
+        "Year": "2028",
+        "EventDate": "2028-09-02",
+        "EventTime": "17:00",
+        "Lunar": "Tức ngày 1 tháng 8 năm Bính Thìn",
+        "Location": "Ruby Hall, TP.HCM",
+        "Address": "Ruby Hall, TP.HCM",
+        "Map": "https://maps.google.com/?q=21.0116,105.8227"
+      }
+    ],
+    "gallery": [
+      {
+        "Id": 1,
+        "Image": "https://images.pexels.com/photos/34481896/pexels-photo-34481896.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1000&fit=crop&crop=faces,center&v=142"
+      },
+      {
+        "Id": 2,
+        "Image": "https://images.pexels.com/photos/33921031/pexels-photo-33921031.jpeg?auto=compress&cs=tinysrgb&w=1500&h=1100&fit=crop&crop=faces,center&v=143"
+      },
+      {
+        "Id": 3,
+        "Image": "https://images.pexels.com/photos/28958029/pexels-photo-28958029.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop&crop=faces,center&v=144"
+      },
+      {
+        "Id": 4,
+        "Image": "https://images.pexels.com/photos/29863301/pexels-photo-29863301.jpeg?auto=compress&cs=tinysrgb&w=800&h=1300&fit=crop&crop=faces,center&v=145"
+      }
+    ],
+    "timeline": [
+      {
+        "Id": 1,
+        "Time": "09:30",
+        "Title": "Đón khách",
+        "Description": "Khởi đầu cho một ngày vui thật đặc biệt.",
+        "Location": "Sảnh chính",
+        "Icon": "♡"
+      },
+      {
+        "Id": 2,
+        "Time": "10:30",
+        "Title": "Lễ gia tiên",
+        "Description": "Mời mọi người cùng ngồi xuống đó, lắng nghe niềm vui của hai gia đình.",
+        "Location": "Nhà gái",
+        "Icon": "囍"
+      },
+      {
+        "Id": 3,
+        "Time": "17:00",
+        "Title": "Khai tiệc",
+        "Description": "Đêm tiệc lên sắc màu và tràn ngập tiếng cười.",
+        "Location": "Rose & Bloom",
+        "Icon": "✦"
+      }
+    ],
+    "recipientName": {
+      "token": "minh2028",
+      "Name": "Bạn Thân Mến"
+    },
+    "gifts": [
+      {
+        "Id": 1,
+        "Name": "Chuyển khoản",
+        "Description": "Xin vui lòng gửi quà chúc mừng cho hai vợ chồng theo thông tin dưới đây.",
+        "BankName": "Sacombank",
+        "AccountName": "HÒA MI",
+        "AccountNumber": "030223456789",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=MB%20Bank%7CTR%E1%BA%A6N%20V%C4%82N%20HI%E1%BA%BEU%7C0123456789"
+      },
+      {
+        "Id": 2,
+        "Name": "Ví điện tử",
+        "Description": "Bạn có thể gửi quà qua ví điện tử.",
+        "BankName": "Momo",
+        "AccountName": "QUANG HUY",
+        "AccountNumber": "0912348899",
+        "QrCode": "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=Momo%7CH%C3%80%20TH%E1%BB%8A%20UY%C3%8AN%7C0123456789"
+      }
+    ],
+    "guestBook": {
+      "Enabled": true,
+      "Title": "Sổ lưu bút",
+      "Guest": [
+        {
+          "Id": 1,
+          "Name": "Hồng Ngọc",
+          "Message": "Chúc hai bạn luôn giữ được sự ngọt ngào trong tình yêu.",
+          "CreatedAt": "20:10 28/08/2028"
+        }
+      ]
+    },
+    "countdown": {
+      "Enabled": true,
+      "Target": "2028-09-02T17:00:00"
+    },
+    "footer": {
+      "Message": "Mỗi lời chúc từ bạn là một phần ký ức đẹp cho ngày cưới của chúng tôi.",
+      "Copyright": "Minh Châu & Bảo Long",
+      "GroomName": "Bảo Long",
+      "BrideName": "Minh Châu"
+    },
+    "settings": {
+      "ShowHero": true,
+      "ShowCouple": true,
+      "ShowStory": true,
+      "ShowEvents": true,
+      "ShowCountdown": true,
+      "ShowTimeline": true,
+      "ShowGallery": true,
+      "ShowMap": true,
+      "ShowDressCode": true,
+      "ShowGift": true,
+      "ShowGuestBook": true,
+      "ShowMusic": true,
+      "ShowFooter": true,
+      "ShowVideo": true,
+      "ShowGame": true,
+      "ShowSeasonFx": true
+    },
+    "music": {
+      "Enabled": true,
+      "Url": "/music/So_Beautiful_In_White.mp3",
+      "Title": "So Beautiful In White",
+      "Autoplay": false
+    },
+    "storyMilestones": [],
+    "video": {
+      "Enabled": true,
+      "Url": "https://www.youtube.com/watch?v=PggDHkV0nGU",
+      "Title": "Video cưới của chúng mình"
+    },
+    "game": {
+      "Enabled": true,
+      "GameType": "lucky-wheel",
+      "Title": "Vòng quay may mắn"
+    },
+    "gamePrizes": [],
+    "gameQuestions": [],
+    "gameImages": []
   }
 ]

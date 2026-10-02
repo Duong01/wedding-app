@@ -112,7 +112,7 @@
            LỊCH THÁNG
       ================================================ -->
 
-      <div v-if="event.date" class="rr-events__calendar">
+      <div v-if="index === 0 && event.date" class="rr-events__calendar">
 
         <div class="rr-events__calendar-head">
           Tháng {{ event.month }} / {{ event.year }}
@@ -161,6 +161,7 @@
         </div>
 
         <a
+          v-if="index === 0"
           :href="event.calendarUrl || defaultCalendarUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -184,7 +185,10 @@
         {{ rsvpLabel }}
       </button>
 
+    <EventMap v-if="index === 0 && showMap" :event="event" />
+
     </div>
+    
 
 
     <!-- =====================================================
@@ -322,11 +326,17 @@
 
 
 <script setup>
+import EventMap from "@/components/common/EventMap.vue";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { Confirm } from "@/model/api";
 import { sectionText } from "@/data/sectionTitles";
+/*
+ * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
+ */
+const showMap = computed(() => props.settings?.ShowMap === true);
+
 
 
 /* =========================================================
@@ -345,6 +355,11 @@ const props = defineProps({
   },
 
   sections: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  settings: {
     type: Object,
     default: () => ({}),
   },

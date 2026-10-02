@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 
+import { DEFAULT_QUIZ_QUESTIONS } from "@/data/gameData";
+
 /*
  * Bản ghi giá trị đồng bộ gần nhất cho các trường
  * dùng chung (GroomName/BrideName/WeddingDate ở
@@ -283,6 +285,78 @@ export const THEME_PALETTES = {
     Text: "#ffbe89",
     TextSecondary: "#d4af37",
     White: "#fff4de",
+  },
+
+  "watercolor-blush": {
+    Primary: "#8a4a5c",
+    Secondary: "#b06a80",
+    Accent: "#d98ca0",
+    AccentLight: "#f2ccd8",
+    Background: "#fdf8fa",
+    BackgroundSecondary: "#fdeff3",
+    Text: "#5a3f4a",
+    TextSecondary: "#a06a7c",
+    White: "#ffffff",
+  },
+
+  "botanical-leaf": {
+    Primary: "#3d5a47",
+    Secondary: "#57806a",
+    Accent: "#7fa389",
+    AccentLight: "#cfe3d2",
+    Background: "#f9fbf9",
+    BackgroundSecondary: "#f0f6f1",
+    Text: "#2f3a33",
+    TextSecondary: "#5a7362",
+    White: "#ffffff",
+  },
+
+  "chateau-blue": {
+    Primary: "#2f3e5c",
+    Secondary: "#5c6d8f",
+    Accent: "#b58a45",
+    AccentLight: "#ccd6e8",
+    Background: "#fafbfd",
+    BackgroundSecondary: "#eef1f8",
+    Text: "#2c3242",
+    TextSecondary: "#5a6378",
+    White: "#ffffff",
+  },
+
+  "jade-phoenix": {
+    Primary: "#6e1f24",
+    Secondary: "#8a3a40",
+    Accent: "#b98a4b",
+    AccentLight: "#e8c98a",
+    Background: "#fdfaf3",
+    BackgroundSecondary: "#f3e3c4",
+    Text: "#4a2328",
+    TextSecondary: "#7a3a3f",
+    White: "#fffdf8",
+  },
+
+  "modern-noir": {
+    Primary: "#3a3a3a",
+    Secondary: "#6b6b6b",
+    Accent: "#b8a07a",
+    AccentLight: "#dcc9a4",
+    Background: "#fbf8f0",
+    BackgroundSecondary: "#f4ead4",
+    Text: "#2b2b2b",
+    TextSecondary: "#5c5c5c",
+    White: "#ffffff",
+  },
+
+  "ruby-romance": {
+    Primary: "#8c2f42",
+    Secondary: "#b04a62",
+    Accent: "#c46a7e",
+    AccentLight: "#e8b4be",
+    Background: "#fdf7f8",
+    BackgroundSecondary: "#fce8ec",
+    Text: "#5c2430",
+    TextSecondary: "#7a4450",
+    White: "#ffffff",
   },
 };
 
@@ -682,7 +756,58 @@ export const useWeddingEditorStore =
           story: {
             Title: "",
             Description: "",
+
+            /*
+             * Chế độ hiển thị: 'text' (1 khối văn bản) hoặc
+             * 'milestones' (danh sách dấu mốc — xem
+             * storyMilestones bên dưới).
+             */
+            Mode: "text",
           },
+
+          /*
+           * Mốc chuyện tình yêu (chế độ 'milestones') —
+           * mỗi mốc: Date (chuỗi tự do), Title, Description,
+           * Image. Thứ tự hiển thị theo thứ tự list.
+           */
+          storyMilestones: [],
+
+          /*
+           * Video cưới (YouTube/TikTok) — chủ thiệp dán link,
+           * thiệp nhúng và phát. Bật/tắt qua settings.ShowVideo.
+           */
+          video: {
+            Enabled: true,
+            Url: "",
+            Title: "",
+          },
+
+          /*
+           * Mini game — 4 loại (lucky-wheel / couple-quiz /
+           * scratch-card / memory-match). Bật/tắt qua
+           * settings.ShowGame.
+           */
+          game: {
+            Enabled: true,
+            GameType: "lucky-wheel",
+            Title: "",
+          },
+
+          /*
+           * Phần quà thật từ cô dâu chú rể — có quà là game
+           * chạy "chế độ quà" (khách trúng nhập tên để đối
+           * chiếu tại lễ). Rỗng = chế độ vui (lời chúc).
+           */
+          gamePrizes: [],
+
+          /*
+           * Câu hỏi trắc nghiệm (game couple-quiz) — khởi tạo
+           * bằng 3 câu mẫu để chủ thiệp có sẵn nội dung sửa.
+           */
+          gameQuestions: DEFAULT_QUIZ_QUESTIONS.map((q) => ({ ...q })),
+
+          /* Ảnh ghép đôi (game memory-match) — rỗng dùng album. */
+          gameImages: [],
 
           events: [],
           timeline: [],
@@ -722,6 +847,16 @@ export const useWeddingEditorStore =
             ShowGuestBook: true,
             ShowMusic: true,
             ShowFooter: true,
+
+            /*
+             * Mục mới mặc định TẮT ở thiệp mới — người dùng
+             * tự bật khi dán link / muốn có game. Thiệp CŨ
+             * load từ API được back-fill false ở
+             * ensureNewSections (utils/weddingShape.js).
+             */
+            ShowVideo: false,
+            ShowGame: false,
+            ShowSeasonFx: true,
           },
 
           music: {

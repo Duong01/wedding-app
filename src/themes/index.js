@@ -2,7 +2,7 @@ import { defineAsyncComponent } from "vue";
 
 /*
  * Lazy-load từng theme: mỗi thiệp chỉ tải đúng component của theme
- * đang mở thay vì import tĩnh toàn bộ 19 theme (mỗi theme ~12 section
+ * đang mở thay vì import tĩnh toàn bộ 26 theme (mỗi theme ~12 section
  * component) ngay từ đầu. Consumer dùng `themes[name]` + `<component :is>`
  * nên không cần thay đổi gì.
  */
@@ -45,7 +45,19 @@ const themes = {
 
   "long-phung-v3": defineAsyncComponent(() => import("./LongPhungV3.vue")),
 
-  "emerald-luxe": defineAsyncComponent(() => import("./EmeraldLuxe.vue"))
+  "emerald-luxe": defineAsyncComponent(() => import("./EmeraldLuxe.vue")),
+
+  "watercolor-blush": defineAsyncComponent(() => import("./WatercolorBlush.vue")),
+
+  "botanical-leaf": defineAsyncComponent(() => import("./BotanicalLeaf.vue")),
+
+  "chateau-blue": defineAsyncComponent(() => import("./ChateauBlue.vue")),
+
+  "jade-phoenix": defineAsyncComponent(() => import("./JadePhoenix.vue")),
+
+  "modern-noir": defineAsyncComponent(() => import("./ModernNoir.vue")),
+
+  "ruby-romance": defineAsyncComponent(() => import("./RubyRomance.vue"))
 };
 
 export default themes;

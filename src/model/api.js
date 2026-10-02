@@ -58,6 +58,31 @@ export const addWish = (param, success, error) => {
 export const getAllWishes = (param, success, error) => {return https.Get(`/wedding/getAllWishes`, param, success, error);};
 export const deleteWish = (param, success, error) => {return https.Delete(`/wedding/deleteWish`, param, success, error);};
 
+/* ======================
+   TRÒ CHƠI — QUÀ
+====================== */
+
+/*
+ * Khách mời nhận quà trò chơi (không cần đăng nhập).
+ * Model GameWinner bên API có GuestName / GameType / PrizeTitle.
+ */
+export const claimGamePrize = (param, success, error) => {
+  const { slug, guestName, gameType, prizeTitle } = param || {};
+
+  return https.Post(
+    `/wedding/claimGamePrize?slug=${encodeURIComponent(slug || "")}`,
+    { GuestName: guestName, GameType: gameType, PrizeTitle: prizeTitle },
+    success,
+    error
+  );
+};
+
+/*
+ * Danh sách khách trúng quà — chủ thiệp xem ở trang Quản lý.
+ * Luôn kèm slug param (GET không param bị route {slug} nuốt).
+ */
+export const getGameWinners = (param, success, error) => {return https.Get(`/wedding/getGameWinners`, param, success, error);};
+
 export const uploadMedia = (file, success, error) => {
   const form = new FormData();
 

@@ -1,0 +1,762 @@
+<template>
+  <section class="ct-opening" :class="{ 'ct-opening--active': opening }">
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+    <div class="ct-opening__bg"></div>
+    <div class="ct-opening__glow ct-opening__glow--1"></div>
+    <div class="ct-opening__glow ct-opening__glow--2"></div>
+
+    <!-- Rising chateau sparkles -->
+    <div class="ct-sparkles" aria-hidden="true">
+      <span v-for="n in 12" :key="n" class="ct-sparkle" :class="`ct-sparkle--${n}`">✦</span>
+    </div>
+
+    <!-- =====================================================
+         TOP BRANDING
+    ====================================================== -->
+    <div class="ct-opening__brand">
+      <span></span>
+      <i>❦</i>
+      <span></span>
+    </div>
+
+    <p class="ct-opening__eyebrow">{{ eyebrow }}</p>
+
+    <!-- =====================================================
+         INVITATION CARD
+    ====================================================== -->
+    <div class="ct-card">
+      <div class="ct-card__arch"></div>
+
+      <div class="ct-card__inner">
+        <p class="ct-card__kicker">{{ kicker }}</p>
+
+        <div class="ct-card__seal">
+          <span>{{ monogram }}</span>
+        </div>
+
+        <p class="ct-card__invite">{{ inviteText }}</p>
+
+        <h1>{{ guestName }}</h1>
+
+        <div class="ct-card__divider">
+          <span></span>
+          <i>❦</i>
+          <span></span>
+        </div>
+
+        <p class="ct-card__names">
+          {{ groomName }}
+          <i>&amp;</i>
+          {{ brideName }}
+        </p>
+
+        <p class="ct-card__date">{{ dateLabel || "OUR WEDDING DAY" }}</p>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         OPEN BUTTON
+    ====================================================== -->
+    <button type="button" class="ct-open-btn" :disabled="opening" @click="openInvitation">
+      <span class="ct-open-btn__icon">
+        <v-icon size="16">mdi-email-open-outline</v-icon>
+      </span>
+
+      <span class="ct-open-btn__text">{{ buttonText }}</span>
+
+      <span class="ct-open-btn__arrow">↗</span>
+    </button>
+
+    <p class="ct-hint">
+      <span class="ct-hint__line"></span>
+      <span class="ct-hint__text">{{ hintText }}</span>
+      <span class="ct-hint__line"></span>
+    </p>
+  </section>
+</template>
+
+<script setup>
+import { computed, ref } from "vue";
+
+import { sectionText } from "@/data/sectionTitles";
+
+const props = defineProps({
+  wedding: { type: Object, default: () => ({}) },
+  monogram: { type: String, default: "G & B" },
+  dateLabel: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
+});
+
+const emit = defineEmits(["open"]);
+
+const opening = ref(false);
+
+const eyebrow = computed(() =>
+  sectionText(props.sections, "opening", "Eyebrow", "WEDDING INVITATION")
+);
+
+const kicker = computed(() =>
+  sectionText(props.sections, "opening", "Kicker", "SAVE THE DATE")
+);
+
+const inviteText = computed(() =>
+  sectionText(props.sections, "opening", "Invite", "Trân trọng kính mời")
+);
+
+const buttonText = computed(() =>
+  sectionText(props.sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP")
+);
+
+const hintText = computed(() =>
+  sectionText(
+    props.sections,
+    "opening",
+    "Hint",
+    "Một lời mời · Một câu chuyện · Một ngày đặc biệt"
+  )
+);
+
+const groomName = computed(
+  () =>
+    props.wedding?.GroomName ||
+    props.wedding?.groomName ||
+    props.wedding?.hero?.GroomName ||
+    props.wedding?.couple?.Groom?.Name ||
+    ""
+);
+
+const brideName = computed(
+  () =>
+    props.wedding?.BrideName ||
+    props.wedding?.brideName ||
+    props.wedding?.hero?.BrideName ||
+    props.wedding?.couple?.Bride?.Name ||
+    ""
+);
+
+const guestName = computed(
+  () =>
+    (Array.isArray(props.wedding?.recipientName)
+      ? props.wedding?.recipientName[0]?.Name
+      : props.wedding?.recipientName?.Name) ||
+    props.wedding?.guestName ||
+    "Bạn thân mến"
+);
+
+function openInvitation() {
+  if (opening.value) return;
+
+  opening.value = true;
+
+  window.setTimeout(() => {
+    emit("open");
+  }, 1150);
+}
+</script>
+
+<style scoped>
+.ct-opening {
+  --ct-deep: #2f3e5c;
+  --ct-chateau: #48546e;
+  --ct-plum: #5c6d8f;
+  --ct-lilac: #ccd6e8;
+  --ct-line: #4d5a75;
+  --ct-cream: #fafbfd;
+
+  position: relative;
+  isolation: isolate;
+
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 34px 18px 28px;
+
+  overflow: hidden;
+
+  color: var(--ct-deep);
+
+  background: linear-gradient(160deg, #f5f7fb 0%, #ecf0f7 38%, #e4e9f3 70%, #d7dfed 100%);
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.ct-opening__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(252, 252, 253, 0.9), transparent 42%),
+    radial-gradient(ellipse at 12% 82%, rgba(204, 214, 232, 0.45), transparent 38%),
+    radial-gradient(ellipse at 88% 72%, rgba(125, 143, 176, 0.22), transparent 40%);
+}
+
+.ct-opening::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+
+  opacity: 0.16;
+
+  background-image: radial-gradient(rgba(47, 62, 92, 0.5) 0.6px, transparent 0.6px);
+  background-size: 7px 7px;
+
+  pointer-events: none;
+}
+
+.ct-opening__glow {
+  position: absolute;
+  z-index: -4;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(10px);
+}
+
+.ct-opening__glow--1 {
+  width: 380px;
+  height: 380px;
+  top: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: radial-gradient(circle, rgba(250, 251, 253, 0.6), transparent 68%);
+
+  animation: ct-glow-breathe 5.5s ease-in-out infinite;
+}
+
+.ct-opening__glow--2 {
+  width: 260px;
+  height: 260px;
+  bottom: -90px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: radial-gradient(circle, rgba(180, 192, 216, 0.24), transparent 70%);
+}
+
+/* =========================================================
+   SPARKLES
+========================================================= */
+
+.ct-sparkles {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.ct-sparkle {
+  position: absolute;
+  bottom: -40px;
+
+  color: rgba(125, 143, 176, 0.6);
+
+  text-shadow: 0 0 8px rgba(204, 214, 232, 0.85);
+
+  animation: ct-sparkle-rise linear infinite;
+}
+
+.ct-sparkle--1 { left: 6%; font-size: 12px; animation-duration: 11s; animation-delay: 0s; }
+.ct-sparkle--2 { left: 16%; font-size: 10px; animation-duration: 14s; animation-delay: 2.2s; }
+.ct-sparkle--3 { left: 27%; font-size: 15px; animation-duration: 12.5s; animation-delay: 1s; }
+.ct-sparkle--4 { left: 38%; font-size: 11px; animation-duration: 15s; animation-delay: 3.4s; }
+.ct-sparkle--5 { left: 49%; font-size: 11px; animation-duration: 10.5s; animation-delay: 0.8s; }
+.ct-sparkle--6 { left: 60%; font-size: 11px; animation-duration: 13.5s; animation-delay: 2.8s; }
+.ct-sparkle--7 { left: 70%; font-size: 14px; animation-duration: 12s; animation-delay: 1.6s; }
+.ct-sparkle--8 { left: 80%; font-size: 11px; animation-duration: 14.5s; animation-delay: 4s; }
+.ct-sparkle--9 { left: 89%; font-size: 12px; animation-duration: 11.5s; animation-delay: 0.4s; }
+.ct-sparkle--10 { left: 95%; font-size: 11px; animation-duration: 15.5s; animation-delay: 3s; }
+.ct-sparkle--11 { left: 44%; font-size: 10px; animation-duration: 16s; animation-delay: 5s; }
+.ct-sparkle--12 { left: 33%; font-size: 10px; animation-duration: 13s; animation-delay: 6s; }
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.ct-opening__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-bottom: 10px;
+
+  color: var(--ct-line);
+}
+
+.ct-opening__brand span {
+  width: 46px;
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(180, 192, 216, 0.8));
+}
+
+.ct-opening__brand span:last-child {
+  transform: rotate(180deg);
+}
+
+.ct-opening__brand i {
+  font-size: 14px;
+  font-style: normal;
+
+  animation: ct-spin-bloom 9s linear infinite;
+}
+
+.ct-opening__eyebrow {
+  margin: 0 0 26px;
+
+  color: var(--ct-chateau);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.ct-card {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, 360px);
+
+  padding: 10px;
+
+  border-radius: 190px 190px 26px 26px;
+
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 251, 0.9));
+
+  box-shadow:
+    0 26px 60px rgba(47, 62, 92, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+
+  animation: ct-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ct-card__arch {
+  position: absolute;
+  inset: 5px;
+
+  border: 1px solid rgba(125, 143, 176, 0.55);
+  border-radius: 184px 184px 22px 22px;
+
+  box-shadow:
+    inset 0 0 0 3px rgba(250, 251, 253, 0.9),
+    inset 0 0 0 4px rgba(204, 214, 232, 0.55);
+
+  pointer-events: none;
+}
+
+.ct-card__inner {
+  position: relative;
+
+  padding: 40px 26px 34px;
+
+  text-align: center;
+}
+
+.ct-card__kicker {
+  margin: 0 0 18px;
+
+  color: var(--ct-line);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.ct-card__seal {
+  position: relative;
+
+  width: 74px;
+  height: 74px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 34% 30%, #b4c0d8, #48546e 58%, #5c6d8f 100%);
+
+  box-shadow:
+    0 10px 24px rgba(92, 109, 143, 0.35),
+    inset 0 0 0 3px rgba(250, 251, 253, 0.35);
+
+  animation: ct-seal-pulse 3.2s ease-in-out infinite;
+}
+
+.ct-card__seal::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+
+  border: 1px dashed rgba(250, 251, 253, 0.55);
+  border-radius: 50%;
+}
+
+.ct-card__seal span {
+  font-family: "Allura", cursive;
+
+  font-size: 26px;
+
+  color: #fcfdfe;
+
+  text-shadow: 0 1px 2px rgba(47, 62, 92, 0.4);
+}
+
+.ct-card__invite {
+  margin: 0 0 6px;
+
+  color: var(--ct-chateau);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+}
+
+.ct-card__inner h1 {
+  margin: 0;
+
+  font-family: "Allura", cursive;
+
+  font-size: clamp(38px, 10vw, 48px);
+  font-weight: 400;
+
+  line-height: 1.15;
+
+  color: var(--ct-deep);
+}
+
+.ct-card__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  margin: 14px 0;
+
+  color: var(--ct-line);
+}
+
+.ct-card__divider span {
+  width: 42px;
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(180, 192, 216, 0.75));
+}
+
+.ct-card__divider span:last-child {
+  transform: rotate(180deg);
+}
+
+.ct-card__divider i {
+  font-size: 12px;
+  font-style: normal;
+}
+
+.ct-card__names {
+  margin: 0 0 16px;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 19px;
+  font-weight: 600;
+
+  color: var(--ct-deep);
+}
+
+.ct-card__names i {
+  padding: 0 5px;
+
+  color: var(--ct-chateau);
+
+  font-family: "Allura", cursive;
+  font-size: 22px;
+  font-style: normal;
+}
+
+.ct-card__date {
+  display: inline-block;
+
+  padding: 8px 18px;
+
+  border: 1px solid rgba(180, 192, 216, 0.45);
+  border-radius: 999px;
+
+  background: rgba(252, 252, 253, 0.7);
+
+  color: var(--ct-chateau);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+}
+
+/* =========================================================
+   OPEN BUTTON
+========================================================= */
+
+.ct-open-btn {
+  position: relative;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  margin-top: 30px;
+
+  padding: 13px 26px;
+
+  border: 0;
+  border-radius: 999px;
+
+  color: #fcfdfe;
+
+  background: linear-gradient(135deg, #48546e, #5c6d8f);
+
+  box-shadow: 0 14px 30px rgba(47, 62, 92, 0.32);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.2em;
+  text-indent: 0.1em;
+
+  cursor: pointer;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ct-open-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow: 0 18px 36px rgba(47, 62, 92, 0.4);
+}
+
+.ct-open-btn:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
+.ct-open-btn__icon {
+  display: flex;
+  align-items: center;
+}
+
+.ct-open-btn__text {
+  text-align: center;
+  white-space: pre-line;
+}
+
+.ct-open-btn__arrow {
+  font-size: 12px;
+}
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.ct-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 22px 0 0;
+
+  color: rgba(47, 62, 92, 0.72);
+
+  font-size: 10px;
+  font-style: italic;
+
+  letter-spacing: 0.06em;
+}
+
+.ct-hint__text {
+  text-align: center;
+  white-space: pre-line;
+}
+
+.ct-hint__line {
+  flex: 0 0 auto;
+
+  width: 34px;
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(180, 192, 216, 0.6));
+}
+
+.ct-hint__line:last-child {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   EXIT ANIMATION
+========================================================= */
+
+.ct-opening--active .ct-card {
+  animation: ct-card-out 0.9s cubic-bezier(0.5, 0, 0.75, 0.4) both;
+}
+
+.ct-opening--active .ct-open-btn,
+.ct-opening--active .ct-hint,
+.ct-opening--active .ct-opening__brand,
+.ct-opening--active .ct-opening__eyebrow {
+  animation: ct-fade-out 0.45s ease both;
+}
+
+.ct-opening--active .ct-sparkles {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes ct-sparkle-rise {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.7);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translateY(-46vh) translateX(12px) rotate(150deg) scale(1);
+  }
+
+  88% {
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: translateY(-96vh) translateX(-8px) rotate(320deg) scale(1.12);
+    opacity: 0;
+  }
+}
+
+@keyframes ct-glow-breathe {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: translateX(-50%) scale(0.96);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+@keyframes ct-spin-bloom {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ct-seal-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 10px 24px rgba(92, 109, 143, 0.35),
+      inset 0 0 0 3px rgba(250, 251, 253, 0.35);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow:
+      0 14px 30px rgba(92, 109, 143, 0.45),
+      inset 0 0 0 3px rgba(250, 251, 253, 0.5);
+  }
+}
+
+@keyframes ct-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ct-card-out {
+  to {
+    opacity: 0;
+    transform: translateY(-46px) scale(0.9);
+  }
+}
+
+@keyframes ct-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .ct-card {
+    width: 100%;
+  }
+
+  .ct-card__inner {
+    padding: 32px 18px 28px;
+  }
+
+  .ct-card__seal {
+    width: 64px;
+    height: 64px;
+  }
+
+  .ct-card__seal span {
+    font-size: 22px;
+  }
+}
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-sparkle,
+  .ct-opening__glow--1,
+  .ct-opening__brand i,
+  .ct-card__seal,
+  .ct-card {
+    animation: none;
+  }
+}
+</style>

@@ -10,76 +10,234 @@
       </div>
     </div>
 
-    <div class="editor-field">
-      <label>Tiêu đề</label>
+    <!-- =====================================================
+         CHỌN CHẾ ĐỘ
+    ====================================================== -->
 
-      <input
-        v-model="wedding.story.Title"
-        type="text"
-        placeholder="VD: Chuyện của chúng mình"
-      />
+    <div class="mode-selector">
+      <button
+        type="button"
+        class="mode-card"
+        :class="{ active: isTextMode }"
+        @click="setMode('text')"
+      >
+        <v-icon size="20"> mdi-text-long </v-icon>
 
-      <small class="field-help">
-        Tiêu đề của mục trên thiệp. Bỏ trống dùng "Chuyện Tình Yêu".
-      </small>
-    </div>
+        <strong> Văn bản </strong>
 
-    <div class="editor-field">
-      <label>Nội dung</label>
+        <small> Một khối văn bản như hiện tại. </small>
+      </button>
 
-      <textarea
-        v-model="wedding.story.Description"
-        rows="12"
-        placeholder="Viết câu chuyện tình yêu..."
-      />
+      <button
+        type="button"
+        class="mode-card"
+        :class="{ active: isMilestoneMode }"
+        @click="setMode('milestones')"
+      >
+        <v-icon size="20"> mdi-map-marker-multiple-outline </v-icon>
 
-      <small class="field-help">
-        Gợi ý: bắt đầu từ lúc hai bạn gặp nhau, khoảnh khắc nhớ nhất,
-        rồi đến lời cầu hôn. 150–300 từ là vừa đẹp.
-      </small>
+        <strong> Dấu mốc </strong>
 
-      <div class="story-meta">
-        <span>
-          {{ wordCount }} từ · {{ (wedding.story.Description || "").length }}
-          ký tự
-        </span>
-
-        <span v-if="readingTime"> ~{{ readingTime }} phút đọc </span>
-      </div>
+        <small>
+          Nhiều mốc thời gian — dạng bản đồ hành trình.
+        </small>
+      </button>
     </div>
 
     <!-- =====================================================
-         GỢI Ý NỘI DUNG
+         CHẾ ĐỘ VĂN BẢN
     ====================================================== -->
 
-    <div class="story-ideas">
-      <div class="story-ideas-head">
-        <v-icon size="17"> mdi-lightbulb-on-outline </v-icon>
+    <template v-if="isTextMode">
+      <div class="editor-field">
+        <label>Tiêu đề</label>
 
-        <strong> Gợi ý mở đầu </strong>
+        <input
+          v-model="wedding.story.Title"
+          type="text"
+          placeholder="VD: Chuyện của chúng mình"
+        />
+
+        <small class="field-help">
+          Tiêu đề của mục trên thiệp. Bỏ trống dùng "Chuyện Tình Yêu".
+        </small>
       </div>
 
-      <p class="story-ideas-hint">
-        Bấm để chèn vào cuối nội dung, rồi sửa lại theo câu chuyện của bạn.
-      </p>
+      <div class="editor-field">
+        <label>Nội dung</label>
 
-      <div class="story-idea-list">
-        <button
-          v-for="idea in STORY_IDEAS"
-          :key="idea"
-          type="button"
-          class="story-idea"
-          @click="appendIdea(idea)"
+        <textarea
+          v-model="wedding.story.Description"
+          rows="12"
+          placeholder="Viết câu chuyện tình yêu..."
+        />
+
+        <small class="field-help">
+          Gợi ý: bắt đầu từ lúc hai bạn gặp nhau, khoảnh khắc nhớ nhất,
+          rồi đến lời cầu hôn. 150–300 từ là vừa đẹp.
+        </small>
+
+        <div class="story-meta">
+          <span>
+            {{ wordCount }} từ · {{ (wedding.story.Description || "").length }}
+            ký tự
+          </span>
+
+          <span v-if="readingTime"> ~{{ readingTime }} phút đọc </span>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           GỢI Ý NỘI DUNG
+      ====================================================== -->
+
+      <div class="story-ideas">
+        <div class="story-ideas-head">
+          <v-icon size="17"> mdi-lightbulb-on-outline </v-icon>
+
+          <strong> Gợi ý mở đầu </strong>
+        </div>
+
+        <p class="story-ideas-hint">
+          Bấm để chèn vào cuối nội dung, rồi sửa lại theo câu chuyện của bạn.
+        </p>
+
+        <div class="story-idea-list">
+          <button
+            v-for="idea in STORY_IDEAS"
+            :key="idea"
+            type="button"
+            class="story-idea"
+            @click="appendIdea(idea)"
+          >
+            {{ idea }}
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <!-- =====================================================
+         CHẾ ĐỘ DẤU MỐC
+    ====================================================== -->
+
+    <template v-else>
+      <div class="editor-field">
+        <label>Tiêu đề</label>
+
+        <input
+          v-model="wedding.story.Title"
+          type="text"
+          placeholder="VD: Hành trình của chúng mình"
+        />
+
+        <small class="field-help">
+          Tiêu đề của mục trên thiệp. Bỏ trống dùng "Chuyện Tình Yêu".
+        </small>
+      </div>
+
+      <div class="items-list">
+        <article
+          v-for="(item, index) in wedding.storyMilestones"
+          :key="item.Id || index"
+          class="editor-card"
         >
-          {{ idea }}
+          <div class="card-header">
+            <div>
+              <span> MỐC {{ index + 1 }} </span>
+
+              <strong>
+                {{ item.Title || "Chưa đặt tên" }}
+              </strong>
+            </div>
+
+            <EditorItemActions
+              :index="index"
+              :total="wedding.storyMilestones.length"
+              remove-title="Xoá mốc"
+              @move="moveMilestone"
+              @remove="removeMilestone"
+            />
+          </div>
+
+          <div class="form-grid">
+            <div class="editor-field">
+              <label>Thời điểm</label>
+
+              <input
+                v-model="item.Date"
+                type="text"
+                placeholder="VD: Mùa hè 2018"
+              />
+
+              <small class="field-help">
+                Chuỗi tự do — "Mùa hè 2018", "Tháng 3 năm 2020"...
+              </small>
+            </div>
+
+            <div class="editor-field">
+              <label>Tiêu đề</label>
+
+              <input
+                v-model="item.Title"
+                type="text"
+                placeholder="VD: Lần đầu gặp nhau"
+              />
+
+              <small class="field-help">
+                VD: Lần đầu gặp nhau, Lời tỏ tình, Ngày cầu hôn...
+              </small>
+            </div>
+
+            <div class="editor-field full">
+              <label>Mô tả</label>
+
+              <textarea
+                v-model="item.Description"
+                rows="4"
+                placeholder="Kể ngắn về khoảnh khắc này..."
+              />
+            </div>
+
+            <div class="editor-field full">
+              <label>Ảnh (tùy chọn)</label>
+
+              <UploadField
+                v-model="item.Image"
+                kind="image"
+                button-text="Tải ảnh lên"
+                compact
+              />
+            </div>
+          </div>
+        </article>
+
+        <div v-if="!wedding.storyMilestones?.length" class="empty-card">
+          <v-icon size="30"> mdi-map-marker-multiple-outline </v-icon>
+
+          <strong> Chưa có dấu mốc </strong>
+
+          <span>
+            Thêm mốc đầu tiên — lần gặp nhau, tỏ tình, cầu hôn...
+          </span>
+        </div>
+
+        <button type="button" class="add-button" @click="addMilestone">
+          <v-icon> mdi-plus </v-icon>
+
+          Thêm dấu mốc
         </button>
       </div>
-    </div>
+    </template>
   </section>
 </template>
 
 <script setup>
 import { computed } from "vue";
+
+import EditorItemActions from "@/components/editor/EditorItemActions.vue";
+import UploadField from "@/components/editor/UploadField.vue";
+
+import { confirmDialog } from "@/composables/useConfirm";
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -103,6 +261,84 @@ function appendIdea(idea) {
     ? `${current.trimEnd()}\n\n${idea}`
     : idea;
 }
+
+/* =========================================================
+   CHẾ ĐỘ HIỂN THỊ — text | milestones
+========================================================= */
+
+const isTextMode = computed(
+  () => (props.wedding.story?.Mode || "text") !== "milestones"
+);
+
+const isMilestoneMode = computed(() => !isTextMode.value);
+
+function setMode(mode) {
+  if (!props.wedding.story) {
+    props.wedding.story = { Title: "", Description: "", Mode: mode };
+
+    return;
+  }
+
+  props.wedding.story.Mode = mode;
+}
+
+/* =========================================================
+   DANH SÁCH DẤU MỐC
+========================================================= */
+
+function addMilestone() {
+  if (!props.wedding) return;
+
+  if (!Array.isArray(props.wedding.storyMilestones)) {
+    props.wedding.storyMilestones = [];
+  }
+
+  props.wedding.storyMilestones.push({
+    Id: Date.now(),
+    Date: "",
+    Title: "",
+    Description: "",
+    Image: "",
+  });
+}
+
+async function removeMilestone(index) {
+  if (!Array.isArray(props.wedding.storyMilestones)) return;
+
+  const item = props.wedding.storyMilestones[index];
+
+  const ok = await confirmDialog({
+    title: "Xoá dấu mốc này?",
+    message: "Mốc sẽ bị xoá khỏi thiệp. Bạn vẫn hoàn tác được.",
+    detail: item?.Title || `Mốc ${index + 1}`,
+    confirmText: "Xoá mốc",
+    danger: true,
+  });
+
+  if (!ok) {
+    return;
+  }
+
+  props.wedding.storyMilestones.splice(index, 1);
+}
+
+function moveMilestone(index, direction) {
+  const list = props.wedding.storyMilestones;
+
+  const target = index + direction;
+
+  if (!Array.isArray(list) || target < 0 || target >= list.length) {
+    return;
+  }
+
+  const [item] = list.splice(index, 1);
+
+  list.splice(target, 0, item);
+}
+
+/* =========================================================
+   THỐNG KÊ VĂN BẢN
+========================================================= */
 
 const wordCount = computed(() => {
   const text = (props.wedding.story?.Description || "").trim();
@@ -128,6 +364,58 @@ const readingTime = computed(() => {
 </script>
 
 <style scoped>
+.mode-selector {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+.mode-card {
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 4px;
+
+  padding: 13px 14px;
+
+  border: 1px solid #d3c3ae;
+  border-radius: 12px;
+
+  background: rgba(255, 253, 251, 0.7);
+
+  color: #6b5a4e;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.mode-card.active {
+  border-color: var(--wine, #a63a2e);
+
+  background: rgba(166, 58, 46, 0.06);
+
+  color: #3a2c26;
+}
+
+.mode-card strong {
+  font-size: 13px;
+}
+
+.mode-card small {
+  font-size: 10.5px;
+
+  line-height: 1.4;
+}
+
 .story-meta {
   display: flex;
 
@@ -157,63 +445,5 @@ const readingTime = computed(() => {
   align-items: center;
 
   gap: 7px;
-
-  color: var(--wine, #a63a2e);
-}
-
-.story-ideas-head strong {
-  color: #3a2c26;
-
-  font-size: 12.5px;
-}
-
-.story-ideas-hint {
-  margin: 6px 0 11px;
-
-  color: #a8988a;
-
-  font-size: 10.5px;
-
-  line-height: 1.5;
-}
-
-.story-idea-list {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 7px;
-}
-
-.story-idea {
-  padding: 7px 12px;
-
-  border: 1px solid var(--border-strong, #e0d4c5);
-  border-radius: 999px;
-
-  background: #fffdfb;
-
-  color: #6b5a4e;
-
-  font-family: inherit;
-  font-size: 11px;
-
-  text-align: left;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.story-idea:hover {
-  transform: translateY(-1px);
-
-  border-color: var(--wine, #a63a2e);
-
-  color: var(--wine, #a63a2e);
 }
 </style>

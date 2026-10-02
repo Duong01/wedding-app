@@ -6,27 +6,45 @@
 
       <div class="lavender-content">
         <section v-if="showCouple" class="lavender-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" /></section>
-        <section v-if="showStory && wedding?.story" class="lavender-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
-        <section v-if="showEvents && events.length" class="lavender-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :sections="sections" /></section>
+        <section v-if="showStory && useMilestoneStory" class="lavender-section"><StoryMilestones :wedding="wedding" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="lavender-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
+
+        <section v-if="showEvents && events.length" class="lavender-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :sections="sections" :settings="settings" /></section>
+
+        <!-- ============ VIDEO CƯỚI ============ -->
+
+        <section v-if="showVideo" class="lavender-section"><VideoSection :wedding="wedding" /></section>
+
+        <!-- ============ TRÒ CHƠI ============ -->
+
+        <section v-if="showGame" class="lavender-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="lavender-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="lavender-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
         <section v-if="showGallery && gallery.length" class="lavender-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
-      </div>
 
-      <section v-if="showMap && events.length" class="lavender-section"><WeddingMap :events="events" :sections="sections" /></section>
+      </div>
       <section v-if="showGift && gifts.length" class="lavender-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
       <section v-if="showGuestBook" class="lavender-section"><WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" /></section>
 
       <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" :sections="sections" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
-  </div>
+
+  <!-- Hiệu ứng mùa theo ngày cưới: hoa rơi / nắng / lá rơi / tuyết -->
+  <SeasonFx :wedding="wedding" />
+</div>
 </template>
 
 <script setup>
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
+
+import SeasonFx from "@/components/common/SeasonFx.vue";
+import VideoSection from "@/components/common/VideoSection.vue";
+import GameSection from "@/components/common/GameSection.vue";
+import StoryMilestones from "@/components/common/StoryMilestones.vue";
+
 import OpeningScreen from "@/page/LavenderCream/OpeningScreen.vue";
 import WeddingHero from "@/page/LavenderCream/WeddingHero.vue";
 import WeddingCouple from "@/page/LavenderCream/WeddingCouple.vue";
@@ -34,7 +52,6 @@ import WeddingStory from "@/page/LavenderCream/WeddingStory.vue";
 import WeddingEvents from "@/page/LavenderCream/WeddingEvents.vue";
 import WeddingCountdown from "@/page/LavenderCream/WeddingCountdown.vue";
 import WeddingGallery from "@/page/LavenderCream/WeddingGallery.vue";
-import WeddingMap from "@/page/LavenderCream/WeddingMap.vue";
 import Timeline from "@/page/LavenderCream/Timeline.vue";
 import WeddingGifts from "@/page/LavenderCream/WeddingGifts.vue";
 import WeddingWishes from "@/page/LavenderCream/WeddingWishes.vue";
@@ -79,7 +96,17 @@ const showEvents = computed(() => settings.value.ShowEvents !== false);
 const showTimeline = computed(() => settings.value.ShowTimeline !== false);
 const showCountdown = computed(() => settings.value.ShowCountdown === true);
 const showGallery = computed(() => settings.value.ShowGallery === true);
-const showMap = computed(() => settings.value.ShowMap === true);
+const showVideo = computed(() => settings.value.ShowVideo === true);
+const showGame = computed(() => settings.value.ShowGame === true);
+
+/*
+ * Story 2 chế độ: danh sách dấu mốc thay cho khối văn bản.
+ */
+const useMilestoneStory = computed(
+  () =>
+    wedding.value?.story?.Mode === "milestones" &&
+    (wedding.value?.storyMilestones || []).length > 0
+);
 const showGift = computed(() => settings.value.ShowGift === true);
 const showGuestBook = computed(() => settings.value.ShowGuestBook === true);
 const showFooter = computed(() => settings.value.ShowFooter !== false);

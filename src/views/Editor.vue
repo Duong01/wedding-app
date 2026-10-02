@@ -121,11 +121,15 @@
 
         <StoryPanel v-if="activeMenu === 'story'" :wedding="wedding" />
 
+        <VideoPanel v-if="activeMenu === 'video'" :wedding="wedding" />
+
         <EventsPanel v-if="activeMenu === 'events'" :wedding="wedding" />
 
         <TimelinePanel v-if="activeMenu === 'timeline'" :wedding="wedding" />
 
         <GalleryPanel v-if="activeMenu === 'gallery'" :wedding="wedding" />
+
+        <GamePanel v-if="activeMenu === 'game'" :wedding="wedding" />
 
         <RecipientPanel v-if="activeMenu === 'recipient'" :wedding="wedding" />
 
@@ -138,8 +142,6 @@
         <MusicPanel v-if="activeMenu === 'music'" :wedding="wedding" />
 
         <FooterPanel v-if="activeMenu === 'footer'" :wedding="wedding" />
-
-        <MapPanel v-if="activeMenu === 'map'" :wedding="wedding" />
 
         <SettingsPanel v-if="activeMenu === 'settings'" :wedding="wedding" />
 
@@ -312,16 +314,17 @@ import GeneralPanel from "@/components/editor/panels/GeneralPanel.vue";
 import CouplePanel from "@/components/editor/panels/CouplePanel.vue";
 import HeroPanel from "@/components/editor/panels/HeroPanel.vue";
 import StoryPanel from "@/components/editor/panels/StoryPanel.vue";
+import VideoPanel from "@/components/editor/panels/VideoPanel.vue";
 import EventsPanel from "@/components/editor/panels/EventsPanel.vue";
 import TimelinePanel from "@/components/editor/panels/TimelinePanel.vue";
 import GalleryPanel from "@/components/editor/panels/GalleryPanel.vue";
+import GamePanel from "@/components/editor/panels/GamePanel.vue";
 import RecipientPanel from "@/components/editor/panels/RecipientPanel.vue";
 import GiftsPanel from "@/components/editor/panels/GiftsPanel.vue";
 import GuestbookPanel from "@/components/editor/panels/GuestbookPanel.vue";
 import CountdownPanel from "@/components/editor/panels/CountdownPanel.vue";
 import MusicPanel from "@/components/editor/panels/MusicPanel.vue";
 import FooterPanel from "@/components/editor/panels/FooterPanel.vue";
-import MapPanel from "@/components/editor/panels/MapPanel.vue";
 import SettingsPanel from "@/components/editor/panels/SettingsPanel.vue";
 import DressCodePanel from "@/components/editor/panels/DressCodePanel.vue";
 import SectionTitlesPanel from "@/components/editor/panels/SectionTitlesPanel.vue";
@@ -332,6 +335,7 @@ import { useEditorHistory } from "@/composables/useEditorHistory";
 import { useWeddingPublish } from "@/composables/useWeddingPublish";
 import { confirmDialog } from "@/composables/useConfirm";
 import { ensureSections } from "@/data/sectionTitles";
+import { ensureNewSections } from "@/utils/weddingShape";
 import "@/assets/styles/editor.css";
 
 defineOptions({
@@ -617,6 +621,8 @@ function restoreDraft() {
 
   ensureSections(editorStore.wedding);
 
+  ensureNewSections(editorStore.wedding);
+
   editorStore.markDirty();
 
   draftPrompt.value = null;
@@ -736,6 +742,14 @@ const menus = [
   },
 
   {
+    id: "video",
+    group: "content",
+    label: "Video cưới",
+    description: "Nhúng YouTube / TikTok",
+    icon: "mdi-play-circle-outline",
+  },
+
+  {
     id: "events",
     group: "content",
     label: "Sự kiện cưới",
@@ -768,6 +782,14 @@ const menus = [
   },
 
   {
+    id: "game",
+    group: "content",
+    label: "Trò chơi",
+    description: "Vòng quay may mắn",
+    icon: "mdi-party-popper",
+  },
+
+  {
     id: "countdown",
     group: "content",
     label: "Đếm ngược",
@@ -781,14 +803,6 @@ const menus = [
     label: "Chân thiệp",
     description: "Lời cảm ơn cuối thiệp",
     icon: "mdi-page-layout-footer",
-  },
-
-  {
-    id: "map",
-    group: "content",
-    label: "Bản đồ",
-    description: "Chỉ đường đến sự kiện",
-    icon: "mdi-map-marker-outline",
   },
 
   {
@@ -876,14 +890,18 @@ const completion = computed(() => {
     general: has(data.brideName) && has(data.groomName) && has(data.weddingDate),
     couple: has(data.couple?.Bride?.Name) || has(data.couple?.Groom?.Name),
     hero: has(data.hero?.Background) || has(data.hero?.Subtitle),
-    story: has(data.story?.Description) || has(data.story?.Title),
+    story:
+      has(data.story?.Description) ||
+      has(data.story?.Title) ||
+      has(data.storyMilestones),
+    video: has(data.video?.Url),
     events: has(data.events),
     dressCode: has(data.dressCode?.Note) || has(data.dressCode?.Colors),
     timeline: has(data.timeline),
     gallery: has(data.gallery),
+    game: has(data.game?.Title) || data.settings?.ShowGame === true,
     countdown: !!data.countdown?.Enabled,
     footer: has(data.footer?.Message) || has(data.thankYouNote),
-    map: (data.events || []).some((event) => has(event.Map)),
     music: has(data.music?.Url),
     recipient: has(data.recipientName),
     gifts: has(data.gifts),
@@ -1354,6 +1372,13 @@ async function initializeEditor() {
      * sections[key][field] = value).
      */
     ensureSections(editorStore.wedding);
+
+    /*
+     * Thiệp cũ (load từ API) chưa có video / game /
+     * storyMilestones / story.Mode — back-fill để panel
+     * v-model không crash và preview không undefined.
+     */
+    ensureNewSections(editorStore.wedding);
 
     loading.value = false;
 

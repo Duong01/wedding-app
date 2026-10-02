@@ -197,6 +197,21 @@
               placeholder="https://maps.google.com/..."
             />
 
+            <button
+              type="button"
+              class="inline-button"
+              @click="buildMapLink(event)"
+            >
+              <v-icon size="15"> mdi-map-search-outline </v-icon>
+
+              Tạo link từ địa chỉ
+            </button>
+
+            <small class="field-help">
+              Bản đồ nhúng hiển thị ngay trong khối sự kiện này.
+              Bỏ trống vẫn xem được bản đồ theo địa chỉ ở trên.
+            </small>
+
             <small v-if="event.Map" class="field-help">
               <a
                 :href="event.Map"
@@ -350,6 +365,26 @@ function applyEventDate(event) {
   event.Year = String(date.getFullYear());
 }
 
+/*
+ * Tạo link Google Maps từ địa chỉ người dùng đã nhập —
+ * tiện hơn nhiều so với việc tự mở Maps, tìm rồi copy
+ * URL dán ngược vào đây.
+ */
+function buildMapLink(event) {
+  const query = [event.Location, event.Address]
+    .filter(Boolean)
+    .join(", ")
+    .trim();
+
+  if (!query) {
+    return;
+  }
+
+  event.Map = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    query
+  )}`;
+}
+
 watch(
   () => props.wedding?.events,
   (events) => {
@@ -376,5 +411,42 @@ watch(
 
 .field-link:hover {
   text-decoration: underline;
+}
+
+.inline-button {
+  align-self: flex-start;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 2px;
+
+  padding: 7px 12px;
+
+  border: 1px solid var(--border-strong, #e0d4c5);
+  border-radius: 9px;
+
+  background: #fffdfb;
+
+  color: #6b5a4e;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.inline-button:hover {
+  background: #f6f1ea;
+
+  color: var(--wine, #a63a2e);
 }
 </style>
