@@ -92,7 +92,11 @@ const parsed = computed(() => parseVideoUrl(props.url));
 
   padding: 12px 18px;
 
-  color: var(--primary, #8a7a68);
+  /*
+   * --text (không phải --primary): theme nền tối có
+   * primary trùng màu nền — chữ biến mất.
+   */
+  color: var(--text, var(--primary, #8a7a68));
 
   border: 1px solid var(--accent, #c79d5c);
   border-radius: 999px;

@@ -434,8 +434,10 @@ h2 {
   margin: 26px auto 0;
   padding: 26px 22px;
 
-  border: 1px solid rgba(201,149,82,.4);
-  background: rgba(0,0,0,.1);
+  border: 1px solid rgba(201,149,82,.7);
+  background: rgba(0,0,0,.28);
+
+  box-shadow: 0 10px 26px rgba(0,0,0,.25);
 
   text-align: left;
 }
@@ -600,16 +602,28 @@ h2 {
 }
 
 .wish-card {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
   gap: 14px;
 
   padding: 22px 20px;
 
-  border: 1px solid rgba(201,149,82,.3);
-  background: rgba(0,0,0,.08);
+  border: 1px solid rgba(201,149,82,.6);
+  background: rgba(0,0,0,.24);
+
+  box-shadow: 0 8px 22px rgba(0,0,0,.22);
 
   text-align: left;
+}
+
+.wish-card::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(201,149,82,.22);
+  pointer-events: none;
 }
 
 .wish-avatar {

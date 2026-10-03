@@ -14,7 +14,7 @@
     nhập tên, lưu DB để chủ thiệp đối chiếu tại lễ. Chế độ
     vui: phần thưởng là lời chúc mặc định.
   -->
-  <section v-if="visible" class="game-section">
+  <section v-if="visible" class="game-section" :style="sectionStyle">
     <header v-if="eyebrow || heading" class="game-section__head">
       <p v-if="eyebrow" class="game-section__eyebrow">{{ eyebrow }}</p>
 
@@ -77,6 +77,8 @@ import { sectionText } from "@/data/sectionTitles";
 
 import { DEFAULT_WHEEL_PRIZES, gameTypeMeta } from "@/data/gameData";
 
+import { useSectionTheme } from "@/composables/useSectionTheme";
+
 const props = defineProps({
   /*
    * Nhận cả object wedding — prop duy nhất mọi orchestrator
@@ -84,6 +86,13 @@ const props = defineProps({
    */
   wedding: { type: Object, required: true },
 });
+
+/*
+ * Gắn bảng màu của thiệp lên gốc section — 15/26 theme
+ * không có pipeline màu nên game không còn rơi về bảng
+ * :root đỏ son của theme.css (xem useSectionTheme).
+ */
+const { sectionStyle } = useSectionTheme(() => props.wedding);
 
 const game = computed(() => props.wedding?.game || {});
 

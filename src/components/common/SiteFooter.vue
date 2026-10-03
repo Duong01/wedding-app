@@ -83,27 +83,7 @@
            HỖ TRỢ / LIÊN HỆ
       ========================================== -->
       <div class="footer-col">
-        <h4>Liên hệ</h4>
-
-        <ul class="footer-contact">
-          <li>
-            <v-icon size="16"> mdi-clock-outline </v-icon>
-
-            <span> Hỗ trợ {{ CONTACT.hours }} </span>
-          </li>
-
-          <li>
-            <v-icon size="16"> mdi-email-outline </v-icon>
-
-            <a :href="`mailto:${CONTACT.email}`">{{ CONTACT.email }}</a>
-          </li>
-
-          <li>
-            <v-icon size="16"> mdi-phone-outline </v-icon>
-
-            <a :href="`tel:${phoneHref()}`">{{ CONTACT.phone }}</a>
-          </li>
-        </ul>
+        
 
         <p class="footer-note">
           Cần hỗ trợ kích hoạt thiệp, thanh toán hay chỉnh sửa nội dung?

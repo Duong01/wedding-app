@@ -99,6 +99,7 @@ const brideName = computed(() =>
 .dong-hero {
   position: relative;
   min-height: 700px;
+  min-height: min(700px, 100dvh);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -114,7 +115,7 @@ const brideName = computed(() =>
   content: "";
   position: absolute;
   inset: 12px;
-  border: 1px solid rgba(201,149,82,.35);
+  border: 1px solid rgba(201,149,82,.6);
   pointer-events: none;
 }
 

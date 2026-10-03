@@ -543,6 +543,8 @@ async function copy(value) {
 }
 
 .rr-gift__card {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -552,6 +554,15 @@ async function copy(value) {
   flex: 1 1 180px;
 
   max-width: 220px;
+
+  padding: 16px 12px;
+
+  border: 1px solid var(--rr-card-border, var(--rr-hairline));
+  border-radius: 12px;
+
+  background-color: var(--rr-white, #fff9ed);
+
+  box-shadow: 0 8px 20px rgba(92, 8, 12, 0.1);
 }
 
 .rr-gift__card-title {

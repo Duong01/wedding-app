@@ -2,6 +2,8 @@
   <main class="mk-page">
     <HomeHero :weddings="weddings" />
 
+    <TemplatesShowcase :weddings="weddings" />
+
     <TemplateGallery :weddings="weddings" :loading="store.loading" />
 
     <FeatureBento />
@@ -10,7 +12,7 @@
 
     <FeatureTabs />
 
-    <CollectionShowcase />
+    <CollectionShowcase :weddings="weddings" />
 
     <Testimonials />
 
@@ -28,6 +30,7 @@
 import { computed, onMounted } from "vue";
 
 import HomeHero from "@/components/home/HomeHero.vue";
+import TemplatesShowcase from "@/components/home/TemplatesShowcase.vue";
 import TemplateGallery from "@/components/home/TemplateGallery.vue";
 import FeatureBento from "@/components/home/FeatureBento.vue";
 import HowItWorks from "@/components/home/HowItWorks.vue";

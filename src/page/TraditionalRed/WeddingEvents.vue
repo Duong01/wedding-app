@@ -352,7 +352,7 @@ function buildCalendarUrl(event) {
 const normalizedEvents = computed(() => {
   const list = Array.isArray(props.events) ? props.events : [];
 
-  return list.map((item) => {
+  return list.slice(0,1).map((item) => {
     const rawDate = item.EventDate || item.Date || item.StartDate || "";
 
     const date = new Date(rawDate);

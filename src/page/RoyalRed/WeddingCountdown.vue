@@ -159,14 +159,30 @@ onUnmounted(() => clearInterval(timer));
 }
 
 .rr-countdown__box {
+  position: relative;
+
   padding: 14px 4px;
 
-  border: 1px solid var(--rr-hairline);
+  border: 1px solid var(--rr-card-border, var(--rr-hairline));
   border-radius: 8px;
 
-  background-color: color-mix(in srgb, var(--rr-white) 40%, transparent);
+  background-color: var(--rr-white, #fff9ed);
+
+  box-shadow: 0 6px 16px rgba(92, 8, 12, 0.1);
 
   text-align: center;
+}
+
+.rr-countdown__box::before {
+  content: "";
+
+  position: absolute;
+  inset: 3px;
+
+  border: 1px solid var(--rr-card-inner, var(--rr-hairline-soft));
+  border-radius: 5px;
+
+  pointer-events: none;
 }
 
 .rr-countdown__number {

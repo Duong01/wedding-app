@@ -473,8 +473,15 @@ onMounted(() => {
   --rr-text-soft: var(--text-secondary, #79645a);
   --rr-white: var(--white, #fff9ed);
 
-  --rr-hairline: color-mix(in srgb, var(--rr-red) 27%, transparent);
-  --rr-hairline-soft: color-mix(in srgb, var(--rr-red) 13%, transparent);
+  --rr-hairline: color-mix(in srgb, var(--rr-red) 45%, transparent);
+  --rr-hairline-soft: color-mix(in srgb, var(--rr-red) 26%, transparent);
+
+  /* Khung nổi bật cho từng mục: nền đặc để chữ luôn đọc được
+     trên lớp hoa văn, viền đỏ đậm + viền trong mảnh vàng. */
+  --rr-card: var(--rr-white, #fff9ed);
+  --rr-card-border: color-mix(in srgb, var(--rr-red) 42%, transparent);
+  --rr-card-inner: color-mix(in srgb, var(--rr-gold) 60%, transparent);
+  --rr-card-shadow: 0 12px 30px rgba(92, 8, 12, 0.12);
 
   --rr-font-heading: var(
     --font-heading,
@@ -495,6 +502,7 @@ onMounted(() => {
 
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 
   overflow-x: hidden;
 
@@ -534,6 +542,7 @@ onMounted(() => {
 
   width: min(480px, 100%);
   min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
 
@@ -559,7 +568,7 @@ onMounted(() => {
   background-position: center top;
   background-size: 100% auto;
 
-  opacity: 0.3;
+  opacity: 0.14;
 }
 
 .rr-blooms {
@@ -581,7 +590,7 @@ onMounted(() => {
 
   object-fit: contain;
 
-  opacity: 0.1;
+  opacity: 0.06;
 }
 
 .rr-bloom.is-left {
@@ -617,6 +626,38 @@ onMounted(() => {
   z-index: 3;
 
   width: 100%;
+}
+
+/*
+ * Khung nổi bật cho từng mục: nền sáng đặc + viền đỏ đậm +
+ * viền trong mảnh vàng, để chữ tách hẳn khỏi nền hoa văn.
+ * Hero đã có dải màu riêng nên bỏ qua.
+ */
+.rr-section:not(.rr-section--hero) {
+  width: auto;
+  align-self: stretch;
+
+  margin: 0 14px;
+  padding: 24px 10px;
+
+  border: 1px solid var(--rr-card-border);
+  border-radius: 14px;
+
+  background-color: var(--rr-card);
+
+  box-shadow: var(--rr-card-shadow);
+}
+
+.rr-section:not(.rr-section--hero)::before {
+  content: "";
+
+  position: absolute;
+  inset: 6px;
+
+  border: 1px solid var(--rr-card-inner);
+  border-radius: 9px;
+
+  pointer-events: none;
 }
 
 .rr-section--hero {
@@ -754,6 +795,11 @@ onMounted(() => {
     gap: 56px;
 
     padding-bottom: 56px;
+  }
+
+  .rr-section:not(.rr-section--hero) {
+    margin: 0 40px;
+    padding: 36px 24px;
   }
 
   .royal-red :deep(.rr-title) {

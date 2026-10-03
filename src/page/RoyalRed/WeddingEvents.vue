@@ -742,6 +742,8 @@ const defaultCalendarUrl = computed(() => {
 }
 
 .rr-events__item {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -749,6 +751,27 @@ const defaultCalendarUrl = computed(() => {
   gap: 10px;
 
   width: 100%;
+
+  padding: 22px 16px;
+
+  border: 1px solid var(--rr-card-border, var(--rr-hairline));
+  border-radius: 12px;
+
+  background-color: var(--rr-white, #fff9ed);
+
+  box-shadow: 0 8px 20px rgba(92, 8, 12, 0.1);
+}
+
+.rr-events__item::before {
+  content: "";
+
+  position: absolute;
+  inset: 5px;
+
+  border: 1px solid var(--rr-card-inner, var(--rr-hairline-soft));
+  border-radius: 8px;
+
+  pointer-events: none;
 }
 
 

@@ -1,24 +1,13 @@
 <template>
   <section id="gallery" class="gallery">
     <div class="mk-container">
-      <header class="mk-head">
-        <div>
-          <p class="mk-eyebrow">Bộ sưu tập</p>
+      <header class="gallery-head">
+        <h2>
+          Mẫu thiệp cưới online
+          <em>đẹp nhất</em>
+        </h2>
 
-          <h2>
-            Chọn một
-            <em>bản sắc</em>
-            hợp với ngày chung đôi.
-          </h2>
-        </div>
-
-        <router-link
-          :to="{ name: 'Templates' }"
-          class="mk-btn mk-btn--outline mk-btn--sm"
-        >
-          Xem tất cả
-          <span aria-hidden="true">→</span>
-        </router-link>
+        <p>Khám phá những mẫu thiệp cưới được thiết kế tinh tế và hiện đại</p>
       </header>
 
       <div class="chips">
@@ -48,11 +37,15 @@
         @select="onSelect"
       />
 
-      <div class="mk-cta">
-        <router-link :to="{ name: 'Templates' }" class="mk-btn mk-btn--outline">
-          Xem tất cả {{ total }} mẫu thiệp
+      <div class="gallery-cta">
+        <router-link :to="{ name: 'Templates' }" class="gallery-cta__btn">
+          Xem tất cả mẫu thiệp
           <span aria-hidden="true">→</span>
         </router-link>
+
+        <p class="gallery-cta__note">
+          Những mẫu thiệp độc đáo đang chờ bạn
+        </p>
       </div>
     </div>
   </section>
@@ -75,8 +68,6 @@ const props = defineProps({
 const router = useRouter();
 
 const activeCollection = ref("all");
-
-const total = computed(() => props.weddings.length);
 
 const tabs = computed(() => {
   const list = [{ id: "all", name: "Tất cả", count: props.weddings.length }];
@@ -126,9 +117,43 @@ function onSelect(item) {
   padding: 48px 0 40px;
 }
 
+.gallery-head {
+  margin-bottom: 28px;
+
+  text-align: center;
+}
+
+.gallery-head h2 {
+  margin: 0 0 10px;
+
+  color: var(--studio-ink, #2b2118);
+
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 3.4vw, 36px);
+  font-weight: 700;
+
+  line-height: 1.15;
+}
+
+.gallery-head h2 em {
+  color: var(--studio-seal, #a63a2e);
+
+  font-family: var(--font-script, cursive);
+  font-style: normal;
+}
+
+.gallery-head p {
+  margin: 0;
+
+  color: var(--studio-ink-soft, #5c4f43);
+
+  font-size: 15px;
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   gap: 8px;
 
@@ -190,6 +215,57 @@ function onSelect(item) {
   color: var(--studio-ink-soft, #5c4f43);
 
   text-align: center;
+}
+
+/* =====================================================
+   CTA CUỐI — nút đỏ tròn như bản gốc
+===================================================== */
+
+.gallery-cta {
+  margin-top: 44px;
+
+  text-align: center;
+}
+
+.gallery-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 16px 32px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, var(--studio-seal, #a63a2e), #7c2a20);
+  color: #fdf6ec;
+
+  font-size: 15.5px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  box-shadow: 0 16px 36px rgba(166, 58, 46, 0.3);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.gallery-cta__btn:hover {
+  transform: scale(1.05);
+
+  filter: brightness(1.06);
+
+  box-shadow: 0 22px 46px rgba(166, 58, 46, 0.38);
+}
+
+.gallery-cta__note {
+  margin: 12px 0 0;
+
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 13.5px;
 }
 
 @media (min-width: 768px) {

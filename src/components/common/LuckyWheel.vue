@@ -25,6 +25,7 @@
           v-for="(prize, index) in prizes"
           :key="`${index}-${prize}`"
           class="lucky-wheel__label"
+          :class="{ 'lucky-wheel__label--on-light': index % 2 === 1 }"
           :style="labelStyle(index)"
         >
           {{ prize }}
@@ -239,7 +240,11 @@ function finishSpin(index) {
 
   transform: translateX(-50%);
 
-  color: var(--primary, #8a7a68);
+  /*
+   * --text (không phải --primary): theme nền tối có
+   * primary trùng màu nền — kim biến mất.
+   */
+  color: var(--text, var(--primary, #8a7a68));
 
   font-size: 22px;
   line-height: 1;
@@ -290,6 +295,16 @@ function finishSpin(index) {
   transform-origin: 0 0;
 }
 
+/*
+ * Ô lẻ nền accent-light (màu SÁNG) — chữ trắng tàng hình,
+ * đổi sang mực tối đã kiểm tra tương phản (xem useSectionTheme).
+ */
+.lucky-wheel__label--on-light {
+  color: var(--card-ink, #5c4d46);
+
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.45);
+}
+
 .lucky-wheel__hub {
   position: absolute;
   top: 50%;
@@ -335,7 +350,8 @@ function finishSpin(index) {
 
   padding: 16px 22px;
 
-  color: var(--text, #5c4d46);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text, #5c4d46));
 
   border: 1px dashed var(--accent, #c79d5c);
   border-radius: 16px;

@@ -636,6 +636,7 @@ onMounted(() => {
 
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 
   overflow-x: hidden;
 
@@ -681,6 +682,7 @@ onMounted(() => {
   width: min(48rem, 100%);
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
 
@@ -762,6 +764,7 @@ onMounted(() => {
   position: relative;
 
   min-height: 650px;
+  min-height: min(650px, 100dvh);
 
   padding: 0;
 
@@ -1101,6 +1104,7 @@ onMounted(() => {
 
   .hero-section {
     min-height: 620px;
+    min-height: min(620px, 100dvh);
   }
 
   .hero-cloud-left {
@@ -1131,6 +1135,7 @@ onMounted(() => {
 
   .hero-section {
     min-height: 580px;
+    min-height: min(580px, 100dvh);
   }
 
   .framed-section {
@@ -1195,6 +1200,7 @@ onMounted(() => {
   width: min(48rem, 100%);
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
 
@@ -1260,6 +1266,7 @@ onMounted(() => {
   position: relative;
 
   min-height: 650px;
+  min-height: min(650px, 100dvh);
 
   padding: 0;
 
@@ -1610,6 +1617,7 @@ onMounted(() => {
 
   .hero-section {
     min-height: 620px;
+    min-height: min(620px, 100dvh);
   }
 
   .hero-cloud-left {
@@ -1642,6 +1650,7 @@ onMounted(() => {
 
   .hero-section {
     min-height: 580px;
+    min-height: min(580px, 100dvh);
   }
 
   .framed-section {

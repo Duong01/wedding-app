@@ -170,7 +170,8 @@ async function submit() {
 }
 
 .prize-claim__title {
-  color: var(--heading, var(--primary, #8a7a68));
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -181,7 +182,8 @@ async function submit() {
 .prize-claim__hint {
   margin: 0;
 
-  color: var(--text-secondary, #806f66);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text-secondary, #806f66));
 
   font-size: 13px;
 }
@@ -191,7 +193,8 @@ async function submit() {
 
   padding: 11px 14px;
 
-  color: var(--text, #5c4d46);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text, #5c4d46));
 
   border: 1px solid var(--accent, #c79d5c);
   border-radius: 10px;
@@ -244,7 +247,8 @@ async function submit() {
 }
 
 .prize-claim__preview-note {
-  color: var(--text-secondary, #806f66);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text-secondary, #806f66));
 
   font-size: 11px;
 }

@@ -1385,6 +1385,7 @@ async function shareTemplate() {
   --muted: var(--studio-ink-faint, #8a7a68);
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   background:
     radial-gradient(
@@ -1667,6 +1668,7 @@ async function shareTemplate() {
   /* chiếm đúng phần còn lại của màn, nhưng dài thêm được
    * nếu nội dung (breadcrumb, sự kiện...) tràn trên màn thấp */
   min-height: calc(100vh - 68px);
+  min-height: calc(100dvh - 68px);
 
   display: flex;
   align-items: center;
@@ -1700,6 +1702,7 @@ async function shareTemplate() {
 .preview-card {
   width: min(360px, 100%);
   max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
 
   aspect-ratio: 9 / 16;
 

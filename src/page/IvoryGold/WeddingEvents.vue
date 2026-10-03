@@ -2020,6 +2020,7 @@ const firstEvent = computed(() => {
   max-width: 460px;
 
   max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
 
   overflow-y: auto;
 
@@ -2553,6 +2554,7 @@ const firstEvent = computed(() => {
 
   .confirm-modal {
     max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
 
     border-radius: 20px;
   }

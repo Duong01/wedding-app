@@ -151,6 +151,7 @@ onMounted(() => {
   --theme-panel: rgba(38, 29, 35, 0.72);
   --theme-text: #f0e6d2;
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background:
     radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),

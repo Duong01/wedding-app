@@ -1743,6 +1743,64 @@ body {
 }
 
 /* ==================================================
+   ĐIỆN THOẠI NHỎ (≤ 380px)
+   --------------------------------------------------
+   Brand + hai nút header vừa khít ở 360px; máy 320px thì
+   tràn. Thu brand và nút lại một bậc, đồng thời siết đệm
+   khung để nội dung không bị bó.
+================================================== */
+
+@media (max-width: 380px) {
+  .site-header-inner {
+    width: calc(100% - 24px);
+
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 7px;
+
+    font-size: 20px;
+  }
+
+  .brand-mark {
+    min-width: 46px;
+    height: 28px;
+
+    font-size: 11px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .nav-toggle {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .quick-nav--bottom {
+    gap: 6px;
+
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .quick-nav--bottom .quick-link {
+    padding: 6px 4px;
+
+    font-size: 10.5px;
+  }
+}
+
+/* ==================================================
    REDUCE MOTION
 ================================================== */
 

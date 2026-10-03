@@ -141,12 +141,14 @@ onBeforeUnmount(() => {
 <style scoped>
 .preview-renderer {
   min-height: 100vh;
+  min-height: 100dvh;
 
   background: #fff;
 }
 
 .preview-renderer-empty {
   min-height: 100vh;
+  min-height: 100dvh;
 
   display: flex;
 

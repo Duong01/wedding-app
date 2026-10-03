@@ -1392,6 +1392,7 @@ function showToast(message) {
   position: relative;
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   background: var(--studio-paper, #f7f1e6);
 
@@ -1778,6 +1779,7 @@ function showToast(message) {
   width: min(560px, 100%);
 
   max-height: min(640px, calc(100vh - 48px));
+  max-height: min(640px, calc(100dvh - 48px));
 
   padding: 26px 24px;
 

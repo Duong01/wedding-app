@@ -159,6 +159,7 @@ const dateText = computed(() => {
   padding: 14px;
 
   min-height: 690px;
+  min-height: min(690px, 100dvh);
 
   background:
     radial-gradient(ellipse at 50% 0%, rgba(254, 250, 251, 0.9), transparent 55%),
@@ -209,6 +210,7 @@ const dateText = computed(() => {
   z-index: 2;
 
   min-height: 662px;
+  min-height: min(662px, 100dvh);
 
   display: grid;
   place-items: center;
@@ -583,6 +585,7 @@ const dateText = computed(() => {
 
   .rr-hero__frame {
     min-height: 640px;
+    min-height: min(640px, 100dvh);
   }
 
   .rr-hero h1 {

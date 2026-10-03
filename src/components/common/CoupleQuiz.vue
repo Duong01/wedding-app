@@ -199,7 +199,8 @@ function restart() {
 
   margin-bottom: 12px;
 
-  color: var(--text-secondary, #806f66);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text-secondary, #806f66));
 
   font-size: 11px;
   font-weight: 700;
@@ -209,7 +210,8 @@ function restart() {
 .couple-quiz__question {
   margin: 0 0 16px;
 
-  color: var(--heading, var(--primary, #8a7a68));
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -231,7 +233,8 @@ function restart() {
 
   padding: 11px 14px;
 
-  color: var(--text, #5c4d46);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text, #5c4d46));
 
   border: 1px solid var(--accent, #c79d5c);
   border-radius: 12px;
@@ -308,7 +311,8 @@ function restart() {
 }
 
 .couple-quiz__score {
-  color: var(--text-secondary, #806f66);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text-secondary, #806f66));
 
   font-size: 12px;
   font-weight: 700;
@@ -318,7 +322,8 @@ function restart() {
 .couple-quiz__blessing {
   margin: 0;
 
-  color: var(--text, #5c4d46);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text, #5c4d46));
 
   font-size: 15px;
   text-align: center;
@@ -329,7 +334,7 @@ function restart() {
 
   margin-top: 4px;
 
-  color: var(--heading, var(--primary, #8a7a68));
+  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 

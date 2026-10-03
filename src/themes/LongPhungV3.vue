@@ -151,6 +151,7 @@ onMounted(() => {
   --lpv3-gift-gold: #d4af37;
 
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background: var(--lpv3-red);
   color: var(--lpv3-gold);

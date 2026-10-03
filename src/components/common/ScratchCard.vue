@@ -337,7 +337,8 @@ function reset() {
 }
 
 .scratch-card__prize {
-  color: var(--heading, var(--primary, #8a7a68));
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -348,7 +349,8 @@ function reset() {
 }
 
 .scratch-card__desc {
-  color: var(--text-secondary, #806f66);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text-secondary, #806f66));
 
   font-size: 12px;
   text-align: center;

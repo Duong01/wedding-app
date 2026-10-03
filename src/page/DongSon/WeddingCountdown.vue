@@ -105,14 +105,16 @@ onUnmounted(() => {
   max-width: 580px;
   margin: auto;
   padding: 50px 20px;
-  border: 1px solid rgba(201,149,82,.4);
+  border: 1px solid rgba(201,149,82,.7);
+  background: rgba(0,0,0,.22);
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
 }
 
 .countdown-disc::before {
   content: "";
   position: absolute;
   inset: 12px;
-  border: 1px dashed rgba(201,149,82,.28);
+  border: 1px dashed rgba(201,149,82,.45);
 }
 
 .title,
@@ -143,7 +145,7 @@ h2 {
 
 .time-box {
   padding: 13px 3px;
-  border-left: 1px solid rgba(201,149,82,.35);
+  border-left: 1px solid rgba(201,149,82,.55);
 }
 
 .time-box:first-child {

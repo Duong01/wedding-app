@@ -585,6 +585,7 @@ async function submitForgot() {
   position: relative;
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   display: flex;
 

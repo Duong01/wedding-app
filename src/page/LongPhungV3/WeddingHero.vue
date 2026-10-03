@@ -399,8 +399,15 @@ const dateText = computed(() => {
 
   margin-top: 28px;
 
-  width: 360px;
-  height: 525px;
+  /*
+   * Khung SVG giữ đúng tỉ lệ 754:1099 — đặt bề rộng theo
+   * bề ngang còn lại của màn hình (trừ đệm hai bên) rồi để
+   * chiều cao tự suy ra, thay vì khoá cứng 360×525. Máy
+   * 320px nhờ vậy không bị khung tràn ra ngoài.
+   */
+  width: min(360px, 100%);
+  aspect-ratio: 754 / 1099;
+  height: auto;
 }
 
 @media (min-width: 768px) {
@@ -408,14 +415,12 @@ const dateText = computed(() => {
     margin-top: 36px;
 
     width: 450px;
-    height: 657px;
   }
 }
 
 @media (min-width: 1024px) {
   .lp-hero__frame-wrap {
     width: 500px;
-    height: 729px;
   }
 }
 
@@ -569,8 +574,7 @@ const dateText = computed(() => {
 
 @media (max-width: 380px) {
   .lp-hero__frame-wrap {
-    width: 300px;
-    height: 438px;
+    width: min(300px, 100%);
   }
 
   .lp-hero__bird {

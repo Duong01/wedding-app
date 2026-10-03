@@ -6,7 +6,7 @@
     Tự gate: settings.ShowVideo === true và có link —
     orchestrator cũng gate ngoài (2 lớp như các mục khác).
   -->
-  <section v-if="visible" class="video-section">
+  <section v-if="visible" class="video-section" :style="sectionStyle">
     <header v-if="eyebrow || heading" class="video-section__head">
       <p v-if="eyebrow" class="video-section__eyebrow">{{ eyebrow }}</p>
 
@@ -26,6 +26,8 @@ import VideoEmbed from "@/components/common/VideoEmbed.vue";
 
 import { sectionText } from "@/data/sectionTitles";
 
+import { useSectionTheme } from "@/composables/useSectionTheme";
+
 const props = defineProps({
   /*
    * Nhận cả object wedding — prop duy nhất mọi orchestrator
@@ -33,6 +35,13 @@ const props = defineProps({
    */
   wedding: { type: Object, required: true },
 });
+
+/*
+ * Gắn bảng màu của thiệp lên gốc section — 15/26 theme
+ * không có pipeline màu nên video không còn rơi về bảng
+ * :root đỏ son của theme.css (xem useSectionTheme).
+ */
+const { sectionStyle } = useSectionTheme(() => props.wedding);
 
 const video = computed(() => props.wedding?.video || {});
 

@@ -116,6 +116,7 @@ const brideName = computed(
 @media (min-width: 900px) {
   .mw-hero {
     min-height: 650px;
+    min-height: min(650px, 100dvh);
 
     padding: 0 40px;
   }

@@ -168,6 +168,7 @@ onMounted(() => {
   --theme-panel: rgba(255,255,255,0.7);
   --theme-text: #523835;
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background: var(--theme-bg);
   color: var(--theme-text);

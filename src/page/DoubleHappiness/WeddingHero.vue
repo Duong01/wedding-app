@@ -161,6 +161,7 @@ const dateText = computed(() => {
   padding: 14px;
 
   min-height: 690px;
+  min-height: min(690px, 100dvh);
 
   display: grid;
   place-items: center;

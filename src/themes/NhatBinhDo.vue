@@ -511,6 +511,7 @@ onMounted(() => {
 
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 
   background-color: var(--cfr-cream);
   color: var(--cfr-red-deep);
@@ -545,6 +546,7 @@ onMounted(() => {
 
   width: min(480px, 100%);
   min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
 

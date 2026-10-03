@@ -5,7 +5,7 @@
         <p class="mk-eyebrow">Bộ sưu tập</p>
 
         <h2>
-          Năm bản sắc,
+          Bảy bản sắc,
           <em>một ngày chung đôi.</em>
         </h2>
 
@@ -15,34 +15,42 @@
         </p>
       </header>
 
-      <RailHint text="Vuốt ngang để xem đủ năm bộ sưu tập" />
-
-      <div class="collections mk-rail">
+      <div class="collections">
         <router-link
           v-for="col in cards"
           :key="col.id"
           :to="{ name: col.routeName }"
           class="col-card"
         >
-          <span class="col-swatches" aria-hidden="true">
-            <span
-              v-for="(swatch, index) in col.swatches"
-              :key="index"
-              class="col-swatch"
-              :style="{ background: swatch }"
-            ></span>
-          </span>
+          <div class="col-media">
+            <img
+              v-if="col.src"
+              :src="col.src"
+              :alt="col.title"
+              class="col-img"
+              loading="lazy"
+              @error="handleImageError"
+            />
 
-          <h3>{{ col.title }}</h3>
+            <span v-else class="col-img col-img--empty" aria-hidden="true">
+              {{ col.orn }}
+            </span>
 
-          <p class="col-sub">{{ col.sub }}</p>
+            <span class="col-count">{{ col.count }} mẫu</span>
+          </div>
 
-          <p class="col-text">{{ col.text }}</p>
+          <div class="col-body">
+            <h3>{{ col.title }}</h3>
 
-          <span class="col-more">
-            Xem bộ sưu tập
-            <span aria-hidden="true">→</span>
-          </span>
+            <p class="col-sub">{{ col.sub }}</p>
+
+            <p class="col-text">{{ col.text }}</p>
+
+            <span class="col-more">
+              Xem bộ sưu tập
+              <span aria-hidden="true">→</span>
+            </span>
+          </div>
         </router-link>
       </div>
     </div>
@@ -52,22 +60,35 @@
 <script setup>
 import { computed } from "vue";
 
-import RailHint from "@/components/marketing/RailHint.vue";
-
 import { COLLECTIONS } from "@/data/templateCollections";
 import { COLLECTION_LANDING } from "@/data/siteContent";
+import { handleImageError, previewFor, themeMeta } from "@/utils/weddingCard";
 
+const props = defineProps({
+  weddings: { type: Array, default: () => [] },
+});
+
+/*
+ * Mỗi bộ sưu tập lấy ảnh của mẫu đầu tiên thuộc bộ đó làm
+ * mặt bìa — nhìn là thấy ngay tinh thần của cả nhóm.
+ */
 const cards = computed(() =>
   COLLECTIONS.map((col) => {
     const landing = COLLECTION_LANDING[col.id] || {};
 
+    const members = props.weddings.filter(
+      (w) => themeMeta(w).collection === col.id
+    );
+
     return {
       id: col.id,
       sub: col.sub,
-      swatches: col.swatches,
+      orn: members.length ? themeMeta(members[0]).orn : "✦",
       title: landing.title || col.name,
       text: landing.text || col.sub,
       routeName: landing.routeName || "Templates",
+      count: members.length,
+      src: members.length ? previewFor(members[0]) : "",
     };
   })
 );
@@ -78,14 +99,14 @@ const cards = computed(() =>
   display: grid;
   grid-template-columns: 1fr;
 
-  gap: 14px;
+  gap: 16px;
 }
 
 .col-card {
   display: flex;
   flex-direction: column;
 
-  padding: 24px 22px;
+  overflow: hidden;
 
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
   border-radius: 22px;
@@ -110,20 +131,71 @@ const cards = computed(() =>
   box-shadow: 0 24px 52px rgba(43, 33, 24, 0.1);
 }
 
-.col-swatches {
-  display: flex;
+/* --- ảnh bìa --- */
 
-  gap: 6px;
+.col-media {
+  position: relative;
 
-  margin-bottom: 16px;
+  aspect-ratio: 4 / 3;
+
+  overflow: hidden;
+
+  background: var(--studio-paper-deep, #efe6d4);
 }
 
-.col-swatch {
-  width: 26px;
-  height: 26px;
+.col-img {
+  display: block;
 
-  border: 1px solid rgba(43, 33, 24, 0.1);
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  transition: transform 0.5s ease;
+}
+
+.col-card:hover .col-img {
+  transform: scale(1.05);
+}
+
+.col-img--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgba(43, 33, 24, 0.25);
+
+  font-family: var(--font-symbol);
+  font-size: 40px;
+}
+
+.col-count {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+
+  padding: 5px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(43, 33, 24, 0.72);
+  color: #f7f1e6;
+
+  font-size: 11.5px;
+  font-weight: 600;
+
+  backdrop-filter: blur(6px);
+}
+
+/* --- phần chữ --- */
+
+.col-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  padding: 20px 20px 22px;
 }
 
 .col-card h3 {
@@ -180,6 +252,72 @@ const cards = computed(() =>
   }
 }
 
+/*
+ * Điện thoại: bảy bộ sưu tập xếp một cột là bảy màn hình
+ * cuộn liên tiếp. Hai cột vẫn đọc rõ ảnh bìa mà chiều cao
+ * giảm còn một nửa.
+ */
+@media (max-width: 767px) {
+  .collections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .col-body {
+    padding: 14px 14px 16px;
+  }
+
+  .col-card h3 {
+    font-size: 16px;
+  }
+
+  .col-sub {
+    font-size: 10px;
+
+    letter-spacing: 0.06em;
+  }
+
+  .col-text {
+    margin-bottom: 12px;
+
+    font-size: 12.5px;
+
+    line-height: 1.6;
+  }
+
+  .col-more {
+    font-size: 12px;
+  }
+
+  .col-count {
+    right: 8px;
+    bottom: 8px;
+
+    padding: 4px 9px;
+
+    font-size: 10.5px;
+  }
+}
+
+@media (max-width: 380px) {
+  .collections {
+    gap: 10px;
+  }
+
+  .col-body {
+    padding: 12px 12px 14px;
+  }
+
+  .col-card h3 {
+    font-size: 15px;
+  }
+
+  .col-text {
+    font-size: 12px;
+  }
+}
+
 @media (min-width: 1024px) {
   .collections {
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -196,7 +334,8 @@ const cards = computed(() =>
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .col-card {
+  .col-card,
+  .col-img {
     transition: none;
   }
 }

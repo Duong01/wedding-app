@@ -78,6 +78,10 @@ export const NAV_LINKS = [
 
 /*
  * Liên kết phụ ở chân trang — nhóm theo chủ đề.
+ *
+ * Nhóm đặt `contact: true` render dạng danh sách liên hệ
+ * (icon + link mailto/tel) thay vì router-link; `note` nếu có
+ * hiển thị thành đoạn ghi chú dưới danh sách.
  */
 export const FOOTER_GROUPS = [
   {
@@ -106,6 +110,16 @@ export const FOOTER_GROUPS = [
       { label: "Thiệp cưới hiện đại", routeName: "TemplatesModern" },
       { label: "Thiệp cưới truyền thống", routeName: "TemplatesTraditional" },
     ],
+  },
+  {
+    title: "Liên hệ",
+    contact: true,
+    links: [
+      { icon: "mdi-clock-outline", label: `Hỗ trợ ${CONTACT.hours}` },
+      { icon: "mdi-email-outline", label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+      { icon: "mdi-phone-outline", label: CONTACT.phone, href: `tel:${phoneHref()}` },
+    ],
+    note: "Cần hỗ trợ kích hoạt thiệp, thanh toán hay chỉnh sửa nội dung? Nhắn tin trực tiếp qua Messenger — phản hồi trong vài phút.",
   },
 ];
 
@@ -163,16 +177,19 @@ export const STEPS = [
     seal: "壹",
     title: "Chọn mẫu",
     text: "Duyệt bộ sưu tập, chọn tấm thiệp đúng gu của hai bạn.",
+    short: "Chọn thiệp yêu thích",
   },
   {
     seal: "贰",
     title: "Điền thông tin",
     text: "Nhập tên, ngày cưới, sự kiện, ảnh và lời nhắn một lần — hiển thị đồng bộ khắp thiệp.",
+    short: "Thêm ảnh và nội dung",
   },
   {
     seal: "叁",
     title: "Gửi khách mời",
     text: "Xuất bản và chia sẻ đường link qua Zalo, Messenger hay in mã QR lên thiệp giấy.",
+    short: "Gửi qua Zalo, Messenger",
   },
 ];
 

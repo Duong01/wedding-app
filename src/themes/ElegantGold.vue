@@ -260,6 +260,7 @@ onMounted(() => {
   --la-font-display: "Plus Jakarta Sans", "Be Vietnam Pro", sans-serif;
 
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 
   background-color: var(--la-paper);

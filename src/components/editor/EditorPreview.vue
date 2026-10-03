@@ -388,11 +388,13 @@ async function loadFromApi(slug) {
 <style scoped>
 .wedding-preview-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #f4f5f7;
 }
 
 .preview-page {
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* =========================================================
@@ -502,6 +504,7 @@ async function loadFromApi(slug) {
 
 .preview-content {
   min-height: calc(100vh - 64px);
+  min-height: calc(100dvh - 64px);
 
   display: flex;
   justify-content: center;
@@ -514,6 +517,7 @@ async function loadFromApi(slug) {
   width: min(900px, 100%);
 
   min-height: 700px;
+  min-height: min(700px, 100dvh);
 
   overflow: hidden;
 
@@ -529,6 +533,7 @@ async function loadFromApi(slug) {
 .preview-loading,
 .preview-error {
   min-height: 100vh;
+  min-height: 100dvh;
 
   display: flex;
 
@@ -632,6 +637,7 @@ async function loadFromApi(slug) {
 
 .theme-error {
   min-height: 700px;
+  min-height: min(700px, 100dvh);
 
   display: flex;
 
@@ -762,6 +768,7 @@ async function loadFromApi(slug) {
     width: 100%;
 
     min-height: 100vh;
+    min-height: 100dvh;
 
     box-shadow: none;
   }

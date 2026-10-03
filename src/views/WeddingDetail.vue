@@ -170,6 +170,7 @@ function goIntro() {
 .wedding-detail {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .wedding-loading {
@@ -263,6 +264,7 @@ function goIntro() {
 .wedding-error,
 .theme-error {
   min-height: 100vh;
+  min-height: 100dvh;
 
   display: flex;
 

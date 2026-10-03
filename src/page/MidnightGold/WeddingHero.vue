@@ -155,6 +155,7 @@ const dateText = computed(() => {
   padding: 14px;
 
   min-height: 690px;
+  min-height: min(690px, 100dvh);
 
   background:
     radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),
@@ -169,6 +170,7 @@ const dateText = computed(() => {
   position: relative;
 
   min-height: 662px;
+  min-height: min(662px, 100dvh);
 
   display: grid;
   place-items: center;
@@ -553,6 +555,7 @@ const dateText = computed(() => {
 
   .mg-hero__frame {
     min-height: 640px;
+    min-height: min(640px, 100dvh);
   }
 
   .mg-hero h1 {

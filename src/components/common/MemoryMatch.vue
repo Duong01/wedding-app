@@ -346,7 +346,8 @@ function restart() {
 }
 
 .memory-match__score {
-  color: var(--text-secondary, #806f66);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text-secondary, #806f66));
 
   font-size: 12px;
   font-weight: 700;
@@ -356,7 +357,8 @@ function restart() {
 .memory-match__prize {
   margin: 0;
 
-  color: var(--text, #5c4d46);
+  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
+  color: var(--card-ink, var(--text, #5c4d46));
 
   font-size: 15px;
   text-align: center;
@@ -367,7 +369,7 @@ function restart() {
 
   margin-top: 4px;
 
-  color: var(--heading, var(--primary, #8a7a68));
+  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 

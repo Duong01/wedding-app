@@ -116,7 +116,19 @@ h2 {
 }
 
 .timeline-content {
-  padding: 5px 0 15px;
+  position: relative;
+  padding: 16px 18px;
+  border: 1px solid rgba(143,36,28,.5);
+  background: #fffaf0;
+  box-shadow: 0 8px 20px rgba(84,18,15,.12);
+}
+
+.timeline-content::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(169,107,50,.35);
+  pointer-events: none;
 }
 
 .timeline-content > span {

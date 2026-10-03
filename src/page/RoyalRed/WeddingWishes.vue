@@ -445,12 +445,14 @@ async function submit() {
 }
 
 .rr-wishes__item {
-  padding: 12px;
+  padding: 14px;
 
-  border: 1px solid var(--rr-hairline);
+  border: 1px solid var(--rr-card-border, var(--rr-hairline));
   border-radius: 8px;
 
   background-color: #ffffff;
+
+  box-shadow: 0 6px 16px rgba(92, 8, 12, 0.08);
 
   font-size: 13px;
 }

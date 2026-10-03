@@ -306,8 +306,14 @@ onMounted(() => {
   --dong-paper: #eee3cd;
   --dong-text: #641914;
 
+  /* Khung nổi bật cho từng mục */
+  --dong-frame: rgba(169, 107, 50, 0.55);
+  --dong-frame-inner: rgba(169, 107, 50, 0.3);
+  --dong-frame-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   background: linear-gradient(135deg, #1a0a08 0%, #24100e 50%, #1a0a08 100%);
 }
@@ -333,6 +339,7 @@ onMounted(() => {
   position: relative;
   width: min(48rem, 100%);
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
   overflow: hidden;
 
@@ -359,6 +366,32 @@ onMounted(() => {
   overflow: hidden;
 }
 
+/*
+ * Khung nổi bật cho từng mục: viền vàng đồng đậm + viền trong
+ * mảnh, đổ bóng tách khỏi nền thiệp. Hero đã có khung riêng.
+ */
+.section:not(.hero-section) {
+  margin: 0 14px 18px;
+
+  border: 1px solid var(--dong-frame);
+  border-radius: 4px;
+
+  box-shadow: var(--dong-frame-shadow);
+}
+
+.section:not(.hero-section)::after {
+  content: "";
+
+  position: absolute;
+  inset: 6px;
+
+  border: 1px solid var(--dong-frame-inner);
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
 .hero-section {
   padding: 0;
   border-bottom: 2px solid rgba(169, 107, 50, 0.3);
@@ -375,7 +408,7 @@ onMounted(() => {
 .guestbook-section,
 .footer-section {
   padding: 0;
-  border-bottom: 1px solid rgba(169, 107, 50, 0.2);
+  border-bottom: 1px solid var(--dong-frame);
 }
 
 .footer-section {
@@ -392,29 +425,12 @@ onMounted(() => {
   width: 100%;
   height: auto;
   text-align: center;
-  color: rgba(169, 107, 50, 0.3);
+  color: rgba(169, 107, 50, 0.55);
   font-size: 10px;
   letter-spacing: 0.3em;
   padding: 12px 0;
   pointer-events: none;
-}
-
-.section:not(.hero-section)::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 85%;
-  height: 1px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(169, 107, 50, 0.3) 20%,
-    rgba(169, 107, 50, 0.3) 80%,
-    transparent 100%
-  );
-  pointer-events: none;
+  z-index: 6;
 }
 
 /* Animations */

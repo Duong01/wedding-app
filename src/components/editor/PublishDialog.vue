@@ -253,6 +253,7 @@ function openWedding() {
   max-width: 420px;
 
   max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
 
   overflow-y: auto;
 

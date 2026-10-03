@@ -18,6 +18,7 @@
   --wine-dark: #7c2a20;
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   background:
     radial-gradient(
@@ -490,11 +491,13 @@
  */
 .editor-login-notice ~ .editor-layout {
   height: calc(100vh - 68px - 40px);
+  height: calc(100dvh - 68px - 40px);
 }
 
 .editor-login-notice ~ .editor-loading,
 .editor-login-notice ~ .editor-error {
   min-height: calc(100vh - 68px - 40px);
+  min-height: calc(100dvh - 68px - 40px);
 }
 
 /* =========================================================
@@ -504,6 +507,7 @@
 .editor-loading,
 .editor-error {
   min-height: calc(100vh - 68px);
+  min-height: calc(100dvh - 68px);
 
   display: flex;
 
@@ -581,6 +585,7 @@
 
 .editor-layout {
   height: calc(100vh - 68px);
+  height: calc(100dvh - 68px);
 
   display: grid;
 
@@ -1874,6 +1879,7 @@
   height: 100%;
 
   min-height: 680px;
+  min-height: min(680px, 100dvh);
 
   border-radius: 4px;
 }
@@ -2620,6 +2626,7 @@
 
   .editor-layout {
     height: calc(100vh - 62px);
+    height: calc(100dvh - 62px);
 
     display: block;
 
@@ -2635,11 +2642,13 @@
 
   .editor-login-notice ~ .editor-layout {
     height: calc(100vh - 62px - 40px);
+    height: calc(100dvh - 62px - 40px);
   }
 
   .editor-login-notice ~ .editor-loading,
   .editor-login-notice ~ .editor-error {
     min-height: calc(100vh - 62px - 40px);
+    min-height: calc(100dvh - 62px - 40px);
   }
 
   .editor-sidebar {

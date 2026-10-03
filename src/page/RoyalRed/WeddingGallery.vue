@@ -214,10 +214,12 @@ const closeLightbox = () => {
 
   overflow: hidden;
 
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  border: 1px solid var(--rr-card-border, var(--rr-hairline));
   border-radius: 8px;
 
-  background-color: color-mix(in srgb, var(--rr-white) 50%, transparent);
+  background-color: var(--rr-white, #fff9ed);
+
+  box-shadow: 0 6px 16px rgba(92, 8, 12, 0.1);
 
   cursor: pointer;
 }

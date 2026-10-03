@@ -250,6 +250,7 @@ const coupleImage = computed(() => {
 
   width: 100%;
   min-height: 650px;
+  min-height: min(650px, 100dvh);
 
   overflow: hidden;
 
@@ -817,6 +818,7 @@ const coupleImage = computed(() => {
 
   .hero {
     min-height: 620px;
+    min-height: min(620px, 100dvh);
   }
 
 
@@ -907,6 +909,7 @@ const coupleImage = computed(() => {
 
   .hero {
     min-height: 590px;
+    min-height: min(590px, 100dvh);
   }
 
 

@@ -808,6 +808,137 @@
 }
 
 /* ===========================================================
+   ĐIỆN THOẠI
+   -----------------------------------------------------------
+   Trang marketing dựng theo nhịp thoáng của màn lớn; trên
+   điện thoại nhịp đó khiến trang dài và nút tràn mép. Khối
+   này siết lại: đệm section, cỡ tiêu đề, và cho nút xuống
+   dòng thay vì `white-space: nowrap` đẩy tràn ngang.
+=========================================================== */
+
+@media (max-width: 640px) {
+  .mk-section {
+    padding: 40px 0 32px;
+  }
+
+  .mk-section--tight {
+    padding: 28px 0 24px;
+  }
+
+  .mk-head {
+    gap: 14px;
+
+    margin-bottom: 24px;
+  }
+
+  .mk-head h2 {
+    font-size: clamp(23px, 7vw, 30px);
+
+    letter-spacing: -0.01em;
+  }
+
+  .mk-head p {
+    font-size: 14.5px;
+
+    line-height: 1.7;
+  }
+
+  /*
+   * Nhãn nút dài ("Xem ngay 26 mẫu thiệp →") cộng nowrap là
+   * nguồn tràn ngang phổ biến nhất trên máy 360px. Cho phép
+   * xuống dòng và không vượt quá bề rộng khung.
+   */
+  .mk-btn {
+    max-width: 100%;
+
+    white-space: normal;
+
+    text-align: center;
+  }
+
+  .mk-cta {
+    margin-top: 28px;
+  }
+
+  .mk-hero {
+    padding: 40px 0 32px;
+  }
+
+  .mk-hero h1 {
+    font-size: clamp(27px, 8.4vw, 38px);
+  }
+
+  .mk-hero__lead {
+    margin-top: 16px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+  }
+
+  .mk-hero__actions {
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .mk-hero__stats {
+    gap: 20px 26px;
+
+    margin-top: 28px;
+  }
+
+  .mk-hero__stats strong {
+    font-size: 22px;
+  }
+
+  .mk-card {
+    padding: 22px 18px;
+  }
+
+  .mk-faq-q {
+    gap: 12px;
+
+    padding: 16px 16px;
+
+    font-size: 14.5px;
+  }
+
+  .mk-faq-a p {
+    padding: 0 16px;
+
+    font-size: 13.5px;
+  }
+
+  .mk-faq-item.is-open .mk-faq-a p {
+    padding-bottom: 16px;
+  }
+
+  .mk-final {
+    padding: 32px 0 48px;
+  }
+
+  .mk-final__box {
+    padding: 36px 20px;
+
+    border-radius: 22px;
+  }
+
+  .mk-final__seal {
+    width: 46px;
+    height: 46px;
+
+    margin-bottom: 16px;
+
+    font-size: 22px;
+  }
+
+  .mk-final__box p {
+    font-size: 14.5px;
+  }
+}
+
+/* ===========================================================
    GIẢM CHUYỂN ĐỘNG
 =========================================================== */
 

@@ -16,13 +16,13 @@ import {
  */
 
 const previewModules = import.meta.glob(
-  "../assets/template-preview/*.webp",
+  "../assets/template-preview/*.jpeg",
   { eager: true, import: "default" }
 );
 
 export const PREVIEWS = Object.fromEntries(
   Object.entries(previewModules).map(([path, url]) => {
-    const stem = path.split("/").pop().replace(".webp", "");
+    const stem = path.split("/").pop().replace(".jpeg", "");
 
     return [stem, url];
   })
@@ -33,33 +33,33 @@ export const PREVIEWS = Object.fromEntries(
  * hiện ra như những thiết kế khác nhau, không lặp hình.
  */
 export const THEME_PREVIEW = {
-  "traditional-red": "song_hy_red",
-  "nhat-binh-do": "nhat_binh_red",
-  "dong-son": "co_ba_red",
-  "double-happiness": "double_phoenix_red",
-  "long-phung-v3": "dragon_phoenix_v3_red",
-  "elegant-gold": "baroque_gold",
-  "ivory-gold": "silk_ribbon_green",
-  "midnight-gold": "baroque_v2_darkblue",
-  "emerald-luxe": "royal_v2_green",
-  "royal-red": "royal_red",
-  "romantic-pink": "cherry_blossom_pink",
-  "sunset-peach": "hoa_kho_orange",
-  "champagne-blush": "silk_flora_brown",
-  "lavender-cream": "lien_hoa_pink",
-  "soft-rose": "glass_garden_pink",
-  "serene-green": "elegant_leaf_green",
-  "boho-terracotta": "boho_floral_green",
-  "song-hy-red": "song_hy_red",
-  "song-hac-red": "song_hy_red",
-  "to-duyen-xanh": "spring_garden_green",
-  "modern-white": "jasmine_white",
-  "watercolor-blush": "glass_garden_pink",
-  "botanical-leaf": "elegant_leaf_green",
-  "chateau-blue": "chateau_blue",
-  "jade-phoenix": "porcelain_v2_red",
-  "modern-noir": "minimalism_darkblue",
-  "ruby-romance": "lien_hoa_pink",
+  "traditional-red": "traditional-red",
+  "nhat-binh-do": "nhat-binh-do",
+  "dong-son": "dong-son",
+  "double-happiness": "double-happiness",
+  "long-phung-v3": "long-phung-v3",
+  "elegant-gold": "elegant-gold",
+  "ivory-gold": "ivory-gold",
+  "midnight-gold": "midnight-gold",
+  "emerald-luxe": "emerald-luxe",
+  "royal-red": "royal-red",
+  "romantic-pink": "romantic-pink",
+  "sunset-peach": "sunset-peach",
+  "champagne-blush": "champagne-blush",
+  "lavender-cream": "lavender-cream",
+  "soft-rose": "soft-rose",
+  "serene-green": "serene-green",
+  "boho-terracotta": "boho-terracotta",
+  "song-hy-red": "song-hy-red",
+  "song-hac-red": "song-hac-do",
+  "to-duyen-xanh": "to-duyen-xanh",
+  "modern-white": "modern-white",
+  "watercolor-blush": "watercolor-blush",
+  "botanical-leaf": "botanical-leaf",
+  "chateau-blue": "chateau-blue",
+  "jade-phoenix": "jade-phoenix",
+  "modern-noir": "modern-noir",
+  "ruby-romance": "ruby-romance",
 };
 
 export const FALLBACK_PREVIEW = "minimalism_red";

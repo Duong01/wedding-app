@@ -95,7 +95,19 @@ defineProps({
   z-index: 2;
   max-width: 570px;
   margin: auto;
+  padding: 34px 24px;
+  border: 1px solid rgba(201,149,82,.6);
+  background: rgba(0,0,0,.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
   text-align: center;
+}
+
+.story-content::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(201,149,82,.28);
+  pointer-events: none;
 }
 
 .section-title small {

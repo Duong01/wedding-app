@@ -237,9 +237,19 @@ h2 {
 }
 
 .gift-card {
+  position: relative;
   padding: 25px;
-  border: 1px solid rgba(143,36,28,.35);
-  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(143,36,28,.6);
+  background: #fffaf0;
+  box-shadow: 0 10px 26px rgba(84,18,15,.14);
+}
+
+.gift-card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(169,107,50,.4);
+  pointer-events: none;
 }
 
 .gift-top {

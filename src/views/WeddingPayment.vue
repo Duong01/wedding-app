@@ -1065,6 +1065,7 @@ function goView() {
   position: relative;
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   background: var(--studio-paper, #f7f1e6);
 

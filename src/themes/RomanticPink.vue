@@ -291,6 +291,7 @@ onMounted(() => {
   --gg-font-head: "Times New Roman", Times, serif;
 
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 
   color: var(--gg-deep);
@@ -327,6 +328,7 @@ onMounted(() => {
 
   width: min(480px, 100%);
   min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
   overflow: hidden;

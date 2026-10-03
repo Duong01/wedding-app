@@ -90,16 +90,16 @@
             :settings="settings"
           />
 
-          <!-- ============ VIDEO CƯỚI ============ -->
-
-          <VideoSection v-if="showVideo" :wedding="wedding" />
-
-          <!-- ============ TRÒ CHƠI ============ -->
-
-          <GameSection v-if="showGame" :wedding="wedding" />
+          
         </div>
       </div>
+      <!-- ============ VIDEO CƯỚI ============ -->
 
+      <VideoSection v-if="showVideo" :wedding="wedding" />
+
+      <!-- ============ TRÒ CHƠI ============ -->
+
+      <GameSection v-if="showGame" :wedding="wedding" />
       <!-- ============ LỊCH TRÌNH / LƯU BÚT / QUÀ ============ -->
 
       <div class="tr-invitation__map">

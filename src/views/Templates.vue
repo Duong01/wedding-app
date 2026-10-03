@@ -12,96 +12,20 @@
     </div>
 
     <!-- =====================================================
-         HERO
+         HEADER GỌN
+         Trang tập trung vào lưới thiệp — tiêu đề và số mẫu
+         gọn một khối, không còn khối marketing lớn.
     ====================================================== -->
-    <section class="page-hero">
-      <div class="container hero-inner">
-        <span class="eyebrow">
-          <span class="eyebrow-line"></span>
-          Bộ sưu tập thiệp cưới
-          <span class="eyebrow-line"></span>
-        </span>
+    <section class="page-head">
+      <div class="container head-inner">
+        <h1>{{ pageTitle }}</h1>
 
-        <h1>
-          Mỗi mẫu là một
-          <span>bản sắc</span>
-          riêng.
-        </h1>
-
-        <p class="hero-lead">
-          Năm bộ sưu tập — từ đỏ son Á Đông, lụa vàng kim tuyến đến tối giản
-          hiện đại — mỗi mẫu mang bảng màu, họa tiết và nhịp điệu riêng.
-          Chọn mẫu bạn thích và tùy chỉnh cho ngày cưới của bạn.
+        <p class="head-count">
+          <strong>{{ filteredWeddings.length }}</strong>
+          mẫu thiệp
+          <span class="head-sep">·</span>
+          Tạo miễn phí, dùng thử 3 ngày
         </p>
-
-        <!-- hai lối vào chính: xem mẫu nổi bật, hoặc bắt tay tạo thiệp -->
-        <div class="hero-actions">
-          <button
-            type="button"
-            class="hero-btn hero-btn-primary"
-            @click="goToFeatured"
-          >
-            <span>Xem mẫu nổi bật</span>
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14"></path>
-              <path d="m13 6 6 6-6 6"></path>
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            class="hero-btn hero-btn-ghost"
-            @click="goToEditor()"
-          >
-            Tạo thiệp của bạn
-          </button>
-        </div>
-
-        <!-- dòng tin cậy: gỡ rào cản trước khi người dùng bấm -->
-        <ul class="hero-trust">
-          <li>
-            <span class="trust-dot"></span>
-            Tạo miễn phí
-          </li>
-
-          <li>
-            <span class="trust-dot"></span>
-            Dùng thử 3 ngày
-          </li>
-
-          <li>
-            <span class="trust-dot"></span>
-            Đẹp mới thanh toán
-          </li>
-        </ul>
-
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <strong>{{ weddings.length }}</strong>
-            <span>Mẫu thiệp</span>
-          </div>
-
-          <div class="hero-stat-divider"></div>
-
-          <div class="hero-stat">
-            <strong>{{ themes.length }}</strong>
-            <span>Phong cách</span>
-          </div>
-
-          <div class="hero-stat-divider"></div>
-
-          <div class="hero-stat">
-            <strong>100%</strong>
-            <span>Tùy chỉnh</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -111,78 +35,32 @@
     <section class="container templates-content">
 
       <!-- ===================================================
-           COLLECTION STRIP (bộ sưu tập)
-      ==================================================== -->
-      <div class="collection-strip">
-
-        <button
-          type="button"
-          class="collection-chip"
-          :class="{ 'is-active': !activeCollectionIds.length }"
-          @click="clearCollections"
-        >
-          <span class="chip-swatches">
-            <span class="chip-swatch chip-swatch-ink"></span>
-            <span class="chip-swatch chip-swatch-foil"></span>
-            <span class="chip-swatch chip-swatch-paper"></span>
-          </span>
-
-          Tất cả
-        </button>
-
-        <button
-          v-for="col in activeCollections"
-          :key="col.id"
-          type="button"
-          class="collection-chip"
-          :class="{ 'is-active': activeCollectionIds.includes(col.id) }"
-          @click="toggleCollection(col.id)"
-        >
-          <span class="chip-swatches">
-            <span
-              v-for="(swatch, swatchIndex) in col.swatches"
-              :key="swatchIndex"
-              class="chip-swatch"
-              :style="{ background: swatch }"
-            ></span>
-          </span>
-
-          <span class="chip-text">
-            <strong>{{ col.name }}</strong>
-            <small>{{ col.sub }}</small>
-          </span>
-        </button>
-
-      </div>
-
-      <!-- ===================================================
-           TOOLBAR
+           TOOLBAR — chọn phong cách, sắp xếp, tìm kiếm
       ==================================================== -->
       <div class="toolbar">
-
-        <div class="toolbar-left">
-          <div class="result-count">
-            <span>Khám phá</span>
-            <strong>{{ filteredWeddings.length }}</strong>
-            <span>mẫu thiệp</span>
-          </div>
-        </div>
-
         <div class="toolbar-right">
 
-          <!-- Theme -->
+          <!-- Phong cách (bộ sưu tập) -->
           <div class="filter-control">
             <span class="control-icon">◈</span>
 
-            <select v-model="selectedTheme">
+            <select v-model="styleValue">
               <option value="">Tất cả phong cách</option>
 
               <option
-                v-for="theme in themeOptions"
-                :key="theme.value"
-                :value="theme.value"
+                v-for="style in styleOptions"
+                :key="style.value"
+                :value="style.value"
               >
-                {{ theme.label }}
+                {{ style.label }}
+              </option>
+
+              <!-- preset route SEO gộp nhiều bộ sưu tập -->
+              <option
+                v-if="stylePresetOption"
+                :value="stylePresetOption.value"
+              >
+                {{ stylePresetOption.label }}
               </option>
             </select>
 
@@ -409,115 +287,9 @@
             </div>
           </div>
 
-          <!-- BODY — gọn: dải màu + hành động -->
-          <div class="card-body">
-
-            <!-- dải màu nhận diện của mẫu -->
-            <div class="identity-row">
-              <span
-                v-for="(swatch, swatchIndex) in getWeddingMeta(wedding).palette"
-                :key="swatchIndex"
-                class="identity-swatch"
-                :style="{ background: swatch }"
-              ></span>
-
-              <span class="identity-orn">
-                {{ getWeddingMeta(wedding).orn }}
-              </span>
-            </div>
-
-            <div class="card-footer">
-
-              <span class="view-detail">
-                Xem chi tiết
-                <span>→</span>
-              </span>
-
-              <button
-                type="button"
-                class="use-template-btn"
-                @click.stop="goToEditor(wedding)"
-              >
-                Dùng mẫu này
-              </button>
-
-            </div>
-          </div>
         </article>
       </div>
 
-      <!-- ===================================================
-           COLLECTION FOOTNOTE
-      ==================================================== -->
-      <div class="collection-note">
-        <p class="note-line">
-          囍 Mỗi mẫu thuộc một bộ sưu tập với bảng màu riêng — chọn
-          <strong>bộ sưu tập</strong> phía trên để xem theo phong cách.
-        </p>
-
-        <button
-          type="button"
-          class="note-cta"
-          @click="goToEditor()"
-        >
-          Chưa chọn được mẫu? Bắt đầu tạo thiệp của bạn →
-        </button>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         FEATURES — mọi mẫu đều có đủ tính năng
-    ====================================================== -->
-    <section class="tpl-features">
-      <div class="container">
-        <span class="eyebrow">
-          <span class="eyebrow-line"></span>
-          Đủ mọi tính năng
-          <span class="eyebrow-line"></span>
-        </span>
-
-        <h2>Mỗi mẫu là một thiệp hoàn chỉnh</h2>
-
-        <p class="section-lead">
-          Không chỉ là một trang đẹp — mọi mẫu đều đi kèm đầy đủ
-          tính năng để mời và lưu giữ trọn vẹn ngày cưới của bạn.
-        </p>
-
-        <ul class="features-grid">
-          <li
-            v-for="feature in TEMPLATE_FEATURES"
-            :key="feature.title"
-          >
-            <span class="feature-orn">{{ feature.orn }}</span>
-
-            <div>
-              <strong>{{ feature.title }}</strong>
-              <p>{{ feature.text }}</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         FAQ
-    ====================================================== -->
-    <section class="tpl-faq">
-      <div class="container">
-        <span class="eyebrow">
-          <span class="eyebrow-line"></span>
-          Câu hỏi thường gặp
-          <span class="eyebrow-line"></span>
-        </span>
-
-        <h2>Chọn mẫu thiệp</h2>
-
-        <p class="section-lead">
-          Vài điều bạn nên biết trước khi chọn mẫu cho ngày cưới của mình.
-        </p>
-
-        <FaqAccordion :items="TEMPLATE_FAQS" />
-      </div>
     </section>
 
     <!-- =====================================================
@@ -559,9 +331,8 @@ import {
   themeMeta,
 } from "@/utils/weddingCard";
 
-import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
 import { BRAND } from "@/data/siteContent";
-import { faqJsonLd, useSeo } from "@/composables/useSeo";
+import { useSeo } from "@/composables/useSeo";
 import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
 
 // ======================================================
@@ -582,24 +353,23 @@ function goHome() {
   router.push({ name: "Home" });
 }
 
-/* Lối vào nhanh ở hero — nhảy sang route SEO "mẫu nổi bật". */
-function goToFeatured() {
-  router.push({ name: "TemplatesFeatured" });
-}
-
 // ======================================================
 // State
 // ======================================================
 
 const q = ref("");
-const selectedTheme = ref("");
 
 /*
- * Bộ sưu tập đang chọn — luôn là mảng để vừa chọn được
- * một mục, vừa nhận được preset nhiều mục từ route SEO
- * (/thiep-cuoi-hien-dai gộp "tối giản" + "lãng mạn").
+ * Phong cách đang chọn — dropdown duy nhất thay cho chip bộ
+ * sưu tập + select theme riêng lẻ trước đây.
+ *
+ * Giá trị:
+ *   ""            — tất cả
+ *   "col:<id>"    — một bộ sưu tập (Truyền thống, Lãng mạn...)
+ *   "theme:<key>" — một theme cụ thể
+ *   "preset:..."  — preset route SEO gộp nhiều bộ sưu tập
  */
-const activeCollectionIds = ref([]);
+const styleValue = ref("");
 
 /*
  * Sắp xếp — "noi-bat" đẩy các mẫu nổi bật lên đầu.
@@ -624,6 +394,27 @@ const ROUTE_PRESETS = {
   TemplatesTraditional: { collections: ["truyen-thong", "a-dong"] },
 };
 
+/*
+ * Preset gộp nhiều bộ sưu tập hiển thị thành một lựa chọn
+ * riêng trong dropdown — chọn lại được sau khi đổi qua khác.
+ */
+const stylePresetOption = computed(() => {
+  const preset = ROUTE_PRESETS[route.name];
+
+  if (!preset?.collections) {
+    return null;
+  }
+
+  const names = preset.collections
+    .map((id) => COLLECTIONS.find((col) => col.id === id)?.name)
+    .filter(Boolean);
+
+  return {
+    value: `preset:${route.name}`,
+    label: names.join(" + "),
+  };
+});
+
 function applyRoutePreset() {
   const preset = ROUTE_PRESETS[route.name] || {};
 
@@ -632,9 +423,15 @@ function applyRoutePreset() {
     .map((item) => item.trim())
     .filter(Boolean);
 
-  activeCollectionIds.value = queryCollections.length
-    ? queryCollections
-    : [...(preset.collections || [])];
+  if (queryCollections.length === 1) {
+    styleValue.value = `col:${queryCollections[0]}`;
+  } else if (queryCollections.length > 1) {
+    styleValue.value = `preset:${queryCollections.join("+")}`;
+  } else if (preset.collections) {
+    styleValue.value = `preset:${route.name}`;
+  } else {
+    styleValue.value = "";
+  }
 
   sortMode.value = String(route.query["sap-xep"] || preset.sort || "");
 
@@ -648,8 +445,18 @@ function applyRoutePreset() {
 function syncQuery() {
   const query = {};
 
-  if (activeCollectionIds.value.length) {
-    query["bo-suu-tap"] = activeCollectionIds.value.join(",");
+  const value = styleValue.value;
+
+  if (value.startsWith("col:")) {
+    query["bo-suu-tap"] = value.slice(4);
+  } else if (value.startsWith("preset:")) {
+    const key = value.slice(7);
+
+    if (key === route.name) {
+      // preset của chính route này — query rỗng là đủ
+    } else {
+      query["bo-suu-tap"] = key.split("+").join(",");
+    }
   }
 
   if (sortMode.value) {
@@ -661,18 +468,6 @@ function syncQuery() {
   }
 
   router.replace({ query }).catch(() => {});
-}
-
-function toggleCollection(id) {
-  const list = activeCollectionIds.value;
-
-  activeCollectionIds.value = list.includes(id)
-    ? list.filter((item) => item !== id)
-    : [...list, id];
-}
-
-function clearCollections() {
-  activeCollectionIds.value = [];
 }
 
 /*
@@ -724,61 +519,81 @@ const themes = computed(() => {
 });
 
 /*
- * Danh sách phong cách cho bộ lọc — dùng tên hiển thị
- * tiếng Việt từ bản sắc theme thay vì key kỹ thuật.
+ * Danh sách phong cách cho dropdown — bộ sưu tập trước
+ * (Truyền thống Việt Nam, Romantic / Lãng mạn...), rồi tới
+ * từng theme cụ thể. Dùng tên hiển thị tiếng Việt từ bản
+ * sắc theme thay vì key kỹ thuật.
  */
-const themeOptions = computed(() => {
-  return themes.value
-    .map((theme) => ({
-      value: theme,
-      label: getThemeMeta(theme).name,
-    }))
-    .sort((a, b) =>
-      a.label.localeCompare(b.label, "vi")
-    );
-});
-
-/*
- * Bộ sưu tập có ít nhất một mẫu trong danh sách —
- * bộ rỗng không hiển thị.
- */
-const activeCollections = computed(() => {
+const styleOptions = computed(() => {
   const present = new Set(
     themes.value.map(
       (theme) => getThemeMeta(theme).collection
     )
   );
 
-  return COLLECTIONS.filter((col) =>
-    present.has(col.id)
-  );
+  const collections = COLLECTIONS
+    .filter((col) => present.has(col.id))
+    .map((col) => ({
+      value: `col:${col.id}`,
+      label: col.name,
+    }));
+
+  const singleThemes = themes.value
+    .map((theme) => ({
+      value: `theme:${theme}`,
+      label: getThemeMeta(theme).name,
+    }))
+    .sort((a, b) =>
+      a.label.localeCompare(b.label, "vi")
+    );
+
+  return [...collections, ...singleThemes];
 });
 
 const filteredWeddings = computed(() => {
   let list = weddings.value;
 
-  // bộ sưu tập — người dùng có thể chọn nhiều mục
-  if (activeCollectionIds.value.length) {
+  // phong cách — bộ sưu tập, theme riêng lẻ, hoặc preset
+  const value = styleValue.value;
+
+  if (value.startsWith("col:")) {
+    const colId = value.slice(4);
+
     list = list.filter((w) => {
       const themeName =
         w?.theme?.Name ||
         w?.theme ||
         "";
 
-      return activeCollectionIds.value.includes(
-        getThemeMeta(themeName).collection
-      );
+      return getThemeMeta(themeName).collection === colId;
     });
-  }
+  } else if (value.startsWith("theme:")) {
+    const themeKey = value.slice(6);
 
-  // theme
-  if (selectedTheme.value) {
     list = list.filter((w) => {
       return (
         w?.theme?.Name ||
         w?.theme ||
         ""
-      ) === selectedTheme.value;
+      ) === themeKey;
+    });
+  } else if (value.startsWith("preset:")) {
+    const key = value.slice(7);
+
+    const colIds =
+      key === route.name
+        ? ROUTE_PRESETS[route.name]?.collections || []
+        : key.split("+");
+
+    list = list.filter((w) => {
+      const themeName =
+        w?.theme?.Name ||
+        w?.theme ||
+        "";
+
+      return colIds.includes(
+        getThemeMeta(themeName).collection
+      );
     });
   }
 
@@ -848,77 +663,19 @@ const filteredWeddings = computed(() => {
 });
 
 // ======================================================
-// Nội dung hiển thị — tính năng & hỏi đáp của trang mẫu
+// Nội dung hiển thị — tiêu đề trang theo route SEO
 // ======================================================
 
-/*
- * Tính năng đi kèm mọi mẫu — nội dung khối "Mỗi mẫu là một
- * thiệp hoàn chỉnh" cuối trang. Đặt ở đây thay vì siteContent
- * vì chỉ trang gallery dùng.
- */
-const TEMPLATE_FEATURES = [
-  {
-    orn: "❊",
-    title: "Tùy chỉnh toàn bộ",
-    text: "Đổi tên, ngày giờ, địa điểm, ảnh và màu sắc — giữ khung thiết kế, thay nội dung thành của bạn.",
-  },
-  {
-    orn: "✦",
-    title: "Ảnh không giới hạn",
-    text: "Album ảnh cưới, câu chuyện tình yêu và từng khoảnh khắc — tất cả trong một link.",
-  },
-  {
-    orn: "◈",
-    title: "Bản đồ & lịch trình",
-    text: "Google Maps dẫn đường đến tiệc, kèm lịch trình từng khoảnh khắc của ngày cưới.",
-  },
-  {
-    orn: "♪",
-    title: "Nhạc nền riêng",
-    text: "Chọn bài hát của hai bạn — thiệp mở lên là có âm nhạc.",
-  },
-  {
-    orn: "✉",
-    title: "Xác nhận tham dự",
-    text: "Khách mời bấm RSVP ngay trong thiệp — hai bạn nhận danh sách dự tiệc tức thì.",
-  },
-  {
-    orn: "❦",
-    title: "Sổ lưu bút & mừng cưới",
-    text: "Lời chúc và tiền mừng qua QR — mọi thứ được lưu giữ vĩnh viễn.",
-  },
-];
+const PAGE_TITLES = {
+  Templates: "Mẫu thiệp cưới",
+  TemplatesFeatured: "Mẫu thiệp cưới nổi bật",
+  TemplatesModern: "Thiệp cưới hiện đại",
+  TemplatesTraditional: "Thiệp cưới truyền thống",
+};
 
-/*
- * Hỏi đáp riêng cho trang mẫu — tập trung vào việc chọn và
- * dùng mẫu (khác FAQS chung ở trang chủ, vốn nói về sản phẩm).
- */
-const TEMPLATE_FAQS = [
-  {
-    q: "Chọn mẫu xong có đổi được mẫu khác không?",
-    a: "Được. Bạn đổi mẫu bất cứ lúc nào trong trình soạn thảo — toàn bộ nội dung đã điền (tên, ngày giờ, địa điểm, ảnh) được giữ nguyên và tự xếp vào bố cục mới.",
-  },
-  {
-    q: "Mẫu hiển thị có đúng như xem trước không?",
-    a: "Có. Ảnh xem trước chính là thiệp thật chạy trên trình duyệt — bấm vào bất kỳ mẫu nào để mở bản demo đầy đủ, cuộn và nghe nhạc được như thiệp đã xuất bản.",
-  },
-  {
-    q: "Tôi có chỉnh được màu sắc và hình ảnh của mẫu không?",
-    a: "Được. Mỗi mẫu có bảng màu nhận diện riêng, nhưng bạn có thể đổi màu, thay ảnh, chỉnh cỡ chữ và thêm bớt các mục trong trình soạn thảo.",
-  },
-  {
-    q: "Dùng mẫu này có tốn phí không?",
-    a: "Tạo và chỉnh sửa hoàn toàn miễn phí, không cần đăng ký thẻ. Sau khi xuất bản bạn được dùng thử 3 ngày chia sẻ cho khách mời — ưng ý rồi mới thanh toán một lần để giữ thiệp vĩnh viễn.",
-  },
-  {
-    q: "Mẫu có hiển thị tốt trên điện thoại không?",
-    a: "Có. Khách mời chủ yếu mở thiệp trên điện thoại nên mọi mẫu đều được dựng responsive — hiển thị đúng trên điện thoại, tablet và máy tính, không cần cài ứng dụng.",
-  },
-  {
-    q: "Có mẫu nào phù hợp với đám cưới truyền thống không?",
-    a: "Có. Bộ sưu tập Á Đông Sang Trọng gồm đỏ son, vàng son, trống đồng, song hỷ và long phụng — dành riêng cho lễ cưới đậm nét truyền thống.",
-  },
-];
+const pageTitle = computed(
+  () => PAGE_TITLES[route.name] || PAGE_TITLES.Templates
+);
 
 // ======================================================
 // SEO — mỗi route SEO có tiêu đề và mô tả riêng
@@ -956,15 +713,9 @@ const SEO_BY_ROUTE = {
 };
 
 /*
- * JSON-LD cho trang gallery:
- *
- * - ItemList: danh sách mẫu có cấu trúc — Google hiểu đây là
- *   một thư viện nhiều mẫu thay vì một trang đơn lẻ, mỗi mục
- *   kèm tên, mô tả và đường dẫn riêng.
- * - FAQPage: khối hỏi đáp cuối trang — đủ điều kiện hiện rich
- *   snippet trên kết quả tìm kiếm.
- *
- * Gộp bằng @graph để một thẻ script phục vụ cả hai.
+ * JSON-LD cho trang gallery: ItemList — Google hiểu đây là
+ * một thư viện nhiều mẫu thay vì một trang đơn lẻ, mỗi mục
+ * kèm tên, mô tả và đường dẫn riêng.
  */
 function templatesJsonLd() {
   const items = (store.weddings || []).map((wedding, index) => {
@@ -987,16 +738,10 @@ function templatesJsonLd() {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        name: "Mẫu thiệp cưới",
-        numberOfItems: items.length,
-        itemListElement: items,
-      },
-      faqJsonLd(TEMPLATE_FAQS),
-    ],
+    "@type": "ItemList",
+    name: "Mẫu thiệp cưới",
+    numberOfItems: items.length,
+    itemListElement: items,
   };
 }
 
@@ -1030,7 +775,7 @@ watch(
  * Người dùng đổi bộ lọc → ghi lên query để link chia sẻ
  * được giữ đúng khung đang xem.
  */
-watch([activeCollectionIds, sortMode, q], syncQuery);
+watch([styleValue, sortMode, q], syncQuery);
 
 // ======================================================
 // Helpers
@@ -1080,23 +825,6 @@ function goToIntro(wedding) {
     params: {
       slug: wedding.slug
     }
-  });
-}
-
-/*
- * Mở trình tạo thiệp. Gọi kèm mẫu thì mang sẵn theme của mẫu
- * đó; gọi rỗng (nút ở hero) thì mở trình tạo trắng để người
- * dùng tự chọn phong cách bên trong.
- */
-function goToEditor(wedding) {
-  const themeName =
-    wedding?.theme?.Name ||
-    wedding?.theme ||
-    "";
-
-  router.push({
-    name: "Editor",
-    query: themeName ? { theme: themeName } : {}
   });
 }
 
@@ -1150,8 +878,7 @@ function toggleFavorite(wedding) {
 
 function resetFilters() {
   q.value = "";
-  selectedTheme.value = "";
-  activeCollectionIds.value = [];
+  styleValue.value = "";
   sortMode.value = "";
 }
 
@@ -1199,6 +926,7 @@ function onImageError(event) {
   --muted: var(--studio-ink-faint, #8a7a68);
 
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   overflow: hidden;
 
@@ -1270,279 +998,61 @@ function onImageError(event) {
 }
 
 /* =========================================================
-   HERO
+   PAGE HEAD — gọn: tiêu đề + số mẫu, một dòng
 ========================================================= */
 
-.page-hero {
-  position: relative;
-  padding: 90px 0 64px;
+.page-head {
+  padding: 34px 0 26px;
 
   text-align: center;
 }
 
-.hero-inner {
-  position: relative;
-}
-
-.eyebrow {
-  display: inline-flex;
-
-  align-items: center;
-  gap: 13px;
-
-  color: var(--studio-seal, #a63a2e);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.eyebrow-line {
-  width: 28px;
-  height: 1px;
-
-  background: var(--studio-foil, #b9975b);
-}
-
-.page-hero h1 {
-  max-width: 900px;
-
-  margin: 22px auto 0;
+.head-inner h1 {
+  margin: 0;
 
   font-family: var(--font-heading),
     "Cormorant Garamond",
     Georgia,
     serif;
 
-  /*
-   * Cỡ chữ chảy theo bề rộng màn hình: 34px ở máy nhỏ, phình
-   * dần tới 76px ở màn rộng. Một công thức dùng chung cho mọi
-   * thiết bị nên không có bậc nhảy cỡ chữ ở mốc breakpoint.
-   */
   font-size: clamp(
-    34px,
-    6.2vw,
-    76px
+    26px,
+    3.6vw,
+    40px
   );
 
-  line-height: 1.02;
+  line-height: 1.1;
 
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
 
   font-weight: 500;
 
   color: var(--text);
 }
 
-.page-hero h1 span {
-  color: var(--studio-seal, #a63a2e);
-
-  font-style: italic;
-}
-
-.hero-lead {
-  max-width: 640px;
-
-  margin: 22px auto 0;
-
-  color: var(--muted);
-
-  font-size: clamp(
-    14px,
-    1.6vw,
-    17px
-  );
-
-  line-height: 1.8;
-}
-
-/* =========================================================
-   HERO ACTIONS
-========================================================= */
-
-.hero-actions {
+.head-count {
   display: flex;
 
   flex-wrap: wrap;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 12px;
-
-  margin-top: 30px;
-}
-
-.hero-btn {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  min-height: 50px;
-
-  padding: 0 26px;
-
-  border-radius: 999px;
-
-  font-size: clamp(
-    13px,
-    1.4vw,
-    15px
-  );
-
-  font-weight: 600;
-
-  letter-spacing: 0.01em;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.hero-btn svg {
-  width: 17px;
-  height: 17px;
-
-  transition: transform 0.25s ease;
-}
-
-.hero-btn-primary {
-  border: 1px solid
-    var(--studio-contrast-bg, #2b2118);
-
-  background:
-    var(--studio-contrast-bg, #2b2118);
-
-  color: var(--studio-contrast-ink, #f7f1e6);
-
-  box-shadow:
-    0 14px 32px
-      rgba(43, 33, 24, 0.22);
-}
-
-.hero-btn-primary:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 20px 42px
-      rgba(43, 33, 24, 0.3);
-}
-
-.hero-btn-primary:hover svg {
-  transform: translateX(4px);
-}
-
-.hero-btn-ghost {
-  border: 1px solid
-    var(--studio-line-strong, rgba(43, 33, 24, 0.2));
-
-  background:
-    var(--studio-glass, rgba(255, 255, 255, 0.7));
-
-  color: var(--studio-ink, #2b2118);
-}
-
-.hero-btn-ghost:hover {
-  transform: translateY(-2px);
-
-  border-color:
-    var(--studio-ink, #2b2118);
-
-  background: var(--studio-glass-strong, #fff);
-}
-
-/* =========================================================
-   HERO TRUST
-========================================================= */
-
-.hero-trust {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px 20px;
-
-  margin: 22px 0 0;
-
-  padding: 0;
-
-  list-style: none;
-
-  color: var(--muted);
-
-  font-size: clamp(
-    11.5px,
-    1.2vw,
-    13px
-  );
-}
-
-.hero-trust li {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 7px;
-}
-
-.trust-dot {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background:
-    var(--studio-foil, #b9975b);
-}
-
-.hero-stats {
-  display: inline-flex;
-
-  align-items: center;
-
-  margin-top: 30px;
-
-  padding: 13px 22px;
-
-  border: 1px solid
-    var(--studio-line, rgba(95, 63, 68, 0.08));
-
-  border-radius: 999px;
-
-  background:
-    var(--studio-glass, rgba(255, 255, 255, 0.72));
-
-  backdrop-filter: blur(12px);
-
-  box-shadow:
-    0 12px 35px
-      rgba(43, 33, 24, 0.1);
-}
-
-.hero-stat {
-  display: flex;
 
   align-items: baseline;
+  justify-content: center;
 
-  gap: 7px;
+  gap: 6px;
 
-  padding: 0 18px;
+  margin: 10px 0 0;
+
+  color: var(--muted);
+
+  font-size: clamp(
+    12px,
+    1.2vw,
+    13.5px
+  );
 }
 
-.hero-stat strong {
-  color: var(--studio-ink, #2b2118);
+.head-count strong {
+  color: var(--studio-seal, #a63a2e);
 
   font-family:
     var(--font-num),
@@ -1550,162 +1060,17 @@ function onImageError(event) {
     Georgia,
     serif;
 
-  font-size: 22px;
+  font-size: clamp(
+    16px,
+    1.8vw,
+    20px
+  );
 
-  font-weight: 600;
-
-  /* Số đếm lên liên tục nên phải cố định bề rộng chữ số,
-     nếu không cả cụm sẽ rung khi số nhảy. */
   font-variant-numeric: tabular-nums;
 }
 
-.hero-stat span {
-  color: var(--muted);
-
-  font-size: 11px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-}
-
-.hero-stat-divider {
-  width: 1px;
-  height: 24px;
-
-  background:
-    var(--studio-line, rgba(70, 45, 49, 0.12));
-}
-
-/* =========================================================
-   COLLECTION STRIP (bộ sưu tập)
-========================================================= */
-
-.collection-strip {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
-
-  margin-bottom: 26px;
-}
-
-.collection-chip {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 9px 16px 9px 12px;
-
-  border: 1px solid var(--studio-line);
-
-  border-radius: 999px;
-
-  background: var(--studio-card);
-
-  color: var(--studio-ink-soft, #5c4f43);
-
-  font-size: clamp(
-    12px,
-    1.15vw,
-    13.5px
-  );
-
-  cursor: pointer;
-
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-
-.collection-chip:hover {
-  border-color: var(--studio-line-strong);
-
-  transform: translateY(-1px);
-
-  box-shadow:
-    0 8px 22px rgba(43, 33, 24, 0.1);
-}
-
-.collection-chip.is-active {
-  border-color: var(--studio-contrast-bg);
-
-  background: var(--studio-contrast-bg);
-
-  color: var(--studio-contrast-ink);
-
-  box-shadow:
-    0 10px 26px rgba(43, 33, 24, 0.16);
-}
-
-.collection-chip.is-active .chip-swatch {
-  border-color: rgba(43, 33, 24, 0.35);
-
-  box-shadow: 0 0 0 1px rgba(247, 241, 230, 0.35);
-}
-
-.chip-swatches {
-  display: inline-flex;
-
-  flex-shrink: 0;
-}
-
-.chip-swatch {
-  width: 14px;
-  height: 14px;
-
-  border-radius: 50%;
-
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
-
-  box-shadow: 0 0 0 1px rgba(43, 33, 24, 0.12);
-}
-
-.chip-swatch + .chip-swatch {
-  margin-left: -5px;
-}
-
-.chip-swatch-ink {
-  background: var(--studio-ink);
-}
-
-.chip-swatch-foil {
-  background: var(--studio-foil);
-}
-
-.chip-swatch-paper {
-  background: var(--studio-paper);
-}
-
-.chip-text {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  line-height: 1.25;
-}
-
-.chip-text strong {
-  font-size: clamp(
-    12px,
-    1.15vw,
-    13.5px
-  );
-
-  font-weight: 700;
-}
-
-.chip-text small {
-  font-size: 10.5px;
-
-  opacity: 0.72;
+.head-sep {
+  opacity: 0.5;
 }
 
 /* =========================================================
@@ -1722,7 +1087,7 @@ function onImageError(event) {
   flex-wrap: wrap;
 
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   gap: 16px 20px;
 
@@ -1732,38 +1097,6 @@ function onImageError(event) {
 
   border-bottom:
     1px solid var(--studio-line, rgba(64, 40, 44, 0.08));
-}
-
-.result-count {
-  display: flex;
-
-  align-items: baseline;
-
-  gap: 7px;
-
-  color: var(--muted);
-
-  font-size: clamp(
-    12.5px,
-    1.2vw,
-    14px
-  );
-}
-
-.result-count strong {
-  color: var(--text);
-
-  font-family:
-    var(--font-num),
-    var(--font-heading),
-    Georgia,
-    serif;
-
-  font-size: clamp(
-    20px,
-    2vw,
-    25px
-  );
 }
 
 .toolbar-right {
@@ -2246,6 +1579,8 @@ function onImageError(event) {
 }
 
 .favorite-btn {
+  position: relative;
+
   width: 34px;
   height: 34px;
 
@@ -2360,380 +1695,6 @@ function onImageError(event) {
 
 .featured-label span {
   color: var(--studio-foil, #b9975b);
-}
-
-/* =========================================================
-   CARD BODY — gọn: dải màu, hành động
-========================================================= */
-
-.card-body {
-  padding: 12px 16px 14px;
-}
-
-/* =========================================================
-   IDENTITY ROW (dải màu bản sắc từng mẫu)
-========================================================= */
-
-.identity-row {
-  display: flex;
-
-  align-items: center;
-
-  gap: 5px;
-
-  margin-top: 10px;
-}
-
-.identity-swatch {
-  width: 16px;
-  height: 5px;
-
-  border-radius: 999px;
-
-  box-shadow:
-    inset 0 0 0 1px
-      rgba(0, 0, 0, 0.35);
-
-  opacity: 0.9;
-}
-
-.identity-swatch:first-child {
-  width: 26px;
-}
-
-.identity-orn {
-  margin-left: auto;
-
-  color: var(--studio-foil, #b9975b);
-
-  font-family: var(--font-symbol, var(--font-heading));
-
-  font-size: 14px;
-
-  line-height: 1;
-}
-
-/* =========================================================
-   COLLECTION NOTE
-========================================================= */
-
-.collection-note {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 16px;
-
-  margin: 40px 0 0;
-
-  text-align: center;
-}
-
-.note-line {
-  margin: 0;
-
-  color: var(--muted);
-
-  font-size: clamp(
-    12px,
-    1.2vw,
-    13.5px
-  );
-
-  letter-spacing: 0.02em;
-}
-
-.collection-note strong {
-  color: var(--studio-ink);
-}
-
-/*
- * Lối thoát cho người xem hết lưới mà chưa chọn được mẫu —
- * đặt ngay cuối danh sách, đúng lúc họ đang lưỡng lự.
- */
-.note-cta {
-  padding: 12px 22px;
-
-  border: 1px dashed
-    var(--studio-line-strong, rgba(43, 33, 24, 0.24));
-
-  border-radius: 999px;
-
-  background: transparent;
-
-  color: var(--studio-ink, #2b2118);
-
-  font-size: clamp(
-    12px,
-    1.2vw,
-    13.5px
-  );
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.note-cta:hover {
-  transform: translateY(-2px);
-
-  border-color:
-    var(--studio-ink, #2b2118);
-
-  border-style: solid;
-
-  background:
-    var(--studio-glass, rgba(255, 255, 255, 0.8));
-}
-
-/* =========================================================
-   FEATURES & FAQ — hai khối cuối trang
-   (dùng chung .eyebrow / .eyebrow-line đã có ở hero)
-========================================================= */
-
-.tpl-features,
-.tpl-faq {
-  padding: 64px 0 8px;
-
-  text-align: center;
-}
-
-.tpl-faq {
-  padding-bottom: 96px;
-}
-
-.tpl-features h2,
-.tpl-faq h2 {
-  margin: 18px auto 0;
-
-  font-family:
-    var(--font-heading),
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: clamp(
-    26px,
-    3.4vw,
-    40px
-  );
-
-  line-height: 1.15;
-
-  font-weight: 500;
-
-  color: var(--text);
-}
-
-.section-lead {
-  max-width: 560px;
-
-  margin: 14px auto 0;
-
-  color: var(--muted);
-
-  font-size: clamp(
-    13px,
-    1.4vw,
-    15px
-  );
-
-  line-height: 1.75;
-}
-
-/*
- * Lưới tính năng 3 cột — mỗi ô một tính năng, ký tự họa tiết
- * đóng vai trò biểu tượng thay vì icon vector.
- */
-.features-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 14px;
-
-  margin: 34px 0 0;
-
-  padding: 0;
-
-  list-style: none;
-
-  text-align: left;
-}
-
-.features-grid li {
-  display: flex;
-
-  gap: 14px;
-
-  padding: 20px 18px;
-
-  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
-
-  border-radius: 16px;
-
-  background: var(--studio-card, #fffdf8);
-
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.features-grid li:hover {
-  transform: translateY(-3px);
-
-  border-color:
-    rgba(185, 151, 91, 0.55);
-
-  box-shadow:
-    0 16px 34px
-      rgba(43, 33, 24, 0.12);
-}
-
-.feature-orn {
-  flex-shrink: 0;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 40px;
-  height: 40px;
-
-  border-radius: 12px;
-
-  background:
-    color-mix(
-      in srgb,
-      var(--studio-foil, #b9975b) 14%,
-      transparent
-    );
-
-  color: var(--studio-seal, #a63a2e);
-
-  font-family:
-    var(--font-symbol),
-    var(--font-heading),
-    serif;
-
-  font-size: 17px;
-
-  line-height: 1;
-}
-
-.features-grid strong {
-  display: block;
-
-  color: var(--text);
-
-  font-size: 14.5px;
-
-  font-weight: 700;
-}
-
-.features-grid p {
-  margin: 5px 0 0;
-
-  color: var(--muted);
-
-  font-size: 12.5px;
-
-  line-height: 1.65;
-}
-
-/*
- * FAQ — accordion dùng component FaqAccordion (style
- * mk-faq-* nằm ở marketing.css, dùng chung với trang chủ).
- * Chỉ cần căn khung và giới hạn bề rộng cho dễ đọc.
- */
-.tpl-faq :deep(.mk-faq-list) {
-  max-width: 760px;
-
-  margin: 30px auto 0;
-
-  text-align: left;
-}
-
-.card-footer {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 10px;
-
-  margin-top: 16px;
-}
-
-.view-detail {
-  color: var(--muted);
-
-  font-size: 11px;
-
-  transition:
-    color 0.25s ease;
-}
-
-.view-detail span {
-  margin-left: 4px;
-
-  transition:
-    transform 0.25s ease;
-}
-
-.template-card:hover
-.view-detail {
-  color: var(--studio-seal, #a63a2e);
-}
-
-.template-card:hover
-.view-detail span {
-  display: inline-block;
-
-  transform: translateX(4px);
-}
-
-.use-template-btn {
-  padding: 9px 12px;
-
-  border: 1px solid
-    rgba(166, 58, 46, 0.3);
-
-  border-radius: 999px;
-
-  background:
-    rgba(166, 58, 46, 0.06);
-
-  color: var(--studio-seal, #a63a2e);
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.use-template-btn:hover {
-  background: var(--studio-seal, #a63a2e);
-
-  color: #fff;
-
-  transform: translateY(-1px);
 }
 
 /* =========================================================
@@ -2990,26 +1951,6 @@ function onImageError(event) {
 ========================================================= */
 
 @media (max-width: 900px) {
-  .collection-strip {
-    gap: 8px;
-
-    margin-bottom: 20px;
-  }
-
-  .collection-chip {
-    padding: 7px 13px 7px 10px;
-
-    font-size: 12px;
-  }
-
-  .chip-text small {
-    display: none;
-  }
-
-  .page-hero {
-    padding-top: 65px;
-  }
-
   .toolbar {
     align-items: stretch;
 
@@ -3032,10 +1973,6 @@ function onImageError(event) {
     width: auto;
   }
 
-  .features-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
 }
 
 /* =========================================================
@@ -3043,112 +1980,13 @@ function onImageError(event) {
 ========================================================= */
 
 @media (max-width: 640px) {
-  .collection-strip {
-    gap: 7px;
-
-    margin-bottom: 16px;
-  }
-
-  .collection-chip {
-    padding: 6px 12px 6px 8px;
-
-    font-size: 11.5px;
-  }
-
-  .chip-swatch {
-    width: 12px;
-    height: 12px;
-  }
-
-  .page-hero {
-    padding:
-      52px 0 38px;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-  }
-
-  .eyebrow-line {
-    width: 18px;
-  }
-
-  .page-hero h1 {
+  .head-inner h1 {
     font-size:
       clamp(
-        32px,
-        10.5vw,
-        46px
+        24px,
+        8vw,
+        34px
       );
-
-    line-height: 1.04;
-  }
-
-  .hero-lead {
-    margin-top: 16px;
-
-    padding: 0 6px;
-
-    font-size: 13.5px;
-
-    line-height: 1.72;
-  }
-
-  .hero-actions {
-    gap: 10px;
-
-    margin-top: 22px;
-  }
-
-  .hero-btn {
-    flex: 1 1 auto;
-
-    min-height: 46px;
-
-    padding: 0 18px;
-
-    font-size: 13px;
-  }
-
-  .hero-trust {
-    gap: 6px 14px;
-
-    margin-top: 16px;
-
-    font-size: 11.5px;
-  }
-
-  .hero-stats {
-    width: 100%;
-
-    justify-content: center;
-
-    padding: 11px 5px;
-
-    margin-top: 22px;
-  }
-
-  .hero-stat {
-    padding:
-      0 8px;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 1px;
-  }
-
-  .hero-stat strong {
-    font-size: 18px;
-  }
-
-  .hero-stat span {
-    font-size: 10px;
-  }
-
-  .hero-stat-divider {
-    height: 22px;
   }
 
   .templates-content {
@@ -3157,18 +1995,6 @@ function onImageError(event) {
 
   .toolbar {
     margin-bottom: 20px;
-  }
-
-  /*
-   * Giữ lại dòng đếm số mẫu trên điện thoại — đó là thông tin
-   * người xem cần biết trước khi cuộn qua cả danh sách.
-   */
-  .toolbar-left {
-    text-align: center;
-  }
-
-  .result-count {
-    justify-content: center;
   }
 
   .toolbar-right {
@@ -3206,9 +2032,28 @@ function onImageError(event) {
     right: 8px;
   }
 
+  /*
+   * Nút yêu thích phải đủ 44px để chạm trúng trên điện thoại.
+   * Không phình nút thật (sẽ che ảnh) — giữ hình tròn 30px
+   * nhưng nới vùng bấm bằng pseudo-element trong suốt.
+   */
   .favorite-btn {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .favorite-btn::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 44px;
+    height: 44px;
+
+    transform: translate(-50%, -50%);
   }
 
   .favorite-btn svg {
@@ -3225,99 +2070,20 @@ function onImageError(event) {
     font-size: 11px;
   }
 
-  .card-body {
-    padding:
-      10px 10px 11px;
+  .image-caption {
+    padding: 12px 12px 13px;
   }
 
   .image-caption h3 {
     font-size: 16px;
   }
 
-  .identity-row {
-    margin-top: 7px;
-  }
-
-  .identity-swatch {
-    width: 12px;
-  }
-
-  .identity-swatch:first-child {
-    width: 20px;
-  }
-
-  .identity-orn {
-    font-size: 11px;
-  }
-
-  .collection-note {
-    gap: 12px;
-
-    margin-top: 26px;
-  }
-
-  .note-line {
-    font-size: 11.5px;
-  }
-
-  .note-cta {
-    width: 100%;
-
-    padding: 11px 16px;
-
-    font-size: 12px;
-  }
-
-  /* khối tính năng & FAQ cuối trang */
-  .tpl-features,
-  .tpl-faq {
-    padding-top: 44px;
-  }
-
-  .tpl-faq {
-    padding-bottom: 72px;
-  }
-
-  .features-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
-
-    margin-top: 22px;
-  }
-
-  .features-grid li {
-    flex-direction: column;
-
-    gap: 10px;
-
-    padding: 15px 14px;
-  }
-
-  .features-grid strong {
-    font-size: 13px;
-  }
-
-  .features-grid p {
-    font-size: 11.5px;
-  }
-
-  .card-footer {
-    margin-top: 10px;
-  }
-
   /*
-   * Thẻ trên điện thoại chỉ rộng nửa màn hình — cả thẻ vốn
-   * đã bấm được (mở trang giới thiệu mẫu) nên không cần nút
-   * "Dùng mẫu này" lẫn dòng "Xem chi tiết" nữa.
+   * Trên điện thoại không có hover — lớp phủ mô tả + từ khóa
+   * không bao giờ hiện, nhưng vẫn nằm đè lên ảnh và chặn cú
+   * chạm vào thẻ. Ẩn hẳn để cú chạm đi thẳng tới thẻ.
    */
-  .view-detail,
-  .use-template-btn {
-    display: none;
-  }
-
-  .card-footer {
+  .card-hover {
     display: none;
   }
 
@@ -3341,28 +2107,20 @@ function onImageError(event) {
     gap: 10px;
   }
 
+  .image-caption {
+    padding: 10px 10px 11px;
+  }
+
   .image-caption h3 {
     font-size: 15px;
   }
 
+  .caption-collection {
+    font-size: 9px;
+  }
+
   .hover-desc {
     font-size: 11px;
-  }
-
-  .identity-row {
-    gap: 4px;
-  }
-
-  .identity-swatch {
-    width: 10px;
-  }
-
-  .identity-swatch:first-child {
-    width: 16px;
-  }
-
-  .hero-btn {
-    flex: 1 1 100%;
   }
 
   .back-btn {

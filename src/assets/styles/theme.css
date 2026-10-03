@@ -231,6 +231,14 @@
 
 html {
   scroll-behavior: smooth;
+
+  /*
+   * iOS tự phóng to chữ khi xoay ngang nếu không khoá — chữ
+   * trong thiệp nhảy cỡ sau mỗi lần quay máy. Khoá lại để
+   * bố cục đứng yên; cỡ chữ đã do clamp() lo.
+   */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html,
@@ -238,6 +246,49 @@ body,
 #app {
   width: 100%;
   min-height: 100%;
+}
+
+/*
+ * Chặn tràn ngang ở cấp gốc. Nhiều theme đặt ảnh trang trí
+ * to hơn khung (hoa, rồng, phượng) — không có dòng này thì
+ * trên điện thoại cả trang bị đẩy ngang, khách vuốt mãi
+ * không hết. `clip` thay vì `hidden` để không tạo thêm
+ * scroll container (position: sticky bên trong vẫn chạy).
+ */
+body {
+  overflow-x: clip;
+}
+
+/*
+ * Bỏ vệt xanh khi chạm trên Android/iOS — nền thiệp nhiều
+ * mảng màu, vệt highlight trông như lỗi.
+ */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea,
+label,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Ô nhập trên điện thoại phải từ 16px trở lên, nếu không
+ * Safari iOS tự phóng to cả trang khi focus — khách điền
+ * thông tin thiệp xong là trang lệch, phải thu nhỏ lại bằng
+ * tay. Dùng :not() để độ ưu tiên (0,2,1) thắng các rule
+ * `.field input` (0,1,1) trong component mà không cần
+ * !important; các ô đặc biệt (checkbox, radio, màu, file)
+ * giữ nguyên cỡ gốc.
+ */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }
 
 
