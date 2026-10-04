@@ -13,8 +13,7 @@
         </div>
 
         <p class="footer-desc">
-          {{ BRAND.slogan }} Tạo thiệp cưới online đẹp mắt, gửi tặng khách mời
-          chỉ trong vài phút.
+          {{ $t("footer.tagline") }}
         </p>
 
         <div class="footer-socials">
@@ -23,7 +22,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="social-btn social-facebook"
-            aria-label="Liên hệ qua Facebook"
+            :aria-label="$t('footer.facebook')"
           >
             <v-icon size="18"> mdi-facebook </v-icon>
 
@@ -48,7 +47,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="social-btn"
-            aria-label="Nhắn tin qua Messenger"
+            :aria-label="$t('footer.messenger')"
           >
             <v-icon size="18"> mdi-message-text-outline </v-icon>
 
@@ -86,8 +85,7 @@
         
 
         <p class="footer-note">
-          Cần hỗ trợ kích hoạt thiệp, thanh toán hay chỉnh sửa nội dung?
-          Nhắn tin trực tiếp qua Messenger — phản hồi trong vài phút.
+          {{ $t('footer.contactNote') }}
         </p>
       </div>
     </div>

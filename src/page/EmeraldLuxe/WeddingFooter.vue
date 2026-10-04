@@ -29,7 +29,7 @@
         <img :src="doubleHappiness" alt="囍" draggable="false" />
       </div>
 
-      <p class="cr-footer__kicker">SAVE THE DATE</p>
+      <p class="cr-footer__kicker">{{ sectionText(sections, "footer", "Eyebrow", "SAVE THE DATE") }}</p>
 
       <h2 class="cr-footer__names">
         <span>{{ groomName }}</span>
@@ -53,6 +53,7 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import {
@@ -62,6 +63,7 @@ import {
 } from "./emeraldLuxeAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "囍" },
   currentYear: { type: Number, default: 2026 },

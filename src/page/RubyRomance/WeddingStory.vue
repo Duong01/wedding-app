@@ -51,13 +51,13 @@ const storyTitle = computed(() => {
 .rr-story {
   text-align: center;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-eyebrow {
   margin: 0;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 
   font-size: 10px;
   font-weight: 700;
@@ -73,13 +73,13 @@ const storyTitle = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-quote {
   height: 35px;
 
-  color: #6e3844;
+  color: var(--tc-6e3844, #6e3844);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -98,7 +98,7 @@ const storyTitle = computed(() => {
 .rr-tail {
   margin-top: 18px;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 
   font-size: 15px;
 

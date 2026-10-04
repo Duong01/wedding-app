@@ -4,18 +4,19 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <h2 class="shy-bar">Dress Code</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="shy-top-custom-head">
+      <p v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="shy-top-custom-head__eyebrow">{{ sectionOverride(sections, "dressCode", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="shy-bar">{{ sectionText(sections, "dressCode", "Heading", "Dress Code") }}</h2>
 
     <!-- =====================================================
          NỘI DUNG
     ====================================================== -->
 
     <div class="shy-dress__inner">
-      <p class="shy-dress__intro">
-        Để bức ảnh chung thêm phần hài hoà,
-        chúng mình mong quý khách ghé thăm buổi tiệc
-        với trang phục mang tông màu sau
-      </p>
+      <p class="shy-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau") }}</p>
 
       <ul class="shy-dress__palette">
         <li v-for="color in palette" :key="color.hex" class="shy-dress__swatch">
@@ -29,6 +30,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
+
+defineProps({
+  sections: { type: Object, default: () => ({}) },
+});
 const palette = [
   { name: "ĐỎ MẬN", hex: "#800000" },
   { name: "KEM", hex: "#ffeed2" },
@@ -92,6 +98,8 @@ const palette = [
 }
 
 .shy-dress__intro {
+  white-space: pre-line;
+
   margin: 0;
 
   color: var(--shy-ink);
@@ -177,5 +185,38 @@ const palette = [
   .shy-dress__name {
     font-size: 12px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shy-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shy-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shy-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shy-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

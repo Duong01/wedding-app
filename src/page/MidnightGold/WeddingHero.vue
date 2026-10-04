@@ -141,12 +141,12 @@ const dateText = computed(() => {
 
 <style scoped>
 .mg-hero {
-  --mg-gold: #d8b676;
-  --mg-gold-deep: #9b7d4d;
-  --mg-gold-bright: #eed9a8;
-  --mg-text: #f0e6d2;
-  --mg-text-muted: #b9a88f;
-  --mg-night: #1d1622;
+  --mg-gold: var(--tc-d8b676, #d8b676);
+  --mg-gold-deep: var(--tc-9b7d4d, #9b7d4d);
+  --mg-gold-bright: var(--tc-eed9a8, #eed9a8);
+  --mg-text: var(--tc-f0e6d2, #f0e6d2);
+  --mg-text-muted: var(--tc-b9a88f, #b9a88f);
+  --mg-night: var(--tc-1d1622, #1d1622);
 
   position: relative;
   isolation: isolate;
@@ -158,8 +158,8 @@ const dateText = computed(() => {
   min-height: min(690px, 100dvh);
 
   background:
-    radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),
-    linear-gradient(180deg, #1d1622 0%, #17121b 100%);
+    radial-gradient(1100px 500px at 50% -140px, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.12), transparent 65%),
+    linear-gradient(180deg, var(--tc-1d1622, #1d1622) 0%, var(--tc-17121b, #17121b) 100%);
 }
 
 /* =========================================================
@@ -175,12 +175,12 @@ const dateText = computed(() => {
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(216, 182, 118, 0.55);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.55);
   border-radius: 210px 210px 24px 24px;
 
   background: linear-gradient(175deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
 
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45), 0 0 40px rgba(216, 182, 118, 0.08);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45), 0 0 40px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.08);
 }
 
 /* =========================================================
@@ -217,9 +217,9 @@ const dateText = computed(() => {
 
   background: linear-gradient(
     180deg,
-    rgba(29, 22, 34, 0.55),
-    rgba(23, 18, 27, 0.3) 55%,
-    rgba(29, 22, 34, 0.6)
+    rgba(var(--tc-1d1622-rgb, 29, 22, 34), 0.55),
+    rgba(var(--tc-17121b-rgb, 23, 18, 27), 0.3) 55%,
+    rgba(var(--tc-1d1622-rgb, 29, 22, 34), 0.6)
   );
 }
 
@@ -231,7 +231,7 @@ const dateText = computed(() => {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(216, 182, 118, 0.28);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.28);
   border-radius: 202px 202px 18px 18px;
 
   pointer-events: none;
@@ -251,7 +251,7 @@ const dateText = computed(() => {
 
   opacity: 0.75;
 
-  text-shadow: 0 0 10px rgba(216, 182, 118, 0.5);
+  text-shadow: 0 0 10px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.5);
 
   animation: mg-star-sway 5s ease-in-out infinite;
 }
@@ -303,7 +303,7 @@ const dateText = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.8));
 }
 
 .mg-hero__motif span:last-child {
@@ -393,8 +393,8 @@ const dateText = computed(() => {
   margin: 24px auto 0;
   padding: 14px 0;
 
-  border-top: 1px solid rgba(216, 182, 118, 0.45);
-  border-bottom: 1px solid rgba(216, 182, 118, 0.45);
+  border-top: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.45);
+  border-bottom: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.45);
 }
 
 .mg-hero__schedule p {
@@ -434,7 +434,7 @@ const dateText = computed(() => {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.7));
 }
 
 .mg-hero__footer span:last-child {
@@ -464,11 +464,11 @@ const dateText = computed(() => {
   position: absolute;
   top: -30px;
 
-  color: rgba(216, 182, 118, 0.5);
+  color: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.5);
 
   font-size: 13px;
 
-  text-shadow: 0 0 8px rgba(216, 182, 118, 0.45);
+  text-shadow: 0 0 8px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.45);
 
   animation: mg-particle-fall linear infinite;
 }

@@ -4,7 +4,17 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <h2 class="shc-gifts__title">Hộp Quà Mừng</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="shc-top-custom-head">
+      <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="shc-gifts__title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="shc-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="shc-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
+    </header>
+
 
     <!-- =====================================================
          NỘI DUNG
@@ -213,11 +223,13 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onBeforeUnmount, ref } from "vue";
 
 import envelope from "@/assets/longphung/envelope.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },
   wishes: { type: Array, default: () => [] },
 });
@@ -1005,4 +1017,70 @@ onBeforeUnmount(() => {
   }
 }
 
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
 </style>

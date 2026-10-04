@@ -4,7 +4,7 @@
       <button
         type="button"
         class="brand-logo"
-        title="Quay lại mẫu thiệp"
+        :title="$t('editor.header.backToTemplates')"
         @click="backToTemplates"
       >
         ♥
@@ -16,13 +16,13 @@
         <span>
           Wedding Editor
 
-          <i v-if="dirty" class="dirty-dot" title="Có thay đổi chưa lưu" />
+          <i v-if="dirty" class="dirty-dot" :title="$t('editor.header.unsaved')" />
         </span>
       </div>
     </div>
 
     <div class="editor-template">
-      <span>Mẫu đang sử dụng</span>
+      <span>{{ $t('editor.header.templateInUse') }}</span>
 
       <strong>
         {{ wedding?.theme?.Name || routeTheme }}
@@ -30,6 +30,9 @@
     </div>
 
     <div class="editor-actions">
+      <!-- Đổi ngôn ngữ giao diện trình chỉnh sửa -->
+      <LanguageSwitcher compact />
+
       <!-- HOÀN TÁC / LÀM LẠI -->
       <div class="history-group">
         <button
@@ -56,13 +59,13 @@
       <button type="button" class="top-button" @click="backToTemplates">
         <v-icon size="18"> mdi-arrow-left </v-icon>
 
-        <span>Mẫu thiệp</span>
+        <span>{{ $t('editor.header.template') }}</span>
       </button>
 
       <button type="button" class="top-button" @click="previewWedding">
         <v-icon size="18"> mdi-eye-outline </v-icon>
 
-        <span>Xem trước</span>
+        <span>{{ $t('editor.preview') }}</span>
       </button>
 
       <!--
@@ -74,7 +77,7 @@
         type="button"
         class="publish-button"
         :disabled="publishing"
-        title="Xuất bản thiệp để khách mời có thể xem"
+        :title="$t('editor.header.publishHint')"
         @click="emit('publish')"
       >
         <v-progress-circular
@@ -86,19 +89,19 @@
 
         <v-icon v-else size="18"> mdi-rocket-launch-outline </v-icon>
 
-        <span>{{ publishing ? "Đang xuất bản..." : "Xuất bản" }}</span>
+        <span>{{ publishing ? $t('editor.header.publishing') : $t('editor.header.publish') }}</span>
       </button>
 
       <button
         v-else-if="publishState === 'Expired'"
         type="button"
         class="publish-button warn"
-        title="Hết hạn dùng thử — thanh toán để mở lại thiệp"
+        :title="$t('editor.header.expiredHint')"
         @click="emit('payment')"
       >
         <v-icon size="18"> mdi-alert-circle-outline </v-icon>
 
-        <span>Hết hạn — Thanh toán</span>
+        <span>{{ $t('editor.header.expiredPay') }}</span>
       </button>
 
       <div
@@ -115,7 +118,7 @@
           v-if="publishState === 'Trial' || publishState === 'Active'"
           type="button"
           class="publish-share"
-          title="Lấy link chia sẻ cho khách mời"
+          :title="$t('editor.header.shareHint')"
           @click="emit('share')"
         >
           <v-icon size="15"> mdi-share-variant-outline </v-icon>
@@ -142,7 +145,7 @@
         </v-icon>
 
         <span>
-          {{ saving ? "Đang lưu..." : dirty ? "Lưu thay đổi" : "Đã lưu" }}
+          {{ saving ? $t('editor.header.saving') : dirty ? $t('editor.header.saveChanges') : $t('editor.header.saved') }}
         </span>
       </button>
     </div>
@@ -150,7 +153,11 @@
 </template>
 
 <script setup>
+import LanguageSwitcher from "@/components/common/LanguageSwitcher.vue";
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, default: null },
@@ -202,41 +209,41 @@ const publishStateIcon = computed(() => {
 const publishStateLabel = computed(() => {
   switch (props.publishState) {
     case "Trial":
-      return `Dùng thử còn ${props.daysLeft} ngày`;
+      return t("editor.status.trialDays", { days: props.daysLeft });
     case "Active":
-      return "Đã xuất bản";
+      return t("editor.status.published");
     case "Locked":
-      return "Đã khóa";
+      return t("editor.status.locked");
     default:
-      return "Chưa xuất bản";
+      return t("editor.status.unpublished");
   }
 });
 
 const publishStateTitle = computed(() => {
   switch (props.publishState) {
     case "Trial":
-      return `Khách mời đang xem được thiệp. Dùng thử còn ${props.daysLeft} ngày, sau đó cần thanh toán một lần.`;
+      return t("editor.status.trialHint", { days: props.daysLeft });
     case "Active":
-      return "Thiệp đã được xuất bản và đang hoạt động.";
+      return t("editor.status.activeHint");
     case "Locked":
-      return "Thiệp đang bị khóa.";
+      return t("editor.status.lockedHint");
     default:
-      return "Thiệp chưa được xuất bản — khách mời mở link sẽ không xem được.";
+      return t("editor.status.draftHint");
   }
 });
 
 const undoTitle = computed(() =>
   props.canUndo
-    ? `Hoàn tác (Ctrl+Z) — còn ${props.undoDepth} bước`
-    : "Không còn bước để hoàn tác"
+    ? t("editor.undoSteps", { steps: props.undoDepth })
+    : t("editor.noUndo")
 );
 
 const redoTitle = computed(() =>
-  props.canRedo ? "Làm lại (Ctrl+Shift+Z)" : "Không có bước để làm lại"
+  props.canRedo ? t("editor.redo") : t("editor.noRedo")
 );
 
 const saveTitle = computed(() =>
-  props.dirty ? "Lưu thiệp (Ctrl+S)" : "Thiệp đã được lưu"
+  props.dirty ? t("editor.saveShortcut") : t("editor.allSaved")
 );
 
 function backToTemplates() {

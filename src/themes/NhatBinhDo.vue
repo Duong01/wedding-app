@@ -68,7 +68,7 @@
           </div>
 
           <section class="cfr-section">
-            <WeddingGallery :gallery="gallery" :sections="sections" />
+            <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
           </section>
 
           <div class="cfr-filigree" aria-hidden="true">
@@ -251,7 +251,7 @@ const emit = defineEmits(["open"]);
    THEME
 ========================================================== */
 
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 /* ==========================================================
    WEDDING

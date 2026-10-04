@@ -16,7 +16,7 @@
       aria-hidden="true"
     >✦</span>
 
-    <p class="lp-opening__eyebrow">THIỆP CƯỚI LONG PHỤNG</p>
+    <p class="lp-opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI LONG PHỤNG") }}</p>
 
     <!-- THIỆP -->
     <div class="lp-card">
@@ -24,9 +24,9 @@
         <img :src="chuHy" alt="囍" draggable="false" />
       </div>
 
-      <p class="lp-card__kicker">SAVE THE DATE</p>
+      <p class="lp-card__kicker">{{ sectionText(sections, "opening", "Kicker", "SAVE THE DATE") }}</p>
 
-      <p class="lp-card__invite">Trân trọng kính mời</p>
+      <p class="lp-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
       <h1>{{ guestName }}</h1>
 
@@ -51,26 +51,28 @@
         <v-icon size="16">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="lp-open-btn__text">MỞ THIỆP</span>
+      <span class="lp-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
 
       <span class="lp-open-btn__arrow">✦</span>
     </button>
 
     <p class="lp-hint">
       <span></span>
-      Một lời mời · Một lời hẹn · Một đời hạnh phúc
+      {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}
       <span></span>
     </p>
   </section>
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 import phung from "@/assets/decor/longphung-v3/phung.webp";
 import rong from "@/assets/decor/longphung-v3/rong.webp";
 import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },
   dateLabel: { type: String, default: "" },
@@ -134,9 +136,9 @@ function openInvitation() {
 
   overflow: hidden;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  background: linear-gradient(to bottom right, #710001, #5a0001, #450001);
+  background: linear-gradient(to bottom right, var(--tc-710001, #710001), var(--tc-5a0001, #5a0001), var(--tc-450001, #450001));
 }
 
 /* =========================================================
@@ -149,9 +151,9 @@ function openInvitation() {
   z-index: -10;
 
   background:
-    radial-gradient(ellipse at 50% 8%, rgba(255, 190, 137, 0.14), transparent 48%),
-    radial-gradient(ellipse at 8% 88%, rgba(255, 190, 137, 0.08), transparent 42%),
-    radial-gradient(ellipse at 92% 80%, rgba(255, 155, 74, 0.08), transparent 44%);
+    radial-gradient(ellipse at 50% 8%, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.14), transparent 48%),
+    radial-gradient(ellipse at 8% 88%, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08), transparent 42%),
+    radial-gradient(ellipse at 92% 80%, rgba(var(--tc-ff9b4a-rgb, 255, 155, 74), 0.08), transparent 44%);
 }
 
 /* =========================================================
@@ -224,7 +226,7 @@ function openInvitation() {
   position: absolute;
   z-index: -2;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 
   font-size: 12px;
 
@@ -253,7 +255,7 @@ function openInvitation() {
 .lp-opening__eyebrow {
   margin: 0 0 26px;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 
   font-family: "Times New Roman", Times, serif;
 
@@ -276,13 +278,13 @@ function openInvitation() {
 
   padding: 44px 26px 34px;
 
-  border: 1px solid rgba(255, 190, 137, 0.55);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.55);
 
-  background: rgba(255, 190, 137, 0.08);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08);
 
   box-shadow:
     0 26px 60px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 1px rgba(255, 190, 137, 0.12);
+    inset 0 0 0 1px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.12);
 
   backdrop-filter: blur(4px);
 
@@ -309,9 +311,9 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  background: #5a0001;
+  background: var(--tc-5a0001, #5a0001);
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(255, 190, 137, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.15);
 }
 
 .lp-card__seal img {
@@ -324,7 +326,7 @@ function openInvitation() {
 .lp-card__kicker {
   margin: 0 0 18px;
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 
   font-family: "Times New Roman", Times, serif;
 
@@ -338,7 +340,7 @@ function openInvitation() {
 .lp-card__invite {
   margin: 0 0 6px;
 
-  color: rgba(255, 190, 137, 0.8);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.8);
 
   font-size: 11px;
 
@@ -357,7 +359,7 @@ function openInvitation() {
 
   line-height: 1.15;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-card__divider {
@@ -373,7 +375,7 @@ function openInvitation() {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(255, 190, 137, 0.85));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85));
 }
 
 .lp-card__divider span:last-child {
@@ -395,13 +397,13 @@ function openInvitation() {
   font-size: 20px;
   font-weight: 500;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-card__names i {
   padding: 0 5px;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 
   font-size: 18px;
   font-style: italic;
@@ -412,12 +414,12 @@ function openInvitation() {
 
   padding: 8px 18px;
 
-  border: 1px solid rgba(255, 190, 137, 0.5);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
   border-radius: 999px;
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   font-family: "Times New Roman", Times, serif;
 
@@ -445,14 +447,14 @@ function openInvitation() {
 
   padding: 13px 30px;
 
-  border: 1px solid rgba(255, 190, 137, 0.85);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
   border-radius: 999px;
 
-  color: #710001;
+  color: var(--tc-710001, #710001);
 
-  background: #ffbe89;
+  background: var(--tc-ffbe89, #ffbe89);
 
-  box-shadow: 0 14px 30px rgba(255, 190, 137, 0.3);
+  box-shadow: 0 14px 30px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3);
 
   font-family: "Times New Roman", Times, serif;
 
@@ -470,7 +472,7 @@ function openInvitation() {
 .lp-open-btn:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.03);
 
-  box-shadow: 0 18px 36px rgba(255, 190, 137, 0.42);
+  box-shadow: 0 18px 36px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.42);
 }
 
 .lp-open-btn:disabled {
@@ -499,7 +501,7 @@ function openInvitation() {
 
   margin: 22px 0 0;
 
-  color: rgba(255, 190, 137, 0.72);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.72);
 
   font-size: 10px;
   font-style: italic;
@@ -511,7 +513,7 @@ function openInvitation() {
   width: 34px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(255, 190, 137, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7));
 }
 
 .lp-hint span:last-child {

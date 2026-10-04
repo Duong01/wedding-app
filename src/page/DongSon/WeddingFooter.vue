@@ -158,8 +158,8 @@ const emailUrl = computed(() => {
   position: relative;
   overflow: hidden;
   padding: 85px 20px 35px;
-  background: #350b0a;
-  color: #ead7b5;
+  background: var(--tc-350b0a, #350b0a);
+  color: var(--tc-ead7b5, #ead7b5);
   text-align: center;
 }
 
@@ -169,7 +169,7 @@ const emailUrl = computed(() => {
   position: absolute;
   width: 280px;
   height: 280px;
-  border: 1px solid rgba(201,149,82,.15);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .15);
   border-radius: 50%;
 }
 
@@ -190,7 +190,7 @@ const emailUrl = computed(() => {
   width: 250px;
   height: 250px;
   transform: translateX(-50%);
-  border: 1px dashed rgba(201,149,82,.2);
+  border: 1px dashed rgba(var(--tc-c99552-rgb, 201, 149, 82), .2);
   border-radius: 50%;
 }
 
@@ -198,7 +198,7 @@ const emailUrl = computed(() => {
   position: absolute;
   bottom: 25px;
   left: 50%;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .footer-content {
@@ -209,14 +209,14 @@ const emailUrl = computed(() => {
 .footer-content > small {
   font-size: 10px;
   letter-spacing: .4em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .monogram {
   margin: 20px 0;
   font-family: Georgia, serif;
   font-size: 45px;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 h2 {
@@ -226,7 +226,7 @@ h2 {
 }
 
 h2 span {
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
   margin: 0 5px;
 }
 
@@ -241,17 +241,17 @@ h2 span {
 .footer-line span {
   height: 1px;
   flex: 1;
-  background: rgba(201,149,82,.4);
+  background: rgba(var(--tc-c99552-rgb, 201, 149, 82), .4);
 }
 
 .footer-line b {
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .footer-content p {
   font-family: Georgia, serif;
   line-height: 1.8;
-  color: #cdb99b;
+  color: var(--tc-cdb99b, #cdb99b);
 }
 
 .footer-actions {
@@ -271,13 +271,13 @@ h2 span {
 
   padding: 8px 16px;
 
-  border: 1px solid rgba(201,149,82,.45);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .45);
 
   font-size: 11px;
   letter-spacing: .12em;
 
-  color: #ead7b5;
-  background: rgba(201,149,82,.08);
+  color: var(--tc-ead7b5, #ead7b5);
+  background: rgba(var(--tc-c99552-rgb, 201, 149, 82), .08);
 
   text-decoration: none;
 
@@ -285,15 +285,15 @@ h2 span {
 }
 
 .footer-link:hover {
-  border-color: #c99552;
-  background: rgba(201,149,82,.18);
+  border-color: var(--tc-c99552, #c99552);
+  background: rgba(var(--tc-c99552-rgb, 201, 149, 82), .18);
 }
 
 .copyright {
   margin-top: 45px;
   font-size: 11px;
   letter-spacing: .3em;
-  color: rgba(234,215,181,.65);
+  color: rgba(var(--tc-ead7b5-rgb, 234, 215, 181), .65);
 }
 
 @media (max-width: 480px) {

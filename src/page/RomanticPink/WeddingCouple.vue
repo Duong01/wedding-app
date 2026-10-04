@@ -3,9 +3,9 @@
     <!-- =========================
          TITLE
     ========================== -->
-    <div class="gg-eyebrow">TRÂN TRỌNG BÁO TIN</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO TIN") }}</div>
 
-    <h2 class="gg-title">Thông tin lễ cưới</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
 
     <!-- =========================
          PARENTS
@@ -112,9 +112,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),

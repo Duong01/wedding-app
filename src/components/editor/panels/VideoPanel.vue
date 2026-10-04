@@ -4,22 +4,20 @@
       <div>
         <span class="panel-eyebrow"> VIDEO </span>
 
-        <h1>Video cưới</h1>
+        <h1>{{ $t('editor.menu.video') }}</h1>
 
         <p>
-          Dán link YouTube hoặc TikTok — video phát ngay trong
-          thiệp.
+          {{ $t('videoPanel.desc') }}
         </p>
       </div>
     </div>
 
     <div class="switch-card">
       <div>
-        <strong> Hiển thị mục video </strong>
+        <strong> {{ $t('videoPanel.show') }} </strong>
 
         <small>
-          Khách mời xem video ngay trên thiệp, không cần rời
-          trang.
+          {{ $t('videoPanel.showHint') }}
         </small>
       </div>
 
@@ -31,43 +29,38 @@
     </div>
 
     <div class="editor-field">
-      <label>Đường link video</label>
+      <label>{{ $t('videoPanel.url') }}</label>
 
       <input
         v-model="wedding.video.Url"
         type="text"
-        placeholder="Dán link YouTube hoặc TikTok..."
+        :placeholder="$t('videoPanel.urlPlaceholder')"
       />
 
       <small class="field-help">
-        Hỗ trợ: youtube.com/watch?v=… · youtu.be/… ·
-        youtube.com/shorts/… · tiktok.com/@user/video/…
+        {{ $t('videoPanel.supported') }}
       </small>
 
       <small class="field-help">
-        Video tự phát khi khách lướt tới, ở chế độ tắt tiếng
-        (trình duyệt chặn tự phát có tiếng) — khách bấm icon
-        loa trên player để nghe.
+        {{ $t('videoPanel.autoplayNote') }}
       </small>
 
       <small v-if="parseError" class="field-help field-error">
-        Link chưa nhận diện được — thiệp sẽ hiện nút mở video
-        trong tab mới.
+        {{ $t('videoPanel.unrecognized') }}
       </small>
     </div>
 
     <div class="editor-field">
-      <label>Tiêu đề mục</label>
+      <label>{{ $t('editor.menu.sections') }}</label>
 
       <input
         v-model="wedding.video.Title"
         type="text"
-        placeholder="VD: Video cưới của chúng mình"
+        :placeholder="$t('videoPanel.titlePlaceholder')"
       />
 
       <small class="field-help">
-        Bỏ trống dùng "Video Cưới". Đổi được ở panel "Tiêu đề
-        mục".
+        {{ $t('videoPanel.titleHint') }}
       </small>
     </div>
 
@@ -76,7 +69,7 @@
     ====================================================== -->
 
     <div v-if="wedding.video.Url" class="video-preview">
-      <h3 class="sub-heading">Xem trước</h3>
+      <h3 class="sub-heading">{{ $t('editor.preview') }}</h3>
 
       <VideoEmbed :url="wedding.video.Url" :title="wedding.video.Title" />
     </div>

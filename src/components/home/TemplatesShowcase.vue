@@ -23,28 +23,27 @@
         <div class="showcase-main__body">
           <p class="showcase-main__eyebrow">
             <span class="pulse-dot" aria-hidden="true"></span>
-            {{ weddings.length }} mẫu đang chờ bạn khám phá
+            {{ $t("showcase.waiting", { n: weddings.length }) }}
           </p>
 
           <h2>
-            Vào xem mẫu thiệp —
-            <em>chọn ngay tấm thiệp</em>
-            cho ngày trọng đại.
+            {{ $t('showcase.h2a') }}
+            <em>{{ $t('showcase.h2b') }}</em>
+            {{ $t('showcase.h2c') }}
           </h2>
 
           <p class="showcase-main__lead">
-            Mỗi mẫu là một thiết kế hoàn chỉnh: mở thiệp, cuộn từng trang,
-            nghe nhạc nền — y như thiệp thật gửi đến khách mời của bạn.
+            {{ $t('showcase.lead') }}
           </p>
 
           <div class="showcase-main__actions">
             <span class="mk-btn mk-btn--solid">
-              Xem ngay {{ weddings.length }} mẫu thiệp
+              {{ $t("showcase.viewN", { n: weddings.length }) }}
               <span aria-hidden="true">→</span>
             </span>
 
             <span class="showcase-main__hint">
-              Miễn phí · Dùng thử 3 ngày · Đẹp mới thanh toán
+              {{ $t('showcase.badge') }}
             </span>
           </div>
         </div>
@@ -54,9 +53,9 @@
            ƯU ĐÃI / TÍNH NĂNG NỔI BẬT
       ====================================================== -->
       <div class="perks-head">
-        <p class="mk-eyebrow">Có sẵn trong mọi mẫu</p>
+        <p class="mk-eyebrow">{{ $t('showcase.inEvery') }}</p>
 
-        <h3>Mở thiệp ra là có tất cả.</h3>
+        <h3>{{ $t('showcase.h3') }}</h3>
       </div>
 
       <div class="perks">
@@ -81,10 +80,13 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 import { handleImageError, toCardItem } from "@/utils/weddingCard";
+
+const { t } = useI18n();
 
 const props = defineProps({
   weddings: { type: Array, default: () => [] },
@@ -99,35 +101,35 @@ const router = useRouter();
 const PERKS = [
   {
     orn: "▶",
-    title: "Video cưới ngay trong thiệp",
-    text: "Gắn video hỏi cưới, video khoảnh khắc của hai bạn — khách mở thiệp là xem được ngay, không cần gửi link riêng.",
+    get title() { return t("showcase.f1.title"); },
+    get text() { return t("showcase.f1.text"); },
     hot: true,
   },
   {
     orn: "✧",
-    title: "Trò chơi nhận quà",
-    text: "Minigame chúc phúc ngay trên thiệp — khách chơi vui, hai bạn tặng quà, không khí đám cưới ấm lên từ trước ngày cưới.",
+    get title() { return t("showcase.f2.title"); },
+    get text() { return t("showcase.f2.text"); },
     hot: true,
   },
   {
     orn: "♪",
-    title: "Nhạc nền riêng",
-    text: "Bài hát của hai bạn vang lên ngay khi khách mở thiệp — cảm xúc trọn vẹn từ giây đầu tiên.",
+    get title() { return t("showcase.f3.title"); },
+    get text() { return t("showcase.f3.text"); },
   },
   {
     orn: "❝",
-    title: "Sổ lưu bút số",
-    text: "Lời chúc của khách ở lại mãi trên thiệp. Nhiều năm sau mở lại, vẫn nguyên vẹn từng câu chúc.",
+    get title() { return t("features.guestbook.title"); },
+    get text() { return t("showcase.f4.text"); },
   },
   {
     orn: "✽",
-    title: "Mừng cưới qua QR",
-    text: "Khách quét mã là chuyển khoản được ngay — không phong bì, không lo thất lạc, minh bạch từng khoản.",
+    get title() { return t("showcase.f5.title"); },
+    get text() { return t("showcase.f5.text"); },
   },
   {
     orn: "◈",
-    title: "Bản đồ & đếm ngược",
-    text: "Chỉ đường tới tiệc một chạm, đồng hồ đếm ngược ngày cưới chạy từng giây cho cả hai họ cùng chờ đón.",
+    get title() { return t("showcase.f6.title"); },
+    get text() { return t("showcase.f6.text"); },
   },
 ];
 

@@ -158,12 +158,12 @@ function openInvitation() {
 
 <style scoped>
 .lc-opening {
-  --lc-deep: #584a5b;
-  --lc-lavender: #766384;
-  --lc-plum: #7d6390;
-  --lc-lilac: #d8c0de;
-  --lc-line: #736482;
-  --lc-cream: #faf8fc;
+  --lc-deep: var(--tc-584a5b, #584a5b);
+  --lc-lavender: var(--tc-766384, #766384);
+  --lc-plum: var(--tc-7d6390, #7d6390);
+  --lc-lilac: var(--tc-d8c0de, #d8c0de);
+  --lc-line: var(--tc-736482, #736482);
+  --lc-cream: var(--tc-faf8fc, #faf8fc);
 
   position: relative;
   isolation: isolate;
@@ -181,7 +181,7 @@ function openInvitation() {
 
   color: var(--lc-deep);
 
-  background: linear-gradient(160deg, #f7f2fb 0%, #f0e7f6 38%, #e9dcf1 70%, #dfcfe9 100%);
+  background: linear-gradient(160deg, var(--tc-f7f2fb, #f7f2fb) 0%, var(--tc-f0e7f6, #f0e7f6) 38%, var(--tc-e9dcf1, #e9dcf1) 70%, var(--tc-dfcfe9, #dfcfe9) 100%);
 }
 
 /* =========================================================
@@ -194,9 +194,9 @@ function openInvitation() {
   z-index: -10;
 
   background:
-    radial-gradient(ellipse at 50% 18%, rgba(252, 250, 255, 0.9), transparent 42%),
-    radial-gradient(ellipse at 12% 82%, rgba(216, 192, 222, 0.45), transparent 38%),
-    radial-gradient(ellipse at 88% 72%, rgba(160, 134, 180, 0.22), transparent 40%);
+    radial-gradient(ellipse at 50% 18%, rgba(var(--tc-fcfaff-rgb, 252, 250, 255), 0.9), transparent 42%),
+    radial-gradient(ellipse at 12% 82%, rgba(var(--tc-d8c0de-rgb, 216, 192, 222), 0.45), transparent 38%),
+    radial-gradient(ellipse at 88% 72%, rgba(var(--tc-a086b4-rgb, 160, 134, 180), 0.22), transparent 40%);
 }
 
 .lc-opening::before {
@@ -207,7 +207,7 @@ function openInvitation() {
 
   opacity: 0.16;
 
-  background-image: radial-gradient(rgba(88, 74, 91, 0.5) 0.6px, transparent 0.6px);
+  background-image: radial-gradient(rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.5) 0.6px, transparent 0.6px);
   background-size: 7px 7px;
 
   pointer-events: none;
@@ -228,7 +228,7 @@ function openInvitation() {
   left: 50%;
   transform: translateX(-50%);
 
-  background: radial-gradient(circle, rgba(250, 246, 255, 0.6), transparent 68%);
+  background: radial-gradient(circle, rgba(var(--tc-faf6ff-rgb, 250, 246, 255), 0.6), transparent 68%);
 
   animation: lc-glow-breathe 5.5s ease-in-out infinite;
 }
@@ -240,7 +240,7 @@ function openInvitation() {
   left: 50%;
   transform: translateX(-50%);
 
-  background: radial-gradient(circle, rgba(185, 160, 208, 0.24), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.24), transparent 70%);
 }
 
 /* =========================================================
@@ -258,9 +258,9 @@ function openInvitation() {
   position: absolute;
   bottom: -40px;
 
-  color: rgba(160, 134, 180, 0.6);
+  color: rgba(var(--tc-a086b4-rgb, 160, 134, 180), 0.6);
 
-  text-shadow: 0 0 8px rgba(216, 192, 222, 0.85);
+  text-shadow: 0 0 8px rgba(var(--tc-d8c0de-rgb, 216, 192, 222), 0.85);
 
   animation: lc-sparkle-rise linear infinite;
 }
@@ -297,7 +297,7 @@ function openInvitation() {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.8));
 }
 
 .lc-opening__brand span:last-child {
@@ -337,10 +337,10 @@ function openInvitation() {
 
   border-radius: 190px 190px 26px 26px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.94), rgba(246, 240, 250, 0.9));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.94), rgba(var(--tc-f6f0fa-rgb, 246, 240, 250), 0.9));
 
   box-shadow:
-    0 26px 60px rgba(88, 74, 91, 0.16),
+    0 26px 60px rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.16),
     inset 0 0 0 1px rgba(255, 255, 255, 0.85);
 
   animation: lc-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -350,12 +350,12 @@ function openInvitation() {
   position: absolute;
   inset: 5px;
 
-  border: 1px solid rgba(160, 134, 180, 0.55);
+  border: 1px solid rgba(var(--tc-a086b4-rgb, 160, 134, 180), 0.55);
   border-radius: 184px 184px 22px 22px;
 
   box-shadow:
-    inset 0 0 0 3px rgba(250, 246, 255, 0.9),
-    inset 0 0 0 4px rgba(216, 192, 222, 0.55);
+    inset 0 0 0 3px rgba(var(--tc-faf6ff-rgb, 250, 246, 255), 0.9),
+    inset 0 0 0 4px rgba(var(--tc-d8c0de-rgb, 216, 192, 222), 0.55);
 
   pointer-events: none;
 }
@@ -394,11 +394,11 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  background: radial-gradient(circle at 34% 30%, #c3a8d4, #766384 58%, #7d6390 100%);
+  background: radial-gradient(circle at 34% 30%, var(--tc-c3a8d4, #c3a8d4), var(--tc-766384, #766384) 58%, var(--tc-7d6390, #7d6390) 100%);
 
   box-shadow:
-    0 10px 24px rgba(125, 99, 144, 0.35),
-    inset 0 0 0 3px rgba(250, 246, 255, 0.35);
+    0 10px 24px rgba(var(--tc-7d6390-rgb, 125, 99, 144), 0.35),
+    inset 0 0 0 3px rgba(var(--tc-faf6ff-rgb, 250, 246, 255), 0.35);
 
   animation: lc-seal-pulse 3.2s ease-in-out infinite;
 }
@@ -408,7 +408,7 @@ function openInvitation() {
   position: absolute;
   inset: 6px;
 
-  border: 1px dashed rgba(250, 246, 255, 0.55);
+  border: 1px dashed rgba(var(--tc-faf6ff-rgb, 250, 246, 255), 0.55);
   border-radius: 50%;
 }
 
@@ -417,9 +417,9 @@ function openInvitation() {
 
   font-size: 26px;
 
-  color: #fbf9ff;
+  color: var(--tc-fbf9ff, #fbf9ff);
 
-  text-shadow: 0 1px 2px rgba(88, 60, 110, 0.4);
+  text-shadow: 0 1px 2px rgba(var(--tc-583c6e-rgb, 88, 60, 110), 0.4);
 }
 
 .lc-card__invite {
@@ -462,7 +462,7 @@ function openInvitation() {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.75));
 }
 
 .lc-card__divider span:last-child {
@@ -500,10 +500,10 @@ function openInvitation() {
 
   padding: 8px 18px;
 
-  border: 1px solid rgba(185, 160, 208, 0.45);
+  border: 1px solid rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.45);
   border-radius: 999px;
 
-  background: rgba(252, 250, 255, 0.7);
+  background: rgba(var(--tc-fcfaff-rgb, 252, 250, 255), 0.7);
 
   color: var(--lc-lavender);
 
@@ -534,11 +534,11 @@ function openInvitation() {
   border: 0;
   border-radius: 999px;
 
-  color: #fbf9ff;
+  color: var(--tc-fbf9ff, #fbf9ff);
 
-  background: linear-gradient(135deg, #766384, #7d6390);
+  background: linear-gradient(135deg, var(--tc-766384, #766384), var(--tc-7d6390, #7d6390));
 
-  box-shadow: 0 14px 30px rgba(88, 74, 91, 0.32);
+  box-shadow: 0 14px 30px rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.32);
 
   font-size: 10px;
   font-weight: 700;
@@ -554,7 +554,7 @@ function openInvitation() {
 .lc-open-btn:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 18px 36px rgba(88, 74, 91, 0.4);
+  box-shadow: 0 18px 36px rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.4);
 }
 
 .lc-open-btn:disabled {
@@ -588,7 +588,7 @@ function openInvitation() {
 
   margin: 22px 0 0;
 
-  color: rgba(88, 74, 91, 0.72);
+  color: rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.72);
 
   font-size: 10px;
   font-style: italic;
@@ -607,7 +607,7 @@ function openInvitation() {
   width: 34px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.6));
 }
 
 .lc-hint__line:last-child {
@@ -686,15 +686,15 @@ function openInvitation() {
   100% {
     transform: scale(1);
     box-shadow:
-      0 10px 24px rgba(125, 99, 144, 0.35),
-      inset 0 0 0 3px rgba(250, 246, 255, 0.35);
+      0 10px 24px rgba(var(--tc-7d6390-rgb, 125, 99, 144), 0.35),
+      inset 0 0 0 3px rgba(var(--tc-faf6ff-rgb, 250, 246, 255), 0.35);
   }
 
   50% {
     transform: scale(1.05);
     box-shadow:
-      0 14px 30px rgba(125, 99, 144, 0.45),
-      inset 0 0 0 3px rgba(250, 246, 255, 0.5);
+      0 14px 30px rgba(var(--tc-7d6390-rgb, 125, 99, 144), 0.45),
+      inset 0 0 0 3px rgba(var(--tc-faf6ff-rgb, 250, 246, 255), 0.5);
   }
 }
 

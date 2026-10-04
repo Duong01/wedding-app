@@ -4,21 +4,20 @@
       <div>
         <span class="panel-eyebrow"> MINI GAME </span>
 
-        <h1>Trò chơi</h1>
+        <h1>{{ $t('editor.menu.game') }}</h1>
 
         <p>
-          Trò chơi liên quan tới cô dâu chú rể — kèm phần quà
-          cho khách khi tham dự lễ cưới.
+          {{ $t('gamePanel.desc') }}
         </p>
       </div>
     </div>
 
     <div class="switch-card">
       <div>
-        <strong> Hiển thị trò chơi </strong>
+        <strong> {{ $t('gamePanel.show') }} </strong>
 
         <small>
-          Thêm một khoảng vui vẻ cho khách mời khi xem thiệp.
+          {{ $t('gamePanel.showHint') }}
         </small>
       </div>
 
@@ -30,17 +29,16 @@
     </div>
 
     <div class="editor-field">
-      <label>Tiêu đề mục</label>
+      <label>{{ $t('editor.menu.sections') }}</label>
 
       <input
         v-model="wedding.game.Title"
         type="text"
-        placeholder="VD: Vòng quay may mắn"
+        :placeholder="$t('gamePanel.titlePlaceholder')"
       />
 
       <small class="field-help">
-        Bỏ trống dùng tên trò chơi. Đổi được ở panel "Tiêu đề
-        mục".
+        {{ $t('gamePanel.titleHint') }}
       </small>
     </div>
 
@@ -48,10 +46,10 @@
          CHỌN TRÒ CHƠI
     ====================================================== -->
 
-    <h3 class="sub-heading">Loại trò chơi</h3>
+    <h3 class="sub-heading">{{ $t('gamePanel.type') }}</h3>
 
     <p class="field-help block-help">
-      Chọn 1 trò chơi hiển thị trong thiệp.
+      {{ $t('gamePanel.typeHint') }}
     </p>
 
     <div class="mode-selector">
@@ -65,9 +63,9 @@
       >
         <v-icon size="20"> {{ type.icon }} </v-icon>
 
-        <strong> {{ type.label }} </strong>
+        <strong> {{ $t(`gamePanel.type.${type.value}`) }} </strong>
 
-        <small> {{ type.description }} </small>
+        <small> {{ $t(`gamePanel.typeDesc.${type.value}`) }} </small>
       </button>
     </div>
 
@@ -77,10 +75,10 @@
 
     <!-- TRẮC NGHIỆM: danh sách câu hỏi -->
     <template v-if="wedding.game.GameType === 'couple-quiz'">
-      <h3 class="sub-heading">Câu hỏi trắc nghiệm</h3>
+      <h3 class="sub-heading">{{ $t('gamePanel.quiz') }}</h3>
 
       <p class="field-help block-help">
-        Ra câu hỏi về hai bạn — khách trả lời và xem điểm.
+        {{ $t('gamePanel.quizHint') }}
       </p>
 
       <div class="items-list">
@@ -91,29 +89,29 @@
         >
           <div class="card-header">
             <div>
-              <span> CÂU {{ index + 1 }} </span>
+              <span> {{ $t('gamePanel.questionLabel') }} {{ index + 1 }} </span>
 
               <strong>
-                {{ question.Question || "Chưa có câu hỏi" }}
+                {{ question.Question || $t('gamePanel.noQuestions') }}
               </strong>
             </div>
 
             <EditorItemActions
               :index="index"
               :total="wedding.gameQuestions.length"
-              remove-title="Xoá câu hỏi"
+              :remove-title="$t('gamePanel.removeQuestion')"
               @move="moveQuestion"
               @remove="removeQuestion"
             />
           </div>
 
           <div class="editor-field full">
-            <label>Câu hỏi</label>
+            <label>{{ $t('gamePanel.question') }}</label>
 
             <input
               v-model="question.Question"
               type="text"
-              placeholder="VD: Hai người gặp nhau lần đầu ở đâu?"
+              :placeholder="$t('gamePanel.questionPlaceholder')"
             />
           </div>
 
@@ -123,18 +121,18 @@
               :key="key"
               class="editor-field"
             >
-              <label>Đáp án {{ key }}</label>
+              <label>{{ $t('gamePanel.answers') }} {{ key }}</label>
 
               <input
                 v-model="question[`Option${key}`]"
                 type="text"
-                :placeholder="`Đáp án ${key}...`"
+                :placeholder="$t('gamePanel.answerPlaceholder', { key })"
               />
             </div>
           </div>
 
           <div class="editor-field full">
-            <label>Đáp án đúng</label>
+            <label>{{ $t('gamePanel.correct') }}</label>
 
             <div class="correct-row">
               <button
@@ -154,25 +152,25 @@
         <div v-if="!wedding.gameQuestions?.length" class="empty-card">
           <v-icon size="30"> mdi-comment-question-outline </v-icon>
 
-          <strong> Chưa có câu hỏi </strong>
+          <strong> {{ $t('gamePanel.noQuestions') }} </strong>
 
-          <span> Thêm câu hỏi đầu tiên về hai bạn. </span>
+          <span> {{ $t('gamePanel.noQuestionsHint') }} </span>
         </div>
 
         <button type="button" class="add-button" @click="addQuestion">
           <v-icon> mdi-plus </v-icon>
 
-          Thêm câu hỏi
+          {{ $t('gamePanel.addQuestion') }}
         </button>
       </div>
     </template>
 
     <!-- GHÉP HÌNH: danh sách ảnh -->
     <template v-else-if="wedding.game.GameType === 'memory-match'">
-      <h3 class="sub-heading">Ảnh ghép đôi</h3>
+      <h3 class="sub-heading">{{ $t('gamePanel.images') }}</h3>
 
       <p class="field-help block-help">
-        4–6 ảnh cưới của hai bạn. Bỏ trống dùng ảnh album.
+        {{ $t('gamePanel.imagesHint') }}
       </p>
 
       <div class="items-list">
@@ -183,13 +181,13 @@
         >
           <div class="card-header">
             <div>
-              <span> ẢNH {{ index + 1 }} </span>
+              <span> {{ $t('gamePanel.imageLabel') }} {{ index + 1 }} </span>
             </div>
 
             <EditorItemActions
               :index="index"
               :total="wedding.gameImages.length"
-              remove-title="Xoá ảnh"
+              :remove-title="$t('galleryPanel.remove')"
               @move="moveImage"
               @remove="removeImage"
             />
@@ -199,7 +197,7 @@
             <UploadField
               v-model="image.Image"
               kind="image"
-              button-text="Tải ảnh lên"
+              :button-text="$t('storyPanel.uploadPhoto')"
               compact
             />
           </div>
@@ -208,36 +206,32 @@
         <div v-if="!wedding.gameImages?.length" class="empty-card">
           <v-icon size="30"> mdi-cards-outline </v-icon>
 
-          <strong> Chưa có ảnh riêng </strong>
+          <strong> {{ $t('gamePanel.noImages') }} </strong>
 
-          <span> Bỏ trống thì trò chơi dùng ảnh album của thiệp. </span>
+          <span> {{ $t('gamePanel.noImagesHint') }} </span>
         </div>
 
         <button type="button" class="add-button" @click="addImage">
           <v-icon> mdi-plus </v-icon>
 
-          Thêm ảnh
+          {{ $t('galleryPanel.add') }}
         </button>
       </div>
     </template>
 
     <!-- VÒNG QUAY / CÀO: không cấu hình riêng -->
     <p v-else class="field-help block-help">
-      Trò chơi này dùng danh sách phần quà bên dưới (hoặc lời
-      chúc mặc định nếu bỏ trống).
+      {{ $t('gamePanel.usesPrizes') }}
     </p>
 
     <!-- =====================================================
          PHẦN QUÀ TỪ CÔ DÂU CHÚ RỂ
     ====================================================== -->
 
-    <h3 class="sub-heading">Phần quà từ cô dâu &amp; chú rể</h3>
+    <h3 class="sub-heading">{{ $t('gamePanel.prizes') }}</h3>
 
     <p class="field-help block-help">
-      Quà thật bạn chuẩn bị cho khách (VD: thiệp cảm ơn, kẹo
-      mứt, voucher...). Khách trúng nhập tên — bạn xem danh
-      sách ở trang Quản lý để đối chiếu khi khách đến lễ.
-      Bỏ trống = khách nhận lời chúc (chế độ vui).
+      {{ $t('gamePanel.prizesHint') }}
     </p>
 
     <div class="items-list">
@@ -248,17 +242,17 @@
       >
         <div class="card-header">
           <div>
-            <span> QUÀ {{ index + 1 }} </span>
+            <span> {{ $t('gamePanel.prizeLabel') }} {{ index + 1 }} </span>
 
             <strong>
-              {{ prize.Title || "Chưa đặt tên" }}
+              {{ prize.Title || $t('panel.untitled') }}
             </strong>
           </div>
 
           <EditorItemActions
             :index="index"
             :total="wedding.gamePrizes.length"
-            remove-title="Xoá quà"
+            :remove-title="$t('gamePanel.removePrize')"
             @move="movePrize"
             @remove="removePrize"
           />
@@ -266,22 +260,22 @@
 
         <div class="form-grid">
           <div class="editor-field">
-            <label>Tên quà</label>
+            <label>{{ $t('gamePanel.prizeName') }}</label>
 
             <input
               v-model="prize.Title"
               type="text"
-              placeholder="VD: Thiệp cảm ơn"
+              :placeholder="$t('gamePanel.prizePlaceholder')"
             />
           </div>
 
           <div class="editor-field full">
-            <label>Mô tả (tùy chọn)</label>
+            <label>{{ $t('gamePanel.prizeDesc') }}</label>
 
             <input
               v-model="prize.Description"
               type="text"
-              placeholder="VD: Kèm kẹo dâu handmade"
+              :placeholder="$t('gamePanel.prizeDescPlaceholder')"
             />
           </div>
         </div>
@@ -290,30 +284,32 @@
       <div v-if="!wedding.gamePrizes?.length" class="empty-card">
         <v-icon size="30"> mdi-gift-outline </v-icon>
 
-        <strong> Chưa có quà </strong>
+        <strong> {{ $t('gamePanel.noPrizes') }} </strong>
 
         <span>
-          Bỏ trống thì khách nhận lời chúc — thêm quà để bật
-          chế độ nhận quà.
+          {{ $t('gamePanel.noPrizesHint') }}
         </span>
       </div>
 
       <button type="button" class="add-button" @click="addPrize">
         <v-icon> mdi-plus </v-icon>
 
-        Thêm quà
+        {{ $t('gamePanel.addPrize') }}
       </button>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import EditorItemActions from "@/components/editor/EditorItemActions.vue";
 import UploadField from "@/components/editor/UploadField.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
 
 import { GAME_TYPES } from "@/data/gameData";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -336,9 +332,9 @@ function addQuestion() {
 
 async function removeQuestion(index) {
   const ok = await confirmDialog({
-    title: "Xoá câu hỏi?",
-    message: "Câu hỏi này sẽ bị xoá khỏi thiệp.",
-    confirmText: "Xoá",
+    get title() { return t("gamePanel.confirmQuestion"); },
+    get message() { return t("gamePanel.confirmQuestionMsg"); },
+    get confirmText() { return t("common.delete"); },
   });
 
   if (ok) {
@@ -368,9 +364,9 @@ function addImage() {
 
 async function removeImage(index) {
   const ok = await confirmDialog({
-    title: "Xoá ảnh?",
-    message: "Ảnh này sẽ bị xoá khỏi trò chơi.",
-    confirmText: "Xoá",
+    get title() { return t("gamePanel.confirmImage"); },
+    get message() { return t("gamePanel.confirmImageMsg"); },
+    get confirmText() { return t("common.delete"); },
   });
 
   if (ok) {
@@ -400,9 +396,9 @@ function addPrize() {
 
 async function removePrize(index) {
   const ok = await confirmDialog({
-    title: "Xoá phần quà?",
-    message: "Quà này sẽ bị xoá khỏi trò chơi.",
-    confirmText: "Xoá",
+    get title() { return t("gamePanel.confirmPrize"); },
+    get message() { return t("gamePanel.confirmPrizeMsg"); },
+    get confirmText() { return t("common.delete"); },
   });
 
   if (ok) {

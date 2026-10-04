@@ -141,10 +141,10 @@ const dateText = computed(() => {
 
 <style scoped>
 .cb-hero {
-  --cb-deep: #6c4b4a;
-  --cb-rose: #926664;
-  --cb-gold: #c9a06a;
-  --cb-cream: #fffaf7;
+  --cb-deep: var(--tc-6c4b4a, #6c4b4a);
+  --cb-rose: var(--tc-926664, #926664);
+  --cb-gold: var(--tc-c9a06a, #c9a06a);
+  --cb-cream: var(--tc-fffaf7, #fffaf7);
 
   position: relative;
   isolation: isolate;
@@ -156,8 +156,8 @@ const dateText = computed(() => {
   min-height: min(690px, 100dvh);
 
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255, 252, 248, 0.9), transparent 55%),
-    linear-gradient(180deg, #fdf6ef 0%, #f6e9dd 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--tc-fffcf8-rgb, 255, 252, 248), 0.9), transparent 55%),
+    linear-gradient(180deg, var(--tc-fdf6ef, #fdf6ef) 0%, var(--tc-f6e9dd, #f6e9dd) 100%);
 }
 
 /* =========================================================
@@ -173,19 +173,19 @@ const dateText = computed(() => {
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(201, 160, 106, 0.55);
+  border: 1px solid rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.55);
   border-radius: 210px 210px 24px 24px;
 
-  background: linear-gradient(175deg, rgba(255, 253, 250, 0.6), rgba(250, 240, 230, 0.35));
+  background: linear-gradient(175deg, rgba(var(--tc-fffdfa-rgb, 255, 253, 250), 0.6), rgba(var(--tc-faf0e6-rgb, 250, 240, 230), 0.35));
 
-  box-shadow: 0 22px 55px rgba(108, 75, 74, 0.1);
+  box-shadow: 0 22px 55px rgba(var(--tc-6c4b4a-rgb, 108, 75, 74), 0.1);
 }
 
 .cb-hero__frame-inner {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(201, 160, 106, 0.28);
+  border: 1px solid rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.28);
   border-radius: 202px 202px 18px 18px;
 
   pointer-events: none;
@@ -225,9 +225,9 @@ const dateText = computed(() => {
 
   background: linear-gradient(
     180deg,
-    rgba(253, 246, 239, 0.55),
-    rgba(246, 233, 221, 0.35) 55%,
-    rgba(253, 246, 239, 0.6)
+    rgba(var(--tc-fdf6ef-rgb, 253, 246, 239), 0.55),
+    rgba(var(--tc-f6e9dd-rgb, 246, 233, 221), 0.35) 55%,
+    rgba(var(--tc-fdf6ef-rgb, 253, 246, 239), 0.6)
   );
 }
 
@@ -295,7 +295,7 @@ const dateText = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 160, 106, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.8));
 }
 
 .cb-hero__motif span:last-child {
@@ -358,7 +358,7 @@ const dateText = computed(() => {
   max-width: 325px;
   margin: 14px auto 8px;
 
-  color: rgba(108, 75, 74, 0.85);
+  color: rgba(var(--tc-6c4b4a-rgb, 108, 75, 74), 0.85);
 
   font-size: 12px;
 
@@ -383,8 +383,8 @@ const dateText = computed(() => {
   margin: 24px auto 0;
   padding: 14px 0;
 
-  border-top: 1px solid rgba(201, 160, 106, 0.45);
-  border-bottom: 1px solid rgba(201, 160, 106, 0.45);
+  border-top: 1px solid rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.45);
+  border-bottom: 1px solid rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.45);
 }
 
 .cb-hero__schedule p {
@@ -403,7 +403,7 @@ const dateText = computed(() => {
   max-width: 295px;
   margin: 24px auto 20px;
 
-  color: rgba(108, 75, 74, 0.8);
+  color: rgba(var(--tc-6c4b4a-rgb, 108, 75, 74), 0.8);
 
   font-size: 14px;
   font-style: italic;
@@ -424,7 +424,7 @@ const dateText = computed(() => {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 160, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.7));
 }
 
 .cb-hero__footer span:last-child {
@@ -454,7 +454,7 @@ const dateText = computed(() => {
   position: absolute;
   top: -30px;
 
-  color: rgba(182, 127, 125, 0.4);
+  color: rgba(var(--tc-b67f7d-rgb, 182, 127, 125), 0.4);
 
   font-size: 13px;
 

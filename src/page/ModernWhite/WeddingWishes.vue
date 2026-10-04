@@ -1,8 +1,13 @@
 <template>
   <section class="mw-wishes">
-    <h2 class="mw-title">Sổ lưu bút</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="mw-top-custom-head">
+      <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
+    </header>
 
-    <p class="mw-lead">Gửi đến chúng mình những lời chúc thật ấm áp nhé</p>
+    <h2 class="mw-title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+
+    <p class="mw-lead">{{ sectionText(sections, "guestbook", "Intro", "Gửi đến chúng mình những lời chúc thật ấm áp nhé") }}</p>
 
     <!-- =====================================================
          MARQUEE
@@ -98,12 +103,14 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: {
     type: Array,
     default: () => [],
@@ -486,5 +493,42 @@ async function submitWish() {
   .mw-marquee__item {
     font-size: 15px;
   }
+}
+
+.mw-lead {
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.mw-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.mw-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.mw-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.mw-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

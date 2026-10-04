@@ -8,12 +8,17 @@
     <div class="gift-heading">
 
       <span class="gift-kicker">
-        MỘT CHÚT TẤM LÒNG
+        {{ sectionText(sections, "gifts", "Eyebrow", "MỘT CHÚT TẤM LÒNG") }}
       </span>
 
       <h2>
-        MỪNG CƯỚI
+        {{ sectionText(sections, "gifts", "Heading", "MỪNG CƯỚI") }}
       </h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ig-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ig-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
+      </header>
+
 
       <div class="gift-decoration">
         <span></span>
@@ -241,11 +246,13 @@
 
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 import  lixi  from "@/assets/nhat-binh-do-red/nhat_binh_red.webp";
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: {
     type: Array,
     default: () => [],
@@ -406,7 +413,7 @@ async function copyAccount(gift) {
     4px
     25px;
 
-  color: #641417;
+  color: var(--tc-641417, #641417);
 
   text-align: center;
 
@@ -436,7 +443,7 @@ async function copyAccount(gift) {
 
   margin-bottom: 5px;
 
-  color: #8b6834;
+  color: var(--tc-8b6834, #8b6834);
 
   font-size: 10px;
   font-weight: 900;
@@ -448,7 +455,7 @@ async function copyAccount(gift) {
 .gift-heading h2 {
   margin: 0;
 
-  color: #821419;
+  color: var(--tc-821419, #821419);
 
   font-family:
     Georgia,
@@ -485,7 +492,7 @@ async function copyAccount(gift) {
     linear-gradient(
       to right,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
@@ -495,13 +502,13 @@ async function copyAccount(gift) {
     linear-gradient(
       to left,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
 
 .gift-decoration b {
-  color: #9b161a;
+  color: var(--tc-9b161a, #9b161a);
 
   font-family:
     "Times New Roman",
@@ -516,7 +523,7 @@ async function copyAccount(gift) {
 
   max-width: 300px;
 
-  color: #75604e;
+  color: var(--tc-75604e, #75604e);
 
   font-size: 11px;
   font-weight: 500;
@@ -643,7 +650,7 @@ async function copyAccount(gift) {
   filter:
     drop-shadow(
       0 12px 15px
-      rgba(88, 14, 18, .22)
+      rgba(var(--tc-580e12-rgb, 88, 14, 18), .22)
     );
 
   animation:
@@ -723,20 +730,20 @@ async function copyAccount(gift) {
   width: 25px;
   height: 25px;
 
-  color: #8b1116;
+  color: var(--tc-8b1116, #8b1116);
 
   background:
-    rgba(255,249,232,.96);
+    rgba(var(--tc-fff9e8-rgb, 255, 249, 232), .96);
 
   border:
     1px solid
-    rgba(153,110,44,.6);
+    rgba(var(--tc-996e2c-rgb, 153, 110, 44), .6);
 
   border-radius: 50%;
 
   box-shadow:
     0 3px 10px
-    rgba(70,15,15,.2);
+    rgba(var(--tc-460f0f-rgb, 70, 15, 15), .2);
 
   font-size: 18px;
   font-weight: 400;
@@ -752,7 +759,7 @@ async function copyAccount(gift) {
 .lixi-label {
   margin-top: 4px;
 
-  color: #7d1519;
+  color: var(--tc-7d1519, #7d1519);
 
   font-size: 11px;
   font-weight: 900;
@@ -772,7 +779,7 @@ async function copyAccount(gift) {
 
   margin-top: 3px;
 
-  color: #896836;
+  color: var(--tc-896836, #896836);
 
   font-size: 10px;
   font-weight: 900;
@@ -868,7 +875,7 @@ async function copyAccount(gift) {
   filter:
     drop-shadow(
       0 10px 14px
-      rgba(104, 20, 20, .18)
+      rgba(var(--tc-681414-rgb, 104, 20, 20), .18)
     );
 
   animation:
@@ -948,20 +955,20 @@ async function copyAccount(gift) {
   width: 25px;
   height: 25px;
 
-  color: #8c1116;
+  color: var(--tc-8c1116, #8c1116);
 
   background:
-    rgba(255,248,228,.94);
+    rgba(var(--tc-fff8e4-rgb, 255, 248, 228), .94);
 
   border:
     1px solid
-    rgba(154, 111, 48, .55);
+    rgba(var(--tc-9a6f30-rgb, 154, 111, 48), .55);
 
   border-radius: 50%;
 
   box-shadow:
     0 3px 9px
-    rgba(90,20,20,.16);
+    rgba(var(--tc-5a1414-rgb, 90, 20, 20), .16);
 
   font-family:
     Arial,
@@ -981,7 +988,7 @@ async function copyAccount(gift) {
 .lixi-label {
   margin-top: 6px;
 
-  color: #7c1519;
+  color: var(--tc-7c1519, #7c1519);
 
   font-size: 10px;
   font-weight: 900;
@@ -997,7 +1004,7 @@ async function copyAccount(gift) {
 
   margin-top: 4px;
 
-  color: #8a6836;
+  color: var(--tc-8a6836, #8a6836);
 
   font-size: 11px;
   font-weight: 800;
@@ -1011,7 +1018,7 @@ async function copyAccount(gift) {
 ===================================================== */
 
 .gift-empty {
-  color: #8a7159;
+  color: var(--tc-8a7159, #8a7159);
 
   font-size: 11px;
 }
@@ -1060,18 +1067,18 @@ async function copyAccount(gift) {
     22px
     23px;
 
-  color: #671317;
+  color: var(--tc-671317, #671317);
 
   background:
     linear-gradient(
       145deg,
-      #fffaf0,
-      #f8ead0
+      var(--tc-fffaf0, #fffaf0),
+      var(--tc-f8ead0, #f8ead0)
     );
 
   border:
     1px solid
-    rgba(169, 123, 55, .65);
+    rgba(var(--tc-a97b37-rgb, 169, 123, 55), .65);
 
   box-shadow:
     0 25px 70px
@@ -1092,7 +1099,7 @@ async function copyAccount(gift) {
 
   border:
     1px solid
-    rgba(169, 123, 55, .25);
+    rgba(var(--tc-a97b37-rgb, 169, 123, 55), .25);
 }
 
 
@@ -1113,10 +1120,10 @@ async function copyAccount(gift) {
 
   border: 0;
 
-  color: #7e181c;
+  color: var(--tc-7e181c, #7e181c);
 
   background:
-    rgba(145, 104, 43, .08);
+    rgba(var(--tc-91682b-rgb, 145, 104, 43), .08);
 
   border-radius: 50%;
 
@@ -1136,7 +1143,7 @@ async function copyAccount(gift) {
 .modal-symbol {
   position: relative;
 
-  color: #a1171c;
+  color: var(--tc-a1171c, #a1171c);
 
   font-family:
     "Times New Roman",
@@ -1156,7 +1163,7 @@ async function copyAccount(gift) {
 
   margin-top: 6px;
 
-  color: #906d38;
+  color: var(--tc-906d38, #906d38);
 
   font-size: 10px;
   font-weight: 900;
@@ -1173,7 +1180,7 @@ async function copyAccount(gift) {
     0
     0;
 
-  color: #771317;
+  color: var(--tc-771317, #771317);
 
   font-family:
     Georgia,
@@ -1208,12 +1215,12 @@ async function copyAccount(gift) {
   width: 35px;
   height: 1px;
 
-  background: #b88b47;
+  background: var(--tc-b88b47, #b88b47);
 }
 
 
 .modal-line b {
-  color: #a1171c;
+  color: var(--tc-a1171c, #a1171c);
 
   font-size: 11px;
 }
@@ -1231,7 +1238,7 @@ async function copyAccount(gift) {
 
 
 .bank-name {
-  color: #8b661f;
+  color: var(--tc-8b661f, #8b661f);
 
   font-size: 11px;
   font-weight: 900;
@@ -1243,7 +1250,7 @@ async function copyAccount(gift) {
 .account-name {
   margin-top: 5px;
 
-  color: #765c48;
+  color: var(--tc-765c48, #765c48);
 
   font-size: 11px;
   font-weight: 600;
@@ -1253,7 +1260,7 @@ async function copyAccount(gift) {
 .account-number {
   margin-top: 7px;
 
-  color: #821419;
+  color: var(--tc-821419, #821419);
 
   font-family:
     Arial,
@@ -1291,11 +1298,11 @@ async function copyAccount(gift) {
 
   border:
     1px solid
-    #b48a47;
+    var(--tc-b48a47, #b48a47);
 
   box-shadow:
     0 8px 20px
-    rgba(91, 24, 24, .12);
+    rgba(var(--tc-5b1818-rgb, 91, 24, 24), .12);
 }
 
 
@@ -1321,7 +1328,7 @@ async function copyAccount(gift) {
 
   z-index: 2;
 
-  border-color: #a7191e;
+  border-color: var(--tc-a7191e, #a7191e);
   border-style: solid;
 }
 
@@ -1386,7 +1393,7 @@ async function copyAccount(gift) {
     0
     17px;
 
-  color: #866c53;
+  color: var(--tc-866c53, #866c53);
 
   font-size: 10px;
 
@@ -1409,18 +1416,18 @@ async function copyAccount(gift) {
 
   padding: 8px 16px;
 
-  color: #fff9ed;
+  color: var(--tc-fff9ed, #fff9ed);
 
   background:
     linear-gradient(
       135deg,
-      #a37a3d,
-      #8b661f
+      var(--tc-a37a3d, #a37a3d),
+      var(--tc-8b661f, #8b661f)
     );
 
   border:
     1px solid
-    #b88b47;
+    var(--tc-b88b47, #b88b47);
 
   font-size: 10px;
   font-weight: 900;
@@ -1441,7 +1448,7 @@ async function copyAccount(gift) {
 .copy-toast {
   margin-bottom: 14px;
 
-  color: #7d5a1e;
+  color: var(--tc-7d5a1e, #7d5a1e);
 
   font-size: 11px;
   font-weight: 700;
@@ -1462,18 +1469,18 @@ async function copyAccount(gift) {
     8px
     20px;
 
-  color: #fff9ed;
+  color: var(--tc-fff9ed, #fff9ed);
 
   background:
     linear-gradient(
       135deg,
-      #98171c,
-      #771115
+      var(--tc-98171c, #98171c),
+      var(--tc-771115, #771115)
     );
 
   border:
     1px solid
-    #a42b2e;
+    var(--tc-a42b2e, #a42b2e);
 
   font-size: 11px;
   font-weight: 900;
@@ -1590,5 +1597,38 @@ async function copyAccount(gift) {
     height: 165px;
   }
 
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ig-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ig-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ig-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ig-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <section class="sp-countdown">
-    <p class="sp-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
+    <p class="sp-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
 
-    <h2>Đếm ngược</h2>
+    <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
 
     <div class="sp-countdown__grid">
       <article v-for="item in values" :key="item.label" class="sp-countdown__item">
@@ -14,10 +14,12 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
   weddingDate: { type: [String, Date], default: "" },
 });
@@ -54,13 +56,13 @@ const values = computed(() => {
 .sp-countdown {
   text-align: center;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-eyebrow {
   margin: 0;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 10px;
   font-weight: 700;
@@ -77,7 +79,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-countdown__grid {
@@ -89,12 +91,12 @@ const values = computed(() => {
 .sp-countdown__item {
   padding: 16px 2px;
 
-  border: 1px solid rgba(224, 163, 126, 0.45);
+  border: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.45);
   border-radius: 16px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(255, 242, 232, 0.65));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(var(--tc-fff2e8-rgb, 255, 242, 232), 0.65));
 
-  box-shadow: 0 8px 22px rgba(122, 74, 61, 0.07);
+  box-shadow: 0 8px 22px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.07);
 }
 
 .sp-countdown__item b {
@@ -102,7 +104,7 @@ const values = computed(() => {
 
   font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
   font-size: clamp(22px, 7vw, 30px);
   font-weight: 600;
@@ -115,6 +117,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 }
 </style>

@@ -1,21 +1,20 @@
 <template>
-  <div class="sunset-peach-theme">
-    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" />
+  <div class="sunset-peach-theme" :style="colorVars">
+    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" :sections="sections" />
 
     <main v-else class="sunset-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
 
       <div class="sunset-content">
         <section v-if="showCouple" class="sunset-section">
-          <WeddingCouple :wedding="wedding" :guest-name="guestName" />
+          <WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" />
         </section>
         <section v-if="showStory && useMilestoneStory" class="sunset-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="sunset-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="sunset-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
         <section v-if="showEvents && events.length" class="sunset-section">
           <WeddingEvents :events="events" :recipient-name="wedding?.recipientName"
-            :settings="settings"
-          />
+            :settings="settings" :sections="sections" />
         </section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
@@ -26,24 +25,24 @@
 
         <section v-if="showGame" class="sunset-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="sunset-section">
-          <Timeline :timeline="timeline" :events="events" />
+          <Timeline :timeline="timeline" :events="events" :sections="sections" />
         </section>
         <section v-if="showCountdown" class="sunset-section">
-          <WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" />
+          <WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" />
         </section>
         <section v-if="showGallery && gallery.length" class="sunset-section">
-          <WeddingGallery :gallery="gallery" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
         </section>
 
       </div>
       <section v-if="showGift && gifts.length" class="sunset-section">
-        <WeddingGifts :gifts="gifts" />
+        <WeddingGifts :gifts="gifts" :sections="sections" />
       </section>
       <section v-if="showGuestBook" class="sunset-section">
-        <WeddingWishes :wishes="wishes" :wedding="wedding" />
+        <WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" />
       </section>
 
-      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
+      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" :sections="sections" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
 
@@ -53,6 +52,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -75,6 +75,12 @@ import WeddingWishes from "@/page/SunsetPeach/WeddingWishes.vue";
 import WeddingFooter from "@/page/SunsetPeach/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -161,12 +167,12 @@ onMounted(() => {
 
 <style scoped>
 .sunset-peach-theme {
-  --theme-primary: #7a4a3d;
-  --theme-secondary: #d67a63;
-  --theme-accent: #f4c6a9;
-  --theme-bg: #fffaf5;
+  --theme-primary: var(--tc-7a4a3d, #7a4a3d);
+  --theme-secondary: var(--tc-d67a63, #d67a63);
+  --theme-accent: var(--tc-f4c6a9, #f4c6a9);
+  --theme-bg: var(--tc-fffaf5, #fffaf5);
   --theme-panel: rgba(255,255,255,0.7);
-  --theme-text: #523835;
+  --theme-text: var(--tc-523835, #523835);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -177,7 +183,7 @@ onMounted(() => {
 
 .sunset-invitation { width: 100%; }
 
-.sunset-content { background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(253,238,228,0.78)); padding: 0 20px 30px; }
+.sunset-content { background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(var(--tc-fdeee4-rgb, 253, 238, 228), 0.78)); padding: 0 20px 30px; }
 
 .sunset-section { max-width: 1100px; margin: 0 auto 22px; }
 
@@ -185,14 +191,14 @@ onMounted(() => {
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .sunset-peach-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .sunset-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(122, 74, 61, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.16);
   }
 }
 </style>

@@ -4,9 +4,9 @@
          HEADER
     ========================================== -->
     <div class="events-heading">
-      <div class="gg-eyebrow">TRÂN TRỌNG KÍNH MỜI</div>
+      <div class="gg-eyebrow">{{ sectionText(sections, "events", "Eyebrow", "TRÂN TRỌNG KÍNH MỜI") }}</div>
 
-      <h2 class="gg-title">Thông tin tiệc cưới</h2>
+      <h2 class="gg-title">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
     </div>
 
     <!-- =========================================
@@ -260,6 +260,7 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
@@ -273,6 +274,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: {
     type: Array,
     default: () => [],

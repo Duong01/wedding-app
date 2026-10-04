@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 /*
  * Tiêu đề các mục trên thiệp (section titles).
  *
@@ -22,16 +24,16 @@
 export const SECTION_TITLES = [
   {
     key: "opening",
-    label: "Màn hình mở thiệp",
+    get label() { return t("sections.opening"); },
     icon: "mdi-email-open-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "THIỆP MỜI CƯỚI" },
-      { name: "Kicker", label: "Dòng trên thiệp", default: "SAVE THE DATE" },
-      { name: "Invite", label: "Lời mời", default: "Trân trọng kính mời" },
-      { name: "Button", label: "Nút mở thiệp", default: "CHẠM ĐỂ MỞ THIỆP" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "THIỆP MỜI CƯỚI" },
+      { name: "Kicker", get label() { return t("sections.field.kicker"); }, default: "SAVE THE DATE" },
+      { name: "Invite", get label() { return t("sections.field.invite"); }, default: "Trân trọng kính mời" },
+      { name: "Button", get label() { return t("sections.field.button"); }, default: "CHẠM ĐỂ MỞ THIỆP" },
       {
         name: "Hint",
-        label: "Dòng gợi ý",
+        get label() { return t("sections.field.hint"); },
         default: "Một lời mời · Một câu chuyện · Một ngày đặc biệt",
       },
     ],
@@ -39,73 +41,73 @@ export const SECTION_TITLES = [
 
   {
     key: "couple",
-    label: "Cô dâu & Chú rể",
+    get label() { return t("sections.couple"); },
     icon: "mdi-heart-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "TRÂN TRỌNG BÁO HỶ" },
-      { name: "Heading", label: "Tiêu đề", default: "Thông tin tiệc cưới" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "TRÂN TRỌNG BÁO HỶ" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Thông tin tiệc cưới" },
     ],
   },
 
   {
     key: "story",
-    label: "Chuyện tình yêu",
+    get label() { return t("sections.story"); },
     icon: "mdi-book-heart-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "CÂU CHUYỆN CỦA CHÚNG MÌNH" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "CÂU CHUYỆN CỦA CHÚNG MÌNH" },
       /*
        * Heading của mục này mặc định lấy từ story.Title
        * (panel "Chuyện tình yêu") nên default để trống.
        */
-      { name: "Heading", label: "Tiêu đề", default: "" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "" },
     ],
   },
 
   {
     key: "video",
-    label: "Video cưới",
+    get label() { return t("sections.video"); },
     icon: "mdi-play-circle-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "KHOẢNH KHẮC YÊU THƯƠNG" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "KHOẢNH KHẮC YÊU THƯƠNG" },
       /*
        * Heading mặc định lấy từ video.Title (panel
        * "Video cưới") nên default để trống.
        */
-      { name: "Heading", label: "Tiêu đề", default: "" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "" },
     ],
   },
 
   {
     key: "events",
-    label: "Thông tin tiệc cưới",
+    get label() { return t("sections.events"); },
     icon: "mdi-glass-cocktail",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "TIỆC BÁO HỶ" },
-      { name: "Heading", label: "Tiêu đề", default: "Thông tin tiệc báo hỷ" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "TIỆC BÁO HỶ" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Thông tin tiệc báo hỷ" },
     ],
   },
 
   {
     key: "dressCode",
-    label: "Dress code",
+    get label() { return t("sections.dressCode"); },
     icon: "mdi-tshirt-crew-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "TRANG PHỤC" },
-      { name: "Heading", label: "Tiêu đề", default: "Dress Code" },
-      { name: "Intro", label: "Mô tả", default: "Trang phục dự tiệc" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "TRANG PHỤC" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Dress Code" },
+      { name: "Intro", get label() { return t("sections.field.intro"); }, default: "Trang phục dự tiệc" },
     ],
   },
 
   {
     key: "timeline",
-    label: "Timeline",
+    get label() { return t("sections.timeline"); },
     icon: "mdi-timeline-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "DẤU MỐC YÊU THƯƠNG" },
-      { name: "Heading", label: "Tiêu đề", default: "Hành trình của chúng mình" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "DẤU MỐC YÊU THƯƠNG" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Hành trình của chúng mình" },
       {
         name: "Intro",
-        label: "Mô tả",
+        get label() { return t("sections.field.intro"); },
         default: "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay",
       },
     ],
@@ -113,24 +115,24 @@ export const SECTION_TITLES = [
 
   {
     key: "countdown",
-    label: "Đếm ngược",
+    get label() { return t("sections.countdown"); },
     icon: "mdi-timer-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "NGÀY VUI ĐANG ĐẾN GẦN" },
-      { name: "Heading", label: "Tiêu đề", default: "Đếm ngược" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "NGÀY VUI ĐANG ĐẾN GẦN" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Đếm ngược" },
     ],
   },
 
   {
     key: "gallery",
-    label: "Album ảnh",
+    get label() { return t("sections.gallery"); },
     icon: "mdi-image-multiple-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "KỶ NIỆM TƯƠI ĐẸP" },
-      { name: "Heading", label: "Tiêu đề", default: "Album Hình Cưới" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "KỶ NIỆM TƯƠI ĐẸP" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Album Hình Cưới" },
       {
         name: "Intro",
-        label: "Mô tả",
+        get label() { return t("sections.field.intro"); },
         default: "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình",
       },
     ],
@@ -138,33 +140,33 @@ export const SECTION_TITLES = [
 
   {
     key: "game",
-    label: "Trò chơi",
+    get label() { return t("sections.game"); },
     icon: "mdi-party-popper",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "CÙNG VUI CHƠI" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "CÙNG VUI CHƠI" },
       /*
        * Heading mặc định lấy từ game.Title (panel
        * "Trò chơi") nên default để trống.
        */
-      { name: "Heading", label: "Tiêu đề", default: "" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "" },
       /*
        * Intro mặc định lấy theo loại game
        * (gameTypeMeta(type).intro) — để trống.
        */
-      { name: "Intro", label: "Mô tả", default: "" },
+      { name: "Intro", get label() { return t("sections.field.intro"); }, default: "" },
     ],
   },
 
   {
     key: "gifts",
-    label: "Mừng cưới",
+    get label() { return t("sections.gifts"); },
     icon: "mdi-gift-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "GỬI YÊU THƯƠNG" },
-      { name: "Heading", label: "Tiêu đề", default: "Hộp mừng cưới" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "GỬI YÊU THƯƠNG" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Hộp mừng cưới" },
       {
         name: "Intro",
-        label: "Mô tả",
+        get label() { return t("sections.field.intro"); },
         default:
           "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình",
       },
@@ -173,14 +175,14 @@ export const SECTION_TITLES = [
 
   {
     key: "guestbook",
-    label: "Sổ lưu bút",
+    get label() { return t("sections.guestbook"); },
     icon: "mdi-message-heart-outline",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "LỜI CHÚC TỪ BẠN" },
-      { name: "Heading", label: "Tiêu đề", default: "Sổ lưu bút" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "LỜI CHÚC TỪ BẠN" },
+      { name: "Heading", get label() { return t("sections.field.heading"); }, default: "Sổ lưu bút" },
       {
         name: "Intro",
-        label: "Mô tả",
+        get label() { return t("sections.field.intro"); },
         default:
           "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này",
       },
@@ -189,10 +191,10 @@ export const SECTION_TITLES = [
 
   {
     key: "footer",
-    label: "Chân thiệp",
+    get label() { return t("sections.footer"); },
     icon: "mdi-page-layout-footer",
     fields: [
-      { name: "Eyebrow", label: "Dòng nhỏ", default: "SAVE THE DATE" },
+      { name: "Eyebrow", get label() { return t("sections.field.eyebrow"); }, default: "SAVE THE DATE" },
     ],
   },
 ];

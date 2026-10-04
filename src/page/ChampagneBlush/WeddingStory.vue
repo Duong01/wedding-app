@@ -1,8 +1,8 @@
 <template>
   <section class="cb-story">
-    <p class="cb-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+    <p class="cb-eyebrow">{{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</p>
 
-    <h2>{{ storyTitle }}</h2>
+    <h2>{{ sectionText(sections, "story", "Heading", storyTitle) }}</h2>
 
     <div class="cb-quote">“</div>
 
@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -32,13 +33,13 @@ const storyTitle = computed(() =>
 .cb-story {
   text-align: center;
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 }
 
 .cb-eyebrow {
   margin: 0;
 
-  color: #926664;
+  color: var(--tc-926664, #926664);
 
   font-size: 10px;
   font-weight: 700;
@@ -54,13 +55,13 @@ const storyTitle = computed(() =>
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 }
 
 .cb-quote {
   height: 35px;
 
-  color: #896d48;
+  color: var(--tc-896d48, #896d48);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -79,7 +80,7 @@ const storyTitle = computed(() =>
 .cb-tail {
   margin-top: 18px;
 
-  color: #926664;
+  color: var(--tc-926664, #926664);
 
   font-size: 15px;
 }

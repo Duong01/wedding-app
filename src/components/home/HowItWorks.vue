@@ -3,11 +3,11 @@
     <div class="mk-container">
       <header class="mk-head mk-head--center">
         <h2>
-          Làm thiệp cưới điện tử miễn phí
-          <em>&amp; quản lý khách mời</em>
+          {{ $t('how.h2a') }}
+          <em>{{ $t("how.h2b") }}</em>
         </h2>
 
-        <p>Giữ nét đẹp truyền thống · Tiện lợi thời hiện đại</p>
+        <p>{{ $t('how.sub') }}</p>
       </header>
 
       <div class="how-grid">
@@ -28,7 +28,7 @@
             </span>
 
             <div class="flow-body">
-              <p class="flow-kicker">Bước {{ index + 1 }}</p>
+              <p class="flow-kicker">{{ $t('guide.step') }} {{ index + 1 }}</p>
 
               <h3>{{ step.title }}</h3>
 
@@ -47,7 +47,7 @@
             <iframe
               v-if="playing"
               :src="embedUrl"
-              title="Video hướng dẫn tạo thiệp cưới"
+              :title="$t('guide.videoTitle')"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               loading="lazy"
@@ -66,26 +66,28 @@
               </span>
 
               <span class="video-label">
-                Xem video hướng dẫn — 2 phút
+                {{ $t('how.video') }}
               </span>
             </button>
           </div>
 
           <p class="video-note">
-            Hoặc đọc
-            <router-link :to="{ name: 'Guide' }">hướng dẫn chi tiết</router-link>
-            nếu bạn muốn xem từng bước bằng hình ảnh.
+            <i18n-t keypath="how.videoNote" tag="span">
+              <template #link>
+                <router-link :to="{ name: 'Guide' }">{{ $t("how.detailedGuide") }}</router-link>
+              </template>
+            </i18n-t>
           </p>
         </div>
       </div>
 
       <div class="mk-cta">
         <router-link :to="{ name: 'Editor' }" class="mk-btn mk-btn--solid">
-          Bắt đầu tạo thiệp
+          {{ $t('plan.free.cta') }}
         </router-link>
 
         <p class="mk-note">
-          Tạo miễn phí · Dùng thử 3 ngày · Ưng mới thanh toán
+          {{ $t('how.note') }}
         </p>
       </div>
     </div>

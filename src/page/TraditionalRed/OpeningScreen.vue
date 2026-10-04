@@ -55,7 +55,7 @@
             <p v-if="dateLabel" class="tr-cover__date">{{ dateLabel }}</p>
 
             <div class="tr-cover__invite">
-              <p class="tr-cover__invite-label">Thân Mời</p>
+              <p class="tr-cover__invite-label">{{ sectionText(sections, "opening", "Invite", "Thân Mời") }}</p>
 
               <div class="tr-cover__guest">
                 <h2>{{ guestName }}</h2>
@@ -67,7 +67,7 @@
             </div>
 
             <button type="button" class="tr-cover__button" @click="emit('open')">
-              <span>Mở thiệp</span>
+              <span>{{ sectionText(sections, "opening", "Button", "Mở thiệp") }}</span>
               <span class="tr-cover__shine" aria-hidden="true"></span>
             </button>
           </div>
@@ -78,11 +78,13 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { cloud, phuong, rong } from "./traditionalRedAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),

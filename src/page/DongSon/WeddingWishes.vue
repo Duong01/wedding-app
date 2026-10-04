@@ -3,7 +3,17 @@
     <div class="wishes-header">
       <div class="wish-star">✦</div>
       <small>GUEST BOOK</small>
-      <h2>Lời chúc yêu thương</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="ds-top-custom-head">
+        <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "guestbook", "Heading", "Lời chúc yêu thương") }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="ds-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="ds-sub-custom-head__intro">{{ sectionOverride(sections, "guestbook", "Intro") }}</p>
+      </header>
+
       <p>
         Những lời chúc sẽ trở thành một phần
         ký ức đẹp của chúng mình.
@@ -143,6 +153,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 
 import { useRoute } from "vue-router";
@@ -150,6 +161,7 @@ import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: {
     type: Array,
     default: () => [],
@@ -298,9 +310,9 @@ if(route.params.slug  && route.name === "WeddingByApi") {
 .wishes {
   padding: 70px 20px;
   background:
-    radial-gradient(circle at center, rgba(201,149,82,.13), transparent 40%),
-    #641914;
-  color: #ead7b5;
+    radial-gradient(circle at center, rgba(var(--tc-c99552-rgb, 201, 149, 82), .13), transparent 40%),
+    var(--tc-641914, #641914);
+  color: var(--tc-ead7b5, #ead7b5);
   text-align: center;
 }
 
@@ -311,13 +323,13 @@ if(route.params.slug  && route.name === "WeddingByApi") {
 
 .wish-star {
   margin-bottom: 20px;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .wishes-header small {
   font-size: 10px;
   letter-spacing: .4em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 h2 {
@@ -331,7 +343,7 @@ h2 {
   font-family: Georgia, serif;
   font-style: italic;
   line-height: 1.8;
-  color: #cdb99b;
+  color: var(--tc-cdb99b, #cdb99b);
 }
 
 /* =========================================================
@@ -347,7 +359,7 @@ h2 {
   margin: 30px auto 0;
   padding: 9px 14px;
 
-  border: 1px solid rgba(201,149,82,.35);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .35);
   background: rgba(0,0,0,.12);
 }
 
@@ -360,7 +372,7 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .18em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .marquee-window {
@@ -396,23 +408,23 @@ h2 {
   white-space: nowrap;
 
   font-size: 12px;
-  color: rgba(234,215,181,.85);
+  color: rgba(var(--tc-ead7b5-rgb, 234, 215, 181), .85);
 }
 
 .marquee-item i {
   font-style: normal;
   font-size: 11px;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .marquee-item strong {
   font-weight: 700;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 .marquee-item em {
   font-style: italic;
-  color: rgba(234,215,181,.7);
+  color: rgba(var(--tc-ead7b5-rgb, 234, 215, 181), .7);
 }
 
 @keyframes ds-marquee {
@@ -434,7 +446,7 @@ h2 {
   margin: 26px auto 0;
   padding: 26px 22px;
 
-  border: 1px solid rgba(201,149,82,.7);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .7);
   background: rgba(0,0,0,.28);
 
   box-shadow: 0 10px 26px rgba(0,0,0,.25);
@@ -457,7 +469,7 @@ h2 {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: .08em;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 
   white-space: nowrap;
 }
@@ -466,7 +478,7 @@ h2 {
   flex: 1;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201,149,82,.5));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c99552-rgb, 201, 149, 82), .5));
 }
 
 .form-title-line:last-child {
@@ -480,7 +492,7 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .22em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .wish-form-card input,
@@ -490,7 +502,7 @@ h2 {
   margin-bottom: 16px;
   padding: 12px 14px;
 
-  border: 1px solid rgba(201,149,82,.5);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .5);
   border-radius: 0;
 
   outline: none;
@@ -498,7 +510,7 @@ h2 {
   font-family: Georgia, serif;
   font-size: 14px;
 
-  color: #ead7b5;
+  color: var(--tc-ead7b5, #ead7b5);
   background: rgba(0,0,0,.14);
 
   transition: border-color .2s ease, box-shadow .2s ease;
@@ -514,14 +526,14 @@ h2 {
 
 .wish-form-card input::placeholder,
 .wish-form-card textarea::placeholder {
-  color: rgba(234,215,181,.65);
+  color: rgba(var(--tc-ead7b5-rgb, 234, 215, 181), .65);
 }
 
 .wish-form-card input:focus,
 .wish-form-card textarea:focus {
-  border-color: #c99552;
+  border-color: var(--tc-c99552, #c99552);
 
-  box-shadow: 0 0 0 3px rgba(201,149,82,.15);
+  box-shadow: 0 0 0 3px rgba(var(--tc-c99552-rgb, 201, 149, 82), .15);
 }
 
 .char-count {
@@ -530,7 +542,7 @@ h2 {
   text-align: right;
 
   font-size: 11px;
-  color: rgba(234,215,181,.65);
+  color: rgba(var(--tc-ead7b5-rgb, 234, 215, 181), .65);
 }
 
 .wish-submit {
@@ -539,14 +551,14 @@ h2 {
   width: 100%;
   padding: 13px 20px;
 
-  border: 1px solid #c99552;
+  border: 1px solid var(--tc-c99552, #c99552);
 
   font-family: Georgia, serif;
   font-size: 12px;
   letter-spacing: .24em;
 
-  color: #641914;
-  background: linear-gradient(180deg, #d4a35f, #c99552);
+  color: var(--tc-641914, #641914);
+  background: linear-gradient(180deg, var(--tc-d4a35f, #d4a35f), var(--tc-c99552, #c99552));
 
   cursor: pointer;
 
@@ -587,14 +599,14 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .24em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .list-heading span {
   flex: 1;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201,149,82,.45));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c99552-rgb, 201, 149, 82), .45));
 }
 
 .list-heading span:last-child {
@@ -610,7 +622,7 @@ h2 {
 
   padding: 22px 20px;
 
-  border: 1px solid rgba(201,149,82,.6);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .6);
   background: rgba(0,0,0,.24);
 
   box-shadow: 0 8px 22px rgba(0,0,0,.22);
@@ -622,7 +634,7 @@ h2 {
   content: "";
   position: absolute;
   inset: 5px;
-  border: 1px solid rgba(201,149,82,.22);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .22);
   pointer-events: none;
 }
 
@@ -636,15 +648,15 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid rgba(201,149,82,.5);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .5);
   border-radius: 50%;
 
   font-family: Georgia, serif;
   font-size: 15px;
   font-weight: 700;
 
-  color: #d4a35f;
-  background: rgba(201,149,82,.14);
+  color: var(--tc-d4a35f, #d4a35f);
+  background: rgba(var(--tc-c99552-rgb, 201, 149, 82), .14);
 }
 
 .wish-body {
@@ -657,7 +669,7 @@ h2 {
   font-size: 28px;
   line-height: 1;
 
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .wish-card p {
@@ -680,14 +692,14 @@ h2 {
 .wish-author span {
   width: 26px;
   height: 1px;
-  background: #a96b32;
+  background: var(--tc-a96b32, #a96b32);
 }
 
 .wish-author b {
   font-size: 10px;
   letter-spacing: .2em;
   font-weight: 400;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 
   white-space: nowrap;
 }
@@ -698,7 +710,7 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .06em;
-  color: rgba(234,215,181,.65);
+  color: rgba(var(--tc-ead7b5-rgb, 234, 215, 181), .65);
 
   white-space: nowrap;
 }
@@ -711,11 +723,11 @@ h2 {
   max-width: 350px;
   margin: 35px auto 0;
   padding: 30px;
-  border: 1px solid rgba(201,149,82,.3);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .3);
 }
 
 .empty-wishes span {
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .empty-wishes p {
@@ -754,5 +766,71 @@ h2 {
   .marquee-track {
     animation: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

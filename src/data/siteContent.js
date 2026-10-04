@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 /*
  * =========================================================
  * NỘI DUNG MARKETING DÙNG CHUNG
@@ -36,7 +38,7 @@ export const CONTACT = {
   messenger: "https://m.me/470216759513444",
   email: "hotro@thiepduyen.vn",
   phone: "0900 000 000",
-  hours: "8:00 – 21:00 hằng ngày",
+  get hours() { return t("contact.hours"); },
   address: "Việt Nam",
 };
 
@@ -68,12 +70,12 @@ export const BUSINESS = {
  * và cột "Khám phá" ở footer.
  */
 export const NAV_LINKS = [
-  { label: "Trang chủ", routeName: "Home" },
-  { label: "Mẫu thiệp cưới", routeName: "Templates" },
-  { label: "Bảng giá", routeName: "Pricing" },
-  { label: "Hướng dẫn", routeName: "Guide" },
-  { label: "Giới thiệu", routeName: "About" },
-  { label: "Liên hệ", routeName: "Contact" },
+  { get label() { return t("nav.home"); }, routeName: "Home" },
+  { get label() { return t("nav.templates"); }, routeName: "Templates" },
+  { get label() { return t("nav.pricing"); }, routeName: "Pricing" },
+  { get label() { return t("nav.guide"); }, routeName: "Guide" },
+  { get label() { return t("nav.about"); }, routeName: "About" },
+  { get label() { return t("nav.contact"); }, routeName: "Contact" },
 ];
 
 /*
@@ -85,41 +87,41 @@ export const NAV_LINKS = [
  */
 export const FOOTER_GROUPS = [
   {
-    title: "Khám phá",
+    get title() { return t("footer.explore"); },
     links: [
-      { label: "Trang chủ", routeName: "Home" },
-      { label: "Mẫu thiệp cưới", routeName: "Templates" },
-      { label: "Tạo thiệp ngay", routeName: "Editor" },
-      { label: "Thiệp của tôi", routeName: "Manage" },
+      { get label() { return t("nav.home"); }, routeName: "Home" },
+      { get label() { return t("nav.templates"); }, routeName: "Templates" },
+      { get label() { return t("footer.createNow"); }, routeName: "Editor" },
+      { get label() { return t("nav.myWeddings"); }, routeName: "Manage" },
     ],
   },
   {
-    title: "Hỗ trợ",
+    get title() { return t("footer.support"); },
     links: [
-      { label: "Bảng giá", routeName: "Pricing" },
-      { label: "Hướng dẫn tạo thiệp", routeName: "Guide" },
-      { label: "Giới thiệu", routeName: "About" },
-      { label: "Liên hệ", routeName: "Contact" },
+      { get label() { return t("nav.pricing"); }, routeName: "Pricing" },
+      { get label() { return t("footer.guideFull"); }, routeName: "Guide" },
+      { get label() { return t("nav.about"); }, routeName: "About" },
+      { get label() { return t("nav.contact"); }, routeName: "Contact" },
     ],
   },
   {
-    title: "Phong cách",
+    get title() { return t("footer.styles"); },
     links: [
-      { label: "Thiệp cưới online", routeName: "WeddingOnline" },
-      { label: "Mẫu thiệp cưới đẹp", routeName: "TemplatesFeatured" },
-      { label: "Thiệp cưới hiện đại", routeName: "TemplatesModern" },
-      { label: "Thiệp cưới truyền thống", routeName: "TemplatesTraditional" },
+      { get label() { return t("footer.online"); }, routeName: "WeddingOnline" },
+      { get label() { return t("footer.featured"); }, routeName: "TemplatesFeatured" },
+      { get label() { return t("footer.modern"); }, routeName: "TemplatesModern" },
+      { get label() { return t("footer.traditional"); }, routeName: "TemplatesTraditional" },
     ],
   },
   {
-    title: "Liên hệ",
+    get title() { return t("nav.contact"); },
     contact: true,
     links: [
-      { icon: "mdi-clock-outline", label: `Hỗ trợ ${CONTACT.hours}` },
+      { icon: "mdi-clock-outline", get label() { return t("footer.supportHours", { hours: CONTACT.hours }); } },
       { icon: "mdi-email-outline", label: CONTACT.email, href: `mailto:${CONTACT.email}` },
       { icon: "mdi-phone-outline", label: CONTACT.phone, href: `tel:${phoneHref()}` },
     ],
-    note: "Cần hỗ trợ kích hoạt thiệp, thanh toán hay chỉnh sửa nội dung? Nhắn tin trực tiếp qua Messenger — phản hồi trong vài phút.",
+    get note() { return t("footer.contactNote"); },
   },
 ];
 
@@ -129,43 +131,43 @@ export const FOOTER_GROUPS = [
 export const FEATURES = [
   {
     orn: "囍",
-    title: "Bộ sưu tập Á Đông",
-    text: "Năm bộ sưu tập với bản sắc riêng — từ đỏ son truyền thống, lụa ngà kim tuyến đến tối giản hiện đại.",
+    get title() { return t("features.asian.title"); },
+    get text() { return t("features.asian.text"); },
   },
   {
     orn: "✦",
-    title: "Editor linh hoạt",
-    text: "Đổi nội dung, thứ tự mục, font, màu sắc và bố cục theo đúng cảm nhận của bạn.",
+    get title() { return t("features.editor.title"); },
+    get text() { return t("features.editor.text"); },
   },
   {
     orn: "❀",
-    title: "Hiển thị mọi thiết bị",
-    text: "Thiệp tự động chuẩn trên điện thoại, tablet và máy tính — khách mời mở là đẹp.",
+    get title() { return t("features.devices.title"); },
+    get text() { return t("features.devices.text"); },
   },
   {
     orn: "❖",
-    title: "Bản đồ & lịch nhắc",
-    text: "Chỉ đường tới địa điểm lễ và thêm sự kiện vào lịch điện thoại chỉ với một chạm.",
+    get title() { return t("features.map.title"); },
+    get text() { return t("features.map.text"); },
   },
   {
     orn: "✽",
-    title: "Mừng cưới online",
-    text: "Khách quét QR chuyển khoản mừng cưới, không còn lo chuẩn bị phong bì.",
+    get title() { return t("features.gifts.title"); },
+    get text() { return t("features.gifts.text"); },
   },
   {
     orn: "❝",
-    title: "Sổ lưu bút số",
-    text: "Lời chúc của khách mời lưu lại trên thiệp, hai bạn đọc lại mãi về sau.",
+    get title() { return t("features.guestbook.title"); },
+    get text() { return t("features.guestbook.text"); },
   },
   {
     orn: "❦",
-    title: "Album ảnh không giới hạn",
-    text: "Tải lên bao nhiêu ảnh cưới cũng được — thiệp tự sắp thành album mượt mà.",
+    get title() { return t("features.album.title"); },
+    get text() { return t("features.album.text"); },
   },
   {
     orn: "◈",
-    title: "Tên miền riêng",
-    text: "Đường link ngắn gọn dạng thiepduyen.com/ten-hai-ban, dễ đọc, dễ nhớ, dễ chia sẻ.",
+    get title() { return t("features.domain.title"); },
+    get text() { return t("features.domain.text"); },
   },
 ];
 
@@ -175,21 +177,21 @@ export const FEATURES = [
 export const STEPS = [
   {
     seal: "壹",
-    title: "Chọn mẫu",
-    text: "Duyệt bộ sưu tập, chọn tấm thiệp đúng gu của hai bạn.",
-    short: "Chọn thiệp yêu thích",
+    get title() { return t("steps.pick.title"); },
+    get text() { return t("steps.pick.text"); },
+    get short() { return t("steps.pick.short"); },
   },
   {
     seal: "贰",
-    title: "Điền thông tin",
-    text: "Nhập tên, ngày cưới, sự kiện, ảnh và lời nhắn một lần — hiển thị đồng bộ khắp thiệp.",
-    short: "Thêm ảnh và nội dung",
+    get title() { return t("steps.fill.title"); },
+    get text() { return t("steps.fill.text"); },
+    get short() { return t("steps.fill.short"); },
   },
   {
     seal: "叁",
-    title: "Gửi khách mời",
-    text: "Xuất bản và chia sẻ đường link qua Zalo, Messenger hay in mã QR lên thiệp giấy.",
-    short: "Gửi qua Zalo, Messenger",
+    get title() { return t("steps.send.title"); },
+    get text() { return t("steps.send.text"); },
+    get short() { return t("steps.send.short"); },
   },
 ];
 
@@ -200,55 +202,63 @@ export const STEPS = [
 export const FEATURE_GROUPS = [
   {
     id: "thiep",
-    label: "Thiệp cưới",
-    title: "Tấm thiệp chỉn chu trong từng chi tiết",
-    text: "Mỗi mẫu thiệp là một bố cục hoàn chỉnh — không phải biểu mẫu điền vào. Bạn chỉ việc thay nội dung.",
+    get label() { return t("fg.card.label"); },
+    get title() { return t("fg.card.title"); },
+    get text() { return t("fg.card.text"); },
     image: "song_hy_red",
-    points: [
-      "Ảnh bìa, ảnh cưới và album hiển thị sắc nét trên mọi màn hình",
-      "Đồng hồ đếm ngược tới ngày cưới",
-      "Câu chuyện tình yêu, lời ngỏ và sơ đồ chỉ đường",
-      "Nhạc nền phát khi khách mở thiệp",
-    ],
+    get points() {
+      return [
+        t("fg.card.p1"),
+        t("fg.card.p2"),
+        t("fg.card.p3"),
+        t("fg.card.p4"),
+      ];
+    },
   },
   {
     id: "khach-moi",
-    label: "Quản lý khách mời",
-    title: "Biết ai sẽ đến, ai chưa xem",
-    text: "Theo dõi lượt mở thiệp và danh sách khách xác nhận tham dự — không cần hỏi lại từng người.",
+    get label() { return t("fg.guests.label"); },
+    get title() { return t("fg.guests.title"); },
+    get text() { return t("fg.guests.text"); },
     image: "jasmine_white",
-    points: [
-      "Danh sách khách mời theo nhà trai / nhà gái",
-      "Khách xác nhận tham dự ngay trên thiệp",
-      "Thống kê lượt xem và lượt chia sẻ",
-      "Xuất danh sách để sắp bàn tiệc",
-    ],
+    get points() {
+      return [
+        t("fg.guests.p1"),
+        t("fg.guests.p2"),
+        t("fg.guests.p3"),
+        t("fg.guests.p4"),
+      ];
+    },
   },
   {
     id: "mung-cuoi",
-    label: "Mừng cưới QR",
-    title: "Mừng cưới không cần phong bì",
-    text: "Khách quét mã QR là chuyển khoản được ngay, hai bạn nhận đủ và minh bạch từng khoản.",
+    get label() { return t("fg.gifts.label"); },
+    get title() { return t("fg.gifts.title"); },
+    get text() { return t("fg.gifts.text"); },
     image: "baroque_gold",
-    points: [
-      "Hiển thị QR ngân hàng của cả cô dâu và chú rể",
-      "Khách tự nhập số tiền và lời chúc",
-      "Sao kê mừng cưới lưu lại trên thiệp",
-      "Không lộ số tài khoản cho người lạ",
-    ],
+    get points() {
+      return [
+        t("fg.gifts.p1"),
+        t("fg.gifts.p2"),
+        t("fg.gifts.p3"),
+        t("fg.gifts.p4"),
+      ];
+    },
   },
   {
     id: "luu-but",
-    label: "Sổ lưu bút",
-    title: "Lời chúc ở lại mãi với thời gian",
-    text: "Khách mời gửi lời chúc trực tiếp lên thiệp. Nhiều năm sau mở lại, hai bạn vẫn đọc được nguyên vẹn.",
+    get label() { return t("fg.guestbook.label"); },
+    get title() { return t("fg.guestbook.title"); },
+    get text() { return t("fg.guestbook.text"); },
     image: "cherry_blossom_pink",
-    points: [
-      "Khách gửi lời chúc không cần đăng nhập",
-      "Duyệt trước khi hiển thị để tránh nội dung xấu",
-      "Lưu vĩnh viễn theo thiệp",
-      "Có thể xuất ra file để in kỷ niệm",
-    ],
+    get points() {
+      return [
+        t("fg.guestbook.p1"),
+        t("fg.guestbook.p2"),
+        t("fg.guestbook.p3"),
+        t("fg.guestbook.p4"),
+      ];
+    },
   },
 ];
 
@@ -258,38 +268,38 @@ export const FEATURE_GROUPS = [
 export const TESTIMONIALS = [
   {
     name: "Minh Anh & Quốc Bảo",
-    meta: "Cưới tháng 3/2026 · Hà Nội",
-    text: "Hai đứa mê bộ sưu tập Á Đông. Khách mời ai cũng hỏi thiệp làm ở đâu, nhất là phần quét QR mừng cưới — tiện hơn phong bì nhiều.",
+    get meta() { return t("testi.1.meta"); },
+    get text() { return t("testi.1.text"); },
     orn: "囍",
   },
   {
     name: "Thu Hà & Đức Long",
-    meta: "Cưới tháng 1/2026 · Đà Nẵng",
-    text: "Mình không biết gì về thiết kế nhưng vẫn làm xong trong một buổi tối. Sửa đi sửa lại bao nhiêu lần cũng không mất thêm phí.",
+    get meta() { return t("testi.2.meta"); },
+    get text() { return t("testi.2.text"); },
     orn: "❀",
   },
   {
     name: "Ngọc Trâm & Hoàng Nam",
-    meta: "Cưới tháng 12/2025 · TP.HCM",
-    text: "Điểm mình thích nhất là sổ lưu bút. Giờ thỉnh thoảng mở lại đọc lời chúc của ông bà, cảm động lắm.",
+    get meta() { return t("testi.3.meta"); },
+    get text() { return t("testi.3.text"); },
     orn: "❝",
   },
   {
     name: "Lan Phương & Tuấn Kiệt",
-    meta: "Cưới tháng 11/2025 · Huế",
-    text: "Chọn mẫu truyền thống vì hai bên gia đình đều thích. Thiệp lên đúng tinh thần lễ nghi, không bị sến.",
+    get meta() { return t("testi.4.meta"); },
+    get text() { return t("testi.4.text"); },
     orn: "✦",
   },
   {
     name: "Diệu Linh & Trọng Nghĩa",
-    meta: "Cưới tháng 10/2025 · Cần Thơ",
-    text: "Nhắn hỗ trợ lúc 10 giờ đêm mà vẫn được trả lời trong vài phút. Đúng cái mình cần trước ngày cưới.",
+    get meta() { return t("testi.5.meta"); },
+    get text() { return t("testi.5.text"); },
     orn: "❦",
   },
   {
     name: "Thanh Vân & Hữu Phước",
-    meta: "Cưới tháng 9/2025 · Hải Phòng",
-    text: "Gửi link qua Zalo cho hơn 400 khách, không ai kêu khó mở. Bố mẹ hai bên cũng xem được trên điện thoại.",
+    get meta() { return t("testi.6.meta"); },
+    get text() { return t("testi.6.text"); },
     orn: "◈",
   },
 ];
@@ -304,62 +314,70 @@ export const TESTIMONIALS = [
 export const PRICING_PLANS = [
   {
     id: "mien-phi",
-    name: "Miễn phí",
+    get name() { return t("plan.free.name"); },
     price: 0,
     priceLabel: "0đ",
-    unit: "mãi mãi",
-    tagline: "Thử sức trước khi quyết định",
+    get unit() { return t("plan.free.unit"); },
+    get tagline() { return t("plan.free.tagline"); },
     highlight: false,
-    cta: "Bắt đầu tạo thiệp",
-    features: [
-      "Truy cập toàn bộ 20+ mẫu thiệp",
-      "Editor đầy đủ, sửa không giới hạn",
-      "Xem trước thiệp trên mọi thiết bị",
-      "Lưu nháp không giới hạn thời gian",
-    ],
-    missing: [
-      "Chưa xuất bản được cho khách mời",
-      "Chưa có sổ lưu bút",
-      "Chưa có QR mừng cưới",
-    ],
+    get cta() { return t("plan.free.cta"); },
+    get features() {
+      return [
+        t("plan.free.f1"),
+        t("plan.free.f2"),
+        t("plan.free.f3"),
+        t("plan.free.f4"),
+      ];
+    },
+    get missing() {
+      return [
+        t("plan.free.m1"),
+        t("plan.free.m2"),
+        t("plan.free.m3"),
+      ];
+    },
   },
   {
     id: "tron-doi",
-    name: "Trọn đời",
+    get name() { return t("plan.life.name"); },
     price: 50000,
     priceLabel: "50.000đ",
-    unit: "một lần duy nhất",
-    tagline: "Chọn nhiều nhất — trả một lần, dùng mãi",
+    get unit() { return t("plan.life.unit"); },
+    get tagline() { return t("plan.life.tagline"); },
     highlight: true,
-    cta: "Chọn gói này",
-    features: [
-      "Mọi thứ ở gói Miễn phí",
-      "Xuất bản thiệp, chia sẻ không giới hạn khách mời",
-      "Dùng thử 3 ngày trước khi thanh toán",
-      "Sổ lưu bút số lưu vĩnh viễn",
-      "QR mừng cưới cho cả hai bên",
-      "Đồng hồ đếm ngược, bản đồ chỉ đường, nhạc nền",
-      "Sửa nội dung bất cứ lúc nào, kể cả sau khi gửi",
-      "Hỗ trợ chỉnh sửa miễn phí qua Messenger",
-    ],
+    get cta() { return t("plan.life.cta"); },
+    get features() {
+      return [
+        t("plan.life.f1"),
+        t("plan.life.f2"),
+        t("plan.life.f3"),
+        t("plan.life.f4"),
+        t("plan.life.f5"),
+        t("plan.life.f6"),
+        t("plan.life.f7"),
+        t("plan.life.f8"),
+      ];
+    },
     missing: [],
   },
   {
     id: "cao-cap",
-    name: "Cao cấp",
+    get name() { return t("plan.premium.name"); },
     price: null,
-    priceLabel: "Liên hệ",
-    unit: "báo giá riêng",
-    tagline: "Cho tiệc lớn và yêu cầu riêng",
+    get priceLabel() { return t("nav.contact"); },
+    get unit() { return t("plan.premium.unit"); },
+    get tagline() { return t("plan.premium.tagline"); },
     highlight: false,
-    cta: "Nhắn tư vấn",
-    features: [
-      "Mọi thứ ở gói Trọn đời",
-      "Tên miền riêng theo tên hai bạn",
-      "Thiết kế chỉnh riêng theo yêu cầu",
-      "Quản lý khách mời và sắp bàn tiệc",
-      "Hỗ trợ ưu tiên 24/7",
-    ],
+    get cta() { return t("plan.premium.cta"); },
+    get features() {
+      return [
+        t("plan.premium.f1"),
+        t("plan.premium.f2"),
+        t("plan.premium.f3"),
+        t("plan.premium.f4"),
+        t("plan.premium.f5"),
+      ];
+    },
     missing: [],
   },
 ];
@@ -398,7 +416,7 @@ export function publicPriceLabel(plan) {
     return plan.priceLabel;
   }
 
-  return "Trả khi xuất bản";
+  return t("plan.payOnPublish");
 }
 
 /*
@@ -406,44 +424,44 @@ export function publicPriceLabel(plan) {
  */
 export const FAQS = [
   {
-    q: "Thiệp cưới online là gì?",
-    a: "Là một trang web riêng của hai bạn — không chỉ thay thế thiệp giấy mà còn là không gian lưu giữ album ảnh, câu chuyện tình yêu, lời chúc của khách mời và tiền mừng qua QR code.",
+    get q() { return t("faq.1.q"); },
+    get a() { return t("faq.1.a"); },
   },
   {
-    q: "Tôi có cần biết lập trình hay thiết kế không?",
-    a: "Không. Giao diện được làm để bạn chỉ cần điền thông tin và chọn mẫu. Mọi thứ còn lại đã được dựng sẵn.",
+    get q() { return t("faq.2.q"); },
+    get a() { return t("faq.2.a"); },
   },
   {
-    q: "Chi phí tạo thiệp là bao nhiêu?",
-    a: "Tạo và chỉnh sửa hoàn toàn miễn phí. Sau khi xuất bản, bạn được dùng thử 3 ngày để chia sẻ với khách mời. Sau đó chỉ thanh toán một lần duy nhất để giữ thiệp vĩnh viễn — giá hiển thị rõ trước khi bạn xác nhận.",
+    get q() { return t("faq.3.q"); },
+    get a() { return t("faq.3.a"); },
   },
   {
-    q: "Tôi cần chuẩn bị những gì?",
-    a: "Tên cô dâu chú rể, tên cha mẹ hai bên, địa chỉ nhà trai – nhà gái, thời gian và địa điểm tiệc cưới, ảnh cưới chất lượng cao, và số tài khoản ngân hàng nếu muốn nhận tiền mừng online.",
+    get q() { return t("faq.4.q"); },
+    get a() { return t("faq.4.a"); },
   },
   {
-    q: "Xuất bản rồi có sửa được không?",
-    a: "Được. Bạn chỉnh sửa bất cứ lúc nào, kể cả sau khi đã gửi khách mời. Thay đổi cập nhật tự động trên đúng đường link bạn đã chia sẻ.",
+    get q() { return t("faq.5.q"); },
+    get a() { return t("faq.5.a"); },
   },
   {
-    q: "Gửi được cho bao nhiêu khách?",
-    a: "Không giới hạn. Chỉ cần chia sẻ đường link, bạn có thể mời tất cả bạn bè và người thân ở bất cứ đâu.",
+    get q() { return t("faq.6.q"); },
+    get a() { return t("faq.6.a"); },
   },
   {
-    q: "Thiệp có mở được trên điện thoại không?",
-    a: "Có. Mọi mẫu thiệp đều được dựng responsive — hiển thị đúng trên điện thoại, tablet và máy tính. Khách mời chỉ cần bấm vào link là xem được, không cần cài ứng dụng.",
+    get q() { return t("faq.7.q"); },
+    get a() { return t("faq.7.a"); },
   },
   {
-    q: "Khách mời có cần đăng nhập để xem thiệp không?",
-    a: "Không. Thiệp mở công khai qua đường link bạn chia sẻ. Khách chỉ cần bấm vào là xem được toàn bộ nội dung.",
+    get q() { return t("faq.8.q"); },
+    get a() { return t("faq.8.a"); },
   },
   {
-    q: "Tôi có thể dùng tên miền riêng không?",
-    a: "Có, thuộc gói Cao cấp. Thiệp sẽ chạy trên tên miền của bạn thay vì đường link mặc định — phù hợp nếu hai bạn muốn lưu lại lâu dài hoặc dùng cho mục đích thương mại.",
+    get q() { return t("faq.9.q"); },
+    get a() { return t("faq.9.a"); },
   },
   {
-    q: "Thanh toán bằng cách nào?",
-    a: "Chuyển khoản ngân hàng theo thông tin hiển thị ở bước kích hoạt thiệp. Sau khi nhận được, hệ thống xác nhận và thiệp của bạn được giữ vĩnh viễn.",
+    get q() { return t("faq.10.q"); },
+    get a() { return t("faq.10.a"); },
   },
 ];
 
@@ -454,38 +472,38 @@ export const FAQS = [
 export const COLLECTION_LANDING = {
   "truyen-thong": {
     routeName: "TemplatesTraditional",
-    title: "Truyền thống Việt Nam",
-    text: "Đỏ son, chữ hỷ, trống đồng và long phụng — cho đám cưới đậm lễ nghi Việt.",
+    get title() { return t("col.traditional.title"); },
+    get text() { return t("col.traditional.text"); },
   },
   "lang-man": {
     routeName: "TemplatesModern",
-    title: "Romantic / Lãng mạn",
-    text: "Hồng phấn, đào, oải hương, ruby với chữ viết tay mềm mại — nhẹ nhàng và nữ tính.",
+    get title() { return t("col.romantic.title"); },
+    get text() { return t("col.romantic.text"); },
   },
   "hien-dai": {
     routeName: "TemplatesModern",
-    title: "Modern Luxury / Sang trọng hiện đại",
-    text: "Nền sẫm, foil vàng, nét mực tối giản — sang trọng và rất hiện đại.",
+    get title() { return t("col.modern.title"); },
+    get text() { return t("col.modern.text"); },
   },
   "co-dien": {
     routeName: "TemplatesFeatured",
-    title: "Elegant / Cổ điển châu Âu",
-    text: "Navy cổ điển, vàng đồng, ngà lụa — trang nhã như những lâu đài châu Âu.",
+    get title() { return t("col.classic.title"); },
+    get text() { return t("col.classic.text"); },
   },
   "nghe-thuat": {
     routeName: "TemplatesFeatured",
-    title: "Watercolor / Nghệ thuật",
-    text: "Màu nước loang nhẹ, pastel mềm — mềm mại như tranh vẽ tay.",
+    get title() { return t("col.art.title"); },
+    get text() { return t("col.art.text"); },
   },
   "thien-nhien": {
     routeName: "TemplatesFeatured",
-    title: "Botanical / Thiên nhiên",
-    text: "Lá xanh, eucalyptus, đất nung — gần gũi như một khu vườn buổi sớm.",
+    get title() { return t("col.nature.title"); },
+    get text() { return t("col.nature.text"); },
   },
   "a-dong": {
     routeName: "TemplatesTraditional",
-    title: "Á Đông / Chinese-inspired",
-    text: "Đỏ thẫm, vàng kim, phượng hoàng, baroque — đậm chất Á Đông huyền bí.",
+    get title() { return t("col.asian.title"); },
+    get text() { return t("col.asian.text"); },
   },
 };
 
@@ -493,16 +511,16 @@ export const COLLECTION_LANDING = {
  * Số liệu tin cậy — dùng ở hero và trang Giới thiệu.
  */
 export const STATS = [
-  { value: "26+", label: "Mẫu thiệp" },
-  { value: "7", label: "Bộ sưu tập" },
-  { value: "3 ngày", label: "Dùng thử" },
+  { value: "26+", get label() { return t("stats.templates"); } },
+  { value: "7", get label() { return t("stats.collections"); } },
+  { get value() { return t("stats.trialValue"); }, get label() { return t("stats.trial"); } },
 ];
 
 export const ABOUT_STATS = [
-  { value: "12.000+", label: "Thiệp đã tạo" },
-  { value: "26+", label: "Mẫu thiết kế" },
-  { value: "7", label: "Bộ sưu tập" },
-  { value: "4,9/5", label: "Đánh giá trung bình" },
+  { value: "12.000+", get label() { return t("stats.created"); } },
+  { value: "26+", get label() { return t("stats.designs"); } },
+  { value: "7", get label() { return t("stats.collections"); } },
+  { value: "4,9/5", get label() { return t("stats.rating"); } },
 ];
 
 /*
@@ -511,23 +529,23 @@ export const ABOUT_STATS = [
 export const VALUES = [
   {
     orn: "囍",
-    title: "Đẹp phải đi cùng dễ",
-    text: "Một tấm thiệp đẹp không nên đòi hỏi bạn phải học thiết kế. Chúng tôi làm phần khó, bạn làm phần ý nghĩa.",
+    get title() { return t("values.1.title"); },
+    get text() { return t("values.1.text"); },
   },
   {
     orn: "✦",
-    title: "Minh bạch từ đầu",
-    text: "Không phí ẩn, không tự động trừ tiền. Giá hiển thị rõ trước khi bạn quyết định, và bạn được dùng thử trước.",
+    get title() { return t("values.2.title"); },
+    get text() { return t("values.2.text"); },
   },
   {
     orn: "❀",
-    title: "Tôn trọng bản sắc",
-    text: "Mỗi bộ sưu tập bám vào một tinh thần riêng — Á Đông, lãng mạn, thiên nhiên hay tối giản — chứ không phải một mẫu tô màu.",
+    get title() { return t("values.3.title"); },
+    get text() { return t("values.3.text"); },
   },
   {
     orn: "❝",
-    title: "Kỷ niệm phải ở lại",
-    text: "Thiệp cưới không chỉ để mời. Nó là nơi lưu lời chúc, ảnh và câu chuyện — nên chúng tôi giữ nó vĩnh viễn.",
+    get title() { return t("values.4.title"); },
+    get text() { return t("values.4.text"); },
   },
 ];
 
@@ -536,44 +554,54 @@ export const VALUES = [
  */
 export const GUIDE_CHECKLIST = [
   {
-    group: "Thông tin hai bạn",
-    items: [
-      "Tên đầy đủ của cô dâu và chú rể (kèm tên thường gọi nếu muốn)",
-      "Ảnh chân dung của mỗi người",
-      "Ảnh bìa — ảnh ngang, chất lượng cao",
-    ],
+    get group() { return t("guide.c1.group"); },
+    get items() {
+      return [
+        t("guide.c1.i1"),
+        t("guide.c1.i2"),
+        t("guide.c1.i3"),
+      ];
+    },
   },
   {
-    group: "Thông tin gia đình",
-    items: [
-      "Tên cha mẹ hai bên",
-      "Địa chỉ nhà trai và nhà gái",
-      "Thứ tự anh chị em nếu muốn ghi rõ (trưởng nam, thứ nữ…)",
-    ],
+    get group() { return t("guide.c2.group"); },
+    get items() {
+      return [
+        t("guide.c2.i1"),
+        t("guide.c2.i2"),
+        t("guide.c2.i3"),
+      ];
+    },
   },
   {
-    group: "Lễ và tiệc",
-    items: [
-      "Ngày giờ lễ ăn hỏi, lễ thành hôn, tiệc cưới",
-      "Tên và địa chỉ từng địa điểm",
-      "Link Google Maps của địa điểm tiệc",
-    ],
+    get group() { return t("guide.c3.group"); },
+    get items() {
+      return [
+        t("guide.c3.i1"),
+        t("guide.c3.i2"),
+        t("guide.c3.i3"),
+      ];
+    },
   },
   {
-    group: "Album & kỷ niệm",
-    items: [
-      "10–30 ảnh cưới, ưu tiên ảnh ngang",
-      "Câu chuyện tình yêu — 3 đến 5 mốc thời gian",
-      "Lời ngỏ gửi khách mời",
-    ],
+    get group() { return t("guide.c4.group"); },
+    get items() {
+      return [
+        t("guide.c4.i1"),
+        t("guide.c4.i2"),
+        t("guide.c4.i3"),
+      ];
+    },
   },
   {
-    group: "Mừng cưới",
-    items: [
-      "Số tài khoản ngân hàng của cô dâu và chú rể",
-      "Tên chủ tài khoản đúng như ngân hàng ghi",
-      "Tên ngân hàng và chi nhánh",
-    ],
+    get group() { return t("guide.c5.group"); },
+    get items() {
+      return [
+        t("guide.c5.i1"),
+        t("guide.c5.i2"),
+        t("guide.c5.i3"),
+      ];
+    },
   },
 ];
 
@@ -583,23 +611,23 @@ export const GUIDE_CHECKLIST = [
 export const GUIDE_TIPS = [
   {
     orn: "◈",
-    title: "Chọn ảnh ngang cho ảnh bìa",
-    text: "Ảnh bìa hiển thị dạng khung rộng. Ảnh ngang tỉ lệ 16:9 hoặc 3:2 cho kết quả đẹp nhất, ảnh dọc sẽ bị cắt mất hai bên.",
+    get title() { return t("guide.t1.title"); },
+    get text() { return t("guide.t1.text"); },
   },
   {
     orn: "✦",
-    title: "Viết lời ngỏ ngắn, đọc to lên thử",
-    text: "Ba đến bốn câu là đủ. Đọc thành tiếng giúp bạn nhận ra câu nào dài dòng hoặc nghe không tự nhiên.",
+    get title() { return t("guide.t2.title"); },
+    get text() { return t("guide.t2.text"); },
   },
   {
     orn: "❀",
-    title: "Gửi thiệp trước ngày cưới 3–4 tuần",
-    text: "Khách cần thời gian sắp xếp. Gửi sớm cũng giúp bạn kịp điều chỉnh nếu có sai sót về địa điểm hay giờ giấc.",
+    get title() { return t("guide.t3.title"); },
+    get text() { return t("guide.t3.text"); },
   },
   {
     orn: "❝",
-    title: "Kiểm tra trên chính điện thoại của bạn",
-    text: "Hơn 90% khách mời mở thiệp bằng điện thoại. Hãy tự mở link trên máy mình trước khi gửi cho bất kỳ ai.",
+    get title() { return t("guide.t4.title"); },
+    get text() { return t("guide.t4.text"); },
   },
 ];
 
@@ -608,24 +636,25 @@ export const GUIDE_TIPS = [
  */
 export const PRICING_FAQS = [
   {
-    q: "Dùng thử 3 ngày được tính từ lúc nào?",
-    a: "Từ lúc bạn bấm xuất bản thiệp. Trong 3 ngày đó thiệp hoạt động đầy đủ — khách mời xem được, gửi lời chúc được, quét QR được.",
+    get q() { return t("pfaq.1.q"); },
+    get a() { return t("pfaq.1.a"); },
   },
   {
-    q: "Hết 3 ngày mà chưa thanh toán thì sao?",
-    a: "Thiệp tạm ẩn với khách mời nhưng toàn bộ nội dung vẫn được giữ nguyên. Bạn thanh toán lúc nào thì thiệp hoạt động lại, không mất dữ liệu.",
+    get q() { return t("pfaq.2.q"); },
+    get a() { return t("pfaq.2.a"); },
   },
   {
-    q: "Trả một lần rồi có phát sinh phí hằng năm không?",
-    a: "Không. Gói Trọn đời là thanh toán một lần duy nhất, không có phí gia hạn hay phí lưu trữ hằng năm.",
+    get q() { return t("pfaq.3.q"); },
+    get a() { return t("pfaq.3.a"); },
   },
   {
-    q: "Tôi tạo nhiều thiệp thì tính phí thế nào?",
-    a: "Phí tính theo từng thiệp được xuất bản. Bạn có thể tạo và lưu nháp bao nhiêu thiệp cũng được mà không mất phí.",
+    get q() { return t("pfaq.4.q"); },
+    get a() { return t("pfaq.4.a"); },
   },
   {
-    q: "Có được hoàn tiền không?",
-    a: "Có. Nếu thiệp gặp lỗi kỹ thuật mà chúng tôi không khắc phục được, bạn được hoàn lại toàn bộ trong vòng 7 ngày kể từ lúc thanh toán.",
+    id: "refund",
+    get q() { return t("pfaq.5.q"); },
+    get a() { return t("pfaq.5.a"); },
   },
 ];
 
@@ -634,8 +663,11 @@ export const PRICING_FAQS = [
  * và trang Bảng giá không nói hai câu khác nhau. Sửa câu trả lời ở trên
  * là trang thanh toán tự cập nhật theo.
  */
-export const REFUND_POLICY =
-  PRICING_FAQS.find((item) => item.q.includes("hoàn tiền"))?.a || "";
+export const REFUND_POLICY = {
+  get text() {
+    return PRICING_FAQS.find((item) => item.id === "refund")?.a || "";
+  },
+};
 
 /*
  * Chủ đề cho form liên hệ.

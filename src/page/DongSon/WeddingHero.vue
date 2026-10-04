@@ -105,17 +105,17 @@ const brideName = computed(() =>
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #ead7b5;
+  color: var(--tc-ead7b5, #ead7b5);
   background:
-    radial-gradient(circle at 50% 32%, rgba(172,92,39,.22), transparent 30%),
-    linear-gradient(180deg, #741c17 0%, #641914 50%, #54120f 100%);
+    radial-gradient(circle at 50% 32%, rgba(var(--tc-ac5c27-rgb, 172, 92, 39), .22), transparent 30%),
+    linear-gradient(180deg, var(--tc-741c17, #741c17) 0%, var(--tc-641914, #641914) 50%, var(--tc-54120f, #54120f) 100%);
 }
 
 .dong-hero::after {
   content: "";
   position: absolute;
   inset: 12px;
-  border: 1px solid rgba(201,149,82,.6);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .6);
   pointer-events: none;
 }
 
@@ -152,9 +152,9 @@ const brideName = computed(() =>
 
   background: linear-gradient(
     180deg,
-    rgba(116, 28, 23, 0.6),
-    rgba(100, 25, 20, 0.35) 55%,
-    rgba(84, 18, 15, 0.65)
+    rgba(var(--tc-741c17-rgb, 116, 28, 23), 0.6),
+    rgba(var(--tc-641914-rgb, 100, 25, 20), 0.35) 55%,
+    rgba(var(--tc-54120f-rgb, 84, 18, 15), 0.65)
   );
 }
 
@@ -166,7 +166,7 @@ const brideName = computed(() =>
   position: absolute;
   width: 460px;
   height: 460px;
-  border: 1px solid rgba(201,149,82,.28);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .28);
   border-radius: 50%;
   animation: rotateSun 45s linear infinite;
 }
@@ -176,7 +176,7 @@ const brideName = computed(() =>
   content: "";
   position: absolute;
   inset: 40px;
-  border: 1px dashed rgba(201,149,82,.28);
+  border: 1px dashed rgba(var(--tc-c99552-rgb, 201, 149, 82), .28);
   border-radius: 50%;
 }
 
@@ -185,10 +185,10 @@ const brideName = computed(() =>
   inset: 36%;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(201,149,82,.55);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .55);
   border-radius: 50%;
   font-size: 34px;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .hero-content {
@@ -201,14 +201,14 @@ const brideName = computed(() =>
 .label {
   font-size: 10px;
   letter-spacing: .45em;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 .monogram {
   margin: 15px 0;
   font-family: Georgia, serif;
   font-size: 25px;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
   letter-spacing: .12em;
 }
 
@@ -217,7 +217,7 @@ const brideName = computed(() =>
   font-size: 15px;
   line-height: 1.8;
   font-style: italic;
-  color: #cdb99b;
+  color: var(--tc-cdb99b, #cdb99b);
 }
 
 h1 {
@@ -232,7 +232,7 @@ h1 small {
   display: block;
   margin: 7px 0;
   font-size: 22px;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .hero-divider {
@@ -249,40 +249,40 @@ h1 small {
   background: linear-gradient(
     90deg,
     transparent,
-    #b9823f
+    var(--tc-b9823f, #b9823f)
   );
 }
 
 .hero-divider span:last-child {
   background: linear-gradient(
     90deg,
-    #b9823f,
+    var(--tc-b9823f, #b9823f),
     transparent
   );
 }
 
 .hero-divider b {
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 .date-label {
   letter-spacing: .25em;
   font-size: 13px;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 .message {
   margin-top: 24px;
   font-family: Georgia, serif;
   line-height: 1.8;
-  color: #cdb99b;
+  color: var(--tc-cdb99b, #cdb99b);
 }
 
 .hero-bird {
   position: absolute;
   z-index: 1;
   font-size: 120px;
-  color: rgba(201,149,82,.12);
+  color: rgba(var(--tc-c99552-rgb, 201, 149, 82), .12);
 }
 
 .bird-one {
@@ -308,7 +308,7 @@ h1 small {
     repeating-radial-gradient(
       circle at 20px 0,
       transparent 0 7px,
-      #c99552 8px 9px,
+      var(--tc-c99552, #c99552) 8px 9px,
       transparent 10px 18px
     );
 }
@@ -323,13 +323,13 @@ h1 small {
   width: 80%;
   font-size: 10px;
   letter-spacing: .3em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .hero-bottom span {
   height: 1px;
   flex: 1;
-  background: rgba(201,149,82,.4);
+  background: rgba(var(--tc-c99552-rgb, 201, 149, 82), .4);
 }
 
 @keyframes rotateSun {

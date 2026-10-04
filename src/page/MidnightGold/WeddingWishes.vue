@@ -6,14 +6,11 @@
       <span></span>
     </div>
 
-    <p class="mg-eyebrow">LỜI CHÚC TỪ BẠN</p>
+    <p class="mg-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</p>
 
-    <h2>Sổ lưu bút</h2>
+    <h2>{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
 
-    <p class="mg-wishes__intro">
-      Mỗi lời chúc là một kỷ niệm đẹp<br />
-      mà chúng mình muốn lưu giữ trong ngày đặc biệt này
-    </p>
+    <p class="mg-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
 
     <!-- =========================================
          WISH FORM
@@ -180,11 +177,13 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: { type: Array, default: () => [] },
   wedding: { type: Object, default: () => ({}) },
 });
@@ -332,11 +331,11 @@ async function submitWish() {
 
   text-align: center;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
 
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(216, 182, 118, 0.18);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.18);
 
   border-radius: 28px;
 
@@ -348,7 +347,7 @@ async function submitWish() {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(216, 182, 118, 0.18);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.18);
   border-radius: 22px;
 
   pointer-events: none;
@@ -368,14 +367,14 @@ async function submitWish() {
 
   margin-bottom: 11px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-wishes__ornament span {
   width: 45px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.7));
 }
 
 .mg-wishes__ornament span:last-child {
@@ -391,7 +390,7 @@ async function submitWish() {
 
   margin: 0;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 10px;
   font-weight: 700;
@@ -410,15 +409,17 @@ async function submitWish() {
   font-size: clamp(28px, 7vw, 35px);
   font-weight: 600;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-wishes__intro {
+  white-space: pre-line;
+
   position: relative;
 
   margin: 0 0 25px;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 13px;
 
@@ -442,7 +443,7 @@ async function submitWish() {
 
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 
-  border: 1px solid rgba(216, 182, 118, 0.22);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.22);
 
   border-radius: 20px;
 
@@ -461,7 +462,7 @@ async function submitWish() {
 
   transform: translateX(-50%);
 
-  background: radial-gradient(circle, rgba(216, 182, 118, 0.16), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.16), transparent 70%);
 
   pointer-events: none;
 }
@@ -469,7 +470,7 @@ async function submitWish() {
 .mg-form-decoration {
   position: absolute;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   opacity: 0.65;
 
@@ -489,14 +490,14 @@ async function submitWish() {
 
   margin-bottom: 18px;
 
-  color: #eed9a8;
+  color: var(--tc-eed9a8, #eed9a8);
 
   font-size: 13px;
   font-weight: 600;
 }
 
 .mg-form-title .v-icon {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 /* =========================================================
@@ -516,7 +517,7 @@ async function submitWish() {
 
   margin: 0 0 5px 5px;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 10px;
   font-weight: 700;
@@ -532,7 +533,7 @@ async function submitWish() {
 
   padding: 10px 12px;
 
-  border: 1px solid rgba(216, 182, 118, 0.3);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.3);
   border-radius: 12px;
 
   background: rgba(255, 255, 255, 0.06);
@@ -542,11 +543,11 @@ async function submitWish() {
 
 .mg-input-wrap:focus-within,
 .mg-textarea-wrap:focus-within {
-  border-color: rgba(216, 182, 118, 0.6);
+  border-color: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.6);
 
   background: rgba(255, 255, 255, 0.09);
 
-  box-shadow: 0 0 0 3px rgba(216, 182, 118, 0.1);
+  box-shadow: 0 0 0 3px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.1);
 }
 
 .mg-input-wrap .v-icon,
@@ -555,7 +556,7 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-wishes input,
@@ -565,7 +566,7 @@ async function submitWish() {
   border: 0;
   outline: 0;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   background: transparent;
 
@@ -576,7 +577,7 @@ async function submitWish() {
 
 .mg-wishes input::placeholder,
 .mg-wishes textarea::placeholder {
-  color: #8d7f6d;
+  color: var(--tc-8d7f6d, #8d7f6d);
 }
 
 .mg-wishes textarea {
@@ -593,7 +594,7 @@ async function submitWish() {
   right: 7px;
   bottom: -15px;
 
-  color: #8d7f6d;
+  color: var(--tc-8d7f6d, #8d7f6d);
 
   font-size: 10px;
 }
@@ -619,11 +620,11 @@ async function submitWish() {
   border: 0;
   border-radius: 999px;
 
-  color: #261d23;
+  color: var(--tc-261d23, #261d23);
 
-  background: linear-gradient(135deg, #d8b676, #9b7d4d);
+  background: linear-gradient(135deg, var(--tc-d8b676, #d8b676), var(--tc-9b7d4d, #9b7d4d));
 
-  box-shadow: 0 7px 16px rgba(0, 0, 0, 0.45), 0 0 18px rgba(216, 182, 118, 0.15);
+  box-shadow: 0 7px 16px rgba(0, 0, 0, 0.45), 0 0 18px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.15);
 
   font-size: 10px;
   font-weight: 700;
@@ -638,7 +639,7 @@ async function submitWish() {
 .mg-wish-submit:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 26px rgba(216, 182, 118, 0.25);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 26px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.25);
 }
 
 .mg-wish-submit:active:not(:disabled) {
@@ -660,7 +661,7 @@ async function submitWish() {
 
   padding: 25px 10px 20px;
 
-  color: #8d7f6d;
+  color: var(--tc-8d7f6d, #8d7f6d);
 }
 
 .mg-empty-flower {
@@ -673,9 +674,9 @@ async function submitWish() {
 
   margin: 0 auto 9px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
-  background: rgba(216, 182, 118, 0.1);
+  background: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.1);
 
   border-radius: 50%;
 }
@@ -683,14 +684,14 @@ async function submitWish() {
 .mg-no-wishes p {
   margin: 0 0 3px;
 
-  color: #eed9a8;
+  color: var(--tc-eed9a8, #eed9a8);
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .mg-no-wishes span {
-  color: #8d7f6d;
+  color: var(--tc-8d7f6d, #8d7f6d);
 
   font-size: 11px;
 
@@ -716,7 +717,7 @@ async function submitWish() {
 
   margin: 0 5px 15px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-list-heading > span {
@@ -724,7 +725,7 @@ async function submitWish() {
 
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.4));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.4));
 }
 
 .mg-list-heading > span:last-child {
@@ -745,7 +746,7 @@ async function submitWish() {
 }
 
 .mg-list-heading .v-icon {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 /* =========================================================
@@ -764,7 +765,7 @@ async function submitWish() {
 
   text-align: left;
 
-  border: 1px solid rgba(216, 182, 118, 0.22);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.22);
   border-radius: 16px;
 
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
@@ -779,7 +780,7 @@ async function submitWish() {
 .mg-wish-card:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 9px 23px rgba(0, 0, 0, 0.45), 0 0 16px rgba(216, 182, 118, 0.08);
+  box-shadow: 0 9px 23px rgba(0, 0, 0, 0.45), 0 0 16px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.08);
 }
 
 .mg-card-star {
@@ -788,7 +789,7 @@ async function submitWish() {
   right: 8px;
   bottom: -8px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 28px;
 
@@ -813,9 +814,9 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #261d23;
+  color: var(--tc-261d23, #261d23);
 
-  background: linear-gradient(145deg, #eed9a8, #d8b676);
+  background: linear-gradient(145deg, var(--tc-eed9a8, #eed9a8), var(--tc-d8b676, #d8b676));
 
   border-radius: 50%;
 
@@ -824,7 +825,7 @@ async function submitWish() {
   font-size: 17px;
   font-weight: 600;
 
-  box-shadow: inset 0 0 0 3px rgba(38, 29, 35, 0.25), 0 0 12px rgba(216, 182, 118, 0.2);
+  box-shadow: inset 0 0 0 3px rgba(var(--tc-261d23-rgb, 38, 29, 35), 0.25), 0 0 12px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.2);
 }
 
 .mg-wish-content {
@@ -850,14 +851,14 @@ async function submitWish() {
 }
 
 .mg-wish-header b {
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   font-size: 13px;
   font-weight: 700;
 }
 
 .mg-wish-header span {
-  color: #8d7f6d;
+  color: var(--tc-8d7f6d, #8d7f6d);
 
   font-size: 10px;
 }
@@ -865,7 +866,7 @@ async function submitWish() {
 .mg-wish-header > .v-icon {
   flex: 0 0 auto;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   margin-top: 2px;
 }
@@ -876,7 +877,7 @@ async function submitWish() {
   margin: 5px 0 0;
   padding-right: 8px;
 
-  color: rgba(240, 230, 210, 0.78);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.78);
 
   font-size: 12px;
 
@@ -920,14 +921,14 @@ async function submitWish() {
 
   margin-top: 24px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-wishes__bottom span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.55));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.55));
 }
 
 .mg-wishes__bottom span:last-child {
@@ -949,14 +950,14 @@ async function submitWish() {
 
   overflow: hidden;
 
-  border-top: 1px solid rgba(216, 182, 118, 0.2);
-  border-bottom: 1px solid rgba(216, 182, 118, 0.2);
+  border-top: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.2);
+  border-bottom: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.2);
 
   background: linear-gradient(
     90deg,
-    rgba(216, 182, 118, 0.07),
-    rgba(216, 182, 118, 0.03),
-    rgba(216, 182, 118, 0.07)
+    rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.07),
+    rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.03),
+    rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.07)
   );
 }
 
@@ -976,15 +977,15 @@ async function submitWish() {
   justify-content: center;
   gap: 1px;
 
-  color: #eed9a8;
+  color: var(--tc-eed9a8, #eed9a8);
 
-  background: linear-gradient(90deg, rgba(29, 22, 34, 1) 72%, rgba(29, 22, 34, 0));
+  background: linear-gradient(90deg, rgba(var(--tc-1d1622-rgb, 29, 22, 34), 1) 72%, rgba(var(--tc-1d1622-rgb, 29, 22, 34), 0));
 
   pointer-events: none;
 }
 
 .mg-marquee-label .v-icon {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-marquee-label span {
@@ -1031,7 +1032,7 @@ async function submitWish() {
 
   padding-right: 30px;
 
-  color: rgba(240, 230, 210, 0.78);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.78);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -1041,7 +1042,7 @@ async function submitWish() {
 }
 
 .mg-wish-marquee-item i {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 11px;
   font-style: normal;
@@ -1050,13 +1051,13 @@ async function submitWish() {
 }
 
 .mg-wish-marquee-item strong {
-  color: #eed9a8;
+  color: var(--tc-eed9a8, #eed9a8);
 
   font-weight: 700;
 }
 
 .mg-wish-marquee-item em {
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-style: italic;
 
@@ -1064,7 +1065,7 @@ async function submitWish() {
 }
 
 .mg-marquee-dot {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 11px;
   font-weight: 400;

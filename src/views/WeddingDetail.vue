@@ -74,12 +74,17 @@
         </button>
       </div>
     </div>
+
+    <!-- Tự cuộn tới cuối thiệp khi khách không thao tác (sau khi mở phong bì) -->
+    <AutoScroll v-if="themeOpened && currentTheme && wedding" :wedding="wedding" />
   </div>
 </template>
 
 
 <script setup>
-import { computed, watch } from "vue";
+import { computed, watch, ref } from "vue";
+
+import AutoScroll from "@/components/common/AutoScroll.vue";
 import { useRoute, useRouter } from "vue-router";
 
 import { useWeddingStore } from "@/stores/wedding";
@@ -89,6 +94,12 @@ import themes from "@/themes";
 /* Font riêng của theme đang mở — nạp đúng lúc cần. */
 import { ensureFonts } from "@/utils/fontLoader";
 import { fontsForTheme } from "@/data/themeFonts";
+
+/*
+ * Thiệp đã qua phong bì chưa — tự cuộn chỉ chạy sau khi mở
+ * (theme phát "open" khi khách bấm mở thiệp).
+ */
+const themeOpened = ref(true);
 
 const route = useRoute();
 const router = useRouter();

@@ -1,6 +1,16 @@
 <template>
   <section class="tr-gift">
-    <h2 class="tr-gift__title">Hộp Quà Mừng</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="tr-top-custom-head">
+      <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="tr-gift__title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="tr-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="tr-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
+    </header>
+
 
     <!-- =====================================================
          PHONG BÌ
@@ -143,11 +153,13 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { ref } from "vue";
 
 import { envelopeDragonPhoenix } from "./traditionalRedAssets";
 
 defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: {
     type: Array,
     default: () => [],
@@ -779,5 +791,71 @@ async function saveQr(gift) {
   .tr-gift-modal-leave-active {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tr-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tr-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tr-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tr-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

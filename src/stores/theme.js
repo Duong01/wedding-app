@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 import { defineStore } from "pinia";
 
 /*
@@ -17,8 +19,8 @@ const STORAGE_KEY = "thiepduyen:theme";
 export const THEME_MODES = ["light", "dark"];
 
 const MODE_META = {
-  light: { label: "Sáng", icon: "mdi-weather-sunny" },
-  dark: { label: "Tối", icon: "mdi-weather-night" },
+  light: { get label() { return t("theme.light"); }, icon: "mdi-weather-sunny" },
+  dark: { get label() { return t("theme.dark"); }, icon: "mdi-weather-night" },
 };
 
 function readPreference() {

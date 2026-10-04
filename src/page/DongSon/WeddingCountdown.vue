@@ -3,7 +3,12 @@
     <div class="countdown-disc">
       <div class="title">
         <small>THE BIG DAY</small>
-        <h2>Đếm ngược ngày vui</h2>
+        <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+        <header v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="ds-top-custom-head">
+          <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
+        </header>
+
+        <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược ngày vui") }}</h2>
       </div>
 
       <div class="timer">
@@ -27,9 +32,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   countdown: {
     type: [Object, String],
     default: null,
@@ -95,8 +102,8 @@ onUnmounted(() => {
 <style scoped>
 .countdown {
   padding: 65px 20px;
-  background: #641914;
-  color: #ead7b5;
+  background: var(--tc-641914, #641914);
+  color: var(--tc-ead7b5, #ead7b5);
   text-align: center;
 }
 
@@ -105,7 +112,7 @@ onUnmounted(() => {
   max-width: 580px;
   margin: auto;
   padding: 50px 20px;
-  border: 1px solid rgba(201,149,82,.7);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .7);
   background: rgba(0,0,0,.22);
   box-shadow: 0 12px 30px rgba(0,0,0,.3);
 }
@@ -114,7 +121,7 @@ onUnmounted(() => {
   content: "";
   position: absolute;
   inset: 12px;
-  border: 1px dashed rgba(201,149,82,.45);
+  border: 1px dashed rgba(var(--tc-c99552-rgb, 201, 149, 82), .45);
 }
 
 .title,
@@ -127,7 +134,7 @@ onUnmounted(() => {
 .title small {
   font-size: 10px;
   letter-spacing: .4em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 h2 {
@@ -145,7 +152,7 @@ h2 {
 
 .time-box {
   padding: 13px 3px;
-  border-left: 1px solid rgba(201,149,82,.55);
+  border-left: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .55);
 }
 
 .time-box:first-child {
@@ -157,7 +164,7 @@ h2 {
   font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
   font-size: clamp(28px, 8vw, 43px);
   font-weight: 400;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 .time-box span {
@@ -178,10 +185,43 @@ h2 {
 .countdown-bottom span {
   flex: 1;
   height: 1px;
-  background: rgba(201,149,82,.4);
+  background: rgba(var(--tc-c99552-rgb, 201, 149, 82), .4);
 }
 
 .countdown-bottom b {
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

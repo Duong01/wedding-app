@@ -157,12 +157,12 @@ const dateText = computed(() => {
 
 <style scoped>
 .sg-hero {
-  --sg-deep: #28514b;
-  --sg-leaf: #567262;
-  --sg-pine: #3f6f63;
-  --sg-sage: #c8d4c3;
-  --sg-line: #5a6e62;
-  --sg-cream: #f5f8f4;
+  --sg-deep: var(--tc-28514b, #28514b);
+  --sg-leaf: var(--tc-567262, #567262);
+  --sg-pine: var(--tc-3f6f63, #3f6f63);
+  --sg-sage: var(--tc-c8d4c3, #c8d4c3);
+  --sg-line: var(--tc-5a6e62, #5a6e62);
+  --sg-cream: var(--tc-f5f8f4, #f5f8f4);
 
   position: relative;
   isolation: isolate;
@@ -175,7 +175,7 @@ const dateText = computed(() => {
 
   background:
     radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.9), transparent 55%),
-    linear-gradient(180deg, #f5f8f4 0%, #edf4eb 100%);
+    linear-gradient(180deg, var(--tc-f5f8f4, #f5f8f4) 0%, var(--tc-edf4eb, #edf4eb) 100%);
 }
 
 /* =========================================================
@@ -191,19 +191,19 @@ const dateText = computed(() => {
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(143, 174, 155, 0.55);
+  border: 1px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.55);
   border-radius: 210px 210px 24px 24px;
 
-  background: linear-gradient(175deg, rgba(255, 255, 255, 0.6), rgba(240, 246, 238, 0.35));
+  background: linear-gradient(175deg, rgba(255, 255, 255, 0.6), rgba(var(--tc-f0f6ee-rgb, 240, 246, 238), 0.35));
 
-  box-shadow: 0 22px 55px rgba(40, 81, 75, 0.1);
+  box-shadow: 0 22px 55px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.1);
 }
 
 .sg-hero__frame-inner {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(143, 174, 155, 0.28);
+  border: 1px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.28);
   border-radius: 202px 202px 18px 18px;
 
   pointer-events: none;
@@ -243,9 +243,9 @@ const dateText = computed(() => {
 
   background: linear-gradient(
     180deg,
-    rgba(248, 251, 246, 0.6),
-    rgba(240, 246, 238, 0.35) 55%,
-    rgba(248, 251, 246, 0.6)
+    rgba(var(--tc-f8fbf6-rgb, 248, 251, 246), 0.6),
+    rgba(var(--tc-f0f6ee-rgb, 240, 246, 238), 0.35) 55%,
+    rgba(var(--tc-f8fbf6-rgb, 248, 251, 246), 0.6)
   );
 }
 
@@ -340,7 +340,7 @@ const dateText = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.8));
 }
 
 .sg-hero__motif span:last-child {
@@ -403,7 +403,7 @@ const dateText = computed(() => {
   max-width: 325px;
   margin: 14px auto 8px;
 
-  color: rgba(40, 81, 75, 0.85);
+  color: rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.85);
 
   font-size: 12px;
 
@@ -428,8 +428,8 @@ const dateText = computed(() => {
   margin: 24px auto 0;
   padding: 14px 0;
 
-  border-top: 1px solid rgba(143, 174, 155, 0.45);
-  border-bottom: 1px solid rgba(143, 174, 155, 0.45);
+  border-top: 1px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.45);
+  border-bottom: 1px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.45);
 }
 
 .sg-hero__schedule p {
@@ -448,7 +448,7 @@ const dateText = computed(() => {
   max-width: 295px;
   margin: 24px auto 20px;
 
-  color: rgba(40, 81, 75, 0.8);
+  color: rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.8);
 
   font-size: 14px;
   font-style: italic;
@@ -469,7 +469,7 @@ const dateText = computed(() => {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.7));
 }
 
 .sg-hero__footer span:last-child {
@@ -499,7 +499,7 @@ const dateText = computed(() => {
   position: absolute;
   top: -30px;
 
-  color: rgba(108, 142, 122, 0.4);
+  color: rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.4);
 
   font-size: 13px;
 

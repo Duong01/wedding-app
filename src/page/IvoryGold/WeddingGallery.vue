@@ -8,12 +8,17 @@
     <div class="gallery-heading">
 
       <span class="heading-kicker">
-        NHỮNG KHOẢNH KHẮC
+        {{ sectionText(sections, "gallery", "Eyebrow", "NHỮNG KHOẢNH KHẮC") }}
       </span>
 
       <h2>
-        KHOẢNH KHẮC CỦA CHÚNG MÌNH
+        {{ sectionText(sections, "gallery", "Heading", "KHOẢNH KHẮC CỦA CHÚNG MÌNH") }}
       </h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="ig-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="ig-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
+      </header>
+
 
       <div class="heading-decoration">
         <span></span>
@@ -31,11 +36,12 @@
          với 18 mẫu thiệp còn lại
     ========================================== -->
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
-      accent="#b58a45"
-      text-color="#8b1418"
+      :layout="galleryLayoutFor('ivory-gold', layout)"
+      accent="var(--tc-b58a45, #b58a45)"
+      text-color="var(--tc-8b1418, #8b1418)"
       @open="openLightbox"
     />
 
@@ -70,9 +76,11 @@
 
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { ref, defineAsyncComponent } from "vue";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
@@ -84,6 +92,9 @@ const GalleryModal = defineAsyncComponent(() =>
 ===================================================== */
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: {
     type: Array,
     default: () => [],
@@ -153,7 +164,7 @@ function closeLightbox() {
 .gallery-section {
   width: 100%;
 
-  color: #4a3f38;
+  color: var(--tc-4a3f38, #4a3f38);
 }
 
 
@@ -173,7 +184,7 @@ function closeLightbox() {
 
   margin-bottom: 6px;
 
-  color: #896939;
+  color: var(--tc-896939, #896939);
 
   font-size: 11px;
   font-weight: 800;
@@ -185,7 +196,7 @@ function closeLightbox() {
 .gallery-heading h2 {
   margin: 0;
 
-  color: #8b1418;
+  color: var(--tc-8b1418, #8b1418);
 
   font-family:
     "Cormorant Garamond",
@@ -221,7 +232,7 @@ function closeLightbox() {
     linear-gradient(
       to right,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
@@ -231,13 +242,13 @@ function closeLightbox() {
     linear-gradient(
       to left,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
 
 .heading-decoration b {
-  color: #896939;
+  color: var(--tc-896939, #896939);
 
   font-family:
     "Times New Roman",
@@ -256,7 +267,7 @@ function closeLightbox() {
 .gallery-empty {
   padding: 35px 20px;
 
-  color: #896939;
+  color: var(--tc-896939, #896939);
 
   font-size: 12px;
 
@@ -264,7 +275,7 @@ function closeLightbox() {
 
   border:
     1px solid
-    rgba(181, 138, 69, .25);
+    rgba(var(--tc-b58a45-rgb, 181, 138, 69), .25);
 }
 
 
@@ -282,4 +293,37 @@ function closeLightbox() {
   overflow: hidden;
 }
 
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ig-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ig-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ig-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ig-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
 </style>

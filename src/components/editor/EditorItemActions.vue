@@ -3,7 +3,7 @@
     <button
       type="button"
       class="item-icon-button"
-      title="Chuyển lên"
+      :title="$t('panel.moveUp')"
       :disabled="index === 0"
       @click="emit('move', index, -1)"
     >
@@ -13,7 +13,7 @@
     <button
       type="button"
       class="item-icon-button"
-      title="Chuyển xuống"
+      :title="$t('panel.moveDown')"
       :disabled="index >= total - 1"
       @click="emit('move', index, 1)"
     >
@@ -23,7 +23,7 @@
     <button
       type="button"
       class="danger-icon"
-      :title="removeTitle"
+      :title="removeTitle || $t('common.delete')"
       @click="emit('remove', index)"
     >
       <v-icon size="18"> mdi-delete-outline </v-icon>
@@ -43,7 +43,7 @@
 defineProps({
   index: { type: Number, required: true },
   total: { type: Number, required: true },
-  removeTitle: { type: String, default: "Xoá" },
+  removeTitle: { type: String, default: "" },
 });
 
 const emit = defineEmits(["move", "remove"]);

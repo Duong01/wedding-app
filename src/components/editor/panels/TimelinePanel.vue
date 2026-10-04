@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> WEDDING DAY </span>
 
-        <h1>Timeline</h1>
+        <h1>{{ $t("sections.timeline") }}</h1>
 
-        <p>Các mốc thời gian trong ngày cưới.</p>
+        <p>{{ $t('timelinePanel.desc') }}</p>
       </div>
 
       <button
@@ -16,7 +16,7 @@
       >
         <v-icon size="17"> mdi-plus </v-icon>
 
-        Thêm mốc
+        {{ $t('timelinePanel.add') }}
       </button>
     </div>
 
@@ -28,17 +28,17 @@
       >
         <div class="card-header">
           <div>
-            <span> MỐC {{ index + 1 }} </span>
+            <span> {{ $t('timelinePanel.itemLabel') }} {{ index + 1 }} </span>
 
             <strong>
-              {{ item.Title || "Chưa đặt tên" }}
+              {{ item.Title || $t('panel.untitled') }}
             </strong>
           </div>
 
           <EditorItemActions
             :index="index"
             :total="wedding.timeline.length"
-            remove-title="Xoá mốc"
+            :remove-title="$t('timelinePanel.remove')"
             @move="moveTimeline"
             @remove="removeTimeline"
           />
@@ -46,40 +46,40 @@
 
         <div class="form-grid">
           <div class="editor-field">
-            <label>Thời gian</label>
+            <label>{{ $t('timelinePanel.time') }}</label>
 
             <input v-model="item.Time" type="time" />
 
             <small class="field-help">
-              Giờ diễn ra hoạt động này.
+              {{ $t('timelinePanel.timeHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Tiêu đề</label>
+            <label>{{ $t('panel.title') }}</label>
 
             <input
               v-model="item.Title"
               type="text"
-              placeholder="VD: Đón khách"
+              :placeholder="$t('timelinePanel.titlePlaceholder')"
             />
 
             <small class="field-help">
-              VD: Đón khách, Lễ thành hôn, Khoảnh khắc chụp ảnh...
+              {{ $t('timelinePanel.titleHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Địa điểm</label>
+            <label>{{ $t('heroPanel.venue') }}</label>
 
             <input
               v-model="item.Location"
               type="text"
-              placeholder="VD: Sảnh A"
+              :placeholder="$t('timelinePanel.venuePlaceholder')"
             />
 
             <small class="field-help">
-              Nơi diễn ra — bỏ trống nếu không cần.
+              {{ $t('timelinePanel.venueHint') }}
             </small>
           </div>
 
@@ -105,16 +105,16 @@
           </div>
 
           <div class="editor-field full">
-            <label>Mô tả</label>
+            <label>{{ $t('panel.description') }}</label>
 
             <textarea
               v-model="item.Description"
               rows="4"
-              placeholder="VD: Đón khách, phát kẹo bánh và chụp ảnh cùng hai họ."
+              :placeholder="$t('timelinePanel.descPlaceholder')"
             />
 
             <small class="field-help">
-              Một dòng ngắn mô tả hoạt động — bỏ trống nếu không cần.
+              {{ $t('timelinePanel.descHint') }}
             </small>
           </div>
         </div>
@@ -123,24 +123,27 @@
       <div v-if="!wedding.timeline?.length" class="empty-card">
         <v-icon size="30"> mdi-timeline-outline </v-icon>
 
-        <strong> Chưa có mốc thời gian </strong>
+        <strong> {{ $t('timelinePanel.empty') }} </strong>
 
-        <span> Thêm mốc đầu tiên để khách mời theo dõi ngày cưới. </span>
+        <span> {{ $t('timelinePanel.emptyHint') }} </span>
       </div>
 
       <button type="button" class="add-button" @click="addTimeline">
         <v-icon> mdi-plus </v-icon>
 
-        Thêm mốc thời gian
+        {{ $t('timelinePanel.addFull') }}
       </button>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import EditorItemActions from "@/components/editor/EditorItemActions.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -190,10 +193,10 @@ async function removeTimeline(index) {
   const item = props.wedding.timeline[index];
 
   const ok = await confirmDialog({
-    title: "Xoá mốc thời gian này?",
-    message: "Mốc sẽ bị xoá khỏi thiệp. Bạn vẫn hoàn tác được.",
-    detail: item?.Title || `Mốc ${index + 1}`,
-    confirmText: "Xoá mốc",
+    get title() { return t("timelinePanel.confirmTitle"); },
+    get message() { return t("timelinePanel.confirmMessage"); },
+    detail: item?.Title || t("timelinePanel.itemN", { n: index + 1 }),
+    get confirmText() { return t("timelinePanel.remove"); },
     danger: true,
   });
 

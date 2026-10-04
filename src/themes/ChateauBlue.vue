@@ -1,5 +1,5 @@
 <template>
-  <div class="chateau-blue-theme">
+  <div class="chateau-blue-theme" :style="colorVars">
     <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="chateau-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
@@ -20,7 +20,7 @@
         <section v-if="showGame" class="chateau-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="chateau-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="chateau-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
-        <section v-if="showGallery && gallery.length" class="chateau-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="chateau-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
       <section v-if="showGift && gifts.length" class="chateau-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,9 @@ import WeddingWishes from "@/page/ChateauBlue/WeddingWishes.vue";
 import WeddingFooter from "@/page/ChateauBlue/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -145,12 +149,12 @@ onMounted(() => {
 
 <style scoped>
 .chateau-blue-theme {
-  --theme-primary: #2f3e5c;
-  --theme-secondary: #7d8fb0;
-  --theme-accent: #ccd6e8;
-  --theme-bg: #fafbfd;
+  --theme-primary: var(--tc-2f3e5c, #2f3e5c);
+  --theme-secondary: var(--tc-7d8fb0, #7d8fb0);
+  --theme-accent: var(--tc-ccd6e8, #ccd6e8);
+  --theme-bg: var(--tc-fafbfd, #fafbfd);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #2c3242;
+  --theme-text: var(--tc-2c3242, #2c3242);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -160,21 +164,21 @@ onMounted(() => {
 }
 
 .chateau-invitation { width: 100%; }
-.chateau-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(238,242,249,0.8)); }
+.chateau-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-eef2f9-rgb, 238, 242, 249), 0.8)); }
 .chateau-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .chateau-blue-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .chateau-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(47, 62, 92, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-2f3e5c-rgb, 47, 62, 92), 0.16);
   }
 }
 </style>

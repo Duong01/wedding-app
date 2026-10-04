@@ -1,0 +1,17 @@
+import { spawn } from "node:child_process";
+const [OUT, URL_, LOC, SEL] = process.argv.slice(2);
+const proc = spawn("C:/Program Files/Google/Chrome/Application/chrome.exe", ["--headless=new", "--remote-debugging-port=9342", `--user-data-dir=${OUT}/profile10`, "about:blank"]);
+await new Promise((r) => setTimeout(r, 4500));
+const list = await (await fetch("http://127.0.0.1:9342/json")).json();
+const ws = new WebSocket(list.find((t) => t.type === "page").webSocketDebuggerUrl);
+await new Promise((r) => (ws.onopen = r));
+let id = 0; const pending = new Map();
+ws.onmessage = (e) => { const m = JSON.parse(e.data); if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); } };
+const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
+const ev = async (expr) => { const r = await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true }); if (r.result?.exceptionDetails) console.log("EXC", JSON.stringify(r.result.exceptionDetails).slice(0, 300)); return r.result?.result?.value; };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+await send("Page.navigate", { url: "http://localhost:5199/" }); await sleep(1500);
+await ev(`localStorage.setItem('thiepduyen-locale','${LOC}')`);
+await send("Page.navigate", { url: "http://localhost:5199" + URL_ }); await sleep(6000);
+console.log(await ev(`[...document.querySelectorAll('${SEL}')].map(e=>e.innerText.replace(/\s+/g,' ').trim()).join(' || ')`));
+ws.close(); proc.kill();

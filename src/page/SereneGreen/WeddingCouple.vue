@@ -1,8 +1,8 @@
 <template>
   <section class="sg-couple">
-    <p class="sg-eyebrow">TRÂN TRỌNG BÁO HỶ</p>
+    <p class="sg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}</p>
 
-    <h2>Thông tin tiệc cưới</h2>
+    <h2>{{ sectionText(sections, "couple", "Heading", "Thông tin tiệc cưới") }}</h2>
 
     <div class="sg-rule">
       <span></span>
@@ -99,9 +99,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   guestName: { type: String, default: "Quý khách" },
 });
@@ -252,7 +254,7 @@ const weddingTime = computed(() => {
 
   text-align: center;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
   overflow: hidden;
 }
@@ -260,7 +262,7 @@ const weddingTime = computed(() => {
 .sg-eyebrow {
   margin: 0;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   font-size: 10px;
   font-weight: 700;
@@ -277,7 +279,7 @@ const weddingTime = computed(() => {
   font-size: clamp(26px, 7vw, 34px);
   font-weight: 600;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-rule {
@@ -288,7 +290,7 @@ const weddingTime = computed(() => {
 
   margin: 0 auto;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 
   font-size: 14px;
 }
@@ -297,7 +299,7 @@ const weddingTime = computed(() => {
   width: 50px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.7));
 }
 
 .sg-rule span:last-child {
@@ -327,10 +329,10 @@ const weddingTime = computed(() => {
 
   margin: 0 auto 12px;
 
-  border: 2px solid rgba(143, 174, 155, 0.6);
+  border: 2px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.6);
   border-radius: 50%;
 
-  background: rgba(244, 250, 246, 0.9);
+  background: rgba(var(--tc-f4faf6-rgb, 244, 250, 246), 0.9);
 
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 
@@ -353,7 +355,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-person__parents {
@@ -363,7 +365,7 @@ const weddingTime = computed(() => {
 .sg-parents {
   margin: 2px 0;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 
   font-size: 11px;
 
@@ -381,13 +383,13 @@ const weddingTime = computed(() => {
 
   line-height: 1.2;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-person__role {
   display: block;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   font-size: 11px;
 
@@ -398,7 +400,7 @@ const weddingTime = computed(() => {
 .sg-person__desc {
   margin: 7px 0 0;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 
   font-size: 12px;
   font-style: italic;
@@ -415,7 +417,7 @@ const weddingTime = computed(() => {
 }
 
 .sg-couple-divider i {
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 
   font-family: "Allura", cursive;
   font-size: 34px;
@@ -444,7 +446,7 @@ const weddingTime = computed(() => {
 }
 
 .sg-weekday {
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
   font-size: 10px;
   font-weight: 700;
@@ -456,7 +458,7 @@ const weddingTime = computed(() => {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.7));
 }
 
 .sg-date-line:last-child {
@@ -481,7 +483,7 @@ const weddingTime = computed(() => {
 }
 
 .sg-date-side span {
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   font-size: 10px;
   font-weight: 700;
@@ -490,7 +492,7 @@ const weddingTime = computed(() => {
 }
 
 .sg-date-side strong {
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
   font-size: 20px;
   font-weight: 600;
@@ -499,7 +501,7 @@ const weddingTime = computed(() => {
 .sg-date-day {
   padding: 0 22px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -512,7 +514,7 @@ const weddingTime = computed(() => {
 .sg-lunar {
   margin-top: 12px;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 
   font-size: 11px;
   font-style: italic;
@@ -544,13 +546,13 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.2em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-time-content strong {
   margin-top: 1px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
   font-size: 21px;
   font-weight: 600;

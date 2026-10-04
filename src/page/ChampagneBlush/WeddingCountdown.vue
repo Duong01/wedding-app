@@ -1,8 +1,8 @@
 <template>
   <section class="cb-countdown">
-    <p class="cb-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
+    <p class="cb-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
 
-    <h2>Đếm ngược</h2>
+    <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
 
     <div class="cb-countdown__grid">
       <article v-for="item in values" :key="item.label" class="cb-countdown__item">
@@ -14,10 +14,12 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
   weddingDate: { type: [String, Date], default: "" },
 });
@@ -54,13 +56,13 @@ const values = computed(() => {
 .cb-countdown {
   text-align: center;
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 }
 
 .cb-eyebrow {
   margin: 0;
 
-  color: #926664;
+  color: var(--tc-926664, #926664);
 
   font-size: 10px;
   font-weight: 700;
@@ -77,7 +79,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 }
 
 .cb-countdown__grid {
@@ -89,12 +91,12 @@ const values = computed(() => {
 .cb-countdown__item {
   padding: 16px 2px;
 
-  border: 1px solid rgba(201, 160, 106, 0.4);
+  border: 1px solid rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.4);
   border-radius: 16px;
 
-  background: linear-gradient(170deg, rgba(255, 253, 250, 0.9), rgba(250, 240, 230, 0.7));
+  background: linear-gradient(170deg, rgba(var(--tc-fffdfa-rgb, 255, 253, 250), 0.9), rgba(var(--tc-faf0e6-rgb, 250, 240, 230), 0.7));
 
-  box-shadow: 0 8px 22px rgba(108, 75, 74, 0.07);
+  box-shadow: 0 8px 22px rgba(var(--tc-6c4b4a-rgb, 108, 75, 74), 0.07);
 }
 
 .cb-countdown__item b {
@@ -102,7 +104,7 @@ const values = computed(() => {
 
   font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 
   font-size: clamp(22px, 7vw, 30px);
   font-weight: 600;
@@ -115,6 +117,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #926664;
+  color: var(--tc-926664, #926664);
 }
 </style>

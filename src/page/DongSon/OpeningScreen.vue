@@ -12,7 +12,7 @@
     <div class="opening-pattern top-pattern" />
 
     <div class="opening-content">
-      <div class="eyebrow">THIỆP CƯỚI</div>
+      <div class="eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI") }}</div>
 
       <div class="monogram">
         {{ monogram }}
@@ -25,7 +25,7 @@
       </div>
 
       <p class="invitation-text">
-        Trân trọng kính mời
+        {{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}
       </p>
 
       <h1>
@@ -39,7 +39,7 @@
       <button class="open-button" @click="$emit('open')">
         <span class="button-ring" />
         <span class="button-icon">◉</span>
-        <span>MỞ THIỆP</span>
+        <span>{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
       </button>
     </div>
 
@@ -53,9 +53,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),
@@ -91,10 +93,10 @@ const guestName = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ead7b5;
+  color: var(--tc-ead7b5, #ead7b5);
   background:
-    radial-gradient(circle at 50% 42%, rgba(179, 104, 44, 0.16), transparent 28%),
-    linear-gradient(145deg, #3d100f, #641914 45%, #350b0a);
+    radial-gradient(circle at 50% 42%, rgba(var(--tc-b3682c-rgb, 179, 104, 44), 0.16), transparent 28%),
+    linear-gradient(145deg, var(--tc-3d100f, #3d100f), var(--tc-641914, #641914) 45%, var(--tc-350b0a, #350b0a));
 }
 
 .grain {
@@ -111,7 +113,7 @@ const guestName = computed(() => {
   position: absolute;
   width: min(78vw, 430px);
   aspect-ratio: 1;
-  border: 1px solid rgba(201,149,82,.4);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .4);
   border-radius: 50%;
   opacity: .42;
   animation: breathe 7s ease-in-out infinite;
@@ -120,7 +122,7 @@ const guestName = computed(() => {
 .sun-center {
   position: absolute;
   inset: 27%;
-  border: 1px solid rgba(201,149,82,.55);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .55);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -130,7 +132,7 @@ const guestName = computed(() => {
   position: relative;
   width: 48%;
   aspect-ratio: 1;
-  border: 1px solid #c99552;
+  border: 1px solid var(--tc-c99552, #c99552);
   border-radius: 50%;
 }
 
@@ -139,7 +141,7 @@ const guestName = computed(() => {
   content: "";
   position: absolute;
   inset: 17%;
-  border: 1px solid rgba(201,149,82,.7);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .7);
   transform: rotate(45deg);
 }
 
@@ -149,7 +151,7 @@ const guestName = computed(() => {
   height: 4px;
   left: calc(50% - 2px);
   top: calc(50% - 2px);
-  background: #d5a966;
+  background: var(--tc-d5a966, #d5a966);
   transform: rotate(calc(var(--i) * 45deg)) translateY(-48px);
 }
 
@@ -164,7 +166,7 @@ const guestName = computed(() => {
   background: linear-gradient(
     to top,
     transparent,
-    rgba(201,149,82,.8)
+    rgba(var(--tc-c99552-rgb, 201, 149, 82), .8)
   );
 }
 
@@ -179,7 +181,7 @@ const guestName = computed(() => {
 .eyebrow {
   font-size: 11px;
   letter-spacing: .45em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
   margin-bottom: 22px;
 }
 
@@ -188,7 +190,7 @@ const guestName = computed(() => {
   font-size: clamp(54px, 16vw, 88px);
   font-weight: 400;
   letter-spacing: -.08em;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
   text-shadow: 0 5px 30px rgba(0,0,0,.35);
 }
 
@@ -203,22 +205,22 @@ const guestName = computed(() => {
 .opening-line span {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #a96b32);
+  background: linear-gradient(90deg, transparent, var(--tc-a96b32, #a96b32));
 }
 
 .opening-line span:last-child {
-  background: linear-gradient(90deg, #a96b32, transparent);
+  background: linear-gradient(90deg, var(--tc-a96b32, #a96b32), transparent);
 }
 
 .opening-line b {
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .invitation-text {
   font-family: Georgia, serif;
   font-size: 17px;
   font-style: italic;
-  color: #cdb99b;
+  color: var(--tc-cdb99b, #cdb99b);
 }
 
 h1 {
@@ -231,7 +233,7 @@ h1 {
 .date {
   font-size: 12px;
   letter-spacing: .3em;
-  color: #c99552;
+  color: var(--tc-c99552, #c99552);
 }
 
 .open-button {
@@ -239,9 +241,9 @@ h1 {
   margin-top: 38px;
   width: 148px;
   height: 48px;
-  border: 1px solid #b9823f;
+  border: 1px solid var(--tc-b9823f, #b9823f);
   background: rgba(0,0,0,.15);
-  color: #ead7b5;
+  color: var(--tc-ead7b5, #ead7b5);
   letter-spacing: .2em;
   font-size: 10px;
   cursor: pointer;
@@ -249,18 +251,18 @@ h1 {
 }
 
 .open-button:hover {
-  background: #a02b20;
+  background: var(--tc-a02b20, #a02b20);
   transform: translateY(-2px);
 }
 
 .button-icon {
   margin-right: 9px;
-  color: #d4a35f;
+  color: var(--tc-d4a35f, #d4a35f);
 }
 
 .bird {
   position: absolute;
-  color: rgba(201,149,82,.2);
+  color: rgba(var(--tc-c99552-rgb, 201, 149, 82), .2);
   font-size: 90px;
 }
 
@@ -286,7 +288,7 @@ h1 {
     repeating-linear-gradient(
       90deg,
       transparent 0 15px,
-      #c99552 16px 17px,
+      var(--tc-c99552, #c99552) 16px 17px,
       transparent 18px 30px
     );
 }

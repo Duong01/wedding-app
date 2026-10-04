@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> DESIGN SYSTEM </span>
 
-        <h1>Giao diện</h1>
+        <h1>{{ $t('editor.menu.theme') }}</h1>
 
-        <p>Tùy chỉnh màu sắc, font và bố cục.</p>
+        <p>{{ $t('themePanel.desc') }}</p>
       </div>
     </div>
 
@@ -15,16 +15,16 @@
     ====================================================== -->
 
     <div class="theme-preview" :style="previewStyle">
-      <span class="theme-preview-eyebrow"> THIỆP MỜI CƯỚI </span>
+      <span class="theme-preview-eyebrow"> {{ $t('themePanel.previewKicker') }} </span>
 
       <strong class="theme-preview-names">
-        {{ wedding.brideName || "Cô dâu" }}
+        {{ wedding.brideName || $t('panel.bride') }}
         &amp;
-        {{ wedding.groomName || "Chú rể" }}
+        {{ wedding.groomName || $t('panel.groom') }}
       </strong>
 
       <span class="theme-preview-date">
-        {{ weddingDateLabel || "Ngày cưới" }}
+        {{ weddingDateLabel || $t('panel.weddingDate') }}
       </span>
 
       <div class="theme-preview-swatches">
@@ -40,12 +40,10 @@
          PHONG CÁCH THIỆP
     ====================================================== -->
 
-    <h3 class="sub-heading">Phong cách thiệp</h3>
+    <h3 class="sub-heading">{{ $t('themePanel.style') }}</h3>
 
     <p class="sub-hint">
-      Đổi sang mẫu thiệp khác — nội dung (tên, ngày cưới, sự kiện,
-      album...) giữ nguyên, chỉ đổi giao diện. Màu và font sẽ về
-      mặc định của mẫu mới.
+      {{ $t('themePanel.styleHint') }}
     </p>
 
     <div class="style-grid">
@@ -78,11 +76,10 @@
          BẢNG MÀU CÓ SẴN
     ====================================================== -->
 
-    <h3 class="sub-heading">Bảng màu có sẵn</h3>
+    <h3 class="sub-heading">{{ $t('themePanel.presets') }}</h3>
 
     <p class="sub-hint">
-      Chọn nhanh một bảng màu của bộ sưu tập, sau đó tinh chỉnh từng
-      màu bên dưới nếu muốn.
+      {{ $t('themePanel.presetsHint') }}
     </p>
 
     <div class="preset-grid">
@@ -113,7 +110,7 @@
          MÀU SẮC
     ====================================================== -->
 
-    <h3 class="sub-heading">Màu sắc</h3>
+    <h3 class="sub-heading">{{ $t('themePanel.colors') }}</h3>
 
     <div class="color-grid">
       <div
@@ -147,7 +144,7 @@
 
     <div class="form-grid">
       <div class="editor-field">
-        <label>Font nội dung</label>
+        <label>{{ $t('themePanel.fontMain') }}</label>
 
         <input
           v-model="wedding.theme.Fonts.Main"
@@ -156,12 +153,12 @@
         />
 
         <small class="field-help" :style="{ fontFamily: fontPreview('Main') }">
-          Nội dung thân bài thiệp
+          {{ $t('themePanel.fontMainHint') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Font tiêu đề</label>
+        <label>{{ $t('themePanel.fontHeading') }}</label>
 
         <input
           v-model="wedding.theme.Fonts.Heading"
@@ -173,12 +170,12 @@
           class="field-help"
           :style="{ fontFamily: fontPreview('Heading') }"
         >
-          Tiêu đề, tên, ngày tháng
+          {{ $t('themePanel.fontHeadingHint') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Font chữ nghệ thuật</label>
+        <label>{{ $t('themePanel.fontScript') }}</label>
 
         <input
           v-model="wedding.theme.Fonts.Script"
@@ -187,7 +184,7 @@
         />
 
         <small class="field-help" :style="{ fontFamily: fontPreview('Script') }">
-          Chữ ký, dấu &amp;, từ trang trí
+          {{ $t('themePanel.fontScriptHint') }}
         </small>
       </div>
     </div>
@@ -213,8 +210,7 @@
         />
 
         <small class="field-help">
-          Bề rộng tối đa của nội dung thiệp. Mặc định 900px — tăng
-          lên nếu muốn thiệp rộng hơn trên máy tính.
+          {{ $t('themePanel.maxWidthHint') }}
         </small>
       </div>
 
@@ -228,8 +224,7 @@
         />
 
         <small class="field-help">
-          Khoảng cách dọc giữa các mục. Mặc định 80px — giảm xuống
-          (VD: 50px) để thiệp gọn hơn.
+          {{ $t('themePanel.paddingHint') }}
         </small>
       </div>
     </div>
@@ -237,6 +232,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onMounted } from "vue";
 
 import { THEME_META } from "@/data/templateCollections";
@@ -252,6 +248,8 @@ import { confirmDialog } from "@/composables/useConfirm";
 /* Font chọn trong panel nạp khi mở panel — index.html không
  * còn chèn sẵn 25 font nữa (xem utils/fontLoader.js). */
 import { ensureFonts } from "@/utils/fontLoader";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -398,12 +396,12 @@ async function applyThemeStyle(style) {
    * tinh chỉnh — hỏi trước để không mất công vô ý.
    */
   const ok = await confirmDialog({
-    title: `Đổi sang "${style.name}"?`,
+    title: t("themePanel.switchTitle", { name: style.name }),
     message:
-      "Toàn bộ nội dung thiệp (tên, ngày cưới, sự kiện, album, lời chúc...) được giữ nguyên. " +
-      "Màu sắc, font và bố cục sẽ về mặc định của mẫu mới — các tùy chỉnh riêng của bạn ở phần dưới sẽ bị thay thế.",
-    confirmText: "Đổi mẫu",
-    cancelText: "Giữ mẫu hiện tại",
+      t("themePanel.switchKeep") + " " +
+      t("themePanel.switchReset"),
+    get confirmText() { return t("themePanel.switchConfirm"); },
+    get cancelText() { return t("themePanel.keep"); },
   });
 
   if (!ok) {
@@ -457,19 +455,19 @@ async function applyThemeStyle(style) {
 ===================================================== */
 
 const COLOR_FIELDS = [
-  { key: "Primary", label: "Primary", hint: "Màu chính của thiệp" },
-  { key: "Secondary", label: "Secondary", hint: "Màu phụ, đậm nhạt" },
-  { key: "Accent", label: "Accent", hint: "Kim tuyến, đường viền" },
-  { key: "AccentLight", label: "Accent Light", hint: "Nền nhấn nhạt" },
-  { key: "Background", label: "Background", hint: "Nền chính" },
+  { key: "Primary", label: "Primary", get hint() { return t("themePanel.c.primary"); } },
+  { key: "Secondary", label: "Secondary", get hint() { return t("themePanel.c.secondary"); } },
+  { key: "Accent", label: "Accent", get hint() { return t("themePanel.c.accent"); } },
+  { key: "AccentLight", label: "Accent Light", get hint() { return t("themePanel.c.accentLight"); } },
+  { key: "Background", label: "Background", get hint() { return t("themePanel.c.background"); } },
   {
     key: "BackgroundSecondary",
     label: "Background Secondary",
-    hint: "Nền các khối phụ",
+    get hint() { return t("themePanel.c.backgroundSecondary"); },
   },
-  { key: "Text", label: "Text", hint: "Màu chữ chính" },
-  { key: "TextSecondary", label: "Text Secondary", hint: "Màu chữ phụ" },
-  { key: "White", label: "White", hint: "Nền thẻ, khối nổi" },
+  { key: "Text", label: "Text", get hint() { return t("themePanel.c.text"); } },
+  { key: "TextSecondary", label: "Text Secondary", get hint() { return t("themePanel.c.textSecondary"); } },
+  { key: "White", label: "White", get hint() { return t("themePanel.c.white"); } },
 ];
 
 /*

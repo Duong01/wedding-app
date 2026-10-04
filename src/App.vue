@@ -21,12 +21,12 @@
             v-if="showTopNav"
             class="quick-nav"
             :class="{ 'quick-nav--bottom': isSmallScreen }"
-            aria-label="Điều hướng nhanh"
+            :aria-label="$t('nav.quick')"
           >
             <router-link :to="{ name: 'Templates' }" class="quick-link">
               <v-icon size="16"> mdi-card-multiple-outline </v-icon>
 
-              <span>Mẫu thiệp cưới</span>
+              <span>{{ $t('nav.templates') }}</span>
             </router-link>
 
             <button
@@ -35,14 +35,14 @@
               :class="{ 'router-link-active': isMyWeddingsActive }"
               :title="
                 auth.isLoggedIn
-                  ? 'Danh sách thiệp của bạn'
-                  : 'Bản nháp trên máy này — đăng nhập để lưu lên tài khoản'
+                  ? $t('nav.myWeddingsTitle')
+                  : $t('nav.draftHint')
               "
               @click="goMyWeddings"
             >
               <v-icon size="16"> mdi-heart-multiple-outline </v-icon>
 
-              <span>Thiệp của tôi</span>
+              <span>{{ $t('nav.myWeddings') }}</span>
 
               <span v-if="myWeddingCount > 0" class="quick-count">
                 {{ myWeddingCount }}
@@ -60,7 +60,7 @@
         <nav v-if="auth.isAdmin" class="top-nav" aria-label="Main navigation">
           <router-link to="/admin" class="nav-link admin-link">
             <v-icon size="15"> mdi-shield-account-outline </v-icon>
-            Phân quyền
+            {{ $t('nav.roles') }}
           </router-link>
 
           <router-link
@@ -69,7 +69,7 @@
             class="nav-link admin-link"
           >
             <v-icon size="15"> mdi-card-multiple-outline </v-icon>
-            Quản lý thiệp
+            {{ $t('nav.adminWeddings') }}
           </router-link>
 
           <router-link
@@ -78,7 +78,7 @@
             class="nav-link admin-link"
           >
             <v-icon size="15"> mdi-cash-check </v-icon>
-            Duyệt thanh toán
+            {{ $t('nav.adminPayments') }}
 
             <span v-if="pendingPayments > 0" class="nav-badge">
               {{ pendingPayments }}
@@ -131,7 +131,7 @@
                     @click="goProfile"
                   >
                     <v-icon size="16"> mdi-account-circle-outline </v-icon>
-                    Thông tin cá nhân
+                    {{ $t('nav.profile') }}
                   </button>
 
                   <button
@@ -141,7 +141,7 @@
                     @click="goAdmin"
                   >
                     <v-icon size="16"> mdi-shield-account-outline </v-icon>
-                    Quản lý phân quyền
+                    {{ $t('nav.adminRoles') }}
                   </button>
 
                   <button
@@ -151,7 +151,7 @@
                     @click="goAdminWeddings"
                   >
                     <v-icon size="16"> mdi-card-multiple-outline </v-icon>
-                    Quản lý thiệp
+                    {{ $t('nav.adminWeddings') }}
                   </button>
 
                   <button
@@ -161,7 +161,7 @@
                     @click="goAdminPayments"
                   >
                     <v-icon size="16"> mdi-cash-check </v-icon>
-                    Duyệt thanh toán
+                    {{ $t('nav.adminPayments') }}
 
                     <span v-if="pendingPayments > 0" class="nav-badge">
                       {{ pendingPayments }}
@@ -182,7 +182,7 @@
                     />
 
                     <v-icon v-else size="16"> mdi-logout </v-icon>
-                    Đăng xuất
+                    {{ $t('auth.logout') }}
                   </button>
                 </div>
               </Transition>
@@ -192,7 +192,7 @@
           <template v-else>
             <router-link to="/login" class="login-button">
               <v-icon size="16"> mdi-login-variant </v-icon>
-              Đăng nhập
+              {{ $t('auth.login') }}
             </router-link>
           </template>
         </div>
@@ -203,11 +203,14 @@
              — hiển thị cả desktop lẫn mobile.
         ========================================== -->
         <div class="header-actions">
+          <!-- Đổi ngôn ngữ giao diện (vi · en · zh · ko · ja) -->
+          <LanguageSwitcher />
+
           <button
             type="button"
             class="theme-toggle"
-            :title="`Chế độ ${theme.preferenceLabel.toLowerCase()} — bấm để đổi`"
-            :aria-label="`Chế độ ${theme.preferenceLabel.toLowerCase()} — bấm để đổi`"
+            :title="$t('header.themeToggle', { mode: theme.preferenceLabel.toLowerCase() })"
+            :aria-label="$t('header.themeToggle', { mode: theme.preferenceLabel.toLowerCase() })"
             @click="theme.toggle()"
           >
             <v-icon size="18">{{ theme.preferenceIcon }}</v-icon>
@@ -216,7 +219,7 @@
           <button
             type="button"
             class="nav-toggle"
-            aria-label="Mở menu điều hướng"
+            :aria-label="$t('nav.openMenu')"
             @click="mobileNavOpen = !mobileNavOpen"
           >
             <v-icon size="22">
@@ -233,7 +236,7 @@
         <nav
           v-if="mobileNavOpen"
           class="mobile-nav"
-          aria-label="Menu di động"
+          :aria-label="$t('nav.mobileMenu')"
         >
           <router-link
             v-for="link in publicNavLinks"
@@ -245,7 +248,7 @@
           </router-link>
 
           <router-link to="/manage" class="mobile-nav-link">
-            Thiệp của tôi
+            {{ $t('nav.myWeddings') }}
           </router-link>
 
           <router-link
@@ -261,7 +264,7 @@
             to="/admin"
             class="mobile-nav-link"
           >
-            Phân quyền
+            {{ $t('nav.roles') }}
           </router-link>
 
           <router-link
@@ -269,7 +272,7 @@
             to="/admin/weddings"
             class="mobile-nav-link"
           >
-            Quản lý thiệp
+            {{ $t('nav.adminWeddings') }}
           </router-link>
 
           <router-link
@@ -277,7 +280,7 @@
             to="/admin/payments"
             class="mobile-nav-link"
           >
-            Duyệt thanh toán
+            {{ $t('nav.adminPayments') }}
 
             <span v-if="pendingPayments > 0" class="nav-badge">
               {{ pendingPayments }}
@@ -299,7 +302,7 @@
               @click="goProfile"
             >
               <v-icon size="17"> mdi-account-circle-outline </v-icon>
-              Thông tin cá nhân
+              {{ $t('nav.profile') }}
             </button>
 
             <button
@@ -309,7 +312,7 @@
               @click="goAdmin"
             >
               <v-icon size="17"> mdi-shield-account-outline </v-icon>
-              Quản lý phân quyền
+              {{ $t('nav.adminRoles') }}
             </button>
 
             <button
@@ -326,13 +329,13 @@
               />
 
               <v-icon v-else size="17"> mdi-logout </v-icon>
-              Đăng xuất
+              {{ $t('auth.logout') }}
             </button>
           </template>
 
           <router-link v-else to="/login" class="mobile-nav-login">
             <v-icon size="17"> mdi-login-variant </v-icon>
-            Đăng nhập
+            {{ $t('auth.login') }}
           </router-link>
         </nav>
       </Transition>
@@ -429,6 +432,7 @@ const AppLoading = defineAsyncComponent(() =>
 );
 
 import SiteFooter from "@/components/common/SiteFooter.vue";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher.vue";
 import ScrollTop from "@/components/common/ScrollTop.vue";
 import "@/assets/styles/chungdoi.css";
 

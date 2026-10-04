@@ -3,7 +3,17 @@
     <img :src="dauLy" alt="" class="la-timeline__deco la-timeline__deco--top" aria-hidden="true" />
     <img :src="reLy" alt="" class="la-timeline__deco la-timeline__deco--bottom" aria-hidden="true" />
 
-    <h2 class="la-title">Lịch trình ngày cưới</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="la-top-custom-head">
+      <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="la-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="la-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="la-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+    </header>
+
 
     <ol class="la-timeline__list">
       <li v-for="(item, index) in items" :key="item.Id || index" class="la-timeline__item">
@@ -30,12 +40,14 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import dauLy from "@/assets/love-art/dau ly.webp";
 import reLy from "@/assets/love-art/re ly.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
   events: { type: Array, default: () => [] },
 });
@@ -235,5 +247,71 @@ const items = computed(() => props.timeline || []);
   .la-timeline__line--last {
     bottom: 50%;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.la-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.la-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.la-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.la-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.la-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.la-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.la-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.la-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <main class="mk-page">
     <div class="mk-container">
-      <PageBreadcrumb :trail="[{ label: 'Bảng giá' }]" />
+      <PageBreadcrumb :trail="[{ label: $t('nav.pricing') }]" />
     </div>
 
     <!-- =====================================================
@@ -11,26 +11,24 @@
       <div class="mk-hero__glow" aria-hidden="true"></div>
 
       <div class="mk-container mk-hero__inner">
-        <p class="mk-eyebrow">Bảng giá</p>
+        <p class="mk-eyebrow">{{ $t('nav.pricing') }}</p>
 
         <h1>
-          Tạo miễn phí.
-          <em>Ưng rồi mới trả tiền.</em>
+          {{ $t('pricing.h1a') }}
+          <em>{{ $t('pricing.h1b') }}</em>
         </h1>
 
         <p class="mk-hero__lead">
-          Bạn dựng thiệp, chỉnh sửa bao nhiêu lần cũng được mà không mất phí.
-          Khi đã hài lòng và xuất bản, bạn có 3 ngày dùng thử đầy đủ tính năng
-          trước khi quyết định thanh toán.
+          {{ $t('pricing.lead') }}
         </p>
 
         <div class="mk-hero__actions">
           <router-link :to="{ name: 'Editor' }" class="mk-btn mk-btn--solid">
-            Bắt đầu tạo thiệp
+            {{ $t('plan.free.cta') }}
           </router-link>
 
           <router-link :to="{ name: 'Guide' }" class="mk-btn mk-btn--ghost">
-            Xem hướng dẫn
+            {{ $t('pricing.viewGuide') }}
           </router-link>
         </div>
       </div>
@@ -41,7 +39,7 @@
     ====================================================== -->
     <section class="mk-section">
       <div class="mk-container">
-        <RailHint text="Vuốt ngang để so ba gói" />
+        <RailHint :text="$t('pricing.swipePlans')" />
 
         <div class="plans mk-rail">
           <article
@@ -51,7 +49,7 @@
             :class="{ 'is-highlight': plan.highlight }"
           >
             <span v-if="plan.highlight" class="plan-badge">
-              Nhiều người chọn
+              {{ $t('pricing.popular') }}
             </span>
 
             <h2>{{ plan.name }}</h2>
@@ -108,11 +106,11 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">So sánh</p>
+          <p class="mk-eyebrow">{{ $t('pricing.compareEyebrow') }}</p>
 
           <h2>
-            Từng tính năng,
-            <em>rõ ràng từng dòng.</em>
+            {{ $t('pricing.compareH2a') }}
+            <em>{{ $t('pricing.compareH2b') }}</em>
           </h2>
         </header>
 
@@ -120,7 +118,7 @@
           <table class="compare">
             <thead>
               <tr>
-                <th scope="col">Tính năng</th>
+                <th scope="col">{{ $t('pricing.feature') }}</th>
 
                 <th
                   v-for="plan in PRICING_PLANS"
@@ -142,11 +140,11 @@
                   :key="index"
                   :class="{ 'is-highlight': PRICING_PLANS[index]?.highlight }"
                 >
-                  <span v-if="value === true" class="yes" aria-label="Có">
+                  <span v-if="value === true" class="yes" :aria-label="$t('pricing.yes')">
                     ✓
                   </span>
 
-                  <span v-else-if="value === false" class="no" aria-label="Không">
+                  <span v-else-if="value === false" class="no" :aria-label="$t('pricing.no')">
                     —
                   </span>
 
@@ -165,47 +163,44 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Dùng thử</p>
+          <p class="mk-eyebrow">{{ $t('stats.trial') }}</p>
 
           <h2>
-            Ba ngày đầy đủ,
-            <em>không cần thẻ.</em>
+            {{ $t('pricing.trialH2a') }}
+            <em>{{ $t('pricing.trialH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ ba bước" />
+        <RailHint :text="$t('about.swipeSteps')" />
 
         <div class="mk-grid mk-grid--3">
           <article class="mk-card">
             <span class="mk-orn" aria-hidden="true">壹</span>
 
-            <h3>Xuất bản thiệp</h3>
+            <h3>{{ $t('pricing.step1.title') }}</h3>
 
             <p>
-              Bấm xuất bản là đồng hồ bắt đầu chạy. Không cần nhập thông tin
-              thanh toán, không cần xác nhận gì thêm.
+              {{ $t('pricing.step1.text') }}
             </p>
           </article>
 
           <article class="mk-card">
             <span class="mk-orn" aria-hidden="true">贰</span>
 
-            <h3>Gửi khách mời thật</h3>
+            <h3>{{ $t('pricing.step2.title') }}</h3>
 
             <p>
-              Trong 3 ngày đó thiệp hoạt động đầy đủ: khách xem được, gửi lời
-              chúc được, quét QR mừng cưới được. Không giới hạn số người xem.
+              {{ $t('pricing.step2.text') }}
             </p>
           </article>
 
           <article class="mk-card">
             <span class="mk-orn" aria-hidden="true">叁</span>
 
-            <h3>Quyết định sau</h3>
+            <h3>{{ $t('pricing.step3.title') }}</h3>
 
             <p>
-              Hết 3 ngày, nếu bạn chưa thanh toán thì thiệp tạm ẩn — nhưng
-              toàn bộ nội dung vẫn còn nguyên. Thanh toán lúc nào cũng được.
+              {{ $t('pricing.step3.text') }}
             </p>
           </article>
         </div>
@@ -218,23 +213,22 @@
     <section class="mk-section">
       <div class="mk-container faq-grid">
         <header class="faq-head">
-          <p class="mk-eyebrow">Thanh toán</p>
+          <p class="mk-eyebrow">{{ $t('manage.payment') }}</p>
 
           <h2>
-            Hỏi về
-            <em>chi phí.</em>
+            {{ $t('pricing.faqH2a') }}
+            <em>{{ $t('pricing.faqH2b') }}</em>
           </h2>
 
           <p>
-            Những câu hỏi về giá, dùng thử và hoàn tiền. Nếu còn điều gì chưa
-            rõ, nhắn tụi mình hỏi trực tiếp.
+            {{ $t('pricing.faqLead') }}
           </p>
 
           <router-link
             :to="{ name: 'Contact' }"
             class="mk-btn mk-btn--outline mk-btn--sm"
           >
-            Đặt câu hỏi khác
+            {{ $t('pricing.askOther') }}
           </router-link>
         </header>
 
@@ -243,15 +237,17 @@
     </section>
 
     <FinalCta
-      title="Sẵn sàng chưa?"
-      title-accent="Bắt đầu miễn phí."
-      text="Không cần thẻ, không cần cam kết. Bạn chỉ trả tiền khi tấm thiệp đã thật sự vừa ý."
-      cta="Tạo thiệp ngay"
+      :title="$t('pricing.ctaTitle')"
+      :title-accent="$t('pricing.ctaAccent')"
+      :text="$t('pricing.ctaText')"
+      :cta="$t('footer.createNow')"
     />
   </main>
 </template>
 
 <script setup>
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import PageBreadcrumb from "@/components/marketing/PageBreadcrumb.vue";
 import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
 import FinalCta from "@/components/marketing/FinalCta.vue";
@@ -266,6 +262,8 @@ import {
   publicPriceLabel,
 } from "@/data/siteContent";
 
+const { t } = useI18n();
+
 /*
  * Gói trả phí không còn hiện con số trên trang công khai —
  * nhãn là chữ nên cần cỡ chữ nhỏ hơn (xem .plan-price strong.is-text).
@@ -278,71 +276,72 @@ function isTextPrice(plan) {
  * Bảng so sánh — thứ tự cột khớp PRICING_PLANS
  * (Miễn phí · Trọn đời · Cao cấp).
  */
-const COMPARE_ROWS = [
+/* computed: ô "Không giới hạn", "Vĩnh viễn"... đổi theo ngôn ngữ */
+const COMPARE_ROWS = computed(() => [
   {
-    label: "Truy cập toàn bộ mẫu thiệp",
+    get label() { return t("pricing.row.templates"); },
     values: [true, true, true],
   },
   {
-    label: "Editor chỉnh sửa không giới hạn",
+    get label() { return t("pricing.row.editor"); },
     values: [true, true, true],
   },
   {
-    label: "Lưu nháp không giới hạn",
+    get label() { return t("pricing.row.drafts"); },
     values: [true, true, true],
   },
   {
-    label: "Xuất bản và chia sẻ khách mời",
+    get label() { return t("pricing.row.publish"); },
     values: [false, true, true],
   },
   {
-    label: "Số khách mời",
-    values: ["—", "Không giới hạn", "Không giới hạn"],
+    get label() { return t("pricing.row.guests"); },
+    values: ["—", t("pricing.unlimited"), t("pricing.unlimited")],
   },
   {
-    label: "Sổ lưu bút số",
+    get label() { return t("features.guestbook.title"); },
     values: [false, true, true],
   },
   {
-    label: "QR mừng cưới",
+    get label() { return t("pricing.row.qr"); },
     values: [false, true, true],
   },
   {
-    label: "Đồng hồ đếm ngược & bản đồ",
+    get label() { return t("pricing.row.countdown"); },
     values: [false, true, true],
   },
   {
-    label: "Nhạc nền",
+    get label() { return t("pricing.row.music"); },
     values: [false, true, true],
   },
   {
-    label: "Sửa nội dung sau khi gửi",
+    get label() { return t("pricing.row.editAfter"); },
     values: [false, true, true],
   },
   {
-    label: "Thời gian lưu thiệp",
-    values: ["—", "Vĩnh viễn", "Vĩnh viễn"],
+    get label() { return t("pricing.row.storage"); },
+    values: ["—", t("pricing.forever"), t("pricing.forever")],
   },
   {
-    label: "Tên miền riêng",
+    get label() { return t("features.domain.title"); },
     values: [false, false, true],
   },
   {
-    label: "Thiết kế chỉnh riêng",
+    get label() { return t("pricing.row.customDesign"); },
     values: [false, false, true],
   },
   {
-    label: "Quản lý khách mời & sắp bàn tiệc",
+    get label() { return t("pricing.row.seating"); },
     values: [false, false, true],
   },
   {
-    label: "Hỗ trợ",
-    values: ["Cộng đồng", "Messenger", "Ưu tiên 24/7"],
+    get label() { return t("footer.support"); },
+    values: [t("pricing.community"), "Messenger", t("pricing.priority")],
   },
-];
+]);
 
 useSeo({
-  title: "Bảng giá",
+  get title() { return t("nav.pricing"); },
   description:
     "Bảng giá tạo thiệp cưới online: tạo và chỉnh sửa miễn phí, " +
     "dùng thử 3 ngày đầy đủ tính năng, chỉ trả một lần khi xuất bản thiệp.",

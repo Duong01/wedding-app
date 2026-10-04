@@ -4,20 +4,19 @@
       <div>
         <span class="panel-eyebrow"> DRESS CODE </span>
 
-        <h1>Trang phục</h1>
+        <h1>{{ $t('editor.menu.dressCode') }}</h1>
 
         <p>
-          Gợi ý trang phục cho khách mời. Chỉ hiển thị với các mẫu
-          có mục Dress Code.
+          {{ $t('dressPanel.desc') }}
         </p>
       </div>
     </div>
 
     <div class="switch-card">
       <div>
-        <strong> Hiển thị mục Dress Code </strong>
+        <strong> {{ $t('dressPanel.show') }} </strong>
 
-        <small> Khách mời thấy gợi ý trang phục trên thiệp. </small>
+        <small> {{ $t('dressPanel.showHint') }} </small>
       </div>
 
       <v-switch
@@ -28,16 +27,16 @@
     </div>
 
     <div class="editor-field">
-      <label>Ghi chú ngắn</label>
+      <label>{{ $t('dressPanel.note') }}</label>
 
       <input
         v-model="wedding.dressCode.Note"
         type="text"
-        placeholder="VD: Trang phục dự tiệc"
+        :placeholder="$t('dressPanel.notePlaceholder')"
       />
 
       <small class="field-help">
-        Dòng mô tả ngắn hiển thị dưới tiêu đề mục.
+        {{ $t('dressPanel.noteHint') }}
       </small>
     </div>
 
@@ -45,11 +44,10 @@
          BẢNG MÀU GỢI Ý
     ====================================================== -->
 
-    <h3 class="sub-heading">Bảng màu gợi ý</h3>
+    <h3 class="sub-heading">{{ $t('dressPanel.palette') }}</h3>
 
     <p class="field-help block-help">
-      Thêm các màu khách mời nên mặc. Thứ tự hiển thị theo đúng
-      thứ tự bên dưới.
+      {{ $t('dressPanel.paletteHint') }}
     </p>
 
     <div class="swatch-list">
@@ -74,7 +72,7 @@
         <button
           type="button"
           class="danger-icon"
-          title="Xoá màu"
+          :title="$t('dressPanel.removeColor')"
           @click="removeColor(index)"
         >
           <v-icon size="17"> mdi-delete-outline </v-icon>
@@ -84,26 +82,26 @@
       <div v-if="!wedding.dressCode.Colors.length" class="empty-card small">
         <v-icon size="26"> mdi-palette-outline </v-icon>
 
-        <strong> Chưa có màu gợi ý </strong>
+        <strong> {{ $t('dressPanel.noColors') }} </strong>
 
-        <span> Thêm màu để khách mời dễ chọn trang phục. </span>
+        <span> {{ $t('dressPanel.noColorsHint') }} </span>
       </div>
     </div>
 
     <button type="button" class="add-button" @click="addColor">
       <v-icon> mdi-palette-plus </v-icon>
 
-      Thêm màu
+      {{ $t('dressPanel.addColor') }}
     </button>
 
     <!-- =====================================================
          GỢI Ý CHI TIẾT
     ====================================================== -->
 
-    <h3 class="sub-heading">Gợi ý chi tiết</h3>
+    <h3 class="sub-heading">{{ $t('dressPanel.tips') }}</h3>
 
     <p class="field-help block-help">
-      Mỗi dòng là một gợi ý riêng biệt hiển thị trên thiệp.
+      {{ $t('dressPanel.tipsHint') }}
     </p>
 
     <div class="items-list">
@@ -114,10 +112,10 @@
       >
         <div class="card-header">
           <div>
-            <span> GỢI Ý {{ index + 1 }} </span>
+            <span> {{ $t('dressPanel.tipLabel') }} {{ index + 1 }} </span>
 
             <strong>
-              {{ item || "Chưa nhập nội dung" }}
+              {{ item || $t('dressPanel.empty') }}
             </strong>
           </div>
 
@@ -125,7 +123,7 @@
             <button
               type="button"
               class="small-icon-button"
-              title="Chuyển lên"
+              :title="$t('panel.moveUp')"
               :disabled="index === 0"
               @click="moveSuggestion(index, -1)"
             >
@@ -135,7 +133,7 @@
             <button
               type="button"
               class="small-icon-button"
-              title="Chuyển xuống"
+              :title="$t('panel.moveDown')"
               :disabled="index === wedding.dressCode.Suggestions.length - 1"
               @click="moveSuggestion(index, 1)"
             >
@@ -145,7 +143,7 @@
             <button
               type="button"
               class="danger-icon"
-              title="Xoá gợi ý"
+              :title="$t('dressPanel.removeTip')"
               @click="removeSuggestion(index)"
             >
               <v-icon size="18"> mdi-delete-outline </v-icon>
@@ -157,7 +155,7 @@
           <textarea
             v-model="wedding.dressCode.Suggestions[index]"
             rows="2"
-            placeholder="VD: Ưu tiên trang phục thanh lịch, tối màu"
+            :placeholder="$t('dressPanel.tipPlaceholder')"
           />
         </div>
       </article>
@@ -168,22 +166,25 @@
       >
         <v-icon size="30"> mdi-tshirt-crew-outline </v-icon>
 
-        <strong> Chưa có gợi ý </strong>
+        <strong> {{ $t('dressPanel.noTips') }} </strong>
 
-        <span> Thêm vài dòng gợi ý để khách mời biết nên mặc gì. </span>
+        <span> {{ $t('dressPanel.noTipsHint') }} </span>
       </div>
     </div>
 
     <button type="button" class="add-button" @click="addSuggestion">
       <v-icon> mdi-plus </v-icon>
 
-      Thêm gợi ý
+      {{ $t('dressPanel.addTip') }}
     </button>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -226,10 +227,10 @@ async function removeColor(index) {
   const color = props.wedding.dressCode.Colors[index];
 
   const ok = await confirmDialog({
-    title: "Xoá màu này?",
-    message: "Màu sẽ không còn hiển thị trong gợi ý trang phục.",
+    get title() { return t("dressPanel.confirmColor"); },
+    get message() { return t("dressPanel.confirmColorMsg"); },
     detail: color,
-    confirmText: "Xoá màu",
+    get confirmText() { return t("dressPanel.removeColor"); },
     danger: true,
   });
 
@@ -248,10 +249,10 @@ async function removeSuggestion(index) {
   const text = props.wedding.dressCode.Suggestions[index];
 
   const ok = await confirmDialog({
-    title: "Xoá gợi ý này?",
-    message: "Nội dung gợi ý sẽ bị xoá khỏi thiệp.",
+    get title() { return t("dressPanel.confirmTip"); },
+    get message() { return t("dressPanel.confirmTipMsg"); },
     detail: text,
-    confirmText: "Xoá gợi ý",
+    get confirmText() { return t("dressPanel.removeTip"); },
     danger: true,
   });
 

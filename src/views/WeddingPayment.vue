@@ -10,7 +10,7 @@
       <button type="button" class="back-btn" @click="goManage">
         <v-icon size="16"> mdi-arrow-left </v-icon>
 
-        Quản lý thiệp
+        {{ $t('nav.adminWeddings') }}
       </button>
     </div>
 
@@ -21,19 +21,24 @@
       <div class="container hero-inner">
         <span class="eyebrow">
           <span class="eyebrow-line"></span>
-          Kích hoạt thiệp
+          {{ $t('payment.eyebrow') }}
           <span class="eyebrow-line"></span>
         </span>
 
         <h1>
-          Thanh toán
-          <span>kích hoạt thiệp</span>
+          {{ $t('manage.payment') }}
+          <span>{{ $t('payment.h1Accent') }}</span>
         </h1>
 
         <p>
-          Quét mã QR bên dưới bằng app ngân hàng, sau đó bấm
-          <strong>“Tôi đã chuyển khoản”</strong> để chúng tôi đối soát và
-          kích hoạt thiệp <strong class="slug-strong">/{{ slug }}</strong>.
+          <i18n-t keypath="payment.intro" tag="span">
+            <template #button>
+            <strong>“{{ $t("payment.iTransferred") }}”</strong>
+          </template>
+            <template #slug>
+            <strong class="slug-strong">/{{ slug }}</strong>
+          </template>
+          </i18n-t>
         </p>
       </div>
     </section>
@@ -67,12 +72,12 @@
       <div v-else-if="loadError" class="state-box">
         <div class="empty-icon">⚠</div>
 
-        <h3>Không tải được thông tin thanh toán</h3>
+        <h3>{{ $t('payment.loadFailed') }}</h3>
 
         <p>{{ loadError }}</p>
 
         <button type="button" class="retry-btn" @click="loadAll">
-          Thử lại
+          {{ $t('common.retry') }}
         </button>
       </div>
 
@@ -80,20 +85,23 @@
       <div v-else-if="isActivated" class="state-box activated">
         <div class="empty-icon activated-icon">✓</div>
 
-        <h3>Thiệp đã được kích hoạt</h3>
+        <h3>{{ $t('payment.activated') }}</h3>
 
         <p>
-          Thiệp <strong class="slug-strong">/{{ slug }}</strong>
-          đang hoạt động — khách mời có thể mở link bình thường.
+          <i18n-t keypath="payment.activeBody" tag="span">
+            <template #slug>
+            <strong class="slug-strong">/{{ slug }}</strong>
+          </template>
+          </i18n-t>
         </p>
 
         <div class="state-actions">
           <button type="button" class="retry-btn" @click="goView">
-            Xem thiệp
+            {{ $t('payment.viewCard') }}
           </button>
 
           <button type="button" class="ghost-btn" @click="goManage">
-            Về quản lý thiệp
+            {{ $t('payment.backToManage') }}
           </button>
         </div>
       </div>
@@ -108,7 +116,7 @@
             <span class="pay-card-title">
               <v-icon size="18"> mdi-bank-outline </v-icon>
 
-              Tài khoản nhận thanh toán
+              {{ $t('payment.receivingAccount') }}
             </span>
 
             <span
@@ -130,12 +138,14 @@
               <v-icon size="26"> mdi-bank-off-outline </v-icon>
             </div>
 
-            <h4>Chưa có thông tin tài khoản nhận thanh toán</h4>
+            <h4>{{ $t('payment.noAccount') }}</h4>
 
             <p>
-              Hệ thống chưa được cấu hình tài khoản nhận tiền, nên
-              <strong>chưa thể hiển thị mã QR</strong>. Vui lòng liên hệ hỗ
-              trợ để được kích hoạt thủ công — bạn chưa cần chuyển khoản gì.
+              <i18n-t keypath="payment.noAccountBody" tag="span">
+                <template #strong>
+                  <strong>{{ $t("payment.noQr") }}</strong>
+                </template>
+              </i18n-t>
             </p>
 
             <div class="state-actions">
@@ -144,7 +154,7 @@
                 :href="`tel:${phoneHref(supportPhone)}`"
                 class="retry-btn"
               >
-                Gọi {{ supportPhone }}
+                {{ $t('payment.call') }} {{ supportPhone }}
               </a>
 
               <a
@@ -152,7 +162,7 @@
                 :href="`mailto:${supportEmail}`"
                 class="ghost-btn"
               >
-                Gửi email hỗ trợ
+                {{ $t('payment.emailSupport') }}
               </a>
             </div>
           </div>
@@ -165,25 +175,25 @@
               <img
                 v-if="qrUrl"
                 :src="qrUrl"
-                alt="Mã QR chuyển khoản"
+                :alt="$t('payment.qrAlt')"
                 class="qr-image"
               />
 
               <div v-else class="qr-placeholder">
                 <v-icon size="30"> mdi-qrcode </v-icon>
 
-                <span> Không tạo được mã QR </span>
+                <span> {{ $t('payment.qrFailed') }} </span>
               </div>
 
               <p class="qr-hint">
-                Quét bằng app ngân hàng — số tiền và nội dung đã điền sẵn
+                {{ $t('payment.scanHint') }}
               </p>
             </div>
 
             <!-- BANK ROWS -->
             <div class="bank-rows">
               <div class="bank-row">
-                <span class="bank-label">Ngân hàng</span>
+                <span class="bank-label">{{ $t('payment.bank') }}</span>
 
                 <span class="bank-value">
                   {{ paymentInfo.bankName }}
@@ -191,7 +201,7 @@
               </div>
 
               <div class="bank-row">
-                <span class="bank-label">Chủ tài khoản</span>
+                <span class="bank-label">{{ $t('payment.holder') }}</span>
 
                 <span class="bank-value">
                   {{ paymentInfo.accountName }}
@@ -200,9 +210,9 @@
 
               <div
                 class="bank-row copyable"
-                @click="copyValue('Số tài khoản', paymentInfo.accountNumber)"
+                @click="copyValue($t('giftsPanel.accountNumber'), paymentInfo.accountNumber)"
               >
-                <span class="bank-label">Số tài khoản</span>
+                <span class="bank-label">{{ $t('giftsPanel.accountNumber') }}</span>
 
                 <span class="bank-value mono">
                   {{ paymentInfo.accountNumber }}
@@ -211,7 +221,7 @@
                 <button
                   type="button"
                   class="copy-btn"
-                  title="Sao chép số tài khoản"
+                  :title="$t('giftsPanel.copyNumber')"
                 >
                   <v-icon size="15"> mdi-content-copy </v-icon>
                 </button>
@@ -219,24 +229,24 @@
 
               <div
                 class="bank-row copyable"
-                @click="copyValue('Số tiền', String(payAmount))"
+                @click="copyValue($t('payment.amount'), String(payAmount))"
               >
-                <span class="bank-label">Số tiền</span>
+                <span class="bank-label">{{ $t('payment.amount') }}</span>
 
                 <span class="bank-value strong">
                   {{ formatVnd(payAmount) }}
                 </span>
 
-                <button type="button" class="copy-btn" title="Sao chép số tiền">
+                <button type="button" class="copy-btn" :title="$t('payment.copyAmount')">
                   <v-icon size="15"> mdi-content-copy </v-icon>
                 </button>
               </div>
 
               <div
                 class="bank-row copyable"
-                @click="copyValue('Nội dung chuyển khoản', transferContent)"
+                @click="copyValue($t('payment.transferContent'), transferContent)"
               >
-                <span class="bank-label">Nội dung CK</span>
+                <span class="bank-label">{{ $t('payment.noteShort') }}</span>
 
                 <span class="bank-value mono">
                   {{ transferContent }}
@@ -245,7 +255,7 @@
                 <button
                   type="button"
                   class="copy-btn"
-                  title="Sao chép nội dung chuyển khoản"
+                  :title="$t('payment.copyContent')"
                 >
                   <v-icon size="15"> mdi-content-copy </v-icon>
                 </button>
@@ -253,9 +263,11 @@
             </div>
 
             <p class="pay-note">
-              Nội dung chuyển khoản chính là
-              <strong>slug của thiệp</strong> — giúp chúng tôi đối soát và
-              kích hoạt đúng thiệp của bạn.
+              <i18n-t keypath="payment.contentNote" tag="span">
+                <template #strong>
+                  <strong>{{ $t("payment.slugOfCard") }}</strong>
+                </template>
+              </i18n-t>
             </p>
           </template>
         </div>
@@ -268,7 +280,7 @@
             <span class="pay-card-title">
               <v-icon size="18"> mdi-check-decagram-outline </v-icon>
 
-              Xác nhận thanh toán
+              {{ $t('payment.confirmTitle') }}
             </span>
           </div>
 
@@ -290,28 +302,28 @@
             </div>
 
             <h4>
-              {{ isRejected ? "Yêu cầu chưa được chấp nhận" : "Đã ghi nhận yêu cầu" }}
+              {{ isRejected ? $t('payment.rejected') : $t('payment.received') }}
             </h4>
 
             <!-- BẰNG CHỨNG CẦM TAY — mã yêu cầu + giờ gửi -->
             <div class="receipt">
               <div class="receipt-row">
-                <span>Mã yêu cầu</span>
+                <span>{{ $t('payment.requestId') }}</span>
                 <strong>#{{ currentRequest.id }}</strong>
               </div>
 
               <div class="receipt-row">
-                <span>Gửi lúc</span>
+                <span>{{ $t('payment.sentAt') }}</span>
                 <strong>{{ formatDateTime(currentRequest.createdAt) }}</strong>
               </div>
 
               <div class="receipt-row">
-                <span>Số tiền</span>
+                <span>{{ $t('payment.amount') }}</span>
                 <strong>{{ formatVnd(currentRequest.amount) }}</strong>
               </div>
 
               <div class="receipt-row">
-                <span>Nội dung CK</span>
+                <span>{{ $t('payment.noteShort') }}</span>
                 <strong class="mono">{{ currentRequest.content }}</strong>
               </div>
             </div>
@@ -321,7 +333,7 @@
               <v-icon size="15"> mdi-information-outline </v-icon>
 
               <span>
-                <strong>Lý do:</strong>
+                <strong>{{ $t('payment.reason') }}</strong>
                 {{ currentRequest.adminNote }}
               </span>
             </div>
@@ -355,11 +367,15 @@
             </ol>
 
             <p class="notice-copy">
-              Thông thường chúng tôi xác nhận trong
-              <strong>khoảng 5 phút</strong> (giờ hành chính
-              {{ supportHours }}). Quá 30 phút chưa thấy cập nhật, bạn gọi
-              <strong v-if="supportPhone">{{ supportPhone }}</strong>
-              <strong v-else>số hỗ trợ</strong> để được kiểm tra ngay.
+              <i18n-t keypath="payment.confirmTime" tag="span">
+                <template #time>
+                  <strong>{{ $t("payment.about5min") }}</strong>
+                </template>
+                <template #hours>{{ supportHours }}</template>
+                <template #phone>
+                  <strong>{{ supportPhone || $t("payment.supportNumber") }}</strong>
+                </template>
+              </i18n-t>
             </p>
 
             <div class="state-actions">
@@ -376,7 +392,7 @@
                   width="2"
                 />
 
-                Kiểm tra trạng thái
+                {{ $t('payment.checkStatus') }}
               </button>
 
               <button
@@ -385,11 +401,11 @@
                 class="ghost-btn"
                 @click="resetNotice"
               >
-                Gửi lại
+                {{ $t('payment.resend') }}
               </button>
 
               <button v-else type="button" class="ghost-btn" @click="goManage">
-                Về quản lý thiệp
+                {{ $t('payment.backToManage') }}
               </button>
             </div>
           </div>
@@ -399,8 +415,11 @@
           =========================================== -->
           <template v-else>
             <p class="confirm-copy">
-              Sau khi chuyển khoản xong, bấm nút bên dưới để chúng tôi biết
-              mà kiểm tra sao kê. Bạn <strong>không cần nhập gì thêm</strong>.
+              <i18n-t keypath="payment.afterTransfer" tag="span">
+                <template #strong>
+                  <strong>{{ $t("payment.nothingElse") }}</strong>
+                </template>
+              </i18n-t>
             </p>
 
             <button
@@ -419,20 +438,26 @@
 
               <v-icon v-else size="17"> mdi-send-outline </v-icon>
 
-              Tôi đã chuyển khoản
+              {{ $t('payment.iTransferred') }}
             </button>
 
             <ul class="reassure">
               <li>
                 <v-icon size="14"> mdi-shield-check-outline </v-icon>
-                Bạn <strong>không cần chuyển khoản lại</strong> — nếu đã
-                chuyển rồi thì bỏ qua bước này.
+                <i18n-t keypath="payment.noResend" tag="span">
+                  <template #strong>
+                    <strong>{{ $t("payment.noResendStrong") }}</strong>
+                  </template>
+                </i18n-t>
               </li>
 
               <li>
                 <v-icon size="14"> mdi-shield-check-outline </v-icon>
-                Nội dung thiệp của bạn <strong>vẫn được giữ nguyên</strong>
-                trong lúc chờ xác nhận.
+                <i18n-t keypath="payment.contentKept" tag="span">
+                  <template #strong>
+                    <strong>{{ $t("payment.contentKeptStrong") }}</strong>
+                  </template>
+                </i18n-t>
               </li>
 
               <li v-if="refundPolicy">
@@ -442,8 +467,11 @@
 
               <li>
                 <v-icon size="14"> mdi-shield-check-outline </v-icon>
-                Thanh toán <strong>một lần</strong> — không phí gia hạn hằng
-                năm, không tự động trừ tiền.
+                <i18n-t keypath="payment.oneTime" tag="span">
+                  <template #strong>
+                    <strong>{{ $t("payment.oneTimeStrong") }}</strong>
+                  </template>
+                </i18n-t>
               </li>
             </ul>
           </template>
@@ -457,27 +485,27 @@
         <div class="trust-head">
           <v-icon size="18"> mdi-domain </v-icon>
 
-          <span>Đơn vị cung cấp dịch vụ</span>
+          <span>{{ $t('payment.provider') }}</span>
         </div>
 
         <dl class="trust-rows">
           <template v-if="business.legalName">
-            <dt>Đơn vị</dt>
+            <dt>{{ $t('payment.company') }}</dt>
             <dd>{{ business.legalName }}</dd>
           </template>
 
           <template v-if="business.taxCode">
-            <dt>Mã số thuế</dt>
+            <dt>{{ $t('payment.taxCode') }}</dt>
             <dd class="mono">{{ business.taxCode }}</dd>
           </template>
 
           <template v-if="business.address">
-            <dt>Địa chỉ</dt>
+            <dt>{{ $t('couplePanel.address') }}</dt>
             <dd>{{ business.address }}</dd>
           </template>
 
           <template v-if="supportPhone">
-            <dt>Hỗ trợ</dt>
+            <dt>{{ $t('footer.support') }}</dt>
             <dd>
               <a :href="`tel:${phoneHref(supportPhone)}`">{{ supportPhone }}</a>
             </dd>
@@ -491,16 +519,14 @@
           </template>
 
           <template v-if="supportHours">
-            <dt>Giờ làm việc</dt>
+            <dt>{{ $t('payment.workingHours') }}</dt>
             <dd>{{ supportHours }}</dd>
           </template>
         </dl>
 
         <p class="trust-note">
           <v-icon size="14"> mdi-information-outline </v-icon>
-          Thông tin trên là của đơn vị vận hành website này. Nếu có bất kỳ
-          điểm nào bạn thấy chưa rõ, hãy liên hệ trước khi chuyển khoản —
-          chúng tôi không cần bạn vội.
+          {{ $t('payment.providerNote') }}
         </p>
       </div>
     </section>
@@ -517,6 +543,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 
 import { useRoute, useRouter } from "vue-router";
@@ -537,6 +564,8 @@ import {
   REFUND_POLICY,
   phoneHref,
 } from "@/data/siteContent";
+
+const { t } = useI18n();
 
 defineOptions({
   name: "WeddingPayment",
@@ -634,7 +663,7 @@ async function loadAll() {
           statusResult.data.publishState ||
           "";
       } else if (statusResult && statusResult.status !== "success") {
-        loadError.value = statusResult.message || "Không tìm thấy thiệp này.";
+        loadError.value = statusResult.message || t("payment.cardNotFound");
 
         return;
       }
@@ -723,7 +752,7 @@ async function loadAll() {
 
 onMounted(() => {
   if (!slug.value) {
-    loadError.value = "Đường dẫn không hợp lệ — thiếu slug thiệp.";
+    loadError.value = t("payment.badLink");
 
     loading.value = false;
 
@@ -770,17 +799,17 @@ const payAmount = computed(() => {
 });
 
 const statusLabel = computed(() => {
-  if (publishState.value === PUBLISH_STATE.ACTIVE) return "Đã kích hoạt";
+  if (publishState.value === PUBLISH_STATE.ACTIVE) return t("manage.status.active");
 
-  if (publishState.value === PUBLISH_STATE.TRIAL) return "Đang dùng thử";
+  if (publishState.value === PUBLISH_STATE.TRIAL) return t("payment.status.trial");
 
-  if (publishState.value === PUBLISH_STATE.EXPIRED) return "Hết hạn dùng thử";
+  if (publishState.value === PUBLISH_STATE.EXPIRED) return t("manage.status.expired");
 
-  if (publishState.value === PUBLISH_STATE.LOCKED) return "Đã khóa";
+  if (publishState.value === PUBLISH_STATE.LOCKED) return t("editor.status.locked");
 
-  if (status.value === WEDDING_STATUS.LOCKED) return "Đã khóa";
+  if (status.value === WEDDING_STATUS.LOCKED) return t("editor.status.locked");
 
-  return "Chờ duyệt";
+  return t("manage.status.pending");
 });
 
 const statusChipClass = computed(() => {
@@ -836,27 +865,27 @@ const timeline = computed(() => {
   return [
     {
       key: "sent",
-      label: "Đã gửi yêu cầu",
+      get label() { return t("payment.step.sent"); },
       state: "done",
       time: formatDateTime(request?.createdAt),
       hint: "",
     },
     {
       key: "review",
-      label: rejected ? "Đã kiểm tra — chưa khớp" : "Đang đối soát sao kê",
+      label: rejected ? t("payment.step.mismatch") : t("payment.step.checking"),
       state: rejected ? "failed" : approved || activated ? "done" : "active",
       time: approved || rejected ? formatDateTime(request?.reviewedAt) : "",
       hint:
         rejected || approved || activated
           ? ""
-          : "Chúng tôi đang kiểm tra giao dịch trong sao kê ngân hàng",
+          : t("payment.step.checkingHint"),
     },
     {
       key: "active",
-      label: "Đã kích hoạt thiệp",
+      get label() { return t("payment.step.activated"); },
       state: activated ? "done" : "pending",
       time: activated ? "" : "",
-      hint: activated ? "" : "Thiệp mở cho khách mời ngay khi bước 2 xong",
+      hint: activated ? "" : t("payment.step.activatedHint"),
     },
   ];
 });
@@ -879,7 +908,8 @@ const supportHours = computed(() => {
   return CONTACT.hours || "";
 });
 
-const refundPolicy = REFUND_POLICY;
+/* computed: chính sách hoàn tiền đổi theo ngôn ngữ giao diện */
+const refundPolicy = computed(() => REFUND_POLICY.text);
 
 /* =========================================================
    QR — chuẩn img.vietqr.io
@@ -955,16 +985,16 @@ async function submitNotice() {
         adminNote: "",
       };
 
-      showToast("Đã ghi nhận. Chúng tôi sẽ kiểm tra và kích hoạt thiệp.");
+      showToast(t("payment.noticeSent"));
     } else {
-      showToast(result?.message || "Không thể gửi báo chuyển khoản.");
+      showToast(result?.message || t("payment.noticeFailed"));
     }
   } catch (error) {
     console.error("[WeddingPayment] submitPaymentNotice error:", error);
 
     showToast(
       error?.response?.data?.message ||
-        "Không thể gửi báo chuyển khoản. Vui lòng thử lại."
+        t("payment.noticeFailedRetry")
     );
   } finally {
     submitting.value = false;
@@ -1015,9 +1045,9 @@ async function copyValue(label, value) {
   try {
     await navigator.clipboard.writeText(value);
 
-    showToast(`Đã sao chép ${label.toLowerCase()}`);
+    showToast(t("payment.copiedLabel", { label: label.toLowerCase() }));
   } catch (error) {
-    showToast("Không thể sao chép");
+    showToast(t("payment.copyFailed"));
   }
 }
 

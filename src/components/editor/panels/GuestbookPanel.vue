@@ -4,17 +4,17 @@
       <div>
         <span class="panel-eyebrow"> GUEST BOOK </span>
 
-        <h1>Sổ lưu bút</h1>
+        <h1>{{ $t('editor.menu.guestbook') }}</h1>
 
-        <p>Cho phép khách mời gửi lời chúc.</p>
+        <p>{{ $t('guestbookPanel.desc') }}</p>
       </div>
     </div>
 
     <div class="switch-card">
       <div>
-        <strong> Hiển thị sổ lưu bút </strong>
+        <strong> {{ $t('guestbookPanel.show') }} </strong>
 
-        <small> Khách mời có thể gửi lời chúc. </small>
+        <small> {{ $t('guestbookPanel.showHint') }} </small>
       </div>
 
       <v-switch
@@ -25,16 +25,16 @@
     </div>
 
     <div class="editor-field">
-      <label>Tiêu đề</label>
+      <label>{{ $t('panel.title') }}</label>
 
       <input
         v-model="wedding.guestBook.Title"
         type="text"
-        placeholder="VD: Sổ Lưu Bút"
+        :placeholder="$t('guestbookPanel.titlePlaceholder')"
       />
 
       <small class="field-help">
-        Tiêu đề của mục trên thiệp. Bỏ trống dùng "Sổ lưu bút".
+        {{ $t('guestbookPanel.titleHint') }}
       </small>
     </div>
 
@@ -53,14 +53,14 @@
         <input
           v-model="keyword"
           type="text"
-          placeholder="Tìm theo tên hoặc nội dung lời chúc..."
+          :placeholder="$t('guestbookPanel.search')"
         />
 
         <button
           v-if="keyword"
           type="button"
           class="search-clear"
-          title="Xoá tìm kiếm"
+          :title="$t('editor.nav.clearSearch')"
           @click="keyword = ''"
         >
           <v-icon size="15"> mdi-close </v-icon>
@@ -68,7 +68,7 @@
       </div>
 
       <span class="wish-count">
-        {{ filteredWishes.length }} / {{ allWishes.length }} lời chúc
+        {{ $t("guestbookPanel.count", { shown: filteredWishes.length, total: allWishes.length }) }}
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       >
         <v-icon size="15"> mdi-refresh </v-icon>
 
-        Tải lại
+        {{ $t('guestbookPanel.reload') }}
       </button>
 
       <button
@@ -92,7 +92,7 @@
       >
         <v-icon size="15"> mdi-content-copy </v-icon>
 
-        Sao chép lời chúc
+        {{ $t('guestbookPanel.copyAll') }}
       </button>
     </div>
 
@@ -104,7 +104,7 @@
       <div v-if="loadingWishes" class="empty-card">
         <v-progress-circular indeterminate size="22" width="2" />
 
-        <strong> Đang tải lời chúc... </strong>
+        <strong> {{ $t('guestbookPanel.loading') }} </strong>
       </div>
 
       <template v-else>
@@ -119,7 +119,7 @@
 
           <div class="guest-content">
             <strong>
-              {{ wish.Name || "Khách mời" }}
+              {{ wish.Name || $t('guestbookPanel.guest') }}
             </strong>
 
             <p>
@@ -136,7 +136,7 @@
             type="button"
             class="guest-delete"
             :disabled="deletingId === wish.__id"
-            title="Xóa lời chúc"
+            :title="$t('guestbookPanel.deleteOne')"
             @click="removeWish(wish)"
           >
             <v-progress-circular
@@ -152,7 +152,7 @@
       </template>
 
       <p v-if="keyword && !filteredWishes.length" class="search-empty">
-        Không tìm thấy lời chúc nào khớp "{{ keyword }}".
+        {{ $t("guestbookPanel.noMatch", { keyword }) }}
       </p>
 
       <div
@@ -161,20 +161,23 @@
       >
         <v-icon size="30"> mdi-message-heart-outline </v-icon>
 
-        <strong> Chưa có lời chúc </strong>
+        <strong> {{ $t('guestbookPanel.empty') }} </strong>
 
-        <span> Lời chúc của khách mời sẽ hiển thị ở đây. </span>
+        <span> {{ $t('guestbookPanel.emptyHint') }} </span>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 
 import { deleteWish, getAllWishes } from "@/model/api";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -302,9 +305,9 @@ async function removeWish(wish) {
   }
 
   const ok = await confirmDialog({
-    title: "Xoá lời chúc?",
-    message: `Lời chúc của "${wish?.Name || "khách"}" sẽ bị xoá vĩnh viễn khỏi sổ lưu bút.`,
-    confirmText: "Xoá lời chúc",
+    get title() { return t("guestbookPanel.confirmTitle"); },
+    message: t("guestbookPanel.confirmMessage", { name: wish?.Name || t("guestbookPanel.guestLower") }),
+    get confirmText() { return t("guestbookPanel.confirmDelete"); },
     danger: true,
   });
 
@@ -324,14 +327,14 @@ async function removeWish(wish) {
         return (item.Id || item.id) !== id;
       });
 
-      showFeedback("Đã xoá lời chúc.");
+      showFeedback(t("guestbookPanel.deleted"));
     } else {
-      showFeedback(result?.message || "Không thể xóa lời chúc.", true);
+      showFeedback(result?.message || t("guestbookPanel.deleteFailed"), true);
     }
   } catch (err) {
     console.error("[GuestbookPanel] deleteWish error:", err);
 
-    showFeedback("Không thể xóa lời chúc. Vui lòng thử lại.", true);
+    showFeedback(t("guestbookPanel.deleteFailedRetry"), true);
   } finally {
     deletingId.value = null;
   }
@@ -343,7 +346,7 @@ async function removeWish(wish) {
  */
 async function copyWishes() {
   const lines = filteredWishes.value
-    .map((wish) => `${wish.Name || "Khách mời"}: ${wish.Message || ""}`)
+    .map((wish) => `${wish.Name || t("guestbookPanel.guest")}: ${wish.Message || ""}`)
     .filter(Boolean);
 
   if (!lines.length) {
@@ -353,11 +356,11 @@ async function copyWishes() {
   try {
     await navigator.clipboard.writeText(lines.join("\n"));
 
-    showFeedback(`Đã sao chép ${lines.length} lời chúc.`);
+    showFeedback(t("guestbookPanel.copied", { n: lines.length }));
   } catch (err) {
     console.error("[GuestbookPanel] copyWishes error:", err);
 
-    showFeedback("Không thể sao chép lời chúc.", true);
+    showFeedback(t("guestbookPanel.copyFailed"), true);
   }
 }
 

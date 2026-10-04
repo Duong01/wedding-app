@@ -5,9 +5,14 @@
     ====================================================== -->
 
     <div class="shc-dress__head">
-      <h2 class="shc-dress__title">DRESS CODE</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="shc-top-custom-head">
+        <p v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "dressCode", "Eyebrow") }}</p>
+      </header>
 
-      <p class="shc-dress__subtitle">Trang phục dự tiệc</p>
+      <h2 class="shc-dress__title">{{ sectionText(sections, "dressCode", "Heading", "DRESS CODE") }}</h2>
+
+      <p class="shc-dress__subtitle">{{ sectionText(sections, "dressCode", "Intro", "Trang phục dự tiệc") }}</p>
     </div>
 
     <!-- =====================================================
@@ -29,6 +34,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
+
+defineProps({
+  sections: { type: Object, default: () => ({}) },
+});
 const palette = [
   { hex: "#F6EFEA", border: "#FFE8A430" },
   { hex: "#FFE8A4", border: "#FFE8A430" },
@@ -144,5 +154,38 @@ const palette = [
     width: 48px;
     height: 48px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

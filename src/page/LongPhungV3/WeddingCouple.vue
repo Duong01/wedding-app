@@ -2,7 +2,12 @@
   <section class="lp-couple">
     <!-- Tiêu đề có khung frame-title -->
     <div class="lp-section-title">
-      <h2>TRÂN TRỌNG BÁO TIN</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="lp-top-custom-head">
+        <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "couple", "Heading", "TRÂN TRỌNG BÁO TIN") }}</h2>
     </div>
 
     <p class="lp-couple__announce">
@@ -67,10 +72,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   guestName: { type: String, default: "Quý khách" },
 });
@@ -197,7 +204,7 @@ const weddingTime = computed(() => {
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* =========================================================
@@ -231,7 +238,7 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-couple__announce {
@@ -243,7 +250,7 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.08em;
 
-  color: rgba(255, 190, 137, 0.9);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.9);
 }
 
 /* =========================================================
@@ -310,7 +317,7 @@ const weddingTime = computed(() => {
 
   overflow-wrap: anywhere;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-family__birth-order {
@@ -344,7 +351,7 @@ const weddingTime = computed(() => {
 
   align-self: center;
 
-  background: #ffbe89;
+  background: var(--tc-ffbe89, #ffbe89);
 
   opacity: 0.3;
 }
@@ -365,7 +372,7 @@ const weddingTime = computed(() => {
 
   font-size: clamp(34px, 9vw, 46px);
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-couple__names i {
@@ -419,7 +426,7 @@ const weddingTime = computed(() => {
 
   font-size: 30px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 @media (min-width: 768px) {
@@ -442,7 +449,7 @@ const weddingTime = computed(() => {
   font-size: 14px;
   font-weight: 600;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* =========================================================
@@ -461,5 +468,38 @@ const weddingTime = computed(() => {
   .lp-family__name {
     font-size: 15px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-top-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

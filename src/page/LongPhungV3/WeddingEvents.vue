@@ -1,5 +1,11 @@
 <template>
   <section class="lp-events" ref="sectionRef">
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'events', 'Eyebrow') || sectionOverride(sections, 'events', 'Heading')" class="lp-custom-head">
+      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="lp-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+      <h2 v-if="sectionOverride(sections, 'events', 'Heading')" class="lp-custom-head__heading">{{ sectionOverride(sections, "events", "Heading") }}</h2>
+    </header>
+
     <div class="lp-events__list">
       <article
         v-for="(event, index) in normalizedEvents"
@@ -178,6 +184,7 @@
 </template>
 
 <script setup>
+import { sectionOverride } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
@@ -191,6 +198,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -484,12 +492,12 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  border: 1px solid rgba(255, 190, 137, 0.35);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.35);
   border-radius: 14px;
 
-  background: rgba(255, 190, 137, 0.06);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.06);
 
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.25);
 
@@ -527,7 +535,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* =====================================================
@@ -581,7 +589,7 @@ onBeforeUnmount(() => {
 
   font-size: 30px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 @media (min-width: 768px) {
@@ -616,14 +624,14 @@ onBeforeUnmount(() => {
   font-size: 20px;
   font-weight: 600;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-time-divider {
   width: 1px;
   height: 20px;
 
-  background: rgba(255, 190, 137, 0.55);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.55);
 }
 
 /* =====================================================
@@ -648,7 +656,7 @@ onBeforeUnmount(() => {
 
   padding: 6px 4px;
 
-  border-bottom: 1px solid rgba(255, 190, 137, 0.2);
+  border-bottom: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2);
 }
 
 .lp-schedule-row span {
@@ -663,7 +671,7 @@ onBeforeUnmount(() => {
   font-size: 17px;
   font-weight: 600;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* =====================================================
@@ -712,7 +720,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.06em;
 
-  color: #7a0014;
+  color: var(--tc-7a0014, #7a0014);
 }
 
 .lp-calendar__weekdays,
@@ -733,7 +741,7 @@ onBeforeUnmount(() => {
   font-size: clamp(8px, 2.4vw, 11px);
   font-weight: 700;
 
-  color: rgba(122, 0, 20, 0.75);
+  color: rgba(var(--tc-7a0014-rgb, 122, 0, 20), 0.75);
 }
 
 .lp-calendar__days {
@@ -753,7 +761,7 @@ onBeforeUnmount(() => {
 .lp-calendar__cell span {
   font-size: clamp(9px, 2.8vw, 13px);
 
-  color: #7a0014;
+  color: var(--tc-7a0014, #7a0014);
 }
 
 .lp-calendar__cell--active {
@@ -770,9 +778,9 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: #7a0014;
+  background: var(--tc-7a0014, #7a0014);
 
-  color: #ffbe89 !important;
+  color: var(--tc-ffbe89, #ffbe89) !important;
 
   font-weight: 700;
 }
@@ -794,7 +802,7 @@ onBeforeUnmount(() => {
   text-decoration: underline;
   text-underline-offset: 4px;
 
-  color: #7a0014;
+  color: var(--tc-7a0014, #7a0014);
 }
 
 /* =====================================================
@@ -812,10 +820,10 @@ onBeforeUnmount(() => {
 
   padding: 10px 20px;
 
-  border: 1.5px solid #ffbe89;
+  border: 1.5px solid var(--tc-ffbe89, #ffbe89);
   border-radius: 10px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   background: transparent;
 
@@ -834,7 +842,7 @@ onBeforeUnmount(() => {
 .lp-rsvp-btn:hover {
   transform: scale(1.03);
 
-  background: rgba(255, 190, 137, 0.12);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.12);
 }
 
 /* =====================================================
@@ -888,16 +896,16 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(255, 190, 137, 0.5);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
   border-radius: 16px;
 
-  background: linear-gradient(172deg, #5a000e, #450001);
+  background: linear-gradient(172deg, var(--tc-5a000e, #5a000e), var(--tc-450001, #450001));
 
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-modal-close {
@@ -912,7 +920,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: rgba(255, 190, 137, 0.8);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.8);
 
   background: transparent;
 
@@ -942,7 +950,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-modal-header p {
@@ -950,7 +958,7 @@ onBeforeUnmount(() => {
 
   font-size: 13px;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 /* =====================================================
@@ -973,7 +981,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.1em;
 
-  color: rgba(255, 190, 137, 0.8);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.8);
 }
 
 .lp-form-group input {
@@ -981,26 +989,26 @@ onBeforeUnmount(() => {
 
   padding: 12px 14px;
 
-  border: 1px solid #ffbe89;
+  border: 1px solid var(--tc-ffbe89, #ffbe89);
   border-radius: 6px;
 
   outline: none;
 
   font-size: 16px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
   transition: box-shadow 0.2s ease;
 }
 
 .lp-form-group input::placeholder {
-  color: rgba(255, 190, 137, 0.45);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.45);
 }
 
 .lp-form-group input:focus {
-  box-shadow: 0 0 0 3px rgba(255, 190, 137, 0.18);
+  box-shadow: 0 0 0 3px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.18);
 }
 
 .lp-attendance {
@@ -1012,16 +1020,16 @@ onBeforeUnmount(() => {
 .lp-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(255, 190, 137, 0.6);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
   border-radius: 6px;
 
   text-align: left;
 
   font-size: 13px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  background: rgba(255, 190, 137, 0.08);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08);
 
   cursor: pointer;
 
@@ -1029,9 +1037,9 @@ onBeforeUnmount(() => {
 }
 
 .lp-attendance-option.selected {
-  border-color: #ffbe89;
+  border-color: var(--tc-ffbe89, #ffbe89);
 
-  background: rgba(255, 190, 137, 0.2);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2);
 
   font-weight: 600;
 }
@@ -1039,7 +1047,7 @@ onBeforeUnmount(() => {
 .lp-attendance-option span {
   margin-right: 8px;
 
-  color: rgba(255, 190, 137, 0.8);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.8);
 }
 
 .lp-people-control {
@@ -1053,14 +1061,14 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #ffbe89;
+  border: 1px solid var(--tc-ffbe89, #ffbe89);
   border-radius: 50%;
 
   font-size: 20px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
   cursor: pointer;
 }
@@ -1072,7 +1080,7 @@ onBeforeUnmount(() => {
 
   font-size: 18px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-recipient-box {
@@ -1080,12 +1088,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px solid rgba(255, 190, 137, 0.5);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
   border-radius: 12px;
 
   text-align: center;
 
-  background: rgba(255, 190, 137, 0.08);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08);
 }
 
 .lp-recipient-box span {
@@ -1095,7 +1103,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 }
 
 .lp-recipient-box strong {
@@ -1106,7 +1114,7 @@ onBeforeUnmount(() => {
   font-size: 26px;
   font-weight: 500;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-form-error,
@@ -1123,17 +1131,17 @@ onBeforeUnmount(() => {
 }
 
 .lp-form-error {
-  color: #ffb4a4;
+  color: var(--tc-ffb4a4, #ffb4a4);
 
   background: rgba(255, 100, 80, 0.12);
 }
 
 .lp-form-success {
-  border: 1px solid rgba(255, 190, 137, 0.6);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 
-  color: #4b0606;
+  color: var(--tc-4b0606, #4b0606);
 
-  background: #fff4de;
+  background: var(--tc-fff4de, #fff4de);
 }
 
 .lp-modal-submit {
@@ -1153,11 +1161,11 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #710001;
+  color: var(--tc-710001, #710001);
 
-  background: #ffbe89;
+  background: var(--tc-ffbe89, #ffbe89);
 
-  box-shadow: 0 10px 24px rgba(255, 190, 137, 0.3);
+  box-shadow: 0 10px 24px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3);
 
   cursor: pointer;
 
@@ -1247,5 +1255,38 @@ onBeforeUnmount(() => {
   .lp-modal-submit {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

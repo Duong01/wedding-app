@@ -39,26 +39,29 @@
 
       <span class="notice-text">
         <template v-if="loginNoticeLevel === 'warn'">
-          Bạn đang chỉnh sửa mà <strong>chưa đăng nhập</strong> — thay đổi
-          chưa được lưu lên server và thiệp chưa thể xuất bản cho khách mời.
+          <i18n-t keypath="editor.notice.warn" tag="span">
+            <template #strong>
+              <strong>{{ $t("editor.notice.notLoggedIn") }}</strong>
+            </template>
+          </i18n-t>
         </template>
 
         <template v-else>
-          Bạn chưa đăng nhập. Mọi thay đổi chỉ được giữ trên máy này.
+          {{ $t('editor.notice.localOnly') }}
         </template>
       </span>
 
       <button type="button" class="notice-login" @click="goToLogin">
         <v-icon size="15"> mdi-login-variant </v-icon>
 
-        <span>Đăng nhập</span>
+        <span>{{ $t('auth.login') }}</span>
       </button>
 
       <button
         v-if="loginNoticeLevel === 'info'"
         type="button"
         class="notice-dismiss"
-        title="Ẩn thông báo"
+        :title="$t('editor.notice.hide')"
         @click="loginNoticeDismissed = true"
       >
         <v-icon size="16"> mdi-close </v-icon>
@@ -72,9 +75,9 @@
       <div class="loading-card">
         <v-progress-circular indeterminate size="38" />
 
-        <strong> Đang chuẩn bị trình chỉnh sửa... </strong>
+        <strong> {{ $t('editor.loading') }} </strong>
 
-        <span> Vui lòng chờ một chút </span>
+        <span> {{ $t('common.pleaseWait') }} </span>
       </div>
     </div>
 
@@ -85,16 +88,16 @@
           <v-icon> mdi-alert-circle-outline </v-icon>
         </div>
 
-        <h2>Không thể tải dữ liệu thiệp</h2>
+        <h2>{{ $t('editor.loadError') }}</h2>
 
         <p>
-          {{ error || "Dữ liệu thiệp chưa sẵn sàng." }}
+          {{ error || $t('editor.notReady') }}
         </p>
 
         <button type="button" class="save-button" @click="initializeEditor">
           <v-icon> mdi-refresh </v-icon>
 
-          Thử lại
+          {{ $t('common.retry') }}
         </button>
       </div>
     </div>
@@ -190,7 +193,7 @@
     >
       <v-icon size="18"> mdi-eye-outline </v-icon>
 
-      <span> Xem trước </span>
+      <span> {{ $t('editor.preview') }} </span>
     </button>
 
     <!-- =====================================================
@@ -270,21 +273,20 @@
         </div>
 
         <div class="draft-body">
-          <strong> Có bản nháp chưa lưu </strong>
+          <strong> {{ $t('editor.draft.title') }} </strong>
 
           <span>
-            Bạn còn thay đổi từ {{ draftPrompt.time }} chưa lưu lên
-            server.
+            {{ $t("editor.draft.body", { time: draftPrompt.time }) }}
           </span>
         </div>
 
         <div class="draft-actions">
           <button type="button" class="draft-btn ghost" @click="discardDraft">
-            Bỏ
+            {{ $t('common.discard') }}
           </button>
 
           <button type="button" class="draft-btn" @click="restoreDraft">
-            Khôi phục
+            {{ $t('editor.draft.restore') }}
           </button>
         </div>
       </div>
@@ -293,6 +295,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { ref, computed, onMounted, onActivated, onBeforeUnmount, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
@@ -337,6 +340,8 @@ import { confirmDialog } from "@/composables/useConfirm";
 import { ensureSections } from "@/data/sectionTitles";
 import { ensureNewSections } from "@/utils/weddingShape";
 import "@/assets/styles/editor.css";
+
+const { t } = useI18n();
 
 defineOptions({
   name: "WeddingEditor",
@@ -627,7 +632,7 @@ function restoreDraft() {
 
   draftPrompt.value = null;
 
-  showSaveMessage("Đã khôi phục bản nháp chưa lưu.");
+  showSaveMessage(t("editor.draft.restored"));
 }
 
 function discardDraft() {
@@ -703,161 +708,161 @@ watch(
  * quét mắt: Nội dung thiệp → Khách mời → Cấu hình.
  */
 const MENU_GROUPS = [
-  { id: "content", label: "NỘI DUNG THIỆP" },
-  { id: "guests", label: "KHÁCH MỜI" },
-  { id: "config", label: "CẤU HÌNH" },
+  { id: "content", get label() { return t("editor.group.content"); } },
+  { id: "guests", get label() { return t("editor.group.guests"); } },
+  { id: "config", get label() { return t("editor.group.config"); } },
 ];
 
 const menus = [
   {
     id: "general",
     group: "content",
-    label: "Thông tin chung",
-    description: "Thông tin cơ bản",
+    get label() { return t("editor.menu.general"); },
+    get description() { return t("editor.menu.generalDesc"); },
     icon: "mdi-card-account-details-outline",
   },
 
   {
     id: "couple",
     group: "content",
-    label: "Cô dâu & Chú rể",
-    description: "Thông tin hai bạn",
+    get label() { return t("editor.menu.couple"); },
+    get description() { return t("editor.menu.coupleDesc"); },
     icon: "mdi-heart-outline",
   },
 
   {
     id: "hero",
     group: "content",
-    label: "Ảnh bìa",
-    description: "Màn hình mở đầu",
+    get label() { return t("editor.menu.hero"); },
+    get description() { return t("editor.menu.heroDesc"); },
     icon: "mdi-image-outline",
   },
 
   {
     id: "story",
     group: "content",
-    label: "Chuyện tình yêu",
-    description: "Câu chuyện của hai bạn",
+    get label() { return t("editor.menu.story"); },
+    get description() { return t("editor.menu.storyDesc"); },
     icon: "mdi-book-heart-outline",
   },
 
   {
     id: "video",
     group: "content",
-    label: "Video cưới",
-    description: "Nhúng YouTube / TikTok",
+    get label() { return t("editor.menu.video"); },
+    get description() { return t("editor.menu.videoDesc"); },
     icon: "mdi-play-circle-outline",
   },
 
   {
     id: "events",
     group: "content",
-    label: "Sự kiện cưới",
-    description: "Ngày giờ địa điểm",
+    get label() { return t("editor.menu.events"); },
+    get description() { return t("editor.menu.eventsDesc"); },
     icon: "mdi-calendar-heart-outline",
   },
 
   {
     id: "dressCode",
     group: "content",
-    label: "Trang phục",
-    description: "Dress code cho khách",
+    get label() { return t("editor.menu.dressCode"); },
+    get description() { return t("editor.menu.dressCodeDesc"); },
     icon: "mdi-tshirt-crew-outline",
   },
 
   {
     id: "timeline",
     group: "content",
-    label: "Timeline",
-    description: "Lịch trình ngày cưới",
+    get label() { return t("sections.timeline"); },
+    get description() { return t("editor.menu.timeline"); },
     icon: "mdi-timeline-outline",
   },
 
   {
     id: "gallery",
     group: "content",
-    label: "Album ảnh",
-    description: "Khoảnh khắc đáng nhớ",
+    get label() { return t("editor.menu.gallery"); },
+    get description() { return t("editor.menu.galleryDesc"); },
     icon: "mdi-image-multiple-outline",
   },
 
   {
     id: "game",
     group: "content",
-    label: "Trò chơi",
-    description: "Vòng quay may mắn",
+    get label() { return t("editor.menu.game"); },
+    get description() { return t("editor.menu.gameDesc"); },
     icon: "mdi-party-popper",
   },
 
   {
     id: "countdown",
     group: "content",
-    label: "Đếm ngược",
-    description: "Đếm ngày cưới",
+    get label() { return t("editor.menu.countdown"); },
+    get description() { return t("editor.menu.countdownDesc"); },
     icon: "mdi-timer-outline",
   },
 
   {
     id: "footer",
     group: "content",
-    label: "Chân thiệp",
-    description: "Lời cảm ơn cuối thiệp",
+    get label() { return t("editor.menu.footer"); },
+    get description() { return t("editor.menu.footerDesc"); },
     icon: "mdi-page-layout-footer",
   },
 
   {
     id: "music",
     group: "content",
-    label: "Âm nhạc",
-    description: "Nhạc nền thiệp",
+    get label() { return t("editor.menu.music"); },
+    get description() { return t("editor.menu.musicDesc"); },
     icon: "mdi-music-outline",
   },
 
   {
     id: "recipient",
     group: "guests",
-    label: "Khách mời",
-    description: "Cá nhân hóa thiệp",
+    get label() { return t("editor.menu.recipient"); },
+    get description() { return t("editor.menu.recipientDesc"); },
     icon: "mdi-account-multiple-outline",
   },
 
   {
     id: "gifts",
     group: "guests",
-    label: "Mừng cưới",
-    description: "Tài khoản nhận quà",
+    get label() { return t("editor.menu.gifts"); },
+    get description() { return t("editor.menu.giftsDesc"); },
     icon: "mdi-gift-outline",
   },
 
   {
     id: "guestbook",
     group: "guests",
-    label: "Sổ lưu bút",
-    description: "Lời chúc khách mời",
+    get label() { return t("editor.menu.guestbook"); },
+    get description() { return t("editor.menu.guestbookDesc"); },
     icon: "mdi-message-heart-outline",
   },
 
   {
     id: "sections",
     group: "config",
-    label: "Tiêu đề mục",
-    description: "Đổi tên các mục",
+    get label() { return t("editor.menu.sections"); },
+    get description() { return t("editor.menu.sectionsDesc"); },
     icon: "mdi-format-title",
   },
 
   {
     id: "settings",
     group: "config",
-    label: "Cài đặt hiển thị",
-    description: "Bật / tắt nội dung",
+    get label() { return t("editor.menu.settings"); },
+    get description() { return t("editor.menu.settingsDesc"); },
     icon: "mdi-tune-variant",
   },
 
   {
     id: "theme",
     group: "config",
-    label: "Giao diện",
-    description: "Màu sắc & font",
+    get label() { return t("editor.menu.theme"); },
+    get description() { return t("editor.menu.themeDesc"); },
     icon: "mdi-palette-outline",
   },
 ];
@@ -964,7 +969,7 @@ function saveWedding() {
    * giữ nguyên bản nháp đang soạn.
    */
   if (!auth.canSaveWedding()) {
-    showSaveMessage("Vui lòng đăng nhập để lưu thiệp.");
+    showSaveMessage(t("editor.save.loginRequired"));
 
     router.push({
       name: "Login",
@@ -1023,7 +1028,7 @@ function saveWedding() {
           editorStore.markSaved();
           editorStore.clearDraft();
 
-          showSaveMessage("Đã lưu thiệp thành công.");
+          showSaveMessage(t("editor.save.success"));
           saving.value = false;
 
           resolve(result?.status === "success");
@@ -1033,7 +1038,7 @@ function saveWedding() {
           console.error("[WeddingEditor] save error:", err);
 
           showSaveMessage(
-            err?.message || "Không thể lưu thiệp.",
+            err?.message || t("editor.save.failed"),
             true
           );
 
@@ -1046,7 +1051,7 @@ function saveWedding() {
       console.error("[WeddingEditor] save exception:", err);
 
       showSaveMessage(
-        err?.message || "Không thể lưu thiệp.",
+        err?.message || t("editor.save.failed"),
         true
       );
 
@@ -1074,7 +1079,7 @@ async function publishWedding() {
   }
 
   if (!auth.canSaveWedding()) {
-    showSaveMessage("Vui lòng đăng nhập để xuất bản thiệp.");
+    showSaveMessage(t("editor.publish.loginRequired"));
 
     goToLogin();
 
@@ -1090,13 +1095,10 @@ async function publishWedding() {
   }
 
   const ok = await confirmDialog({
-    title: "Xuất bản thiệp?",
-    message:
-      "Sau khi xuất bản, khách mời mở link sẽ xem được thiệp. " +
-      "Bạn được dùng thử miễn phí 3 ngày, sau đó cần thanh toán " +
-      "một lần để thiệp tiếp tục hoạt động.",
-    confirmText: "Xuất bản ngay",
-    cancelText: "Để sau",
+    get title() { return t("editor.publish.confirmTitle"); },
+    message: t("editor.publish.confirmMessage"),
+    get confirmText() { return t("editor.publish.now"); },
+    get cancelText() { return t("common.later"); },
   });
 
   if (!ok) {
@@ -1124,7 +1126,7 @@ async function publishWedding() {
     return;
   }
 
-  showSaveMessage("Không thể xuất bản thiệp. Vui lòng thử lại.", true);
+  showSaveMessage(t("editor.publish.failed"), true);
 }
 
 function openPublishDialog() {
@@ -1189,11 +1191,10 @@ async function backToTemplates() {
    */
   if (editorStore.dirty) {
     const ok = await confirmDialog({
-      title: "Rời trình chỉnh sửa?",
-      message:
-        "Bạn còn thay đổi chưa lưu lên server. Bản nháp vẫn được giữ trên máy này và hỏi khôi phục ở lần mở sau.",
-      confirmText: "Rời trang",
-      cancelText: "Ở lại",
+      get title() { return t("editor.leave.title"); },
+      get message() { return t("editor.leave.message"); },
+      get confirmText() { return t("editor.leave.confirm"); },
+      get cancelText() { return t("editor.leave.stay"); },
       danger: true,
     });
 
@@ -1305,7 +1306,7 @@ async function initializeEditor() {
 
       if (!data) {
         throw new Error(
-          "API không trả về dữ liệu thiệp."
+          t("editor.apiNoData")
         );
       }
 
@@ -1352,7 +1353,7 @@ async function initializeEditor() {
      */
     if (!editorStore.wedding) {
       throw new Error(
-        "WeddingEditorStore không tạo được dữ liệu thiệp."
+        t("editor.storeInitFailed")
       );
     }
   } catch (err) {
@@ -1363,7 +1364,7 @@ async function initializeEditor() {
 
     error.value =
       err?.message ||
-      "Không thể tải dữ liệu thiệp.";
+      t("editor.loadErrorDot");
   } finally {
     /*
      * Dữ liệu cũ có thể chưa có wedding.sections —

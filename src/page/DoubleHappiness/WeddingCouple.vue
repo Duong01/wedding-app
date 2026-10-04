@@ -257,12 +257,12 @@ const weddingTime = computed(() => {
 
 <style scoped>
 .dh-couple {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-ink: #5a3d2e;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-ink: var(--tc-5a3d2e, #5a3d2e);
 
   position: relative;
 
@@ -295,7 +295,7 @@ const weddingTime = computed(() => {
   font-size: clamp(26px, 7vw, 34px);
   font-weight: 600;
 
-  color: var(--dh-cream-on-red, #f7e6c4);
+  color: var(--dh-cream-on-red, var(--tc-f7e6c4, #f7e6c4));
 }
 
 .dh-rule {
@@ -315,7 +315,7 @@ const weddingTime = computed(() => {
   width: 50px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.75));
 }
 
 .dh-rule span:last-child {
@@ -345,10 +345,10 @@ const weddingTime = computed(() => {
 
   margin: 0 auto 12px;
 
-  border: 2px solid rgba(217, 164, 65, 0.65);
+  border: 2px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.65);
   border-radius: 50%;
 
-  background: rgba(92, 14, 16, 0.6);
+  background: rgba(var(--tc-5c0e10-rgb, 92, 14, 16), 0.6);
 
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 
@@ -371,7 +371,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #d9a441;
+  color: var(--tc-d9a441, #d9a441);
 }
 
 .dh-person__parents {
@@ -381,7 +381,7 @@ const weddingTime = computed(() => {
 .dh-parents {
   margin: 2px 0;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 
   font-size: 11px;
 
@@ -399,7 +399,7 @@ const weddingTime = computed(() => {
 
   line-height: 1.2;
 
-  color: var(--dh-cream-on-red, #f7e6c4);
+  color: var(--dh-cream-on-red, var(--tc-f7e6c4, #f7e6c4));
 }
 
 .dh-person__role {
@@ -414,16 +414,16 @@ const weddingTime = computed(() => {
   letter-spacing: 0.24em;
   font-weight: 700;
 
-  border: 1px solid rgba(217, 164, 65, 0.5);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
   border-radius: 999px;
 
-  background: rgba(92, 14, 16, 0.45);
+  background: rgba(var(--tc-5c0e10-rgb, 92, 14, 16), 0.45);
 }
 
 .dh-person__desc {
   margin: 7px 0 0;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 
   font-size: 12px;
   font-style: italic;
@@ -460,10 +460,10 @@ const weddingTime = computed(() => {
 
   padding: 22px 16px 20px;
 
-  border: 1px solid rgba(217, 164, 65, 0.5);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
+  background: linear-gradient(170deg, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.97), rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.93));
 }
 
 /* Inner gold line — double border */
@@ -472,7 +472,7 @@ const weddingTime = computed(() => {
   position: absolute;
   inset: 5px;
 
-  border: 1px solid rgba(217, 164, 65, 0.3);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.3);
   border-radius: 10px;
 
   pointer-events: none;
@@ -502,7 +502,7 @@ const weddingTime = computed(() => {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.75));
 }
 
 .dh-date-line:last-child {
@@ -564,7 +564,7 @@ const weddingTime = computed(() => {
 
   margin-top: 12px;
 
-  color: #6e5542;
+  color: var(--tc-6e5542, #6e5542);
 
   font-size: 11px;
   font-style: italic;

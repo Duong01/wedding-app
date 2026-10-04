@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> WEDDING EVENTS </span>
 
-        <h1>Sự kiện cưới</h1>
+        <h1>{{ $t('editor.menu.events') }}</h1>
 
-        <p>Các buổi lễ và tiệc cưới.</p>
+        <p>{{ $t('eventsPanel.desc') }}</p>
       </div>
 
       <button
@@ -16,7 +16,7 @@
       >
         <v-icon size="17"> mdi-plus </v-icon>
 
-        Thêm sự kiện
+        {{ $t('eventsPanel.add') }}
       </button>
     </div>
 
@@ -28,17 +28,17 @@
       >
         <div class="card-header">
           <div>
-            <span> SỰ KIỆN {{ index + 1 }} </span>
+            <span> {{ $t('eventsPanel.itemLabel') }} {{ index + 1 }} </span>
 
             <strong>
-              {{ event.Title || "Chưa đặt tên" }}
+              {{ event.Title || $t('panel.untitled') }}
             </strong>
           </div>
 
           <EditorItemActions
             :index="index"
             :total="wedding.events.length"
-            remove-title="Xoá sự kiện"
+            :remove-title="$t('eventsPanel.remove')"
             @move="moveEvent"
             @remove="removeEvent"
           />
@@ -46,17 +46,17 @@
 
         <div class="form-grid">
           <div class="editor-field">
-            <label>Loại sự kiện</label>
+            <label>{{ $t('eventsPanel.type') }}</label>
 
             <input
               v-model="event.EventType"
               type="text"
               list="event-type-options"
-              placeholder="VD: Lễ thành hôn"
+              :placeholder="$t('eventsPanel.typePlaceholder')"
             />
 
             <small class="field-help">
-              Chọn trong danh sách gợi ý hoặc tự nhập.
+              {{ $t('couplePanel.roleHint') }}
             </small>
 
             <datalist id="event-type-options">
@@ -69,21 +69,21 @@
           </div>
 
           <div class="editor-field">
-            <label>Tên sự kiện</label>
+            <label>{{ $t('eventsPanel.name') }}</label>
 
             <input
               v-model="event.Title"
               type="text"
-              placeholder="VD: Tiệc cưới nhà gái"
+              :placeholder="$t('eventsPanel.namePlaceholder')"
             />
 
             <small class="field-help">
-              Tên hiển thị của buổi tiệc trên thiệp.
+              {{ $t('eventsPanel.nameHint') }}
             </small>
           </div>
 
           <div class="editor-field full">
-            <label>Ngày tổ chức</label>
+            <label>{{ $t('eventsPanel.date') }}</label>
 
             <input
               :value="toDateInput(event.EventDate)"
@@ -92,99 +92,99 @@
             />
 
             <small class="field-help">
-              Thứ, ngày, tháng, năm bên dưới được điền tự động.
+              {{ $t('eventsPanel.dateHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Giờ</label>
+            <label>{{ $t('eventsPanel.time') }}</label>
 
             <input v-model="event.EventTime" type="time" />
 
             <small class="field-help">
-              Giờ đón khách / bắt đầu buổi lễ.
+              {{ $t('eventsPanel.timeHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Âm lịch</label>
+            <label>{{ $t('eventsPanel.lunar') }}</label>
 
             <input
               v-model="event.Lunar"
               type="text"
-              placeholder="VD: 12 tháng 5 năm Bính Ngọ"
+              :placeholder="$t('generalPanel.lunarPlaceholder')"
             />
 
             <small class="field-help">
-              Hiển thị nhỏ bên cạnh ngày dương. Bỏ trống nếu không cần.
+              {{ $t('eventsPanel.lunarHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Thứ</label>
+            <label>{{ $t('eventsPanel.weekday') }}</label>
 
             <input v-model="event.Weekday" type="text" />
 
             <small class="field-help">
-              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+              {{ $t('eventsPanel.autoHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Ngày</label>
+            <label>{{ $t('eventsPanel.day') }}</label>
 
             <input v-model="event.Day" type="text" />
 
             <small class="field-help">
-              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+              {{ $t('eventsPanel.autoHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Tháng</label>
+            <label>{{ $t('eventsPanel.month') }}</label>
 
             <input v-model="event.Month" type="text" />
 
             <small class="field-help">
-              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+              {{ $t('eventsPanel.autoHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Năm</label>
+            <label>{{ $t('eventsPanel.year') }}</label>
 
             <input v-model="event.Year" type="text" />
 
             <small class="field-help">
-              Tự điền từ ngày tổ chức — chỉ sửa khi thực sự cần.
+              {{ $t('eventsPanel.autoHint') }}
             </small>
           </div>
 
           <div class="editor-field full">
-            <label>Địa điểm</label>
+            <label>{{ $t('heroPanel.venue') }}</label>
 
             <input
               v-model="event.Location"
               type="text"
-              placeholder="VD: Trung tâm tiệc cưới Hoa Vàng"
+              :placeholder="$t('eventsPanel.venuePlaceholder')"
             />
 
             <small class="field-help">
-              Tên nhà hàng / trung tâm / tư gia.
+              {{ $t('eventsPanel.venueHint') }}
             </small>
           </div>
 
           <div class="editor-field full">
-            <label>Địa chỉ</label>
+            <label>{{ $t('couplePanel.address') }}</label>
 
             <input
               v-model="event.Address"
               type="text"
-              placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"
+              :placeholder="$t('couplePanel.addressPlaceholder')"
             />
 
             <small class="field-help">
-              Địa chỉ cụ thể để khách tìm đường.
+              {{ $t('eventsPanel.addressHint') }}
             </small>
           </div>
 
@@ -204,12 +204,11 @@
             >
               <v-icon size="15"> mdi-map-search-outline </v-icon>
 
-              Tạo link từ địa chỉ
+              {{ $t('eventsPanel.mapFromAddress') }}
             </button>
 
             <small class="field-help">
-              Bản đồ nhúng hiển thị ngay trong khối sự kiện này.
-              Bỏ trống vẫn xem được bản đồ theo địa chỉ ở trên.
+              {{ $t('eventsPanel.mapHint') }}
             </small>
 
             <small v-if="event.Map" class="field-help">
@@ -219,7 +218,7 @@
                 rel="noopener noreferrer"
                 class="field-link"
               >
-                Mở thử trên Google Maps ↗
+                {{ $t('eventsPanel.openMaps') }}
               </a>
             </small>
           </div>
@@ -229,26 +228,29 @@
       <div v-if="!wedding.events?.length" class="empty-card">
         <v-icon size="32"> mdi-calendar-heart-outline </v-icon>
 
-        <strong> Chưa có sự kiện </strong>
+        <strong> {{ $t('eventsPanel.empty') }} </strong>
 
-        <span> Hãy thêm sự kiện cưới đầu tiên. </span>
+        <span> {{ $t('eventsPanel.emptyHint') }} </span>
       </div>
 
       <button type="button" class="add-button" @click="addEvent">
         <v-icon> mdi-plus </v-icon>
 
-        Thêm sự kiện
+        {{ $t('eventsPanel.add') }}
       </button>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { watch } from "vue";
 
 import EditorItemActions from "@/components/editor/EditorItemActions.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -286,10 +288,10 @@ async function removeEvent(index) {
   const event = props.wedding.events[index];
 
   const ok = await confirmDialog({
-    title: "Xoá sự kiện này?",
-    message: "Sự kiện sẽ bị xoá khỏi thiệp. Bạn vẫn hoàn tác được.",
-    detail: event?.Title || `Sự kiện ${index + 1}`,
-    confirmText: "Xoá sự kiện",
+    get title() { return t("eventsPanel.confirmTitle"); },
+    get message() { return t("eventsPanel.confirmMessage"); },
+    detail: event?.Title || t("eventsPanel.itemN", { n: index + 1 }),
+    get confirmText() { return t("eventsPanel.remove"); },
     danger: true,
   });
 

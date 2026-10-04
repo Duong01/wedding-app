@@ -9,7 +9,12 @@
     />
 
     <header class="cr-heading">
-      <h2 class="cr-heading__vi">Album ảnh cưới</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="cr-top-custom-head">
+        <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
+      </header>
+
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "gallery", "Heading", "Album ảnh cưới") }}</h2>
 
       <p class="cr-heading__zh">婚紗相簿</p>
 
@@ -19,15 +24,13 @@
         <span></span>
       </div>
 
-      <p class="cr-heading__intro">
-        Những khoảnh khắc đẹp nhất<br />
-        được lưu giữ cùng chúng mình
-      </p>
+      <p class="cr-heading__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
     </header>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
+      :layout="galleryLayoutFor('emerald-luxe', layout)"
       accent="var(--cr-accent)"
       text-color="var(--cr-ink)"
       @open="openLightbox"
@@ -48,9 +51,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { ref, defineAsyncComponent } from "vue";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 import { cherryBlossom } from "./emeraldLuxeAssets";
 
@@ -59,6 +64,9 @@ const GalleryModal = defineAsyncComponent(() =>
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: { type: Array, default: () => [] },
 });
 
@@ -175,6 +183,8 @@ function closeLightbox() {
 }
 
 .cr-heading__intro {
+  white-space: pre-line;
+
   margin: 12px 0 0;
 
   color: var(--cr-soft);
@@ -200,5 +210,38 @@ function closeLightbox() {
   margin: 8px 0 0;
 
   font-size: 13px;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.cr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.cr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.cr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.cr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

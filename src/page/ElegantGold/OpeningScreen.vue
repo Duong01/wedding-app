@@ -19,20 +19,20 @@
     <!-- =====================================================
          TIÊU ĐỀ
     ====================================================== -->
-    <p class="la-opening__title">OUR WEDDING</p>
+    <p class="la-opening__title">{{ sectionText(sections, "opening", "Eyebrow", "OUR WEDDING") }}</p>
 
     <!-- =====================================================
          THIỆP MỜI
     ====================================================== -->
     <div class="la-card">
       <div class="la-card__inner">
-        <p class="la-card__kicker">SAVE THE DATE</p>
+        <p class="la-card__kicker">{{ sectionText(sections, "opening", "Kicker", "SAVE THE DATE") }}</p>
 
         <div class="la-card__monogram">
           <span>{{ monogram }}</span>
         </div>
 
-        <p class="la-card__invite">Trân trọng kính mời</p>
+        <p class="la-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
         <h1>{{ guestName }}</h1>
 
@@ -60,26 +60,28 @@
         <v-icon size="16">mdi-email-open-outline</v-icon>
       </span>
 
-      <span>MỞ THIỆP</span>
+      <span>{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
 
       <span class="la-open-btn__arrow">✦</span>
     </button>
 
     <p class="la-hint">
       <span></span>
-      Một lời mời · Một lời hẹn · Một đời hạnh phúc
+      {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}
       <span></span>
     </p>
   </section>
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import hy from "@/assets/love-art/hy.webp";
 import hoaTim from "@/assets/love-art/hoa tim.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },
   dateLabel: { type: String, default: "" },

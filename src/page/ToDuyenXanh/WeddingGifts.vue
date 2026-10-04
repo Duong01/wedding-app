@@ -32,12 +32,14 @@
     ====================================================== -->
 
     <div class="tdx-gifts__inner">
-      <h2 class="tdx-heading">Hộp mừng cưới</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="tdx-top-custom-head">
+        <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+      </header>
 
-      <p class="tdx-gifts__intro">
-        Những lời chúc và tình cảm của bạn
-        là món quà quý giá nhất dành cho chúng mình
-      </p>
+      <h2 class="tdx-heading">{{ sectionText(sections, "gifts", "Heading", "Hộp mừng cưới") }}</h2>
+
+      <p class="tdx-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình") }}</p>
 
       <button type="button" class="tdx-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
         <span class="tdx-gift-glow" aria-hidden="true"></span>
@@ -226,6 +228,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 
 import {
@@ -235,6 +238,7 @@ import {
 } from "./toDuyenXanhAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },
 });
 
@@ -409,6 +413,8 @@ onBeforeUnmount(() => {
 }
 
 .tdx-gifts__intro {
+  white-space: pre-line;
+
   margin: 0;
 
   color: var(--tdx-ink);
@@ -1372,5 +1378,38 @@ onBeforeUnmount(() => {
 
 :global(body.tdx-gift-dialog-open) {
   overflow: hidden;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tdx-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tdx-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tdx-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tdx-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

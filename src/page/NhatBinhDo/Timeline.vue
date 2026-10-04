@@ -5,9 +5,19 @@
          TIÊU ĐỀ
     ====================================================== -->
 
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cfr-top-custom-head">
+      <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+    </header>
+
     <h2 class="cfr-title">
       {{ heading }}
     </h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="cfr-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="cfr-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+    </header>
+
 
 
     <!-- =====================================================
@@ -56,7 +66,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 
 const props = defineProps({
@@ -283,5 +293,71 @@ const items = computed(() => {
     top: -40px;
     bottom: -40px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.cfr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.cfr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.cfr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.cfr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.cfr-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.cfr-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.cfr-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.cfr-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

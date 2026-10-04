@@ -4,60 +4,59 @@
       <div>
         <span class="panel-eyebrow"> FOOTER </span>
 
-        <h1>Chân thiệp</h1>
+        <h1>{{ $t('editor.menu.footer') }}</h1>
 
-        <p>Thông tin cuối thiệp.</p>
+        <p>{{ $t('footerPanel.desc') }}</p>
       </div>
     </div>
 
     <div class="form-grid">
       <div class="editor-field">
-        <label>Tên chú rể</label>
+        <label>{{ $t('panel.groomName') }}</label>
 
         <input v-model="wedding.footer.GroomName" type="text" />
 
         <small class="field-help">
-          Đã đồng bộ với mục Thông tin chung.
+          {{ $t('footerPanel.synced') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Tên cô dâu</label>
+        <label>{{ $t('panel.brideName') }}</label>
 
         <input v-model="wedding.footer.BrideName" type="text" />
 
         <small class="field-help">
-          Đã đồng bộ với mục Thông tin chung.
+          {{ $t('footerPanel.synced') }}
         </small>
       </div>
 
       <div class="editor-field full">
-        <label>Lời kết</label>
+        <label>{{ $t('footerPanel.closing') }}</label>
 
         <textarea
           v-model="wedding.footer.Message"
           rows="6"
-          placeholder="Lời cảm ơn gửi tới khách mời..."
+          :placeholder="$t('footerPanel.thanksPlaceholder')"
         />
 
         <small class="field-help">
-          VD: "Sự hiện diện của quý khách là niềm vinh hạnh của gia
-          đình chúng tôi." {{ (wedding.footer.Message || "").length }} ký tự
+          {{ $t("footerPanel.messageExample") }}
+          {{ $t("common.chars", { n: (wedding.footer.Message || "").length }) }}
         </small>
       </div>
 
       <div class="editor-field full">
-        <label>Lời cảm ơn riêng</label>
+        <label>{{ $t('footerPanel.thanks') }}</label>
 
         <textarea
           v-model="wedding.thankYouNote"
           rows="3"
-          placeholder="VD: Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+          :placeholder="$t('footerPanel.closingPlaceholder')"
         />
 
         <small class="field-help">
-          Một số mẫu dùng dòng này thay cho Lời kết. Để trống nếu không
-          cần.
+          {{ $t('footerPanel.thanksHint') }}
         </small>
       </div>
 
@@ -67,7 +66,7 @@
         <input
           v-model="wedding.footer.Copyright"
           type="text"
-          placeholder="VD: Hà Uyên & Trần Hiếu"
+          :placeholder="$t('footerPanel.namesPlaceholder')"
         />
 
         <button
@@ -77,7 +76,7 @@
         >
           <v-icon size="15"> mdi-auto-fix </v-icon>
 
-          Lấy từ tên cô dâu chú rể
+          {{ $t('footerPanel.fromNames') }}
         </button>
       </div>
     </div>

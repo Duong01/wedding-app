@@ -4,17 +4,17 @@
       <div>
         <span class="panel-eyebrow"> COUNTDOWN </span>
 
-        <h1>Đếm ngược</h1>
+        <h1>{{ $t('editor.menu.countdown') }}</h1>
 
-        <p>Hiển thị thời gian còn lại đến ngày cưới.</p>
+        <p>{{ $t('countdownPanel.desc') }}</p>
       </div>
     </div>
 
     <div class="switch-card">
       <div>
-        <strong> Hiển thị Countdown </strong>
+        <strong> {{ $t('countdownPanel.show') }} </strong>
 
-        <small> Tự động đếm ngược đến ngày cưới. </small>
+        <small> {{ $t('countdownPanel.showHint') }} </small>
       </div>
 
       <v-switch
@@ -25,7 +25,7 @@
     </div>
 
     <div class="editor-field">
-      <label>Ngày kết thúc</label>
+      <label>{{ $t('countdownPanel.endDate') }}</label>
 
       <input
         :value="datetimeLocalValue"
@@ -34,7 +34,7 @@
       />
 
       <small class="field-help">
-        Đã đồng bộ với ngày cưới ở mục Thông tin chung.
+        {{ $t('countdownPanel.synced') }}
       </small>
     </div>
 
@@ -59,6 +59,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 import {
@@ -66,6 +67,8 @@ import {
   parseWeddingDate,
   toDatetimeLocal,
 } from "@/utils/datetime";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -123,10 +126,10 @@ const countdownUnits = computed(() => {
 
   if (diff === null || diff <= 0) {
     return [
-      { label: "Ngày", value: "00" },
-      { label: "Giờ", value: "00" },
-      { label: "Phút", value: "00" },
-      { label: "Giây", value: "00" },
+      { get label() { return t("time.days"); }, value: "00" },
+      { get label() { return t("time.hours"); }, value: "00" },
+      { get label() { return t("time.minutes"); }, value: "00" },
+      { get label() { return t("time.seconds"); }, value: "00" },
     ];
   }
 
@@ -143,23 +146,23 @@ const countdownUnits = computed(() => {
   const pad = (value) => String(value).padStart(2, "0");
 
   return [
-    { label: "Ngày", value: String(days) },
-    { label: "Giờ", value: pad(hours) },
-    { label: "Phút", value: pad(minutes) },
-    { label: "Giây", value: pad(seconds) },
+    { get label() { return t("time.days"); }, value: String(days) },
+    { get label() { return t("time.hours"); }, value: pad(hours) },
+    { get label() { return t("time.minutes"); }, value: pad(minutes) },
+    { get label() { return t("time.seconds"); }, value: pad(seconds) },
   ];
 });
 
 const countdownCaption = computed(() => {
   if (!targetDate.value) {
-    return "Chưa chọn ngày cưới — đếm ngược sẽ không hiển thị.";
+    return t("countdownPanel.noDate");
   }
 
   if (remaining.value !== null && remaining.value <= 0) {
-    return "Ngày cưới đã đến. Chúc mừng hai bạn!";
+    return t("countdownPanel.arrived");
   }
 
-  return "Ngày vui đang đến gần";
+  return t("countdownPanel.coming");
 });
 </script>
 

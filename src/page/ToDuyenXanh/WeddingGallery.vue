@@ -25,17 +25,20 @@
     ====================================================== -->
 
     <div class="tdx-gallery__inner">
-      <h2 class="tdx-heading">Album Ảnh</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="tdx-top-custom-head">
+        <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
+      </header>
 
-      <p class="tdx-gallery__intro">
-        Những khoảnh khắc đẹp nhất
-        được lưu giữ cùng chúng mình
-      </p>
+      <h2 class="tdx-heading">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+
+      <p class="tdx-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình") }}</p>
     </div>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
+      :layout="galleryLayoutFor('to-duyen-xanh', layout)"
       accent="#5e813c"
       text-color="#1a3500"
       frame-bg="#ffffff"
@@ -58,9 +61,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { defineAsyncComponent, ref } from "vue";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 import { flowerDecoration, lineDecoration } from "./toDuyenXanhAssets";
 
@@ -69,6 +74,9 @@ const GalleryModal = defineAsyncComponent(() =>
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: { type: Array, default: () => [] },
 });
 
@@ -184,6 +192,8 @@ function closeLightbox() {
 }
 
 .tdx-gallery__intro {
+  white-space: pre-line;
+
   margin: 0;
 
   color: var(--tdx-ink);
@@ -255,5 +265,38 @@ function closeLightbox() {
   .tdx-gallery__intro {
     font-size: 16px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tdx-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tdx-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tdx-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tdx-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

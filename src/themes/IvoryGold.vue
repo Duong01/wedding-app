@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="nb-wedding">
+  <div class="nb-wedding" :style="colorVars">
 
     <!-- =====================================================
          OPENING
@@ -10,8 +10,7 @@
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <template v-else>
 
@@ -103,8 +102,7 @@
           <div class="framed-content">
 
             <WeddingCouple
-              :wedding="wedding"
-            />
+              :wedding="wedding" :sections="sections" />
 
           </div>
 
@@ -123,7 +121,7 @@
           v-else-if="showStory && wedding?.story"
           class="section story-section"
         >
-          <WeddingStory :story="wedding.story" />
+          <WeddingStory :story="wedding.story" :sections="sections" />
         </section>
 
         <!-- =================================================
@@ -136,7 +134,7 @@
           class="section gallery-section"
         >
 
-          <WeddingGallery :gallery="gallery" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
 
         </section>
 
@@ -183,8 +181,7 @@
             <WeddingEvents
               :events="events"
               :recipient-name="wedding?.recipientName"
-              :settings="settings"
-            />
+              :settings="settings" :sections="sections" />
 
           </div>
 
@@ -213,8 +210,7 @@
         >
 
           <WeddingCountdown
-            :countdown="wedding?.countdown"
-          />
+            :countdown="wedding?.countdown" :sections="sections" />
 
         </section>
 
@@ -230,8 +226,7 @@
 
           <Timeline
             :timeline="timeline"
-            :events="events"
-          />
+            :events="events" :sections="sections" />
 
         </section>
 
@@ -246,8 +241,7 @@
         >
 
           <WeddingGifts
-            :gifts="gifts"
-          />
+            :gifts="gifts" :sections="sections" />
 
         </section>
 
@@ -263,8 +257,7 @@
 
           <WeddingWishes
             :wishes="wishes"
-            :wedding="wedding"
-          />
+            :wedding="wedding" :sections="sections" />
 
         </section>
 
@@ -335,6 +328,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 
@@ -382,6 +376,12 @@ const props = defineProps({
     default: false,
   },
 });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 
@@ -627,12 +627,12 @@ onMounted(() => {
 ========================================================== */
 
 .nb-wedding {
-  --ivory: #fffaf0;
-  --cream: #f5ede1;
-  --champagne: #e8d5c4;
-  --soft-gold: #d4af85;
-  --dark-accent: #5a4835;
-  --text-color: #4a3f38;
+  --ivory: var(--tc-fffaf0, #fffaf0);
+  --cream: var(--tc-f5ede1, #f5ede1);
+  --champagne: var(--tc-e8d5c4, #e8d5c4);
+  --soft-gold: var(--tc-d4af85, #d4af85);
+  --dark-accent: var(--tc-5a4835, #5a4835);
+  --text-color: var(--tc-4a3f38, #4a3f38);
 
   width: 100%;
   min-height: 100vh;
@@ -640,14 +640,14 @@ onMounted(() => {
 
   overflow-x: hidden;
 
-  background: linear-gradient(135deg, #fffdf8 0%, #f5ede1 50%, #faf6f0 100%);
+  background: linear-gradient(135deg, var(--tc-fffdf8, #fffdf8) 0%, var(--tc-f5ede1, #f5ede1) 50%, var(--tc-faf6f0, #faf6f0) 100%);
 }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy — thiệp (48rem,
    đã có gradient + box-shadow riêng) giữ nguyên như bản mobile. */
 @media (min-width: 768px) {
   .nb-wedding {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 }
 
@@ -693,8 +693,8 @@ onMounted(() => {
   background: linear-gradient(180deg, var(--ivory) 0%, var(--cream) 50%, var(--ivory) 100%);
 
   box-shadow:
-    0 15px 60px rgba(90, 72, 53, 0.12),
-    inset 0 0 0 1px rgba(212, 175, 133, 0.15);
+    0 15px 60px rgba(var(--tc-5a4835-rgb, 90, 72, 53), 0.12),
+    inset 0 0 0 1px rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.15);
 }
 
 /* ==========================================================
@@ -801,15 +801,15 @@ onMounted(() => {
 
   border:
     1px solid
-    rgba(212, 175, 133, 0.45);
+    rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.45);
 
   background:
-    linear-gradient(135deg, rgba(255, 250, 240, 0.6), rgba(245, 237, 225, 0.4));
+    linear-gradient(135deg, rgba(var(--tc-fffaf0-rgb, 255, 250, 240), 0.6), rgba(var(--tc-f5ede1-rgb, 245, 237, 225), 0.4));
 
   box-shadow:
     inset 0 0 25px
-    rgba(212, 175, 133, 0.08),
-    0 8px 24px rgba(90, 72, 53, 0.08);
+    rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.08),
+    0 8px 24px rgba(var(--tc-5a4835-rgb, 90, 72, 53), 0.08);
 
   border-radius: 6px;
 
@@ -818,11 +818,11 @@ onMounted(() => {
 
 .framed-section:hover {
   background:
-    linear-gradient(135deg, rgba(255, 250, 240, 0.8), rgba(245, 237, 225, 0.6));
+    linear-gradient(135deg, rgba(var(--tc-fffaf0-rgb, 255, 250, 240), 0.8), rgba(var(--tc-f5ede1-rgb, 245, 237, 225), 0.6));
   box-shadow:
     inset 0 0 25px
-    rgba(212, 175, 133, 0.15),
-    0 12px 36px rgba(90, 72, 53, 0.12);
+    rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.15),
+    0 12px 36px rgba(var(--tc-5a4835-rgb, 90, 72, 53), 0.12);
   transform: translateY(-2px);
 }
 
@@ -837,13 +837,13 @@ onMounted(() => {
 
   pointer-events: none;
 
-  filter: drop-shadow(0 0 2px rgba(212, 175, 133, 0.2));
+  filter: drop-shadow(0 0 2px rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.2));
 
   transition: filter 0.4s ease;
 }
 
 .framed-section:hover .frame-corner {
-  filter: drop-shadow(0 0 5px rgba(212, 175, 133, 0.5));
+  filter: drop-shadow(0 0 5px rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.5));
 }
 
 .frame-corner-tl {
@@ -1211,7 +1211,7 @@ onMounted(() => {
   background: var(--paper);
 
   box-shadow:
-    0 15px 60px rgba(64, 35, 15, 0.16);
+    0 15px 60px rgba(var(--tc-40230f-rgb, 64, 35, 15), 0.16);
 }
 
 /* ==========================================================
@@ -1292,14 +1292,14 @@ onMounted(() => {
 
   border:
     1px solid
-    rgba(151, 21, 25, 0.38);
+    rgba(var(--tc-971519-rgb, 151, 21, 25), 0.38);
 
   background:
-    rgba(255, 249, 235, 0.28);
+    rgba(var(--tc-fff9eb-rgb, 255, 249, 235), 0.28);
 
   box-shadow:
     inset 0 0 35px
-    rgba(151, 21, 25, 0.025);
+    rgba(var(--tc-971519-rgb, 151, 21, 25), 0.025);
 }
 
 /* ==========================================================

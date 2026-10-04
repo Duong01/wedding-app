@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> THE COUPLE </span>
 
-        <h1>Cô dâu & Chú rể</h1>
+        <h1>{{ $t('editor.menu.couple') }}</h1>
 
-        <p>Thông tin cá nhân của hai nhân vật chính.</p>
+        <p>{{ $t('couplePanel.desc') }}</p>
       </div>
     </div>
 
@@ -20,17 +20,17 @@
           <img
             v-if="wedding.couple?.Bride?.Avatar"
             :src="wedding.couple.Bride.Avatar"
-            alt="Cô dâu"
+            :alt="$t('panel.bride')"
           />
 
           <v-icon v-else size="22"> mdi-heart-outline </v-icon>
         </div>
 
         <div class="preview-text">
-          <span>CÔ DÂU</span>
+          <span>{{ $t('couplePanel.brideCaps') }}</span>
 
           <strong>
-            {{ wedding.couple?.Bride?.Name || "Chưa nhập tên" }}
+            {{ wedding.couple?.Bride?.Name || $t('couplePanel.noName') }}
           </strong>
 
           <small v-if="wedding.couple?.Bride?.Nickname">
@@ -46,17 +46,17 @@
           <img
             v-if="wedding.couple?.Groom?.Avatar"
             :src="wedding.couple.Groom.Avatar"
-            alt="Chú rể"
+            :alt="$t('panel.groom')"
           />
 
           <v-icon v-else size="22"> mdi-account-outline </v-icon>
         </div>
 
         <div class="preview-text">
-          <span>CHÚ RỂ</span>
+          <span>{{ $t('couplePanel.groomCaps') }}</span>
 
           <strong>
-            {{ wedding.couple?.Groom?.Name || "Chưa nhập tên" }}
+            {{ wedding.couple?.Groom?.Name || $t('couplePanel.noName') }}
           </strong>
 
           <small v-if="wedding.couple?.Groom?.Nickname">
@@ -75,17 +75,17 @@
           </div>
 
           <div>
-            <span>CÔ DÂU</span>
+            <span>{{ $t('couplePanel.brideCaps') }}</span>
 
             <strong>
-              {{ wedding.couple?.Bride?.Name || "Cô dâu" }}
+              {{ wedding.couple?.Bride?.Name || $t('panel.bride') }}
             </strong>
           </div>
         </div>
 
         <div class="form-grid">
           <div class="editor-field">
-            <label>Họ tên</label>
+            <label>{{ $t('couplePanel.fullName') }}</label>
 
             <input
               v-model="wedding.couple.Bride.Name"
@@ -94,12 +94,12 @@
             />
 
             <small class="field-help">
-              Tên đầy đủ hiển thị trên thiệp.
+              {{ $t('couplePanel.fullNameHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Tên gọi</label>
+            <label>{{ $t('couplePanel.nickname') }}</label>
 
             <input
               v-model="wedding.couple.Bride.Nickname"
@@ -108,12 +108,12 @@
             />
 
             <small class="field-help">
-              Tên thân mật — một số mẫu hiển thị trong dấu ngoặc kép.
+              {{ $t('couplePanel.nicknameHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Vai trò</label>
+            <label>{{ $t('couplePanel.role') }}</label>
 
             <input
               v-model="wedding.couple.Bride.Role"
@@ -122,7 +122,7 @@
             />
 
             <small class="field-help">
-              Chọn trong danh sách gợi ý hoặc tự nhập.
+              {{ $t('couplePanel.roleHint') }}
             </small>
 
             <datalist id="bride-role-options">
@@ -134,7 +134,7 @@
           </div>
 
           <div class="editor-field">
-            <label>Danh xưng gia đình</label>
+            <label>{{ $t('couplePanel.familyLabel') }}</label>
 
             <input
               v-model="wedding.couple.Bride.FamilyLabel"
@@ -143,21 +143,21 @@
             />
 
             <small class="field-help">
-              Hiển thị phía trên tên cha mẹ ở mục thông tin lễ cưới.
+              {{ $t('couplePanel.familyLabelHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Thứ tự trong gia đình</label>
+            <label>{{ $t('couplePanel.birthOrder') }}</label>
 
             <input
               v-model="wedding.couple.Bride.BirthOrder"
               type="text"
-              placeholder="VD: Con thứ hai"
+              :placeholder="$t('couplePanel.birthOrderBride')"
             />
 
             <small class="field-help">
-              Một số mẫu hiển thị dòng này dưới tên cha mẹ.
+              {{ $t('couplePanel.birthOrderHint') }}
             </small>
           </div>
 
@@ -167,30 +167,30 @@
             <UploadField
               v-model="wedding.couple.Bride.Avatar"
               kind="image"
-              button-text="Tải avatar lên"
+              :button-text="$t('couplePanel.uploadAvatar')"
             />
 
             <small class="field-help">
-              Ảnh chân dung tròn — nên dùng ảnh vuông, rõ mặt.
+              {{ $t('couplePanel.avatarHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Ảnh cover</label>
+            <label>{{ $t('couplePanel.cover') }}</label>
 
             <UploadField
               v-model="wedding.couple.Bride.Cover"
               kind="image"
-              button-text="Tải ảnh cover lên"
+              :button-text="$t('couplePanel.uploadCover')"
             />
 
             <small class="field-help">
-              Ảnh nền ngang phía sau phần giới thiệu.
+              {{ $t('couplePanel.coverHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Cha</label>
+            <label>{{ $t('couplePanel.father') }}</label>
 
             <input
               v-model="wedding.couple.Bride.Father"
@@ -199,12 +199,12 @@
             />
 
             <small class="field-help">
-              Hiển thị ở phần thông tin gia đình trên thiệp.
+              {{ $t('couplePanel.parentsHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Mẹ</label>
+            <label>{{ $t('couplePanel.mother') }}</label>
 
             <input
               v-model="wedding.couple.Bride.Mother"
@@ -213,32 +213,32 @@
             />
 
             <small class="field-help">
-              Hiển thị ở phần thông tin gia đình trên thiệp.
+              {{ $t('couplePanel.parentsHint') }}
             </small>
           </div>
 
           <div class="editor-field full">
-            <label>Địa chỉ</label>
+            <label>{{ $t('couplePanel.address') }}</label>
 
             <textarea
               v-model="wedding.couple.Bride.Address"
               rows="3"
-              placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"
+              :placeholder="$t('couplePanel.addressPlaceholder')"
             />
           </div>
 
           <div class="editor-field full">
-            <label>Giới thiệu</label>
+            <label>{{ $t('couplePanel.bio') }}</label>
 
             <textarea
               v-model="wedding.couple.Bride.Description"
               rows="4"
-              placeholder="Vài dòng về cô dâu..."
+              :placeholder="$t('couplePanel.bioBride')"
             />
 
             <small class="field-help">
-              Vài dòng ngắn về nghề nghiệp, tính cách... (2–4 câu là
-              vừa đẹp). {{ (wedding.couple.Bride.Description || "").length }} ký tự
+              {{ $t("couplePanel.bioHint") }}
+              {{ $t("common.chars", { n: (wedding.couple.Bride.Description || "").length }) }}
             </small>
           </div>
         </div>
@@ -252,17 +252,17 @@
           </div>
 
           <div>
-            <span>CHÚ RỂ</span>
+            <span>{{ $t('couplePanel.groomCaps') }}</span>
 
             <strong>
-              {{ wedding.couple?.Groom?.Name || "Chú rể" }}
+              {{ wedding.couple?.Groom?.Name || $t('panel.groom') }}
             </strong>
           </div>
         </div>
 
         <div class="form-grid">
           <div class="editor-field">
-            <label>Họ tên</label>
+            <label>{{ $t('couplePanel.fullName') }}</label>
 
             <input
               v-model="wedding.couple.Groom.Name"
@@ -271,12 +271,12 @@
             />
 
             <small class="field-help">
-              Tên đầy đủ hiển thị trên thiệp.
+              {{ $t('couplePanel.fullNameHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Tên gọi</label>
+            <label>{{ $t('couplePanel.nickname') }}</label>
 
             <input
               v-model="wedding.couple.Groom.Nickname"
@@ -285,12 +285,12 @@
             />
 
             <small class="field-help">
-              Tên thân mật — một số mẫu hiển thị trong dấu ngoặc kép.
+              {{ $t('couplePanel.nicknameHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Vai trò</label>
+            <label>{{ $t('couplePanel.role') }}</label>
 
             <input
               v-model="wedding.couple.Groom.Role"
@@ -299,7 +299,7 @@
             />
 
             <small class="field-help">
-              Chọn trong danh sách gợi ý hoặc tự nhập.
+              {{ $t('couplePanel.roleHint') }}
             </small>
 
             <datalist id="groom-role-options">
@@ -311,7 +311,7 @@
           </div>
 
           <div class="editor-field">
-            <label>Danh xưng gia đình</label>
+            <label>{{ $t('couplePanel.familyLabel') }}</label>
 
             <input
               v-model="wedding.couple.Groom.FamilyLabel"
@@ -320,21 +320,21 @@
             />
 
             <small class="field-help">
-              Hiển thị phía trên tên cha mẹ ở mục thông tin lễ cưới.
+              {{ $t('couplePanel.familyLabelHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Thứ tự trong gia đình</label>
+            <label>{{ $t('couplePanel.birthOrder') }}</label>
 
             <input
               v-model="wedding.couple.Groom.BirthOrder"
               type="text"
-              placeholder="VD: Con trai út"
+              :placeholder="$t('couplePanel.birthOrderGroom')"
             />
 
             <small class="field-help">
-              Một số mẫu hiển thị dòng này dưới tên cha mẹ.
+              {{ $t('couplePanel.birthOrderHint') }}
             </small>
           </div>
 
@@ -344,30 +344,30 @@
             <UploadField
               v-model="wedding.couple.Groom.Avatar"
               kind="image"
-              button-text="Tải avatar lên"
+              :button-text="$t('couplePanel.uploadAvatar')"
             />
 
             <small class="field-help">
-              Ảnh chân dung tròn — nên dùng ảnh vuông, rõ mặt.
+              {{ $t('couplePanel.avatarHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Ảnh cover</label>
+            <label>{{ $t('couplePanel.cover') }}</label>
 
             <UploadField
               v-model="wedding.couple.Groom.Cover"
               kind="image"
-              button-text="Tải ảnh cover lên"
+              :button-text="$t('couplePanel.uploadCover')"
             />
 
             <small class="field-help">
-              Ảnh nền ngang phía sau phần giới thiệu.
+              {{ $t('couplePanel.coverHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Cha</label>
+            <label>{{ $t('couplePanel.father') }}</label>
 
             <input
               v-model="wedding.couple.Groom.Father"
@@ -376,12 +376,12 @@
             />
 
             <small class="field-help">
-              Hiển thị ở phần thông tin gia đình trên thiệp.
+              {{ $t('couplePanel.parentsHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Mẹ</label>
+            <label>{{ $t('couplePanel.mother') }}</label>
 
             <input
               v-model="wedding.couple.Groom.Mother"
@@ -390,32 +390,32 @@
             />
 
             <small class="field-help">
-              Hiển thị ở phần thông tin gia đình trên thiệp.
+              {{ $t('couplePanel.parentsHint') }}
             </small>
           </div>
 
           <div class="editor-field full">
-            <label>Địa chỉ</label>
+            <label>{{ $t('couplePanel.address') }}</label>
 
             <textarea
               v-model="wedding.couple.Groom.Address"
               rows="3"
-              placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"
+              :placeholder="$t('couplePanel.addressPlaceholder')"
             />
           </div>
 
           <div class="editor-field full">
-            <label>Giới thiệu</label>
+            <label>{{ $t('couplePanel.bio') }}</label>
 
             <textarea
               v-model="wedding.couple.Groom.Description"
               rows="4"
-              placeholder="Vài dòng về chú rể..."
+              :placeholder="$t('couplePanel.bioGroom')"
             />
 
             <small class="field-help">
-              Vài dòng ngắn về nghề nghiệp, tính cách... (2–4 câu là
-              vừa đẹp). {{ (wedding.couple.Groom.Description || "").length }} ký tự
+              {{ $t("couplePanel.bioHint") }}
+              {{ $t("common.chars", { n: (wedding.couple.Groom.Description || "").length }) }}
             </small>
           </div>
         </div>

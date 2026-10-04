@@ -1,5 +1,5 @@
 <template>
-  <div class="modern-noir-theme">
+  <div class="modern-noir-theme" :style="colorVars">
     <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="modern-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
@@ -20,7 +20,7 @@
         <section v-if="showGame" class="modern-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="modern-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="modern-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
-        <section v-if="showGallery && gallery.length" class="modern-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="modern-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
       <section v-if="showGift && gifts.length" class="modern-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,9 @@ import WeddingWishes from "@/page/ModernNoir/WeddingWishes.vue";
 import WeddingFooter from "@/page/ModernNoir/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -145,12 +149,12 @@ onMounted(() => {
 
 <style scoped>
 .modern-noir-theme {
-  --theme-primary: #3a3a3a;
-  --theme-secondary: #b8a07a;
-  --theme-accent: #dcc9a4;
-  --theme-bg: #fbf8f0;
+  --theme-primary: var(--tc-3a3a3a, #3a3a3a);
+  --theme-secondary: var(--tc-b8a07a, #b8a07a);
+  --theme-accent: var(--tc-dcc9a4, #dcc9a4);
+  --theme-bg: var(--tc-fbf8f0, #fbf8f0);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #2b2b2b;
+  --theme-text: var(--tc-2b2b2b, #2b2b2b);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -160,21 +164,21 @@ onMounted(() => {
 }
 
 .modern-invitation { width: 100%; }
-.modern-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(237,224,196,0.8)); }
+.modern-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-ede0c4-rgb, 237, 224, 196), 0.8)); }
 .modern-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .modern-noir-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .modern-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(58, 58, 58, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-3a3a3a-rgb, 58, 58, 58), 0.16);
   }
 }
 </style>

@@ -11,7 +11,7 @@
         <button type="button" class="back-btn" @click="goBack">
           <v-icon size="16"> mdi-arrow-left </v-icon>
 
-          Quay lại
+          {{ $t('login.back') }}
         </button>
       </div>
 
@@ -51,11 +51,11 @@
              FORM
         ====================================================== -->
         <form class="profile-form" @submit.prevent="submitProfile">
-          <h2>Thông tin cá nhân</h2>
+          <h2>{{ $t('nav.profile') }}</h2>
 
           <div class="field-row">
             <div class="field">
-              <label for="pf-fullname">Họ và tên</label>
+              <label for="pf-fullname">{{ $t('login.fullName') }}</label>
 
               <input
                 id="pf-fullname"
@@ -65,7 +65,7 @@
             </div>
 
             <div class="field">
-              <label for="pf-username">Tên đăng nhập</label>
+              <label for="pf-username">{{ $t('login.username') }}</label>
 
               <input
                 id="pf-username"
@@ -88,7 +88,7 @@
             </div>
 
             <div class="field">
-              <label for="pf-phone">Số điện thoại</label>
+              <label for="pf-phone">{{ $t('login.phone') }}</label>
 
               <input
                 id="pf-phone"
@@ -100,7 +100,7 @@
 
           <div class="field-row">
             <div class="field">
-              <label for="pf-avatar">Link ảnh đại diện</label>
+              <label for="pf-avatar">{{ $t('profile.avatar') }}</label>
 
               <input
                 id="pf-avatar"
@@ -111,16 +111,15 @@
             </div>
           </div>
 
-          <h2>Đổi mật khẩu</h2>
+          <h2>{{ $t('profile.changePassword') }}</h2>
 
           <p class="hint">
-            Để trống mật khẩu mới nếu không muốn đổi. Chỉ cần nhập mật khẩu
-            hiện tại khi muốn đổi mật khẩu.
+            {{ $t('profile.passwordHint') }}
           </p>
 
           <div class="field-row">
             <div class="field">
-              <label for="pf-oldpass">Mật khẩu hiện tại</label>
+              <label for="pf-oldpass">{{ $t('profile.currentPassword') }}</label>
 
               <input
                 id="pf-oldpass"
@@ -131,14 +130,14 @@
             </div>
 
             <div class="field">
-              <label for="pf-newpass">Mật khẩu mới</label>
+              <label for="pf-newpass">{{ $t('login.newPassword') }}</label>
 
               <input
                 id="pf-newpass"
                 v-model="form.Password"
                 type="password"
                 autocomplete="new-password"
-                placeholder="Để trống nếu giữ nguyên"
+                :placeholder="$t('profile.keepBlank')"
               />
             </div>
           </div>
@@ -161,7 +160,7 @@
 
             <v-icon v-else size="17"> mdi-content-save-outline </v-icon>
 
-            {{ saving ? "Đang lưu..." : "Lưu thay đổi" }}
+            {{ saving ? $t('editor.header.saving') : $t('editor.header.saveChanges') }}
           </button>
         </form>
       </div>
@@ -170,11 +169,14 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
 import { UpdateProfile } from "@/model/api";
+
+const { t } = useI18n();
 
 defineOptions({
   name: "Profile",
@@ -240,7 +242,7 @@ async function submitProfile() {
   }
 
   if (form.Password && !form.PasswordOld) {
-    showMessage("Vui lòng nhập mật khẩu hiện tại để đổi mật khẩu.", true);
+    showMessage(t("profile.needCurrent"), true);
 
     return;
   }
@@ -260,7 +262,7 @@ async function submitProfile() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể lưu thông tin.");
+      throw new Error(result?.message || t("profile.saveFailed"));
     }
 
     /*
@@ -279,14 +281,14 @@ async function submitProfile() {
     form.Password = "";
     form.PasswordOld = "";
 
-    showMessage("Đã lưu thông tin cá nhân.");
+    showMessage(t("profile.saved"));
   } catch (e) {
     console.error("[Profile] update error:", e);
 
     showMessage(
       e?.response?.data?.message ||
         e?.message ||
-        "Không thể lưu thông tin.",
+        t("profile.saveFailed"),
       true
     );
   } finally {

@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> WEDDING INFORMATION </span>
 
-        <h1>Thông tin chung</h1>
+        <h1>{{ $t('editor.menu.general') }}</h1>
 
-        <p>Thông tin cơ bản của thiệp cưới.</p>
+        <p>{{ $t('generalPanel.desc') }}</p>
       </div>
     </div>
 
@@ -16,9 +16,9 @@
 
     <div class="progress-card">
       <div class="progress-head">
-        <strong> Mức độ hoàn thiện </strong>
+        <strong> {{ $t('generalPanel.progress') }} </strong>
 
-        <span> {{ completedCount }} / {{ checklist.length }} mục </span>
+        <span> {{ $t("generalPanel.progressCount", { done: completedCount, total: checklist.length }) }} </span>
       </div>
 
       <div class="progress-bar">
@@ -42,7 +42,7 @@
 
     <div class="form-grid">
       <div class="editor-field">
-        <label>Tên chú rể</label>
+        <label>{{ $t('panel.groomName') }}</label>
 
         <input
           v-model="wedding.groomName"
@@ -51,12 +51,12 @@
         />
 
         <small class="field-help">
-          Tự điền sang Ảnh bìa, Chân thiệp và mục Cô dâu & Chú rể.
+          {{ $t('generalPanel.namesSync') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Tên cô dâu</label>
+        <label>{{ $t('panel.brideName') }}</label>
 
         <input
           v-model="wedding.brideName"
@@ -65,7 +65,7 @@
         />
 
         <small class="field-help">
-          Tự điền sang Ảnh bìa, Chân thiệp và mục Cô dâu & Chú rể.
+          {{ $t('generalPanel.namesSync') }}
         </small>
       </div>
 
@@ -82,26 +82,26 @@
           <button
             type="button"
             class="slug-button"
-            title="Tạo slug từ tên cô dâu chú rể"
+            :title="$t('generalPanel.slugFromNames')"
             @click="generateSlug"
           >
             <v-icon size="16"> mdi-auto-fix </v-icon>
 
-            Tạo từ tên
+            {{ $t('generalPanel.fromNames') }}
           </button>
         </div>
 
         <small class="field-help">
-          Đường dẫn của thiệp trên website.
+          {{ $t('generalPanel.slugHint') }}
           <template v-if="wedding.slug">
-            Khách mở thiệp tại
+            {{ $t('generalPanel.guestsOpenAt') }}
             <code>/{{ wedding.slug }}</code>
           </template>
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Ngôn ngữ</label>
+        <label>{{ $t('generalPanel.cardLanguage') }}</label>
 
         <select v-model="wedding.language">
           <option value="vi">Tiếng Việt</option>
@@ -110,12 +110,12 @@
         </select>
 
         <small class="field-help">
-          Ngôn ngữ hiển thị các dòng chữ mặc định của thiệp.
+          {{ $t('generalPanel.cardLanguageHint') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Ngày cưới</label>
+        <label>{{ $t('panel.weddingDate') }}</label>
 
         <input
           :value="datetimeLocalValue"
@@ -128,36 +128,35 @@
         </small>
 
         <small v-else class="field-help">
-          Ngày giờ chính — dùng cho Đếm ngược và Ảnh bìa.
+          {{ $t('generalPanel.dateHint') }}
         </small>
       </div>
 
       <div class="editor-field full">
-        <label>Ngày âm lịch</label>
+        <label>{{ $t('generalPanel.lunarDate') }}</label>
 
         <input
           v-model="wedding.weddingLunar"
           type="text"
-          placeholder="VD: 12 tháng 5 năm Bính Ngọ"
+          :placeholder="$t('generalPanel.lunarPlaceholder')"
         />
 
         <small class="field-help">
-          Hiển thị bên cạnh ngày dương ở các mẫu có hỗ trợ.
+          {{ $t('generalPanel.lunarHint') }}
         </small>
       </div>
 
       <div class="editor-field full">
-        <label>Ảnh bìa</label>
+        <label>{{ $t('editor.menu.hero') }}</label>
 
         <UploadField
           v-model="wedding.coverImage"
           kind="image"
-          button-text="Tải ảnh bìa lên"
+          :button-text="$t('generalPanel.uploadCover')"
         />
 
         <small class="field-help">
-          Ảnh đại diện của thiệp — hiển thị ở trang Mẫu thiệp và danh
-          sách Thiệp của tôi.
+          {{ $t('generalPanel.coverHint') }}
         </small>
       </div>
     </div>
@@ -165,6 +164,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 
 import UploadField from "@/components/editor/UploadField.vue";
@@ -174,6 +174,8 @@ import {
   parseWeddingDate,
   toDatetimeLocal,
 } from "@/utils/datetime";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -254,27 +256,27 @@ const checklist = computed(() => {
 
   return [
     {
-      label: "Tên cô dâu & chú rể",
+      get label() { return t("generalPanel.check.names"); },
       done: !!(wedding.groomName && wedding.brideName),
     },
     {
-      label: "Ngày cưới",
+      get label() { return t("panel.weddingDate"); },
       done: !!wedding.weddingDate,
     },
     {
-      label: "Ảnh bìa",
+      get label() { return t("editor.menu.hero"); },
       done: !!wedding.coverImage,
     },
     {
-      label: "Sự kiện cưới",
+      get label() { return t("editor.menu.events"); },
       done: Array.isArray(wedding.events) && wedding.events.length > 0,
     },
     {
-      label: "Album ảnh",
+      get label() { return t("editor.menu.gallery"); },
       done: Array.isArray(wedding.gallery) && wedding.gallery.length > 0,
     },
     {
-      label: "Chuyện tình yêu",
+      get label() { return t("editor.menu.story"); },
       done: !!wedding.story?.Description,
     },
   ];

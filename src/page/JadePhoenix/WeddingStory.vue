@@ -51,13 +51,13 @@ const storyTitle = computed(() => {
 .jp-story {
   text-align: center;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-eyebrow {
   margin: 0;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 10px;
   font-weight: 700;
@@ -73,13 +73,13 @@ const storyTitle = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-quote {
   height: 35px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -98,7 +98,7 @@ const storyTitle = computed(() => {
 .jp-tail {
   margin-top: 18px;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 15px;
 

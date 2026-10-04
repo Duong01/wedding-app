@@ -27,7 +27,7 @@ defineProps({
 .section-heading {
   text-align: center;
   padding: 18px 20px 28px;
-  color: #8d1115;
+  color: var(--tc-8d1115, #8d1115);
 }
 
 .heading-line {
@@ -41,11 +41,11 @@ defineProps({
 .heading-line span {
   width: 45px;
   height: 1px;
-  background: #c9a45c;
+  background: var(--tc-c9a45c, #c9a45c);
 }
 
 .heading-line i {
-  color: #8e6e35;
+  color: var(--tc-8e6e35, #8e6e35);
   font-size: 10px;
   font-style: normal;
 }
@@ -70,7 +70,7 @@ defineProps({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #a3161b;
+  color: var(--tc-a3161b, #a3161b);
   font-family: serif;
   font-size: 22px;
   font-weight: 700;

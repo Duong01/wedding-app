@@ -65,13 +65,13 @@ const values = computed(() => {
 .jp-countdown {
   text-align: center;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-eyebrow {
   margin: 0;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 10px;
   font-weight: 700;
@@ -88,7 +88,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-countdown__grid {
@@ -100,12 +100,12 @@ const values = computed(() => {
 .jp-countdown__item {
   padding: 16px 2px;
 
-  border: 1px solid rgba(185, 138, 75, 0.35);
+  border: 1px solid rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.35);
   border-radius: 16px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(248, 237, 214, 0.65));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(var(--tc-f8edd6-rgb, 248, 237, 214), 0.65));
 
-  box-shadow: 0 8px 22px rgba(110, 31, 36, 0.07);
+  box-shadow: 0 8px 22px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.07);
 }
 
 .jp-countdown__item b {
@@ -113,7 +113,7 @@ const values = computed(() => {
 
   font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
   font-size: clamp(22px, 7vw, 30px);
   font-weight: 600;
@@ -126,6 +126,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 </style>

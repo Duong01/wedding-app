@@ -1,9 +1,9 @@
 <template>
   <section class="sp-gallery">
     <div class="sp-gallery__heading">
-      <span class="sp-gallery__kicker">MEMORIES</span>
+      <span class="sp-gallery__kicker">{{ sectionText(sections, "gallery", "Eyebrow", "MEMORIES") }}</span>
 
-      <h2>Album Ảnh Cưới</h2>
+      <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
 
       <div class="sp-gallery__ornament">
         <span></span>
@@ -11,17 +11,15 @@
         <span></span>
       </div>
 
-      <p class="sp-gallery__intro">
-        Những khoảnh khắc đẹp nhất<br />
-        được lưu giữ cùng chúng mình
-      </p>
+      <p class="sp-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
     </div>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
-      accent="#86624c"
-      text-color="#7a4a3d"
+      :layout="galleryLayoutFor('sunset-peach', layout)"
+      accent="var(--tc-86624c, #86624c)"
+      text-color="var(--tc-7a4a3d, #7a4a3d)"
       @open="openLightbox"
     />
 
@@ -40,15 +38,20 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { ref, defineAsyncComponent } from "vue";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: { type: Array, default: () => [] },
 });
 
@@ -77,7 +80,7 @@ function closeLightbox() {
 
   overflow: hidden;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 /* =====================================================
@@ -100,7 +103,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 10px;
   font-weight: 700;
@@ -118,7 +121,7 @@ function closeLightbox() {
 
   line-height: 1.05;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-gallery__ornament {
@@ -129,14 +132,14 @@ function closeLightbox() {
 
   margin-top: 13px;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 }
 
 .sp-gallery__ornament span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(224, 163, 126, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.7));
 }
 
 .sp-gallery__ornament span:last-child {
@@ -149,9 +152,11 @@ function closeLightbox() {
 }
 
 .sp-gallery__intro {
+  white-space: pre-line;
+
   margin: 13px 0 0;
 
-  color: #846859;
+  color: var(--tc-846859, #846859);
 
   font-size: 12px;
 
@@ -167,7 +172,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #846859;
+  color: var(--tc-846859, #846859);
 }
 
 .sp-gallery__empty p {

@@ -21,7 +21,7 @@
             <path d="m11 18-6-6 6-6"></path>
           </svg>
 
-          Danh sách mẫu thiệp
+          {{ $t('intro.templateList') }}
         </button>
 
         <button
@@ -42,7 +42,7 @@
             <path d="m8.3 13.2 7.4 4.4" />
           </svg>
 
-          Chia sẻ
+          {{ $t('mobile.shareShort') }}
         </button>
       </div>
     </div>
@@ -53,7 +53,7 @@
     <div v-if="store.loading" class="intro-state">
       <div class="state-orn">{{ FALLBACK_ORN }}</div>
 
-      <div class="state-title">Đang tải mẫu thiệp...</div>
+      <div class="state-title">{{ $t('intro.loading') }}</div>
 
       <div class="state-spinner"></div>
     </div>
@@ -64,14 +64,14 @@
     <div v-else-if="store.error || !wedding" class="intro-state">
       <div class="state-orn">{{ FALLBACK_ORN }}</div>
 
-      <h1>Không tìm thấy mẫu thiệp</h1>
+      <h1>{{ $t('intro.notFound') }}</h1>
 
       <p>
-        Mẫu thiệp bạn đang tìm không tồn tại hoặc đã được thay đổi.
+        {{ $t('intro.notFoundText') }}
       </p>
 
       <button type="button" class="state-btn" @click="goTemplates">
-        Xem danh sách mẫu
+        {{ $t('intro.viewList') }}
       </button>
     </div>
 
@@ -146,13 +146,13 @@
           <div class="info-col">
             <nav class="breadcrumb" aria-label="Breadcrumb">
               <router-link :to="{ name: 'Home' }">
-                Trang chủ
+                {{ $t('nav.home') }}
               </router-link>
 
               <span class="sep">/</span>
 
               <router-link :to="{ name: 'Templates' }">
-                Mẫu thiệp
+                {{ $t('editor.header.template') }}
               </router-link>
 
               <span class="sep">/</span>
@@ -180,7 +180,7 @@
                 <span class="date-day">{{ mainEvent.Day }}</span>
 
                 <span class="date-rest">
-                  tháng {{ mainEvent.Month }} {{ mainEvent.Year }}
+                  {{ $t("intro.monthYear", { month: mainEvent.Month, year: mainEvent.Year }) }}
                 </span>
               </div>
 
@@ -206,13 +206,13 @@
             </div>
 
             <p class="info-updated">
-              Cập nhật {{ updatedLabel }}
+              {{ $t("intro.updated", { date: updatedLabel }) }}
             </p>
 
             <!-- HÀNH ĐỘNG — tin cậy + hai nút -->
             <div class="cta-block">
               <p class="cta-trust">
-                Tạo miễn phí · Thử 3 ngày · Đẹp mới thanh toán
+                {{ $t('hero.badge') }}
               </p>
 
               <div class="cta-actions">
@@ -235,7 +235,7 @@
                     />
                   </svg>
 
-                  Dùng mẫu này
+                  {{ $t('intro.useThis') }}
                 </button>
 
                 <button
@@ -259,7 +259,7 @@
               </div>
 
               <p class="cta-note">
-                Bạn có thể đổi mẫu bất cứ lúc nào khi chỉnh sửa
+                {{ $t('intro.switchAnytime') }}
               </p>
             </div>
           </div>
@@ -274,11 +274,11 @@
       ========================================== -->
       <div class="mobile-cta">
         <p class="mobile-trust">
-          Tạo miễn phí · Thử 3 ngày · Đẹp mới thanh toán
+          {{ $t('hero.badge') }}
         </p>
 
         <p class="mobile-note">
-          Bạn có thể đổi mẫu bất cứ lúc nào khi chỉnh sửa
+          {{ $t('intro.switchAnytime') }}
         </p>
 
         <div class="mobile-actions">
@@ -301,7 +301,7 @@
               />
             </svg>
 
-            Dùng mẫu này
+            {{ $t('intro.useThis') }}
           </button>
 
           <button
@@ -333,12 +333,12 @@
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
-              Điểm nổi bật
+              {{ $t('intro.highlights') }}
               <span class="eyebrow-line"></span>
             </span>
 
             <h2 class="section-title">
-              Vì sao chọn {{ getThemeLabel(wedding) }}?
+              {{ $t("intro.whyChoose", { name: getThemeLabel(wedding) }) }}
             </h2>
 
             <ul class="highlights-grid">
@@ -367,12 +367,12 @@
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
-              Giới thiệu
+              {{ $t('nav.about') }}
               <span class="eyebrow-line"></span>
             </span>
 
             <h2 class="section-title">
-              Mẫu thiệp cưới {{ getThemeLabel(wedding) }}
+              {{ $t("intro.templateNamed", { name: getThemeLabel(wedding) }) }}
             </h2>
 
             <div class="overview-grid">
@@ -386,7 +386,7 @@
 
                 <!-- 4. PHÙ HỢP CHO + link hướng dẫn -->
                 <div class="suitable">
-                  <h3>Phù hợp cho</h3>
+                  <h3>{{ $t('intro.suitableFor') }}</h3>
 
                   <div class="suitable-tags">
                     <span
@@ -403,7 +403,7 @@
                     class="guide-link"
                     @click="goGuide"
                   >
-                    Xem hướng dẫn tạo thiệp từng bước →
+                    {{ $t('intro.guideLink') }}
                   </button>
                 </div>
               </div>
@@ -412,7 +412,7 @@
                 <div class="frame-scroll">
                   <img
                     :src="previewFor(wedding)"
-                    :alt="`Toàn cảnh mẫu thiệp cưới ${getThemeLabel(wedding)}`"
+                    :alt="$t('intro.fullViewAlt', { name: getThemeLabel(wedding) })"
                     loading="lazy"
                     @error="onImageError"
                   />
@@ -437,7 +437,7 @@
                     />
                   </svg>
 
-                  Cuộn khung để xem trọn bộ thiệp
+                  {{ $t('intro.scrollFrame') }}
                 </figcaption>
               </figure>
             </div>
@@ -451,17 +451,16 @@
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
-              Tính năng
+              {{ $t('pricing.feature') }}
               <span class="eyebrow-line"></span>
             </span>
 
             <h2 class="section-title">
-              Mỗi mẫu là một thiệp hoàn chỉnh
+              {{ $t('intro.featuresTitle') }}
             </h2>
 
             <p class="section-lead">
-              Không chỉ là một trang đẹp — mọi mẫu đều đi kèm đầy đủ
-              tính năng để mời và lưu giữ trọn vẹn ngày cưới của bạn.
+              {{ $t('intro.featuresLead') }}
             </p>
 
             <ul class="features-grid">
@@ -484,12 +483,12 @@
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
-              Câu hỏi thường gặp
+              {{ $t('intro.faq') }}
               <span class="eyebrow-line"></span>
             </span>
 
             <h2 class="section-title">
-              Về mẫu {{ getThemeLabel(wedding) }}
+              {{ $t("intro.aboutTemplate", { name: getThemeLabel(wedding) }) }}
             </h2>
 
             <div class="faq-wrap">
@@ -508,12 +507,12 @@
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
-              Mẫu thiệp liên quan
+              {{ $t('intro.related') }}
               <span class="eyebrow-line"></span>
             </span>
 
             <h2 class="section-title">
-              Các mẫu cùng phong cách
+              {{ $t('intro.sameStyle') }}
             </h2>
 
             <div class="related-grid">
@@ -549,7 +548,7 @@
                     {{ tpl.desc }}
                   </p>
 
-                  <span class="related-more">Xem mẫu →</span>
+                  <span class="related-more">{{ $t('intro.viewTemplate') }}</span>
                 </div>
               </article>
             </div>
@@ -563,12 +562,12 @@
           <div class="container">
             <span class="eyebrow">
               <span class="eyebrow-line"></span>
-              Bài viết liên quan
+              {{ $t('intro.articles') }}
               <span class="eyebrow-line"></span>
             </span>
 
             <h2 class="section-title">
-              Đọc thêm trước khi tạo thiệp
+              {{ $t('intro.readFirst') }}
             </h2>
 
             <div class="articles-grid">
@@ -582,7 +581,7 @@
 
                 <p>{{ article.desc }}</p>
 
-                <span class="article-more">Đọc tiếp →</span>
+                <span class="article-more">{{ $t('intro.readMore') }}</span>
               </article>
             </div>
           </div>
@@ -596,11 +595,10 @@
         <div class="final-inner">
           <span class="final-orn">{{ meta.orn }}</span>
 
-          <h2>Thích mẫu {{ getThemeLabel(wedding) }}?</h2>
+          <h2>{{ $t("intro.likeIt", { name: getThemeLabel(wedding) }) }}</h2>
 
           <p>
-            Dùng mẫu này, thay nội dung thành của bạn — tạo miễn phí
-            và dùng thử 3 ngày trước khi quyết định.
+            {{ $t('intro.finalText') }}
           </p>
 
           <div class="final-actions">
@@ -609,7 +607,7 @@
               class="primary-btn"
               @click="goEditor"
             >
-              Dùng mẫu này
+              {{ $t('intro.useThis') }}
             </button>
 
             <button
@@ -637,6 +635,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 
 import { useRoute, useRouter } from "vue-router";
@@ -660,6 +659,8 @@ import { faqJsonLd, useSeo } from "@/composables/useSeo";
 import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
 
 import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
+
+const { t } = useI18n();
 
 /* =========================================================
    TRANG GIỚI THIỆU MẪU — trang đích đầy đủ nội dung cho
@@ -685,7 +686,8 @@ const wedding = computed(() => store.wedding);
 
 const FALLBACK_ORN = "囍";
 
-const meta = computed(() => getWeddingMeta(themeNameOf(wedding.value)));
+/* getWeddingMeta nhận cả object thiệp (trước đây truyền nhầm tên mẫu → luôn rơi về FALLBACK_META) */
+const meta = computed(() => getWeddingMeta(wedding.value));
 
 /* =========================================================
    HELPERS — đọc dữ liệu hiển thị của mẫu
@@ -704,7 +706,7 @@ function getCoupleName(item) {
   const groom = item?.couple?.Groom?.Name || "";
 
   if (!bride && !groom) {
-    return "Cô dâu & Chú rể";
+    return t("sections.couple");
   }
 
   return `${bride} & ${groom}`;
@@ -901,58 +903,77 @@ onBeforeUnmount(() => {
    không phải viết tay 19 bộ nội dung.
 ========================================================= */
 
-/* Tag mô tả màu — dùng để ghép câu "Đỏ son và song hỷ...". */
-const COLOR_TAG_RE = /đỏ|xanh|vàng|hồng|tím|kem|trắng|ngà|đen|sẫm|đào|lụa|đất nung/i;
+/*
+ * Tag màu — chọn theo KEY ổn định (tagKeys), không theo chữ:
+ * tags đã dịch theo ngôn ngữ giao diện nên regex tiếng Việt
+ * cũ ("đỏ|xanh|vàng...") không còn dùng được.
+ */
+const COLOR_TAG_KEYS = new Set([
+  "tpl.tag.vermilion",
+  "tpl.tag.deepRed",
+  "tpl.tag.darkRed",
+  "tpl.tag.rosyRed",
+  "tpl.tag.gold",
+  "tpl.tag.brass",
+  "tpl.tag.pink",
+  "tpl.tag.blush",
+  "tpl.tag.peach",
+  "tpl.tag.peachPink",
+  "tpl.tag.purple",
+  "tpl.tag.lavender",
+  "tpl.tag.cream",
+  "tpl.tag.creamPaper",
+  "tpl.tag.white",
+  "tpl.tag.ivory",
+  "tpl.tag.silk",
+  "tpl.tag.darkBg",
+  "tpl.tag.darkBg2",
+  "tpl.tag.moss",
+  "tpl.tag.green",
+  "tpl.tag.terracotta",
+  "tpl.tag.champagne",
+]);
 
 /* Tên gọi của ký tự họa tiết đặc trưng (orn) trong câu văn. */
-const ORN_LABELS = {
-  "囍": "chữ Hỷ",
-  "✦": "nét foil vàng",
-  "❀": "hoa văn",
-  "❧": "lá non",
-  "❦": "hoa văn baroque",
+const ORN_KEYS = {
+  "囍": "intro.orn.xi",
+  "✦": "intro.orn.foil",
+  "❀": "intro.orn.pattern",
+  "❧": "intro.orn.leaf",
+  "❦": "intro.orn.baroque",
 };
 
-const AUDIENCE_BY_COLLECTION = {
-  "truyen-thong": "các cặp đôi giữ nét truyền thống Việt trong ngày trọng đại",
-  "lang-man": "cặp đôi lãng mạn, ngọt ngào",
-  "hien-dai": "cặp đôi chuộng sự sang trọng và tinh tế",
-  "co-dien": "cặp đôi yêu vẻ cổ điển châu Âu",
-  "nghe-thuat": "cặp đôi yêu nghệ thuật và màu nước",
-  "thien-nhien": "cặp đôi yêu thiên nhiên và sự mộc mạc",
-  "a-dong": "các cặp đôi đam mê hoạ tiết Á Đông",
-};
-
-const FEELING_BY_COLLECTION = {
-  "truyen-thong": "trang trọng, đậm đà ngày lễ",
-  "lang-man": "ngọt ngào, dịu dàng",
-  "hien-dai": "sang trọng, hiện đại",
-  "co-dien": "trang nhã, quý phái",
-  "nghe-thuat": "mềm mại, bay bổng",
-  "thien-nhien": "thanh bình, gần gũi thiên nhiên",
-  "a-dong": "huyền bí, rực rỡ",
+/* Bộ sưu tập → hậu tố key (khách hợp / cảm giác / loại tiệc) */
+const COLLECTION_KEY = {
+  "truyen-thong": "traditional",
+  "lang-man": "romantic",
+  "hien-dai": "modern",
+  "co-dien": "classic",
+  "nghe-thuat": "art",
+  "thien-nhien": "nature",
+  "a-dong": "asian",
 };
 
 const SUITABLE_BY_COLLECTION = {
-  "truyen-thong": ["Đám cưới truyền thống", "Lễ gia tiên", "Tiệc cưới trang trọng"],
-  "lang-man": ["Tiệc cưới ngoài trời", "Đám cưới hiện đại", "Tiệc cưới sân vườn"],
-  "hien-dai": ["Tiệc cưới sang trọng", "Đám cưới nhà hàng", "Đám cưới thành phố"],
-  "co-dien": ["Tiệc cưới sang trọng", "Lễ cưới trang trọng", "Đám cưới nhà hàng"],
-  "nghe-thuat": ["Tiệc cưới ngoài trời", "Đám cưới sáng tạo", "Tiệc cưới sân vườn"],
-  "thien-nhien": ["Tiệc cưới ngoài trời", "Đám cưới gần gũi thiên nhiên", "Tiệc cưới sân vườn"],
-  "a-dong": ["Đám cưới truyền thống", "Lễ gia tiên", "Tiệc cưới trang trọng"],
+  traditional: ["intro.event.traditional", "intro.event.ancestral", "intro.event.formalParty"],
+  romantic: ["intro.event.outdoor", "intro.event.modern", "intro.event.garden"],
+  modern: ["intro.event.luxuryParty", "intro.event.restaurant", "intro.event.city"],
+  classic: ["intro.event.luxuryParty", "intro.event.formalCeremony", "intro.event.restaurant"],
+  art: ["intro.event.outdoor", "intro.event.creative", "intro.event.garden"],
+  nature: ["intro.event.outdoor", "intro.event.nature", "intro.event.garden"],
+  asian: ["intro.event.traditional", "intro.event.ancestral", "intro.event.formalParty"],
 };
 
 /* Các mục nội dung của thiệp — đọc từ settings trong wedding.json. */
 const SECTION_LABELS = [
-  ["ShowStory", "câu chuyện tình yêu"],
-  ["ShowEvents", "lịch lễ cưới"],
-  ["ShowCountdown", "đếm ngược ngày chung đôi"],
-  ["ShowTimeline", "lịch trình từng khoảnh khắc"],
-  ["ShowGallery", "album ảnh cưới"],
-  ["ShowMap", "bản đồ dẫn đường"],
-  ["ShowGuestBook", "sổ lưu bút"],
-  ["ShowGift", "QR mừng cưới"],
+  ["ShowStory", "intro.sec.story"],
+  ["ShowEvents", "intro.sec.events"],
+  ["ShowCountdown", "intro.sec.countdown"],
+  ["ShowTimeline", "intro.sec.timeline"],
+  ["ShowGallery", "intro.sec.gallery"],
+  ["ShowMap", "intro.sec.map"],
+  ["ShowGuestBook", "intro.sec.guestbook"],
+  ["ShowGift", "intro.sec.gift"],
 ];
 
 const content = computed(() => {
@@ -966,93 +987,75 @@ const content = computed(() => {
 
   const collection = getCollection(m.collection);
 
-  const tags = m.tags.length ? m.tags : ["Cổ điển"];
+  /* Danh sách nối theo ngôn ngữ ("a, b, c" · "a、b、c") */
+  const join = (list) => list.join(t("intro.listSep"));
 
-  const colorTag = tags.find((tag) => COLOR_TAG_RE.test(tag)) || tags[0];
+  const tagKeys = m.tagKeys?.length ? m.tagKeys : ["tpl.tag.classic"];
 
-  const motifTag = tags.filter((tag) => tag !== colorTag).pop() || tags[0];
+  const label = (key) => (key.startsWith("raw:") ? key.slice(4) : t(key));
+
+  const colorKey = tagKeys.find((key) => COLOR_TAG_KEYS.has(key)) || tagKeys[0];
+
+  const motifKey = tagKeys.filter((key) => key !== colorKey).pop() || tagKeys[0];
+
+  const colorTag = label(colorKey);
 
   const colorLower = colorTag.toLowerCase();
 
-  const ornLabel = ORN_LABELS[m.orn] || "họa tiết đặc trưng";
+  const ornLabel = t(ORN_KEYS[m.orn] || "intro.orn.default");
 
   /* Tránh lặp khi theme chỉ có 1 tag ("Cổ điển" cả hai vai). */
-  const motifText =
-    motifTag !== colorTag ? motifTag.toLowerCase() : ornLabel;
+  const motifText = motifKey !== colorKey ? label(motifKey).toLowerCase() : ornLabel;
 
   const settings = item.settings || {};
 
-  const sections = SECTION_LABELS.filter(([key]) => settings[key]).map(
-    ([, label]) => label
-  );
+  const sections = SECTION_LABELS.filter(([key]) => settings[key]).map(([, key]) => t(key));
 
-  const suitable =
-    SUITABLE_BY_COLLECTION[m.collection] || SUITABLE_BY_COLLECTION["co-dien"];
+  const colKey = COLLECTION_KEY[m.collection] || "classic";
 
-  const audience = AUDIENCE_BY_COLLECTION[m.collection] || "mọi cặp đôi";
+  const suitable = SUITABLE_BY_COLLECTION[colKey].map((key) => t(key));
 
-  const feeling =
-    FEELING_BY_COLLECTION[m.collection] || "ấm áp, dễ chịu";
+  const audience = COLLECTION_KEY[m.collection] ? t(`intro.audience.${colKey}`) : t("intro.audience.default");
+
+  const feeling = COLLECTION_KEY[m.collection] ? t(`intro.feeling.${colKey}`) : t("intro.feeling.default");
 
   const couple = getCoupleName(item);
 
-  const sectionList = sections.length
-    ? sections.slice(0, 5).join(", ")
-    : "đầy đủ các mục của một thiệp cưới hoàn chỉnh";
+  const sectionList = sections.length ? join(sections.slice(0, 5)) : t("intro.allSections");
 
-  const sealText = m.orn === "囍" ? " và con dấu 囍" : "";
+  const seal = m.orn === "囍" ? t("intro.seal") : "";
+
+  const base = { name: m.name, collection: collection.name, color: colorLower, orn: ornLabel, seal, desc: m.desc };
 
   const highlights = [
-    {
-      orn: m.orn,
-      text: `${colorTag} và ${motifText} làm điểm nhấn từ phong bì đến cuối thiệp`,
-    },
-    {
-      orn: "✉",
-      text: `Phong bì ${colorLower} với ${ornLabel}${sealText}`,
-    },
+    { orn: m.orn, text: t("intro.hl.accent", { color: colorTag, motif: motifText }) },
+    { orn: "✉", text: t("intro.hl.envelope", base) },
     {
       orn: "❊",
       text: sections.length
-        ? `Đầy đủ ${sections.slice(0, 3).join(", ")}`
-        : "Bố cục trọn vẹn từ trang bìa đến lời cảm ơn",
+        ? t("intro.hl.sections", { list: join(sections.slice(0, 3)) })
+        : t("intro.hl.complete"),
     },
-    {
-      orn: "❦",
-      text: "RSVP, sổ lời chúc và QR mừng cưới — khách mời làm ngay trong thiệp",
-    },
+    { orn: "❦", text: t("intro.hl.interactive") },
   ];
 
   const paragraphs = [
-    `Mẫu thiệp cưới ${m.name} dành cho ${audience}. ${m.desc} Bảng màu ${colorLower} ${
-      m.dark ? "trên nền sẫm" : "trên nền giấy ấm"
-    } mang cảm giác ${feeling}.`,
-
-    `Cấu trúc thiệp: khách mời mở phong bì ${colorLower} thấy ${ornLabel}${sealText}, bấm "Mở thiệp" để vào trang bìa với tên hai bạn và ngày cưới, tiếp theo là ${sectionList}. Bản demo bên dưới đang dùng thông tin của ${couple} — khi bạn dùng mẫu, toàn bộ nội dung được thay bằng thông tin của mình.`,
-
-    `Mọi mẫu của ${BRAND.name} đều là thiệp hoàn chỉnh: lời mời, thông tin hai gia đình, lịch lễ cưới, album ảnh, Google Maps, RSVP, sổ lời chúc và mã QR mừng cưới. Xem thêm các mẫu cùng phong cách trong bộ sưu tập ${collection.name} ở cuối trang này.`,
+    t("intro.p1", { ...base, audience, feeling, bg: t(m.dark ? "intro.onDark" : "intro.onWarm") }),
+    t("intro.p2", { ...base, list: sectionList, couple }),
+    t("intro.p3", { ...base, brand: BRAND.name }),
   ];
 
   const faqs = [
+    { q: t("intro.faq1.q", base), a: t("intro.faq1.a", { ...base, motif: motifText }) },
     {
-      q: `${m.name} khác gì so với các mẫu khác của bộ sưu tập ${collection.name}?`,
-      a: `${m.name} giữ tinh thần chung của ${collection.name} nhưng mang bảng màu ${colorLower} và ${motifText} riêng. ${m.desc} Hãy bấm "Xem demo" để mở bản thiệp thật và cảm nhận đúng bố cục, màu sắc trước khi quyết định.`,
-    },
-    {
-      q: `Màu ${colorLower} của ${m.name} có hợp với đám cưới của tôi không?`,
+      q: t("intro.faq2.q", base),
       a:
         m.collection === "a-dong"
-          ? `Có. Tông ${colorLower} vốn quen thuộc trong lễ cưới truyền thống — trang trọng mà không cũ kỹ. Nếu muốn đậm nét cổ truyền hơn, bộ sưu tập Á Đông Sang Trọng còn có đỏ son, song hỷ, trống đồng và long phụng.`
-          : `${m.name} theo phong cách ${collection.name}, hợp với ${suitable[0].toLowerCase()} và ${suitable[1].toLowerCase()}. Nếu bạn cần đậm chất truyền thống, hãy xem bộ sưu tập Á Đông Sang Trọng với đỏ son, vàng son và chữ song hỷ.`,
+          ? t("intro.faq2.aAsian", base)
+          : t("intro.faq2.a", { ...base, s1: suitable[0].toLowerCase(), s2: suitable[1].toLowerCase() }),
     },
-    {
-      q: `Phong bì của ${m.name} trông như thế nào?`,
-      a: `Khách mời mở link là thấy phong bì ${colorLower} với ${ornLabel}${sealText}. Bấm "Mở thiệp" là sang phần nội dung — đúng trải nghiệm khách mời của bạn sẽ nhận được.`,
-    },
-    {
-      q: `${m.name} phù hợp với đám cưới nào?`,
-      a: `Phù hợp với ${suitable.map((s) => s.toLowerCase()).join(", ")}. Chưa chắc chắn? Bấm "Dùng mẫu này" để thử miễn phí — bạn đổi mẫu bất cứ lúc nào khi chỉnh sửa, toàn bộ nội dung đã điền được giữ nguyên.`,
-    },
+    { q: t("intro.faq3.q", base), a: t("intro.faq3.a", base) },
+    { q: t("intro.faq4.q", base), a: t("intro.faq4.a", { list: join(suitable.map((s) => s.toLowerCase())) }) },
   ];
 
   return { highlights, paragraphs, suitable, faqs };
@@ -1063,25 +1066,25 @@ const content = computed(() => {
 ========================================================= */
 
 const FEATURES = [
-  { orn: "❊", label: "Tùy chỉnh toàn bộ nội dung" },
-  { orn: "✦", label: "Album ảnh không giới hạn" },
-  { orn: "◈", label: "Google Maps dẫn đường" },
-  { orn: "♪", label: "Nhạc nền riêng" },
-  { orn: "✉", label: "Ghi tên từng khách mời" },
-  { orn: "❋", label: "Chia sẻ qua một liên kết" },
-  { orn: "✓", label: "Xác nhận tham dự (RSVP)" },
-  { orn: "❦", label: "Sổ lời chúc & QR mừng cưới" },
+  { orn: "❊", get label() { return t("intro.f1"); } },
+  { orn: "✦", get label() { return t("intro.f2"); } },
+  { orn: "◈", get label() { return t("intro.f3"); } },
+  { orn: "♪", get label() { return t("intro.f4"); } },
+  { orn: "✉", get label() { return t("intro.f5"); } },
+  { orn: "❋", get label() { return t("intro.f6"); } },
+  { orn: "✓", get label() { return t("intro.f7"); } },
+  { orn: "❦", get label() { return t("intro.f8"); } },
 ];
 
 const RELATED_ARTICLES = [
   {
-    title: "Hướng dẫn tạo thiệp cưới từng bước",
-    desc: "Từ chọn mẫu, điền nội dung đến xuất bản và gửi khách mời — làm xong trong một buổi tối.",
+    get title() { return t("intro.article1.title"); },
+    get desc() { return t("intro.article1.desc"); },
     route: { name: "Guide" },
   },
   {
-    title: "Bảng giá thiệp cưới online",
-    desc: "Tạo và chỉnh sửa miễn phí, dùng thử 3 ngày đầy đủ tính năng — ưng rồi mới thanh toán một lần.",
+    get title() { return t("intro.article2.title"); },
+    get desc() { return t("intro.article2.desc"); },
     route: { name: "Pricing" },
   },
 ];
@@ -1189,8 +1192,8 @@ useSeo(() => {
 
   if (!item) {
     return {
-      title: "Mẫu thiệp cưới",
-      description: "Xem trước mẫu thiệp cưới online.",
+      get title() { return t("nav.templatesTitle"); },
+      get description() { return t("intro.previewDesc"); },
       path: route.path,
     };
   }
@@ -1216,13 +1219,13 @@ useSeo(() => {
             {
               "@type": "ListItem",
               position: 1,
-              name: "Trang chủ",
+              get name() { return t("nav.home"); },
               item: BRAND.siteUrl,
             },
             {
               "@type": "ListItem",
               position: 2,
-              name: "Mẫu thiệp",
+              get name() { return t("editor.header.template"); },
               item: `${BRAND.siteUrl}/mau-thiep-cuoi`,
             },
             {
@@ -1258,7 +1261,7 @@ useSeo(() => {
 async function loadWedding(slug) {
   if (typeof slug !== "string" || !slug.trim()) {
     store.wedding = null;
-    store.error = "Đường dẫn thiệp không hợp lệ.";
+    store.error = t("intro.badLink");
 
     return;
   }
@@ -1300,7 +1303,13 @@ function goOpen() {
     return;
   }
 
-  router.push({ name: "WeddingOpen", params: { slug } });
+  /*
+   * Mở demo ở TAB MỚI — khách xem thiệp xong đóng tab là
+   * quay lại đúng trang giới thiệu mẫu đang đọc dở.
+   */
+  const { href } = router.resolve({ name: "WeddingOpen", params: { slug } });
+
+  window.open(href, "_blank", "noopener");
 }
 
 function goEditor() {
@@ -1358,7 +1367,7 @@ async function shareTemplate() {
     if (navigator.share) {
       await navigator.share({
         title: getThemeLabel(wedding.value),
-        text: "Xem mẫu thiệp cưới này",
+        get text() { return t("intro.shareText"); },
         url: openUrl.value,
       });
 
@@ -1367,7 +1376,7 @@ async function shareTemplate() {
 
     await navigator.clipboard.writeText(openUrl.value);
 
-    showToast("Đã sao chép link mẫu thiệp");
+    showToast(t("intro.linkCopied"));
   } catch (error) {
     // Người dùng đóng hộp thoại share
   }

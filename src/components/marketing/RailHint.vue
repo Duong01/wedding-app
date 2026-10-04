@@ -1,6 +1,6 @@
 <template>
   <p class="mk-rail-hint">
-    {{ text }}
+    {{ text || $t("rail.swipeMore") }}
     <span aria-hidden="true">→</span>
   </p>
 </template>
@@ -20,7 +20,7 @@
 defineProps({
   text: {
     type: String,
-    default: "Vuốt ngang để xem thêm",
+    default: "",
   },
 });
 </script>

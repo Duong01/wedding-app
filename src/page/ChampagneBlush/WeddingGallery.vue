@@ -1,9 +1,14 @@
 <template>
   <section class="cb-gallery">
     <div class="cb-gallery__heading">
-      <span class="cb-gallery__kicker">MEMORIES</span>
+      <span class="cb-gallery__kicker">{{ sectionText(sections, "gallery", "Eyebrow", "MEMORIES") }}</span>
 
-      <h2>Album Ảnh Cưới</h2>
+      <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="cb-custom-head">
+        <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="cb-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
+      </header>
+
 
       <div class="cb-gallery__ornament">
         <span></span>
@@ -17,11 +22,12 @@
       </p>
     </div>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
-      accent="#c9a06a"
-      text-color="#6c4b4a"
+      :layout="galleryLayoutFor('champagne-blush', layout)"
+      accent="var(--tc-c9a06a, #c9a06a)"
+      text-color="var(--tc-6c4b4a, #6c4b4a)"
       @open="openLightbox"
     />
 
@@ -40,15 +46,20 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { ref, defineAsyncComponent } from "vue";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: { type: Array, default: () => [] },
 });
 
@@ -77,7 +88,7 @@ function closeLightbox() {
 
   overflow: hidden;
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 }
 
 /* =====================================================
@@ -100,7 +111,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: #926664;
+  color: var(--tc-926664, #926664);
 
   font-size: 10px;
   font-weight: 700;
@@ -118,7 +129,7 @@ function closeLightbox() {
 
   line-height: 1.05;
 
-  color: #6c4b4a;
+  color: var(--tc-6c4b4a, #6c4b4a);
 }
 
 .cb-gallery__ornament {
@@ -129,14 +140,14 @@ function closeLightbox() {
 
   margin-top: 13px;
 
-  color: #896d48;
+  color: var(--tc-896d48, #896d48);
 }
 
 .cb-gallery__ornament span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 160, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c9a06a-rgb, 201, 160, 106), 0.7));
 }
 
 .cb-gallery__ornament span:last-child {
@@ -151,7 +162,7 @@ function closeLightbox() {
 .cb-gallery__intro {
   margin: 13px 0 0;
 
-  color: #886b64;
+  color: var(--tc-886b64, #886b64);
 
   font-size: 12px;
 
@@ -167,12 +178,45 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #7b6c66;
+  color: var(--tc-7b6c66, #7b6c66);
 }
 
 .cb-gallery__empty p {
   margin: 8px 0 0;
 
   font-size: 13px;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.cb-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.cb-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-926664, #926664);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.cb-custom-head__heading {
+  margin: 0;
+  color: var(--tc-6c4b4a, #6c4b4a);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.cb-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: var(--tc-7a6662, #7a6662);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

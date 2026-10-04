@@ -2,23 +2,22 @@
   <section class="mk-section">
     <div class="mk-container faq-grid">
       <header class="faq-head">
-        <p class="mk-eyebrow">Giải đáp</p>
+        <p class="mk-eyebrow">{{ $t('guide.faqEyebrow') }}</p>
 
         <h2>
-          Bạn còn
-          <em>thắc mắc?</em>
+          {{ $t('faqSection.h2a') }}
+          <em>{{ $t('faqSection.h2b') }}</em>
         </h2>
 
         <p>
-          Tổng hợp những câu hỏi các cặp đôi hỏi tụi mình nhiều nhất trước
-          khi bắt đầu.
+          {{ $t('faqSection.lead') }}
         </p>
 
         <router-link
           :to="{ name: 'Guide' }"
           class="mk-btn mk-btn--outline mk-btn--sm faq-more"
         >
-          Xem hướng dẫn chi tiết
+          {{ $t('faqSection.more') }}
         </router-link>
       </header>
 

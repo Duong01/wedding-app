@@ -51,13 +51,13 @@ const storyTitle = computed(() => {
 .wb-story {
   text-align: center;
 
-  color: #8a4a5c;
+  color: var(--tc-8a4a5c, #8a4a5c);
 }
 
 .wb-eyebrow {
   margin: 0;
 
-  color: #a5586c;
+  color: var(--tc-a5586c, #a5586c);
 
   font-size: 10px;
   font-weight: 700;
@@ -73,13 +73,13 @@ const storyTitle = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #8a4a5c;
+  color: var(--tc-8a4a5c, #8a4a5c);
 }
 
 .wb-quote {
   height: 35px;
 
-  color: #a05a6e;
+  color: var(--tc-a05a6e, #a05a6e);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -98,7 +98,7 @@ const storyTitle = computed(() => {
 .wb-tail {
   margin-top: 18px;
 
-  color: #a5586c;
+  color: var(--tc-a5586c, #a5586c);
 
   font-size: 15px;
 

@@ -26,7 +26,17 @@
       <!-- NỘI DUNG -->
 
       <div class="shc-timeline__content">
-        <h2 class="shc-timeline__title">LỊCH TRÌNH NGÀY CƯỚI</h2>
+        <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+        <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="shc-top-custom-head">
+          <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+        </header>
+
+        <h2 class="shc-timeline__title">{{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}</h2>
+        <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+        <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="shc-sub-custom-head">
+          <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="shc-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+        </header>
+
 
         <ol class="shc-timeline__list">
           <li
@@ -73,6 +83,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import {
@@ -84,6 +95,7 @@ import {
 } from "./songHacRedAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
   events: { type: Array, default: () => [] },
 });
@@ -412,5 +424,71 @@ function formatTime(index) {
   .shc-timeline__body {
     font-size: 18px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

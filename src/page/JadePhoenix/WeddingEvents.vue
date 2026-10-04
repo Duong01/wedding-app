@@ -516,7 +516,7 @@ onBeforeUnmount(() => {
 .jp-eyebrow {
   margin: 0;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 10px;
   font-weight: 700;
@@ -535,7 +535,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 /* =====================================================
@@ -570,14 +570,14 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
-  border: 1px solid rgba(185, 138, 75, 0.35);
+  border: 1px solid rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.35);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(248, 237, 214, 0.65));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(var(--tc-f8edd6-rgb, 248, 237, 214), 0.65));
 
-  box-shadow: 0 18px 44px rgba(110, 31, 36, 0.08);
+  box-shadow: 0 18px 44px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.08);
 
   overflow: hidden;
 }
@@ -587,7 +587,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(217, 180, 106, 0.25);
+  border: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.25);
   border-radius: 20px;
 
   pointer-events: none;
@@ -612,7 +612,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-mini-divider {
@@ -621,14 +621,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 }
 
 .jp-mini-divider span {
   width: 35px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.7));
 }
 
 .jp-mini-divider span:last-child {
@@ -657,7 +657,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-event-main-date {
@@ -677,7 +677,7 @@ onBeforeUnmount(() => {
 
   line-height: 0.85;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-date-side {
@@ -689,21 +689,21 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-date-side strong {
   font-size: 18px;
   font-weight: 600;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-event-lunar {
   font-size: 14px;
   font-style: italic;
 
-  color: #702c32;
+  color: var(--tc-702c32, #702c32);
 }
 
 /* =====================================================
@@ -720,7 +720,7 @@ onBeforeUnmount(() => {
   margin: 10px auto 0;
   padding: 15px 0;
 
-  border-bottom: 1px solid rgba(217, 180, 106, 0.3);
+  border-bottom: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.3);
 }
 
 .jp-event-time div {
@@ -735,14 +735,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-event-time strong {
   font-size: 23px;
   font-weight: 600;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 /* =====================================================
@@ -770,7 +770,7 @@ onBeforeUnmount(() => {
 
   width: 1px;
 
-  background: rgba(217, 180, 106, 0.45);
+  background: rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.45);
 }
 
 .jp-schedule-row {
@@ -795,9 +795,9 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #6e2a30;
+  border: 1px solid var(--tc-6e2a30, #6e2a30);
 
-  background: #fdfaf3;
+  background: var(--tc-fdfaf3, #fdfaf3);
 
   z-index: 2;
 }
@@ -805,7 +805,7 @@ onBeforeUnmount(() => {
 .jp-schedule-dot span {
   font-size: 11px;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-schedule-content {
@@ -822,14 +822,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #702c32;
+  color: var(--tc-702c32, #702c32);
 }
 
 .jp-schedule-content strong {
   font-size: 21px;
   font-weight: 600;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 /* =====================================================
@@ -860,7 +860,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-calendar__header strong {
@@ -868,7 +868,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.1em;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-calendar__weekdays,
@@ -884,14 +884,14 @@ onBeforeUnmount(() => {
 .jp-calendar__weekdays {
   padding-bottom: 8px;
 
-  border-bottom: 1px solid rgba(217, 180, 106, 0.25);
+  border-bottom: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.25);
 }
 
 .jp-calendar__weekdays span {
   font-size: 10px;
   font-weight: 700;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-calendar__cell {
@@ -905,7 +905,7 @@ onBeforeUnmount(() => {
 .jp-normal-day {
   font-size: 12px;
 
-  color: #7a3a3f;
+  color: var(--tc-7a3a3f, #7a3a3f);
 }
 
 .jp-active-day {
@@ -924,7 +924,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 }
 
 .jp-active-day span:last-child {
@@ -932,7 +932,7 @@ onBeforeUnmount(() => {
 
   font-weight: 700;
 
-  color: #fefbf6;
+  color: var(--tc-fefbf6, #fefbf6);
 }
 
 .jp-calendar-btn {
@@ -950,7 +950,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 /* =====================================================
@@ -972,11 +972,11 @@ onBeforeUnmount(() => {
   border: 0;
   border-radius: 999px;
 
-  color: #fefbf6;
+  color: var(--tc-fefbf6, #fefbf6);
 
-  background: linear-gradient(135deg, #68262c, #8a3a40);
+  background: linear-gradient(135deg, var(--tc-68262c, #68262c), var(--tc-8a3a40, #8a3a40));
 
-  box-shadow: 0 10px 24px rgba(110, 31, 36, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.24);
 
   font-size: 11px;
   font-weight: 700;
@@ -991,7 +991,7 @@ onBeforeUnmount(() => {
 .jp-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(110, 31, 36, 0.32);
+  box-shadow: 0 14px 30px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.32);
 }
 
 /* =====================================================
@@ -1008,14 +1008,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 }
 
 .jp-event-bottom span {
   width: 60px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.6));
 }
 
 .jp-event-bottom span:last-child {
@@ -1062,7 +1062,7 @@ onBeforeUnmount(() => {
 
   padding: 20px;
 
-  background: rgba(74, 35, 40, 0.45);
+  background: rgba(var(--tc-4a2328-rgb, 74, 35, 40), 0.45);
 
   backdrop-filter: blur(6px);
 }
@@ -1078,16 +1078,16 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(185, 138, 75, 0.45);
+  border: 1px solid rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.45);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, #fefdf9, #f9f1de);
+  background: linear-gradient(170deg, var(--tc-fefdf9, #fefdf9), var(--tc-f9f1de, #f9f1de));
 
-  box-shadow: 0 30px 80px rgba(74, 35, 40, 0.3);
+  box-shadow: 0 30px 80px rgba(var(--tc-4a2328-rgb, 74, 35, 40), 0.3);
 
   text-align: center;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-modal-close {
@@ -1102,7 +1102,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   background: transparent;
 
@@ -1118,7 +1118,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 }
 
 .jp-modal-header > span {
@@ -1126,7 +1126,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-modal-header h3 {
@@ -1137,7 +1137,7 @@ onBeforeUnmount(() => {
   font-size: 32px;
   font-weight: 600;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-modal-header p {
@@ -1145,7 +1145,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #7a3a3f;
+  color: var(--tc-7a3a3f, #7a3a3f);
 }
 
 /* =====================================================
@@ -1168,7 +1168,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-form-group input {
@@ -1176,24 +1176,24 @@ onBeforeUnmount(() => {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(185, 138, 75, 0.4);
+  border: 1px solid rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.4);
   border-radius: 12px;
 
   outline: none;
 
   font-size: 16px;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
-  background: rgba(254, 253, 249, 0.9);
+  background: rgba(var(--tc-fefdf9-rgb, 254, 253, 249), 0.9);
 
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .jp-form-group input:focus {
-  border-color: #68262c;
+  border-color: var(--tc-68262c, #68262c);
 
-  box-shadow: 0 0 0 3px rgba(185, 138, 75, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.14);
 }
 
 .jp-attendance {
@@ -1205,16 +1205,16 @@ onBeforeUnmount(() => {
 .jp-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(185, 138, 75, 0.4);
+  border: 1px solid rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.4);
   border-radius: 12px;
 
   text-align: left;
 
   font-size: 13px;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
-  background: rgba(254, 253, 249, 0.8);
+  background: rgba(var(--tc-fefdf9-rgb, 254, 253, 249), 0.8);
 
   cursor: pointer;
 
@@ -1222,9 +1222,9 @@ onBeforeUnmount(() => {
 }
 
 .jp-attendance-option.selected {
-  border-color: #68262c;
+  border-color: var(--tc-68262c, #68262c);
 
-  background: rgba(185, 138, 75, 0.12);
+  background: rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.12);
 
   font-weight: 600;
 }
@@ -1232,7 +1232,7 @@ onBeforeUnmount(() => {
 .jp-attendance-option span {
   margin-right: 8px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 }
 
 .jp-people-control {
@@ -1246,14 +1246,14 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #6e2a30;
+  border: 1px solid var(--tc-6e2a30, #6e2a30);
   border-radius: 50%;
 
   font-size: 20px;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
-  background: #fdfaf3;
+  background: var(--tc-fdfaf3, #fdfaf3);
 
   cursor: pointer;
 }
@@ -1265,7 +1265,7 @@ onBeforeUnmount(() => {
 
   font-size: 18px;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-recipient-box {
@@ -1273,12 +1273,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px dashed rgba(185, 138, 75, 0.5);
+  border: 1px dashed rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.5);
   border-radius: 16px;
 
   text-align: center;
 
-  background: rgba(254, 251, 245, 0.7);
+  background: rgba(var(--tc-fefbf5-rgb, 254, 251, 245), 0.7);
 }
 
 .jp-recipient-box span {
@@ -1288,7 +1288,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-recipient-box strong {
@@ -1299,7 +1299,7 @@ onBeforeUnmount(() => {
   font-size: 28px;
   font-weight: 400;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-form-error,
@@ -1316,15 +1316,15 @@ onBeforeUnmount(() => {
 }
 
 .jp-form-error {
-  color: #a33d2e;
+  color: var(--tc-a33d2e, #a33d2e);
 
-  background: rgba(163, 61, 46, 0.08);
+  background: rgba(var(--tc-a33d2e-rgb, 163, 61, 46), 0.08);
 }
 
 .jp-form-success {
-  color: #8a6a3a;
+  color: var(--tc-8a6a3a, #8a6a3a);
 
-  background: rgba(138, 106, 58, 0.08);
+  background: rgba(var(--tc-8a6a3a-rgb, 138, 106, 58), 0.08);
 }
 
 .jp-modal-submit {
@@ -1342,11 +1342,11 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #fefbf6;
+  color: var(--tc-fefbf6, #fefbf6);
 
-  background: linear-gradient(135deg, #68262c, #8a3a40);
+  background: linear-gradient(135deg, var(--tc-68262c, #68262c), var(--tc-8a3a40, #8a3a40));
 
-  box-shadow: 0 10px 24px rgba(110, 31, 36, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.24);
 
   cursor: pointer;
 

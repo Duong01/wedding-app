@@ -1,6 +1,6 @@
 <template>
-  <nav class="mk-crumb" aria-label="Đường dẫn">
-    <router-link :to="{ name: 'Home' }">Trang chủ</router-link>
+  <nav class="mk-crumb" :aria-label="$t('breadcrumb.label')">
+    <router-link :to="{ name: 'Home' }">{{ $t('nav.home') }}</router-link>
 
     <template v-for="item in trail" :key="item.label">
       <i aria-hidden="true">/</i>

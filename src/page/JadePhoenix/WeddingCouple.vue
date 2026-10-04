@@ -263,7 +263,7 @@ const weddingTime = computed(() => {
 
   text-align: center;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
   overflow: hidden;
 }
@@ -271,7 +271,7 @@ const weddingTime = computed(() => {
 .jp-eyebrow {
   margin: 0;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 10px;
   font-weight: 700;
@@ -288,7 +288,7 @@ const weddingTime = computed(() => {
   font-size: clamp(26px, 7vw, 34px);
   font-weight: 600;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-rule {
@@ -299,7 +299,7 @@ const weddingTime = computed(() => {
 
   margin: 0 auto;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 
   font-size: 14px;
 }
@@ -308,7 +308,7 @@ const weddingTime = computed(() => {
   width: 50px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.7));
 }
 
 .jp-rule span:last-child {
@@ -338,10 +338,10 @@ const weddingTime = computed(() => {
 
   margin: 0 auto 12px;
 
-  border: 2px solid rgba(185, 138, 75, 0.55);
+  border: 2px solid rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.55);
   border-radius: 50%;
 
-  background: rgba(254, 251, 245, 0.9);
+  background: rgba(var(--tc-fefbf5-rgb, 254, 251, 245), 0.9);
 
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 
@@ -364,7 +364,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-person__parents {
@@ -374,7 +374,7 @@ const weddingTime = computed(() => {
 .jp-parents {
   margin: 2px 0;
 
-  color: #702c32;
+  color: var(--tc-702c32, #702c32);
 
   font-size: 11px;
 
@@ -392,13 +392,13 @@ const weddingTime = computed(() => {
 
   line-height: 1.2;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-person__role {
   display: block;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 11px;
 
@@ -409,7 +409,7 @@ const weddingTime = computed(() => {
 .jp-person__desc {
   margin: 7px 0 0;
 
-  color: #7a3a3f;
+  color: var(--tc-7a3a3f, #7a3a3f);
 
   font-size: 12px;
   font-style: italic;
@@ -426,7 +426,7 @@ const weddingTime = computed(() => {
 }
 
 .jp-couple-divider i {
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 
   font-family: "Allura", cursive;
   font-size: 34px;
@@ -455,7 +455,7 @@ const weddingTime = computed(() => {
 }
 
 .jp-weekday {
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
   font-size: 10px;
   font-weight: 700;
@@ -467,7 +467,7 @@ const weddingTime = computed(() => {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.7));
 }
 
 .jp-date-line:last-child {
@@ -492,7 +492,7 @@ const weddingTime = computed(() => {
 }
 
 .jp-date-side span {
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 10px;
   font-weight: 700;
@@ -501,7 +501,7 @@ const weddingTime = computed(() => {
 }
 
 .jp-date-side strong {
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
   font-size: 20px;
   font-weight: 600;
@@ -510,7 +510,7 @@ const weddingTime = computed(() => {
 .jp-date-day {
   padding: 0 22px;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -523,7 +523,7 @@ const weddingTime = computed(() => {
 .jp-lunar {
   margin-top: 12px;
 
-  color: #702c32;
+  color: var(--tc-702c32, #702c32);
 
   font-size: 11px;
   font-style: italic;
@@ -555,13 +555,13 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.2em;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 }
 
 .jp-time-content strong {
   margin-top: 1px;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 
   font-size: 21px;
   font-weight: 600;

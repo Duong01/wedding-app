@@ -1,8 +1,13 @@
 <template>
   <section class="mw-dress">
-    <h2 class="mw-title">Dress Code</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="mw-top-custom-head">
+      <p v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "dressCode", "Eyebrow") }}</p>
+    </header>
 
-    <p class="mw-lead">{{ note }}</p>
+    <h2 class="mw-title">{{ sectionText(sections, "dressCode", "Heading", "Dress Code") }}</h2>
+
+    <p class="mw-lead">{{ sectionText(sections, "dressCode", "Intro", note) }}</p>
 
     <div class="mw-dress__swatches">
       <span
@@ -20,6 +25,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const DEFAULT_COLORS = ["#486c7d", "#a4c4d4", "#ffffff"];
@@ -31,6 +37,7 @@ const DEFAULT_SUGGESTIONS = [
 ];
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   dressCode: { type: [Object, Array, String], default: null },
 });
 
@@ -157,5 +164,42 @@ const suggestions = computed(() => {
   .mw-dress__list li {
     font-size: 14px;
   }
+}
+
+.mw-lead {
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.mw-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.mw-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.mw-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.mw-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

@@ -1,6 +1,11 @@
 <template>
   <section class="mw-story">
-    <h2 class="mw-title">{{ title }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="mw-top-custom-head">
+      <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="mw-title">{{ sectionText(sections, "story", "Heading", title) }}</h2>
 
     <div class="mw-story__card">
       <span class="mw-story__quote" aria-hidden="true">“</span>
@@ -13,9 +18,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   story: {
     type: [String, Object],
     default: "",
@@ -117,5 +124,38 @@ const storyText = computed(() => {
   .mw-story__text {
     font-size: 16px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.mw-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.mw-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.mw-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.mw-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

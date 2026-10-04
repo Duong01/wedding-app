@@ -1,8 +1,8 @@
 <template>
   <section class="mg-story">
-    <p class="mg-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+    <p class="mg-eyebrow">{{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</p>
 
-    <h2>{{ storyTitle }}</h2>
+    <h2>{{ sectionText(sections, "story", "Heading", storyTitle) }}</h2>
 
     <div class="mg-quote">“</div>
 
@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -32,13 +33,13 @@ const storyTitle = computed(() =>
 .mg-story {
   text-align: center;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-eyebrow {
   margin: 0;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 10px;
   font-weight: 700;
@@ -54,13 +55,13 @@ const storyTitle = computed(() =>
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-quote {
   height: 35px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -75,13 +76,13 @@ const storyTitle = computed(() =>
 
   line-height: 1.7;
 
-  color: rgba(240, 230, 210, 0.85);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.85);
 }
 
 .mg-tail {
   margin-top: 18px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 15px;
 }

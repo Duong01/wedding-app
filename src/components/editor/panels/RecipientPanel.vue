@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> PERSONALIZATION </span>
 
-        <h1>Khách mời</h1>
+        <h1>{{ $t('editor.menu.recipient') }}</h1>
 
-        <p>Tên khách được cá nhân hóa bằng token.</p>
+        <p>{{ $t('recipientPanel.desc') }}</p>
       </div>
 
       <button
@@ -17,13 +17,12 @@
       >
         <v-icon size="17"> mdi-account-plus-outline </v-icon>
 
-        Thêm khách
+        {{ $t('recipientPanel.add') }}
       </button>
     </div>
 
     <p v-if="!wedding.slug" class="sync-message">
-      Lưu thiệp trước để quản lý khách mời trên server (thêm / sửa / xóa và
-      link cá nhân cho từng khách).
+      {{ $t('recipientPanel.saveFirst') }}
     </p>
 
     <p v-if="syncMessage" class="sync-message" :class="{ error: syncError }">
@@ -41,14 +40,14 @@
         <input
           v-model="keyword"
           type="text"
-          placeholder="Tìm theo tên hoặc token..."
+          :placeholder="$t('recipientPanel.search')"
         />
 
         <button
           v-if="keyword"
           type="button"
           class="search-clear"
-          title="Xoá tìm kiếm"
+          :title="$t('editor.nav.clearSearch')"
           @click="keyword = ''"
         >
           <v-icon size="15"> mdi-close </v-icon>
@@ -56,7 +55,7 @@
       </div>
 
       <span class="recipient-count">
-        {{ filteredRecipients.length }} / {{ recipients.length }} khách
+        {{ $t("recipientPanel.count", { shown: filteredRecipients.length, total: recipients.length }) }}
       </span>
     </div>
 
@@ -69,7 +68,7 @@
       >
         <v-icon size="15"> mdi-account-multiple-plus-outline </v-icon>
 
-        Thêm nhiều khách
+        {{ $t('recipientPanel.addMany') }}
       </button>
 
       <button
@@ -80,7 +79,7 @@
       >
         <v-icon size="15"> mdi-link-variant-multiple </v-icon>
 
-        Sao chép tất cả link
+        {{ $t('recipientPanel.copyAll') }}
       </button>
     </div>
 
@@ -89,17 +88,17 @@
     ====================================================== -->
 
     <div v-if="bulkOpen" class="bulk-card">
-      <label>Mỗi dòng một khách mời</label>
+      <label>{{ $t('recipientPanel.onePerLine') }}</label>
 
       <textarea
         v-model="bulkText"
         rows="5"
-        placeholder="Chú Minh + Cô Hằng&#10;Anh Tuấn&#10;Gia đình bác Hoa"
+        :placeholder="$t('recipientPanel.bulkPlaceholder')"
       />
 
       <div class="bulk-actions">
         <span class="bulk-hint">
-          {{ bulkNames.length }} khách sẽ được thêm
+          {{ $t("recipientPanel.willAdd", { n: bulkNames.length }) }}
         </span>
 
         <button
@@ -110,7 +109,7 @@
         >
           <v-icon size="16"> mdi-check </v-icon>
 
-          Thêm vào danh sách
+          {{ $t('recipientPanel.addToList') }}
         </button>
       </div>
     </div>
@@ -127,10 +126,10 @@
       >
         <div class="card-header">
           <div>
-            <span> KHÁCH MỜI {{ recipient.__index + 1 }} </span>
+            <span> {{ $t('recipientPanel.itemLabel') }} {{ recipient.__index + 1 }} </span>
 
             <strong>
-              {{ recipient.Name || "Khách mời" }}
+              {{ recipient.Name || $t('editor.menu.recipient') }}
             </strong>
           </div>
 
@@ -139,7 +138,7 @@
               v-if="wedding.slug && recipient.token"
               type="button"
               class="small-icon-button"
-              title="Sao chép link cá nhân cho khách"
+              :title="$t('recipientPanel.copyLink')"
               @click="copyGuestLink(recipient)"
             >
               <v-icon size="17"> mdi-link-variant </v-icon>
@@ -148,7 +147,7 @@
             <button
               type="button"
               class="danger-icon"
-              title="Xóa khách"
+              :title="$t('recipientPanel.remove')"
               :disabled="syncing"
               @click="removeRecipient(recipient.__index)"
             >
@@ -164,53 +163,53 @@
             <input v-model="recipient.token" type="text" readonly />
 
             <small class="field-help">
-              Mã định danh tự sinh — dùng để tạo link riêng cho khách.
+              {{ $t('recipientPanel.tokenHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Tên khách</label>
+            <label>{{ $t('recipientPanel.name') }}</label>
 
             <input
               v-model="recipient.Name"
               type="text"
-              placeholder="VD: Chú Minh + Cô Hằng"
+              :placeholder="$t('recipientPanel.namePlaceholder')"
               :disabled="syncing"
               @blur="updateRecipientName(recipient)"
             />
 
             <small class="field-help">
-              Tên hiện trên thiệp khi khách mở link cá nhân của họ.
+              {{ $t('recipientPanel.nameHint') }}
             </small>
           </div>
         </div>
       </article>
 
       <p v-if="keyword && !filteredRecipients.length" class="search-empty">
-        Không tìm thấy khách mời nào khớp "{{ keyword }}".
+        {{ $t("recipientPanel.noMatch", { keyword }) }}
       </p>
 
       <div v-if="!recipients.length" class="empty-card">
         <v-icon size="30"> mdi-account-multiple-outline </v-icon>
 
-        <strong> Chưa có khách mời </strong>
+        <strong> {{ $t('recipientPanel.empty') }} </strong>
 
         <span>
-          Thêm từng khách để tạo link cá nhân, hoặc dùng "Thêm nhiều
-          khách" để dán cả danh sách.
+          {{ $t('recipientPanel.emptyHint') }}
         </span>
       </div>
 
       <button type="button" class="add-button" @click="addRecipient">
         <v-icon> mdi-account-plus-outline </v-icon>
 
-        Thêm khách mời
+        {{ $t('recipientPanel.addGuest') }}
       </button>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 import {
   addRecipient as addRecipientApi,
@@ -220,6 +219,8 @@ import {
 } from "@/model/api";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -374,7 +375,7 @@ async function persistRecipient(recipient) {
     }
 
     showSyncMessage(
-      result?.message || "Không thể lưu khách mời lên server.",
+      result?.message || t("recipientPanel.saveFailed"),
       true
     );
 
@@ -383,7 +384,7 @@ async function persistRecipient(recipient) {
     console.error("[RecipientPanel] addRecipient error:", error);
 
     showSyncMessage(
-      error?.response?.data?.message || "Không thể lưu khách mời lên server.",
+      error?.response?.data?.message || t("recipientPanel.saveFailed"),
       true
     );
 
@@ -423,7 +424,7 @@ async function addRecipient() {
   syncing.value = false;
 
   if (ok) {
-    showSyncMessage("Đã thêm khách mời vào server.");
+    showSyncMessage(t("recipientPanel.addedOne"));
   }
 }
 
@@ -452,7 +453,7 @@ async function applyBulk() {
   bulkOpen.value = false;
 
   if (!props.wedding.slug) {
-    showSyncMessage(`Đã thêm ${created.length} khách mời.`);
+    showSyncMessage(t("recipientPanel.added", { n: created.length }));
 
     return;
   }
@@ -473,11 +474,11 @@ async function applyBulk() {
 
   if (failed) {
     showSyncMessage(
-      `Đã thêm ${created.length - failed}/${created.length} khách. ${failed} khách lỗi.`,
+      t("recipientPanel.addedPartial", { ok: created.length - failed, total: created.length, failed }),
       true
     );
   } else {
-    showSyncMessage(`Đã thêm ${created.length} khách mời vào server.`);
+    showSyncMessage(t("recipientPanel.addedServer", { n: created.length }));
   }
 }
 
@@ -514,10 +515,10 @@ async function updateRecipientName(recipient) {
     if (result && result.status === "success") {
       recipient.__savedName = recipient.Name;
 
-      showSyncMessage("Đã cập nhật tên khách mời.");
+      showSyncMessage(t("recipientPanel.renamed"));
     } else {
       showSyncMessage(
-        result?.message || "Không thể cập nhật tên khách mời.",
+        result?.message || t("recipientPanel.renameFailed"),
         true
       );
     }
@@ -525,7 +526,7 @@ async function updateRecipientName(recipient) {
     console.error("[RecipientPanel] updateRecipient error:", error);
 
     showSyncMessage(
-      error?.response?.data?.message || "Không thể cập nhật tên khách mời.",
+      error?.response?.data?.message || t("recipientPanel.renameFailed"),
       true
     );
   } finally {
@@ -547,11 +548,11 @@ async function removeRecipient(index) {
   const target = props.wedding.recipientName[index];
 
   const ok = await confirmDialog({
-    title: "Xoá khách mời?",
+    get title() { return t("recipientPanel.confirmTitle"); },
     message: target?.Name
-      ? `"${target.Name}" sẽ bị xoá khỏi danh sách và link cá nhân của khách sẽ ngừng hoạt động.`
-      : "Khách mời này sẽ bị xoá khỏi danh sách.",
-    confirmText: "Xoá khách",
+      ? t("recipientPanel.confirmNamed", { name: target.Name })
+      : t("recipientPanel.confirmMessage"),
+    get confirmText() { return t("recipientPanel.confirmRemove"); },
     danger: true,
   });
 
@@ -578,10 +579,10 @@ async function removeRecipient(index) {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      showSyncMessage("Đã xóa khách mời khỏi server.");
+      showSyncMessage(t("recipientPanel.removed"));
     } else {
       showSyncMessage(
-        result?.message || "Không thể xóa khách mời trên server.",
+        result?.message || t("recipientPanel.removeFailed"),
         true
       );
     }
@@ -589,7 +590,7 @@ async function removeRecipient(index) {
     console.error("[RecipientPanel] deleteRecipient error:", error);
 
     showSyncMessage(
-      error?.response?.data?.message || "Không thể xóa khách mời trên server.",
+      error?.response?.data?.message || t("recipientPanel.removeFailed"),
       true
     );
   } finally {
@@ -623,11 +624,11 @@ async function copyGuestLink(recipient) {
   try {
     await navigator.clipboard.writeText(url);
 
-    showSyncMessage("Đã sao chép link cá nhân của khách.");
+    showSyncMessage(t("recipientPanel.linkCopied"));
   } catch (error) {
     console.error("[RecipientPanel] copyGuestLink error:", error);
 
-    showSyncMessage("Không thể sao chép link.", true);
+    showSyncMessage(t("recipientPanel.copyFailed"), true);
   }
 }
 
@@ -644,12 +645,12 @@ async function copyAllLinks() {
         return "";
       }
 
-      return `${recipient.Name || "Khách mời"}\t${url}`;
+      return `${recipient.Name || t("guestbookPanel.guest")}\t${url}`;
     })
     .filter(Boolean);
 
   if (!lines.length) {
-    showSyncMessage("Chưa có link nào để sao chép.", true);
+    showSyncMessage(t("recipientPanel.noLinks"), true);
 
     return;
   }
@@ -657,11 +658,11 @@ async function copyAllLinks() {
   try {
     await navigator.clipboard.writeText(lines.join("\n"));
 
-    showSyncMessage(`Đã sao chép ${lines.length} link khách mời.`);
+    showSyncMessage(t("recipientPanel.linksCopied", { n: lines.length }));
   } catch (error) {
     console.error("[RecipientPanel] copyAllLinks error:", error);
 
-    showSyncMessage("Không thể sao chép danh sách link.", true);
+    showSyncMessage(t("recipientPanel.copyListFailed"), true);
   }
 }
 </script>

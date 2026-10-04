@@ -1,13 +1,15 @@
 <template>
   <section class="lp-gifts">
     <div class="lp-section-title">
-      <h2>HỘP MỪNG CƯỚI</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="lp-top-custom-head">
+        <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "gifts", "Heading", "HỘP MỪNG CƯỚI") }}</h2>
     </div>
 
-    <p class="lp-gifts__intro">
-      Những lời chúc và tình cảm của bạn<br />
-      là món quà quý giá nhất dành cho chúng mình
-    </p>
+    <p class="lp-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình") }}</p>
 
     <div class="lp-gifts__list">
       <article class="lp-gifts__item">
@@ -192,10 +194,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },
 });
 
@@ -272,7 +276,7 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* Tiêu đề có khung frame-title */
@@ -303,17 +307,19 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-gifts__intro {
+  white-space: pre-line;
+
   margin: 0 0 24px;
 
   font-size: 13px;
 
   line-height: 1.7;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 /* =========================================================
@@ -346,10 +352,10 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid rgba(255, 190, 137, 0.3);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3);
   border-radius: 14px;
 
-  background: rgba(255, 190, 137, 0.05);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.05);
 
   cursor: pointer;
 
@@ -377,8 +383,8 @@ onBeforeUnmount(() => {
 
   background: radial-gradient(
     circle,
-    rgba(255, 190, 137, 0.35),
-    rgba(255, 190, 137, 0.1) 45%,
+    rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.35),
+    rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1) 45%,
     transparent 72%
   );
 
@@ -400,13 +406,13 @@ onBeforeUnmount(() => {
 
   border-radius: 50%;
 
-  background: linear-gradient(140deg, rgba(255, 190, 137, 0.2), rgba(212, 175, 55, 0.15));
+  background: linear-gradient(140deg, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2), rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.15));
 
-  border: 1px solid rgba(255, 190, 137, 0.5);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
 
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.35),
-    inset 0 2px 6px rgba(255, 190, 137, 0.2);
+    inset 0 2px 6px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2);
 
   animation: lp-gift-float 3.5s ease-in-out infinite;
 
@@ -457,13 +463,13 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 6;
 
-  color: #d4af37;
+  color: var(--tc-d4af37, #d4af37);
 
   font-family: Georgia, serif;
 
   text-shadow:
-    0 0 8px rgba(255, 190, 137, 0.9),
-    0 0 14px rgba(212, 175, 55, 0.35);
+    0 0 8px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.9),
+    0 0 14px rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.35);
 
   pointer-events: none;
 
@@ -488,7 +494,7 @@ onBeforeUnmount(() => {
 
   transform: translateX(-50%);
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 
   font-size: 11px;
   font-weight: 700;
@@ -540,15 +546,15 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  border: 1px solid rgba(255, 190, 137, 0.45);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.45);
   border-radius: 16px;
 
-  background: #5a000e;
+  background: var(--tc-5a000e, #5a000e);
 
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
 
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 190, 137, 0.4) transparent;
+  scrollbar-color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4) transparent;
 }
 
 .lp-gift-dialog__close {
@@ -565,12 +571,12 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  border: 1px solid rgba(255, 190, 137, 0.4);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
   border-radius: 50%;
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
   cursor: pointer;
 
@@ -580,7 +586,7 @@ onBeforeUnmount(() => {
 .lp-gift-dialog__close:hover {
   transform: rotate(90deg);
 
-  background: rgba(255, 190, 137, 0.2);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2);
 }
 
 .lp-gift-dialog__symbol {
@@ -602,7 +608,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-gift-dialog__desc {
@@ -614,7 +620,7 @@ onBeforeUnmount(() => {
 
   line-height: 1.6;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 /* =========================================================
@@ -632,10 +638,10 @@ onBeforeUnmount(() => {
 .lp-account-card {
   padding: 16px;
 
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.4);
   border-radius: 12px;
 
-  background: rgba(255, 190, 137, 0.06);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.06);
 
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -664,16 +670,16 @@ onBeforeUnmount(() => {
 
   flex: 0 0 auto;
 
-  color: #d4af37;
+  color: var(--tc-d4af37, #d4af37);
 
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  border: 1px solid rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.5);
   border-radius: 50%;
 
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.1);
 }
 
 .lp-account-label {
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   font-size: 10px;
   font-weight: 700;
@@ -684,7 +690,7 @@ onBeforeUnmount(() => {
 .lp-account-bank {
   margin-top: 2px;
 
-  color: rgba(255, 190, 137, 0.65);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.65);
 
   font-size: 10px;
 }
@@ -722,7 +728,7 @@ onBeforeUnmount(() => {
 .lp-qr-inner {
   padding: 7px;
 
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  border: 1px solid rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.45);
 
   background: white;
 
@@ -753,7 +759,7 @@ onBeforeUnmount(() => {
   width: 18px;
   height: 18px;
 
-  border-color: #d4af37;
+  border-color: var(--tc-d4af37, #d4af37);
   border-style: solid;
 
   pointer-events: none;
@@ -772,7 +778,7 @@ onBeforeUnmount(() => {
 
   margin-top: 7px;
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 
   font-size: 11px;
   font-weight: 700;
@@ -789,10 +795,10 @@ onBeforeUnmount(() => {
 
   padding: 11px 12px;
 
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.3);
   border-radius: 10px;
 
-  background: rgba(255, 190, 137, 0.05);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.05);
 }
 
 .lp-info-row {
@@ -811,7 +817,7 @@ onBeforeUnmount(() => {
 }
 
 .lp-info-label {
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 
   font-size: 11px;
   font-weight: 700;
@@ -820,7 +826,7 @@ onBeforeUnmount(() => {
 }
 
 .lp-info-value {
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   font-size: 11px;
   font-weight: 600;
@@ -829,7 +835,7 @@ onBeforeUnmount(() => {
 }
 
 .lp-account-number {
-  color: #d4af37;
+  color: var(--tc-d4af37, #d4af37);
 
   letter-spacing: 0.06em;
 }
@@ -839,7 +845,7 @@ onBeforeUnmount(() => {
 
   margin: 8px 0;
 
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.35), transparent);
 }
 
 .lp-copy-button {
@@ -852,12 +858,12 @@ onBeforeUnmount(() => {
 
   flex: 0 0 auto;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  border: 1px solid rgba(255, 190, 137, 0.4);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
   border-radius: 50%;
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
   cursor: pointer;
 
@@ -867,13 +873,13 @@ onBeforeUnmount(() => {
 .lp-copy-button:hover {
   transform: scale(1.08);
 
-  background: rgba(255, 190, 137, 0.2);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2);
 }
 
 .lp-account-desc {
   margin-top: 9px;
 
-  color: rgba(255, 190, 137, 0.65);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.65);
 
   font-size: 10px;
   font-style: italic;
@@ -891,14 +897,14 @@ onBeforeUnmount(() => {
 
   margin-top: 20px;
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 }
 
 .lp-gift-dialog__footer span {
   width: 55px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(255, 190, 137, 0.5));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5));
 }
 
 .lp-gift-dialog__footer span:last-child {
@@ -946,10 +952,10 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  border: 1px solid rgba(255, 190, 137, 0.5);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
   border-radius: 14px;
 
-  background: #5a000e;
+  background: var(--tc-5a000e, #5a000e);
 
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
 }
@@ -967,12 +973,12 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  border: 1px solid rgba(255, 190, 137, 0.4);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
   border-radius: 50%;
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
   cursor: pointer;
 }
@@ -980,7 +986,7 @@ onBeforeUnmount(() => {
 .lp-qr-preview__title {
   margin-bottom: 15px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   font-size: 11px;
   font-weight: 700;
@@ -995,7 +1001,7 @@ onBeforeUnmount(() => {
 
   padding: 12px;
 
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  border: 1px solid rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.5);
 
   background: white;
 
@@ -1014,7 +1020,7 @@ onBeforeUnmount(() => {
 .lp-qr-preview__card p {
   margin: 14px 0;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 
   font-size: 11px;
   font-style: italic;
@@ -1028,11 +1034,11 @@ onBeforeUnmount(() => {
 
   padding: 9px 15px;
 
-  color: #710001;
+  color: var(--tc-710001, #710001);
 
   border-radius: 999px;
 
-  background: #ffbe89;
+  background: var(--tc-ffbe89, #ffbe89);
 
   font-size: 11px;
   font-weight: 700;
@@ -1041,7 +1047,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  box-shadow: 0 7px 18px rgba(255, 190, 137, 0.28);
+  box-shadow: 0 7px 18px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.28);
 }
 
 /* =========================================================
@@ -1254,5 +1260,38 @@ onBeforeUnmount(() => {
 
 :global(body.lp-gift-dialog-open) {
   overflow: hidden;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-top-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

@@ -516,7 +516,7 @@ onBeforeUnmount(() => {
 .rr-eyebrow {
   margin: 0;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 
   font-size: 10px;
   font-weight: 700;
@@ -535,7 +535,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 /* =====================================================
@@ -570,14 +570,14 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 
-  border: 1px solid rgba(196, 106, 126, 0.35);
+  border: 1px solid rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.35);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(250, 228, 233, 0.65));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(var(--tc-fae4e9-rgb, 250, 228, 233), 0.65));
 
-  box-shadow: 0 18px 44px rgba(110, 38, 50, 0.08);
+  box-shadow: 0 18px 44px rgba(var(--tc-6e2632-rgb, 110, 38, 50), 0.08);
 
   overflow: hidden;
 }
@@ -587,7 +587,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(217, 152, 166, 0.25);
+  border: 1px solid rgba(var(--tc-d998a6-rgb, 217, 152, 166), 0.25);
   border-radius: 20px;
 
   pointer-events: none;
@@ -612,7 +612,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-mini-divider {
@@ -621,14 +621,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #6e3844;
+  color: var(--tc-6e3844, #6e3844);
 }
 
 .rr-mini-divider span {
   width: 35px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 152, 166, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d998a6-rgb, 217, 152, 166), 0.7));
 }
 
 .rr-mini-divider span:last-child {
@@ -657,7 +657,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-event-main-date {
@@ -677,7 +677,7 @@ onBeforeUnmount(() => {
 
   line-height: 0.85;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-date-side {
@@ -689,21 +689,21 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-date-side strong {
   font-size: 18px;
   font-weight: 600;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-event-lunar {
   font-size: 14px;
   font-style: italic;
 
-  color: #703a46;
+  color: var(--tc-703a46, #703a46);
 }
 
 /* =====================================================
@@ -720,7 +720,7 @@ onBeforeUnmount(() => {
   margin: 10px auto 0;
   padding: 15px 0;
 
-  border-bottom: 1px solid rgba(217, 152, 166, 0.3);
+  border-bottom: 1px solid rgba(var(--tc-d998a6-rgb, 217, 152, 166), 0.3);
 }
 
 .rr-event-time div {
@@ -735,14 +735,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-event-time strong {
   font-size: 23px;
   font-weight: 600;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 /* =====================================================
@@ -770,7 +770,7 @@ onBeforeUnmount(() => {
 
   width: 1px;
 
-  background: rgba(217, 152, 166, 0.45);
+  background: rgba(var(--tc-d998a6-rgb, 217, 152, 166), 0.45);
 }
 
 .rr-schedule-row {
@@ -795,9 +795,9 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #6e3844;
+  border: 1px solid var(--tc-6e3844, #6e3844);
 
-  background: #fdf7f8;
+  background: var(--tc-fdf7f8, #fdf7f8);
 
   z-index: 2;
 }
@@ -805,7 +805,7 @@ onBeforeUnmount(() => {
 .rr-schedule-dot span {
   font-size: 11px;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-schedule-content {
@@ -822,14 +822,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #703a46;
+  color: var(--tc-703a46, #703a46);
 }
 
 .rr-schedule-content strong {
   font-size: 21px;
   font-weight: 600;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 /* =====================================================
@@ -860,7 +860,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-calendar__header strong {
@@ -868,7 +868,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.1em;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-calendar__weekdays,
@@ -884,14 +884,14 @@ onBeforeUnmount(() => {
 .rr-calendar__weekdays {
   padding-bottom: 8px;
 
-  border-bottom: 1px solid rgba(217, 152, 166, 0.25);
+  border-bottom: 1px solid rgba(var(--tc-d998a6-rgb, 217, 152, 166), 0.25);
 }
 
 .rr-calendar__weekdays span {
   font-size: 10px;
   font-weight: 700;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-calendar__cell {
@@ -905,7 +905,7 @@ onBeforeUnmount(() => {
 .rr-normal-day {
   font-size: 12px;
 
-  color: #7a4450;
+  color: var(--tc-7a4450, #7a4450);
 }
 
 .rr-active-day {
@@ -924,7 +924,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #6e3844;
+  color: var(--tc-6e3844, #6e3844);
 }
 
 .rr-active-day span:last-child {
@@ -932,7 +932,7 @@ onBeforeUnmount(() => {
 
   font-weight: 700;
 
-  color: #fef9fa;
+  color: var(--tc-fef9fa, #fef9fa);
 }
 
 .rr-calendar-btn {
@@ -950,7 +950,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 /* =====================================================
@@ -972,11 +972,11 @@ onBeforeUnmount(() => {
   border: 0;
   border-radius: 999px;
 
-  color: #fef9fa;
+  color: var(--tc-fef9fa, #fef9fa);
 
-  background: linear-gradient(135deg, #683440, #8c4452);
+  background: linear-gradient(135deg, var(--tc-683440, #683440), var(--tc-8c4452, #8c4452));
 
-  box-shadow: 0 10px 24px rgba(110, 38, 50, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-6e2632-rgb, 110, 38, 50), 0.24);
 
   font-size: 11px;
   font-weight: 700;
@@ -991,7 +991,7 @@ onBeforeUnmount(() => {
 .rr-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(110, 38, 50, 0.32);
+  box-shadow: 0 14px 30px rgba(var(--tc-6e2632-rgb, 110, 38, 50), 0.32);
 }
 
 /* =====================================================
@@ -1008,14 +1008,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #6e3844;
+  color: var(--tc-6e3844, #6e3844);
 }
 
 .rr-event-bottom span {
   width: 60px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 152, 166, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d998a6-rgb, 217, 152, 166), 0.6));
 }
 
 .rr-event-bottom span:last-child {
@@ -1062,7 +1062,7 @@ onBeforeUnmount(() => {
 
   padding: 20px;
 
-  background: rgba(74, 35, 42, 0.45);
+  background: rgba(var(--tc-4a232a-rgb, 74, 35, 42), 0.45);
 
   backdrop-filter: blur(6px);
 }
@@ -1078,16 +1078,16 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(196, 106, 126, 0.45);
+  border: 1px solid rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.45);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, #fefcfc, #fce8ec);
+  background: linear-gradient(170deg, var(--tc-fefcfc, #fefcfc), var(--tc-fce8ec, #fce8ec));
 
-  box-shadow: 0 30px 80px rgba(74, 35, 42, 0.3);
+  box-shadow: 0 30px 80px rgba(var(--tc-4a232a-rgb, 74, 35, 42), 0.3);
 
   text-align: center;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-modal-close {
@@ -1102,7 +1102,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 
   background: transparent;
 
@@ -1118,7 +1118,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #6e3844;
+  color: var(--tc-6e3844, #6e3844);
 }
 
 .rr-modal-header > span {
@@ -1126,7 +1126,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-modal-header h3 {
@@ -1137,7 +1137,7 @@ onBeforeUnmount(() => {
   font-size: 32px;
   font-weight: 600;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-modal-header p {
@@ -1145,7 +1145,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #7a4450;
+  color: var(--tc-7a4450, #7a4450);
 }
 
 /* =====================================================
@@ -1168,7 +1168,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-form-group input {
@@ -1176,24 +1176,24 @@ onBeforeUnmount(() => {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(196, 106, 126, 0.4);
+  border: 1px solid rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.4);
   border-radius: 12px;
 
   outline: none;
 
   font-size: 16px;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 
-  background: rgba(254, 252, 253, 0.9);
+  background: rgba(var(--tc-fefcfd-rgb, 254, 252, 253), 0.9);
 
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .rr-form-group input:focus {
-  border-color: #683440;
+  border-color: var(--tc-683440, #683440);
 
-  box-shadow: 0 0 0 3px rgba(196, 106, 126, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.14);
 }
 
 .rr-attendance {
@@ -1205,16 +1205,16 @@ onBeforeUnmount(() => {
 .rr-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(196, 106, 126, 0.4);
+  border: 1px solid rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.4);
   border-radius: 12px;
 
   text-align: left;
 
   font-size: 13px;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 
-  background: rgba(254, 252, 253, 0.8);
+  background: rgba(var(--tc-fefcfd-rgb, 254, 252, 253), 0.8);
 
   cursor: pointer;
 
@@ -1222,9 +1222,9 @@ onBeforeUnmount(() => {
 }
 
 .rr-attendance-option.selected {
-  border-color: #683440;
+  border-color: var(--tc-683440, #683440);
 
-  background: rgba(196, 106, 126, 0.12);
+  background: rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.12);
 
   font-weight: 600;
 }
@@ -1232,7 +1232,7 @@ onBeforeUnmount(() => {
 .rr-attendance-option span {
   margin-right: 8px;
 
-  color: #6e3844;
+  color: var(--tc-6e3844, #6e3844);
 }
 
 .rr-people-control {
@@ -1246,14 +1246,14 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #6e3844;
+  border: 1px solid var(--tc-6e3844, #6e3844);
   border-radius: 50%;
 
   font-size: 20px;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 
-  background: #fdf7f8;
+  background: var(--tc-fdf7f8, #fdf7f8);
 
   cursor: pointer;
 }
@@ -1265,7 +1265,7 @@ onBeforeUnmount(() => {
 
   font-size: 18px;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-recipient-box {
@@ -1273,12 +1273,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px dashed rgba(196, 106, 126, 0.5);
+  border: 1px dashed rgba(var(--tc-c46a7e-rgb, 196, 106, 126), 0.5);
   border-radius: 16px;
 
   text-align: center;
 
-  background: rgba(254, 250, 251, 0.7);
+  background: rgba(var(--tc-fefafb-rgb, 254, 250, 251), 0.7);
 }
 
 .rr-recipient-box span {
@@ -1288,7 +1288,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #683440;
+  color: var(--tc-683440, #683440);
 }
 
 .rr-recipient-box strong {
@@ -1299,7 +1299,7 @@ onBeforeUnmount(() => {
   font-size: 28px;
   font-weight: 400;
 
-  color: #8c2f42;
+  color: var(--tc-8c2f42, #8c2f42);
 }
 
 .rr-form-error,
@@ -1316,15 +1316,15 @@ onBeforeUnmount(() => {
 }
 
 .rr-form-error {
-  color: #a33d4e;
+  color: var(--tc-a33d4e, #a33d4e);
 
-  background: rgba(163, 61, 78, 0.08);
+  background: rgba(var(--tc-a33d4e-rgb, 163, 61, 78), 0.08);
 }
 
 .rr-form-success {
-  color: #8a5c54;
+  color: var(--tc-8a5c54, #8a5c54);
 
-  background: rgba(138, 92, 84, 0.08);
+  background: rgba(var(--tc-8a5c54-rgb, 138, 92, 84), 0.08);
 }
 
 .rr-modal-submit {
@@ -1342,11 +1342,11 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #fef9fa;
+  color: var(--tc-fef9fa, #fef9fa);
 
-  background: linear-gradient(135deg, #683440, #8c4452);
+  background: linear-gradient(135deg, var(--tc-683440, #683440), var(--tc-8c4452, #8c4452));
 
-  box-shadow: 0 10px 24px rgba(110, 38, 50, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-6e2632-rgb, 110, 38, 50), 0.24);
 
   cursor: pointer;
 

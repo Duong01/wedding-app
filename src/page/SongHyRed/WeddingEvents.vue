@@ -4,7 +4,12 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <h2 class="shy-bar">THÔNG TIN TIỆC CƯỚI</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="shy-top-custom-head">
+      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="shy-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="shy-bar">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
 
     <!-- =====================================================
          NỘI DUNG
@@ -19,6 +24,11 @@
       >
         <!-- GIỜ + NGÀY -->
         <template v-if="event.hasDate">
+          <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+          <header v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="shy-cd-custom-head">
+            <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="shy-cd-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
+          </header>
+
           <h3 class="shy-event__title">Tiệc cưới sẽ diễn ra vào lúc:</h3>
 
           <p v-if="event.time" class="shy-event__time">{{ event.time }}</p>
@@ -41,7 +51,7 @@
 
           <!-- ĐẾM NGƯỢC -->
           <div class="shy-countdown">
-            <p class="shy-countdown__label">CÙNG ĐẾM NGƯỢC</p>
+            <p class="shy-countdown__label">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</p>
 
             <div class="shy-countdown__grid">
               <div class="shy-countdown__cell">
@@ -224,6 +234,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
@@ -236,6 +247,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -1368,5 +1380,71 @@ onBeforeUnmount(() => {
   .shy-modal-leave-active {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shy-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shy-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shy-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shy-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shy-cd-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shy-cd-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shy-cd-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shy-cd-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

@@ -1,12 +1,11 @@
 <template>
-  <div class="serene-green-theme">
+  <div class="serene-green-theme" :style="colorVars">
     <OpeningScreen
       v-if="!opened"
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <main v-else class="serene-invitation">
       <WeddingHero
@@ -20,15 +19,14 @@
 
       <div class="serene-content">
         <section v-if="showCouple" class="serene-section">
-          <WeddingCouple :wedding="wedding" :guest-name="guestName" />
+          <WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" />
         </section>
         <section v-if="showStory && useMilestoneStory" class="serene-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="serene-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="serene-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
         <section v-if="showEvents && events.length" class="serene-section">
           <WeddingEvents :events="events" :recipient-name="wedding?.recipientName"
-            :settings="settings"
-          />
+            :settings="settings" :sections="sections" />
         </section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
@@ -39,29 +37,28 @@
 
         <section v-if="showGame" class="serene-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="serene-section">
-          <Timeline :timeline="timeline" :events="events" />
+          <Timeline :timeline="timeline" :events="events" :sections="sections" />
         </section>
         <section v-if="showCountdown" class="serene-section">
-          <WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" />
+          <WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" />
         </section>
         <section v-if="showGallery && gallery.length" class="serene-section">
-          <WeddingGallery :gallery="gallery" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
         </section>
 
       </div>
       <section v-if="showGift && gifts.length" class="serene-section">
-        <WeddingGifts :gifts="gifts" />
+        <WeddingGifts :gifts="gifts" :sections="sections" />
       </section>
       <section v-if="showGuestBook" class="serene-section">
-        <WeddingWishes :wishes="wishes" :wedding="wedding" />
+        <WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" />
       </section>
 
       <WeddingFooter
         v-if="showFooter"
         :wedding="wedding"
         :monogram="monogram"
-        :current-year="currentYear"
-      />
+        :current-year="currentYear" :sections="sections" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
 
@@ -71,6 +68,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -93,6 +91,12 @@ import WeddingWishes from "@/page/SereneGreen/WeddingWishes.vue";
 import WeddingFooter from "@/page/SereneGreen/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -179,12 +183,12 @@ onMounted(() => {
 
 <style scoped>
 .serene-green-theme {
-  --theme-primary: #28514b;
-  --theme-secondary: #6c8e7a;
-  --theme-accent: #c8d4c3;
-  --theme-bg: #f5f8f4;
+  --theme-primary: var(--tc-28514b, #28514b);
+  --theme-secondary: var(--tc-6c8e7a, #6c8e7a);
+  --theme-accent: var(--tc-c8d4c3, #c8d4c3);
+  --theme-bg: var(--tc-f5f8f4, #f5f8f4);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #2e3834;
+  --theme-text: var(--tc-2e3834, #2e3834);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -194,21 +198,21 @@ onMounted(() => {
 }
 
 .serene-invitation { width: 100%; }
-.serene-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(237,244,235,0.8)); }
+.serene-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(var(--tc-edf4eb-rgb, 237, 244, 235), 0.8)); }
 .serene-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .serene-green-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .serene-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(40, 81, 75, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.16);
   }
 }
 </style>

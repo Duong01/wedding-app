@@ -45,15 +45,15 @@ const storyTitle = computed(() => {
 
 <style scoped>
 .dh-story {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream-on-red: #f7e6c4;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream-on-red: var(--tc-f7e6c4, #f7e6c4);
 
   text-align: center;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 }
 
 .dh-eyebrow {

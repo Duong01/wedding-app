@@ -15,7 +15,7 @@
       >
         <v-icon size="16"> mdi-arrow-left </v-icon>
 
-        Quay lại
+        {{ $t('login.back') }}
       </button>
 
       <!-- =========================================
@@ -36,7 +36,7 @@
           :class="{ active: mode === 'login' }"
           @click="mode = 'login'"
         >
-          Đăng nhập
+          {{ $t('auth.login') }}
         </button>
 
         <button
@@ -45,7 +45,7 @@
           :class="{ active: mode === 'register' }"
           @click="mode = 'register'"
         >
-          Đăng ký
+          {{ $t('auth.register') }}
         </button>
       </div>
 
@@ -57,28 +57,27 @@
         class="auth-form"
         @submit.prevent="submitLogin"
       >
-        <h1>Chào mừng trở lại</h1>
+        <h1>{{ $t('login.welcome') }}</h1>
 
         <p class="auth-sub">
-          Đăng nhập bằng tên đăng nhập hoặc email để quản lý thiệp cưới
-          của bạn.
+          {{ $t('login.sub') }}
         </p>
 
         <div class="field">
-          <label for="login-email">Tên đăng nhập hoặc Email</label>
+          <label for="login-email">{{ $t('login.identifier') }}</label>
 
           <input
             id="login-email"
             v-model.trim="loginForm.email"
             type="text"
             autocomplete="username"
-            placeholder="username hoặc you@example.com"
+            :placeholder="$t('login.identifierPlaceholder')"
             required
           />
         </div>
 
         <div class="field">
-          <label for="login-password">Mật khẩu</label>
+          <label for="login-password">{{ $t('login.password') }}</label>
 
           <div class="password-wrap">
             <input
@@ -107,6 +106,12 @@
           {{ errorMessage }}
         </p>
 
+        <!-- Vừa đăng ký xong → nhắc đăng nhập -->
+        <p v-if="successMessage" class="auth-success">
+          <v-icon size="15"> mdi-check-circle-outline </v-icon>
+          {{ successMessage }}
+        </p>
+
         <button
           type="submit"
           class="auth-submit"
@@ -120,19 +125,19 @@
           />
 
           <span>
-            {{ submitting ? "Đang đăng nhập..." : "Đăng nhập" }}
+            {{ submitting ? $t('login.loggingIn') : $t('auth.login') }}
           </span>
         </button>
 
         <p class="auth-switch">
-          Chưa có tài khoản?
+          {{ $t('login.noAccount') }}
 
           <button
             type="button"
             class="link-btn"
             @click="mode = 'register'"
           >
-            Đăng ký ngay
+            {{ $t('login.registerNow') }}
           </button>
         </p>
 
@@ -142,7 +147,7 @@
             class="link-btn link-btn-muted"
             @click="mode = 'forgot'"
           >
-            Quên mật khẩu?
+            {{ $t('login.forgot') }}
           </button>
         </p>
       </form>
@@ -155,10 +160,10 @@
         class="auth-form"
         @submit.prevent="submitForgot"
       >
-        <h1>Đặt lại mật khẩu</h1>
+        <h1>{{ $t('login.resetTitle') }}</h1>
 
         <p class="auth-sub">
-          Nhập email tài khoản và mật khẩu mới để đặt lại.
+          {{ $t('login.resetSub') }}
         </p>
 
         <div class="field">
@@ -175,7 +180,7 @@
         </div>
 
         <div class="field">
-          <label for="forgot-password">Mật khẩu mới</label>
+          <label for="forgot-password">{{ $t('login.newPassword') }}</label>
 
           <div class="password-wrap">
             <input
@@ -183,7 +188,7 @@
               v-model="forgotForm.password"
               :type="showPassword ? 'text' : 'password'"
               autocomplete="new-password"
-              placeholder="Tối thiểu 6 ký tự"
+              :placeholder="$t('login.minChars')"
               minlength="6"
               required
             />
@@ -229,7 +234,7 @@
           />
 
           <span>
-            {{ submitting ? "Đang đặt lại..." : "Đặt lại mật khẩu" }}
+            {{ submitting ? $t('login.resetting') : $t('login.resetTitle') }}
           </span>
         </button>
 
@@ -239,7 +244,7 @@
             class="link-btn"
             @click="mode = 'login'"
           >
-            ← Quay lại đăng nhập
+            {{ $t('login.backToLogin') }}
           </button>
         </p>
       </form>
@@ -252,14 +257,14 @@
         class="auth-form"
         @submit.prevent="submitRegister"
       >
-        <h1>Tạo tài khoản mới</h1>
+        <h1>{{ $t('login.createTitle') }}</h1>
 
         <p class="auth-sub">
-          Chỉ cần tên đăng nhập và mật khẩu — các thông tin khác tùy chọn.
+          {{ $t('login.createSub') }}
         </p>
 
         <div class="field">
-          <label for="reg-username">Tên đăng nhập</label>
+          <label for="reg-username">{{ $t('login.username') }}</label>
 
           <input
             id="reg-username"
@@ -272,7 +277,7 @@
         </div>
 
         <div class="field">
-          <label for="reg-email">Email <span class="optional">(không bắt buộc)</span></label>
+          <label for="reg-email">Email <span class="optional">{{ $t('login.optional') }}</span></label>
 
           <input
             id="reg-email"
@@ -284,18 +289,18 @@
         </div>
 
         <div class="field">
-          <label for="reg-fullname">Họ và tên <span class="optional">(không bắt buộc)</span></label>
+          <label for="reg-fullname">{{ $t('login.fullName') }} <span class="optional">{{ $t('login.optional') }}</span></label>
 
           <input
             id="reg-fullname"
             v-model.trim="registerForm.fullName"
             type="text"
-            placeholder="Nguyễn Văn A"
+            :placeholder="$t('login.namePlaceholder')"
           />
         </div>
 
         <div class="field">
-          <label for="reg-phone">Số điện thoại <span class="optional">(không bắt buộc)</span></label>
+          <label for="reg-phone">{{ $t('login.phone') }} <span class="optional">{{ $t('login.optional') }}</span></label>
 
           <input
             id="reg-phone"
@@ -306,7 +311,7 @@
         </div>
 
         <div class="field">
-          <label for="reg-password">Mật khẩu</label>
+          <label for="reg-password">{{ $t('login.password') }}</label>
 
           <div class="password-wrap">
             <input
@@ -314,7 +319,7 @@
               v-model="registerForm.password"
               :type="showPassword ? 'text' : 'password'"
               autocomplete="new-password"
-              placeholder="Tối thiểu 6 ký tự"
+              :placeholder="$t('login.minChars')"
               minlength="6"
               required
             />
@@ -349,19 +354,19 @@
           />
 
           <span>
-            {{ submitting ? "Đang đăng ký..." : "Đăng ký tài khoản" }}
+            {{ submitting ? $t('login.registering') : $t('login.registerSubmit') }}
           </span>
         </button>
 
         <p class="auth-switch">
-          Đã có tài khoản?
+          {{ $t('login.haveAccount') }}
 
           <button
             type="button"
             class="link-btn"
             @click="mode = 'login'"
           >
-            Đăng nhập
+            {{ $t('auth.login') }}
           </button>
         </p>
       </form>
@@ -374,12 +379,15 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import { computed, nextTick, reactive, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
 import { useWeddingEditorStore } from "@/stores/weddingEditor";
 import { ForgotPassword } from "@/model/api";
+
+const { t } = useI18n();
 
 defineOptions({
   name: "AuthLogin",
@@ -484,6 +492,7 @@ async function submitLogin() {
   }
 
   errorMessage.value = "";
+  successMessage.value = "";
   submitting.value = true;
 
   try {
@@ -492,7 +501,7 @@ async function submitLogin() {
     redirectAfterAuth();
   } catch (e) {
     errorMessage.value =
-      e?.message || "Đăng nhập thất bại. Vui lòng thử lại.";
+      e?.message || t("login.loginFailed");
   } finally {
     submitting.value = false;
   }
@@ -516,20 +525,30 @@ async function submitRegister() {
     });
 
     /*
-     * Đăng ký thành công → đăng nhập luôn cho tiện.
-     * Lưu ý: backend cho phép đăng nhập bằng Username
-     * hoặc Email — nếu không nhập Email thì đăng nhập
-     * bằng Username.
+     * Đăng ký thành công → chuyển sang form đăng nhập để
+     * người dùng tự đăng nhập (không đăng nhập hộ). Điền
+     * sẵn Email (hoặc Username nếu không nhập Email —
+     * backend nhận cả hai), mật khẩu để trống.
+     *
+     * ?redirect giữ nguyên trên URL nên đăng nhập xong vẫn
+     * quay về đúng chỗ (vd. Editor khi bấm "Lưu thiệp").
      */
-    await auth.login(
-      registerForm.email || registerForm.username,
-      registerForm.password
-    );
+    const loginName = registerForm.email || registerForm.username;
 
-    redirectAfterAuth();
+    mode.value = "login";
+
+    /* watch(mode) xoá thông báo khi đổi tab — đặt sau lượt đó */
+    await nextTick();
+
+    loginForm.email = loginName;
+    loginForm.password = "";
+
+    registerForm.password = "";
+
+    successMessage.value = t("login.registered");
   } catch (e) {
     errorMessage.value =
-      e?.message || "Đăng ký thất bại. Vui lòng thử lại.";
+      e?.message || t("login.registerFailed");
   } finally {
     submitting.value = false;
   }
@@ -558,17 +577,17 @@ async function submitForgot() {
 
     if (!result || result.status !== "success") {
       throw new Error(
-        result?.message || "Đặt lại mật khẩu thất bại. Vui lòng thử lại."
+        result?.message || t("login.resetFailed")
       );
     }
 
     successMessage.value =
-      "Đã đặt lại mật khẩu. Bạn có thể đăng nhập bằng mật khẩu mới.";
+      t("login.resetDone");
 
     forgotForm.password = "";
   } catch (e) {
     errorMessage.value =
-      e?.message || "Đặt lại mật khẩu thất bại. Vui lòng thử lại.";
+      e?.message || t("login.resetFailed");
   } finally {
     submitting.value = false;
   }

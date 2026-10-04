@@ -1,13 +1,11 @@
 <template>
   <section class="sp-timeline">
     <div class="sp-timeline__header">
-      <p class="sp-eyebrow">DẤU MỐC YÊU THƯƠNG</p>
+      <p class="sp-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
 
-      <h2>Hành trình của chúng mình</h2>
+      <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
 
-      <p class="sp-timeline__intro">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
-      </p>
+      <p class="sp-timeline__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
     </div>
 
     <ol class="sp-timeline__list">
@@ -56,9 +54,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
 });
 
@@ -79,14 +79,14 @@ function formatTime(index) {
 
   padding: 38px 20px 32px;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
-  border: 1px solid rgba(224, 163, 126, 0.45);
+  border: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.45);
   border-radius: 28px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.7), rgba(255, 242, 232, 0.5));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.7), rgba(var(--tc-fff2e8-rgb, 255, 242, 232), 0.5));
 
-  box-shadow: 0 12px 35px rgba(122, 74, 61, 0.08);
+  box-shadow: 0 12px 35px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.08);
 
   overflow: hidden;
 }
@@ -96,7 +96,7 @@ function formatTime(index) {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(224, 163, 126, 0.25);
+  border: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.25);
   border-radius: 22px;
 
   pointer-events: none;
@@ -117,7 +117,7 @@ function formatTime(index) {
 .sp-eyebrow {
   margin: 0;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 10px;
   font-weight: 700;
@@ -136,15 +136,17 @@ function formatTime(index) {
 
   line-height: 1.1;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-timeline__intro {
+  white-space: pre-line;
+
   max-width: 440px;
 
   margin: 0 auto;
 
-  color: #846859;
+  color: var(--tc-846859, #846859);
 
   font-size: 13px;
 
@@ -201,19 +203,19 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
-  border: 1px solid rgba(224, 163, 126, 0.55);
+  border: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.55);
   border-radius: 50%;
 
-  background: linear-gradient(145deg, #fffdfc, #fdeee4);
+  background: linear-gradient(145deg, var(--tc-fffdfc, #fffdfc), var(--tc-fdeee4, #fdeee4));
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
   font-size: 15px;
   font-weight: 700;
 
-  box-shadow: 0 5px 14px rgba(122, 74, 61, 0.1);
+  box-shadow: 0 5px 14px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.1);
 }
 
 .sp-timeline__line {
@@ -228,7 +230,7 @@ function formatTime(index) {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(180deg, rgba(224, 163, 126, 0.65), rgba(224, 163, 126, 0.15));
+  background: linear-gradient(180deg, rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.65), rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.15));
 }
 
 /* =========================================================
@@ -240,12 +242,12 @@ function formatTime(index) {
 
   padding: 16px 17px 17px;
 
-  border: 1px solid rgba(214, 122, 99, 0.3);
+  border: 1px solid rgba(var(--tc-d67a63-rgb, 214, 122, 99), 0.3);
   border-radius: 18px;
 
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 242, 232, 0.75));
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(var(--tc-fff2e8-rgb, 255, 242, 232), 0.75));
 
-  box-shadow: 0 7px 22px rgba(122, 74, 61, 0.06);
+  box-shadow: 0 7px 22px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.06);
 
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
@@ -253,9 +255,9 @@ function formatTime(index) {
 .sp-timeline__card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(224, 163, 126, 0.55);
+  border-color: rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.55);
 
-  box-shadow: 0 12px 28px rgba(122, 74, 61, 0.1);
+  box-shadow: 0 12px 28px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.1);
 }
 
 /* =========================================================
@@ -269,7 +271,7 @@ function formatTime(index) {
 
   margin-bottom: 8px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 11px;
   font-weight: 700;
@@ -285,11 +287,11 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   border-radius: 50%;
 
-  background: rgba(244, 198, 169, 0.5);
+  background: rgba(var(--tc-f4c6a9-rgb, 244, 198, 169), 0.5);
 }
 
 /* =========================================================
@@ -311,12 +313,12 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
-  border: 1px solid rgba(224, 163, 126, 0.4);
+  border: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.4);
   border-radius: 50%;
 
-  background: linear-gradient(145deg, #fff, #fdeee4);
+  background: linear-gradient(145deg, #fff, var(--tc-fdeee4, #fdeee4));
 
   font-size: 16px;
 }
@@ -331,7 +333,7 @@ function formatTime(index) {
 
   line-height: 1.2;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 /* =========================================================
@@ -341,7 +343,7 @@ function formatTime(index) {
 .sp-timeline__desc {
   margin: 9px 0 0;
 
-  color: #8a6353;
+  color: var(--tc-8a6353, #8a6353);
 
   font-size: 13px;
 
@@ -360,9 +362,9 @@ function formatTime(index) {
   margin-top: 11px;
   padding-top: 9px;
 
-  border-top: 1px solid rgba(224, 163, 126, 0.25);
+  border-top: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.25);
 
-  color: #846859;
+  color: var(--tc-846859, #846859);
 
   font-size: 11px;
 
@@ -370,7 +372,7 @@ function formatTime(index) {
 }
 
 .sp-timeline__location .v-icon {
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   flex: 0 0 auto;
 }
@@ -389,14 +391,14 @@ function formatTime(index) {
 
   margin-top: 27px;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 }
 
 .sp-timeline__footer span {
   width: 55px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(224, 163, 126, 0.55));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.55));
 }
 
 .sp-timeline__footer span:last-child {

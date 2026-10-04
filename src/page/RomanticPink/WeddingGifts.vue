@@ -3,14 +3,11 @@
     <!-- =========================
          HEADER
     ========================== -->
-    <div class="gg-eyebrow">GỬI YÊU THƯƠNG</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG") }}</div>
 
-    <h2 class="gg-title">Hộp Quà Mừng</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
 
-    <p class="gg-lead">
-      Những lời chúc và tình cảm của bạn<br />
-      là món quà quý giá nhất dành cho chúng mình
-    </p>
+    <p class="gg-lead">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình") }}</p>
 
     <!-- =========================
          GIFT BOX
@@ -194,10 +191,12 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 import gift from "@/assets/romatic-pink/gift.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: {
     type: Array,
     default: () => [],
@@ -904,5 +903,9 @@ onBeforeUnmount(() => {
   .gift-confetti {
     animation: none;
   }
+}
+
+.gg-lead {
+  white-space: pre-line;
 }
 </style>

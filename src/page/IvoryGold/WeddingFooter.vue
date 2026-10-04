@@ -125,7 +125,7 @@ const copyrightText = computed(() => {
 
   box-sizing: border-box;
 
-  color: #711519;
+  color: var(--tc-711519, #711519);
 
   text-align: center;
 
@@ -137,9 +137,9 @@ const copyrightText = computed(() => {
   background:
     linear-gradient(
       180deg,
-      #fffaf0 0%,
-      #f8edd9 52%,
-      #f0dfc1 100%
+      var(--tc-fffaf0, #fffaf0) 0%,
+      var(--tc-f8edd9, #f8edd9) 52%,
+      var(--tc-f0dfc1, #f0dfc1) 100%
     );
 
 }
@@ -158,7 +158,7 @@ const copyrightText = computed(() => {
 
   border:
     1px solid
-    rgba(169, 126, 61, .35);
+    rgba(var(--tc-a97e3d-rgb, 169, 126, 61), .35);
 
   pointer-events: none;
 }
@@ -173,7 +173,7 @@ const copyrightText = computed(() => {
 
   border:
     1px solid
-    rgba(169, 126, 61, .14);
+    rgba(var(--tc-a97e3d-rgb, 169, 126, 61), .14);
 
   pointer-events: none;
 }
@@ -220,7 +220,7 @@ const copyrightText = computed(() => {
   width: 66px;
   height: 66px;
 
-  color: #9a171b;
+  color: var(--tc-9a171b, #9a171b);
 
   font-family:
     "Times New Roman",
@@ -234,14 +234,14 @@ const copyrightText = computed(() => {
 
   border:
     1px solid
-    rgba(164, 117, 52, .5);
+    rgba(var(--tc-a47534-rgb, 164, 117, 52), .5);
 
   background:
-    rgba(255,250,238,.72);
+    rgba(var(--tc-fffaee-rgb, 255, 250, 238), .72);
 
   box-shadow:
     0 5px 18px
-    rgba(112, 53, 24, .07);
+    rgba(var(--tc-703518-rgb, 112, 53, 24), .07);
 }
 
 
@@ -260,11 +260,11 @@ const copyrightText = computed(() => {
 
   border:
     1px solid
-    #b58a48;
+    var(--tc-b58a48, #b58a48);
 
   transform: rotate(45deg);
 
-  background: #fff8e9;
+  background: var(--tc-fff8e9, #fff8e9);
 }
 
 
@@ -287,7 +287,7 @@ const copyrightText = computed(() => {
 .footer-monogram {
   margin-top: 15px;
 
-  color: #8e6935;
+  color: var(--tc-8e6935, #8e6935);
 
   font-family:
     Arial,
@@ -314,7 +314,7 @@ const copyrightText = computed(() => {
     0
     0;
 
-  color: #761519;
+  color: var(--tc-761519, #761519);
 
   font-family:
     Arial,
@@ -338,7 +338,7 @@ const copyrightText = computed(() => {
     0
     7px;
 
-  color: #866839;
+  color: var(--tc-866839, #866839);
 
   font-family:
     Georgia,
@@ -379,7 +379,7 @@ const copyrightText = computed(() => {
     linear-gradient(
       to right,
       transparent,
-      #b58a49
+      var(--tc-b58a49, #b58a49)
     );
 }
 
@@ -389,7 +389,7 @@ const copyrightText = computed(() => {
     linear-gradient(
       to left,
       transparent,
-      #b58a49
+      var(--tc-b58a49, #b58a49)
     );
 }
 
@@ -403,7 +403,7 @@ const copyrightText = computed(() => {
   width: 19px;
   height: 19px;
 
-  color: #a0171b;
+  color: var(--tc-a0171b, #a0171b);
 
   font-family:
     "Times New Roman",
@@ -415,7 +415,7 @@ const copyrightText = computed(() => {
 
   border:
     1px solid
-    rgba(181, 138, 73, .45);
+    rgba(var(--tc-b58a49-rgb, 181, 138, 73), .45);
 
   transform: rotate(45deg);
 }
@@ -435,7 +435,7 @@ const copyrightText = computed(() => {
 
   margin: 0 auto;
 
-  color: #78614b;
+  color: var(--tc-78614b, #78614b);
 
   font-family:
     Arial,
@@ -463,7 +463,7 @@ const copyrightText = computed(() => {
     7px
     15px;
 
-  color: #861519;
+  color: var(--tc-861519, #861519);
 
   font-size: 11px;
 
@@ -473,11 +473,11 @@ const copyrightText = computed(() => {
 
   border-top:
     1px solid
-    rgba(181, 138, 73, .35);
+    rgba(var(--tc-b58a49-rgb, 181, 138, 73), .35);
 
   border-bottom:
     1px solid
-    rgba(181, 138, 73, .35);
+    rgba(var(--tc-b58a49-rgb, 181, 138, 73), .35);
 }
 
 
@@ -492,7 +492,7 @@ const copyrightText = computed(() => {
 
   padding-top: 23px;
 
-  color: #856f52;
+  color: var(--tc-856f52, #856f52);
 
   font-family:
     Arial,
@@ -526,22 +526,22 @@ const copyrightText = computed(() => {
   background:
     radial-gradient(
       circle at 22% 70%,
-      #9d743a 0 18%,
+      var(--tc-9d743a, #9d743a) 0 18%,
       transparent 19%
     ),
     radial-gradient(
       circle at 45% 42%,
-      #9d743a 0 28%,
+      var(--tc-9d743a, #9d743a) 0 28%,
       transparent 29%
     ),
     radial-gradient(
       circle at 68% 67%,
-      #9d743a 0 22%,
+      var(--tc-9d743a, #9d743a) 0 22%,
       transparent 23%
     ),
     radial-gradient(
       circle at 88% 55%,
-      #9d743a 0 14%,
+      var(--tc-9d743a, #9d743a) 0 14%,
       transparent 15%
     );
 }
@@ -578,7 +578,7 @@ const copyrightText = computed(() => {
 
   z-index: -1;
 
-  color: rgba(165, 122, 59, .35);
+  color: rgba(var(--tc-a57a3b-rgb, 165, 122, 59), .35);
 
   font-size: 18px;
 }

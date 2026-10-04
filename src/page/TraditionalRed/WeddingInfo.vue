@@ -4,7 +4,12 @@
          THÔNG TIN LỄ CƯỚI
     ====================================================== -->
 
-    <h2 class="tr-info__title">Thông tin lễ cưới</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="tr-top-custom-head">
+      <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="tr-info__title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
 
     <div class="tr-info__families">
       <div class="tr-info__family">
@@ -95,9 +100,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),
@@ -594,5 +601,38 @@ const lunar = computed(
   .tr-info__when-day {
     font-size: 28px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

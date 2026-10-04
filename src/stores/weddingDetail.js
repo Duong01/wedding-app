@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 import { defineStore } from "pinia";
 import { GetWedding } from "@/model/api";
 
@@ -37,7 +39,7 @@ export const useWeddingDetailStore = defineStore("weddingDetail", {
         this.error =
           result?.message ||
           result?.Message ||
-          "Không tìm thấy thiệp.";
+          t("wedding.notFound");
 
         throw new Error(this.error);
       } catch (error) {
@@ -48,7 +50,7 @@ export const useWeddingDetailStore = defineStore("weddingDetail", {
           error?.response?.data?.message ||
           error?.response?.data?.Message ||
           error?.message ||
-          "Không thể tải thông tin thiệp.";
+          t("wedding.loadInfoFailed");
 
         throw error;
       } finally {

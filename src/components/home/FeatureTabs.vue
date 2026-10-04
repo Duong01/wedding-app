@@ -2,16 +2,15 @@
   <section class="mk-section">
     <div class="mk-container">
       <header class="mk-head mk-head--center">
-        <p class="mk-eyebrow">Tính năng</p>
+        <p class="mk-eyebrow">{{ $t('pricing.feature') }}</p>
 
         <h2>
-          Mọi thứ một tấm thiệp cưới
-          <em>cần có.</em>
+          {{ $t('tabs.h2a') }}
+          <em>{{ $t('tabs.h2b') }}</em>
         </h2>
 
         <p>
-          Không chỉ là lời mời. Đây là nơi khách mời xem ảnh, chỉ đường, gửi
-          lời chúc và mừng cưới — tất cả trong một đường link.
+          {{ $t('tabs.lead') }}
         </p>
       </header>
 
@@ -58,7 +57,7 @@
             :to="{ name: 'Templates' }"
             class="mk-btn mk-btn--outline mk-btn--sm"
           >
-            Xem mẫu có tính năng này
+            {{ $t('tabs.seeTemplates') }}
           </router-link>
         </div>
       </div>

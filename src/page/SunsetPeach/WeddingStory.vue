@@ -1,8 +1,8 @@
 <template>
   <section class="sp-story">
-    <p class="sp-eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</p>
+    <p class="sp-eyebrow">{{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</p>
 
-    <h2>{{ storyTitle }}</h2>
+    <h2>{{ sectionText(sections, "story", "Heading", storyTitle) }}</h2>
 
     <div class="sp-quote">“</div>
 
@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -32,13 +33,13 @@ const storyTitle = computed(() =>
 .sp-story {
   text-align: center;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-eyebrow {
   margin: 0;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 10px;
   font-weight: 700;
@@ -54,13 +55,13 @@ const storyTitle = computed(() =>
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-quote {
   height: 35px;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -79,7 +80,7 @@ const storyTitle = computed(() =>
 .sp-tail {
   margin-top: 18px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 15px;
 }

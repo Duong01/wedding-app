@@ -7,9 +7,9 @@
       <div class="preview-loading-card">
         <v-progress-circular indeterminate size="42" />
 
-        <strong> Đang chuẩn bị thiệp... </strong>
+        <strong> {{ $t('preview.preparing') }} </strong>
 
-        <span> Vui lòng chờ một chút </span>
+        <span> {{ $t('common.pleaseWait') }} </span>
       </div>
     </div>
 
@@ -22,17 +22,16 @@
           <v-icon size="32"> mdi-card-account-details-outline </v-icon>
         </div>
 
-        <h2>Chưa có dữ liệu thiệp</h2>
+        <h2>{{ $t('preview.noData') }}</h2>
 
         <p>
-          Thiệp xem trước chưa được khởi tạo. Hãy quay lại trình chỉnh sửa và
-          thử lại.
+          {{ $t('preview.noDataHint') }}
         </p>
 
         <button type="button" class="preview-back-button" @click="backToEditor">
           <v-icon size="18"> mdi-arrow-left </v-icon>
 
-          Quay lại chỉnh sửa
+          {{ $t('preview.backToEdit') }}
         </button>
       </div>
     </div>
@@ -48,11 +47,11 @@
         <button type="button" class="preview-back" @click="backToEditor">
           <v-icon size="19"> mdi-arrow-left </v-icon>
 
-          <span> Chỉnh sửa </span>
+          <span> {{ $t('preview.edit') }} </span>
         </button>
 
         <div class="preview-title">
-          <span> XEM TRƯỚC THIỆP </span>
+          <span> {{ $t('preview.kicker') }} </span>
 
           <strong>
             {{ wedding.theme?.Name || "traditional-red" }}
@@ -62,7 +61,7 @@
         <button type="button" class="preview-save" @click="saveWedding">
           <v-icon size="18"> mdi-content-save-outline </v-icon>
 
-          <span> Lưu </span>
+          <span> {{ $t('editor.mobile.save') }} </span>
         </button>
       </header>
 
@@ -80,7 +79,7 @@
           <div v-else class="theme-error">
             <v-icon size="34"> mdi-palette-outline </v-icon>
 
-            <h2>Không tìm thấy giao diện</h2>
+            <h2>{{ $t('preview.themeNotFound') }}</h2>
 
             <p>
               Theme:
@@ -89,7 +88,7 @@
               </strong>
             </p>
 
-            <button type="button" @click="backToEditor">Quay lại Editor</button>
+            <button type="button" @click="backToEditor">{{ $t('preview.backToEditor') }}</button>
           </div>
         </div>
       </main>
@@ -121,6 +120,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 
 import { useRouter, useRoute } from "vue-router";
@@ -141,6 +141,8 @@ import { AddDataWedding } from "@/model/api";
  */
 
 import themes from "@/themes";
+
+const { t } = useI18n();
 
 defineOptions({
   name: "WeddingPreview",
@@ -256,7 +258,7 @@ function saveWedding() {
    * nên không mất.
    */
   if (!auth.canSaveWedding()) {
-    showSaveMessage("Vui lòng đăng nhập để lưu thiệp.", true);
+    showSaveMessage(t("editor.save.loginRequired"), true);
 
     router.push({
       name: "Login",
@@ -300,19 +302,19 @@ function saveWedding() {
          * registry localStorage nữa.
          */
 
-        showSaveMessage("Đã lưu thiệp thành công.");
+        showSaveMessage(t("editor.save.success"));
       },
 
       (err) => {
         console.error("[WeddingPreview] save error:", err);
 
-        showSaveMessage(err?.message || "Không thể lưu thiệp.", true);
+        showSaveMessage(err?.message || t("editor.save.failed"), true);
       }
     );
   } catch (err) {
     console.error("[WeddingPreview] save exception:", err);
 
-    showSaveMessage(err?.message || "Không thể lưu thiệp.", true);
+    showSaveMessage(err?.message || t("editor.save.failed"), true);
   }
 }
 
@@ -359,7 +361,7 @@ async function loadFromApi(slug) {
     const data = result || weddingStore.wedding;
 
     if (!data) {
-      throw new Error("Không tìm thấy dữ liệu thiệp.");
+      throw new Error(t("preview.notFound"));
     }
 
     let copy;
@@ -378,7 +380,7 @@ async function loadFromApi(slug) {
   } catch (err) {
     console.error("[WeddingPreview] API error:", err);
 
-    showSaveMessage(err?.message || "Không thể tải dữ liệu thiệp.", true);
+    showSaveMessage(err?.message || t("editor.loadErrorDot"), true);
   } finally {
     loading.value = false;
   }

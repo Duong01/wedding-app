@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 import { defineStore } from "pinia";
 
 import {
@@ -21,9 +23,9 @@ export const ROLES = {
 };
 
 export const ROLE_LABELS = {
-  Admin: "Quản trị viên",
-  User: "Người dùng",
-  Guest: "Khách",
+  get Admin() { return t("role.admin"); },
+  get User() { return t("role.user"); },
+  get Guest() { return t("role.guest"); },
 };
 
 /*
@@ -190,7 +192,7 @@ export const useAuthStore = defineStore("auth", {
         state.user?.EmpName ||
         state.user?.Username ||
         state.user?.Email ||
-        "Người dùng"
+        t("role.user")
       );
     },
 
@@ -235,7 +237,7 @@ export const useAuthStore = defineStore("auth", {
 
       if (!result || result.status !== "success" || !result.data?.token) {
         throw new Error(
-          result?.message || "Đăng nhập thất bại. Vui lòng thử lại."
+          result?.message || t("login.loginFailed")
         );
       }
 
@@ -270,7 +272,7 @@ export const useAuthStore = defineStore("auth", {
 
       if (!result || result.status !== "success") {
         throw new Error(
-          result?.message || "Đăng ký thất bại. Vui lòng thử lại."
+          result?.message || t("login.registerFailed")
         );
       }
 

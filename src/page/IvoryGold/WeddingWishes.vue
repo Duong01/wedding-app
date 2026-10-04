@@ -5,9 +5,14 @@
     ========================================== -->
 
     <div class="wish-heading">
-      <span class="wish-kicker"> LỜI CHÚC YÊU THƯƠNG </span>
+      <span class="wish-kicker"> {{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC YÊU THƯƠNG") }} </span>
 
-      <h2>GỬI ĐẾN CHÚNG MÌNH</h2>
+      <h2>{{ sectionText(sections, "guestbook", "Heading", "GỬI ĐẾN CHÚNG MÌNH") }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="ig-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="ig-sub-custom-head__intro">{{ sectionOverride(sections, "guestbook", "Intro") }}</p>
+      </header>
+
 
       <div class="wish-decoration">
         <span></span>
@@ -133,10 +138,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { addWish, getAllWishes } from "@/model/api";
 import { useRoute } from "vue-router";
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: {
     type: Array,
     default: () => [],
@@ -283,7 +290,7 @@ async function submitWish() {
 .wishes {
   width: 100%;
 
-  color: #641316;
+  color: var(--tc-641316, #641316);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 }
@@ -303,7 +310,7 @@ async function submitWish() {
 
   margin-bottom: 5px;
 
-  color: #8e6934;
+  color: var(--tc-8e6934, #8e6934);
 
   font-size: 10px;
 
@@ -315,7 +322,7 @@ async function submitWish() {
 .wish-heading h2 {
   margin: 0;
 
-  color: #801519;
+  color: var(--tc-801519, #801519);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -342,15 +349,15 @@ async function submitWish() {
 
   height: 1px;
 
-  background: linear-gradient(to right, transparent, #b78b4a);
+  background: linear-gradient(to right, transparent, var(--tc-b78b4a, #b78b4a));
 }
 
 .wish-decoration span:last-child {
-  background: linear-gradient(to left, transparent, #b78b4a);
+  background: linear-gradient(to left, transparent, var(--tc-b78b4a, #b78b4a));
 }
 
 .wish-decoration b {
-  color: #9a171b;
+  color: var(--tc-9a171b, #9a171b);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -374,20 +381,20 @@ async function submitWish() {
 
   overflow-y: hidden;
 
-  border-top: 1px solid rgba(181, 139, 67, 0.28);
+  border-top: 1px solid rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.28);
 
-  border-bottom: 1px solid rgba(181, 139, 67, 0.28);
+  border-bottom: 1px solid rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.28);
 
   background: linear-gradient(
     90deg,
-    rgba(255, 250, 239, 0.95),
-    rgba(250, 240, 218, 0.65),
-    rgba(255, 250, 239, 0.95)
+    rgba(var(--tc-fffaef-rgb, 255, 250, 239), 0.95),
+    rgba(var(--tc-faf0da-rgb, 250, 240, 218), 0.65),
+    rgba(var(--tc-fffaef-rgb, 255, 250, 239), 0.95)
   );
 
   scrollbar-width: thin;
 
-  scrollbar-color: rgba(166, 123, 61, 0.45) transparent;
+  scrollbar-color: rgba(var(--tc-a67b3d-rgb, 166, 123, 61), 0.45) transparent;
 }
 
 /*
@@ -415,13 +422,13 @@ async function submitWish() {
 .wish-marquee::before {
   left: 0;
 
-  background: linear-gradient(to right, #fffaf0, transparent);
+  background: linear-gradient(to right, var(--tc-fffaf0, #fffaf0), transparent);
 }
 
 .wish-marquee::after {
   right: 0;
 
-  background: linear-gradient(to left, #fffaf0, transparent);
+  background: linear-gradient(to left, var(--tc-fffaf0, #fffaf0), transparent);
 }
 
 /* =====================================================
@@ -457,7 +464,7 @@ async function submitWish() {
 
   padding: 7px 13px;
 
-  border: 1px solid rgba(181, 139, 67, 0.3);
+  border: 1px solid rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.3);
 
   border-radius: 20px;
 
@@ -465,11 +472,11 @@ async function submitWish() {
 
   white-space: nowrap;
 
-  box-shadow: 0 3px 10px rgba(104, 57, 25, 0.05);
+  box-shadow: 0 3px 10px rgba(var(--tc-683919-rgb, 104, 57, 25), 0.05);
 }
 
 .marquee-name {
-  color: #8c1519;
+  color: var(--tc-8c1519, #8c1519);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -478,7 +485,7 @@ async function submitWish() {
 }
 
 .marquee-message {
-  color: #705744;
+  color: var(--tc-705744, #705744);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -497,15 +504,15 @@ async function submitWish() {
 
   padding: 20px 18px 18px;
 
-  border: 1px solid rgba(181, 139, 67, 0.38);
+  border: 1px solid rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.38);
 
   background: linear-gradient(
     145deg,
-    rgba(255, 251, 242, 0.96),
-    rgba(250, 240, 218, 0.58)
+    rgba(var(--tc-fffbf2-rgb, 255, 251, 242), 0.96),
+    rgba(var(--tc-faf0da-rgb, 250, 240, 218), 0.58)
   );
 
-  box-shadow: 0 8px 24px rgba(100, 48, 24, 0.05);
+  box-shadow: 0 8px 24px rgba(var(--tc-643018-rgb, 100, 48, 24), 0.05);
 }
 
 .form-title,
@@ -531,7 +538,7 @@ async function submitWish() {
 
   margin-bottom: 18px;
 
-  color: #8d171b;
+  color: var(--tc-8d171b, #8d171b);
 
   font-size: 10px;
 
@@ -543,7 +550,7 @@ async function submitWish() {
 }
 
 .form-title-icon {
-  color: #8e6a36;
+  color: var(--tc-8e6a36, #8e6a36);
 
   font-size: 11px;
 }
@@ -561,7 +568,7 @@ async function submitWish() {
 
   margin-bottom: 6px;
 
-  color: #8d171b;
+  color: var(--tc-8d171b, #8d171b);
 
   font-size: 10px;
 
@@ -587,7 +594,7 @@ async function submitWish() {
 
   z-index: 2;
 
-  color: #8e6a36;
+  color: var(--tc-8e6a36, #8e6a36);
 
   font-size: 11px;
 
@@ -608,7 +615,7 @@ async function submitWish() {
 
   width: 100%;
 
-  border: 1px solid #d6c39e;
+  border: 1px solid var(--tc-d6c39e, #d6c39e);
 
   border-radius: 0;
 
@@ -616,7 +623,7 @@ async function submitWish() {
 
   padding: 11px 12px 11px 32px;
 
-  color: #604b39;
+  color: var(--tc-604b39, #604b39);
 
   background: rgba(255, 255, 255, 0.72);
 
@@ -640,14 +647,14 @@ async function submitWish() {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #7a6c5b;
+  color: var(--tc-7a6c5b, #7a6c5b);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #8e6934;
+  border-color: var(--tc-8e6934, #8e6934);
 
-  background: #fffdf7;
+  background: var(--tc-fffdf7, #fffdf7);
 
   box-shadow: 0 0 0 3px rgba(167, 123, 61, 0.08);
 }
@@ -669,11 +676,11 @@ async function submitWish() {
 
   height: 42px;
 
-  border: 1px solid #8f1519;
+  border: 1px solid var(--tc-8f1519, #8f1519);
 
-  color: #fff9ef;
+  color: var(--tc-fff9ef, #fff9ef);
 
-  background: linear-gradient(135deg, #a51b20, #781115);
+  background: linear-gradient(135deg, var(--tc-a51b20, #a51b20), var(--tc-781115, #781115));
 
   font-size: 11px;
 
@@ -683,7 +690,7 @@ async function submitWish() {
 
   cursor: pointer;
 
-  box-shadow: 0 5px 15px rgba(121, 17, 21, 0.15);
+  box-shadow: 0 5px 15px rgba(var(--tc-791115-rgb, 121, 17, 21), 0.15);
 
   transition:
     transform 0.2s ease,
@@ -692,7 +699,7 @@ async function submitWish() {
 }
 
 .submit-button span {
-  color: #f2d9a7;
+  color: var(--tc-f2d9a7, #f2d9a7);
 
   font-size: 12px;
 }
@@ -700,7 +707,7 @@ async function submitWish() {
 .submit-button:hover:not(:disabled) {
   transform: translateY(-1px);
 
-  box-shadow: 0 8px 20px rgba(121, 17, 21, 0.22);
+  box-shadow: 0 8px 20px rgba(var(--tc-791115-rgb, 121, 17, 21), 0.22);
 }
 
 .submit-button:disabled {
@@ -738,11 +745,11 @@ async function submitWish() {
 
   height: 1px;
 
-  background: #c19b5d;
+  background: var(--tc-c19b5d, #c19b5d);
 }
 
 .list-heading strong {
-  color: #9a171b;
+  color: var(--tc-9a171b, #9a171b);
 
   font-size: 10px;
 
@@ -766,7 +773,7 @@ async function submitWish() {
 
   scrollbar-width: thin;
 
-  scrollbar-color: rgba(166, 123, 61, 0.45) transparent;
+  scrollbar-color: rgba(var(--tc-a67b3d-rgb, 166, 123, 61), 0.45) transparent;
 }
 
 /* =====================================================
@@ -782,7 +789,7 @@ async function submitWish() {
 
   padding: 14px 5px;
 
-  border-bottom: 1px solid rgba(181, 139, 67, 0.2);
+  border-bottom: 1px solid rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.2);
 }
 
 .wish:first-child {
@@ -804,11 +811,11 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #9b171b;
+  color: var(--tc-9b171b, #9b171b);
 
-  border: 1px solid rgba(181, 139, 67, 0.4);
+  border: 1px solid rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.4);
 
-  background: rgba(255, 249, 235, 0.8);
+  background: rgba(var(--tc-fff9eb-rgb, 255, 249, 235), 0.8);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -826,7 +833,7 @@ async function submitWish() {
 }
 
 .wish-name {
-  color: #8d1519;
+  color: var(--tc-8d1519, #8d1519);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -837,7 +844,7 @@ async function submitWish() {
 .wish p {
   margin: 4px 0 0;
 
-  color: #705947;
+  color: var(--tc-705947, #705947);
 
   font-family: Arial, "Helvetica Neue", sans-serif;
 
@@ -856,11 +863,11 @@ async function submitWish() {
 
   padding: 20px;
 
-  color: #81694f;
+  color: var(--tc-81694f, #81694f);
 
-  border: 1px dashed rgba(181, 139, 67, 0.35);
+  border: 1px dashed rgba(var(--tc-b58b43-rgb, 181, 139, 67), 0.35);
 
-  background: rgba(255, 250, 240, 0.45);
+  background: rgba(var(--tc-fffaf0-rgb, 255, 250, 240), 0.45);
 
   font-size: 11px;
 
@@ -907,5 +914,38 @@ async function submitWish() {
   .wish-list {
     max-height: 280px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ig-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ig-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ig-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ig-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

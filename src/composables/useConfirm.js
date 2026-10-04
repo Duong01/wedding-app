@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 import { reactive } from "vue";
 
 /*
@@ -26,8 +28,8 @@ const state = reactive({
   message: "",
   detail: "",
 
-  confirmText: "Xác nhận",
-  cancelText: "Huỷ",
+  confirmText: "",
+  cancelText: "",
 
   /* Kiểu nguy hiểm: nút xác nhận màu đỏ. */
   danger: false,
@@ -50,15 +52,15 @@ export function confirmDialog(options = {}) {
     state.resolve = null;
   }
 
-  state.title = options.title || "Xác nhận";
+  state.title = options.title || t("common.confirm");
 
   state.message = options.message || "";
 
   state.detail = options.detail || "";
 
-  state.confirmText = options.confirmText || "Xác nhận";
+  state.confirmText = options.confirmText || t("common.confirm");
 
-  state.cancelText = options.cancelText || "Huỷ";
+  state.cancelText = options.cancelText || t("common.cancel");
 
   state.danger = options.danger === true;
 

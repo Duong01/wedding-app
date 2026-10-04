@@ -4,15 +4,15 @@
       <div>
         <span class="panel-eyebrow"> WEDDING GIFT </span>
 
-        <h1>Mừng cưới</h1>
+        <h1>{{ $t('editor.menu.gifts') }}</h1>
 
-        <p>Thông tin tài khoản nhận mừng cưới.</p>
+        <p>{{ $t('giftsPanel.desc') }}</p>
       </div>
 
       <button type="button" class="small-primary-button" @click="addGift">
         <v-icon size="17"> mdi-bank-plus </v-icon>
 
-        Thêm phương thức
+        {{ $t('giftsPanel.add') }}
       </button>
     </div>
 
@@ -24,17 +24,17 @@
       >
         <div class="card-header">
           <div>
-            <span> PHƯƠNG THỨC {{ index + 1 }} </span>
+            <span> {{ $t('giftsPanel.itemLabel') }} {{ index + 1 }} </span>
 
             <strong>
-              {{ gift.Name || "Mừng cưới" }}
+              {{ gift.Name || $t('editor.menu.gifts') }}
             </strong>
           </div>
 
           <EditorItemActions
             :index="index"
             :total="wedding.gifts.length"
-            remove-title="Xoá phương thức"
+            :remove-title="$t('giftsPanel.remove')"
             @move="moveGift"
             @remove="removeGift"
           />
@@ -42,17 +42,17 @@
 
         <div class="form-grid">
           <div class="editor-field">
-            <label>Tên</label>
+            <label>{{ $t('giftsPanel.name') }}</label>
 
             <input
               v-model="gift.Name"
               type="text"
-              placeholder="VD: Mừng cưới cô dâu"
+              :placeholder="$t('giftsPanel.namePlaceholder')"
             />
           </div>
 
           <div class="editor-field">
-            <label>Ngân hàng / Ví</label>
+            <label>{{ $t('giftsPanel.bank') }}</label>
 
             <input
               v-model="gift.BankName"
@@ -71,7 +71,7 @@
           </div>
 
           <div class="editor-field">
-            <label>Tên tài khoản</label>
+            <label>{{ $t('giftsPanel.accountName') }}</label>
 
             <input
               v-model="gift.AccountName"
@@ -80,12 +80,12 @@
             />
 
             <small class="field-help">
-              Tên chủ tài khoản — ghi đúng như trong app ngân hàng.
+              {{ $t('giftsPanel.accountNameHint') }}
             </small>
           </div>
 
           <div class="editor-field">
-            <label>Số tài khoản</label>
+            <label>{{ $t('giftsPanel.accountNumber') }}</label>
 
             <div class="copy-row">
               <input
@@ -98,15 +98,15 @@
                 type="button"
                 class="copy-button"
                 :disabled="!gift.AccountNumber"
-                title="Sao chép số tài khoản"
-                @click="copyText(gift.AccountNumber, 'Đã sao chép số tài khoản.')"
+                :title="$t('giftsPanel.copyNumber')"
+                @click="copyText(gift.AccountNumber, $t('giftsPanel.copied'))"
               >
                 <v-icon size="16"> mdi-content-copy </v-icon>
               </button>
             </div>
 
             <small class="field-help">
-              Khách bấm biểu tượng sao chép để dán vào app ngân hàng.
+              {{ $t('giftsPanel.accountNumberHint') }}
             </small>
           </div>
 
@@ -116,26 +116,25 @@
             <UploadField
               v-model="gift.QrCode"
               kind="image"
-              button-text="Tải mã QR lên"
+              :button-text="$t('giftsPanel.uploadQr')"
             />
 
             <small class="field-help">
-              Chụp màn hình mã QR trong app ngân hàng rồi tải lên —
-              khách quét để chuyển khoản nhanh.
+              {{ $t('giftsPanel.qrHint') }}
             </small>
           </div>
 
           <div class="editor-field full">
-            <label>Mô tả</label>
+            <label>{{ $t('panel.description') }}</label>
 
             <textarea
               v-model="gift.Description"
               rows="4"
-              placeholder="VD: Mọi đóng góp xin gửi về tài khoản của cô dâu."
+              :placeholder="$t('giftsPanel.descPlaceholder')"
             />
 
             <small class="field-help">
-              Lời nhắn hiển thị cạnh thông tin tài khoản.
+              {{ $t('giftsPanel.descHint') }}
             </small>
           </div>
         </div>
@@ -144,25 +143,28 @@
       <div v-if="!wedding.gifts?.length" class="empty-card">
         <v-icon size="30"> mdi-gift-outline </v-icon>
 
-        <strong> Chưa có phương thức mừng cưới </strong>
+        <strong> {{ $t('giftsPanel.empty') }} </strong>
 
-        <span> Thêm tài khoản để khách mời gửi quà online. </span>
+        <span> {{ $t('giftsPanel.emptyHint') }} </span>
       </div>
 
       <button type="button" class="add-button" @click="addGift">
         <v-icon> mdi-bank-plus </v-icon>
 
-        Thêm phương thức
+        {{ $t('giftsPanel.add') }}
       </button>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import EditorItemActions from "@/components/editor/EditorItemActions.vue";
 import UploadField from "@/components/editor/UploadField.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -213,10 +215,10 @@ async function removeGift(index) {
   const gift = props.wedding.gifts[index];
 
   const ok = await confirmDialog({
-    title: "Xoá phương thức này?",
-    message: "Thông tin tài khoản sẽ bị xoá khỏi thiệp.",
-    detail: gift?.Name || `Phương thức ${index + 1}`,
-    confirmText: "Xoá",
+    get title() { return t("giftsPanel.confirmTitle"); },
+    get message() { return t("giftsPanel.confirmMessage"); },
+    detail: gift?.Name || t("giftsPanel.itemN", { n: index + 1 }),
+    get confirmText() { return t("common.delete"); },
     danger: true,
   });
 

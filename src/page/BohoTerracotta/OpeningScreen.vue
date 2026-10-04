@@ -31,7 +31,7 @@
     ====================================================== -->
 
     <div class="bq-card">
-      <p class="bq-card__kicker">WEDDING INVITATION</p>
+      <p class="bq-card__kicker">{{ sectionText(sections, "opening", "Kicker", "WEDDING INVITATION") }}</p>
 
       <!-- KHUNG ẢNH BAROQUE -->
       <div class="bq-card__frame">
@@ -67,7 +67,7 @@
         draggable="false"
       />
 
-      <p class="bq-card__invite">Trân trọng kính mời</p>
+      <p class="bq-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
       <h1 class="bq-card__guest">{{ guestName }}</h1>
 
@@ -86,19 +86,21 @@
         </svg>
       </span>
 
-      <span class="bq-open-btn__text">MỞ THIỆP</span>
+      <span class="bq-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
     </button>
 
-    <p class="bq-hint">Một lời mời · Một lời hẹn · Một đời hạnh phúc</p>
+    <p class="bq-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}</p>
   </section>
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import { background, flower5, frame, goldenLine } from "./bohoTerracottaAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "&" },
   dateLabel: { type: String, default: "" },

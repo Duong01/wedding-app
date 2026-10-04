@@ -9,7 +9,12 @@
     />
 
     <header class="cr-heading">
-      <h2 class="cr-heading__vi">Lịch trình ngày cưới</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cr-top-custom-head">
+        <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+      </header>
+
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
 
       <p class="cr-heading__zh">婚禮當日流程</p>
 
@@ -19,9 +24,7 @@
         <span></span>
       </div>
 
-      <p class="cr-heading__intro">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
-      </p>
+      <p class="cr-heading__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
     </header>
 
     <ol class="cr-timeline__list">
@@ -63,11 +66,13 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { decorativeFlowers } from "./emeraldLuxeAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
   events: { type: Array, default: () => [] },
 });
@@ -174,6 +179,8 @@ function formatTime(index) {
 }
 
 .cr-heading__intro {
+  white-space: pre-line;
+
   max-width: 420px;
 
   margin: 12px auto 0;
@@ -377,5 +384,38 @@ function formatTime(index) {
   .cr-timeline__card {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.cr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.cr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.cr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.cr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

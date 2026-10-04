@@ -6,7 +6,17 @@
 
     <div class="title">
       <small>A LITTLE GIFT</small>
-      <h2>Hộp quà mừng cưới</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="ds-top-custom-head">
+        <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng cưới") }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ds-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ds-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
+      </header>
+
       <p>
         Sự hiện diện của bạn đã là món quà quý giá nhất.
       </p>
@@ -111,9 +121,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onBeforeUnmount, ref } from "vue";
 
 defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: {
     type: Array,
     default: () => [],
@@ -188,8 +200,8 @@ onBeforeUnmount(() => {
 <style scoped>
 .gifts {
   padding: 70px 20px;
-  background: #f3ead8;
-  color: #641914;
+  background: var(--tc-f3ead8, #f3ead8);
+  color: var(--tc-641914, #641914);
   text-align: center;
 }
 
@@ -199,9 +211,9 @@ onBeforeUnmount(() => {
   margin: auto;
   display: grid;
   place-items: center;
-  border: 1px solid #8b5829;
+  border: 1px solid var(--tc-8b5829, #8b5829);
   border-radius: 50%;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 .title {
@@ -212,7 +224,7 @@ onBeforeUnmount(() => {
 .title small {
   font-size: 10px;
   letter-spacing: .4em;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 h2 {
@@ -225,7 +237,7 @@ h2 {
 .title p {
   font-family: Georgia, serif;
   font-style: italic;
-  color: #765f57;
+  color: var(--tc-765f57, #765f57);
   line-height: 1.7;
 }
 
@@ -239,23 +251,23 @@ h2 {
 .gift-card {
   position: relative;
   padding: 25px;
-  border: 1px solid rgba(143,36,28,.6);
-  background: #fffaf0;
-  box-shadow: 0 10px 26px rgba(84,18,15,.14);
+  border: 1px solid rgba(var(--tc-8f241c-rgb, 143, 36, 28), .6);
+  background: var(--tc-fffaf0, #fffaf0);
+  box-shadow: 0 10px 26px rgba(var(--tc-54120f-rgb, 84, 18, 15), .14);
 }
 
 .gift-card::before {
   content: "";
   position: absolute;
   inset: 6px;
-  border: 1px solid rgba(169,107,50,.4);
+  border: 1px solid rgba(var(--tc-a96b32-rgb, 169, 107, 50), .4);
   pointer-events: none;
 }
 
 .gift-top {
   display: flex;
   justify-content: space-between;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
   font-size: 11px;
 }
 
@@ -289,8 +301,8 @@ h2 {
   margin: auto;
   display: grid;
   place-items: center;
-  border: 1px solid #8b5829;
-  background: #fffaf0;
+  border: 1px solid var(--tc-8b5829, #8b5829);
+  background: var(--tc-fffaf0, #fffaf0);
 
   transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -298,7 +310,7 @@ h2 {
 .qr-button:hover .qr-placeholder {
   transform: scale(1.03);
 
-  box-shadow: 0 10px 24px rgba(143,36,28,.14);
+  box-shadow: 0 10px 24px rgba(var(--tc-8f241c-rgb, 143, 36, 28), .14);
 }
 
 .qr-placeholder img {
@@ -308,7 +320,7 @@ h2 {
 }
 
 .qr-placeholder--empty span {
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
   font-size: 12px;
 }
 
@@ -322,13 +334,13 @@ h2 {
 
   font-size: 10px;
   letter-spacing: .16em;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 /* ACCOUNT */
 .gift-card p {
   margin: 14px 0 5px;
-  color: #765f57;
+  color: var(--tc-765f57, #765f57);
   font-size: 12px;
 }
 
@@ -340,7 +352,7 @@ h2 {
 }
 
 .gift-card strong {
-  color: #641914;
+  color: var(--tc-641914, #641914);
   letter-spacing: .1em;
 }
 
@@ -352,10 +364,10 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid #8b5829;
+  border: 1px solid var(--tc-8b5829, #8b5829);
   border-radius: 50%;
 
-  color: #641914;
+  color: var(--tc-641914, #641914);
   background: rgba(255,255,255,.5);
 
   cursor: pointer;
@@ -366,7 +378,7 @@ h2 {
 .copy-button:hover {
   transform: scale(1.08);
 
-  background: #fffaf0;
+  background: var(--tc-fffaf0, #fffaf0);
 }
 
 .copy-toast {
@@ -374,7 +386,7 @@ h2 {
 
   font-size: 11px;
   letter-spacing: .06em;
-  color: #741c17;
+  color: var(--tc-741c17, #741c17);
 }
 
 /* QR PREVIEW */
@@ -394,7 +406,7 @@ h2 {
   position: absolute;
   inset: 0;
 
-  background: rgba(26, 10, 8, 0.78);
+  background: rgba(var(--tc-1a0a08-rgb, 26, 10, 8), 0.78);
 }
 
 .qr-preview__card {
@@ -407,10 +419,10 @@ h2 {
 
   text-align: center;
 
-  border: 1px solid rgba(201,149,82,.65);
+  border: 1px solid rgba(var(--tc-c99552-rgb, 201, 149, 82), .65);
   border-radius: 4px;
 
-  background: #f3ead8;
+  background: var(--tc-f3ead8, #f3ead8);
 
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
 }
@@ -428,9 +440,9 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  color: #641914;
+  color: var(--tc-641914, #641914);
 
-  border: 1px solid rgba(169,107,50,.5);
+  border: 1px solid rgba(var(--tc-a96b32-rgb, 169, 107, 50), .5);
   border-radius: 50%;
 
   background: rgba(255,255,255,.7);
@@ -441,7 +453,7 @@ h2 {
 .qr-preview__title {
   margin-bottom: 15px;
 
-  color: #641914;
+  color: var(--tc-641914, #641914);
 
   font-size: 11px;
   font-weight: 700;
@@ -456,11 +468,11 @@ h2 {
 
   padding: 12px;
 
-  border: 1px solid #8b5829;
+  border: 1px solid var(--tc-8b5829, #8b5829);
 
-  background: #fffaf0;
+  background: var(--tc-fffaf0, #fffaf0);
 
-  box-shadow: 0 10px 30px rgba(143,36,28,.12);
+  box-shadow: 0 10px 30px rgba(var(--tc-8f241c-rgb, 143, 36, 28), .12);
 }
 
 .qr-preview__image img {
@@ -475,7 +487,7 @@ h2 {
 .qr-preview__card p {
   margin: 14px 0;
 
-  color: #765f57;
+  color: var(--tc-765f57, #765f57);
 
   font-size: 11px;
   font-style: italic;
@@ -489,11 +501,11 @@ h2 {
 
   padding: 9px 15px;
 
-  color: #f3ead8;
+  color: var(--tc-f3ead8, #f3ead8);
 
-  border: 1px solid #8b5829;
+  border: 1px solid var(--tc-8b5829, #8b5829);
 
-  background: #741c17;
+  background: var(--tc-741c17, #741c17);
 
   font-size: 11px;
   font-weight: 700;
@@ -547,5 +559,71 @@ h2 {
   .qr-preview__card {
     padding: 25px 15px 19px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

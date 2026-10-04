@@ -1,13 +1,20 @@
 import {
   computed,
+  toValue,
 } from "vue";
 
 
+/*
+ * wedding: getter / ref / object. Truyền GETTER (() => props.wedding)
+ * để theo dõi được khi cả object bị thay — preview editor nhận bản
+ * clone MỚI qua postMessage mỗi lần sửa; truyền thẳng props.wedding
+ * thì computed giữ object cũ → đổi màu/font không ăn vào thiệp.
+ */
 export function useWeddingTheme(wedding) {
 
   const theme = computed(() => {
 
-    return wedding?.theme || {};
+    return toValue(wedding)?.theme || {};
 
   });
 

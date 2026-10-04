@@ -16,8 +16,8 @@
           :class="{ active: autoRefresh }"
           :title="
             autoRefresh
-              ? 'Đang tự động cập nhật — bấm để tạm dừng'
-              : 'Đang tạm dừng — bấm để tự động cập nhật'
+              ? $t('preview.autoOn')
+              : $t('preview.autoOff')
           "
           @click="emit('update:autoRefresh', !autoRefresh)"
         >
@@ -29,7 +29,7 @@
         <button
           type="button"
           class="preview-icon-button"
-          title="Tải lại bản xem trước"
+          :title="$t('preview.reload')"
           @click="reload"
         >
           <v-icon size="17"> mdi-refresh </v-icon>
@@ -38,7 +38,7 @@
         <button
           type="button"
           class="preview-icon-button"
-          title="Mở thiệp trong tab mới"
+          :title="$t('preview.newTab')"
           @click="openInNewTab"
         >
           <v-icon size="17"> mdi-open-in-new </v-icon>
@@ -50,7 +50,7 @@
             :class="{
               active: previewDevice === 'mobile',
             }"
-            title="Xem trên điện thoại (375px)"
+            :title="$t('preview.phone')"
             @click="emit('update:previewDevice', 'mobile')"
           >
             <v-icon size="18"> mdi-cellphone </v-icon>
@@ -61,7 +61,7 @@
             :class="{
               active: previewDevice === 'tablet',
             }"
-            title="Xem trên tablet (768px)"
+            :title="$t('preview.tablet')"
             @click="emit('update:previewDevice', 'tablet')"
           >
             <v-icon size="18"> mdi-tablet </v-icon>
@@ -72,7 +72,7 @@
             :class="{
               active: previewDevice === 'desktop',
             }"
-            title="Xem trên máy tính (900px)"
+            :title="$t('preview.desktop')"
             @click="emit('update:previewDevice', 'desktop')"
           >
             <v-icon size="18"> mdi-monitor </v-icon>
@@ -87,7 +87,7 @@
           ref="iframeEl"
           class="preview-iframe"
           :src="previewUrl"
-          title="Xem trước thiệp cưới"
+          :title="$t('preview.title')"
         ></iframe>
       </div>
     </div>

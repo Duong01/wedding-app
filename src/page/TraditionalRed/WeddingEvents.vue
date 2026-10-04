@@ -4,7 +4,12 @@
          TIỆC CƯỚI — mỗi sự kiện một khối
     ====================================================== -->
 
-    <h2 class="tr-events__title">Thông tin tiệc cưới</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="tr-top-custom-head">
+      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="tr-events__title">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
 
     <div
       v-for="(event, index) in normalizedEvents"
@@ -64,6 +69,7 @@
         <WeddingCountdown
           v-if="index === 0 && showCountdown"
           :target="countdownTarget"
+          :sections="sections"
         />
 
         <!-- LỊCH THÁNG -->
@@ -218,6 +224,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 
 import { useRoute } from "vue-router";
@@ -229,6 +236,7 @@ import WeddingCountdown from "./WeddingCountdown.vue";
 import EventMap from "@/components/common/EventMap.vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: {
     type: Array,
     default: () => [],
@@ -1275,5 +1283,38 @@ async function submitConfirmation() {
   .tr-modal-leave-active {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

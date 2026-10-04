@@ -3,11 +3,11 @@
     <div class="mk-container">
       <header class="gallery-head">
         <h2>
-          Mẫu thiệp cưới online
-          <em>đẹp nhất</em>
+          {{ $t('gallery.h2a') }}
+          <em>{{ $t('gallery.h2b') }}</em>
         </h2>
 
-        <p>Khám phá những mẫu thiệp cưới được thiết kế tinh tế và hiện đại</p>
+        <p>{{ $t('gallery.lead') }}</p>
       </header>
 
       <div class="chips">
@@ -25,10 +25,10 @@
         </button>
       </div>
 
-      <div v-if="loading" class="state-box">Đang tải mẫu thiệp…</div>
+      <div v-if="loading" class="state-box">{{ $t('gallery.loading') }}</div>
 
       <div v-else-if="items.length === 0" class="state-box">
-        Chưa có mẫu thiệp trong bộ sưu tập này.
+        {{ $t('gallery.empty') }}
       </div>
 
       <TemplateCarousel3D
@@ -39,12 +39,12 @@
 
       <div class="gallery-cta">
         <router-link :to="{ name: 'Templates' }" class="gallery-cta__btn">
-          Xem tất cả mẫu thiệp
+          {{ $t('gallery.viewAll') }}
           <span aria-hidden="true">→</span>
         </router-link>
 
         <p class="gallery-cta__note">
-          Những mẫu thiệp độc đáo đang chờ bạn
+          {{ $t('gallery.waiting') }}
         </p>
       </div>
     </div>
@@ -52,6 +52,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -59,6 +60,8 @@ import TemplateCarousel3D from "@/components/marketing/TemplateCarousel3D.vue";
 
 import { COLLECTIONS } from "@/data/templateCollections";
 import { themeMeta, toCardItem } from "@/utils/weddingCard";
+
+const { t } = useI18n();
 
 const props = defineProps({
   weddings: { type: Array, default: () => [] },
@@ -70,7 +73,7 @@ const router = useRouter();
 const activeCollection = ref("all");
 
 const tabs = computed(() => {
-  const list = [{ id: "all", name: "Tất cả", count: props.weddings.length }];
+  const list = [{ id: "all", get name() { return t("manage.tabAll"); }, count: props.weddings.length }];
 
   COLLECTIONS.forEach((col) => {
     const count = props.weddings.filter(

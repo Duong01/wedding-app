@@ -12,11 +12,11 @@
       <div class="heading-content">
 
         <span class="heading-subtitle">
-          TRÂN TRỌNG KÍNH MỜI
+          {{ sectionText(sections, "events", "Eyebrow", "TRÂN TRỌNG KÍNH MỜI") }}
         </span>
 
         <h2>
-          THÔNG TIN TIỆC CƯỚI
+          {{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}
         </h2>
 
         <div class="heading-symbol">
@@ -496,6 +496,7 @@
 
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, reactive, ref } from "vue";
 import { Confirm } from "@/model/api";
@@ -506,6 +507,7 @@ import { useRoute } from "vue-router";
 const showMap = computed(() => props.settings?.ShowMap === true);
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: {
     type: Array,
     default: () => [],
@@ -884,15 +886,15 @@ const firstEvent = computed(() => {
 ===================================================== */
 
 .events {
-  --red: #7f151a;
-  --red-dark: #681014;
-  --red-soft: #a52b2f;
+  --red: var(--tc-7f151a, #7f151a);
+  --red-dark: var(--tc-681014, #681014);
+  --red-soft: var(--tc-a52b2f, #a52b2f);
 
-  --gold: #ad8240;
-  --gold-light: #c8a66a;
+  --gold: var(--tc-ad8240, #ad8240);
+  --gold-light: var(--tc-c8a66a, #c8a66a);
 
-  --text: #554b43;
-  --text-soft: #75685c;
+  --text: var(--tc-554b43, #554b43);
+  --text-soft: var(--tc-75685c, #75685c);
 
   position: relative;
   width: 100%;
@@ -957,7 +959,7 @@ const firstEvent = computed(() => {
 
   margin-bottom: 6px;
 
-  color: #906c33;
+  color: var(--tc-906c33, #906c33);
 
   font-size: 10px;
   font-weight: 700;
@@ -981,7 +983,7 @@ const firstEvent = computed(() => {
 .heading-symbol {
   margin-top: 7px;
 
-  color: #9b171c;
+  color: var(--tc-9b171c, #9b171c);
 
   font-family:
     "Times New Roman",
@@ -1012,8 +1014,8 @@ const firstEvent = computed(() => {
   background:
     linear-gradient(
       145deg,
-      rgba(255, 251, 243, .98),
-      rgba(250, 242, 225, .96)
+      rgba(var(--tc-fffbf3-rgb, 255, 251, 243), .98),
+      rgba(var(--tc-faf2e1-rgb, 250, 242, 225), .96)
     );
 
   border:
@@ -1022,7 +1024,7 @@ const firstEvent = computed(() => {
 
   box-shadow:
     0 12px 30px
-    rgba(92, 43, 21, .08);
+    rgba(var(--tc-5c2b15-rgb, 92, 43, 21), .08);
 
   box-sizing: border-box;
 }
@@ -1041,7 +1043,7 @@ const firstEvent = computed(() => {
 
   border:
     1px solid
-    rgba(174, 132, 65, .25);
+    rgba(var(--tc-ae8441-rgb, 174, 132, 65), .25);
 
   pointer-events: none;
 
@@ -1062,7 +1064,7 @@ const firstEvent = computed(() => {
 
   border:
     1px solid
-    rgba(169, 123, 54, .38);
+    rgba(var(--tc-a97b36-rgb, 169, 123, 54), .38);
 
   pointer-events: none;
 }
@@ -1085,18 +1087,18 @@ const firstEvent = computed(() => {
   align-items: center;
   justify-content: center;
 
-  color: #8f6930;
+  color: var(--tc-8f6930, #8f6930);
 
   background:
     linear-gradient(
       135deg,
-      #fffaf0,
-      #f7ecd6
+      var(--tc-fffaf0, #fffaf0),
+      var(--tc-f7ecd6, #f7ecd6)
     );
 
   border:
     1px solid
-    rgba(169, 123, 54, .35);
+    rgba(var(--tc-a97b36-rgb, 169, 123, 54), .35);
 
   font-size: 11px;
 
@@ -1159,7 +1161,7 @@ const firstEvent = computed(() => {
 
   margin-bottom: 7px;
 
-  color: #8b6935;
+  color: var(--tc-8b6935, #8b6935);
 
   font-size: 10px;
   font-weight: 700;
@@ -1204,7 +1206,7 @@ const firstEvent = computed(() => {
 }
 
 .Title-decoration b {
-  color: #98161b;
+  color: var(--tc-98161b, #98161b);
 
   font-family:
     "Times New Roman",
@@ -1270,7 +1272,7 @@ const firstEvent = computed(() => {
 }
 
 .weekday {
-  color: #6d5b49;
+  color: var(--tc-6d5b49, #6d5b49);
 
   font-size: 12px;
   font-weight: 700;
@@ -1284,7 +1286,7 @@ const firstEvent = computed(() => {
  */
 
 .day {
-  color: #97161b;
+  color: var(--tc-97161b, #97161b);
 
   font-family:
     Georgia,
@@ -1300,7 +1302,7 @@ const firstEvent = computed(() => {
 }
 
 .month {
-  color: #6d5741;
+  color: var(--tc-6d5741, #6d5741);
 
   font-size: 12px;
   font-weight: 700;
@@ -1316,7 +1318,7 @@ const firstEvent = computed(() => {
 .event-year {
   margin-top: 11px;
 
-  color: #80623e;
+  color: var(--tc-80623e, #80623e);
 
   font-family:
     Georgia,
@@ -1337,7 +1339,7 @@ const firstEvent = computed(() => {
 .event-lunar {
   margin-top: 7px;
 
-  color: #927657;
+  color: var(--tc-927657, #927657);
 
   font-size: 10px;
   font-weight: 500;
@@ -1368,7 +1370,7 @@ const firstEvent = computed(() => {
 
   border:
     1px solid
-    rgba(170, 126, 58, .3);
+    rgba(var(--tc-aa7e3a-rgb, 170, 126, 58), .3);
 
   border-radius: 2px;
 }
@@ -1391,13 +1393,13 @@ const firstEvent = computed(() => {
 .schedule-item + .schedule-item {
   border-left:
     1px solid
-    rgba(170, 126, 58, .3);
+    rgba(var(--tc-aa7e3a-rgb, 170, 126, 58), .3);
 }
 
 .schedule-icon {
   margin-bottom: 5px;
 
-  color: #8a6735;
+  color: var(--tc-8a6735, #8a6735);
 
   font-size: 14px;
 }
@@ -1405,7 +1407,7 @@ const firstEvent = computed(() => {
 .schedule-label {
   margin-bottom: 7px;
 
-  color: #906c3a;
+  color: var(--tc-906c3a, #906c3a);
 
   font-size: 11px;
   font-weight: 700;
@@ -1443,11 +1445,11 @@ const firstEvent = computed(() => {
 
   border:
     1px solid
-    rgba(169, 124, 55, .32);
+    rgba(var(--tc-a97c37-rgb, 169, 124, 55), .32);
 
   box-shadow:
     inset 0 0 0 3px
-    rgba(187, 145, 77, .055);
+    rgba(var(--tc-bb914d-rgb, 187, 145, 77), .055);
 
   box-sizing: border-box;
 }
@@ -1470,7 +1472,7 @@ const firstEvent = computed(() => {
 .calendar-label {
   margin-bottom: 4px;
 
-  color: #906c33;
+  color: var(--tc-906c33, #906c33);
 
   font-size: 11px;
   font-weight: 700;
@@ -1504,15 +1506,15 @@ const firstEvent = computed(() => {
 
   border-top:
     1px solid
-    rgba(169, 124, 55, .22);
+    rgba(var(--tc-a97c37-rgb, 169, 124, 55), .22);
 
   border-bottom:
     1px solid
-    rgba(169, 124, 55, .22);
+    rgba(var(--tc-a97c37-rgb, 169, 124, 55), .22);
 }
 
 .calendar-weekdays span {
-  color: #725c43;
+  color: var(--tc-725c43, #725c43);
 
   font-size: 11px;
   font-weight: 700;
@@ -1555,7 +1557,7 @@ const firstEvent = computed(() => {
 ===================================================== */
 
 .normal-day {
-  color: #4e4740;
+  color: var(--tc-4e4740, #4e4740);
 
   font-family:
     Arial,
@@ -1596,7 +1598,7 @@ const firstEvent = computed(() => {
   top: 50%;
   left: 50%;
 
-  color: #78070b;
+  color: var(--tc-78070b, #78070b);
 
   font-size: 45px;
   font-weight: 900;
@@ -1608,7 +1610,7 @@ const firstEvent = computed(() => {
 
   text-shadow:
     0 2px 5px
-    rgba(90, 0, 0, .15);
+    rgba(var(--tc-5a0000-rgb, 90, 0, 0), .15);
 }
 
 
@@ -1653,7 +1655,7 @@ const firstEvent = computed(() => {
 
   margin-top: 15px;
 
-  color: #89651f;
+  color: var(--tc-89651f, #89651f);
 
   font-size: 11px;
   font-weight: 700;
@@ -1664,7 +1666,7 @@ const firstEvent = computed(() => {
 
   border-bottom:
     1px solid
-    rgba(137, 101, 31, .4);
+    rgba(var(--tc-89651f-rgb, 137, 101, 31), .4);
 
   padding-bottom: 3px;
 }
@@ -1687,13 +1689,13 @@ const firstEvent = computed(() => {
 
   border-top:
     1px solid
-    rgba(169, 124, 55, .23);
+    rgba(var(--tc-a97c37-rgb, 169, 124, 55), .23);
 }
 
 .location-symbol {
   margin-bottom: 7px;
 
-  color: #8e6934;
+  color: var(--tc-8e6934, #8e6934);
 
   font-size: 15px;
 }
@@ -1715,7 +1717,7 @@ const firstEvent = computed(() => {
     auto
     0;
 
-  color: #685b4f;
+  color: var(--tc-685b4f, #685b4f);
 
   font-size: 11px;
   font-weight: 500;
@@ -1728,7 +1730,7 @@ const firstEvent = computed(() => {
 
   margin-top: 11px;
 
-  color: #89651f;
+  color: var(--tc-89651f, #89651f);
 
   font-size: 11px;
   font-weight: 700;
@@ -1739,7 +1741,7 @@ const firstEvent = computed(() => {
 
   border-bottom:
     1px solid
-    rgba(137, 101, 31, .4);
+    rgba(var(--tc-89651f-rgb, 137, 101, 31), .4);
 
   padding-bottom: 3px;
 }
@@ -1766,22 +1768,22 @@ const firstEvent = computed(() => {
     10px
     22px;
 
-  color: #fffaf0;
+  color: var(--tc-fffaf0, #fffaf0);
 
   background:
     linear-gradient(
       135deg,
-      #94171c,
-      #741014
+      var(--tc-94171c, #94171c),
+      var(--tc-741014, #741014)
     );
 
   border:
     1px solid
-    #a42a2e;
+    var(--tc-a42a2e, #a42a2e);
 
   box-shadow:
     0 6px 16px
-    rgba(117, 17, 22, .15);
+    rgba(var(--tc-751116-rgb, 117, 17, 22), .15);
 
   font-size: 10px;
   font-weight: 700;
@@ -1804,7 +1806,7 @@ const firstEvent = computed(() => {
 
   box-shadow:
     0 9px 20px
-    rgba(117, 17, 22, .2);
+    rgba(var(--tc-751116-rgb, 117, 17, 22), .2);
 }
 
 
@@ -1833,7 +1835,7 @@ const firstEvent = computed(() => {
     linear-gradient(
       to right,
       transparent,
-      #b68b49
+      var(--tc-b68b49, #b68b49)
     );
 }
 
@@ -1842,12 +1844,12 @@ const firstEvent = computed(() => {
     linear-gradient(
       to left,
       transparent,
-      #b68b49
+      var(--tc-b68b49, #b68b49)
     );
 }
 
 .bottom-ornament b {
-  color: #981519;
+  color: var(--tc-981519, #981519);
 
   font-family:
     "Times New Roman",
@@ -2036,11 +2038,11 @@ const firstEvent = computed(() => {
      * background chung
      */
 
-  background: #fffaf4 !important;
+  background: var(--tc-fffaf4, #fffaf4) !important;
 
-  color: #4f4039 !important;
+  color: var(--tc-4f4039, #4f4039) !important;
 
-  border: 1px solid #e6d5b8;
+  border: 1px solid var(--tc-e6d5b8, #e6d5b8);
 
   border-radius: 24px;
 
@@ -2069,7 +2071,7 @@ const firstEvent = computed(() => {
 }
 
 .confirm-modal::-webkit-scrollbar-thumb {
-  background: #d8b46d;
+  background: var(--tc-d8b46d, #d8b46d);
   border-radius: 20px;
 }
 
@@ -2097,9 +2099,9 @@ const firstEvent = computed(() => {
   border: none;
   border-radius: 50%;
 
-  background: #f3eadb !important;
+  background: var(--tc-f3eadb, #f3eadb) !important;
 
-  color: #6b5146 !important;
+  color: var(--tc-6b5146, #6b5146) !important;
 
   font-family: Arial, sans-serif;
 
@@ -2117,9 +2119,9 @@ const firstEvent = computed(() => {
 }
 
 .modal-close:hover {
-  background: #7b0d0d !important;
+  background: var(--tc-7b0d0d, #7b0d0d) !important;
 
-  color: #fffaf4 !important;
+  color: var(--tc-fffaf4, #fffaf4) !important;
 
   transform: rotate(90deg);
 }
@@ -2136,9 +2138,9 @@ const firstEvent = computed(() => {
   /*
      * Header có màu riêng
      */
-  background: linear-gradient(180deg, #f8eee0 0%, #fffaf4 100%);
+  background: linear-gradient(180deg, var(--tc-f8eee0, #f8eee0) 0%, var(--tc-fffaf4, #fffaf4) 100%);
 
-  border-bottom: 1px solid #eadcc7;
+  border-bottom: 1px solid var(--tc-eadcc7, #eadcc7);
 }
 
 /* =========================================================
@@ -2148,7 +2150,7 @@ const firstEvent = computed(() => {
 .modal-symbol {
   margin-bottom: 8px;
 
-  color: #90672a !important;
+  color: var(--tc-90672a, #90672a) !important;
 
   font-size: 23px;
 
@@ -2162,7 +2164,7 @@ const firstEvent = computed(() => {
 .modal-header h3 {
   margin: 0;
 
-  color: #7b0d0d !important;
+  color: var(--tc-7b0d0d, #7b0d0d) !important;
 
   font-family: var(--font-heading), "Cormorant Garamond", serif;
 
@@ -2184,7 +2186,7 @@ const firstEvent = computed(() => {
 
   margin: 10px auto 0;
 
-  color: #76655c !important;
+  color: var(--tc-76655c, #76655c) !important;
 
   font-family: var(--font-main), "Cormorant Garamond", serif;
 
@@ -2204,9 +2206,9 @@ const firstEvent = computed(() => {
 
   text-align: center;
 
-  background: #f8f1e6 !important;
+  background: var(--tc-f8f1e6, #f8f1e6) !important;
 
-  border: 1px solid #ddc79f;
+  border: 1px solid var(--tc-ddc79f, #ddc79f);
 
   border-radius: 14px;
 }
@@ -2214,7 +2216,7 @@ const firstEvent = computed(() => {
 .recipient-label {
   margin-bottom: 5px;
 
-  color: #90672a !important;
+  color: var(--tc-90672a, #90672a) !important;
 
   font-size: 11px;
 
@@ -2224,7 +2226,7 @@ const firstEvent = computed(() => {
 }
 
 .recipient-name {
-  color: #7b0d0d !important;
+  color: var(--tc-7b0d0d, #7b0d0d) !important;
 
   font-family: var(--font-heading), "Cormorant Garamond", serif;
 
@@ -2246,7 +2248,7 @@ const firstEvent = computed(() => {
 
   margin-bottom: 8px;
 
-  color: #5c4d46 !important;
+  color: var(--tc-5c4d46, #5c4d46) !important;
 
   font-size: 14px;
 
@@ -2264,7 +2266,7 @@ const firstEvent = computed(() => {
 
   padding: 11px 14px;
 
-  border: 1px solid #d9cbb8 !important;
+  border: 1px solid var(--tc-d9cbb8, #d9cbb8) !important;
 
   border-radius: 12px;
 
@@ -2272,7 +2274,7 @@ const firstEvent = computed(() => {
 
   background: #ffffff !important;
 
-  color: #4f4039 !important;
+  color: var(--tc-4f4039, #4f4039) !important;
 
   font-family: var(--font-main), "Cormorant Garamond", serif;
 
@@ -2286,11 +2288,11 @@ const firstEvent = computed(() => {
 }
 
 .form-group input::placeholder {
-  color: #7b6f66 !important;
+  color: var(--tc-7b6f66, #7b6f66) !important;
 }
 
 .form-group input:focus {
-  border-color: #90672a !important;
+  border-color: var(--tc-90672a, #90672a) !important;
 
   box-shadow: 0 0 0 3px rgba(169, 121, 49, 0.1);
 }
@@ -2320,13 +2322,13 @@ const firstEvent = computed(() => {
 
   padding: 10px 13px;
 
-  border: 1px solid #ded1bf !important;
+  border: 1px solid var(--tc-ded1bf, #ded1bf) !important;
 
   border-radius: 12px;
 
   background: #ffffff !important;
 
-  color: #5c4d46 !important;
+  color: var(--tc-5c4d46, #5c4d46) !important;
 
   font-family: var(--font-main), "Cormorant Garamond", serif;
 
@@ -2343,17 +2345,17 @@ const firstEvent = computed(() => {
 }
 
 .attendance-option:hover {
-  border-color: #8a6f40 !important;
+  border-color: var(--tc-8a6f40, #8a6f40) !important;
 
-  background: #fffaf4 !important;
+  background: var(--tc-fffaf4, #fffaf4) !important;
 }
 
 .attendance-option.selected {
-  border-color: #7b0d0d !important;
+  border-color: var(--tc-7b0d0d, #7b0d0d) !important;
 
-  background: #fbf1ec !important;
+  background: var(--tc-fbf1ec, #fbf1ec) !important;
 
-  color: #7b0d0d !important;
+  color: var(--tc-7b0d0d, #7b0d0d) !important;
 }
 
 /* =========================================================
@@ -2373,9 +2375,9 @@ const firstEvent = computed(() => {
 
   border-radius: 50%;
 
-  background: #f1e4cc !important;
+  background: var(--tc-f1e4cc, #f1e4cc) !important;
 
-  color: #7b0d0d !important;
+  color: var(--tc-7b0d0d, #7b0d0d) !important;
 
   font-family: Arial, sans-serif;
 
@@ -2385,9 +2387,9 @@ const firstEvent = computed(() => {
 }
 
 .attendance-option.selected .option-icon {
-  background: #7b0d0d !important;
+  background: var(--tc-7b0d0d, #7b0d0d) !important;
 
-  color: #fffaf4 !important;
+  color: var(--tc-fffaf4, #fffaf4) !important;
 }
 
 /* =========================================================
@@ -2406,7 +2408,7 @@ const firstEvent = computed(() => {
 
   overflow: hidden;
 
-  border: 1px solid #d9cbb8;
+  border: 1px solid var(--tc-d9cbb8, #d9cbb8);
 
   border-radius: 12px;
 
@@ -2423,7 +2425,7 @@ const firstEvent = computed(() => {
 
   background: transparent !important;
 
-  color: #7b0d0d !important;
+  color: var(--tc-7b0d0d, #7b0d0d) !important;
 
   font-size: 20px;
 
@@ -2431,7 +2433,7 @@ const firstEvent = computed(() => {
 }
 
 .people-control button:hover {
-  background: #f8eee0 !important;
+  background: var(--tc-f8eee0, #f8eee0) !important;
 }
 
 .people-control span {
@@ -2439,7 +2441,7 @@ const firstEvent = computed(() => {
 
   text-align: center;
 
-  color: #4f4039 !important;
+  color: var(--tc-4f4039, #4f4039) !important;
 
   font-family: var(--font-heading), "Cormorant Garamond", serif;
 
@@ -2459,9 +2461,9 @@ const firstEvent = computed(() => {
 
   border-radius: 10px;
 
-  background: #fbe9e7 !important;
+  background: var(--tc-fbe9e7, #fbe9e7) !important;
 
-  color: #b3261e !important;
+  color: var(--tc-b3261e, #b3261e) !important;
 
   font-size: 13px;
 
@@ -2479,9 +2481,9 @@ const firstEvent = computed(() => {
 
   border-radius: 10px;
 
-  background: #edf6ed !important;
+  background: var(--tc-edf6ed, #edf6ed) !important;
 
-  color: #36743a !important;
+  color: var(--tc-36743a, #36743a) !important;
 
   font-size: 13px;
 
@@ -2506,13 +2508,13 @@ const firstEvent = computed(() => {
 
   padding: 10px 20px;
 
-  border: 1px solid #7b0d0d !important;
+  border: 1px solid var(--tc-7b0d0d, #7b0d0d) !important;
 
   border-radius: 13px;
 
-  background: linear-gradient(135deg, #7b0d0d, #620909) !important;
+  background: linear-gradient(135deg, var(--tc-7b0d0d, #7b0d0d), var(--tc-620909, #620909)) !important;
 
-  color: #fffaf4 !important;
+  color: var(--tc-fffaf4, #fffaf4) !important;
 
   font-family: var(--font-main), "Cormorant Garamond", serif;
 
@@ -2524,7 +2526,7 @@ const firstEvent = computed(() => {
 
   cursor: pointer;
 
-  box-shadow: 0 7px 18px rgba(123, 13, 13, 0.18);
+  box-shadow: 0 7px 18px rgba(var(--tc-7b0d0d-rgb, 123, 13, 13), 0.18);
 
   transition:
     transform 0.2s ease,
@@ -2534,7 +2536,7 @@ const firstEvent = computed(() => {
 .modal-submit:hover:not(:disabled) {
   transform: translateY(-1px);
 
-  box-shadow: 0 10px 24px rgba(123, 13, 13, 0.25);
+  box-shadow: 0 10px 24px rgba(var(--tc-7b0d0d-rgb, 123, 13, 13), 0.25);
 }
 
 .modal-submit:disabled {

@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> OUR STORY </span>
 
-        <h1>Chuyện tình yêu</h1>
+        <h1>{{ $t('editor.menu.story') }}</h1>
 
-        <p>Kể lại câu chuyện của hai bạn.</p>
+        <p>{{ $t('storyPanel.desc') }}</p>
       </div>
     </div>
 
@@ -23,9 +23,9 @@
       >
         <v-icon size="20"> mdi-text-long </v-icon>
 
-        <strong> Văn bản </strong>
+        <strong> {{ $t('storyPanel.modeText') }} </strong>
 
-        <small> Một khối văn bản như hiện tại. </small>
+        <small> {{ $t('storyPanel.modeTextHint') }} </small>
       </button>
 
       <button
@@ -36,10 +36,10 @@
       >
         <v-icon size="20"> mdi-map-marker-multiple-outline </v-icon>
 
-        <strong> Dấu mốc </strong>
+        <strong> {{ $t('storyPanel.modeMilestones') }} </strong>
 
         <small>
-          Nhiều mốc thời gian — dạng bản đồ hành trình.
+          {{ $t('storyPanel.modeMilestonesHint') }}
         </small>
       </button>
     </div>
@@ -50,40 +50,39 @@
 
     <template v-if="isTextMode">
       <div class="editor-field">
-        <label>Tiêu đề</label>
+        <label>{{ $t('panel.title') }}</label>
 
         <input
           v-model="wedding.story.Title"
           type="text"
-          placeholder="VD: Chuyện của chúng mình"
+          :placeholder="$t('storyPanel.titlePlaceholder')"
         />
 
         <small class="field-help">
-          Tiêu đề của mục trên thiệp. Bỏ trống dùng "Chuyện Tình Yêu".
+          {{ $t('storyPanel.titleHint') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Nội dung</label>
+        <label>{{ $t('storyPanel.content') }}</label>
 
         <textarea
           v-model="wedding.story.Description"
           rows="12"
-          placeholder="Viết câu chuyện tình yêu..."
+          :placeholder="$t('storyPanel.contentPlaceholder')"
         />
 
         <small class="field-help">
-          Gợi ý: bắt đầu từ lúc hai bạn gặp nhau, khoảnh khắc nhớ nhất,
-          rồi đến lời cầu hôn. 150–300 từ là vừa đẹp.
+          {{ $t('storyPanel.contentHint') }}
         </small>
 
         <div class="story-meta">
           <span>
-            {{ wordCount }} từ · {{ (wedding.story.Description || "").length }}
-            ký tự
+            {{ $t("storyPanel.words", { n: wordCount }) }} ·
+            {{ $t("common.chars", { n: (wedding.story.Description || "").length }) }}
           </span>
 
-          <span v-if="readingTime"> ~{{ readingTime }} phút đọc </span>
+          <span v-if="readingTime"> {{ $t("storyPanel.readingTime", { n: readingTime }) }} </span>
         </div>
       </div>
 
@@ -95,11 +94,11 @@
         <div class="story-ideas-head">
           <v-icon size="17"> mdi-lightbulb-on-outline </v-icon>
 
-          <strong> Gợi ý mở đầu </strong>
+          <strong> {{ $t('storyPanel.ideas') }} </strong>
         </div>
 
         <p class="story-ideas-hint">
-          Bấm để chèn vào cuối nội dung, rồi sửa lại theo câu chuyện của bạn.
+          {{ $t('storyPanel.ideasHint') }}
         </p>
 
         <div class="story-idea-list">
@@ -122,16 +121,16 @@
 
     <template v-else>
       <div class="editor-field">
-        <label>Tiêu đề</label>
+        <label>{{ $t('panel.title') }}</label>
 
         <input
           v-model="wedding.story.Title"
           type="text"
-          placeholder="VD: Hành trình của chúng mình"
+          :placeholder="$t('storyPanel.milestonesTitlePlaceholder')"
         />
 
         <small class="field-help">
-          Tiêu đề của mục trên thiệp. Bỏ trống dùng "Chuyện Tình Yêu".
+          {{ $t('storyPanel.titleHint') }}
         </small>
       </div>
 
@@ -143,17 +142,17 @@
         >
           <div class="card-header">
             <div>
-              <span> MỐC {{ index + 1 }} </span>
+              <span> {{ $t('timelinePanel.itemLabel') }} {{ index + 1 }} </span>
 
               <strong>
-                {{ item.Title || "Chưa đặt tên" }}
+                {{ item.Title || $t('panel.untitled') }}
               </strong>
             </div>
 
             <EditorItemActions
               :index="index"
               :total="wedding.storyMilestones.length"
-              remove-title="Xoá mốc"
+              :remove-title="$t('timelinePanel.remove')"
               @move="moveMilestone"
               @remove="removeMilestone"
             />
@@ -161,50 +160,50 @@
 
           <div class="form-grid">
             <div class="editor-field">
-              <label>Thời điểm</label>
+              <label>{{ $t('storyPanel.when') }}</label>
 
               <input
                 v-model="item.Date"
                 type="text"
-                placeholder="VD: Mùa hè 2018"
+                :placeholder="$t('storyPanel.whenPlaceholder')"
               />
 
               <small class="field-help">
-                Chuỗi tự do — "Mùa hè 2018", "Tháng 3 năm 2020"...
+                {{ $t('storyPanel.whenHint') }}
               </small>
             </div>
 
             <div class="editor-field">
-              <label>Tiêu đề</label>
+              <label>{{ $t('panel.title') }}</label>
 
               <input
                 v-model="item.Title"
                 type="text"
-                placeholder="VD: Lần đầu gặp nhau"
+                :placeholder="$t('storyPanel.milestonePlaceholder')"
               />
 
               <small class="field-help">
-                VD: Lần đầu gặp nhau, Lời tỏ tình, Ngày cầu hôn...
+                {{ $t('storyPanel.milestoneTitleHint') }}
               </small>
             </div>
 
             <div class="editor-field full">
-              <label>Mô tả</label>
+              <label>{{ $t('panel.description') }}</label>
 
               <textarea
                 v-model="item.Description"
                 rows="4"
-                placeholder="Kể ngắn về khoảnh khắc này..."
+                :placeholder="$t('storyPanel.milestoneDescPlaceholder')"
               />
             </div>
 
             <div class="editor-field full">
-              <label>Ảnh (tùy chọn)</label>
+              <label>{{ $t('storyPanel.photoOptional') }}</label>
 
               <UploadField
                 v-model="item.Image"
                 kind="image"
-                button-text="Tải ảnh lên"
+                :button-text="$t('storyPanel.uploadPhoto')"
                 compact
               />
             </div>
@@ -214,17 +213,17 @@
         <div v-if="!wedding.storyMilestones?.length" class="empty-card">
           <v-icon size="30"> mdi-map-marker-multiple-outline </v-icon>
 
-          <strong> Chưa có dấu mốc </strong>
+          <strong> {{ $t('storyPanel.emptyMilestones') }} </strong>
 
           <span>
-            Thêm mốc đầu tiên — lần gặp nhau, tỏ tình, cầu hôn...
+            {{ $t('storyPanel.emptyMilestonesHint') }}
           </span>
         </div>
 
         <button type="button" class="add-button" @click="addMilestone">
           <v-icon> mdi-plus </v-icon>
 
-          Thêm dấu mốc
+          {{ $t('storyPanel.addMilestone') }}
         </button>
       </div>
     </template>
@@ -232,12 +231,15 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 
 import EditorItemActions from "@/components/editor/EditorItemActions.vue";
 import UploadField from "@/components/editor/UploadField.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -247,12 +249,13 @@ const props = defineProps({
  * Gợi ý mở đầu — giúp người dùng không bị "trắng trang"
  * khi chưa biết viết gì.
  */
-const STORY_IDEAS = [
-  "Chúng mình gặp nhau lần đầu vào...",
-  "Điều mình nhớ nhất về người ấy là...",
-  "Sau bao nhiêu năm, điều không đổi là...",
-  "Ngày hôm đó trời...",
-];
+/* computed: đổi ngôn ngữ giao diện là gợi ý đổi theo */
+const STORY_IDEAS = computed(() => [
+  t("storyPanel.idea1"),
+  t("storyPanel.idea2"),
+  t("storyPanel.idea3"),
+  t("storyPanel.idea4"),
+]);
 
 function appendIdea(idea) {
   const current = props.wedding.story.Description || "";
@@ -308,10 +311,10 @@ async function removeMilestone(index) {
   const item = props.wedding.storyMilestones[index];
 
   const ok = await confirmDialog({
-    title: "Xoá dấu mốc này?",
-    message: "Mốc sẽ bị xoá khỏi thiệp. Bạn vẫn hoàn tác được.",
-    detail: item?.Title || `Mốc ${index + 1}`,
-    confirmText: "Xoá mốc",
+    get title() { return t("storyPanel.confirmTitle"); },
+    get message() { return t("timelinePanel.confirmMessage"); },
+    detail: item?.Title || t("timelinePanel.itemN", { n: index + 1 }),
+    get confirmText() { return t("timelinePanel.remove"); },
     danger: true,
   });
 

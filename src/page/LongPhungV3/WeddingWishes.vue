@@ -1,13 +1,15 @@
 <template>
   <section class="lp-wishes">
     <div class="lp-section-title">
-      <h2>SỔ LƯU BÚT</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="lp-top-custom-head">
+        <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "guestbook", "Heading", "SỔ LƯU BÚT") }}</h2>
     </div>
 
-    <p class="lp-wishes__intro">
-      Mỗi lời chúc là một kỷ niệm đẹp<br />
-      mà chúng mình muốn lưu giữ trong ngày đặc biệt này
-    </p>
+    <p class="lp-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
 
     <!-- =========================================
          FORM LỜI CHÚC
@@ -169,11 +171,13 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: { type: Array, default: () => [] },
   wedding: { type: Object, default: () => ({}) },
 });
@@ -323,7 +327,7 @@ async function submitWish() {
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* Tiêu đề có khung frame-title */
@@ -354,17 +358,19 @@ async function submitWish() {
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-wishes__intro {
+  white-space: pre-line;
+
   margin: 0 0 22px;
 
   font-size: 12px;
 
   line-height: 1.7;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 }
 
 /* =========================================================
@@ -376,7 +382,7 @@ async function submitWish() {
 
   padding: 24px 20px;
 
-  border: 1px solid rgba(255, 190, 137, 0.66);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.66);
   border-radius: 16px;
 
   background: rgba(255, 255, 255, 0.08);
@@ -397,7 +403,7 @@ async function submitWish() {
   font-size: 14px;
   font-weight: 600;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* =========================================================
@@ -413,10 +419,10 @@ async function submitWish() {
 
   padding: 8px 12px;
 
-  border: 1px solid rgba(255, 190, 137, 0.3);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3);
   border-radius: 10px;
 
-  background: rgba(255, 190, 137, 0.06);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.06);
 }
 
 .lp-marquee-label {
@@ -431,7 +437,7 @@ async function submitWish() {
 
   letter-spacing: 0.14em;
 
-  color: rgba(255, 190, 137, 0.8);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.8);
 }
 
 .lp-marquee-window {
@@ -468,32 +474,32 @@ async function submitWish() {
 
   font-size: 11px;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 }
 
 .lp-wish-marquee-item i {
   font-size: 10px;
   font-style: normal;
 
-  color: #d4af37;
+  color: var(--tc-d4af37, #d4af37);
 }
 
 .lp-wish-marquee-item strong {
   font-weight: 700;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-wish-marquee-item em {
   font-style: italic;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 }
 
 .lp-marquee-dot {
   font-size: 10px;
 
-  color: rgba(255, 190, 137, 0.4);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
 }
 
 @keyframes lp-marquee {
@@ -524,7 +530,7 @@ async function submitWish() {
 
   letter-spacing: 0.14em;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 .lp-input-wrap,
@@ -549,7 +555,7 @@ async function submitWish() {
 
   transform: translateY(-50%);
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 
   pointer-events: none;
 }
@@ -566,7 +572,7 @@ async function submitWish() {
 
   padding: 11px 13px 11px 38px;
 
-  border: 1px solid #ffbe89;
+  border: 1px solid var(--tc-ffbe89, #ffbe89);
   border-radius: 6px;
 
   outline: none;
@@ -575,9 +581,9 @@ async function submitWish() {
 
   font-size: 14px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
-  background: rgba(255, 190, 137, 0.1);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.1);
 
   transition: box-shadow 0.2s ease;
 }
@@ -592,12 +598,12 @@ async function submitWish() {
 
 .lp-input-wrap input::placeholder,
 .lp-textarea-wrap textarea::placeholder {
-  color: rgba(255, 190, 137, 0.45);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.45);
 }
 
 .lp-input-wrap input:focus,
 .lp-textarea-wrap textarea:focus {
-  box-shadow: 0 0 0 3px rgba(255, 190, 137, 0.18);
+  box-shadow: 0 0 0 3px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.18);
 }
 
 .lp-character-count {
@@ -607,7 +613,7 @@ async function submitWish() {
 
   font-size: 11px;
 
-  color: rgba(255, 190, 137, 0.5);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
 }
 
 /* =========================================================
@@ -632,11 +638,11 @@ async function submitWish() {
 
   letter-spacing: 0.12em;
 
-  color: #710001;
+  color: var(--tc-710001, #710001);
 
-  background: #ffbe89;
+  background: var(--tc-ffbe89, #ffbe89);
 
-  box-shadow: 0 8px 20px rgba(255, 190, 137, 0.3);
+  box-shadow: 0 8px 20px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3);
 
   cursor: pointer;
 
@@ -646,7 +652,7 @@ async function submitWish() {
 .lp-wish-submit:hover:not(:disabled) {
   transform: scale(1.05);
 
-  box-shadow: 0 12px 26px rgba(255, 190, 137, 0.4);
+  box-shadow: 0 12px 26px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
 }
 
 .lp-wish-submit:disabled {
@@ -664,7 +670,7 @@ async function submitWish() {
 
   text-align: center;
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 }
 
 .lp-empty-flower {
@@ -677,10 +683,10 @@ async function submitWish() {
 
   margin: 0 auto 10px;
 
-  border: 1px solid rgba(255, 190, 137, 0.35);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.35);
   border-radius: 50%;
 
-  background: rgba(255, 190, 137, 0.08);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08);
 }
 
 .lp-no-wishes p {
@@ -689,7 +695,7 @@ async function submitWish() {
   font-size: 14px;
   font-weight: 600;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-no-wishes span {
@@ -717,7 +723,7 @@ async function submitWish() {
 
   letter-spacing: 0.14em;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 .lp-list-heading div {
@@ -733,7 +739,7 @@ async function submitWish() {
 
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(255, 190, 137, 0.4));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4));
 }
 
 .lp-list-heading span:last-child {
@@ -749,7 +755,7 @@ async function submitWish() {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(255, 190, 137, 0.66);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.66);
   border-radius: 12px;
 
   background: rgba(255, 255, 255, 0.11);
@@ -769,12 +775,12 @@ async function submitWish() {
 
   border-radius: 50%;
 
-  background: linear-gradient(140deg, rgba(255, 190, 137, 0.3), rgba(212, 175, 55, 0.25));
+  background: linear-gradient(140deg, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3), rgba(var(--tc-d4af37-rgb, 212, 175, 55), 0.25));
 
   font-size: 14px;
   font-weight: 700;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-wish-content {
@@ -795,13 +801,13 @@ async function submitWish() {
   font-size: 12px;
   font-weight: 700;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-wish-header span {
   font-size: 11px;
 
-  color: rgba(255, 190, 137, 0.5);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
 }
 
 .lp-wish-content p {
@@ -811,7 +817,7 @@ async function submitWish() {
 
   line-height: 1.6;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 
   overflow-wrap: anywhere;
 }
@@ -846,14 +852,14 @@ async function submitWish() {
 
   margin-top: 22px;
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
 }
 
 .lp-wishes__bottom span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(255, 190, 137, 0.5));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5));
 }
 
 .lp-wishes__bottom span:last-child {
@@ -893,5 +899,38 @@ async function submitWish() {
   .lp-wish-track {
     animation: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-top-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

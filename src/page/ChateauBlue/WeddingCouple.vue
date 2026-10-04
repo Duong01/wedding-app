@@ -263,7 +263,7 @@ const weddingTime = computed(() => {
 
   text-align: center;
 
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 
   overflow: hidden;
 }
@@ -271,7 +271,7 @@ const weddingTime = computed(() => {
 .ct-eyebrow {
   margin: 0;
 
-  color: #48546e;
+  color: var(--tc-48546e, #48546e);
 
   font-size: 10px;
   font-weight: 700;
@@ -288,7 +288,7 @@ const weddingTime = computed(() => {
   font-size: clamp(26px, 7vw, 34px);
   font-weight: 600;
 
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 }
 
 .ct-rule {
@@ -299,7 +299,7 @@ const weddingTime = computed(() => {
 
   margin: 0 auto;
 
-  color: #4d5a75;
+  color: var(--tc-4d5a75, #4d5a75);
 
   font-size: 14px;
 }
@@ -308,7 +308,7 @@ const weddingTime = computed(() => {
   width: 50px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(180, 192, 216, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b4c0d8-rgb, 180, 192, 216), 0.7));
 }
 
 .ct-rule span:last-child {
@@ -338,10 +338,10 @@ const weddingTime = computed(() => {
 
   margin: 0 auto 12px;
 
-  border: 2px solid rgba(125, 143, 176, 0.55);
+  border: 2px solid rgba(var(--tc-7d8fb0-rgb, 125, 143, 176), 0.55);
   border-radius: 50%;
 
-  background: rgba(252, 252, 253, 0.9);
+  background: rgba(var(--tc-fcfcfd-rgb, 252, 252, 253), 0.9);
 
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 
@@ -364,7 +364,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #48546e;
+  color: var(--tc-48546e, #48546e);
 }
 
 .ct-person__parents {
@@ -374,7 +374,7 @@ const weddingTime = computed(() => {
 .ct-parents {
   margin: 2px 0;
 
-  color: #505d78;
+  color: var(--tc-505d78, #505d78);
 
   font-size: 11px;
 
@@ -392,13 +392,13 @@ const weddingTime = computed(() => {
 
   line-height: 1.2;
 
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 }
 
 .ct-person__role {
   display: block;
 
-  color: #48546e;
+  color: var(--tc-48546e, #48546e);
 
   font-size: 11px;
 
@@ -409,7 +409,7 @@ const weddingTime = computed(() => {
 .ct-person__desc {
   margin: 7px 0 0;
 
-  color: #5a6378;
+  color: var(--tc-5a6378, #5a6378);
 
   font-size: 12px;
   font-style: italic;
@@ -426,7 +426,7 @@ const weddingTime = computed(() => {
 }
 
 .ct-couple-divider i {
-  color: #4d5a75;
+  color: var(--tc-4d5a75, #4d5a75);
 
   font-family: "Allura", cursive;
   font-size: 34px;
@@ -455,7 +455,7 @@ const weddingTime = computed(() => {
 }
 
 .ct-weekday {
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 
   font-size: 10px;
   font-weight: 700;
@@ -467,7 +467,7 @@ const weddingTime = computed(() => {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(180, 192, 216, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b4c0d8-rgb, 180, 192, 216), 0.7));
 }
 
 .ct-date-line:last-child {
@@ -492,7 +492,7 @@ const weddingTime = computed(() => {
 }
 
 .ct-date-side span {
-  color: #48546e;
+  color: var(--tc-48546e, #48546e);
 
   font-size: 10px;
   font-weight: 700;
@@ -501,7 +501,7 @@ const weddingTime = computed(() => {
 }
 
 .ct-date-side strong {
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 
   font-size: 20px;
   font-weight: 600;
@@ -510,7 +510,7 @@ const weddingTime = computed(() => {
 .ct-date-day {
   padding: 0 22px;
 
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -523,7 +523,7 @@ const weddingTime = computed(() => {
 .ct-lunar {
   margin-top: 12px;
 
-  color: #505d78;
+  color: var(--tc-505d78, #505d78);
 
   font-size: 11px;
   font-style: italic;
@@ -555,13 +555,13 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.2em;
 
-  color: #48546e;
+  color: var(--tc-48546e, #48546e);
 }
 
 .ct-time-content strong {
   margin-top: 1px;
 
-  color: #2f3e5c;
+  color: var(--tc-2f3e5c, #2f3e5c);
 
   font-size: 21px;
   font-weight: 600;

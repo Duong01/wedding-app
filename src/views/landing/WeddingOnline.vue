@@ -1,7 +1,7 @@
 <template>
   <main class="mk-page">
     <div class="mk-container">
-      <PageBreadcrumb :trail="[{ label: 'Thiệp cưới online' }]" />
+      <PageBreadcrumb :trail="[{ label: $t('footer.online') }]" />
     </div>
 
     <!-- =====================================================
@@ -11,26 +11,24 @@
       <div class="mk-hero__glow" aria-hidden="true"></div>
 
       <div class="mk-container mk-hero__inner">
-        <p class="mk-eyebrow">Thiệp cưới online</p>
+        <p class="mk-eyebrow">{{ $t('footer.online') }}</p>
 
         <h1>
-          Thiệp cưới online —
-          <em>trao lời yêu, gửi một đời duyên.</em>
+          {{ $t('landing.online.h1a') }}
+          <em>{{ $t('landing.online.h1b') }}</em>
         </h1>
 
         <p class="mk-hero__lead">
-          Một đường link thay cho xấp thiệp giấy. Khách mời mở là thấy ảnh
-          cưới, giờ tiệc, bản đồ chỉ đường, lời chúc và cả QR mừng cưới — tất
-          cả trong một trang.
+          {{ $t('landing.online.lead') }}
         </p>
 
         <div class="mk-hero__actions">
           <router-link :to="{ name: 'Editor' }" class="mk-btn mk-btn--solid">
-            Tạo thiệp ngay
+            {{ $t('footer.createNow') }}
           </router-link>
 
           <router-link :to="{ name: 'Templates' }" class="mk-btn mk-btn--ghost">
-            Xem mẫu thiệp
+            {{ $t('about.viewTemplates') }}
           </router-link>
         </div>
 
@@ -49,17 +47,17 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Khác biệt</p>
+          <p class="mk-eyebrow">{{ $t('landing.online.diffEyebrow') }}</p>
 
           <h2>
-            Thiệp giấy không sai —
-            <em>chỉ là thiếu khả năng sửa.</em>
+            {{ $t('landing.online.diffH2a') }}
+            <em>{{ $t('landing.online.diffH2b') }}</em>
           </h2>
         </header>
 
         <div class="mk-grid mk-grid--2">
           <article class="mk-card compare-card is-muted">
-            <h3>Thiệp giấy truyền thống</h3>
+            <h3>{{ $t('landing.online.paper') }}</h3>
 
             <ul class="compare-list">
               <li v-for="item in PAPER_CONS" :key="item">
@@ -70,7 +68,7 @@
           </article>
 
           <article class="mk-card compare-card is-strong">
-            <h3>Thiệp cưới online</h3>
+            <h3>{{ $t('footer.online') }}</h3>
 
             <ul class="compare-list">
               <li v-for="item in ONLINE_PROS" :key="item">
@@ -89,15 +87,15 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Nội dung</p>
+          <p class="mk-eyebrow">{{ $t('storyPanel.content') }}</p>
 
           <h2>
-            Một tấm thiệp,
-            <em>mười thứ bên trong.</em>
+            {{ $t('landing.online.insideH2a') }}
+            <em>{{ $t('landing.online.insideH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ mười mục" />
+        <RailHint :text="$t('landing.online.swipeTen')" />
 
         <div class="mk-grid mk-grid--4">
           <article v-for="item in CONTENTS" :key="item.title" class="mk-card">
@@ -117,15 +115,15 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Phong cách</p>
+          <p class="mk-eyebrow">{{ $t('footer.styles') }}</p>
 
           <h2>
-            Chọn theo
-            <em>tinh thần đám cưới.</em>
+            {{ $t('landing.online.styleH2a') }}
+            <em>{{ $t('landing.online.styleH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ bộ sưu tập" />
+        <RailHint :text="$t('landing.online.swipeCollections')" />
 
         <div class="mk-grid mk-grid--3">
           <router-link
@@ -148,7 +146,7 @@
             <p>{{ col.text }}</p>
 
             <span class="link-more">
-              Xem mẫu <span aria-hidden="true">→</span>
+              {{ $t('intro.viewTemplate') }} <span aria-hidden="true">→</span>
             </span>
           </router-link>
         </div>
@@ -161,11 +159,11 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Cách làm</p>
+          <p class="mk-eyebrow">{{ $t('landing.online.howEyebrow') }}</p>
 
           <h2>
-            Ba bước,
-            <em>một buổi tối.</em>
+            {{ $t('landing.online.howH2a') }}
+            <em>{{ $t('landing.online.howH2b') }}</em>
           </h2>
         </header>
 
@@ -174,7 +172,7 @@
             <span class="flow-seal" aria-hidden="true">{{ step.seal }}</span>
 
             <div>
-              <p class="flow-kicker">Bước {{ index + 1 }}</p>
+              <p class="flow-kicker">{{ $t('guide.step') }} {{ index + 1 }}</p>
 
               <h3>{{ step.title }}</h3>
 
@@ -185,7 +183,7 @@
 
         <div class="mk-cta">
           <router-link :to="{ name: 'Guide' }" class="mk-btn mk-btn--outline">
-            Xem hướng dẫn chi tiết
+            {{ $t('faqSection.more') }}
             <span aria-hidden="true">→</span>
           </router-link>
         </div>
@@ -198,22 +196,22 @@
     <section class="mk-section">
       <div class="mk-container faq-grid">
         <header class="faq-head">
-          <p class="mk-eyebrow">Giải đáp</p>
+          <p class="mk-eyebrow">{{ $t('guide.faqEyebrow') }}</p>
 
           <h2>
-            Câu hỏi
-            <em>thường gặp.</em>
+            {{ $t('landing.online.faqH2a') }}
+            <em>{{ $t('landing.online.faqH2b') }}</em>
           </h2>
 
           <p>
-            Những điều các cặp đôi hỏi trước khi bắt đầu làm thiệp online.
+            {{ $t('landing.online.faqLead') }}
           </p>
 
           <router-link
             :to="{ name: 'Contact' }"
             class="mk-btn mk-btn--outline mk-btn--sm"
           >
-            Hỏi trực tiếp
+            {{ $t('landing.askDirect') }}
           </router-link>
         </header>
 
@@ -222,14 +220,15 @@
     </section>
 
     <FinalCta
-      title="Thử một tấm thiệp"
-      title-accent="cho ngày của bạn."
-      text="Tạo miễn phí, dùng thử 3 ngày — chỉ thanh toán khi bạn thật sự ưng ý."
+      :title="$t('landing.online.ctaTitle')"
+      :title-accent="$t('landing.online.ctaAccent')"
+      :text="$t('finalCta.text')"
     />
   </main>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 
 import PageBreadcrumb from "@/components/marketing/PageBreadcrumb.vue";
@@ -248,62 +247,64 @@ import {
   STEPS,
 } from "@/data/siteContent";
 
+const { t } = useI18n();
+
 const PAPER_CONS = [
-  "In sai một chữ là phải in lại toàn bộ",
-  "Gửi đi rồi không sửa được nữa",
-  "Không biết khách đã nhận hay chưa",
-  "Không xem được ảnh cưới, không có bản đồ",
-  "Chi phí in tăng theo số lượng khách",
+  t("landing.online.c1"),
+  t("landing.online.c2"),
+  t("landing.online.c3"),
+  t("landing.online.c4"),
+  t("landing.online.c5"),
 ];
 
 const ONLINE_PROS = [
-  "Sửa một lần, mọi khách mở link đều thấy nội dung mới",
-  "Gửi qua Zalo, Messenger, Facebook hoặc mã QR",
-  "Xem được lượt mở và danh sách khách xác nhận",
-  "Có album ảnh, bản đồ chỉ đường, nhạc nền",
-  "Không giới hạn số khách mời, không phí in",
+  t("landing.online.p1"),
+  t("landing.online.p2"),
+  t("landing.online.p3"),
+  t("landing.online.p4"),
+  t("landing.online.p5"),
 ];
 
 const CONTENTS = [
   {
     orn: "囍",
-    title: "Thiệp mời chính",
-    text: "Tên cô dâu chú rể, tên cha mẹ hai bên, ngày giờ và địa điểm lễ thành hôn.",
+    get title() { return t("landing.online.i1t"); },
+    get text() { return t("landing.online.i1"); },
   },
   {
     orn: "✦",
-    title: "Đồng hồ đếm ngược",
-    text: "Đếm từng ngày tới giờ cưới — khách mở thiệp là thấy còn bao lâu nữa.",
+    get title() { return t("landing.online.i2t"); },
+    get text() { return t("landing.online.i2"); },
   },
   {
     orn: "❀",
-    title: "Album ảnh cưới",
-    text: "Trình bày dạng album lật hoặc lưới, tải lên không giới hạn số ảnh.",
+    get title() { return t("landing.online.i3t"); },
+    get text() { return t("landing.online.i3"); },
   },
   {
     orn: "❖",
-    title: "Câu chuyện tình yêu",
-    text: "Dòng thời gian những mốc quan trọng — gặp nhau, yêu nhau, về chung nhà.",
+    get title() { return t("editor.menu.story"); },
+    get text() { return t("landing.online.i4"); },
   },
   {
     orn: "◈",
-    title: "Sự kiện & lễ cưới",
-    text: "Lễ ăn hỏi, lễ thành hôn, tiệc cưới — mỗi mục có giờ và địa điểm riêng.",
+    get title() { return t("landing.online.i5t"); },
+    get text() { return t("landing.online.i5"); },
   },
   {
     orn: "✽",
-    title: "Bản đồ chỉ đường",
-    text: "Khách bấm là mở Google Maps, không cần hỏi lại địa chỉ.",
+    get title() { return t("landing.online.i6t"); },
+    get text() { return t("landing.online.i6"); },
   },
   {
     orn: "❝",
-    title: "Sổ lưu bút",
-    text: "Khách gửi lời chúc trực tiếp lên thiệp, lưu lại vĩnh viễn.",
+    get title() { return t("editor.menu.guestbook"); },
+    get text() { return t("landing.online.i7"); },
   },
   {
     orn: "❦",
-    title: "QR mừng cưới",
-    text: "Hiển thị số tài khoản dạng mã QR cho cả hai bên, khách quét là chuyển được.",
+    get title() { return t("pricing.row.qr"); },
+    get text() { return t("landing.online.i8"); },
   },
 ];
 
@@ -322,7 +323,7 @@ const collectionCards = computed(() =>
 );
 
 useSeo({
-  title: "Thiệp cưới online",
+  get title() { return t("footer.online"); },
   description:
     "Thiệp cưới online là gì, có gì bên trong và khác gì thiệp giấy? " +
     `${BRAND.name} — tạo thiệp cưới điện tử miễn phí, gửi khách mời trong vài phút.`,

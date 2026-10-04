@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> HERO </span>
 
-        <h1>Ảnh bìa</h1>
+        <h1>{{ $t('editor.menu.hero') }}</h1>
 
-        <p>Nội dung xuất hiện đầu tiên khi khách mở thiệp.</p>
+        <p>{{ $t('heroPanel.desc') }}</p>
       </div>
     </div>
 
@@ -18,35 +18,35 @@
       <img
         v-if="wedding.hero.Background"
         :src="wedding.hero.Background"
-        alt="Ảnh nền"
+        :alt="$t('heroPanel.bg')"
       />
 
       <div v-else class="hero-preview-empty">
         <v-icon size="30"> mdi-image-outline </v-icon>
 
-        <span> Chưa có ảnh nền </span>
+        <span> {{ $t('heroPanel.noBg') }} </span>
       </div>
 
       <div class="hero-preview-overlay">
         <span class="hero-preview-kicker">
-          {{ wedding.hero.Subtitle || "Lời mời" }}
+          {{ wedding.hero.Subtitle || $t('heroPanel.invite') }}
         </span>
 
         <strong>
-          {{ wedding.hero.BrideName || "Cô dâu" }}
+          {{ wedding.hero.BrideName || $t('panel.bride') }}
           &amp;
-          {{ wedding.hero.GroomName || "Chú rể" }}
+          {{ wedding.hero.GroomName || $t('panel.groom') }}
         </strong>
 
         <span class="hero-preview-date">
-          {{ heroDateLabel || "Chưa chọn ngày" }}
+          {{ heroDateLabel || $t('heroPanel.noDate') }}
         </span>
       </div>
     </div>
 
     <div class="form-grid">
       <div class="editor-field">
-        <label>Tiêu đề</label>
+        <label>{{ $t('heroPanel.title') }}</label>
 
         <input
           v-model="wedding.hero.Title"
@@ -55,46 +55,46 @@
         />
 
         <small class="field-help">
-          Dòng chữ lớn nhất trên màn hình mở thiệp.
+          {{ $t('heroPanel.titleHint') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Lời mời</label>
+        <label>{{ $t('heroPanel.invite') }}</label>
 
         <input
           v-model="wedding.hero.Subtitle"
           type="text"
-          placeholder="VD: Trân trọng kính mời"
+          :placeholder="$t('heroPanel.invitePlaceholder')"
         />
 
         <small class="field-help">
-          Dòng chữ nhỏ phía trên tên hai bạn.
+          {{ $t('heroPanel.inviteHint') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Tên chú rể</label>
+        <label>{{ $t('panel.groomName') }}</label>
 
         <input v-model="wedding.hero.GroomName" type="text" />
 
         <small class="field-help">
-          Đã đồng bộ với mục Thông tin chung.
+          {{ $t('panel.syncedGeneral') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Tên cô dâu</label>
+        <label>{{ $t('panel.brideName') }}</label>
 
         <input v-model="wedding.hero.BrideName" type="text" />
 
         <small class="field-help">
-          Đã đồng bộ với mục Thông tin chung.
+          {{ $t('panel.syncedGeneral') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Ngày cưới</label>
+        <label>{{ $t('panel.weddingDate') }}</label>
 
         <input
           :value="heroDateInput"
@@ -103,36 +103,35 @@
         />
 
         <small class="field-help">
-          Đã đồng bộ với mục Thông tin chung.
+          {{ $t('panel.syncedGeneral') }}
         </small>
       </div>
 
       <div class="editor-field">
-        <label>Địa điểm</label>
+        <label>{{ $t('heroPanel.venue') }}</label>
 
         <input
           v-model="wedding.hero.Location"
           type="text"
-          placeholder="VD: Tư gia nhà gái"
+          :placeholder="$t('heroPanel.venuePlaceholder')"
         />
 
         <small class="field-help">
-          Hiển thị kèm ngày cưới trên màn hình mở thiệp.
+          {{ $t('heroPanel.venueHint') }}
         </small>
       </div>
 
       <div class="editor-field full">
-        <label>Ảnh nền</label>
+        <label>{{ $t('heroPanel.bg') }}</label>
 
         <UploadField
           v-model="wedding.hero.Background"
           kind="image"
-          button-text="Tải ảnh nền lên"
+          :button-text="$t('heroPanel.uploadBg')"
         />
 
         <small class="field-help">
-          Nên dùng ảnh dọc hoặc vuông, tối thiểu 1200px để không bị vỡ
-          trên điện thoại.
+          {{ $t('heroPanel.bgHint') }}
         </small>
       </div>
     </div>

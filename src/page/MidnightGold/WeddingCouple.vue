@@ -1,8 +1,8 @@
 <template>
   <section class="mg-couple">
-    <p class="mg-eyebrow">TRÂN TRỌNG BÁO HỶ</p>
+    <p class="mg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}</p>
 
-    <h2>Thông tin tiệc cưới</h2>
+    <h2>{{ sectionText(sections, "couple", "Heading", "Thông tin tiệc cưới") }}</h2>
 
     <div class="mg-rule">
       <span></span>
@@ -99,9 +99,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   guestName: { type: String, default: "Quý khách" },
 });
@@ -252,7 +254,7 @@ const weddingTime = computed(() => {
 
   text-align: center;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   overflow: hidden;
 }
@@ -260,7 +262,7 @@ const weddingTime = computed(() => {
 .mg-eyebrow {
   margin: 0;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 10px;
   font-weight: 700;
@@ -277,7 +279,7 @@ const weddingTime = computed(() => {
   font-size: clamp(26px, 7vw, 34px);
   font-weight: 600;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-rule {
@@ -288,7 +290,7 @@ const weddingTime = computed(() => {
 
   margin: 0 auto;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 14px;
 }
@@ -297,7 +299,7 @@ const weddingTime = computed(() => {
   width: 50px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.7));
 }
 
 .mg-rule span:last-child {
@@ -327,10 +329,10 @@ const weddingTime = computed(() => {
 
   margin: 0 auto 12px;
 
-  border: 2px solid rgba(216, 182, 118, 0.6);
+  border: 2px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.6);
   border-radius: 50%;
 
-  background: rgba(32, 26, 36, 0.85);
+  background: rgba(var(--tc-201a24-rgb, 32, 26, 36), 0.85);
 
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 
@@ -353,7 +355,7 @@ const weddingTime = computed(() => {
 
   font-size: 38px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-person__parents {
@@ -363,7 +365,7 @@ const weddingTime = computed(() => {
 .mg-parents {
   margin: 2px 0;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 11px;
 
@@ -381,13 +383,13 @@ const weddingTime = computed(() => {
 
   line-height: 1.2;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-person__role {
   display: block;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 11px;
 
@@ -398,7 +400,7 @@ const weddingTime = computed(() => {
 .mg-person__desc {
   margin: 7px 0 0;
 
-  color: rgba(240, 230, 210, 0.72);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.72);
 
   font-size: 12px;
   font-style: italic;
@@ -415,7 +417,7 @@ const weddingTime = computed(() => {
 }
 
 .mg-couple-divider i {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-family: "Allura", cursive;
   font-size: 34px;
@@ -444,7 +446,7 @@ const weddingTime = computed(() => {
 }
 
 .mg-weekday {
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   font-size: 10px;
   font-weight: 700;
@@ -456,7 +458,7 @@ const weddingTime = computed(() => {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.7));
 }
 
 .mg-date-line:last-child {
@@ -481,7 +483,7 @@ const weddingTime = computed(() => {
 }
 
 .mg-date-side span {
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 10px;
   font-weight: 700;
@@ -490,7 +492,7 @@ const weddingTime = computed(() => {
 }
 
 .mg-date-side strong {
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   font-size: 20px;
   font-weight: 600;
@@ -499,7 +501,7 @@ const weddingTime = computed(() => {
 .mg-date-day {
   padding: 0 22px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -512,7 +514,7 @@ const weddingTime = computed(() => {
 .mg-lunar {
   margin-top: 12px;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 11px;
   font-style: italic;
@@ -544,13 +546,13 @@ const weddingTime = computed(() => {
 
   letter-spacing: 0.2em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-time-content strong {
   margin-top: 1px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 21px;
   font-weight: 600;

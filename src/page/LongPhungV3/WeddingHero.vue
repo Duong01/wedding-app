@@ -363,7 +363,7 @@ const dateText = computed(() => {
 
   letter-spacing: 0.12em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-hero__chuhy {
@@ -447,7 +447,7 @@ const dateText = computed(() => {
 .lp-hero__frame-fallback span {
   font-size: 90px;
 
-  color: rgba(255, 190, 137, 0.25);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.25);
 }
 
 .lp-hero__bird {
@@ -511,7 +511,7 @@ const dateText = computed(() => {
 
   font-size: 24px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-hero__subtitle {
@@ -523,7 +523,7 @@ const dateText = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 }
 
 .lp-hero__location {
@@ -531,7 +531,7 @@ const dateText = computed(() => {
 
   font-size: 14px;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 .lp-hero__schedule {
@@ -548,7 +548,7 @@ const dateText = computed(() => {
 
   letter-spacing: 0.12em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-hero__schedule p {
@@ -565,7 +565,7 @@ const dateText = computed(() => {
 
   line-height: 1.7;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 }
 
 /* =========================================================

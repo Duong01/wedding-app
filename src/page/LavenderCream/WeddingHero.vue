@@ -145,12 +145,12 @@ const dateText = computed(() => {
 
 <style scoped>
 .lc-hero {
-  --lc-deep: #584a5b;
-  --lc-lavender: #766384;
-  --lc-plum: #7d6390;
-  --lc-lilac: #d8c0de;
-  --lc-line: #736482;
-  --lc-cream: #faf8fc;
+  --lc-deep: var(--tc-584a5b, #584a5b);
+  --lc-lavender: var(--tc-766384, #766384);
+  --lc-plum: var(--tc-7d6390, #7d6390);
+  --lc-lilac: var(--tc-d8c0de, #d8c0de);
+  --lc-line: var(--tc-736482, #736482);
+  --lc-cream: var(--tc-faf8fc, #faf8fc);
 
   position: relative;
   isolation: isolate;
@@ -162,8 +162,8 @@ const dateText = computed(() => {
   min-height: min(690px, 100dvh);
 
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(252, 250, 255, 0.9), transparent 55%),
-    linear-gradient(180deg, #fbf8fd 0%, #f1eaf6 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--tc-fcfaff-rgb, 252, 250, 255), 0.9), transparent 55%),
+    linear-gradient(180deg, var(--tc-fbf8fd, #fbf8fd) 0%, var(--tc-f1eaf6, #f1eaf6) 100%);
 }
 
 /* =========================================================
@@ -184,7 +184,7 @@ const dateText = computed(() => {
   top: -80px;
   left: -70px;
 
-  background: radial-gradient(circle, rgba(216, 192, 222, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-d8c0de-rgb, 216, 192, 222), 0.5), transparent 70%);
 
   animation: lc-glow-breathe 6s ease-in-out infinite;
 }
@@ -195,7 +195,7 @@ const dateText = computed(() => {
   bottom: -70px;
   right: -60px;
 
-  background: radial-gradient(circle, rgba(185, 160, 208, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.28), transparent 70%);
 
   animation: lc-glow-breathe 7s ease-in-out infinite;
   animation-delay: -3s;
@@ -215,19 +215,19 @@ const dateText = computed(() => {
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(185, 160, 208, 0.55);
+  border: 1px solid rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.55);
   border-radius: 210px 210px 24px 24px;
 
-  background: linear-gradient(175deg, rgba(255, 255, 255, 0.6), rgba(246, 240, 250, 0.35));
+  background: linear-gradient(175deg, rgba(255, 255, 255, 0.6), rgba(var(--tc-f6f0fa-rgb, 246, 240, 250), 0.35));
 
-  box-shadow: 0 22px 55px rgba(88, 74, 91, 0.1);
+  box-shadow: 0 22px 55px rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.1);
 }
 
 .lc-hero__frame-inner {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(185, 160, 208, 0.28);
+  border: 1px solid rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.28);
   border-radius: 202px 202px 18px 18px;
 
   pointer-events: none;
@@ -267,9 +267,9 @@ const dateText = computed(() => {
 
   background: linear-gradient(
     180deg,
-    rgba(251, 248, 253, 0.6),
-    rgba(241, 234, 246, 0.35) 55%,
-    rgba(251, 248, 253, 0.6)
+    rgba(var(--tc-fbf8fd-rgb, 251, 248, 253), 0.6),
+    rgba(var(--tc-f1eaf6-rgb, 241, 234, 246), 0.35) 55%,
+    rgba(var(--tc-fbf8fd-rgb, 251, 248, 253), 0.6)
   );
 }
 
@@ -337,7 +337,7 @@ const dateText = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.8));
 }
 
 .lc-hero__motif span:last-child {
@@ -400,7 +400,7 @@ const dateText = computed(() => {
   max-width: 325px;
   margin: 14px auto 8px;
 
-  color: rgba(88, 74, 91, 0.85);
+  color: rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.85);
 
   font-size: 12px;
 
@@ -425,8 +425,8 @@ const dateText = computed(() => {
   margin: 24px auto 0;
   padding: 14px 0;
 
-  border-top: 1px solid rgba(185, 160, 208, 0.45);
-  border-bottom: 1px solid rgba(185, 160, 208, 0.45);
+  border-top: 1px solid rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.45);
+  border-bottom: 1px solid rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.45);
 }
 
 .lc-hero__schedule p {
@@ -445,7 +445,7 @@ const dateText = computed(() => {
   max-width: 295px;
   margin: 24px auto 20px;
 
-  color: rgba(88, 74, 91, 0.8);
+  color: rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.8);
 
   font-size: 14px;
   font-style: italic;
@@ -466,7 +466,7 @@ const dateText = computed(() => {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.7));
 }
 
 .lc-hero__footer span:last-child {
@@ -496,9 +496,9 @@ const dateText = computed(() => {
   position: absolute;
   top: -30px;
 
-  color: rgba(160, 134, 180, 0.45);
+  color: rgba(var(--tc-a086b4-rgb, 160, 134, 180), 0.45);
 
-  text-shadow: 0 0 6px rgba(216, 192, 222, 0.6);
+  text-shadow: 0 0 6px rgba(var(--tc-d8c0de-rgb, 216, 192, 222), 0.6);
 
   font-size: 13px;
 

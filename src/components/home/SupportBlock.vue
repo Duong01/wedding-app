@@ -2,16 +2,15 @@
   <section class="mk-section mk-section--alt">
     <div class="mk-container support-grid">
       <div class="support-copy">
-        <p class="mk-eyebrow">Hỗ trợ</p>
+        <p class="mk-eyebrow">{{ $t('footer.support') }}</p>
 
         <h2>
-          Khi bạn cần,
-          <em>tụi mình luôn có mặt.</em>
+          {{ $t('support.h2a') }}
+          <em>{{ $t('support.h2b') }}</em>
         </h2>
 
         <p>
-          Ngày cưới có trăm việc phải lo — đừng để tấm thiệp làm bạn mất thời
-          gian. Nhắn tụi mình bất cứ lúc nào, kể cả ngoài giờ.
+          {{ $t('support.lead') }}
         </p>
 
         <div class="support-actions">
@@ -21,29 +20,29 @@
             rel="noopener noreferrer"
             class="mk-btn mk-btn--solid"
           >
-            Nhắn tụi mình
+            {{ $t('support.message') }}
           </a>
 
           <router-link :to="{ name: 'Contact' }" class="mk-btn mk-btn--ghost">
-            Xem kênh liên hệ
+            {{ $t('support.channels') }}
           </router-link>
         </div>
       </div>
 
       <div class="support-stats">
         <div class="stat">
-          <strong>Dưới 1 phút</strong>
-          <span>Thời gian phản hồi</span>
+          <strong>{{ $t('support.s1v') }}</strong>
+          <span>{{ $t('support.s1') }}</span>
         </div>
 
         <div class="stat">
           <strong>24/7</strong>
-          <span>Kể cả ngày lễ</span>
+          <span>{{ $t('support.s2v') }}</span>
         </div>
 
         <div class="stat">
-          <strong>Miễn phí</strong>
-          <span>Hỗ trợ chỉnh sửa</span>
+          <strong>{{ $t('support.s3v') }}</strong>
+          <span>{{ $t('support.s3') }}</span>
         </div>
       </div>
     </div>

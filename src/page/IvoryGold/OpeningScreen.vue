@@ -77,7 +77,7 @@
             <!-- TITLE -->
 
             <p class="red-card__kicker">
-              THIỆP MỜI
+              {{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}
             </p>
 
             <h1 class="red-card__title">
@@ -99,7 +99,7 @@
             <!-- INVITATION -->
 
             <p class="red-card__invite">
-              Trân trọng kính mời
+              {{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}
             </p>
 
 
@@ -176,7 +176,7 @@
               <span>✦</span>
 
               <small>
-                WEDDING INVITATION
+                {{ sectionText(sections, "opening", "Eyebrow", "WEDDING INVITATION") }}
               </small>
 
               <span>✦</span>
@@ -283,6 +283,7 @@
 
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import {
   computed,
   ref,
@@ -290,6 +291,7 @@ import {
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
 
   wedding: {
     type: Object,
@@ -396,15 +398,15 @@ function openInvitation() {
 
 .red-opening {
 
-  --red-dark: #650b11;
-  --red: #8f111b;
-  --red-light: #a91b25;
+  --red-dark: var(--tc-650b11, #650b11);
+  --red: var(--tc-8f111b, #8f111b);
+  --red-light: var(--tc-a91b25, #a91b25);
 
-  --gold: #d4a84f;
-  --gold-light: #f0d99a;
+  --gold: var(--tc-d4a84f, #d4a84f);
+  --gold-light: var(--tc-f0d99a, #f0d99a);
   --gold-dark: #a97825;
 
-  --paper: #fff9eb;
+  --paper: var(--tc-fff9eb, #fff9eb);
 
   position: fixed;
 
@@ -424,7 +426,7 @@ function openInvitation() {
 
   background: var(--red-dark);
 
-  color: #4d211c;
+  color: var(--tc-4d211c, #4d211c);
 
   font-family:
     Georgia,
@@ -447,9 +449,9 @@ function openInvitation() {
   background:
     radial-gradient(
       circle at 50% 45%,
-      #a91b25 0%,
-      #850f17 43%,
-      #5d080e 100%
+      var(--tc-a91b25, #a91b25) 0%,
+      var(--tc-850f17, #850f17) 43%,
+      var(--tc-5d080e, #5d080e) 100%
     );
 
 }
@@ -490,7 +492,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(212,168,79,.15);
+    rgba(var(--tc-d4a84f-rgb, 212, 168, 79), .15);
 
   transform: rotate(45deg);
 
@@ -509,7 +511,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(240,217,154,.08);
+    rgba(var(--tc-f0d99a-rgb, 240, 217, 154), .08);
 
 }
 
@@ -607,13 +609,13 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(240,217,154,.45);
+    rgba(var(--tc-f0d99a-rgb, 240, 217, 154), .45);
 
   background:
     radial-gradient(
       circle at center,
-      #9c1721,
-      #730b12
+      var(--tc-9c1721, #9c1721),
+      var(--tc-730b12, #730b12)
     );
 
 }
@@ -636,7 +638,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(240,217,154,.2);
+    rgba(var(--tc-f0d99a-rgb, 240, 217, 154), .2);
 
 }
 
@@ -651,7 +653,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(240,217,154,.1);
+    rgba(var(--tc-f0d99a-rgb, 240, 217, 154), .1);
 
 }
 
@@ -668,7 +670,7 @@ function openInvitation() {
 
   border:
     2px solid
-    rgba(212,168,79,.55);
+    rgba(var(--tc-d4a84f-rgb, 212, 168, 79), .55);
 
   transform: rotate(45deg);
 
@@ -685,7 +687,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(240,217,154,.4);
+    rgba(var(--tc-f0d99a-rgb, 240, 217, 154), .4);
 
 }
 
@@ -779,10 +781,10 @@ function openInvitation() {
   background:
     linear-gradient(
       135deg,
-      #b9872c,
-      #f1d58e,
+      var(--tc-b9872c, #b9872c),
+      var(--tc-f1d58e, #f1d58e),
       #a97825,
-      #e8c86e
+      var(--tc-e8c86e, #e8c86e)
     );
 
   box-shadow:
@@ -816,8 +818,8 @@ function openInvitation() {
   background:
     radial-gradient(
       circle at center,
-      #fffdf4,
-      #f7edd7
+      var(--tc-fffdf4, #fffdf4),
+      var(--tc-f7edd7, #f7edd7)
     );
 
 }
@@ -837,7 +839,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(143,17,27,.35);
+    rgba(var(--tc-8f111b-rgb, 143, 17, 27), .35);
 
   pointer-events: none;
 
@@ -854,7 +856,7 @@ function openInvitation() {
 
   border:
     1px solid
-    rgba(212,168,79,.25);
+    rgba(var(--tc-d4a84f-rgb, 212, 168, 79), .25);
 
   pointer-events: none;
 
@@ -933,7 +935,7 @@ function openInvitation() {
 
   letter-spacing: .38em;
 
-  color: #92683a;
+  color: var(--tc-92683a, #92683a);
 
 }
 
@@ -1025,7 +1027,7 @@ function openInvitation() {
 
   font-size: 14px;
 
-  color: #72534a;
+  color: var(--tc-72534a, #72534a);
 
 }
 
@@ -1155,7 +1157,7 @@ function openInvitation() {
 
   letter-spacing: .1em;
 
-  color: #5f4a40;
+  color: var(--tc-5f4a40, #5f4a40);
 
 }
 
@@ -1187,7 +1189,7 @@ function openInvitation() {
 
   line-height: 1.7;
 
-  color: #836c61;
+  color: var(--tc-836c61, #836c61);
 
 }
 
@@ -1211,8 +1213,8 @@ function openInvitation() {
   background:
     linear-gradient(
       145deg,
-      #8d111a,
-      #6e0d13
+      var(--tc-8d111a, #8d111a),
+      var(--tc-6e0d13, #6e0d13)
     );
 
   clip-path:
@@ -1226,7 +1228,7 @@ function openInvitation() {
 
   border-top:
     1px solid
-    rgba(212,168,79,.45);
+    rgba(var(--tc-d4a84f-rgb, 212, 168, 79), .45);
 
   transform-origin:
     center bottom;
@@ -1271,12 +1273,7 @@ function openInvitation() {
   font-size: 45px;
 
   color:
-    rgba(
-      212,
-      168,
-      79,
-      .3
-    );
+    rgba(var(--tc-d4a84f-rgb, 212, 168, 79), .3 );
 
 }
 
@@ -1325,13 +1322,13 @@ function openInvitation() {
   background:
     radial-gradient(
       circle,
-      #bd9130,
-      #8e6418
+      var(--tc-bd9130, #bd9130),
+      var(--tc-8e6418, #8e6418)
     );
 
   border:
     2px solid
-    #f0d99a;
+    var(--tc-f0d99a, #f0d99a);
 
   box-shadow:
     0 7px 20px
@@ -1388,7 +1385,7 @@ function openInvitation() {
 
   font-size: 30px;
 
-  color: #fff0bd;
+  color: var(--tc-fff0bd, #fff0bd);
 
 }
 
@@ -1456,13 +1453,13 @@ function openInvitation() {
 
   box-shadow:
     inset 0 0 0 2px
-    rgba(240,217,154,.15),
+    rgba(var(--tc-f0d99a-rgb, 240, 217, 154), .15),
 
     0 8px 22px
     rgba(70,0,0,.28);
 
   color:
-    #f7e6b2;
+    var(--tc-f7e6b2, #f7e6b2);
 
   transition:
     transform .3s ease,
@@ -1504,8 +1501,8 @@ function openInvitation() {
   background:
     linear-gradient(
       135deg,
-      #a91b25,
-      #6e0d13
+      var(--tc-a91b25, #a91b25),
+      var(--tc-6e0d13, #6e0d13)
     );
 
   box-shadow:
@@ -1583,7 +1580,7 @@ function openInvitation() {
 
   gap: 12px;
 
-  color: #e1c27a;
+  color: var(--tc-e1c27a, #e1c27a);
 
   transition:
     opacity .35s ease;

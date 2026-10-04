@@ -8,14 +8,14 @@
     ====================================================== -->
     <section class="page-hero manage-hero">
       <div class="container hero-inner">
-        <h1>Thiệp của tôi</h1>
+        <h1>{{ $t('nav.myWeddings') }}</h1>
 
-        <p>Quản lý và theo dõi các thiệp của bạn</p>
+        <p>{{ $t('manage.sub') }}</p>
 
         <div class="hero-actions">
           <button type="button" class="primary-btn" @click="goCreate">
             <span>＋</span>
-            Tạo thiệp mới
+            {{ $t('manage.create') }}
           </button>
         </div>
       </div>
@@ -30,16 +30,15 @@
         <v-icon size="22"> mdi-information-outline </v-icon>
 
         <div class="guest-banner-text">
-          <strong>Đăng nhập để bảo vệ thiệp của bạn</strong>
+          <strong>{{ $t('manage.loginTitle') }}</strong>
 
           <p>
-            Thiệp hiện chỉ lưu trên thiết bị này. Đăng nhập để truy cập từ mọi
-            nơi và tránh mất dữ liệu.
+            {{ $t('manage.loginBody') }}
           </p>
         </div>
 
         <button type="button" class="primary-btn" @click="goLogin">
-          Đăng nhập ngay
+          {{ $t('manage.loginNow') }}
         </button>
       </div>
 
@@ -76,12 +75,12 @@
       <div v-else-if="loadError" class="state-box">
         <div class="empty-icon">⚠</div>
 
-        <h3>Không tải được danh sách</h3>
+        <h3>{{ $t('manage.loadErrorTitle') }}</h3>
 
         <p>{{ loadError }}</p>
 
         <button type="button" class="retry-btn" @click="retryLoad">
-          Thử lại
+          {{ $t('common.retry') }}
         </button>
       </div>
 
@@ -89,15 +88,14 @@
       <div v-else-if="filteredEntries.length === 0" class="state-box empty">
         <div class="empty-icon">♡</div>
 
-        <h3>Chưa có thiệp nào ở mục này</h3>
+        <h3>{{ $t('manage.emptyTitle') }}</h3>
 
         <p>
-          Hãy tạo thiệp mới hoặc chỉnh sửa một mẫu có sẵn, sau đó bấm "Lưu
-          thiệp" để thiệp xuất hiện tại đây.
+          {{ $t('manage.emptyBody') }}
         </p>
 
         <button type="button" class="retry-btn" @click="goCreate">
-          Tạo thiệp ngay
+          {{ $t('footer.createNow') }}
         </button>
       </div>
 
@@ -114,7 +112,7 @@
               <h3>{{ getCoupleName(entry) }}</h3>
 
               <span class="card-open-hint">
-                Chỉnh sửa thiệp
+                {{ $t('manage.editInvitation') }}
                 <v-icon size="14"> mdi-chevron-right </v-icon>
               </span>
             </div>
@@ -140,11 +138,11 @@
               <span v-if="entry.slug">/{{ entry.slug }}</span>
 
               <span v-if="entry.isLocalDraft">
-                Lưu trên máy — tạo {{ formatDate(entry.createdAt) }}
+                {{ $t("manage.localCreated", { date: formatDate(entry.createdAt) }) }}
               </span>
 
               <span v-else-if="formatDate(entry.createdAt)">
-                Ngày tạo: {{ formatDate(entry.createdAt) }}
+                {{ $t("manage.createdAt", { date: formatDate(entry.createdAt) }) }}
               </span>
             </div>
           </div>
@@ -160,7 +158,7 @@
               >
                 <v-icon size="16"> mdi-pencil-outline </v-icon>
 
-                Chỉnh sửa
+                {{ $t('preview.edit') }}
               </button>
 
               <button
@@ -170,7 +168,7 @@
               >
                 <v-icon size="16"> mdi-delete-outline </v-icon>
 
-                Xóa
+                {{ $t('manage.delete') }}
               </button>
             </template>
 
@@ -183,7 +181,7 @@
               >
                 <v-icon size="16"> mdi-pencil-outline </v-icon>
 
-                Sửa
+                {{ $t('manage.editShort') }}
               </button>
 
               <button
@@ -212,7 +210,7 @@
 
                 <v-icon v-else size="16"> mdi-rocket-launch-outline </v-icon>
 
-                Xuất bản
+                {{ $t('editor.header.publish') }}
               </button>
 
               <button
@@ -222,7 +220,7 @@
               >
                 <v-icon size="16"> mdi-account-multiple-outline </v-icon>
 
-                Khách mời
+                {{ $t('editor.menu.recipient') }}
               </button>
 
               <button
@@ -232,7 +230,7 @@
               >
                 <v-icon size="16"> mdi-gift-outline </v-icon>
 
-                Quà trò chơi
+                {{ $t('manage.gamePrizes') }}
               </button>
 
               <button
@@ -242,7 +240,7 @@
               >
                 <v-icon size="16"> mdi-link-variant </v-icon>
 
-                {{ canPublish(entry) ? "Link (chưa mở)" : "Link" }}
+                {{ canPublish(entry) ? $t('manage.linkUnopened') : "Link" }}
               </button>
 
               <button
@@ -252,7 +250,7 @@
               >
                 <v-icon size="16"> mdi-credit-card-outline </v-icon>
 
-                Thanh toán
+                {{ $t('manage.payment') }}
               </button>
 
               <button
@@ -270,7 +268,7 @@
 
                 <v-icon v-else size="16"> mdi-delete-outline </v-icon>
 
-                Xóa
+                {{ $t('manage.delete') }}
               </button>
             </template>
           </div>
@@ -293,13 +291,15 @@
               <v-icon size="26"> mdi-alert-outline </v-icon>
             </div>
 
-            <h3>Xóa thiệp này?</h3>
+            <h3>{{ $t('manage.deleteTitle') }}</h3>
 
             <p>
-              Thiệp
-              <strong>{{ getCoupleName(deleteTarget) }}</strong>
-              ({{ deleteTarget.slug }}) sẽ bị ẩn khỏi danh sách quản lý.
-              Backend chưa có API xóa thiệp nên dữ liệu trên server vẫn còn.
+              <i18n-t keypath="manage.deleteBody" tag="span">
+                <template #name>
+                  <strong>{{ getCoupleName(deleteTarget) }}</strong>
+                </template>
+                <template #slug>{{ deleteTarget.slug }}</template>
+              </i18n-t>
             </p>
 
             <div class="confirm-actions">
@@ -308,7 +308,7 @@
                 class="action-btn"
                 @click="deleteTarget = null"
               >
-                Hủy
+                {{ $t('common.cancel2') }}
               </button>
 
               <button
@@ -324,7 +324,7 @@
                   width="2"
                 />
 
-                Xóa thiệp
+                {{ $t('manage.deleteConfirm') }}
               </button>
             </div>
           </div>
@@ -345,7 +345,7 @@
           <div class="guests-panel">
             <div class="guests-head">
               <div>
-                <span class="guests-eyebrow"> QUẢN LÝ KHÁCH MỜI </span>
+                <span class="guests-eyebrow"> {{ $t('manage.guestsTitle') }} </span>
 
                 <h3>{{ getCoupleName(guestsTarget) }}</h3>
 
@@ -370,7 +370,7 @@
               <input
                 v-model.trim="newGuestName"
                 type="text"
-                placeholder="Tên khách mời (VD: Chú Minh + Cô Hằng)"
+                :placeholder="$t('manage.guestPlaceholder')"
                 maxlength="100"
                 @keyup.enter="addGuest"
               />
@@ -390,7 +390,7 @@
 
                 <v-icon v-else size="16"> mdi-account-plus-outline </v-icon>
 
-                Thêm
+                {{ $t('manage.add') }}
               </button>
             </div>
 
@@ -398,11 +398,11 @@
             <div v-if="guestsLoading" class="guests-loading">
               <v-progress-circular indeterminate size="26" width="2" />
 
-              <span> Đang tải danh sách khách... </span>
+              <span> {{ $t('manage.loadingGuests') }} </span>
             </div>
 
             <div v-else-if="guests.length === 0" class="guests-empty">
-              Chưa có khách mời nào. Thêm khách để nhận link thiệp cá nhân.
+              {{ $t('manage.noGuests') }}
             </div>
 
             <div v-else class="guests-list">
@@ -426,7 +426,7 @@
                     :disabled="guestsBusy"
                     @click="saveGuestEdit(guest)"
                   >
-                    Lưu
+                    {{ $t('editor.mobile.save') }}
                   </button>
 
                   <button
@@ -434,13 +434,13 @@
                     class="action-btn"
                     @click="cancelGuestEdit"
                   >
-                    Hủy
+                    {{ $t('common.cancel2') }}
                   </button>
                 </template>
 
                 <template v-else>
                   <div class="guest-info">
-                    <strong>{{ guest.Name || "Chưa có tên" }}</strong>
+                    <strong>{{ guest.Name || $t('manage.noName') }}</strong>
 
                     <code>{{ guest.Token }}</code>
                   </div>
@@ -449,7 +449,7 @@
                     <button
                       type="button"
                       class="icon-btn"
-                      title="Sao chép link cá nhân"
+                      :title="$t('manage.copyGuestLink')"
                       @click="copyGuestLink(guest)"
                     >
                       <v-icon size="16"> mdi-link-variant </v-icon>
@@ -458,7 +458,7 @@
                     <button
                       type="button"
                       class="icon-btn"
-                      title="Sửa tên"
+                      :title="$t('manage.rename')"
                       @click="startGuestEdit(guest)"
                     >
                       <v-icon size="16"> mdi-pencil-outline </v-icon>
@@ -467,7 +467,7 @@
                     <button
                       type="button"
                       class="icon-btn danger"
-                      title="Xóa khách"
+                      :title="$t('recipientPanel.remove')"
                       :disabled="guestsBusy"
                       @click="removeGuest(guest)"
                     >
@@ -479,9 +479,11 @@
             </div>
 
             <p class="guests-hint">
-              Mỗi khách có 1 link riêng dạng
-              <code>/{{ guestsTarget.slug }}/{token}</code>. Khi khách mở link,
-              thiệp sẽ hiện đúng tên của họ — bấm biểu tượng link để sao chép.
+              <i18n-t keypath="manage.guestsHint" tag="span">
+                <template #path>
+                  <code>/{{ guestsTarget.slug }}/{token}</code>
+                </template>
+              </i18n-t>
             </p>
           </div>
         </div>
@@ -501,7 +503,7 @@
           <div class="guests-panel">
             <div class="guests-head">
               <div>
-                <span class="guests-eyebrow"> QUÀ TRÒ CHƠI </span>
+                <span class="guests-eyebrow"> {{ $t('manage.prizesTitle') }} </span>
 
                 <h3>{{ getCoupleName(winnersTarget) }}</h3>
 
@@ -524,12 +526,11 @@
             <div v-if="winnersLoading" class="guests-loading">
               <v-progress-circular indeterminate size="26" width="2" />
 
-              <span> Đang tải danh sách trúng quà... </span>
+              <span> {{ $t('manage.loadingWinners') }} </span>
             </div>
 
             <div v-else-if="winners.length === 0" class="guests-empty">
-              Chưa có khách nào nhận quà. Khách trúng quà trong thiệp sẽ được
-              lưu vào đây để bạn đối chiếu khi khách đến lễ.
+              {{ $t('manage.noWinners') }}
             </div>
 
             <div v-else class="guests-list winners-list">
@@ -557,8 +558,7 @@
             </div>
 
             <p class="guests-hint">
-              Mỗi khách chỉ nhận 1 quà. Đối chiếu tên + quà này khi khách đến
-              lễ cưới nhé!
+              {{ $t('manage.oneGift') }}
             </p>
           </div>
         </div>
@@ -577,6 +577,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -596,6 +597,8 @@ import { gameTypeMeta } from "@/data/gameData";
 
 import { useAuthStore } from "@/stores/auth";
 import { useWeddingEditorStore } from "@/stores/weddingEditor";
+
+const { t } = useI18n();
 
 const router = useRouter();
 
@@ -691,9 +694,9 @@ const filterTabs = computed(() => {
   const published = all.filter(isPublishedEntry);
 
   return [
-    { key: "all", label: "Tất cả", count: all.length },
-    { key: "published", label: "Xuất bản", count: published.length },
-    { key: "draft", label: "Nháp", count: all.length - published.length },
+    { key: "all", get label() { return t("manage.tabAll"); }, count: all.length },
+    { key: "published", get label() { return t("manage.tabPublished"); }, count: published.length },
+    { key: "draft", get label() { return t("manage.tabDraft"); }, count: all.length - published.length },
   ];
 });
 
@@ -718,7 +721,7 @@ async function deleteDraft() {
 
   localDraft.value = null;
 
-  showToast("Đã xóa bản nháp trên máy này");
+  showToast(t("manage.localDeleted"));
 }
 
 function goLogin() {
@@ -791,14 +794,14 @@ async function openWinners(entry) {
       winners.value = result.data;
     } else {
       winnersMessage.value =
-        result?.message || "Không thể tải danh sách trúng quà.";
+        result?.message || t("manage.loadWinnersFailed");
       winnersError.value = true;
     }
   } catch (error) {
     console.error("[Manage] getGameWinners error:", error);
 
     winnersMessage.value =
-      error?.response?.data?.message || "Không thể tải danh sách trúng quà.";
+      error?.response?.data?.message || t("manage.loadWinnersFailed");
     winnersError.value = true;
   } finally {
     winnersLoading.value = false;
@@ -861,14 +864,14 @@ async function loadEntries() {
       }));
     } else {
       loadError.value =
-        result?.message || "Không thể tải danh sách thiệp.";
+        result?.message || t("wedding.loadListFailed");
     }
   } catch (error) {
     console.error("[Manage] getMyWeddings error:", error);
 
     loadError.value =
       error?.response?.data?.message ||
-      "Không thể tải danh sách thiệp. Vui lòng thử lại.";
+      t("manage.loadListRetry");
   } finally {
     loading.value = false;
   }
@@ -908,7 +911,7 @@ function getCoupleName(entry) {
   const groom = entry?.groomName || "";
 
   if (!bride && !groom) {
-    return "Thiệp cưới";
+    return t("manage.untitledWedding");
   }
 
   return `${bride} & ${groom}`;
@@ -983,27 +986,27 @@ function goPayment(entry) {
 function statusChipLabel(entry) {
   const state = entry?.publishState;
 
-  if (state === "draft-local") return "Bản nháp";
+  if (state === "draft-local") return t("manage.status.draft");
 
-  if (state === PUBLISH_STATE.DRAFT) return "Chưa xuất bản";
+  if (state === PUBLISH_STATE.DRAFT) return t("editor.status.unpublished");
 
   if (state === PUBLISH_STATE.TRIAL) {
-    return `Dùng thử còn ${entry.daysLeft} ngày`;
+    return t("editor.status.trialDays", { days: entry.daysLeft });
   }
 
-  if (state === PUBLISH_STATE.EXPIRED) return "Hết hạn dùng thử";
+  if (state === PUBLISH_STATE.EXPIRED) return t("manage.status.expired");
 
-  if (state === PUBLISH_STATE.ACTIVE) return "Đã kích hoạt";
+  if (state === PUBLISH_STATE.ACTIVE) return t("manage.status.active");
 
-  if (state === PUBLISH_STATE.LOCKED) return "Đã khóa";
+  if (state === PUBLISH_STATE.LOCKED) return t("editor.status.locked");
 
   const status = entry?.status;
 
-  if (status === "Active") return "Đã kích hoạt";
+  if (status === "Active") return t("manage.status.active");
 
-  if (status === "Locked") return "Đã khóa";
+  if (status === "Locked") return t("editor.status.locked");
 
-  return "Chờ duyệt";
+  return t("manage.status.pending");
 }
 
 function statusChipClass(entry) {
@@ -1052,16 +1055,16 @@ async function publishEntry(entry) {
     const result = response?.data;
 
     if (result?.status === "success") {
-      showToast("Đã xuất bản thiệp — dùng thử 3 ngày");
+      showToast(t("manage.published"));
 
       await loadEntries();
     } else {
-      showToast(result?.message || "Không thể xuất bản thiệp");
+      showToast(result?.message || t("manage.publishFailed"));
     }
   } catch (error) {
     console.error("[Manage] publishWedding error:", error);
 
-    showToast("Không thể xuất bản thiệp. Vui lòng thử lại.");
+    showToast(t("editor.publish.failed"));
   } finally {
     publishing.value = "";
   }
@@ -1087,12 +1090,12 @@ async function copyLink(entry) {
      * nói rõ để chủ thiệp không gửi nhầm cho khách rồi tưởng hỏng.
      */
     if (canPublish(entry)) {
-      showToast("Đã sao chép — nhưng thiệp chưa xuất bản nên khách mở sẽ không xem được");
+      showToast(t("manage.copiedUnpublished"));
     } else {
-      showToast("Đã sao chép link thiệp");
+      showToast(t("manage.linkCopied"));
     }
   } catch (error) {
-    showToast("Không thể sao chép link");
+    showToast(t("manage.copyFailed"));
   }
 }
 
@@ -1125,7 +1128,7 @@ async function doDelete() {
 
     deleteTarget.value = null;
 
-    showToast("Đã xóa thiệp khỏi danh sách");
+    showToast(t("manage.removedFromList"));
   } finally {
     deleting.value = "";
   }
@@ -1167,7 +1170,7 @@ async function openGuests(entry) {
       guests.value = result.data;
     } else {
       showGuestsMessage(
-        result?.message || "Không thể tải danh sách khách mời.",
+        result?.message || t("manage.loadGuestsFailed"),
         true
       );
     }
@@ -1175,7 +1178,7 @@ async function openGuests(entry) {
     console.error("[Manage] getRecipients error:", error);
 
     showGuestsMessage(
-      error?.response?.data?.message || "Không thể tải danh sách khách mời.",
+      error?.response?.data?.message || t("manage.loadGuestsFailed"),
       true
     );
   } finally {
@@ -1218,10 +1221,10 @@ async function addGuest() {
 
       await reloadGuests(target.slug);
 
-      showGuestsMessage("Đã thêm khách mời.");
+      showGuestsMessage(t("manage.guestAdded"));
     } else {
       showGuestsMessage(
-        result?.message || "Không thể thêm khách mời.",
+        result?.message || t("manage.guestAddFailed"),
         true
       );
     }
@@ -1229,7 +1232,7 @@ async function addGuest() {
     console.error("[Manage] addRecipient error:", error);
 
     showGuestsMessage(
-      error?.response?.data?.message || "Không thể thêm khách mời.",
+      error?.response?.data?.message || t("manage.guestAddFailed"),
       true
     );
   } finally {
@@ -1288,10 +1291,10 @@ async function saveGuestEdit(guest) {
 
       cancelGuestEdit();
 
-      showGuestsMessage("Đã cập nhật tên khách mời.");
+      showGuestsMessage(t("recipientPanel.renamed"));
     } else {
       showGuestsMessage(
-        result?.message || "Không thể cập nhật khách mời.",
+        result?.message || t("manage.guestUpdateFailed"),
         true
       );
     }
@@ -1299,7 +1302,7 @@ async function saveGuestEdit(guest) {
     console.error("[Manage] updateRecipient error:", error);
 
     showGuestsMessage(
-      error?.response?.data?.message || "Không thể cập nhật khách mời.",
+      error?.response?.data?.message || t("manage.guestUpdateFailed"),
       true
     );
   } finally {
@@ -1327,10 +1330,10 @@ async function removeGuest(guest) {
     if (result && result.status === "success") {
       guests.value = guests.value.filter((item) => item.Token !== guest.Token);
 
-      showGuestsMessage("Đã xóa khách mời.");
+      showGuestsMessage(t("manage.guestDeleted"));
     } else {
       showGuestsMessage(
-        result?.message || "Không thể xóa khách mời.",
+        result?.message || t("manage.guestDeleteFailed"),
         true
       );
     }
@@ -1338,7 +1341,7 @@ async function removeGuest(guest) {
     console.error("[Manage] deleteRecipient error:", error);
 
     showGuestsMessage(
-      error?.response?.data?.message || "Không thể xóa khách mời.",
+      error?.response?.data?.message || t("manage.guestDeleteFailed"),
       true
     );
   } finally {
@@ -1358,9 +1361,9 @@ async function copyGuestLink(guest) {
   try {
     await navigator.clipboard.writeText(url);
 
-    showToast(`Đã sao chép link của ${guest.Name || "khách mời"}`);
+    showToast(t("manage.linkCopiedFor", { name: guest.Name || t("manage.guestLower") }));
   } catch (error) {
-    showToast("Không thể sao chép link");
+    showToast(t("manage.copyFailed"));
   }
 }
 

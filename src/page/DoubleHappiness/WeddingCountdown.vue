@@ -63,12 +63,12 @@ const values = computed(() => {
 
 <style scoped>
 .dh-countdown {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-ink: #5a3d2e;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-ink: var(--tc-5a3d2e, #5a3d2e);
 
   text-align: center;
 
@@ -95,7 +95,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: var(--dh-cream-on-red, #f7e6c4);
+  color: var(--dh-cream-on-red, var(--tc-f7e6c4, #f7e6c4));
 }
 
 .dh-countdown__grid {
@@ -109,12 +109,12 @@ const values = computed(() => {
 
   padding: 16px 2px;
 
-  border: 1px solid rgba(217, 164, 65, 0.5);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
   border-radius: 10px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
+  background: linear-gradient(170deg, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.97), rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.93));
 
-  box-shadow: 0 8px 22px rgba(60, 10, 12, 0.09);
+  box-shadow: 0 8px 22px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.09);
 }
 
 /* Inner gold line — double border */
@@ -123,7 +123,7 @@ const values = computed(() => {
   position: absolute;
   inset: 4px;
 
-  border: 1px solid rgba(217, 164, 65, 0.25);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.25);
   border-radius: 7px;
 
   pointer-events: none;

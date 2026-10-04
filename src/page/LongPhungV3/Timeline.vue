@@ -5,7 +5,17 @@
     <img :src="chimEn" alt="" aria-hidden="true" class="lp-timeline__bird lp-timeline__bird--bottom" draggable="false" />
 
     <div class="lp-section-title">
-      <h2>{{ title || "LỊCH TRÌNH NGÀY VUI" }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="lp-top-custom-head">
+        <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "timeline", "Heading", title || "LỊCH TRÌNH NGÀY VUI") }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="lp-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="lp-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+      </header>
+
     </div>
 
     <ol class="lp-timeline__list">
@@ -34,10 +44,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import chimEn from "@/assets/decor/longphung-v3/chim-en.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
   events: { type: Array, default: () => [] },
 });
@@ -57,7 +69,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   padding: 30px 18px 26px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* Tiêu đề có khung frame-title */
@@ -88,7 +100,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* =========================================================
@@ -190,9 +202,9 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   border-radius: 50%;
 
-  background: #ffbe89;
+  background: var(--tc-ffbe89, #ffbe89);
 
-  box-shadow: 0 0 0 4px rgba(255, 190, 137, 0.18);
+  box-shadow: 0 0 0 4px rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.18);
 }
 
 .lp-timeline__line {
@@ -207,7 +219,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   transform: translateX(-50%);
 
-  background: rgba(255, 190, 137, 0.4);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
 }
 
 /* =========================================================
@@ -219,10 +231,10 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   padding: 14px 16px 15px;
 
-  border: 1px solid rgba(255, 190, 137, 0.3);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.3);
   border-radius: 12px;
 
-  background: rgba(255, 190, 137, 0.07);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.07);
 
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
@@ -230,7 +242,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 .lp-timeline__card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(255, 190, 137, 0.55);
+  border-color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.55);
 }
 
 .lp-timeline__card time {
@@ -245,7 +257,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   letter-spacing: 0.1em;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 }
 
 .lp-timeline__card h3 {
@@ -258,7 +270,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   line-height: 1.25;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-timeline__card p {
@@ -268,7 +280,7 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
 
   line-height: 1.65;
 
-  color: rgba(255, 190, 137, 0.75);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.75);
 }
 
 .lp-timeline__location {
@@ -279,11 +291,11 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
   margin-top: 9px;
   padding-top: 8px;
 
-  border-top: 1px solid rgba(255, 190, 137, 0.2);
+  border-top: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.2);
 
   font-size: 11px;
 
-  color: rgba(255, 190, 137, 0.65);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.65);
 }
 
 /* =========================================================
@@ -315,5 +327,71 @@ const title = computed(() => props.events?.[0]?.TimelineTitle || "");
   .lp-timeline__card h3 {
     font-size: 18px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-top-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-sub-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

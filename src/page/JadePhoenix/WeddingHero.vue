@@ -145,12 +145,12 @@ const dateText = computed(() => {
 
 <style scoped>
 .jp-hero {
-  --jp-deep: #6e1f24;
-  --jp-jade: #68262c;
-  --jp-plum: #8a3a40;
-  --jp-lilac: #e8c98a;
-  --jp-line: #6e2a30;
-  --jp-cream: #fdfaf3;
+  --jp-deep: var(--tc-6e1f24, #6e1f24);
+  --jp-jade: var(--tc-68262c, #68262c);
+  --jp-plum: var(--tc-8a3a40, #8a3a40);
+  --jp-lilac: var(--tc-e8c98a, #e8c98a);
+  --jp-line: var(--tc-6e2a30, #6e2a30);
+  --jp-cream: var(--tc-fdfaf3, #fdfaf3);
 
   position: relative;
   isolation: isolate;
@@ -162,8 +162,8 @@ const dateText = computed(() => {
   min-height: min(690px, 100dvh);
 
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(254, 251, 245, 0.9), transparent 55%),
-    linear-gradient(180deg, #fdfaf4 0%, #f9f0dc 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--tc-fefbf5-rgb, 254, 251, 245), 0.9), transparent 55%),
+    linear-gradient(180deg, var(--tc-fdfaf4, #fdfaf4) 0%, var(--tc-f9f0dc, #f9f0dc) 100%);
 }
 
 /* =========================================================
@@ -184,7 +184,7 @@ const dateText = computed(() => {
   top: -80px;
   left: -70px;
 
-  background: radial-gradient(circle, rgba(232, 201, 138, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-e8c98a-rgb, 232, 201, 138), 0.5), transparent 70%);
 
   animation: jp-glow-breathe 6s ease-in-out infinite;
 }
@@ -195,7 +195,7 @@ const dateText = computed(() => {
   bottom: -70px;
   right: -60px;
 
-  background: radial-gradient(circle, rgba(217, 180, 106, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.28), transparent 70%);
 
   animation: jp-glow-breathe 7s ease-in-out infinite;
   animation-delay: -3s;
@@ -215,19 +215,19 @@ const dateText = computed(() => {
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(217, 180, 106, 0.55);
+  border: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.55);
   border-radius: 210px 210px 24px 24px;
 
-  background: linear-gradient(175deg, rgba(255, 255, 255, 0.6), rgba(248, 237, 214, 0.35));
+  background: linear-gradient(175deg, rgba(255, 255, 255, 0.6), rgba(var(--tc-f8edd6-rgb, 248, 237, 214), 0.35));
 
-  box-shadow: 0 22px 55px rgba(110, 31, 36, 0.1);
+  box-shadow: 0 22px 55px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.1);
 }
 
 .jp-hero__frame-inner {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(217, 180, 106, 0.28);
+  border: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.28);
   border-radius: 202px 202px 18px 18px;
 
   pointer-events: none;
@@ -267,9 +267,9 @@ const dateText = computed(() => {
 
   background: linear-gradient(
     180deg,
-    rgba(253, 250, 244, 0.6),
-    rgba(243, 227, 196, 0.35) 55%,
-    rgba(253, 250, 244, 0.6)
+    rgba(var(--tc-fdfaf4-rgb, 253, 250, 244), 0.6),
+    rgba(var(--tc-f3e3c4-rgb, 243, 227, 196), 0.35) 55%,
+    rgba(var(--tc-fdfaf4-rgb, 253, 250, 244), 0.6)
   );
 }
 
@@ -337,7 +337,7 @@ const dateText = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.8));
 }
 
 .jp-hero__motif span:last-child {
@@ -400,7 +400,7 @@ const dateText = computed(() => {
   max-width: 325px;
   margin: 14px auto 8px;
 
-  color: rgba(110, 31, 36, 0.85);
+  color: rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.85);
 
   font-size: 12px;
 
@@ -425,8 +425,8 @@ const dateText = computed(() => {
   margin: 24px auto 0;
   padding: 14px 0;
 
-  border-top: 1px solid rgba(217, 180, 106, 0.45);
-  border-bottom: 1px solid rgba(217, 180, 106, 0.45);
+  border-top: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.45);
+  border-bottom: 1px solid rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.45);
 }
 
 .jp-hero__schedule p {
@@ -445,7 +445,7 @@ const dateText = computed(() => {
   max-width: 295px;
   margin: 24px auto 20px;
 
-  color: rgba(110, 31, 36, 0.8);
+  color: rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.8);
 
   font-size: 14px;
   font-style: italic;
@@ -466,7 +466,7 @@ const dateText = computed(() => {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.7));
 }
 
 .jp-hero__footer span:last-child {
@@ -496,9 +496,9 @@ const dateText = computed(() => {
   position: absolute;
   top: -30px;
 
-  color: rgba(185, 138, 75, 0.45);
+  color: rgba(var(--tc-b98a4b-rgb, 185, 138, 75), 0.45);
 
-  text-shadow: 0 0 6px rgba(232, 201, 138, 0.6);
+  text-shadow: 0 0 6px rgba(var(--tc-e8c98a-rgb, 232, 201, 138), 0.6);
 
   font-size: 13px;
 

@@ -2,7 +2,17 @@
   <section class="timeline">
     <div class="timeline-title">
       <small>OUR JOURNEY</small>
-      <h2>Hành trình của chúng mình</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="ds-top-custom-head">
+        <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ds-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ds-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+      </header>
+
     </div>
 
     <div class="timeline-list">
@@ -34,9 +44,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: {
     type: Array,
     default: () => [],
@@ -56,8 +68,8 @@ const items = computed(() => {
 <style scoped>
 .timeline {
   padding: 70px 22px;
-  background: #f3ead8;
-  color: #641914;
+  background: var(--tc-f3ead8, #f3ead8);
+  color: var(--tc-641914, #641914);
 }
 
 .timeline-title {
@@ -66,7 +78,7 @@ const items = computed(() => {
 }
 
 .timeline-title small {
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
   font-size: 10px;
   letter-spacing: .4em;
 }
@@ -90,7 +102,7 @@ h2 {
   bottom: 0;
   left: 24px;
   width: 1px;
-  background: #8b5829;
+  background: var(--tc-8b5829, #8b5829);
 }
 
 .timeline-item {
@@ -108,33 +120,33 @@ h2 {
   height: 49px;
   display: grid;
   place-items: center;
-  border: 1px solid #8b5829;
+  border: 1px solid var(--tc-8b5829, #8b5829);
   border-radius: 50%;
-  background: #f3ead8;
-  color: #8b5829;
+  background: var(--tc-f3ead8, #f3ead8);
+  color: var(--tc-8b5829, #8b5829);
   font-size: 10px;
 }
 
 .timeline-content {
   position: relative;
   padding: 16px 18px;
-  border: 1px solid rgba(143,36,28,.5);
-  background: #fffaf0;
-  box-shadow: 0 8px 20px rgba(84,18,15,.12);
+  border: 1px solid rgba(var(--tc-8f241c-rgb, 143, 36, 28), .5);
+  background: var(--tc-fffaf0, #fffaf0);
+  box-shadow: 0 8px 20px rgba(var(--tc-54120f-rgb, 84, 18, 15), .12);
 }
 
 .timeline-content::before {
   content: "";
   position: absolute;
   inset: 5px;
-  border: 1px solid rgba(169,107,50,.35);
+  border: 1px solid rgba(var(--tc-a96b32-rgb, 169, 107, 50), .35);
   pointer-events: none;
 }
 
 .timeline-content > span {
   font-size: 10px;
   letter-spacing: .25em;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 .timeline-content h3 {
@@ -146,9 +158,75 @@ h2 {
 
 .timeline-content p {
   margin: 0;
-  color: #765f57;
+  color: var(--tc-765f57, #765f57);
   font-family: Georgia, serif;
   font-size: 13px;
   line-height: 1.8;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

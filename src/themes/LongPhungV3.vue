@@ -1,15 +1,15 @@
 <template>
-  <div class="lpv3-theme">
-    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" />
+  <div class="lpv3-theme" :style="colorVars">
+    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" :sections="sections" />
     <main v-else class="lpv3-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
 
       <div class="lpv3-content">
-        <section v-if="showCouple" class="lpv3-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" /></section>
+        <section v-if="showCouple" class="lpv3-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" /></section>
         <section v-if="showStory && useMilestoneStory" class="lpv3-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="lpv3-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="lpv3-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
-        <section v-if="showEvents && events.length" class="lpv3-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :settings="settings" /></section>
+        <section v-if="showEvents && events.length" class="lpv3-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :settings="settings" :sections="sections" /></section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
 
@@ -18,13 +18,13 @@
         <!-- ============ TRÒ CHƠI ============ -->
 
         <section v-if="showGame" class="lpv3-section"><GameSection :wedding="wedding" /></section>
-        <section v-if="showTimeline && timeline.length" class="lpv3-section"><Timeline :timeline="timeline" :events="events" /></section>
-        <section v-if="showCountdown" class="lpv3-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" /></section>
-        <section v-if="showGallery && gallery.length" class="lpv3-section"><WeddingGallery :gallery="gallery" /></section>
+        <section v-if="showTimeline && timeline.length" class="lpv3-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
+        <section v-if="showCountdown" class="lpv3-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="lpv3-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
-      <section v-if="showGift && gifts.length" class="lpv3-section"><WeddingGifts :gifts="gifts" /></section>
-      <section v-if="showGuestBook" class="lpv3-section"><WeddingWishes :wishes="wishes" :wedding="wedding" /></section>
+      <section v-if="showGift && gifts.length" class="lpv3-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
+      <section v-if="showGuestBook" class="lpv3-section"><WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" /></section>
 
       <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,12 @@ import WeddingWishes from "@/page/LongPhungV3/WeddingWishes.vue";
 import WeddingFooter from "@/page/LongPhungV3/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {});
@@ -144,11 +151,11 @@ onMounted(() => {
 
 <style scoped>
 .lpv3-theme {
-  --lpv3-red: #7a0014;
-  --lpv3-red-deep: #710001;
-  --lpv3-gold: #ffbe89;
-  --lpv3-gold-soft: rgba(255, 190, 137, 0.8);
-  --lpv3-gift-gold: #d4af37;
+  --lpv3-red: var(--tc-7a0014, #7a0014);
+  --lpv3-red-deep: var(--tc-710001, #710001);
+  --lpv3-gold: var(--tc-ffbe89, #ffbe89);
+  --lpv3-gold-soft: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.8);
+  --lpv3-gift-gold: var(--tc-d4af37, #d4af37);
 
   min-height: 100vh;
   min-height: 100dvh;
@@ -173,8 +180,8 @@ onMounted(() => {
   z-index: -1;
 
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255, 190, 137, 0.08), transparent 55%),
-    linear-gradient(180deg, #7a0014 0%, #6d0009 55%, #5a000e 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08), transparent 55%),
+    linear-gradient(180deg, var(--tc-7a0014, #7a0014) 0%, var(--tc-6d0009, #6d0009) 55%, var(--tc-5a000e, #5a000e) 100%);
 
   pointer-events: none;
 }
@@ -194,13 +201,13 @@ onMounted(() => {
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .lpv3-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .lpv3-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
-    box-shadow: 0 0 44px rgba(90, 0, 20, 0.3);
+    box-shadow: 0 0 44px rgba(var(--tc-5a0014-rgb, 90, 0, 20), 0.3);
   }
 }
 </style>

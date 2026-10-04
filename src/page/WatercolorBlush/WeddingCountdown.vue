@@ -65,13 +65,13 @@ const values = computed(() => {
 .wb-countdown {
   text-align: center;
 
-  color: #8a4a5c;
+  color: var(--tc-8a4a5c, #8a4a5c);
 }
 
 .wb-eyebrow {
   margin: 0;
 
-  color: #a5586c;
+  color: var(--tc-a5586c, #a5586c);
 
   font-size: 10px;
   font-weight: 700;
@@ -88,7 +88,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #8a4a5c;
+  color: var(--tc-8a4a5c, #8a4a5c);
 }
 
 .wb-countdown__grid {
@@ -100,12 +100,12 @@ const values = computed(() => {
 .wb-countdown__item {
   padding: 16px 2px;
 
-  border: 1px solid rgba(217, 140, 160, 0.35);
+  border: 1px solid rgba(var(--tc-d98ca0-rgb, 217, 140, 160), 0.35);
   border-radius: 16px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(254, 244, 247, 0.65));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(var(--tc-fef4f7-rgb, 254, 244, 247), 0.65));
 
-  box-shadow: 0 8px 22px rgba(138, 74, 92, 0.07);
+  box-shadow: 0 8px 22px rgba(var(--tc-8a4a5c-rgb, 138, 74, 92), 0.07);
 }
 
 .wb-countdown__item b {
@@ -113,7 +113,7 @@ const values = computed(() => {
 
   font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
-  color: #8a4a5c;
+  color: var(--tc-8a4a5c, #8a4a5c);
 
   font-size: clamp(22px, 7vw, 30px);
   font-weight: 600;
@@ -126,6 +126,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #a5586c;
+  color: var(--tc-a5586c, #a5586c);
 }
 </style>

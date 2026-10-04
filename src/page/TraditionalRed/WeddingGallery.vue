@@ -1,20 +1,28 @@
 <template>
   <section class="tr-gallery">
-    <h2 class="tr-gallery__title">Album Ảnh</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="tr-top-custom-head">
+      <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
+    </header>
 
-    <div class="tr-gallery__wrap">
-      <div class="tr-gallery__grid">
-        <button
-          v-for="(item, index) in images"
-          :key="index"
-          type="button"
-          class="tr-gallery__cell"
-          :aria-label="`Xem ảnh ${index + 1}`"
-          @click="openLightbox(index)"
-        >
-          <img :src="item" alt="" loading="lazy" decoding="async" />
-        </button>
-      </div>
+    <h2 class="tr-gallery__title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="tr-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="tr-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
+    </header>
+
+
+    <!-- Album: kiểu chọn sẵn của mẫu (Thẻ xếp chồng) hoặc kiểu chủ thiệp chọn -->
+    <div v-if="images.length" class="tr-gallery__wrap">
+      <GalleryShowcase
+        :images="images"
+        :layout="galleryLayoutFor('traditional-red', layout)"
+        accent="#680e0e"
+        text-color="#680e0e"
+        frame-bg="#fffaf4"
+        :radius="6"
+        @open="openLightbox"
+      />
     </div>
 
     <GalleryModal
@@ -28,6 +36,9 @@
 </template>
 
 <script setup>
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, defineAsyncComponent, ref } from "vue";
 
 const GalleryModal = defineAsyncComponent(() =>
@@ -35,6 +46,9 @@ const GalleryModal = defineAsyncComponent(() =>
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: {
     type: Array,
     default: () => [],
@@ -113,54 +127,9 @@ function closeLightbox() {
 
 .tr-gallery__wrap {
   width: 100%;
-  max-width: 320px;
-}
+  max-width: 440px;
 
-.tr-gallery__grid {
-  display: grid;
-
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 12px;
-
-  padding: 16px;
-}
-
-.tr-gallery__cell {
-  position: relative;
-
-  display: block;
-
-  aspect-ratio: 1 / 1;
-
-  padding: 0;
-
-  border: 1px solid rgba(0, 0, 0, 0.07);
-
-  border-radius: 8px;
-
-  overflow: hidden;
-
-  cursor: pointer;
-
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.tr-gallery__cell img {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  object-position: 50% 50%;
-
-  transition: transform 0.2s ease;
-}
-
-.tr-gallery__cell:hover img {
-  transform: scale(1.03);
+  padding: 0 4px;
 }
 
 /* =========================================================
@@ -177,13 +146,73 @@ function closeLightbox() {
   }
 
   .tr-gallery__wrap {
-    max-width: 550px;
+    max-width: 560px;
   }
+}
 
-  .tr-gallery__grid {
-    gap: 16px;
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
 
-    padding: 24px;
-  }
+.tr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tr-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tr-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tr-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tr-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

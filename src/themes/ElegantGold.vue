@@ -5,8 +5,7 @@
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <main v-else class="la-invitation">
       <WeddingHero
@@ -20,20 +19,19 @@
 
       <div class="la-content">
         <section v-if="showCouple" class="la-section">
-          <WeddingCouple :wedding="wedding" :guest-name="guestName" />
+          <WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" />
         </section>
 
         <section v-if="showStory && useMilestoneStory" class="la-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="la-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="la-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
         <section v-if="showGallery && gallery.length" class="la-section">
-          <WeddingGallery :gallery="gallery" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
         </section>
 
         <section v-if="showEvents && events.length" class="la-section">
           <WeddingEvents :events="events" :recipient-name="wedding?.recipientName"
-            :settings="settings"
-          />
+            :settings="settings" :sections="sections" />
         </section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
@@ -45,23 +43,23 @@
         <section v-if="showGame" class="la-section"><GameSection :wedding="wedding" /></section>
 
         <section v-if="showCountdown" class="la-section">
-          <WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" />
+          <WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" />
         </section>
 
         <section v-if="showDressCode" class="la-section">
-          <DressCode :dress-code="wedding?.dressCode" />
+          <DressCode :dress-code="wedding?.dressCode" :sections="sections" />
         </section>
 
         <section v-if="showTimeline && timeline.length" class="la-section">
-          <Timeline :timeline="timeline" :events="events" />
+          <Timeline :timeline="timeline" :events="events" :sections="sections" />
         </section>
 
         <section v-if="showGift && gifts.length" class="la-section">
-          <WeddingGifts :gifts="gifts" />
+          <WeddingGifts :gifts="gifts" :sections="sections" />
         </section>
 
         <section v-if="showGuestBook" class="la-section">
-          <WeddingWishes :wishes="wishes" :wedding="wedding" />
+          <WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" />
         </section>
       </div>
 
@@ -108,6 +106,9 @@ import WeddingFooter from "@/page/ElegantGold/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
 
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
+
 const emit = defineEmits(["open"]);
 
 const wedding = computed(() => props.wedding || {});
@@ -118,7 +119,7 @@ const wedding = computed(() => props.wedding || {});
  * --accent… do useWeddingTheme sinh ra, nên đổi màu trong editor
  * là thiệp đổi theo ngay.
  */
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 /*
  * Ưu tiên nhạc từ wedding.music (panel Nhạc).

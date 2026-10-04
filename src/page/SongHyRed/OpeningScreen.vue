@@ -17,9 +17,9 @@
     <div class="shy-card">
       <div class="shy-card__frame" aria-hidden="true"></div>
 
-      <p class="shy-card__kicker">WEDDING INVITATION</p>
+      <p class="shy-card__kicker">{{ sectionText(sections, "opening", "Kicker", "WEDDING INVITATION") }}</p>
 
-      <p class="shy-card__invite">Trân trọng kính mời</p>
+      <p class="shy-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
       <h1 class="shy-card__guest">{{ guestName }}</h1>
 
@@ -52,19 +52,21 @@
         </svg>
       </span>
 
-      <span class="shy-open-btn__text">MỞ THIỆP</span>
+      <span class="shy-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
     </button>
 
-    <p class="shy-hint">Một lời mời · Một chữ song hỷ · Một đời hạnh phúc</p>
+    <p class="shy-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một chữ song hỷ · Một đời hạnh phúc") }}</p>
   </section>
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import { chuHy, star } from "./songHyRedAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G&B" },
   dateLabel: { type: String, default: "" },

@@ -243,7 +243,8 @@ function restart() {
 
   margin-bottom: 12px;
 
-  color: var(--text-secondary, #806f66);
+  /* Nằm trên nền thiệp — --sec-muted đã kiểm tra tương phản */
+  color: var(--sec-muted, var(--text-secondary, #806f66));
 
   font-size: 11px;
   font-weight: 700;
@@ -289,10 +290,17 @@ function restart() {
   transition: transform 0.35s ease;
 }
 
+/*
+ * Mặt sau thẻ nằm trên nền thiệp — dùng màu nút (--btn-*):
+ * nền tối là khối vàng, nền sáng là khối đậm; viền mảnh
+ * --sec-line tách thẻ khỏi nền.
+ */
 .memory-match__face--back {
-  color: #fff;
+  color: var(--btn-ink, #fff);
 
-  background: var(--primary, #8a7a68);
+  background: var(--btn-bg, var(--primary, #8a7a68));
+
+  box-shadow: inset 0 0 0 1px var(--sec-line, transparent);
 }
 
 .memory-match__face--back svg {
@@ -328,7 +336,7 @@ function restart() {
 }
 
 .memory-match__card--matched .memory-match__face--front {
-  box-shadow: 0 0 0 2px var(--accent, #c79d5c);
+  box-shadow: 0 0 0 2px var(--sec-line, var(--accent, #c79d5c));
 }
 
 .memory-match__result {
@@ -339,10 +347,10 @@ function restart() {
 
   padding: 24px 18px;
 
-  border: 1px dashed var(--accent, #c79d5c);
+  border: 1px dashed var(--card-line, var(--accent, #c79d5c));
   border-radius: 16px;
 
-  background: var(--white, #fffaf4);
+  background: var(--card-bg, var(--white, #fffaf4));
 }
 
 .memory-match__score {
@@ -369,7 +377,7 @@ function restart() {
 
   margin-top: 4px;
 
-  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
+  color: var(--card-heading, var(--card-ink, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -380,11 +388,12 @@ function restart() {
 .memory-match__again {
   padding: 9px 22px;
 
-  color: #fff;
+  /* Nút trong card sáng: khối đậm đã kiểm tra tương phản */
+  color: var(--solid-ink, #fff);
   border: 0;
   border-radius: 999px;
 
-  background: var(--primary, #8a7a68);
+  background: var(--solid, var(--primary, #8a7a68));
 
   font-size: 12px;
   font-weight: 700;

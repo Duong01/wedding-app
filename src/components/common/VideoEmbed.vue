@@ -93,13 +93,18 @@ const parsed = computed(() => parseVideoUrl(props.url));
   padding: 12px 18px;
 
   /*
-   * --text (không phải --primary): theme nền tối có
-   * primary trùng màu nền — chữ biến mất.
+   * Nút đặc --btn-*: nền sáng → khối đậm chữ kem, nền tối
+   * → khối vàng chữ tối (đã kiểm tra tương phản, xem
+   * useSectionTheme).
    */
-  color: var(--text, var(--primary, #8a7a68));
+  color: var(--btn-ink, #fff);
 
-  border: 1px solid var(--accent, #c79d5c);
+  border: 0;
   border-radius: 999px;
+
+  background: var(--btn-bg, var(--primary, #8a7a68));
+
+  font-weight: 700;
 
   text-decoration: none;
 }

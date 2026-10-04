@@ -18,7 +18,7 @@
     />
 
     <div class="footer-content">
-      <div class="footer-eyebrow">THANK YOU</div>
+      <div class="footer-eyebrow">{{ sectionText(sections, "footer", "Eyebrow", "THANK YOU") }}</div>
 
       <p class="footer-subtitle">CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI</p>
 
@@ -65,11 +65,13 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
 import flower from "@/assets/glass-garden-pink/flower2-decoration.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),

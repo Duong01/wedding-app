@@ -157,10 +157,10 @@ async function submit() {
 
   padding: 26px 20px;
 
-  border: 1px dashed var(--accent, #c79d5c);
+  border: 1px dashed var(--card-line, var(--accent, #c79d5c));
   border-radius: 16px;
 
-  background: var(--white, #fffaf4);
+  background: var(--card-bg, var(--white, #fffaf4));
 
   text-align: center;
 }
@@ -171,7 +171,7 @@ async function submit() {
 
 .prize-claim__title {
   /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
-  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
+  color: var(--card-heading, var(--card-ink, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -196,7 +196,7 @@ async function submit() {
   /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
   color: var(--card-ink, var(--text, #5c4d46));
 
-  border: 1px solid var(--accent, #c79d5c);
+  border: 1px solid var(--card-line, var(--accent, #c79d5c));
   border-radius: 10px;
 
   background: #fff;
@@ -208,13 +208,14 @@ async function submit() {
 }
 
 .prize-claim__input:focus {
-  border-color: var(--primary, #8a7a68);
+  border-color: var(--solid, var(--primary, #8a7a68));
 }
 
 .prize-claim__message {
   margin: 0;
 
-  color: #3d9a50;
+  /* xanh đậm: #3d9a50 cũ chỉ ~3.3:1 trên card sáng */
+  color: #2e7d3e;
 
   font-size: 12.5px;
 }
@@ -226,11 +227,12 @@ async function submit() {
 .prize-claim__submit {
   padding: 10px 26px;
 
-  color: #fff;
+  /* Nút trong card sáng: khối đậm đã kiểm tra tương phản */
+  color: var(--solid-ink, #fff);
   border: 0;
   border-radius: 999px;
 
-  background: var(--primary, #8a7a68);
+  background: var(--solid, var(--primary, #8a7a68));
 
   font-size: 12.5px;
   font-weight: 700;

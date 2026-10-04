@@ -12,31 +12,29 @@
           <span class="hero-brand__name">ThiệpDuyên</span><span>.vn</span>
         </p>
 
-        <h1>Làm thiệp cưới online miễn phí</h1>
+        <h1>{{ $t('hero.h1') }}</h1>
 
         <!-- điện thoại: câu ngắn gọn, đi thẳng vào lợi ích -->
         <p class="hero-lead hero-lead--mobile">
-          Thiệp cưới online giúp bạn gửi lời mời nhanh hơn, xa hơn, đến nhiều
-          người hơn.
+          {{ $t('hero.sub') }}
         </p>
 
         <!-- máy tính: câu trích + đoạn dẫn đầy đủ -->
         <p class="hero-quote">
-          “Cuộc sống hối hả, nhưng tình người vẫn vẹn nguyên”
+          {{ $t('hero.quote') }}
         </p>
 
         <p class="hero-lead">
-          Mảnh ghép hiện đại của truyền thống mời cưới — Thiệp cưới online
-          giúp bạn gửi tấm chân tình nhanh hơn, xa hơn, đến nhiều người hơn.
+          {{ $t('hero.lead') }}
         </p>
 
         <p class="hero-trust">
-          Tạo miễn phí · Thử 3 ngày · Đẹp mới thanh toán
+          {{ $t('hero.badge') }}
         </p>
 
         <div class="hero-actions">
           <router-link :to="{ name: 'Editor' }" class="hero-cta">
-            Tạo Thiệp Ngay
+            {{ $t('hero.cta') }}
           </router-link>
         </div>
 
@@ -52,8 +50,8 @@
             </span>
 
             <div>
-              <strong>3 phút</strong>
-              <span>Tạo thiệp xong</span>
+              <strong>{{ $t('hero.stat1v') }}</strong>
+              <span>{{ $t('hero.stat1') }}</span>
             </div>
           </li>
 
@@ -66,8 +64,8 @@
             </span>
 
             <div>
-              <strong>3 ngày</strong>
-              <span>Dùng thử miễn phí</span>
+              <strong>{{ $t('stats.trialValue') }}</strong>
+              <span>{{ $t('hero.stat2') }}</span>
             </div>
           </li>
 
@@ -79,8 +77,8 @@
             </span>
 
             <div>
-              <strong>Mãi mãi</strong>
-              <span>Giữ thiệp vĩnh viễn</span>
+              <strong>{{ $t('hero.stat3v') }}</strong>
+              <span>{{ $t('hero.stat3') }}</span>
             </div>
           </li>
         </ul>

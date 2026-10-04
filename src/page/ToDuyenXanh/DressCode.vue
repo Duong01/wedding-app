@@ -25,13 +25,14 @@
     ====================================================== -->
 
     <div class="tdx-dress__inner">
-      <h2 class="tdx-heading">Dress Code</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="tdx-top-custom-head">
+        <p v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "dressCode", "Eyebrow") }}</p>
+      </header>
 
-      <p class="tdx-dress__intro">
-        Để bức ảnh chung thêm phần hài hoà,
-        chúng mình mong quý khách ghé thăm buổi tiệc
-        với trang phục mang tông màu sau
-      </p>
+      <h2 class="tdx-heading">{{ sectionText(sections, "dressCode", "Heading", "Dress Code") }}</h2>
+
+      <p class="tdx-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau") }}</p>
 
       <ul class="tdx-dress__palette">
         <li v-for="color in palette" :key="color.hex" class="tdx-dress__swatch">
@@ -45,6 +46,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
+
+defineProps({
+  sections: { type: Object, default: () => ({}) },
+});
 import { flowerDecoration, lineDecoration } from "./toDuyenXanhAssets";
 
 const palette = [
@@ -152,6 +158,8 @@ const palette = [
 }
 
 .tdx-dress__intro {
+  white-space: pre-line;
+
   margin: 0;
 
   color: var(--tdx-ink);
@@ -258,5 +266,38 @@ const palette = [
   .tdx-dress__name {
     font-size: 11px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tdx-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tdx-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tdx-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tdx-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

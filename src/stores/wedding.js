@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 import { defineStore } from "pinia";
 
 import { GetWedding } from "@/model/api";
@@ -101,7 +103,7 @@ export const useWeddingStore = defineStore("wedding", {
       } catch (error) {
         console.error("loadWeddings error:", error);
 
-        this.error = error?.Message || "Không thể tải danh sách thiệp.";
+        this.error = error?.Message || t("wedding.loadListFailed");
 
         this.weddings = [];
 
@@ -127,7 +129,7 @@ export const useWeddingStore = defineStore("wedding", {
 
       try {
         if (!slug) {
-          throw new Error("Thiếu slug của thiệp cưới.");
+          throw new Error(t("wedding.missingSlug"));
         }
 
         if (this.cache[slug]) {
@@ -172,7 +174,7 @@ export const useWeddingStore = defineStore("wedding", {
         const foundWedding = weddingData.find((item) => item?.slug === slug);
 
         if (!foundWedding) {
-          throw new Error(`Không tìm thấy thiệp với slug: ${slug}`);
+          throw new Error(t("wedding.notFoundSlug", { slug }));
         }
 
         const data = {
@@ -187,7 +189,7 @@ export const useWeddingStore = defineStore("wedding", {
       } catch (error) {
         console.error("loadWedding error:", error);
 
-        this.error = error?.Message || "Không thể tải thiệp cưới.";
+        this.error = error?.Message || t("wedding.loadFailed");
 
         this.wedding = null;
 
@@ -213,7 +215,7 @@ export const useWeddingStore = defineStore("wedding", {
 
       try {
         if (!slug) {
-          throw new Error("Thiếu slug của thiệp cưới.");
+          throw new Error(t("wedding.missingSlug"));
         }
 
         if (this.cache[slug]) {
@@ -234,7 +236,7 @@ export const useWeddingStore = defineStore("wedding", {
         const foundWedding = weddingData.find((item) => item?.slug === slug);
 
         if (!foundWedding) {
-          throw new Error(`Không tìm thấy thiệp với slug: ${slug}`);
+          throw new Error(t("wedding.notFoundSlug", { slug }));
         }
 
         const data = {
@@ -249,7 +251,7 @@ export const useWeddingStore = defineStore("wedding", {
       } catch (error) {
         console.error("loadWedding error:", error);
 
-        this.error = error?.Message || "Không thể tải thiệp cưới.";
+        this.error = error?.Message || t("wedding.loadFailed");
 
         this.wedding = null;
 

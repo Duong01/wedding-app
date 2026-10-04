@@ -1,13 +1,11 @@
 <template>
   <section class="mg-timeline">
     <div class="mg-timeline__header">
-      <p class="mg-eyebrow">DẤU MỐC YÊU THƯƠNG</p>
+      <p class="mg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
 
-      <h2>Hành trình của chúng mình</h2>
+      <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
 
-      <p class="mg-timeline__intro">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
-      </p>
+      <p class="mg-timeline__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
     </div>
 
     <ol class="mg-timeline__list">
@@ -56,9 +54,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
 });
 
@@ -79,9 +79,9 @@ function formatTime(index) {
 
   padding: 38px 20px 32px;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
-  border: 1px solid rgba(216, 182, 118, 0.28);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.28);
   border-radius: 28px;
 
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
@@ -96,7 +96,7 @@ function formatTime(index) {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(216, 182, 118, 0.18);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.18);
   border-radius: 22px;
 
   pointer-events: none;
@@ -117,7 +117,7 @@ function formatTime(index) {
 .mg-eyebrow {
   margin: 0;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 10px;
   font-weight: 700;
@@ -136,15 +136,17 @@ function formatTime(index) {
 
   line-height: 1.1;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-timeline__intro {
+  white-space: pre-line;
+
   max-width: 440px;
 
   margin: 0 auto;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 13px;
 
@@ -201,19 +203,19 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #261d23;
+  color: var(--tc-261d23, #261d23);
 
-  border: 1px solid rgba(216, 182, 118, 0.5);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.5);
   border-radius: 50%;
 
-  background: linear-gradient(145deg, #eed9a8, #d8b676);
+  background: linear-gradient(145deg, var(--tc-eed9a8, #eed9a8), var(--tc-d8b676, #d8b676));
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
   font-size: 15px;
   font-weight: 700;
 
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.45), 0 0 14px rgba(216, 182, 118, 0.15);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.45), 0 0 14px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.15);
 }
 
 .mg-timeline__line {
@@ -228,7 +230,7 @@ function formatTime(index) {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(180deg, rgba(216, 182, 118, 0.55), rgba(216, 182, 118, 0.12));
+  background: linear-gradient(180deg, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.55), rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.12));
 }
 
 /* =========================================================
@@ -240,7 +242,7 @@ function formatTime(index) {
 
   padding: 16px 17px 17px;
 
-  border: 1px solid rgba(216, 182, 118, 0.25);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.25);
   border-radius: 18px;
 
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
@@ -253,9 +255,9 @@ function formatTime(index) {
 .mg-timeline__card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(216, 182, 118, 0.45);
+  border-color: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.45);
 
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 18px rgba(216, 182, 118, 0.1);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 18px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.1);
 }
 
 /* =========================================================
@@ -269,7 +271,7 @@ function formatTime(index) {
 
   margin-bottom: 8px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 11px;
   font-weight: 700;
@@ -285,11 +287,11 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   border-radius: 50%;
 
-  background: rgba(216, 182, 118, 0.12);
+  background: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.12);
 }
 
 /* =========================================================
@@ -311,12 +313,12 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
-  border: 1px solid rgba(216, 182, 118, 0.3);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.3);
   border-radius: 50%;
 
-  background: rgba(216, 182, 118, 0.1);
+  background: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.1);
 
   font-size: 16px;
 }
@@ -331,7 +333,7 @@ function formatTime(index) {
 
   line-height: 1.2;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 /* =========================================================
@@ -341,7 +343,7 @@ function formatTime(index) {
 .mg-timeline__desc {
   margin: 9px 0 0;
 
-  color: rgba(240, 230, 210, 0.72);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.72);
 
   font-size: 13px;
 
@@ -360,9 +362,9 @@ function formatTime(index) {
   margin-top: 11px;
   padding-top: 9px;
 
-  border-top: 1px solid rgba(216, 182, 118, 0.18);
+  border-top: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.18);
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   font-size: 11px;
 
@@ -370,7 +372,7 @@ function formatTime(index) {
 }
 
 .mg-timeline__location .v-icon {
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   flex: 0 0 auto;
 }
@@ -389,14 +391,14 @@ function formatTime(index) {
 
   margin-top: 27px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-timeline__footer span {
   width: 55px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.55));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.55));
 }
 
 .mg-timeline__footer span:last-child {

@@ -4,7 +4,12 @@
       <span class="heading-line" />
       <div>
         <small>THE BRIDE & GROOM</small>
-        <h2>Đôi uyên ương</h2>
+        <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+        <header v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="ds-top-custom-head">
+          <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
+        </header>
+
+        <h2>{{ sectionText(sections, "couple", "Heading", "Đôi uyên ương") }}</h2>
       </div>
       <span class="heading-line" />
     </div>
@@ -71,9 +76,11 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),
@@ -140,11 +147,11 @@ function initials(name) {
 .couple {
   position: relative;
   padding: 65px 22px;
-  color: #641914;
+  color: var(--tc-641914, #641914);
   text-align: center;
   background:
-    radial-gradient(circle at center, rgba(201,149,82,.08), transparent 45%),
-    #f3ead8;
+    radial-gradient(circle at center, rgba(var(--tc-c99552-rgb, 201, 149, 82), .08), transparent 45%),
+    var(--tc-f3ead8, #f3ead8);
   overflow: hidden;
 }
 
@@ -154,7 +161,7 @@ function initials(name) {
   position: absolute;
   width: 130px;
   height: 130px;
-  border: 1px solid rgba(143,36,28,.18);
+  border: 1px solid rgba(var(--tc-8f241c-rgb, 143, 36, 28), .18);
   border-radius: 50%;
 }
 
@@ -178,13 +185,13 @@ function initials(name) {
 .heading-line {
   width: 42px;
   height: 1px;
-  background: #8b5829;
+  background: var(--tc-8b5829, #8b5829);
 }
 
 .section-heading small {
   font-size: 10px;
   letter-spacing: .35em;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 h2 {
@@ -199,7 +206,7 @@ h2 {
   font-family: Georgia, serif;
   font-style: italic;
   line-height: 1.8;
-  color: #765f57;
+  color: var(--tc-765f57, #765f57);
 }
 
 .couple-grid {
@@ -216,16 +223,16 @@ h2 {
   position: relative;
   min-width: 0;
   padding: 22px 14px 18px;
-  border: 1px solid rgba(143,36,28,.5);
-  background: #fffaf0;
-  box-shadow: 0 8px 20px rgba(84,18,15,.12);
+  border: 1px solid rgba(var(--tc-8f241c-rgb, 143, 36, 28), .5);
+  background: var(--tc-fffaf0, #fffaf0);
+  box-shadow: 0 8px 20px rgba(var(--tc-54120f-rgb, 84, 18, 15), .12);
 }
 
 .person::before {
   content: "";
   position: absolute;
   inset: 5px;
-  border: 1px solid rgba(169,107,50,.35);
+  border: 1px solid rgba(var(--tc-a96b32-rgb, 169, 107, 50), .35);
   pointer-events: none;
 }
 
@@ -239,7 +246,7 @@ h2 {
 .portrait-ring {
   position: absolute;
   inset: -10px;
-  border: 1px solid #8b5829;
+  border: 1px solid var(--tc-8b5829, #8b5829);
   border-radius: 50%;
 }
 
@@ -247,7 +254,7 @@ h2 {
   content: "";
   position: absolute;
   inset: 7px;
-  border: 1px dashed rgba(143,36,28,.45);
+  border: 1px dashed rgba(var(--tc-8f241c-rgb, 143, 36, 28), .45);
   border-radius: 50%;
 }
 
@@ -259,14 +266,14 @@ h2 {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #f3ead8;
+  border: 4px solid var(--tc-f3ead8, #f3ead8);
 }
 
 .portrait-placeholder {
   display: grid;
   place-items: center;
-  background: #741c17;
-  color: #d4a35f;
+  background: var(--tc-741c17, #741c17);
+  color: var(--tc-d4a35f, #d4a35f);
   font-family: Georgia, serif;
   font-size: 35px;
 }
@@ -276,7 +283,7 @@ h2 {
   margin-top: 28px;
   font-size: 10px;
   letter-spacing: .35em;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 h3 {
@@ -291,12 +298,12 @@ h3 {
   max-width: 150px;
   font-size: 11px;
   line-height: 1.7;
-  color: #765f57;
+  color: var(--tc-765f57, #765f57);
 }
 
 .between {
   align-self: center;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 .drum-symbol {
@@ -316,13 +323,13 @@ h3 {
   gap: 12px;
   width: 180px;
   margin: 45px auto 0;
-  color: #8b5829;
+  color: var(--tc-8b5829, #8b5829);
 }
 
 .bottom-symbol i {
   flex: 1;
   height: 1px;
-  background: #8b5829;
+  background: var(--tc-8b5829, #8b5829);
 }
 
 @media (max-width: 480px) {
@@ -337,5 +344,38 @@ h3 {
   .between span {
     font-size: 20px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ds-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ds-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ds-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ds-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

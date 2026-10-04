@@ -9,7 +9,7 @@
     >
       <v-icon size="21"> mdi-information-outline </v-icon>
 
-      <span> Thông tin </span>
+      <span> {{ $t('editor.mobile.info') }} </span>
     </button>
 
     <button
@@ -21,29 +21,29 @@
     >
       <v-icon size="21"> mdi-view-list-outline </v-icon>
 
-      <span> Nội dung </span>
+      <span> {{ $t('editor.mobile.content') }} </span>
     </button>
 
     <button
       type="button"
       :disabled="!canUndo"
-      title="Hoàn tác"
+      :title="$t('editor.mobile.undo')"
       @click="emit('undo')"
     >
       <v-icon size="21"> mdi-undo-variant </v-icon>
 
-      <span> Hoàn tác </span>
+      <span> {{ $t('editor.mobile.undo') }} </span>
     </button>
 
     <button
       type="button"
       :disabled="!canRedo"
-      title="Làm lại"
+      :title="$t('editor.mobile.redo')"
       @click="emit('redo')"
     >
       <v-icon size="21"> mdi-redo-variant </v-icon>
 
-      <span> Làm lại </span>
+      <span> {{ $t('editor.mobile.redo') }} </span>
     </button>
 
     <button type="button" @click="emit('preview')">
@@ -93,7 +93,7 @@
         {{ dirty ? "mdi-content-save-alert-outline" : "mdi-content-save-outline" }}
       </v-icon>
 
-      <span> {{ dirty ? "Lưu" : "Đã lưu" }} </span>
+      <span> {{ dirty ? $t('editor.mobile.save') : $t('editor.header.saved') }} </span>
 
       <i v-if="dirty && !saving" class="mobile-dirty-dot" />
     </button>
@@ -101,7 +101,10 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
+
+const { t } = useI18n();
 
 const props = defineProps({
   activeMenu: { type: String, required: true },
@@ -147,30 +150,30 @@ const publishIcon = computed(() => {
 const publishLabel = computed(() => {
   switch (props.publishState) {
     case "Trial":
-      return `Còn ${props.daysLeft}n`;
+      return t("editor.status.daysShort", { days: props.daysLeft });
     case "Expired":
-      return "Hết hạn";
+      return t("editor.mobile.expired");
     case "Active":
-      return "Chia sẻ";
+      return t("editor.mobile.share");
     case "Locked":
-      return "Đã khóa";
+      return t("editor.status.locked");
     default:
-      return "Xuất bản";
+      return t("editor.header.publish");
   }
 });
 
 const publishTitle = computed(() => {
   switch (props.publishState) {
     case "Trial":
-      return `Đang dùng thử — còn ${props.daysLeft} ngày. Bấm để lấy link chia sẻ.`;
+      return t("editor.mobile.trialHint", { days: props.daysLeft });
     case "Expired":
-      return "Hết hạn dùng thử — bấm để thanh toán và mở lại thiệp.";
+      return t("editor.mobile.expiredHint");
     case "Active":
-      return "Thiệp đã xuất bản — bấm để lấy link chia sẻ.";
+      return t("editor.mobile.activeHint");
     case "Locked":
-      return "Thiệp đang bị khóa.";
+      return t("editor.status.lockedHint");
     default:
-      return "Xuất bản thiệp để khách mời có thể xem.";
+      return t("editor.mobile.publishHint");
   }
 });
 

@@ -1,7 +1,7 @@
 <template>
   <main class="mk-page">
     <div class="mk-container">
-      <PageBreadcrumb :trail="[{ label: 'Liên hệ' }]" />
+      <PageBreadcrumb :trail="[{ label: $t('nav.contact') }]" />
     </div>
 
     <!-- =====================================================
@@ -11,16 +11,15 @@
       <div class="mk-hero__glow" aria-hidden="true"></div>
 
       <div class="mk-container mk-hero__inner">
-        <p class="mk-eyebrow">Liên hệ</p>
+        <p class="mk-eyebrow">{{ $t('nav.contact') }}</p>
 
         <h1>
-          Có câu hỏi?
-          <em>Nhắn tụi mình.</em>
+          {{ $t('contact.h1a') }}
+          <em>{{ $t('contact.h1b') }}</em>
         </h1>
 
         <p class="mk-hero__lead">
-          Dù bạn đang cân nhắc, đang làm dở tấm thiệp hay gặp trục trặc ngay
-          trước ngày cưới — cứ nhắn. Tụi mình trả lời trong vài phút.
+          {{ $t('contact.lead') }}
         </p>
       </div>
     </section>
@@ -30,7 +29,7 @@
     ====================================================== -->
     <section class="mk-section mk-section--tight">
       <div class="mk-container">
-        <RailHint text="Vuốt ngang để xem đủ bốn kênh" />
+        <RailHint :text="$t('contact.swipeHint')" />
 
         <div class="mk-grid mk-grid--4">
           <a
@@ -43,9 +42,9 @@
 
             <h3>Messenger</h3>
 
-            <p>Nhanh nhất — thường trả lời trong vài phút.</p>
+            <p>{{ $t('contact.messengerDesc') }}</p>
 
-            <span class="channel-value">Nhắn ngay →</span>
+            <span class="channel-value">{{ $t('contact.messageNow') }}</span>
           </a>
 
           <a
@@ -58,9 +57,9 @@
 
             <h3>Facebook</h3>
 
-            <p>Xem mẫu mới và các thiệp tụi mình đã làm.</p>
+            <p>{{ $t('contact.facebookDesc') }}</p>
 
-            <span class="channel-value">Mở trang →</span>
+            <span class="channel-value">{{ $t('contact.openPage') }}</span>
           </a>
 
           <a :href="`mailto:${CONTACT.email}`" class="mk-card channel">
@@ -68,7 +67,7 @@
 
             <h3>Email</h3>
 
-            <p>Phù hợp khi bạn cần gửi kèm file hoặc yêu cầu dài.</p>
+            <p>{{ $t('contact.emailDesc') }}</p>
 
             <span class="channel-value">{{ CONTACT.email }}</span>
           </a>
@@ -76,9 +75,9 @@
           <a :href="`tel:${phoneHref()}`" class="mk-card channel">
             <span class="mk-orn" aria-hidden="true">❦</span>
 
-            <h3>Điện thoại</h3>
+            <h3>{{ $t('contact.phone') }}</h3>
 
-            <p>Gọi trực tiếp trong giờ hỗ trợ nếu cần gấp.</p>
+            <p>{{ $t('contact.phoneDesc') }}</p>
 
             <span class="channel-value">{{ CONTACT.phone }}</span>
           </a>
@@ -86,8 +85,7 @@
 
         <p class="hours">
           <v-icon size="16"> mdi-clock-outline </v-icon>
-          Hỗ trợ {{ CONTACT.hours }} — kể cả ngày lễ, kể cả ngoài giờ khi bạn
-          đang cần gấp.
+          {{ $t("contact.hoursNote", { hours: CONTACT.hours }) }}
         </p>
       </div>
     </section>
@@ -98,46 +96,45 @@
     <section class="mk-section">
       <div class="mk-container contact-grid">
         <div class="contact-copy">
-          <p class="mk-eyebrow">Gửi tin nhắn</p>
+          <p class="mk-eyebrow">{{ $t('contact.sendMessage') }}</p>
 
           <h2>
-            Điền vài dòng,
-            <em>tụi mình phản hồi.</em>
+            {{ $t('contact.h2a') }}
+            <em>{{ $t('contact.h2b') }}</em>
           </h2>
 
           <p>
-            Nếu bạn mô tả càng rõ vấn đề đang gặp, tụi mình càng trả lời được
-            đúng thứ bạn cần ngay từ tin nhắn đầu tiên.
+            {{ $t('contact.formLead') }}
           </p>
 
           <ul class="contact-hints">
             <li>
               <span class="tick" aria-hidden="true">✦</span>
-              Ghi rõ tên thiệp hoặc đường link nếu đang có sự cố
+              {{ $t('contact.tip1') }}
             </li>
 
             <li>
               <span class="tick" aria-hidden="true">✦</span>
-              Kèm ảnh chụp màn hình nếu lỗi hiển thị
+              {{ $t('contact.tip2') }}
             </li>
 
             <li>
               <span class="tick" aria-hidden="true">✦</span>
-              Nêu ngày cưới để tụi mình ưu tiên đúng mức
+              {{ $t('contact.tip3') }}
             </li>
           </ul>
         </div>
 
         <form class="contact-form" @submit.prevent="submit">
           <div class="field">
-            <label for="cf-name">Họ và tên</label>
+            <label for="cf-name">{{ $t('login.fullName') }}</label>
 
             <input
               id="cf-name"
               v-model.trim="form.name"
               type="text"
               required
-              placeholder="Nguyễn Minh Anh"
+              :placeholder="$t('contact.namePlaceholder')"
             />
           </div>
 
@@ -155,7 +152,7 @@
             </div>
 
             <div class="field">
-              <label for="cf-phone">Số điện thoại</label>
+              <label for="cf-phone">{{ $t('login.phone') }}</label>
 
               <input
                 id="cf-phone"
@@ -167,57 +164,57 @@
           </div>
 
           <div class="field">
-            <label for="cf-topic">Chủ đề</label>
+            <label for="cf-topic">{{ $t('contact.topic') }}</label>
 
             <select id="cf-topic" v-model="form.topic">
-              <option v-for="topic in CONTACT_TOPICS" :key="topic" :value="topic">
-                {{ topic }}
+              <option v-for="(topic, i) in CONTACT_TOPICS" :key="topic" :value="topic">
+                {{ $t(`contact.topics.${i}`) }}
               </option>
             </select>
           </div>
 
           <div class="field">
-            <label for="cf-message">Nội dung</label>
+            <label for="cf-message">{{ $t('storyPanel.content') }}</label>
 
             <textarea
               id="cf-message"
               v-model.trim="form.message"
               rows="5"
               required
-              placeholder="Mô tả ngắn gọn điều bạn cần hỗ trợ…"
+              :placeholder="$t('contact.messagePlaceholder')"
             ></textarea>
           </div>
 
           <button type="submit" class="mk-btn mk-btn--solid submit">
-            Gửi tin nhắn
+            {{ $t('contact.sendMessage') }}
           </button>
 
           <p class="form-note">
-            Tin nhắn sẽ mở sẵn trong ứng dụng email của bạn. Nếu muốn nhanh
-            hơn, hãy
-            <a
-              :href="CONTACT.messenger"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              nhắn qua Messenger
-            </a>
-            .
+            <i18n-t keypath="contact.formNote" tag="span">
+              <template #link>
+                <a
+                  :href="CONTACT.messenger"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >{{ $t("contact.messengerLink") }}</a>
+              </template>
+            </i18n-t>
           </p>
         </form>
       </div>
     </section>
 
     <FinalCta
-      title="Chưa cần hỏi gì?"
-      title-accent="Cứ thử trước đã."
-      text="Mở editor, chọn một mẫu và điền thử vài dòng. Không mất phí, không cần đăng nhập."
-      cta="Tạo thiệp ngay"
+      :title="$t('contact.ctaTitle')"
+      :title-accent="$t('contact.ctaAccent')"
+      :text="$t('contact.ctaText')"
+      :cta="$t('footer.createNow')"
     />
   </main>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { reactive } from "vue";
 
 import PageBreadcrumb from "@/components/marketing/PageBreadcrumb.vue";
@@ -232,6 +229,8 @@ import {
   CONTACT_TOPICS,
   phoneHref,
 } from "@/data/siteContent";
+
+const { t } = useI18n();
 
 const form = reactive({
   name: "",
@@ -265,7 +264,7 @@ function submit() {
 }
 
 useSeo({
-  title: "Liên hệ",
+  get title() { return t("nav.contact"); },
   description:
     `Liên hệ ${BRAND.name} để được tư vấn chọn mẫu thiệp, hỗ trợ kỹ thuật ` +
     "hoặc yêu cầu thiết kế riêng. Hỗ trợ qua Messenger, email và điện thoại.",

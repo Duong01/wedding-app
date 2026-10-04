@@ -187,10 +187,10 @@ function restart() {
 .couple-quiz__card {
   padding: 22px 18px;
 
-  border: 1px solid var(--accent, #c79d5c);
+  border: 1px solid var(--card-line, var(--accent, #c79d5c));
   border-radius: 16px;
 
-  background: var(--white, #fffaf4);
+  background: var(--card-bg, var(--white, #fffaf4));
 }
 
 .couple-quiz__progress {
@@ -211,7 +211,7 @@ function restart() {
   margin: 0 0 16px;
 
   /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
-  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
+  color: var(--card-heading, var(--card-ink, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -236,7 +236,7 @@ function restart() {
   /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
   color: var(--card-ink, var(--text, #5c4d46));
 
-  border: 1px solid var(--accent, #c79d5c);
+  border: 1px solid var(--card-line, var(--accent, #c79d5c));
   border-radius: 12px;
 
   background: transparent;
@@ -250,7 +250,7 @@ function restart() {
 }
 
 .couple-quiz__option:hover:not(:disabled) {
-  background: rgba(199, 157, 92, 0.1);
+  background: color-mix(in srgb, var(--card-line, #c79d5c) 12%, transparent);
 }
 
 .couple-quiz__option:disabled {
@@ -258,7 +258,7 @@ function restart() {
 }
 
 .couple-quiz__option.correct {
-  border-color: #3d9a50;
+  border-color: #2e7d3e;
 
   background: rgba(61, 154, 80, 0.12);
 }
@@ -279,17 +279,17 @@ function restart() {
   width: 24px;
   height: 24px;
 
-  color: #fff;
+  color: var(--solid-ink, #fff);
   border-radius: 50%;
 
-  background: var(--primary, #8a7a68);
+  background: var(--solid, var(--primary, #8a7a68));
 
   font-size: 11px;
   font-weight: 800;
 }
 
 .couple-quiz__option.correct .couple-quiz__option-key {
-  background: #3d9a50;
+  background: #2e7d3e;
 }
 
 .couple-quiz__option.wrong .couple-quiz__option-key {
@@ -304,10 +304,10 @@ function restart() {
 
   padding: 24px 18px;
 
-  border: 1px dashed var(--accent, #c79d5c);
+  border: 1px dashed var(--card-line, var(--accent, #c79d5c));
   border-radius: 16px;
 
-  background: var(--white, #fffaf4);
+  background: var(--card-bg, var(--white, #fffaf4));
 }
 
 .couple-quiz__score {
@@ -334,7 +334,7 @@ function restart() {
 
   margin-top: 4px;
 
-  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
+  color: var(--card-heading, var(--card-ink, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -345,11 +345,12 @@ function restart() {
 .couple-quiz__again {
   padding: 9px 22px;
 
-  color: #fff;
+  /* Nút trong card sáng: khối đậm đã kiểm tra tương phản */
+  color: var(--solid-ink, #fff);
   border: 0;
   border-radius: 999px;
 
-  background: var(--primary, #8a7a68);
+  background: var(--solid, var(--primary, #8a7a68));
 
   font-size: 12px;
   font-weight: 700;

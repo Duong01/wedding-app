@@ -2,8 +2,13 @@
   <div class="countdown">
 
     <div class="countdown-intro">
-      NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN
+      {{ sectionText(sections, "countdown", "Eyebrow", "NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN") }}
     </div>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'countdown', 'Heading')" class="ig-cd-custom-head">
+      <h2 v-if="sectionOverride(sections, 'countdown', 'Heading')" class="ig-cd-custom-head__heading">{{ sectionOverride(sections, "countdown", "Heading") }}</h2>
+    </header>
+
 
 
     <div class="countdown-grid">
@@ -110,6 +115,7 @@
 
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import {
   computed,
   onBeforeUnmount,
@@ -119,6 +125,7 @@ import {
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   countdown: {
     type: [Object, String],
     default: null,
@@ -274,7 +281,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 18px;
 
-  color: #8d6a35;
+  color: var(--tc-8d6a35, #8d6a35);
 
   font-size: 11px;
 
@@ -364,7 +371,7 @@ onBeforeUnmount(() => {
 
   justify-content: center;
 
-  color: #8e1418;
+  color: var(--tc-8e1418, #8e1418);
 
   font-family:
     var(--font-num, "Be Vietnam Pro"),
@@ -382,7 +389,7 @@ onBeforeUnmount(() => {
 
   text-shadow:
     0 1px 0 rgba(255,255,255,.7),
-    0 2px 5px rgba(120,20,20,.12);
+    0 2px 5px rgba(var(--tc-781414-rgb, 120, 20, 20), .12);
 
   transform-origin: center center;
 
@@ -483,7 +490,7 @@ onBeforeUnmount(() => {
 
   margin-top: 6px;
 
-  color: #8a6947;
+  color: var(--tc-8a6947, #8a6947);
 
   font-size: 10px;
 
@@ -506,7 +513,7 @@ onBeforeUnmount(() => {
 
   margin-top: 5px;
 
-  color: #876834;
+  color: var(--tc-876834, #876834);
 
   font-family:
     Georgia,
@@ -529,7 +536,7 @@ onBeforeUnmount(() => {
 
 .seconds-box .number-wrap strong {
 
-  color: #941519;
+  color: var(--tc-941519, #941519);
 
 }
 
@@ -600,5 +607,38 @@ onBeforeUnmount(() => {
 
   }
 
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ig-cd-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ig-cd-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ig-cd-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ig-cd-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

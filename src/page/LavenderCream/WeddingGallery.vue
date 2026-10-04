@@ -16,11 +16,12 @@
       </p>
     </div>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
-      accent="#766384"
-      text-color="#584a5b"
+      :layout="galleryLayoutFor('lavender-cream', layout)"
+      accent="var(--tc-766384, #766384)"
+      text-color="var(--tc-584a5b, #584a5b)"
       @open="openLightbox"
     />
 
@@ -43,13 +44,16 @@ import { computed, ref, defineAsyncComponent } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
   gallery: { type: Array, default: () => [] },
   sections: { type: Object, default: () => ({}) },
 });
@@ -96,7 +100,7 @@ function closeLightbox() {
 
   overflow: hidden;
 
-  color: #584a5b;
+  color: var(--tc-584a5b, #584a5b);
 }
 
 /* =====================================================
@@ -119,7 +123,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: #766384;
+  color: var(--tc-766384, #766384);
 
   font-size: 10px;
   font-weight: 700;
@@ -137,7 +141,7 @@ function closeLightbox() {
 
   line-height: 1.05;
 
-  color: #584a5b;
+  color: var(--tc-584a5b, #584a5b);
 }
 
 .lc-gallery__ornament {
@@ -148,14 +152,14 @@ function closeLightbox() {
 
   margin-top: 13px;
 
-  color: #736482;
+  color: var(--tc-736482, #736482);
 }
 
 .lc-gallery__ornament span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(185, 160, 208, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-b9a0d0-rgb, 185, 160, 208), 0.7));
 }
 
 .lc-gallery__ornament span:last-child {
@@ -170,7 +174,7 @@ function closeLightbox() {
 .lc-gallery__intro {
   margin: 13px 0 0;
 
-  color: #736877;
+  color: var(--tc-736877, #736877);
 
   font-size: 12px;
 
@@ -189,7 +193,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #716976;
+  color: var(--tc-716976, #716976);
 }
 
 .lc-gallery__empty p {

@@ -1,12 +1,10 @@
 <template>
   <section class="dress-code">
-    <div class="gg-eyebrow">TRANG PHỤC</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "dressCode", "Eyebrow", "TRANG PHỤC") }}</div>
 
-    <h2 class="gg-title">Dress Code</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "dressCode", "Heading", "Dress Code") }}</h2>
 
-    <p class="gg-lead">
-      {{ note }}
-    </p>
+    <p class="gg-lead">{{ sectionText(sections, "dressCode", "Intro", note) }}</p>
 
     <!-- Bảng màu -->
     <div class="swatch-row">
@@ -30,9 +28,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   dressCode: {
     type: [Object, Array, String],
     default: null,
@@ -175,5 +175,9 @@ const suggestions = computed(() => {
   .dress-list li {
     font-size: 14px;
   }
+}
+
+.gg-lead {
+  white-space: pre-line;
 }
 </style>

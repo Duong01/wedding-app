@@ -10,11 +10,11 @@
 
       <div class="heading-content">
         <span class="heading-subtitle">
-          TRÂN TRỌNG BÁO HỶ
+          {{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}
         </span>
 
         <h2>
-          THÔNG TIN LỄ CƯỚI
+          {{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}
         </h2>
 
         <div class="double-happiness">
@@ -280,10 +280,12 @@
 
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),
@@ -498,7 +500,7 @@ const address = computed(() =>
     8px
     20px;
 
-  color: #4a3f38;
+  color: var(--tc-4a3f38, #4a3f38);
 
   text-align: center;
 }
@@ -530,7 +532,7 @@ const address = computed(() =>
     linear-gradient(
       to right,
       transparent,
-      #d4af85
+      var(--tc-d4af85, #d4af85)
     );
 }
 
@@ -539,7 +541,7 @@ const address = computed(() =>
     linear-gradient(
       to left,
       transparent,
-      #d4af85
+      var(--tc-d4af85, #d4af85)
     );
 }
 
@@ -548,7 +550,7 @@ const address = computed(() =>
 
   margin-bottom: 5px;
 
-  color: #866c48;
+  color: var(--tc-866c48, #866c48);
 
   font-size: 11px;
   font-weight: 800;
@@ -559,7 +561,7 @@ const address = computed(() =>
 .section-heading h2 {
   margin: 0;
 
-  color: #5a4835;
+  color: var(--tc-5a4835, #5a4835);
 
   font-size: 22px;
   font-weight: 800;
@@ -572,7 +574,7 @@ const address = computed(() =>
 .double-happiness {
   margin-top: 7px;
 
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 
   font-family: "Times New Roman", serif;
 
@@ -606,10 +608,10 @@ const address = computed(() =>
     5px;
 
   border-top:
-    1px solid rgba(176, 135, 72, .4);
+    1px solid rgba(var(--tc-b08748-rgb, 176, 135, 72), .4);
 
   border-bottom:
-    1px solid rgba(176, 135, 72, .4);
+    1px solid rgba(var(--tc-b08748-rgb, 176, 135, 72), .4);
 }
 
 .family {
@@ -619,7 +621,7 @@ const address = computed(() =>
 .family-label {
   margin-bottom: 10px;
 
-  color: #866c48;
+  color: var(--tc-866c48, #866c48);
 
   font-size: 10px;
   font-weight: 800;
@@ -636,13 +638,13 @@ const address = computed(() =>
 
   margin-top: 5px;
 
-  color: #4f4439;
+  color: var(--tc-4f4439, #4f4439);
 
   line-height: 1.4;
 }
 
 .parent-role {
-  color: #836f57;
+  color: var(--tc-836f57, #836f57);
 
   font-size: 10px;
   font-weight: 700;
@@ -664,7 +666,7 @@ const address = computed(() =>
 
   padding: 0 8px;
 
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 
   font-family: "Times New Roman", serif;
 
@@ -672,7 +674,7 @@ const address = computed(() =>
 }
 
 .family-divider b {
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 
   font-family: "Times New Roman", serif;
 
@@ -710,12 +712,12 @@ const address = computed(() =>
 
   margin: 0 auto 12px;
 
-  border: 2px solid rgba(212, 175, 133, 0.7);
+  border: 2px solid rgba(var(--tc-d4af85-rgb, 212, 175, 133), 0.7);
   border-radius: 50%;
 
-  background: rgba(255, 250, 240, 0.92);
+  background: rgba(var(--tc-fffaf0-rgb, 255, 250, 240), 0.92);
 
-  box-shadow: 0 8px 22px rgba(90, 72, 53, 0.14);
+  box-shadow: 0 8px 22px rgba(var(--tc-5a4835-rgb, 90, 72, 53), 0.14);
 
   overflow: hidden;
 
@@ -737,13 +739,13 @@ const address = computed(() =>
   font-size: 40px;
   font-weight: 600;
 
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 }
 
 .person-role {
   margin-bottom: 7px;
 
-  color: #866c48;
+  color: var(--tc-866c48, #866c48);
 
   font-size: 11px;
   font-weight: 800;
@@ -754,7 +756,7 @@ const address = computed(() =>
 .person h3 {
   margin: 0;
 
-  color: #5a4835;
+  color: var(--tc-5a4835, #5a4835);
 
   font-size: 22px;
   font-weight: 800;
@@ -778,11 +780,11 @@ const address = computed(() =>
   width: 25px;
   height: 1px;
 
-  background: #d4af85;
+  background: var(--tc-d4af85, #d4af85);
 }
 
 .name-decoration i {
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 
   font-size: 11px;
 
@@ -801,11 +803,11 @@ const address = computed(() =>
   width: 1px;
   height: 15px;
 
-  background: #d4af85;
+  background: var(--tc-d4af85, #d4af85);
 }
 
 .couple-mark strong {
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 
   font-family: "Times New Roman", serif;
 
@@ -829,7 +831,7 @@ const address = computed(() =>
 .date-label {
   margin-bottom: 9px;
 
-  color: #866c48;
+  color: var(--tc-866c48, #866c48);
 
   font-size: 10px;
   font-weight: 800;
@@ -845,7 +847,7 @@ const address = computed(() =>
 .date-time {
   margin-bottom: 7px;
 
-  color: #5a4835;
+  color: var(--tc-5a4835, #5a4835);
 
   font-size: 25px;
   font-weight: 800;
@@ -867,7 +869,7 @@ const address = computed(() =>
 
   gap: 8px;
 
-  color: #4a3f38;
+  color: var(--tc-4a3f38, #4a3f38);
 
   white-space: nowrap;
 }
@@ -880,7 +882,7 @@ const address = computed(() =>
 }
 
 .day {
-  color: #836b3c;
+  color: var(--tc-836b3c, #836b3c);
 
   font-family: Georgia, "Times New Roman", serif;
 
@@ -905,7 +907,7 @@ const address = computed(() =>
 .year {
   margin-top: 8px;
 
-  color: #7c6e55;
+  color: var(--tc-7c6e55, #7c6e55);
 
   font-family: Georgia, "Times New Roman", serif;
 
@@ -930,19 +932,19 @@ const address = computed(() =>
   padding-top: 18px;
 
   border-top:
-    1px solid rgba(180, 140, 75, .25);
+    1px solid rgba(var(--tc-b48c4b-rgb, 180, 140, 75), .25);
 }
 
 .location-icon {
   margin-bottom: 5px;
 
-  color: #866c48;
+  color: var(--tc-866c48, #866c48);
 
   font-size: 14px;
 }
 
 .location strong {
-  color: #5a4835;
+  color: var(--tc-5a4835, #5a4835);
 
   font-size: 13px;
   font-weight: 800;
@@ -955,7 +957,7 @@ const address = computed(() =>
 
   margin-top: 4px;
 
-  color: #77624d;
+  color: var(--tc-77624d, #77624d);
 
   font-size: 11px;
   font-weight: 600;

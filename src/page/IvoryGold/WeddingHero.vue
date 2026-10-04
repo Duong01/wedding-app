@@ -254,13 +254,13 @@ const coupleImage = computed(() => {
 
   overflow: hidden;
 
-  color: #8b1418;
+  color: var(--tc-8b1418, #8b1418);
 
   background:
     linear-gradient(
       180deg,
-      rgba(255, 250, 239, 0.18),
-      rgba(255, 248, 232, 0.04)
+      rgba(var(--tc-fffaef-rgb, 255, 250, 239), 0.18),
+      rgba(var(--tc-fff8e8-rgb, 255, 248, 232), 0.04)
     );
 }
 
@@ -304,7 +304,7 @@ const coupleImage = computed(() => {
 
   gap: 10px;
 
-  color: #8e171a;
+  color: var(--tc-8e171a, #8e171a);
 
   font-size: 11px;
 
@@ -324,7 +324,7 @@ const coupleImage = computed(() => {
     linear-gradient(
       90deg,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
@@ -333,7 +333,7 @@ const coupleImage = computed(() => {
   background:
     linear-gradient(
       90deg,
-      #b58a45,
+      var(--tc-b58a45, #b58a45),
       transparent
     );
 }
@@ -372,7 +372,7 @@ const coupleImage = computed(() => {
   filter:
     drop-shadow(
       0 3px 5px
-      rgba(126, 18, 22, .12)
+      rgba(var(--tc-7e1216-rgb, 126, 18, 22), .12)
     );
 }
 
@@ -388,7 +388,7 @@ const coupleImage = computed(() => {
   background:
     radial-gradient(
       circle,
-      rgba(181, 138, 69, .13),
+      rgba(var(--tc-b58a45-rgb, 181, 138, 69), .13),
       transparent 70%
     );
 }
@@ -401,7 +401,7 @@ const coupleImage = computed(() => {
 .hero-intro {
   margin-top: -2px;
 
-  color: #896939;
+  color: var(--tc-896939, #896939);
 
   font-size: 10px;
 
@@ -447,7 +447,7 @@ const coupleImage = computed(() => {
   filter:
     drop-shadow(
       0 12px 18px
-      rgba(100, 20, 15, .12)
+      rgba(var(--tc-64140f-rgb, 100, 20, 15), .12)
     );
 }
 
@@ -462,7 +462,7 @@ const coupleImage = computed(() => {
   width: 40px;
   height: 40px;
 
-  border-color: rgba(181, 138, 69, .65);
+  border-color: rgba(var(--tc-b58a45-rgb, 181, 138, 69), .65);
 
   z-index: 2;
 }
@@ -504,7 +504,7 @@ const coupleImage = computed(() => {
 
 
 .name {
-  color: #861317;
+  color: var(--tc-861317, #861317);
 
   font-family:
     "Cormorant Garamond",
@@ -547,7 +547,7 @@ const coupleImage = computed(() => {
 
   gap: 8px;
 
-  color: #886834;
+  color: var(--tc-886834, #886834);
 }
 
 
@@ -559,7 +559,7 @@ const coupleImage = computed(() => {
     linear-gradient(
       90deg,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
@@ -568,14 +568,14 @@ const coupleImage = computed(() => {
   background:
     linear-gradient(
       90deg,
-      #b58a45,
+      var(--tc-b58a45, #b58a45),
       transparent
     );
 }
 
 
 .name-symbol b {
-  color: #9a171b;
+  color: var(--tc-9a171b, #9a171b);
 
   font-family: serif;
 
@@ -601,7 +601,7 @@ const coupleImage = computed(() => {
 
 
 .date-label {
-  color: #896939;
+  color: var(--tc-896939, #896939);
 
   font-size: 11px;
 
@@ -614,7 +614,7 @@ const coupleImage = computed(() => {
 .date {
   margin-top: 5px;
 
-  color: #8d1418;
+  color: var(--tc-8d1418, #8d1418);
 
   font-size: 12px;
 
@@ -631,7 +631,7 @@ const coupleImage = computed(() => {
 .subtitle {
   margin-top: 18px;
 
-  color: #896939;
+  color: var(--tc-896939, #896939);
 
   font-size: 10px;
 
@@ -664,7 +664,7 @@ const coupleImage = computed(() => {
     linear-gradient(
       90deg,
       transparent,
-      rgba(181,138,69,.7)
+      rgba(var(--tc-b58a45-rgb, 181, 138, 69), .7)
     );
 }
 
@@ -673,14 +673,14 @@ const coupleImage = computed(() => {
   background:
     linear-gradient(
       90deg,
-      rgba(181,138,69,.7),
+      rgba(var(--tc-b58a45-rgb, 181, 138, 69), .7),
       transparent
     );
 }
 
 
 .bottom-symbol b {
-  color: #886834;
+  color: var(--tc-886834, #886834);
 
   font-size: 10px;
 

@@ -4,25 +4,29 @@
       <div>
         <span class="panel-eyebrow"> DISPLAY SETTINGS </span>
 
-        <h1>Cài đặt hiển thị</h1>
+        <h1>{{ $t('editor.menu.settings') }}</h1>
 
-        <p>Chọn những phần xuất hiện trên thiệp.</p>
+        <p>{{ $t('settingsPanel.desc') }}</p>
       </div>
     </div>
 
     <div class="settings-toolbar">
       <span>
-        Đang bật <strong>{{ enabledCount }}</strong> /
-        {{ SETTINGS_ORDER.length }} mục
+        <i18n-t keypath="settingsPanel.enabledCount" tag="span">
+          <template #on>
+            <strong>{{ enabledCount }}</strong>
+          </template>
+          <template #total>{{ SETTINGS_ORDER.length }}</template>
+        </i18n-t>
       </span>
 
       <div class="settings-toolbar-actions">
         <button type="button" class="toolbar-btn" @click="toggleAll(true)">
-          Bật tất cả
+          {{ $t('settingsPanel.allOn') }}
         </button>
 
         <button type="button" class="toolbar-btn" @click="toggleAll(false)">
-          Tắt tất cả
+          {{ $t('settingsPanel.allOff') }}
         </button>
       </div>
     </div>
@@ -62,7 +66,10 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed } from "vue";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -76,84 +83,88 @@ const props = defineProps({
 const SETTINGS_META = {
   ShowHero: {
     icon: "mdi-image-outline",
-    label: "Ảnh bìa",
-    description: "Màn hình mở đầu thiệp.",
+    get label() { return t("editor.menu.hero"); },
+    get description() { return t("settingsPanel.heroDesc"); },
   },
   ShowCouple: {
     icon: "mdi-heart-outline",
-    label: "Cô dâu & Chú rể",
-    description: "Thông tin hai nhân vật chính.",
+    get label() { return t("editor.menu.couple"); },
+    get description() { return t("settingsPanel.coupleDesc"); },
   },
   ShowStory: {
     icon: "mdi-book-heart-outline",
-    label: "Chuyện tình yêu",
-    description: "Câu chuyện của hai bạn.",
+    get label() { return t("editor.menu.story"); },
+    get description() { return t("settingsPanel.storyDesc"); },
   },
   ShowVideo: {
     icon: "mdi-play-circle-outline",
-    label: "Video cưới",
-    description: "Video YouTube / TikTok nhúng trong thiệp.",
+    get label() { return t("editor.menu.video"); },
+    get description() { return t("settingsPanel.videoDesc"); },
   },
   ShowEvents: {
     icon: "mdi-calendar-heart-outline",
-    label: "Sự kiện cưới",
-    description: "Ngày giờ và địa điểm.",
+    get label() { return t("editor.menu.events"); },
+    get description() { return t("settingsPanel.eventsDesc"); },
   },
   ShowDressCode: {
     icon: "mdi-tshirt-crew-outline",
-    label: "Trang phục",
-    description: "Gợi ý dress code cho khách.",
+    get label() { return t("editor.menu.dressCode"); },
+    get description() { return t("settingsPanel.dressDesc"); },
   },
   ShowTimeline: {
     icon: "mdi-timeline-outline",
     label: "Timeline",
-    description: "Lịch trình ngày cưới.",
+    get description() { return t("settingsPanel.timelineDesc"); },
   },
   ShowCountdown: {
     icon: "mdi-timer-outline",
-    label: "Đếm ngược",
-    description: "Thời gian còn lại đến ngày cưới.",
+    get label() { return t("editor.menu.countdown"); },
+    get description() { return t("settingsPanel.countdownDesc"); },
   },
   ShowGallery: {
     icon: "mdi-image-multiple-outline",
-    label: "Album ảnh",
-    description: "Khoảnh khắc đáng nhớ.",
+    get label() { return t("editor.menu.gallery"); },
+    get description() { return t("settingsPanel.galleryDesc"); },
   },
   ShowGame: {
     icon: "mdi-party-popper",
-    label: "Trò chơi",
-    description: "Vòng quay, trắc nghiệm, cào quà, ghép hình.",
+    get label() { return t("editor.menu.game"); },
+    get description() { return t("settingsPanel.gameDesc"); },
   },
   ShowMap: {
     icon: "mdi-map-marker-outline",
-    label: "Bản đồ",
-    description: "Bản đồ nhúng trong từng sự kiện cưới.",
+    get label() { return t("settingsPanel.map"); },
+    get description() { return t("settingsPanel.mapDesc"); },
   },
   ShowGift: {
     icon: "mdi-gift-outline",
-    label: "Mừng cưới",
-    description: "Tài khoản nhận mừng cưới.",
+    get label() { return t("editor.menu.gifts"); },
+    get description() { return t("settingsPanel.giftsDesc"); },
   },
   ShowGuestBook: {
     icon: "mdi-message-heart-outline",
-    label: "Sổ lưu bút",
-    description: "Lời chúc của khách mời.",
+    get label() { return t("editor.menu.guestbook"); },
+    get description() { return t("settingsPanel.guestbookDesc"); },
   },
   ShowMusic: {
     icon: "mdi-music-outline",
-    label: "Âm nhạc",
-    description: "Nhạc nền cho thiệp.",
+    get label() { return t("editor.menu.music"); },
+    get description() { return t("settingsPanel.musicDesc"); },
   },
   ShowFooter: {
     icon: "mdi-page-layout-footer",
     label: "Footer",
-    description: "Thông tin cuối thiệp.",
+    get description() { return t("settingsPanel.footerDesc"); },
   },
   ShowSeasonFx: {
     icon: "mdi-weather-snowy-rainy",
-    label: "Hiệu ứng mùa",
-    description:
-      "Hoa rơi / nắng / lá rơi / tuyết theo mùa của ngày cưới.",
+    get label() { return t("settingsPanel.seasonFx"); },
+    get description() { return t("settingsPanel.seasonFxDesc"); },
+  },
+  AutoScroll: {
+    icon: "mdi-arrow-down-bold-circle-outline",
+    get label() { return t("settingsPanel.autoScroll"); },
+    get description() { return t("settingsPanel.autoScrollDesc"); },
   },
 };
 

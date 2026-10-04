@@ -4,17 +4,17 @@
       <div>
         <span class="panel-eyebrow"> WEDDING MUSIC </span>
 
-        <h1>Âm nhạc</h1>
+        <h1>{{ $t('editor.menu.music') }}</h1>
 
-        <p>Thiết lập nhạc nền cho thiệp.</p>
+        <p>{{ $t('musicPanel.desc') }}</p>
       </div>
     </div>
 
     <div class="switch-card">
       <div>
-        <strong> Bật nhạc </strong>
+        <strong> {{ $t('musicPanel.enable') }} </strong>
 
-        <small> Hiển thị nút điều khiển nhạc. </small>
+        <small> {{ $t('musicPanel.enableHint') }} </small>
       </div>
 
       <v-switch
@@ -26,9 +26,9 @@
 
     <div class="switch-card">
       <div>
-        <strong> Tự động phát </strong>
+        <strong> {{ $t('musicPanel.autoplay') }} </strong>
 
-        <small> Trình duyệt có thể chặn autoplay. </small>
+        <small> {{ $t('musicPanel.autoplayHint') }} </small>
       </div>
 
       <v-switch
@@ -39,7 +39,7 @@
     </div>
 
     <div class="editor-field full">
-      <label>Chọn bài hát</label>
+      <label>{{ $t('musicPanel.chooseSong') }}</label>
 
       <select v-model="selectedPreset">
         <option
@@ -52,37 +52,36 @@
       </select>
 
       <small class="field-help">
-        Chọn bài hát có sẵn trong app hoặc tự nhập link nhạc riêng.
+        {{ $t('musicPanel.chooseSongHint') }}
       </small>
     </div>
 
     <div v-if="isCustom" class="editor-field full">
-      <label>URL nhạc</label>
+      <label>{{ $t('musicPanel.url') }}</label>
 
       <UploadField
         v-model="wedding.music.Url"
         kind="audio"
-        button-text="Tải nhạc lên"
+        :button-text="$t('musicPanel.upload')"
         icon="mdi-music-note-plus"
       />
 
       <small class="field-help">
-        Tải file .mp3 lên server hoặc dán link trực tiếp để trình duyệt phát
-        được.
+        {{ $t('musicPanel.urlHint') }}
       </small>
     </div>
 
     <div class="editor-field full">
-      <label>Tên bài hát</label>
+      <label>{{ $t('musicPanel.songName') }}</label>
 
       <input
         v-model="wedding.music.Title"
         type="text"
-        placeholder="Ví dụ: Beautiful In White"
+        :placeholder="$t('musicPanel.songNamePlaceholder')"
       />
 
       <small class="field-help">
-        Hiển thị trên nút nhạc của thiệp. Bỏ trống nếu không cần.
+        {{ $t('musicPanel.songNameHint') }}
       </small>
     </div>
 
@@ -98,11 +97,11 @@
 
         <div class="music-meta">
           <strong>
-            {{ wedding.music.Title || "Chưa đặt tên bài hát" }}
+            {{ wedding.music.Title || $t('musicPanel.noName') }}
           </strong>
 
           <span>
-            {{ playing ? "Đang phát thử..." : "Nghe thử trước khi lưu" }}
+            {{ playing ? $t('musicPanel.playing') : $t('musicPanel.previewHint') }}
           </span>
         </div>
 
@@ -110,7 +109,7 @@
           type="button"
           class="music-play"
           :disabled="!wedding.music.Url"
-          :title="playing ? 'Dừng' : 'Nghe thử'"
+          :title="playing ? $t('musicPanel.stop') : $t('musicPanel.preview')"
           @click="togglePreview"
         >
           <v-icon size="20">
@@ -143,7 +142,7 @@
           min="0"
           max="1"
           step="0.05"
-          aria-label="Âm lượng nghe thử"
+          :aria-label="$t('musicPanel.volume')"
         />
 
         <span class="music-volume-value">
@@ -152,16 +151,19 @@
       </div>
 
       <small v-if="!wedding.music.Url" class="field-help">
-        Chọn hoặc nhập nhạc để nghe thử.
+        {{ $t('musicPanel.pickToPreview') }}
       </small>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 
 import UploadField from "@/components/editor/UploadField.vue";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -173,7 +175,7 @@ const props = defineProps({
  */
 const PRESET_SONGS = [
   {
-    label: "Beautiful In White (có sẵn)",
+    get label() { return t("musicPanel.builtin"); },
     url: "/music/So_Beautiful_In_White.mp3",
     title: "Beautiful In White",
   },
@@ -188,7 +190,7 @@ const presetOptions = [
   })),
 
   {
-    label: "Nhạc từ link khác (tùy chỉnh)",
+    get label() { return t("musicPanel.custom"); },
     value: CUSTOM_VALUE,
   },
 ];

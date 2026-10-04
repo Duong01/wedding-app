@@ -9,8 +9,7 @@
       :wedding="wedding"
       :guest-name="guestName"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <!-- =====================================================
          THIỆP
@@ -69,17 +68,16 @@
         />
 
         <div class="tr-paper">
-          <WeddingInfo :wedding="wedding" />
+          <WeddingInfo :wedding="wedding" :sections="sections" />
 
           <StoryMilestones
             v-if="showStory && useMilestoneStory"
             :wedding="wedding"
           />
 
-          <WeddingGallery
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout"
             v-if="showGallery && gallery.length"
-            :gallery="gallery"
-          />
+            :gallery="gallery" :sections="sections" />
 
           <WeddingEvents
             v-if="showEvents && events.length"
@@ -87,8 +85,7 @@
             :wedding="wedding"
             :recipient-name="wedding.recipientName"
             :countdown="wedding.countdown"
-            :settings="settings"
-          />
+            :settings="settings" :sections="sections" />
 
           
         </div>
@@ -111,20 +108,17 @@
 
         <Timeline
           v-if="showTimeline && timeline.length"
-          :timeline="timeline"
-        />
+          :timeline="timeline" :sections="sections" />
 
         <WeddingWishes
           v-if="showGuestBook"
           :wishes="wishes"
-          :wedding="wedding"
-        />
+          :wedding="wedding" :sections="sections" />
 
         <WeddingGifts
           v-if="showGift && gifts.length"
           :gifts="gifts"
-          :wedding="wedding"
-        />
+          :wedding="wedding" :sections="sections" />
       </div>
 
       <!-- ============ FOOTER ============ -->
@@ -181,9 +175,12 @@ const props = defineProps({
   },
 });
 
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
+
 const emit = defineEmits(["open"]);
 
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 const wedding = computed(() => props.wedding || {});
 

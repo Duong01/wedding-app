@@ -1,7 +1,12 @@
 <template>
   <section class="lp-story">
     <div class="lp-section-title">
-      <h2>{{ storyTitle || "CÂU CHUYỆN TÌNH YÊU" }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="lp-top-custom-head">
+        <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "story", "Heading", storyTitle || "CÂU CHUYỆN TÌNH YÊU") }}</h2>
     </div>
 
     <div class="lp-story__quote">“</div>
@@ -13,9 +18,10 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -36,7 +42,7 @@ const storyTitle = computed(() =>
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 /* Tiêu đề có khung frame-title */
@@ -67,13 +73,13 @@ const storyTitle = computed(() =>
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-story__quote {
   height: 35px;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 
   font-family: Georgia, serif;
   font-size: 64px;
@@ -93,7 +99,7 @@ const storyTitle = computed(() =>
 
   white-space: pre-line;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 }
 
 .lp-story__tail {
@@ -101,6 +107,39 @@ const storyTitle = computed(() =>
 
   font-size: 15px;
 
-  color: rgba(255, 190, 137, 0.6);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.6);
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-top-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

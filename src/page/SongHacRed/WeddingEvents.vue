@@ -33,7 +33,12 @@
       <!-- NỘI DUNG -->
 
       <div class="shc-events__content">
-        <h2 class="shc-events__title">THÔNG TIN TIỆC CƯỚI</h2>
+        <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+        <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="shc-top-custom-head">
+          <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+        </header>
+
+        <h2 class="shc-events__title">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
 
         <article
           v-for="(event, index) in normalizedEvents"
@@ -81,7 +86,12 @@
             <!-- ĐẾM NGƯỢC -->
 
             <div class="shc-countdown">
-              <h4 class="shc-countdown__label">Cùng đếm ngược</h4>
+              <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+              <header v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="shc-cd-custom-head">
+                <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="shc-cd-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
+              </header>
+
+              <h4 class="shc-countdown__label">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h4>
 
               <div class="shc-countdown__value">
                 {{ countdownText }}
@@ -241,6 +251,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
@@ -260,6 +271,7 @@ import {
 } from "./songHacRedAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -1499,5 +1511,71 @@ onBeforeUnmount(() => {
   .shc-modal-leave-active {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.shc-cd-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.shc-cd-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.shc-cd-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.shc-cd-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

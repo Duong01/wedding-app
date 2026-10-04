@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 import axios from "axios";
 import router from "@/router";
 
@@ -79,7 +81,7 @@ api.interceptors.response.use(
       alert(
         extractApiMessage(
           error.response?.data,
-          "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại."
+          t("auth.sessionExpired")
         )
       );
 

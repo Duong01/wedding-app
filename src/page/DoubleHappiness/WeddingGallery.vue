@@ -16,12 +16,13 @@
       </p>
     </div>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
-      accent="#d9a441"
-      text-color="#f3d9a4"
-      frame-bg="#5c0e10"
+      :layout="galleryLayoutFor('double-happiness', layout)"
+      accent="var(--tc-d9a441, #d9a441)"
+      text-color="var(--tc-f3d9a4, #f3d9a4)"
+      frame-bg="var(--tc-5c0e10, #5c0e10)"
       :radius="6"
       @open="openLightbox"
     />
@@ -45,13 +46,16 @@ import { computed, ref, defineAsyncComponent } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
   gallery: { type: Array, default: () => [] },
   sections: { type: Object, default: () => ({}) },
 });
@@ -90,13 +94,13 @@ function closeLightbox() {
 
 <style scoped>
 .dh-gallery {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-red-dark: #5c0e10;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-ink: #5a3d2e;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-red-dark: var(--tc-5c0e10, #5c0e10);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-ink: var(--tc-5a3d2e, #5a3d2e);
 
   position: relative;
 
@@ -147,7 +151,7 @@ function closeLightbox() {
 
   line-height: 1.05;
 
-  color: var(--dh-cream-on-red, #f7e6c4);
+  color: var(--dh-cream-on-red, var(--tc-f7e6c4, #f7e6c4));
 }
 
 .dh-gallery__ornament {
@@ -165,7 +169,7 @@ function closeLightbox() {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.75));
 }
 
 .dh-gallery__ornament span:last-child {
@@ -180,7 +184,7 @@ function closeLightbox() {
 .dh-gallery__intro {
   margin: 13px 0 0;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 
   font-size: 12px;
 
@@ -199,7 +203,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 }
 
 .dh-gallery__empty p {

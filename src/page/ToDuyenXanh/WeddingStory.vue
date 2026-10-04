@@ -25,7 +25,12 @@
     ====================================================== -->
 
     <div class="tdx-story__inner">
-      <h2 v-if="storyTitle" class="tdx-story__title">{{ storyTitle }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="tdx-top-custom-head">
+        <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
+      </header>
+
+      <h2 v-if="storyTitle" class="tdx-story__title">{{ sectionText(sections, "story", "Heading", storyTitle) }}</h2>
 
       <p class="tdx-story__quote" aria-hidden="true">“</p>
 
@@ -37,11 +42,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { flowerDecoration, lineDecoration } from "./toDuyenXanhAssets";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -218,5 +224,38 @@ const storyTitle = computed(() =>
   .tdx-story__content {
     font-size: 19px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tdx-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tdx-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tdx-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tdx-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

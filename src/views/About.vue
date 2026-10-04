@@ -1,7 +1,7 @@
 <template>
   <main class="mk-page">
     <div class="mk-container">
-      <PageBreadcrumb :trail="[{ label: 'Giới thiệu' }]" />
+      <PageBreadcrumb :trail="[{ label: $t('nav.about') }]" />
     </div>
 
     <!-- =====================================================
@@ -11,17 +11,15 @@
       <div class="mk-hero__glow" aria-hidden="true"></div>
 
       <div class="mk-container mk-hero__inner">
-        <p class="mk-eyebrow">Về chúng tôi</p>
+        <p class="mk-eyebrow">{{ $t('about.eyebrow') }}</p>
 
         <h1>
-          Chúng tôi làm thiệp cưới
-          <em>cho người Việt.</em>
+          {{ $t('about.h1a') }}
+          <em>{{ $t('about.h1b') }}</em>
         </h1>
 
         <p class="mk-hero__lead">
-          {{ BRAND.name }} ra đời từ một điều rất giản dị: ngày cưới ai cũng
-          xứng đáng có một tấm thiệp đẹp, nhưng không phải ai cũng có thời
-          gian và tiền bạc để thuê thiết kế riêng.
+          {{ $t("about.lead", { brand: BRAND.name }) }}
         </p>
 
         <ul class="mk-hero__stats">
@@ -38,31 +36,24 @@
     ====================================================== -->
     <section class="mk-section">
       <div class="mk-narrow story">
-        <p class="mk-eyebrow">Câu chuyện</p>
+        <p class="mk-eyebrow">{{ $t('about.storyEyebrow') }}</p>
 
         <h2 class="story-title">
-          Bắt đầu từ một tấm thiệp
-          <em>bị in sai ngày.</em>
+          {{ $t('about.storyH2a') }}
+          <em>{{ $t('about.storyH2b') }}</em>
         </h2>
 
         <div class="story-body">
           <p>
-            Năm 2023, một người trong nhóm chúng tôi chuẩn bị cưới. Thiệp giấy
-            đặt in xong mới phát hiện sai giờ tiệc. Sửa thì phải in lại toàn
-            bộ, mà gửi đi rồi thì không thu hồi được. Cả nhà cuống lên gọi
-            từng khách để xin lỗi.
+            {{ $t('about.story1') }}
           </p>
 
           <p>
-            Hôm đó chúng tôi nhận ra: thiệp giấy không sai — nhưng nó thiếu
-            khả năng sửa. Một tấm thiệp online thì không như vậy. Bạn sửa một
-            lần, tất cả khách mời mở link đều thấy nội dung mới.
+            {{ $t('about.story2') }}
           </p>
 
           <p>
-            Chúng tôi bắt đầu dựng {{ BRAND.name }} với một nguyên tắc: mọi
-            thứ phải đẹp như thiệp in, nhưng linh hoạt như một trang web. Ba
-            năm sau, hơn mười hai nghìn cặp đôi đã gửi thiệp qua đây.
+            {{ $t("about.story3", { brand: BRAND.name }) }}
           </p>
         </div>
       </div>
@@ -74,15 +65,15 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Giá trị</p>
+          <p class="mk-eyebrow">{{ $t('about.valuesEyebrow') }}</p>
 
           <h2>
-            Bốn điều chúng tôi
-            <em>không thỏa hiệp.</em>
+            {{ $t('about.valuesH2a') }}
+            <em>{{ $t('about.valuesH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ bốn giá trị" />
+        <RailHint :text="$t('about.swipeValues')" />
 
         <div class="mk-grid mk-grid--4">
           <article v-for="value in VALUES" :key="value.title" class="mk-card">
@@ -102,50 +93,44 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Cách chúng tôi làm</p>
+          <p class="mk-eyebrow">{{ $t('about.howEyebrow') }}</p>
 
           <h2>
-            Thiệp được dựng như một
-            <em>sản phẩm thật.</em>
+            {{ $t('about.howH2a') }}
+            <em>{{ $t('about.howH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ ba bước" />
+        <RailHint :text="$t('about.swipeSteps')" />
 
         <div class="mk-grid mk-grid--3">
           <article class="mk-card">
             <span class="mk-orn" aria-hidden="true">壹</span>
 
-            <h3>Thiết kế theo bộ sưu tập</h3>
+            <h3>{{ $t('about.how1.title') }}</h3>
 
             <p>
-              Mỗi mẫu không phải một bảng màu tô lên cùng một bố cục. Năm bộ
-              sưu tập có nhịp chữ, họa tiết và tỉ lệ khác nhau — chọn sai bộ
-              vẫn đẹp, chỉ là khác gu.
+              {{ $t('about.how1.text') }}
             </p>
           </article>
 
           <article class="mk-card">
             <span class="mk-orn" aria-hidden="true">贰</span>
 
-            <h3>Kiểm tra trên máy thật</h3>
+            <h3>{{ $t('about.how2.title') }}</h3>
 
             <p>
-              Hơn 90% khách mời mở thiệp bằng điện thoại. Mọi mẫu đều được
-              kiểm trên màn hình nhỏ trước, rồi mới tới máy tính — không làm
-              ngược lại.
+              {{ $t('about.how2.text') }}
             </p>
           </article>
 
           <article class="mk-card">
             <span class="mk-orn" aria-hidden="true">叁</span>
 
-            <h3>Hỗ trợ có người thật</h3>
+            <h3>{{ $t('about.how3.title') }}</h3>
 
             <p>
-              Không chatbot, không trả lời máy. Bạn nhắn là có người đọc và
-              trả lời — kể cả ngoài giờ hành chính, kể cả trước ngày cưới một
-              hôm.
+              {{ $t('about.how3.text') }}
             </p>
           </article>
         </div>
@@ -164,30 +149,28 @@
           >
             <span class="mk-orn" aria-hidden="true">囍</span>
 
-            <h3>Xem bộ sưu tập mẫu thiệp</h3>
+            <h3>{{ $t('about.collectionsTitle') }}</h3>
 
             <p>
-              Hơn hai mươi mẫu thiệp thuộc năm bộ sưu tập — chọn hướng rồi
-              xem toàn bộ mẫu trong đó.
+              {{ $t('about.collectionsText') }}
             </p>
 
             <span class="link-more">
-              Xem mẫu thiệp <span aria-hidden="true">→</span>
+              {{ $t('about.viewTemplates') }} <span aria-hidden="true">→</span>
             </span>
           </router-link>
 
           <router-link :to="{ name: 'Contact' }" class="mk-card link-card">
             <span class="mk-orn" aria-hidden="true">❝</span>
 
-            <h3>Nói chuyện với tụi mình</h3>
+            <h3>{{ $t('about.talkTitle') }}</h3>
 
             <p>
-              Có yêu cầu riêng, cần thiết kế theo ý, hay chỉ muốn hỏi trước
-              khi bắt đầu — nhắn tụi mình bất cứ lúc nào.
+              {{ $t('about.talkText') }}
             </p>
 
             <span class="link-more">
-              Liên hệ <span aria-hidden="true">→</span>
+              {{ $t('nav.contact') }} <span aria-hidden="true">→</span>
             </span>
           </router-link>
         </div>
@@ -195,14 +178,15 @@
     </section>
 
     <FinalCta
-      title="Cùng tụi mình làm"
-      title-accent="tấm thiệp của bạn."
-      text="Tạo miễn phí, dùng thử 3 ngày — chỉ thanh toán khi bạn thật sự ưng ý."
+      :title="$t('about.ctaTitle')"
+      :title-accent="$t('about.ctaAccent')"
+      :text="$t('about.ctaText')"
     />
   </main>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import PageBreadcrumb from "@/components/marketing/PageBreadcrumb.vue";
 import FinalCta from "@/components/marketing/FinalCta.vue";
 import RailHint from "@/components/marketing/RailHint.vue";
@@ -211,8 +195,10 @@ import { useSeo, organizationJsonLd } from "@/composables/useSeo";
 
 import { ABOUT_STATS, BRAND, VALUES } from "@/data/siteContent";
 
+const { t } = useI18n();
+
 useSeo({
-  title: "Giới thiệu",
+  get title() { return t("nav.about"); },
   description:
     `${BRAND.name} — nền tảng tạo thiệp cưới online cho người Việt. ` +
     "Hơn 12.000 cặp đôi đã gửi thiệp qua đây. Tạo miễn phí, dùng thử 3 ngày.",

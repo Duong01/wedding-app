@@ -1,6 +1,11 @@
 <template>
   <section class="mw-events">
-    <h2 class="mw-title">Thông tin tiệc cưới</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="mw-top-custom-head">
+      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="mw-title">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
 
     <div
       v-for="(event, index) in normalizedEvents"
@@ -213,6 +218,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -228,6 +234,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: {
     type: Array,
     default: () => [],
@@ -1072,5 +1079,38 @@ function buildCalendarUrl(event, date) {
   .mw-event__schedule-item strong {
     font-size: 20px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.mw-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.mw-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.mw-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.mw-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

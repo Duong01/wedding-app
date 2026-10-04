@@ -1,13 +1,12 @@
 ﻿<template>
-  <div class="dong-son-wedding">
+  <div class="dong-son-wedding" :style="colorVars">
     <!-- OPENING -->
     <OpeningScreen
       v-if="!opened"
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <template v-else>
       <main class="invitation">
@@ -22,7 +21,7 @@
 
         <!-- COUPLE -->
         <section v-if="showCouple" class="section couple-section">
-          <WeddingCouple :wedding="wedding" />
+          <WeddingCouple :wedding="wedding" :sections="sections" />
         </section>
 
         <!-- STORY -->
@@ -34,7 +33,7 @@
           v-else-if="showStory && wedding?.story"
           class="section story-section"
         >
-          <WeddingStory :story="wedding.story" />
+          <WeddingStory :story="wedding.story" :sections="sections" />
         </section>
 
         <!-- EVENTS -->
@@ -42,7 +41,7 @@
           v-if="showEvents && events.length"
           class="section events-section"
         >
-          <WeddingEvents :events="events" :settings="settings" />
+          <WeddingEvents :events="events" :settings="settings" :sections="sections" />
         </section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
@@ -59,7 +58,7 @@
 
         <!-- COUNTDOWN -->
         <section v-if="showCountdown" class="section countdown-section">
-          <WeddingCountdown :countdown="wedding?.countdown" />
+          <WeddingCountdown :countdown="wedding?.countdown" :sections="sections" />
         </section>
 
         <!-- GALLERY -->
@@ -67,7 +66,7 @@
           v-if="showGallery && gallery.length"
           class="section gallery-section"
         >
-          <WeddingGallery :gallery="gallery" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
         </section>
 
         <!-- TIMELINE -->
@@ -75,17 +74,17 @@
           v-if="showTimeLine && (timeline.length || events.length)"
           class="section timeline-section"
         >
-          <Timeline :timeline="timeline" :events="events" />
+          <Timeline :timeline="timeline" :events="events" :sections="sections" />
         </section>
 
         <!-- GIFTS -->
         <section v-if="showGift && gifts.length" class="section gift-section">
-          <WeddingGifts :gifts="gifts" />
+          <WeddingGifts :gifts="gifts" :sections="sections" />
         </section>
 
         <!-- GUEST BOOK -->
         <section v-if="showGuestBook" class="section guestbook-section">
-          <WeddingWishes :wishes="wishes" :wedding="wedding" />
+          <WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" />
         </section>
 
         <!-- FOOTER -->
@@ -111,6 +110,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 
 import dayjs from "dayjs";
@@ -154,6 +154,12 @@ const props = defineProps({
     default: false,
   },
 });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 
@@ -294,28 +300,28 @@ onMounted(() => {
 
 <style scoped>
 .dong-son-wedding {
-  --dong-red: #8f241c;
-  --dong-red-dark: #54120f;
-  --dong-red-deep: #350b0a;
+  --dong-red: var(--tc-8f241c, #8f241c);
+  --dong-red-dark: var(--tc-54120f, #54120f);
+  --dong-red-deep: var(--tc-350b0a, #350b0a);
 
-  --dong-bronze: #a96b32;
-  --dong-gold: #c99552;
-  --dong-gold-light: #d9b678;
+  --dong-bronze: var(--tc-a96b32, #a96b32);
+  --dong-gold: var(--tc-c99552, #c99552);
+  --dong-gold-light: var(--tc-d9b678, #d9b678);
 
-  --dong-ivory: #f3ead8;
-  --dong-paper: #eee3cd;
-  --dong-text: #641914;
+  --dong-ivory: var(--tc-f3ead8, #f3ead8);
+  --dong-paper: var(--tc-eee3cd, #eee3cd);
+  --dong-text: var(--tc-641914, #641914);
 
   /* Khung nổi bật cho từng mục */
-  --dong-frame: rgba(169, 107, 50, 0.55);
-  --dong-frame-inner: rgba(169, 107, 50, 0.3);
+  --dong-frame: rgba(var(--tc-a96b32-rgb, 169, 107, 50), 0.55);
+  --dong-frame-inner: rgba(var(--tc-a96b32-rgb, 169, 107, 50), 0.3);
   --dong-frame-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
 
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
-  background: linear-gradient(135deg, #1a0a08 0%, #24100e 50%, #1a0a08 100%);
+  background: linear-gradient(135deg, var(--tc-1a0a08, #1a0a08) 0%, var(--tc-24100e, #24100e) 50%, var(--tc-1a0a08, #1a0a08) 100%);
 }
 
 .dong-son-wedding *,
@@ -345,19 +351,19 @@ onMounted(() => {
 
   background: radial-gradient(
       circle at 50% 0,
-      rgba(201, 149, 82, 0.12),
+      rgba(var(--tc-c99552-rgb, 201, 149, 82), 0.12),
       transparent 35%
     ),
     radial-gradient(
       circle at 50% 100%,
-      rgba(139, 36, 28, 0.08),
+      rgba(var(--tc-8b241c-rgb, 139, 36, 28), 0.08),
       transparent 40%
     ),
     var(--dong-paper);
 
   box-shadow:
     0 20px 70px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(169, 107, 50, 0.2);
+    inset 0 0 0 1px rgba(var(--tc-a96b32-rgb, 169, 107, 50), 0.2);
 }
 
 .section {
@@ -394,7 +400,7 @@ onMounted(() => {
 
 .hero-section {
   padding: 0;
-  border-bottom: 2px solid rgba(169, 107, 50, 0.3);
+  border-bottom: 2px solid rgba(var(--tc-a96b32-rgb, 169, 107, 50), 0.3);
 }
 
 .couple-section,
@@ -425,7 +431,7 @@ onMounted(() => {
   width: 100%;
   height: auto;
   text-align: center;
-  color: rgba(169, 107, 50, 0.55);
+  color: rgba(var(--tc-a96b32-rgb, 169, 107, 50), 0.55);
   font-size: 10px;
   letter-spacing: 0.3em;
   padding: 12px 0;
@@ -461,7 +467,7 @@ onMounted(() => {
 /* Desktop */
 @media (min-width: 768px) {
   .dong-son-wedding {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .invitation {

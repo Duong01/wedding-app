@@ -5,44 +5,36 @@
          TIÊU ĐỀ
     ====================================================== -->
 
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="rr-top-custom-head">
+      <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="rr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
+    </header>
+
     <h2 class="rr-title">
       {{ heading }}
     </h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="rr-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="rr-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
+    </header>
+
 
 
     <!-- =====================================================
          LƯỚI ẢNH
     ====================================================== -->
 
+    <!-- Album: kiểu chọn sẵn của mẫu (Vòng xoay 3D) hoặc kiểu chủ thiệp chọn -->
     <div v-if="gallery.length" class="rr-gallery__box">
-
-      <div class="rr-gallery__grid">
-
-        <button
-          v-for="(item, index) in visibleImages"
-          :key="item.id"
-          type="button"
-          class="rr-gallery__cell"
-          :aria-label="`Xem ảnh ${index + 1}`"
-          @click="openLightbox(index)"
-        >
-          <img
-            :src="item.src"
-            :alt="`Ảnh cưới ${index + 1}`"
-            loading="lazy"
-            decoding="async"
-          />
-
-          <span
-            v-if="index === visibleImages.length - 1 && hiddenCount > 0"
-            class="rr-gallery__more"
-          >
-            +{{ hiddenCount }}
-          </span>
-        </button>
-
-      </div>
-
+      <GalleryShowcase
+        :images="gallery"
+        :layout="galleryLayoutFor('royal-red', layout)"
+        accent="var(--accent, #d0a85c)"
+        text-color="var(--primary, #5c080c)"
+        frame-bg="var(--white, #fff9ed)"
+        :radius="10"
+        @open="openLightbox"
+      />
     </div>
 
 
@@ -68,9 +60,11 @@
 
 
 <script setup>
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 import { computed, defineAsyncComponent, ref } from "vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 
 const GalleryModal = defineAsyncComponent(() =>
@@ -83,6 +77,8 @@ const GalleryModal = defineAsyncComponent(() =>
 ===================================================== */
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu */
+  layout: { type: String, default: "" },
   gallery: {
     type: Array,
     default: () => [],
@@ -95,6 +91,7 @@ const props = defineProps({
 });
 
 
+
 /* =====================================================
    TIÊU ĐỀ MỤC
 ===================================================== */
@@ -103,37 +100,6 @@ const heading = computed(() =>
   sectionText(props.sections, "gallery", "Heading", "Album Ảnh")
 );
 
-
-/* =====================================================
-   ẢNH
-===================================================== */
-
-/*
- * Lưới chỉ hiển thị 4 ô vuông. Nếu còn ảnh phía sau
- * thì ô cuối phủ lớp "+N".
- */
-const MAX_VISIBLE = 4;
-
-const normalized = computed(() =>
-  (props.gallery || [])
-    .map((item, index) => {
-      const data = item || {};
-
-      return {
-        id: data.Id || index,
-        src: data.Image || data.Url || data.Src || data.image || "",
-      };
-    })
-    .filter((item) => item.src)
-);
-
-const visibleImages = computed(() =>
-  normalized.value.slice(0, MAX_VISIBLE)
-);
-
-const hiddenCount = computed(() =>
-  Math.max(normalized.value.length - MAX_VISIBLE, 0)
-);
 
 
 /* =====================================================
@@ -190,68 +156,13 @@ const closeLightbox = () => {
 
 .rr-gallery__box {
   width: 100%;
-  max-width: 320px;
+  max-width: 440px;
 }
 
-.rr-gallery__grid {
-  display: grid;
 
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  gap: 12px;
 
-  padding: 16px;
-}
 
-.rr-gallery__cell {
-  position: relative;
-
-  display: block;
-
-  aspect-ratio: 1 / 1;
-
-  padding: 0;
-
-  overflow: hidden;
-
-  border: 1px solid var(--rr-card-border, var(--rr-hairline));
-  border-radius: 8px;
-
-  background-color: var(--rr-white, #fff9ed);
-
-  box-shadow: 0 6px 16px rgba(92, 8, 12, 0.1);
-
-  cursor: pointer;
-}
-
-.rr-gallery__cell img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transition: transform 0.2s ease;
-}
-
-.rr-gallery__cell:hover img {
-  transform: scale(1.03);
-}
-
-.rr-gallery__more {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: rgba(0, 0, 0, 0.55);
-
-  color: #ffffff;
-
-  font-size: 18px;
-  font-weight: 600;
-}
 
 
 /* =====================================================
@@ -281,13 +192,74 @@ const closeLightbox = () => {
   }
 
   .rr-gallery__box {
-    max-width: 550px;
+    max-width: 560px;
   }
 
-  .rr-gallery__grid {
-    gap: 16px;
+}
 
-    padding: 24px;
-  }
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.rr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.rr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.rr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.rr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.rr-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.rr-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.rr-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.rr-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

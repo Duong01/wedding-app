@@ -2,20 +2,19 @@
   <section class="mk-section">
     <div class="mk-container">
       <header class="mk-head mk-head--center">
-        <p class="mk-eyebrow">Bảng giá</p>
+        <p class="mk-eyebrow">{{ $t('nav.pricing') }}</p>
 
         <h2>
-          Trả một lần,
-          <em>giữ thiệp mãi mãi.</em>
+          {{ $t('teaser.h2a') }}
+          <em>{{ $t('teaser.h2b') }}</em>
         </h2>
 
         <p>
-          Tạo và chỉnh sửa miễn phí. Chỉ thanh toán khi bạn đã xuất bản và
-          thật sự ưng ý.
+          {{ $t('teaser.lead') }}
         </p>
       </header>
 
-      <RailHint text="Vuốt ngang để so ba gói" />
+      <RailHint :text="$t('pricing.swipePlans')" />
 
       <div class="plans mk-rail">
         <article
@@ -25,7 +24,7 @@
           :class="{ 'is-highlight': plan.highlight }"
         >
           <span v-if="plan.highlight" class="plan-badge">
-            Nhiều người chọn
+            {{ $t('pricing.popular') }}
           </span>
 
           <h3>{{ plan.name }}</h3>
@@ -51,19 +50,19 @@
             class="mk-btn"
             :class="plan.highlight ? 'mk-btn--solid' : 'mk-btn--outline'"
           >
-            Xem chi tiết
+            {{ $t('teaser.details') }}
           </router-link>
         </article>
       </div>
 
       <div class="mk-cta">
         <router-link :to="{ name: 'Pricing' }" class="mk-btn mk-btn--outline">
-          So sánh đầy đủ ba gói
+          {{ $t('teaser.compare') }}
           <span aria-hidden="true">→</span>
         </router-link>
 
         <p class="mk-note">
-          Dùng thử 3 ngày đầy đủ tính năng · Không phí gia hạn hằng năm
+          {{ $t('teaser.note') }}
         </p>
       </div>
     </div>

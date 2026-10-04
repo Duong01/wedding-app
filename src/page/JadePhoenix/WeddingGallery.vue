@@ -16,11 +16,12 @@
       </p>
     </div>
 
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
-      accent="#68262c"
-      text-color="#6e1f24"
+      :layout="galleryLayoutFor('jade-phoenix', layout)"
+      accent="var(--tc-68262c, #68262c)"
+      text-color="var(--tc-6e1f24, #6e1f24)"
       @open="openLightbox"
     />
 
@@ -43,13 +44,16 @@ import { computed, ref, defineAsyncComponent } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
   gallery: { type: Array, default: () => [] },
   sections: { type: Object, default: () => ({}) },
 });
@@ -96,7 +100,7 @@ function closeLightbox() {
 
   overflow: hidden;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 /* =====================================================
@@ -119,7 +123,7 @@ function closeLightbox() {
 
   margin-bottom: 7px;
 
-  color: #68262c;
+  color: var(--tc-68262c, #68262c);
 
   font-size: 10px;
   font-weight: 700;
@@ -137,7 +141,7 @@ function closeLightbox() {
 
   line-height: 1.05;
 
-  color: #6e1f24;
+  color: var(--tc-6e1f24, #6e1f24);
 }
 
 .jp-gallery__ornament {
@@ -148,14 +152,14 @@ function closeLightbox() {
 
   margin-top: 13px;
 
-  color: #6e2a30;
+  color: var(--tc-6e2a30, #6e2a30);
 }
 
 .jp-gallery__ornament span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 180, 106, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9b46a-rgb, 217, 180, 106), 0.7));
 }
 
 .jp-gallery__ornament span:last-child {
@@ -170,7 +174,7 @@ function closeLightbox() {
 .jp-gallery__intro {
   margin: 13px 0 0;
 
-  color: #702c32;
+  color: var(--tc-702c32, #702c32);
 
   font-size: 12px;
 
@@ -189,7 +193,7 @@ function closeLightbox() {
 
   text-align: center;
 
-  color: #773c40;
+  color: var(--tc-773c40, #773c40);
 }
 
 .jp-gallery__empty p {

@@ -2,20 +2,18 @@
   <section class="memories-section">
     <!-- HEADER -->
     <div class="memories-heading">
-      <span class="gg-eyebrow">KHOẢNH KHẮC</span>
+      <span class="gg-eyebrow">{{ sectionText(sections, "gallery", "Eyebrow", "KHOẢNH KHẮC") }}</span>
 
-      <h2 class="gg-title">Album Ảnh Cưới</h2>
+      <h2 class="gg-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
 
-      <p class="gg-lead">
-        Những khoảnh khắc đẹp nhất<br />
-        được lưu giữ cùng chúng mình
-      </p>
+      <p class="gg-lead">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
     </div>
 
     <!-- GALLERY -->
-    <ModernGalleryCarousel
+    <GalleryShowcase
       v-if="gallery.length"
       :images="gallery"
+      :layout="galleryLayoutFor('romantic-pink', layout)"
       accent="var(--gg-rose, #cb5d6c)"
       text-color="var(--gg-deep, #933845)"
       :radius="16"
@@ -39,15 +37,20 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { ref, defineAsyncComponent } from "vue";
 
-import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
+import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
 
 const props = defineProps({
+  /* Kiểu album (settings.GalleryLayout) — trống / "default" = kiểu chọn sẵn của mẫu (data/galleryLayouts.js) */
+  layout: { type: String, default: "" },
+  sections: { type: Object, default: () => ({}) },
   gallery: {
     type: Array,
     default: () => [],
@@ -119,5 +122,9 @@ function closeLightbox() {
 
   font-family: "Baskerville", "Libre Baskerville", "Times New Roman", serif;
   font-size: 13px;
+}
+
+.gg-lead {
+  white-space: pre-line;
 }
 </style>

@@ -9,8 +9,7 @@
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <!-- =====================================================
          THIỆP
@@ -34,7 +33,7 @@
       <!-- ============ NỘI DUNG ============ -->
 
       <div class="cr-invitation__body">
-        <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" />
+        <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" :sections="sections" />
 
         <StoryMilestones
           v-if="showStory && useMilestoneStory"
@@ -43,17 +42,15 @@
 
         <WeddingStory
           v-else-if="showStory && wedding?.story"
-          :story="wedding.story"
-        />
+          :story="wedding.story" :sections="sections" />
 
-        <WeddingGallery v-if="showGallery && gallery.length" :gallery="gallery" />
+        <WeddingGallery :layout="wedding?.settings?.GalleryLayout" v-if="showGallery && gallery.length" :gallery="gallery" :sections="sections" />
 
         <WeddingEvents
           v-if="showEvents && events.length"
           :events="events"
           :recipient-name="wedding?.recipientName"
-          :settings="settings"
-        />
+          :settings="settings" :sections="sections" />
 
         <!-- ============ VIDEO CƯỚI ============ -->
 
@@ -63,17 +60,16 @@
 
         <GameSection v-if="showGame" :wedding="wedding" />
 
-        <Timeline v-if="showTimeline && timeline.length" :timeline="timeline" :events="events" />
+        <Timeline v-if="showTimeline && timeline.length" :timeline="timeline" :events="events" :sections="sections" />
 
         <WeddingCountdown
           v-if="showCountdown"
           :countdown="countdownTarget"
-          :wedding-date="wedding?.weddingDate"
-        />
+          :wedding-date="wedding?.weddingDate" :sections="sections" />
 
-        <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" />
+        <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" :sections="sections" />
 
-        <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" />
+        <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" :sections="sections" />
       </div>
 
       <!-- ============ FOOTER ============ -->
@@ -82,8 +78,7 @@
         v-if="showFooter"
         :wedding="wedding"
         :monogram="monogram"
-        :current-year="currentYear"
-      />
+        :current-year="currentYear" :sections="sections" />
 
       <!-- ============ NHẠC ============ -->
 
@@ -132,9 +127,12 @@ const props = defineProps({
   },
 });
 
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
+
 const emit = defineEmits(["open"]);
 
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 const wedding = computed(() => props.wedding || {});
 

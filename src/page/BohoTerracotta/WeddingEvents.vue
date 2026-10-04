@@ -33,7 +33,12 @@
     />
 
     <div class="bq-events__inner">
-      <h2 class="bq-heading">THÔNG TIN TIỆC CƯỚI</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="bq-top-custom-head">
+        <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+      </header>
+
+      <h2 class="bq-heading">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
 
       <img
         :src="line2"
@@ -255,6 +260,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
@@ -270,6 +276,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -1345,5 +1352,38 @@ onBeforeUnmount(() => {
 
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.bq-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.bq-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.bq-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.bq-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

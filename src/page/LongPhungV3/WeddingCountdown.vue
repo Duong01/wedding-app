@@ -1,7 +1,12 @@
 <template>
   <section class="lp-countdown">
     <div class="lp-section-title">
-      <h2>ĐẾM NGƯỢC NGÀY VUI</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="lp-top-custom-head">
+        <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
+      </header>
+
+      <h2>{{ sectionText(sections, "countdown", "Heading", "ĐẾM NGƯỢC NGÀY VUI") }}</h2>
     </div>
 
     <div class="lp-countdown__grid">
@@ -14,10 +19,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
   weddingDate: { type: [String, Date], default: "" },
 });
@@ -56,7 +63,7 @@ const values = computed(() => {
 
   text-align: center;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   padding: 30px 18px 10px;
 }
@@ -89,7 +96,7 @@ const values = computed(() => {
 
   letter-spacing: 0.05em;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-countdown__grid {
@@ -105,10 +112,10 @@ const values = computed(() => {
 .lp-countdown__item {
   padding: 16px 2px;
 
-  border: 1px solid rgba(255, 190, 137, 0.4);
+  border: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
   border-radius: 10px;
 
-  background: rgba(255, 190, 137, 0.08);
+  background: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.08);
 
   display: flex;
   flex-direction: column;
@@ -122,7 +129,7 @@ const values = computed(() => {
   font-size: clamp(22px, 6vw, 30px);
   font-weight: 600;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-countdown__item span {
@@ -133,5 +140,38 @@ const values = computed(() => {
   text-transform: uppercase;
 
   opacity: 0.7;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.lp-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.lp-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.lp-top-custom-head__heading {
+  margin: 0;
+  color: var(--tc-ffbe89, #ffbe89);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lp-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

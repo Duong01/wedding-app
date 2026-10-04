@@ -44,9 +44,9 @@
         draggable="false"
       />
 
-      <p class="cr-card__kicker">WEDDING INVITATION</p>
+      <p class="cr-card__kicker">{{ sectionText(sections, "opening", "Kicker", "WEDDING INVITATION") }}</p>
 
-      <p class="cr-card__invite">Trân trọng kính mời</p>
+      <p class="cr-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
       <h1 class="cr-card__guest">{{ guestName }}</h1>
 
@@ -77,14 +77,15 @@
         </svg>
       </span>
 
-      <span class="cr-open-btn__text">MỞ THIỆP</span>
+      <span class="cr-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
     </button>
 
-    <p class="cr-hint">Một lời mời · Một lời hẹn · Một đời hạnh phúc</p>
+    <p class="cr-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}</p>
   </section>
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import {
@@ -94,6 +95,7 @@ import {
 } from "./emeraldLuxeAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "囍" },
   dateLabel: { type: String, default: "" },

@@ -11,14 +11,14 @@
           {{ uploading ? "mdi-loading mdi-spin" : icon }}
         </v-icon>
 
-        {{ uploading ? "Đang tải lên..." : buttonText }}
+        {{ uploading ? $t("upload.uploading") : buttonText || $t("upload.uploadImage") }}
       </button>
 
       <input
         v-model="model"
         type="text"
         class="upload-url-input"
-        placeholder="Hoặc dán đường link..."
+        :placeholder="$t('upload.orPaste')"
         :disabled="uploading"
       />
     </div>
@@ -40,7 +40,7 @@
       <img
         v-if="kind === 'image'"
         :src="previewUrl"
-        alt="Xem trước"
+        :alt="$t('editor.preview')"
         @error="previewError = true"
       />
 
@@ -53,7 +53,7 @@
       <button
         type="button"
         class="upload-clear"
-        title="Xóa đường dẫn"
+        :title="$t('upload.clear')"
         @click="clearValue"
       >
         <v-icon size="15"> mdi-close </v-icon>
@@ -63,9 +63,12 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 
 import { uploadMedia } from "@/model/api";
+
+const { t } = useI18n();
 
 const props = defineProps({
   /*
@@ -78,7 +81,7 @@ const props = defineProps({
   kind: { type: String, default: "image" },
 
   // Nhãn nút upload
-  buttonText: { type: String, default: "Tải ảnh lên" },
+  buttonText: { type: String, default: "" },
 
   // Icon trên nút (mdi)
   icon: { type: String, default: "mdi-upload-outline" },
@@ -172,16 +175,16 @@ function validateFile(file) {
   const isAudio = file.type.startsWith("audio/");
 
   if (props.kind === "image" && !isImage) {
-    return "Vui lòng chọn file ảnh.";
+    return t("upload.pickImage");
   }
 
   if (props.kind === "audio" && !isAudio) {
-    return "Vui lòng chọn file nhạc.";
+    return t("upload.pickAudio");
   }
 
   // Giới hạn 10MB — khớp với giới hạn trên server
   if (file.size > 10 * 1024 * 1024) {
-    return "File vượt quá giới hạn 10MB.";
+    return t("upload.tooLarge");
   }
 
   return "";
@@ -208,15 +211,15 @@ async function uploadOne(file) {
 
       previewError.value = false;
 
-      showMessage("Đã tải file lên server.");
+      showMessage(t("upload.success"));
     } else {
-      showMessage(result?.message || "Không thể tải file lên server.", true);
+      showMessage(result?.message || t("upload.failed"), true);
     }
   } catch (error) {
     console.error("[UploadField] uploadMedia error:", error);
 
     showMessage(
-      error?.response?.data?.message || "Không thể tải file lên server.",
+      error?.response?.data?.message || t("upload.failed"),
       true
     );
   } finally {
@@ -233,7 +236,7 @@ async function uploadMany(files) {
   const valid = files.filter((file) => !validateFile(file));
 
   if (!valid.length) {
-    showMessage("Không có file hợp lệ để tải lên.", true);
+    showMessage(t("upload.noValid"), true);
 
     return;
   }
@@ -269,12 +272,12 @@ async function uploadMany(files) {
 
     showMessage(
       failed
-        ? `Đã tải ${urls.length} file, ${failed} file lỗi.`
-        : `Đã tải ${urls.length} file lên server.`,
+        ? t("upload.partial", { ok: urls.length, failed })
+        : t("upload.done", { n: urls.length }),
       failed > 0
     );
   } else {
-    showMessage("Không thể tải file lên server.", true);
+    showMessage(t("upload.failed"), true);
   }
 }
 

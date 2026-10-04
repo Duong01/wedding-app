@@ -1,3 +1,5 @@
+import { t } from "@/lang";
+
 /*
  * =========================================================
  * BỘ SƯU TẬP & NHẬN DIỆN MÀU THEO TỪNG MẪU THIỆP
@@ -23,44 +25,44 @@
 export const COLLECTIONS = [
   {
     id: "truyen-thong",
-    name: "Truyền thống Việt Nam",
-    sub: "Đỏ son · chữ hỷ · trống đồng · long phụng",
+    get name() { return t("col.traditional.title"); },
+    get sub() { return t("col.traditional.sub"); },
     swatches: ["#7b0d0d", "#c79d5c", "#f6ecd9"],
   },
   {
     id: "lang-man",
-    name: "Romantic / Lãng mạn",
-    sub: "Hồng phấn · đào · oải hương · ruby",
+    get name() { return t("col.romantic.title"); },
+    get sub() { return t("col.romantic.sub"); },
     swatches: ["#c56f88", "#d67a63", "#a086b4"],
   },
   {
     id: "hien-dai",
-    name: "Modern Luxury / Sang trọng hiện đại",
-    sub: "Nền sẫm · foil vàng · nét mực tối giản",
+    get name() { return t("col.modern.title"); },
+    get sub() { return t("col.modern.sub"); },
     swatches: ["#2b2b2b", "#b8a07a", "#17121b"],
   },
   {
     id: "co-dien",
-    name: "Elegant / Cổ điển châu Âu",
-    sub: "Navy cổ điển · vàng đồng · ngà lụa",
+    get name() { return t("col.classic.title"); },
+    get sub() { return t("col.classic.sub"); },
     swatches: ["#2f3e5c", "#b58a45", "#faf8f3"],
   },
   {
     id: "nghe-thuat",
-    name: "Watercolor / Nghệ thuật",
-    sub: "Màu nước loang · hồng đào · phấn pastel",
+    get name() { return t("col.art.title"); },
+    get sub() { return t("col.art.sub"); },
     swatches: ["#8a4a5c", "#d98ca0", "#fdf8fa"],
   },
   {
     id: "thien-nhien",
-    name: "Botanical / Thiên nhiên",
-    sub: "Lá xanh · eucalyptus · đất nung",
+    get name() { return t("col.nature.title"); },
+    get sub() { return t("col.nature.sub"); },
     swatches: ["#3d5a47", "#7fa389", "#f5f8f4"],
   },
   {
     id: "a-dong",
-    name: "Á Đông / Chinese-inspired",
-    sub: "Đỏ thẫm · vàng kim · ngọc phượng · baroque",
+    get name() { return t("col.asian.title"); },
+    get sub() { return t("col.asian.sub"); },
     swatches: ["#6e1f24", "#d9a441", "#2b0303"],
   },
 ];
@@ -71,10 +73,12 @@ export const THEME_META = {
   ====================================================== */
 
   "traditional-red": {
-    name: "Đỏ Son Truyền Thống",
+    get name() { return t("tpl.traditional-red.name"); },
     collection: "truyen-thong",
-    desc: "Đỏ son cổ điển, khung ảnh vòm và hoạ tiết song hỷ trang trọng.",
-    tags: ["Truyền thống", "Đỏ son", "Song hỷ"],
+    get desc() { return t("tpl.traditional-red.desc"); },
+    get tags() { return [t("tpl.tag.traditional"), t("tpl.tag.vermilion"), t("tpl.tag.doubleHappiness")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.traditional","tpl.tag.vermilion","tpl.tag.doubleHappiness"],
     palette: {
       bg: "#f8f5ed",
       ink: "#65090c",
@@ -86,10 +90,12 @@ export const THEME_META = {
   },
 
   "nhat-binh-do": {
-    name: "Nhật Bình Đỏ",
+    get name() { return t("tpl.nhat-binh-do.name"); },
     collection: "truyen-thong",
-    desc: "Giấy kem ấm, chữ nâu cổ điển và điểm nhấn đỏ son — gợi áo nhật bình cổ trang.",
-    tags: ["Cổ trang", "Đỏ son", "Giấy kem"],
+    get desc() { return t("tpl.nhat-binh-do.desc"); },
+    get tags() { return [t("tpl.tag.ancient"), t("tpl.tag.vermilion"), t("tpl.tag.creamPaper")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.ancient","tpl.tag.vermilion","tpl.tag.creamPaper"],
     palette: {
       bg: "#f6ecd9",
       ink: "#720e12",
@@ -101,10 +107,12 @@ export const THEME_META = {
   },
 
   "dong-son": {
-    name: "Trống Đông Sơn",
+    get name() { return t("tpl.dong-son.name"); },
     collection: "truyen-thong",
-    desc: "Hoạ tiết trống đồng, nâu đất và vàng đồng đậm chất Việt cổ.",
-    tags: ["Truyền thống", "Đất nung", "Trống đồng"],
+    get desc() { return t("tpl.dong-son.desc"); },
+    get tags() { return [t("tpl.tag.traditional"), t("tpl.tag.terracotta"), t("tpl.tag.bronzeDrum")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.traditional","tpl.tag.terracotta","tpl.tag.bronzeDrum"],
     palette: {
       bg: "#f3ead8",
       ink: "#54120f",
@@ -116,10 +124,12 @@ export const THEME_META = {
   },
 
   "double-happiness": {
-    name: "Song Hỷ",
+    get name() { return t("tpl.double-happiness.name"); },
     collection: "a-dong",
-    desc: "Chữ hỷ lớn giữa nền đỏ thẫm và vàng son rực rỡ.",
-    tags: ["Truyền thống", "Đỏ thẫm", "Chữ hỷ"],
+    get desc() { return t("tpl.double-happiness.desc"); },
+    get tags() { return [t("tpl.tag.traditional"), t("tpl.tag.deepRed"), t("tpl.tag.xi")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.traditional","tpl.tag.deepRed","tpl.tag.xi"],
     palette: {
       bg: "#f7e6c4",
       ink: "#5c0e10",
@@ -131,11 +141,13 @@ export const THEME_META = {
   },
 
   "long-phung-v3": {
-    name: "Long Phụng",
+    get name() { return t("tpl.long-phung-v3.name"); },
     collection: "a-dong",
     dark: true,
-    desc: "Rồng phụng vàng kim trên nền đỏ thẫm — cổ điển và sang trọng.",
-    tags: ["Cổ điển", "Đỏ thẫm", "Rồng phụng"],
+    get desc() { return t("tpl.long-phung-v3.desc"); },
+    get tags() { return [t("tpl.tag.classic"), t("tpl.tag.deepRed"), t("tpl.tag.dragonPhoenix")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.classic","tpl.tag.deepRed","tpl.tag.dragonPhoenix"],
     palette: {
       bg: "#5a000e",
       ink: "#ffbe89",
@@ -147,10 +159,12 @@ export const THEME_META = {
   },
 
   "song-hy-red": {
-    name: "Song Hỷ Đỏ",
+    get name() { return t("tpl.song-hy-red.name"); },
     collection: "truyen-thong",
-    desc: "Nền kem ấm, chữ hỷ đỏ son và điểm nhấn vàng đồng.",
-    tags: ["Truyền thống", "Đỏ son", "Vàng đồng"],
+    get desc() { return t("tpl.song-hy-red.desc"); },
+    get tags() { return [t("tpl.tag.traditional"), t("tpl.tag.vermilion"), t("tpl.tag.brass")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.traditional","tpl.tag.vermilion","tpl.tag.brass"],
     palette: {
       bg: "#fff7eb",
       ink: "#666666",
@@ -162,12 +176,14 @@ export const THEME_META = {
   },
 
   "song-hac-red": {
-    name: "Song Hạc Đỏ",
+    get name() { return t("tpl.song-hac-red.name"); },
     collection: "truyen-thong",
     dark: true,
     isNew: true,
-    desc: "Trăng soi đôi hạc, mây hoa và chữ hỷ trên nền đỏ thẫm.",
-    tags: ["Truyền thống", "Đỏ thẫm", "Chim hạc"],
+    get desc() { return t("tpl.song-hac-red.desc"); },
+    get tags() { return [t("tpl.tag.traditional"), t("tpl.tag.deepRed"), t("tpl.tag.crane")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.traditional","tpl.tag.deepRed","tpl.tag.crane"],
     palette: {
       bg: "#920002",
       ink: "#ffe8a4",
@@ -183,10 +199,12 @@ export const THEME_META = {
   ====================================================== */
 
   "elegant-gold": {
-    name: "Vàng Sang Trọng",
+    get name() { return t("tpl.elegant-gold.name"); },
     collection: "co-dien",
-    desc: "Foil vàng trên nền ngà — thanh lịch kiểu châu Âu.",
-    tags: ["Sang trọng", "Vàng kim", "Thanh lịch"],
+    get desc() { return t("tpl.elegant-gold.desc"); },
+    get tags() { return [t("tpl.tag.luxury"), t("tpl.tag.gold"), t("tpl.tag.elegant")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.luxury","tpl.tag.gold","tpl.tag.elegant"],
     palette: {
       bg: "#faf8f3",
       ink: "#4a3620",
@@ -198,10 +216,12 @@ export const THEME_META = {
   },
 
   "ivory-gold": {
-    name: "Ngà Vàng",
+    get name() { return t("tpl.ivory-gold.name"); },
     collection: "co-dien",
-    desc: "Nền ngà mềm, hoa lụa và nét vàng đồng tinh tế.",
-    tags: ["Thanh lịch", "Ngà", "Lụa"],
+    get desc() { return t("tpl.ivory-gold.desc"); },
+    get tags() { return [t("tpl.tag.elegant"), t("tpl.tag.ivory"), t("tpl.tag.silk")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.elegant","tpl.tag.ivory","tpl.tag.silk"],
     palette: {
       bg: "#fffaf0",
       ink: "#4a3f38",
@@ -213,11 +233,13 @@ export const THEME_META = {
   },
 
   "midnight-gold": {
-    name: "Đêm Hoàng Kim",
+    get name() { return t("tpl.midnight-gold.name"); },
     collection: "hien-dai",
     dark: true,
-    desc: "Nền sẫm như đêm, foil vàng le lói — sang trọng mà bí ẩn.",
-    tags: ["Sang trọng", "Nền sẫm", "Vàng kim"],
+    get desc() { return t("tpl.midnight-gold.desc"); },
+    get tags() { return [t("tpl.tag.luxury"), t("tpl.tag.darkBg"), t("tpl.tag.gold")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.luxury","tpl.tag.darkBg","tpl.tag.gold"],
     palette: {
       bg: "#17121b",
       ink: "#f0e6d2",
@@ -229,10 +251,12 @@ export const THEME_META = {
   },
 
   "emerald-luxe": {
-    name: "Chibi Đỏ",
+    get name() { return t("tpl.emerald-luxe.name"); },
     collection: "thien-nhien",
-    desc: "Minh hoạ chibi đáng yêu trên nền kem ấm — vui tươi, cá tính.",
-    tags: ["Dễ thương", "Minh hoạ", "Kem"],
+    get desc() { return t("tpl.emerald-luxe.desc"); },
+    get tags() { return [t("tpl.tag.cute"), t("tpl.tag.illustration"), t("tpl.tag.cream")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.cute","tpl.tag.illustration","tpl.tag.cream"],
     palette: {
       bg: "#fef0e0",
       ink: "#4c2d1f",
@@ -244,11 +268,13 @@ export const THEME_META = {
   },
 
   "royal-red": {
-    name: "Hoàng Gia Đỏ",
+    get name() { return t("tpl.royal-red.name"); },
     collection: "a-dong",
     dark: true,
-    desc: "Đỏ thẫm hoàng gia với khung tranh vàng kim.",
-    tags: ["Sang trọng", "Đỏ thẫm", "Vàng kim"],
+    get desc() { return t("tpl.royal-red.desc"); },
+    get tags() { return [t("tpl.tag.luxury"), t("tpl.tag.deepRed"), t("tpl.tag.gold")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.luxury","tpl.tag.deepRed","tpl.tag.gold"],
     palette: {
       bg: "#2b0003",
       ink: "#f3d99c",
@@ -264,11 +290,13 @@ export const THEME_META = {
   ====================================================== */
 
   "romantic-pink": {
-    name: "Hồng Dịu Dàng",
+    get name() { return t("tpl.romantic-pink.name"); },
     collection: "lang-man",
     script: true,
-    desc: "Hồng anh đào mềm mại cùng chữ viết tay lãng mạn.",
-    tags: ["Lãng mạn", "Hồng", "Chữ tay"],
+    get desc() { return t("tpl.romantic-pink.desc"); },
+    get tags() { return [t("tpl.tag.romantic"), t("tpl.tag.pink"), t("tpl.tag.handwriting")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.romantic","tpl.tag.pink","tpl.tag.handwriting"],
     palette: {
       bg: "#fffaf9",
       ink: "#9b4b61",
@@ -280,11 +308,13 @@ export const THEME_META = {
   },
 
   "sunset-peach": {
-    name: "Hoàng Hôn Đào",
+    get name() { return t("tpl.sunset-peach.name"); },
     collection: "lang-man",
     script: true,
-    desc: "Tông đào cam ấm áp như một buổi hoàng hôn.",
-    tags: ["Lãng mạn", "Đào", "Ấm áp"],
+    get desc() { return t("tpl.sunset-peach.desc"); },
+    get tags() { return [t("tpl.tag.romantic"), t("tpl.tag.peach"), t("tpl.tag.warm")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.romantic","tpl.tag.peach","tpl.tag.warm"],
     palette: {
       bg: "#fffaf5",
       ink: "#7a4a3d",
@@ -296,11 +326,13 @@ export const THEME_META = {
   },
 
   "champagne-blush": {
-    name: "Hồng Sâm Banh",
+    get name() { return t("tpl.champagne-blush.name"); },
     collection: "lang-man",
     script: true,
-    desc: "Hồng sâm banh pha nền kem — ngọt ngào, tinh tế.",
-    tags: ["Lãng mạn", "Sâm banh", "Kem"],
+    get desc() { return t("tpl.champagne-blush.desc"); },
+    get tags() { return [t("tpl.tag.romantic"), t("tpl.tag.champagne"), t("tpl.tag.cream")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.romantic","tpl.tag.champagne","tpl.tag.cream"],
     palette: {
       bg: "#fffaf7",
       ink: "#6c4b4a",
@@ -312,11 +344,13 @@ export const THEME_META = {
   },
 
   "lavender-cream": {
-    name: "Oải Hương",
+    get name() { return t("tpl.lavender-cream.name"); },
     collection: "lang-man",
     script: true,
-    desc: "Tím oải hương nhẹ nhàng trên nền kem.",
-    tags: ["Lãng mạn", "Oải hương", "Tím"],
+    get desc() { return t("tpl.lavender-cream.desc"); },
+    get tags() { return [t("tpl.tag.romantic"), t("tpl.tag.lavender"), t("tpl.tag.purple")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.romantic","tpl.tag.lavender","tpl.tag.purple"],
     palette: {
       bg: "#faf8fc",
       ink: "#584a5b",
@@ -328,11 +362,13 @@ export const THEME_META = {
   },
 
   "soft-rose": {
-    name: "Hồng Nhẹ",
+    get name() { return t("tpl.soft-rose.name"); },
     collection: "lang-man",
     script: true,
-    desc: "Hồng phấn tinh khôi với khoảng trắng rộng.",
-    tags: ["Lãng mạn", "Hồng phấn", "Tinh khôi"],
+    get desc() { return t("tpl.soft-rose.desc"); },
+    get tags() { return [t("tpl.tag.romantic"), t("tpl.tag.blush"), t("tpl.tag.pure")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.romantic","tpl.tag.blush","tpl.tag.pure"],
     palette: {
       bg: "#fffafa",
       ink: "#a4525f",
@@ -348,10 +384,12 @@ export const THEME_META = {
   ====================================================== */
 
   "serene-green": {
-    name: "Xanh Thanh Nhã",
+    get name() { return t("tpl.serene-green.name"); },
     collection: "thien-nhien",
-    desc: "Xanh lá thanh bình, gần gũi thiên nhiên.",
-    tags: ["Thiên nhiên", "Xanh lá", "Thanh bình"],
+    get desc() { return t("tpl.serene-green.desc"); },
+    get tags() { return [t("tpl.tag.nature"), t("tpl.tag.green"), t("tpl.tag.serene")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.nature","tpl.tag.green","tpl.tag.serene"],
     palette: {
       bg: "#f5f8f4",
       ink: "#28514b",
@@ -363,12 +401,14 @@ export const THEME_META = {
   },
 
   "boho-terracotta": {
-    name: "Baroque Đỏ Sẫm",
+    get name() { return t("tpl.boho-terracotta.name"); },
     collection: "thien-nhien",
     dark: true,
     isNew: true,
-    desc: "Nền đỏ sẫm, hoa văn baroque và vàng đồng.",
-    tags: ["Cổ điển", "Đỏ sẫm", "Baroque"],
+    get desc() { return t("tpl.boho-terracotta.desc"); },
+    get tags() { return [t("tpl.tag.classic"), t("tpl.tag.darkRed"), "Baroque"]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.classic","tpl.tag.darkRed","raw:Baroque"],
     palette: {
       bg: "#2b0303",
       ink: "#ffefd6",
@@ -380,11 +420,13 @@ export const THEME_META = {
   },
 
   "to-duyen-xanh": {
-    name: "Tơ Duyên Xanh",
+    get name() { return t("tpl.to-duyen-xanh.name"); },
     collection: "thien-nhien",
     isNew: true,
-    desc: "Xanh rêu dịu, hoa rum trắng và nét tơ duyên mềm mại.",
-    tags: ["Thiên nhiên", "Xanh rêu", "Tinh giản"],
+    get desc() { return t("tpl.to-duyen-xanh.desc"); },
+    get tags() { return [t("tpl.tag.nature"), t("tpl.tag.moss"), t("tpl.tag.simple")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.nature","tpl.tag.moss","tpl.tag.simple"],
     palette: {
       bg: "#fefbf4",
       ink: "#1a3500",
@@ -400,11 +442,13 @@ export const THEME_META = {
   ====================================================== */
 
   "modern-white": {
-    name: "Trắng Hiện Đại",
+    get name() { return t("tpl.modern-white.name"); },
     collection: "hien-dai",
     isNew: true,
-    desc: "Nền trắng tinh, nét mực gọn và một điểm đỏ nhấn.",
-    tags: ["Tối giản", "Trắng", "Hiện đại"],
+    get desc() { return t("tpl.modern-white.desc"); },
+    get tags() { return [t("tpl.tag.minimal"), t("tpl.tag.white"), t("tpl.tag.modern")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.minimal","tpl.tag.white","tpl.tag.modern"],
     palette: {
       bg: "#ffffff",
       ink: "#2a2a2a",
@@ -420,12 +464,14 @@ export const THEME_META = {
   ====================================================== */
 
   "watercolor-blush": {
-    name: "Màu Nước Hồng",
+    get name() { return t("tpl.watercolor-blush.name"); },
     collection: "nghe-thuat",
     script: true,
     isNew: true,
-    desc: "Nước màu hồng đào loang nhẹ như tranh vẽ tay — mềm mại và nghệ thuật.",
-    tags: ["Màu nước", "Hồng đào", "Nghệ thuật"],
+    get desc() { return t("tpl.watercolor-blush.desc"); },
+    get tags() { return [t("tpl.tag.watercolor"), t("tpl.tag.peachPink"), t("tpl.tag.art")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.watercolor","tpl.tag.peachPink","tpl.tag.art"],
     palette: {
       bg: "#fdf8fa",
       ink: "#8a4a5c",
@@ -437,11 +483,13 @@ export const THEME_META = {
   },
 
   "botanical-leaf": {
-    name: "Lá Botanical",
+    get name() { return t("tpl.botanical-leaf.name"); },
     collection: "thien-nhien",
     isNew: true,
-    desc: "Lá eucalyptus xanh mướt trên nền giấy sáng — gần gũi thiên nhiên.",
-    tags: ["Botanical", "Xanh lá", "Eucalyptus"],
+    get desc() { return t("tpl.botanical-leaf.desc"); },
+    get tags() { return ["Botanical", t("tpl.tag.green"), "Eucalyptus"]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["raw:Botanical","tpl.tag.green","raw:Eucalyptus"],
     palette: {
       bg: "#f9fbf9",
       ink: "#3d5a47",
@@ -453,11 +501,13 @@ export const THEME_META = {
   },
 
   "chateau-blue": {
-    name: "Xanh Chateau",
+    get name() { return t("tpl.chateau-blue.name"); },
     collection: "co-dien",
     isNew: true,
-    desc: "Navy cổ điển châu Âu điểm vàng đồng — trang nhã như lâu đài Pháp.",
-    tags: ["Cổ điển", "Navy", "Vàng đồng"],
+    get desc() { return t("tpl.chateau-blue.desc"); },
+    get tags() { return [t("tpl.tag.classic"), "Navy", t("tpl.tag.brass")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.classic","raw:Navy","tpl.tag.brass"],
     palette: {
       bg: "#fafbfd",
       ink: "#2f3e5c",
@@ -469,11 +519,13 @@ export const THEME_META = {
   },
 
   "jade-phoenix": {
-    name: "Ngọc Phượng",
+    get name() { return t("tpl.jade-phoenix.name"); },
     collection: "a-dong",
     isNew: true,
-    desc: "Đỏ thẫm pha vàng kim, hoạ tiết phượng hoàng đậm chất Á Đông.",
-    tags: ["Á Đông", "Đỏ thẫm", "Vàng kim"],
+    get desc() { return t("tpl.jade-phoenix.desc"); },
+    get tags() { return [t("tpl.tag.asian"), t("tpl.tag.deepRed"), t("tpl.tag.gold")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.asian","tpl.tag.deepRed","tpl.tag.gold"],
     palette: {
       bg: "#fdfaf3",
       ink: "#6e1f24",
@@ -485,11 +537,13 @@ export const THEME_META = {
   },
 
   "modern-noir": {
-    name: "Noir Hiện Đại",
+    get name() { return t("tpl.modern-noir.name"); },
     collection: "hien-dai",
     isNew: true,
-    desc: "Nền than tối giản với foil champagne — sang trọng, hiện đại.",
-    tags: ["Sang trọng", "Nền tối", "Champagne"],
+    get desc() { return t("tpl.modern-noir.desc"); },
+    get tags() { return [t("tpl.tag.luxury"), t("tpl.tag.darkBg2"), "Champagne"]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.luxury","tpl.tag.darkBg2","raw:Champagne"],
     palette: {
       bg: "#fbf8f0",
       ink: "#3a3a3a",
@@ -501,12 +555,14 @@ export const THEME_META = {
   },
 
   "ruby-romance": {
-    name: "Ruby Lãng Mạn",
+    get name() { return t("tpl.ruby-romance.name"); },
     collection: "lang-man",
     script: true,
     isNew: true,
-    desc: "Đỏ ruby đậm cùng tim hồng — lãng mạn, nồng nàn.",
-    tags: ["Lãng mạn", "Ruby", "Đỏ hồng"],
+    get desc() { return t("tpl.ruby-romance.desc"); },
+    get tags() { return [t("tpl.tag.romantic"), "Ruby", t("tpl.tag.rosyRed")]; },
+    /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+    tagKeys: ["tpl.tag.romantic","raw:Ruby","tpl.tag.rosyRed"],
     palette: {
       bg: "#fdf7f8",
       ink: "#8c2f42",
@@ -523,10 +579,12 @@ export const THEME_META = {
  * vẫn có nhận diện trung tính để gallery không vỡ.
  */
 export const FALLBACK_META = {
-  name: "Cổ Điển",
+  get name() { return t("tpl.fallback.name"); },
   collection: "co-dien",
-  desc: "Thiết kế cổ điển với bảng màu ấm áp, dễ tùy chỉnh cho ngày cưới của bạn.",
-  tags: ["Cổ điển"],
+  get desc() { return t("tpl.fallback.desc"); },
+  get tags() { return [t("tpl.tag.classic")]; },
+  /* Key ổn định (không đổi theo ngôn ngữ) — WeddingIntro dùng để chọn tag màu */
+  tagKeys: ["tpl.tag.classic"],
   palette: {
     bg: "#f7f1e6",
     ink: "#2b2118",
@@ -545,7 +603,7 @@ export function getCollection(collectionId) {
   return (
     COLLECTIONS.find((col) => col.id === collectionId) || {
       id: "",
-      name: "Bộ sưu tập",
+      get name() { return t("stats.collections"); },
       sub: "",
       swatches: [],
     }

@@ -1,15 +1,15 @@
 <template>
-  <div class="champagne-blush-theme">
-    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" />
+  <div class="champagne-blush-theme" :style="colorVars">
+    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" :sections="sections" />
     <main v-else class="champagne-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
 
       <div class="champagne-content">
-        <section v-if="showCouple" class="champagne-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" /></section>
+        <section v-if="showCouple" class="champagne-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" /></section>
         <section v-if="showStory && useMilestoneStory" class="champagne-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="champagne-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="champagne-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
-        <section v-if="showEvents && events.length" class="champagne-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :settings="settings" /></section>
+        <section v-if="showEvents && events.length" class="champagne-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :settings="settings" :sections="sections" /></section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
 
@@ -18,15 +18,15 @@
         <!-- ============ TRÒ CHƠI ============ -->
 
         <section v-if="showGame" class="champagne-section"><GameSection :wedding="wedding" /></section>
-        <section v-if="showTimeline && timeline.length" class="champagne-section"><Timeline :timeline="timeline" :events="events" /></section>
-        <section v-if="showCountdown" class="champagne-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" /></section>
-        <section v-if="showGallery && gallery.length" class="champagne-section"><WeddingGallery :gallery="gallery" /></section>
+        <section v-if="showTimeline && timeline.length" class="champagne-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
+        <section v-if="showCountdown" class="champagne-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="champagne-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
-      <section v-if="showGift && gifts.length" class="champagne-section"><WeddingGifts :gifts="gifts" /></section>
-      <section v-if="showGuestBook" class="champagne-section"><WeddingWishes :wishes="wishes" :wedding="wedding" /></section>
+      <section v-if="showGift && gifts.length" class="champagne-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
+      <section v-if="showGuestBook" class="champagne-section"><WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" /></section>
 
-      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
+      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" :sections="sections" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
 
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,12 @@ import WeddingWishes from "@/page/ChampagneBlush/WeddingWishes.vue";
 import WeddingFooter from "@/page/ChampagneBlush/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -144,12 +151,12 @@ onMounted(() => {
 
 <style scoped>
 .champagne-blush-theme {
-  --theme-primary: #6c4b4a;
-  --theme-secondary: #b67f7d;
-  --theme-accent: #ead2b6;
-  --theme-bg: #fffaf7;
+  --theme-primary: var(--tc-6c4b4a, #6c4b4a);
+  --theme-secondary: var(--tc-b67f7d, #b67f7d);
+  --theme-accent: var(--tc-ead2b6, #ead2b6);
+  --theme-bg: var(--tc-fffaf7, #fffaf7);
   --theme-panel: rgba(255,255,255,0.7);
-  --theme-text: #453533;
+  --theme-text: var(--tc-453533, #453533);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -159,21 +166,21 @@ onMounted(() => {
 }
 
 .champagne-invitation { width: 100%; }
-.champagne-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(244,238,232,0.82)); }
+.champagne-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-f4eee8-rgb, 244, 238, 232), 0.82)); }
 .champagne-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .champagne-blush-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .champagne-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(108, 75, 74, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-6c4b4a-rgb, 108, 75, 74), 0.16);
   }
 }
 </style>

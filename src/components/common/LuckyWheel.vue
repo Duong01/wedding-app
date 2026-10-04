@@ -96,9 +96,13 @@ const discStyle = computed(() => {
     return {};
   }
 
-  const a = "var(--primary, #8a7a68)";
+  /*
+   * --solid / --wheel-light: cặp ô đậm–sáng đã kiểm tra
+   * tương phản với chữ trên ô (xem useSectionTheme).
+   */
+  const a = "var(--solid, var(--primary, #8a7a68))";
 
-  const b = "var(--accent-light, #f7d8a3)";
+  const b = "var(--wheel-light, var(--accent-light, #f7d8a3))";
 
   const stops = [];
 
@@ -241,10 +245,10 @@ function finishSpin(index) {
   transform: translateX(-50%);
 
   /*
-   * --text (không phải --primary): theme nền tối có
-   * primary trùng màu nền — kim biến mất.
+   * --sec-heading: màu đã kiểm tra tương phản với nền thật
+   * của thiệp (primary trùng màu nền ở thiệp nền tối).
    */
-  color: var(--text, var(--primary, #8a7a68));
+  color: var(--sec-heading, var(--text, #8a7a68));
 
   font-size: 22px;
   line-height: 1;
@@ -258,7 +262,10 @@ function finishSpin(index) {
 
   border-radius: 50%;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), inset 0 0 0 6px #fff;
+  /* Vành giấy + viền mảnh màu thiệp tách vòng quay khỏi nền */
+  box-shadow: 0 0 0 2px var(--sec-line, transparent),
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 6px var(--card-bg, #fff);
 }
 
 .lucky-wheel__disc {
@@ -279,7 +286,8 @@ function finishSpin(index) {
 
   transform-origin: 0 0;
 
-  color: #fff;
+  /* Ô đậm --solid: chữ kem đã kiểm tra tương phản */
+  color: var(--solid-ink, #fff);
 
   font-size: clamp(9px, 2.6vw, 12px);
   font-weight: 700;
@@ -296,7 +304,7 @@ function finishSpin(index) {
 }
 
 /*
- * Ô lẻ nền accent-light (màu SÁNG) — chữ trắng tàng hình,
+ * Ô lẻ nền --wheel-light (màu SÁNG) — chữ trắng tàng hình,
  * đổi sang mực tối đã kiểm tra tương phản (xem useSectionTheme).
  */
 .lucky-wheel__label--on-light {
@@ -316,12 +324,12 @@ function finishSpin(index) {
 
   transform: translate(-50%, -50%);
 
-  color: #fff;
+  color: var(--btn-ink, #fff);
 
-  border: 3px solid #fff;
+  border: 3px solid var(--card-bg, #fff);
   border-radius: 50%;
 
-  background: var(--primary, #8a7a68);
+  background: var(--btn-bg, var(--primary, #8a7a68));
 
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
 
@@ -350,22 +358,28 @@ function finishSpin(index) {
 
   padding: 16px 22px;
 
-  /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
-  color: var(--card-ink, var(--text, #5c4d46));
+  /*
+   * Khung trong suốt — chữ nằm thẳng trên nền thiệp nên
+   * dùng --sec-* (--card-ink là mực tối, trên thiệp nền
+   * đỏ/đen sẽ tàng hình).
+   */
+  color: var(--sec-text, var(--text, #5c4d46));
 
-  border: 1px dashed var(--accent, #c79d5c);
+  border: 1px dashed var(--sec-line, var(--accent, #c79d5c));
   border-radius: 16px;
 
   /* background: var(--white, #613f3f); */
 }
 
 .lucky-wheel__result-orn {
-  color: var(--accent, #c79d5c);
+  color: var(--sec-eyebrow, var(--accent, #c79d5c));
 
   font-size: 16px;
 }
 
 .lucky-wheel__result strong {
+  color: var(--sec-heading, inherit);
+
   font-family: var(--font-heading, Georgia, serif);
 
   font-size: clamp(17px, 5vw, 22px);
@@ -376,12 +390,12 @@ function finishSpin(index) {
 .lucky-wheel__again {
   padding: 8px 18px;
 
-  color: #fff;
+  color: var(--btn-ink, #fff);
 
   border: 0;
   border-radius: 999px;
 
-  background: var(--primary, #8a7a68);
+  background: var(--btn-bg, var(--primary, #8a7a68));
 
   font-size: 12px;
   font-weight: 700;

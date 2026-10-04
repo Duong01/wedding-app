@@ -7,7 +7,7 @@
       <button type="button" class="back-btn" @click="goHome">
         <v-icon size="16"> mdi-arrow-left </v-icon>
 
-        Trang chủ
+        {{ $t('nav.home') }}
       </button>
     </div>
 
@@ -21,10 +21,13 @@
         <h1>{{ pageTitle }}</h1>
 
         <p class="head-count">
-          <strong>{{ filteredWeddings.length }}</strong>
-          mẫu thiệp
+          <i18n-t keypath="templates.count" tag="span">
+            <template #n>
+              <strong>{{ filteredWeddings.length }}</strong>
+            </template>
+          </i18n-t>
           <span class="head-sep">·</span>
-          Tạo miễn phí, dùng thử 3 ngày
+          {{ $t('templates.headNote') }}
         </p>
       </div>
     </section>
@@ -45,7 +48,7 @@
             <span class="control-icon">◈</span>
 
             <select v-model="styleValue">
-              <option value="">Tất cả phong cách</option>
+              <option value="">{{ $t('templates.allStyles') }}</option>
 
               <option
                 v-for="style in styleOptions"
@@ -72,9 +75,9 @@
             <span class="control-icon">⇅</span>
 
             <select v-model="sortMode">
-              <option value="">Mặc định</option>
-              <option value="noi-bat">Nổi bật</option>
-              <option value="yeu-thich">Được yêu thích</option>
+              <option value="">{{ $t('templates.sortDefault') }}</option>
+              <option value="noi-bat">{{ $t('templates.sortFeatured') }}</option>
+              <option value="yeu-thich">{{ $t('templates.sortLiked') }}</option>
             </select>
 
             <span class="select-arrow">⌄</span>
@@ -97,7 +100,7 @@
             <input
               v-model="q"
               type="search"
-              placeholder="Tìm tên cô dâu, chú rể hoặc phong cách"
+              :placeholder="$t('templates.search')"
             />
 
             <button
@@ -143,7 +146,7 @@
       >
         <div class="state-icon">!</div>
 
-        <h3>Không thể tải mẫu thiệp</h3>
+        <h3>{{ $t('templates.loadFailed') }}</h3>
 
         <p>{{ store.error }}</p>
 
@@ -152,7 +155,7 @@
           class="retry-btn"
           @click="store.loadWeddings()"
         >
-          Thử lại
+          {{ $t('common.retry') }}
         </button>
       </div>
 
@@ -167,10 +170,10 @@
           囍
         </div>
 
-        <h3>Không tìm thấy mẫu phù hợp</h3>
+        <h3>{{ $t('templates.noneTitle') }}</h3>
 
         <p>
-          Hãy thử thay đổi từ khóa, chọn bộ sưu tập hoặc phong cách khác.
+          {{ $t('templates.noneText') }}
         </p>
 
         <button
@@ -178,7 +181,7 @@
           class="retry-btn"
           @click="resetFilters"
         >
-          Xóa bộ lọc
+          {{ $t('templates.clearFilters') }}
         </button>
       </div>
 
@@ -224,7 +227,7 @@
               v-if="getWeddingMeta(wedding).isNew"
               class="new-badge"
             >
-              Mới
+              {{ $t('templates.new') }}
             </span>
 
             <!-- tên thiệp nằm trên ảnh, kiểu gallery -->
@@ -252,7 +255,7 @@
                 </span>
               </div>
 
-              <span class="hover-cta">Xem thiệp →</span>
+              <span class="hover-cta">{{ $t('templates.viewCard') }}</span>
             </div>
 
             <!-- top-right: nút yêu thích -->
@@ -261,7 +264,7 @@
                 type="button"
                 class="favorite-btn"
                 :class="{ 'is-on': isFavorite(wedding) }"
-                aria-label="Yêu thích"
+                :aria-label="$t('templates.favorite')"
                 @click.stop="toggleFavorite(wedding)"
               >
                 <svg
@@ -283,7 +286,7 @@
               class="featured-label"
             >
               <span>{{ getWeddingMeta(wedding).orn }}</span>
-              Được yêu thích
+              {{ $t('templates.sortLiked') }}
             </div>
           </div>
 
@@ -308,6 +311,7 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import {
   computed,
   onMounted,
@@ -334,6 +338,8 @@ import {
 import { BRAND } from "@/data/siteContent";
 import { useSeo } from "@/composables/useSeo";
 import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
+
+const { t } = useI18n();
 
 // ======================================================
 // Router / Store
@@ -667,10 +673,10 @@ const filteredWeddings = computed(() => {
 // ======================================================
 
 const PAGE_TITLES = {
-  Templates: "Mẫu thiệp cưới",
-  TemplatesFeatured: "Mẫu thiệp cưới nổi bật",
-  TemplatesModern: "Thiệp cưới hiện đại",
-  TemplatesTraditional: "Thiệp cưới truyền thống",
+  get Templates() { return t("nav.templatesTitle"); },
+  get TemplatesFeatured() { return t("templates.featured"); },
+  get TemplatesModern() { return t("footer.modern"); },
+  get TemplatesTraditional() { return t("footer.traditional"); },
 };
 
 const pageTitle = computed(
@@ -697,14 +703,14 @@ const SEO_BY_ROUTE = {
     path: "/mau-thiep-cuoi-dep",
   },
   TemplatesModern: {
-    title: "Thiệp cưới hiện đại",
+    get title() { return t("footer.modern"); },
     description:
       "Thiệp cưới online phong cách hiện đại: tối giản, nhiều khoảng trắng, " +
       "nét mực gọn và điểm nhấn tinh tế. Tạo miễn phí, dùng thử 3 ngày.",
     path: "/thiep-cuoi-hien-dai",
   },
   TemplatesTraditional: {
-    title: "Thiệp cưới truyền thống",
+    get title() { return t("footer.traditional"); },
     description:
       "Thiệp cưới online phong cách truyền thống Á Đông: đỏ son, vàng son, " +
       "họa tiết trống đồng và chữ song hỷ. Tạo miễn phí, dùng thử 3 ngày.",
@@ -739,7 +745,7 @@ function templatesJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Mẫu thiệp cưới",
+    get name() { return t("nav.templatesTitle"); },
     numberOfItems: items.length,
     itemListElement: items,
   };
@@ -859,11 +865,11 @@ function toggleFavorite(wedding) {
         (item) => item !== id
       );
 
-    showToast("Đã bỏ khỏi yêu thích");
+    showToast(t("templates.unfavorited"));
   } else {
     favorites.value.push(id);
 
-    showToast("Đã thêm vào yêu thích");
+    showToast(t("templates.favorited"));
   }
 
   localStorage.setItem(

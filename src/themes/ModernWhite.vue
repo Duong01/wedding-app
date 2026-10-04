@@ -10,8 +10,7 @@
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <main v-else class="mw-invitation">
 
@@ -42,7 +41,7 @@
         ================================================ -->
 
         <section v-if="showGallery && gallery.length" class="mw-section">
-          <WeddingGallery :gallery="gallery" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -50,7 +49,7 @@
         ================================================ -->
 
         <section v-if="showCouple" class="mw-section">
-          <WeddingCouple :wedding="wedding" />
+          <WeddingCouple :wedding="wedding" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -58,7 +57,7 @@
         ================================================ -->
 
         <section v-if="showStory && useMilestoneStory" class="mw-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="mw-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="mw-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
         <!-- ===============================================
              THÔNG TIN TIỆC CƯỚI
@@ -68,8 +67,7 @@
           <WeddingEvents
             :events="events"
             :recipient-name="wedding?.recipientName"
-            :settings="settings"
-          />
+            :settings="settings" :sections="sections" />
         </section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
@@ -87,8 +85,7 @@
         <section v-if="showCountdown" class="mw-section">
           <WeddingCountdown
             :countdown="countdownTarget"
-            :wedding-date="wedding?.weddingDate"
-          />
+            :wedding-date="wedding?.weddingDate" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -100,7 +97,7 @@
         ================================================ -->
 
         <section v-if="showTimeline && timeline.length" class="mw-section">
-          <Timeline :timeline="timeline" :events="events" />
+          <Timeline :timeline="timeline" :events="events" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -108,7 +105,7 @@
         ================================================ -->
 
         <section v-if="showDressCode" class="mw-section">
-          <DressCode :dress-code="wedding?.dressCode" />
+          <DressCode :dress-code="wedding?.dressCode" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -116,7 +113,7 @@
         ================================================ -->
 
         <section v-if="showGuestBook" class="mw-section">
-          <WeddingWishes :wishes="wishes" :wedding="wedding" />
+          <WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -124,7 +121,7 @@
         ================================================ -->
 
         <section v-if="showGift && gifts.length" class="mw-section">
-          <WeddingGifts :gifts="gifts" />
+          <WeddingGifts :gifts="gifts" :sections="sections" />
         </section>
 
       </div>
@@ -198,13 +195,16 @@ const props = defineProps({
   },
 });
 
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
+
 const emit = defineEmits(["open"]);
 
 /* ==========================================================
    THEME
 ========================================================== */
 
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 /* ==========================================================
    WEDDING

@@ -38,7 +38,7 @@
       <span></span>
     </div>
 
-    <div class="opening__eyebrow">WEDDING INVITATION</div>
+    <div class="opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "WEDDING INVITATION") }}</div>
 
     <!-- =====================================================
          ENVELOPE
@@ -53,13 +53,13 @@
         <div class="card-border"></div>
 
         <div class="card-content">
-          <div class="card-eyebrow">SAVE THE DATE</div>
+          <div class="card-eyebrow">{{ sectionText(sections, "opening", "Kicker", "SAVE THE DATE") }}</div>
 
           <div class="card-icon">
             <img :src="icon" alt="Biểu tượng cưới" />
           </div>
 
-          <p class="card-invite">Trân trọng kính mời</p>
+          <p class="card-invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
           <h1>{{ guestName }}</h1>
 
@@ -116,7 +116,7 @@
         <v-icon size="17">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="open-button__text">CHẠM ĐỂ MỞ THIỆP</span>
+      <span class="open-button__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
 
       <span class="open-button__arrow">↗</span>
     </button>
@@ -139,11 +139,13 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 import { icon } from "@/page/RomanticPink/romaticpink";
 import flower from "@/assets/glass-garden-pink/flower1-decoration.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: {
     type: Object,
     default: () => ({}),

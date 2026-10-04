@@ -32,7 +32,17 @@
     ====================================================== -->
 
     <div class="tdx-events__inner">
-      <h2 class="tdx-heading">THÔNG TIN TIỆC CƯỚI</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="tdx-top-custom-head">
+        <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+      </header>
+
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="tdx-cd-custom-head">
+        <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="tdx-cd-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
+      </header>
+
+      <h2 class="tdx-heading">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
 
       <article
         v-for="(event, index) in normalizedEvents"
@@ -62,7 +72,7 @@
 
         <!-- ĐẾM NGƯỢC -->
         <div v-if="event.hasDate" class="tdx-countdown">
-          <p class="tdx-countdown__label">CÙNG ĐẾM NGƯỢC</p>
+          <p class="tdx-countdown__label">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</p>
 
           <div class="tdx-countdown__grid">
             <div class="tdx-countdown__cell">
@@ -245,6 +255,7 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
@@ -263,6 +274,7 @@ import {
 } from "./toDuyenXanhAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -1481,5 +1493,71 @@ onBeforeUnmount(() => {
   .tdx-modal-submit {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tdx-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tdx-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tdx-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tdx-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.tdx-cd-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.tdx-cd-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.tdx-cd-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tdx-cd-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

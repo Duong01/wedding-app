@@ -9,7 +9,12 @@
     />
 
     <header class="cr-heading">
-      <h2 class="cr-heading__vi">{{ storyTitle || "Chuyện tình yêu" }}</h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="cr-top-custom-head">
+        <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
+      </header>
+
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
 
       <p class="cr-heading__zh">愛情故事</p>
 
@@ -31,11 +36,12 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { decorativeFlowers } from "./emeraldLuxeAssets";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -209,5 +215,38 @@ const storyTitle = computed(() =>
   .cr-story__tail {
     animation: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.cr-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.cr-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.cr-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.cr-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

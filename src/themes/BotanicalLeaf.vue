@@ -1,5 +1,5 @@
 <template>
-  <div class="botanical-leaf-theme">
+  <div class="botanical-leaf-theme" :style="colorVars">
     <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="botanical-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
@@ -20,7 +20,7 @@
         <section v-if="showGame" class="botanical-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="botanical-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="botanical-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
-        <section v-if="showGallery && gallery.length" class="botanical-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="botanical-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
       <section v-if="showGift && gifts.length" class="botanical-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,9 @@ import WeddingWishes from "@/page/BotanicalLeaf/WeddingWishes.vue";
 import WeddingFooter from "@/page/BotanicalLeaf/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -145,12 +149,12 @@ onMounted(() => {
 
 <style scoped>
 .botanical-leaf-theme {
-  --theme-primary: #3d5a47;
-  --theme-secondary: #7fa389;
-  --theme-accent: #cfe3d2;
-  --theme-bg: #f9fbf9;
+  --theme-primary: var(--tc-3d5a47, #3d5a47);
+  --theme-secondary: var(--tc-7fa389, #7fa389);
+  --theme-accent: var(--tc-cfe3d2, #cfe3d2);
+  --theme-bg: var(--tc-f9fbf9, #f9fbf9);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #2f3a33;
+  --theme-text: var(--tc-2f3a33, #2f3a33);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -160,21 +164,21 @@ onMounted(() => {
 }
 
 .botanical-invitation { width: 100%; }
-.botanical-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(240,246,241,0.8)); }
+.botanical-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-f0f6f1-rgb, 240, 246, 241), 0.8)); }
 .botanical-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .botanical-leaf-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .botanical-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(61, 90, 71, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-3d5a47-rgb, 61, 90, 71), 0.16);
   }
 }
 </style>

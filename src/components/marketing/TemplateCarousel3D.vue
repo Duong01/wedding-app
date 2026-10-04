@@ -12,7 +12,7 @@
       class="carousel__stage"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Bộ sưu tập mẫu thiệp"
+      :aria-label="$t('carousel.label')"
       tabindex="0"
       @keydown="onKeydown"
       @pointerdown="onPointerDown"
@@ -46,7 +46,7 @@
               v-if="item.isNew"
               class="carousel__new"
             >
-              Mới
+              {{ $t('templates.new') }}
             </span>
 
             <span class="carousel__orn" aria-hidden="true">
@@ -54,7 +54,7 @@
             </span>
 
             <div class="carousel__veil">
-              <span>Xem thiệp</span>
+              <span>{{ $t('payment.viewCard') }}</span>
             </div>
           </div>
 
@@ -78,7 +78,7 @@
       <button
         type="button"
         class="carousel__btn"
-        aria-label="Mẫu trước"
+        :aria-label="$t('carousel.prev')"
         @click="prev"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -98,7 +98,7 @@
           type="button"
           class="carousel__dot"
           :class="{ 'is-active': index === activeIndex }"
-          :aria-label="`Tới mẫu ${index + 1}`"
+          :aria-label="$t('carousel.goTo', { n: index + 1 })"
           @click="goTo(index)"
         ></button>
       </div>
@@ -106,7 +106,7 @@
       <button
         type="button"
         class="carousel__btn"
-        aria-label="Mẫu kế tiếp"
+        :aria-label="$t('carousel.next')"
         @click="next"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -121,7 +121,7 @@
     </div>
 
     <p class="carousel__hint">
-      Kéo, dùng phím ← → hoặc bấm vào thiệp hai bên để xoay vòng.
+      {{ $t('carousel.hint') }}
     </p>
   </div>
 </template>

@@ -1,5 +1,11 @@
 <template>
   <section class="sg-events" ref="sectionRef">
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'events', 'Eyebrow') || sectionOverride(sections, 'events', 'Heading')" class="sg-custom-head">
+      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="sg-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+      <h2 v-if="sectionOverride(sections, 'events', 'Heading')" class="sg-custom-head__heading">{{ sectionOverride(sections, "events", "Heading") }}</h2>
+    </header>
+
     <div class="sg-events__list">
       <article
         v-for="(event, index) in normalizedEvents"
@@ -214,6 +220,7 @@
 </template>
 
 <script setup>
+import { sectionOverride } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
@@ -226,6 +233,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -519,14 +527,14 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
-  border: 1px solid rgba(108, 142, 122, 0.35);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.35);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.82), rgba(240, 246, 238, 0.68));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.82), rgba(var(--tc-f0f6ee-rgb, 240, 246, 238), 0.68));
 
-  box-shadow: 0 18px 44px rgba(40, 81, 75, 0.08);
+  box-shadow: 0 18px 44px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.08);
 
   overflow: hidden;
 }
@@ -536,7 +544,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(108, 142, 122, 0.22);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.22);
   border-radius: 20px;
 
   pointer-events: none;
@@ -561,7 +569,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-mini-divider {
@@ -570,14 +578,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-mini-divider span {
   width: 35px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.7));
 }
 
 .sg-mini-divider span:last-child {
@@ -606,7 +614,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-event-main-date {
@@ -626,7 +634,7 @@ onBeforeUnmount(() => {
 
   line-height: 0.85;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-date-side {
@@ -638,21 +646,21 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-date-side strong {
   font-size: 18px;
   font-weight: 600;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-event-lunar {
   font-size: 14px;
   font-style: italic;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 }
 
 /* =====================================================
@@ -669,7 +677,7 @@ onBeforeUnmount(() => {
   margin: 10px auto 0;
   padding: 15px 0;
 
-  border-bottom: 1px solid rgba(108, 142, 122, 0.3);
+  border-bottom: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.3);
 }
 
 .sg-event-time div {
@@ -684,14 +692,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-event-time strong {
   font-size: 23px;
   font-weight: 600;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 /* =====================================================
@@ -719,7 +727,7 @@ onBeforeUnmount(() => {
 
   width: 1px;
 
-  background: rgba(143, 174, 155, 0.45);
+  background: rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.45);
 }
 
 .sg-schedule-row {
@@ -744,9 +752,9 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #5a6e62;
+  border: 1px solid var(--tc-5a6e62, #5a6e62);
 
-  background: #f5f8f4;
+  background: var(--tc-f5f8f4, #f5f8f4);
 
   z-index: 2;
 }
@@ -754,7 +762,7 @@ onBeforeUnmount(() => {
 .sg-schedule-dot span {
   font-size: 11px;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-schedule-content {
@@ -771,14 +779,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 }
 
 .sg-schedule-content strong {
   font-size: 21px;
   font-weight: 600;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 /* =====================================================
@@ -809,7 +817,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-calendar__header strong {
@@ -817,7 +825,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.1em;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-calendar__weekdays,
@@ -833,14 +841,14 @@ onBeforeUnmount(() => {
 .sg-calendar__weekdays {
   padding-bottom: 8px;
 
-  border-bottom: 1px solid rgba(108, 142, 122, 0.25);
+  border-bottom: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.25);
 }
 
 .sg-calendar__weekdays span {
   font-size: 10px;
   font-weight: 700;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-calendar__cell {
@@ -854,7 +862,7 @@ onBeforeUnmount(() => {
 .sg-normal-day {
   font-size: 12px;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 }
 
 .sg-active-day {
@@ -873,7 +881,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-active-day span:last-child {
@@ -881,7 +889,7 @@ onBeforeUnmount(() => {
 
   font-weight: 700;
 
-  color: #f2f8f0;
+  color: var(--tc-f2f8f0, #f2f8f0);
 }
 
 .sg-calendar-btn {
@@ -899,7 +907,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 /* =====================================================
@@ -921,11 +929,11 @@ onBeforeUnmount(() => {
   border: 0;
   border-radius: 999px;
 
-  color: #f2f8f0;
+  color: var(--tc-f2f8f0, #f2f8f0);
 
-  background: linear-gradient(135deg, #567262, #3f6f63);
+  background: linear-gradient(135deg, var(--tc-567262, #567262), var(--tc-3f6f63, #3f6f63));
 
-  box-shadow: 0 10px 24px rgba(40, 81, 75, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.24);
 
   font-size: 11px;
   font-weight: 700;
@@ -940,7 +948,7 @@ onBeforeUnmount(() => {
 .sg-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(40, 81, 75, 0.32);
+  box-shadow: 0 14px 30px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.32);
 }
 
 /* =====================================================
@@ -957,14 +965,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-event-bottom span {
   width: 60px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.6));
 }
 
 .sg-event-bottom span:last-child {
@@ -1011,7 +1019,7 @@ onBeforeUnmount(() => {
 
   padding: 20px;
 
-  background: rgba(30, 58, 52, 0.45);
+  background: rgba(var(--tc-1e3a34-rgb, 30, 58, 52), 0.45);
 
   backdrop-filter: blur(6px);
 }
@@ -1027,16 +1035,16 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(108, 142, 122, 0.5);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.5);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, #fbfdfa, #edf4eb);
+  background: linear-gradient(170deg, var(--tc-fbfdfa, #fbfdfa), var(--tc-edf4eb, #edf4eb));
 
-  box-shadow: 0 30px 80px rgba(30, 58, 52, 0.3);
+  box-shadow: 0 30px 80px rgba(var(--tc-1e3a34-rgb, 30, 58, 52), 0.3);
 
   text-align: center;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-modal-close {
@@ -1051,7 +1059,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   background: transparent;
 
@@ -1067,7 +1075,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-modal-header > span {
@@ -1075,7 +1083,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-modal-header h3 {
@@ -1086,7 +1094,7 @@ onBeforeUnmount(() => {
   font-size: 32px;
   font-weight: 600;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-modal-header p {
@@ -1094,7 +1102,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 }
 
 /* =====================================================
@@ -1117,7 +1125,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-form-group input {
@@ -1125,24 +1133,24 @@ onBeforeUnmount(() => {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(108, 142, 122, 0.4);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.4);
   border-radius: 12px;
 
   outline: none;
 
   font-size: 16px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
-  background: rgba(251, 253, 250, 0.9);
+  background: rgba(var(--tc-fbfdfa-rgb, 251, 253, 250), 0.9);
 
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .sg-form-group input:focus {
-  border-color: #567262;
+  border-color: var(--tc-567262, #567262);
 
-  box-shadow: 0 0 0 3px rgba(108, 142, 122, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.14);
 }
 
 .sg-attendance {
@@ -1154,16 +1162,16 @@ onBeforeUnmount(() => {
 .sg-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(108, 142, 122, 0.4);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.4);
   border-radius: 12px;
 
   text-align: left;
 
   font-size: 13px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
-  background: rgba(251, 253, 250, 0.8);
+  background: rgba(var(--tc-fbfdfa-rgb, 251, 253, 250), 0.8);
 
   cursor: pointer;
 
@@ -1171,9 +1179,9 @@ onBeforeUnmount(() => {
 }
 
 .sg-attendance-option.selected {
-  border-color: #567262;
+  border-color: var(--tc-567262, #567262);
 
-  background: rgba(108, 142, 122, 0.12);
+  background: rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.12);
 
   font-weight: 600;
 }
@@ -1181,7 +1189,7 @@ onBeforeUnmount(() => {
 .sg-attendance-option span {
   margin-right: 8px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-people-control {
@@ -1195,14 +1203,14 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #5a6e62;
+  border: 1px solid var(--tc-5a6e62, #5a6e62);
   border-radius: 50%;
 
   font-size: 20px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
-  background: #f5f8f4;
+  background: var(--tc-f5f8f4, #f5f8f4);
 
   cursor: pointer;
 }
@@ -1214,7 +1222,7 @@ onBeforeUnmount(() => {
 
   font-size: 18px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-recipient-box {
@@ -1222,12 +1230,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px dashed rgba(108, 142, 122, 0.5);
+  border: 1px dashed rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.5);
   border-radius: 16px;
 
   text-align: center;
 
-  background: rgba(245, 248, 244, 0.7);
+  background: rgba(var(--tc-f5f8f4-rgb, 245, 248, 244), 0.7);
 }
 
 .sg-recipient-box span {
@@ -1237,7 +1245,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 }
 
 .sg-recipient-box strong {
@@ -1248,7 +1256,7 @@ onBeforeUnmount(() => {
   font-size: 28px;
   font-weight: 400;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-form-error,
@@ -1271,9 +1279,9 @@ onBeforeUnmount(() => {
 }
 
 .sg-form-success {
-  color: #3f6f63;
+  color: var(--tc-3f6f63, #3f6f63);
 
-  background: rgba(63, 111, 99, 0.08);
+  background: rgba(var(--tc-3f6f63-rgb, 63, 111, 99), 0.08);
 }
 
 .sg-modal-submit {
@@ -1291,11 +1299,11 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #f2f8f0;
+  color: var(--tc-f2f8f0, #f2f8f0);
 
-  background: linear-gradient(135deg, #567262, #3f6f63);
+  background: linear-gradient(135deg, var(--tc-567262, #567262), var(--tc-3f6f63, #3f6f63));
 
-  box-shadow: 0 10px 24px rgba(40, 81, 75, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.24);
 
   cursor: pointer;
 
@@ -1413,5 +1421,38 @@ onBeforeUnmount(() => {
   .sg-modal-submit {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.sg-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.sg-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-567262, #567262);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.sg-custom-head__heading {
+  margin: 0;
+  color: var(--tc-28514b, #28514b);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.sg-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: var(--tc-567262, #567262);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

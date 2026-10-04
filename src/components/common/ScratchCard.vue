@@ -163,17 +163,26 @@ function drawCover() {
 
   ctx.scale(dpr, dpr);
 
+  /*
+   * Màu lớp cào theo thiệp — đọc biến CSS GameSection gắn
+   * (useSectionTheme); thiếu biến thì giữ bạc xám cũ.
+   */
+  const styles = getComputedStyle(canvas);
+
+  const cssVar = (name, fallback) =>
+    styles.getPropertyValue(name).trim() || fallback;
+
   const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
 
-  gradient.addColorStop(0, "#b8b2a6");
-  gradient.addColorStop(0.5, "#d8d2c6");
-  gradient.addColorStop(1, "#a9a294");
+  gradient.addColorStop(0, cssVar("--scratch-a", "#b8b2a6"));
+  gradient.addColorStop(0.5, cssVar("--scratch-b", "#d8d2c6"));
+  gradient.addColorStop(1, cssVar("--scratch-c", "#a9a294"));
 
   ctx.fillStyle = gradient;
 
   ctx.fillRect(0, 0, rect.width, rect.height);
 
-  ctx.fillStyle = "rgba(92, 77, 70, 0.55)";
+  ctx.fillStyle = cssVar("--scratch-ink", "rgba(92, 77, 70, 0.55)");
 
   ctx.font = `700 ${Math.max(11, rect.width / 22)}px sans-serif`;
 
@@ -326,10 +335,10 @@ function reset() {
 
   padding: 22px 16px;
 
-  border: 1px solid var(--accent, #c79d5c);
+  border: 1px solid var(--card-line, var(--accent, #c79d5c));
   border-radius: 16px;
 
-  background: var(--white, #fffaf4);
+  background: var(--card-bg, var(--white, #fffaf4));
 }
 
 .scratch-card__orn {
@@ -338,7 +347,7 @@ function reset() {
 
 .scratch-card__prize {
   /* --card-ink: mực tối đã kiểm tra tương phản với card sáng */
-  color: var(--card-ink, var(--heading, var(--primary, #8a7a68)));
+  color: var(--card-heading, var(--card-ink, var(--primary, #8a7a68)));
 
   font-family: var(--font-heading, Georgia, serif);
 
@@ -390,32 +399,48 @@ function reset() {
 
   border-radius: 16px;
 
-  background: linear-gradient(135deg, #b8b2a6, #d8d2c6, #a9a294);
+  /* Lớp cào ánh kim theo màu nhấn của thiệp (useSectionTheme) */
+  background: linear-gradient(
+    135deg,
+    var(--scratch-a, #b8b2a6),
+    var(--scratch-b, #d8d2c6),
+    var(--scratch-c, #a9a294)
+  );
 }
 
 .scratch-card__hint {
-  color: rgba(92, 77, 70, 0.8);
+  color: var(--scratch-ink, #5c4d46);
 
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
 }
 
+/*
+ * Nút trên lớp cào sáng: khối đậm --solid. Nút bên dưới
+ * thẻ nằm trên nền thiệp: --btn-* (nền tối → khối vàng).
+ */
 .scratch-card__button,
 .scratch-card__claim,
 .scratch-card__again {
   padding: 9px 22px;
 
-  color: #fff;
+  color: var(--btn-ink, #fff);
   border: 0;
   border-radius: 999px;
 
-  background: var(--primary, #8a7a68);
+  background: var(--btn-bg, var(--primary, #8a7a68));
 
   font-size: 12px;
   font-weight: 700;
 
   cursor: pointer;
+}
+
+.scratch-card__button {
+  color: var(--solid-ink, #fff);
+
+  background: var(--solid, var(--primary, #8a7a68));
 }
 
 .scratch-card__actions {

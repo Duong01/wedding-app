@@ -342,13 +342,13 @@ async function submitWish() {
 
 <style scoped>
 .dh-wishes {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-red-dark: #5c0e10;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-ink: #5a3d2e;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-red-dark: var(--tc-5c0e10, #5c0e10);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-ink: var(--tc-5a3d2e, #5a3d2e);
 
   position: relative;
 
@@ -361,9 +361,9 @@ async function submitWish() {
 
   color: var(--dh-ink);
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
+  background: linear-gradient(170deg, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.97), rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.93));
 
-  box-shadow: 0 12px 35px rgba(60, 10, 12, 0.1), inset 0 0 0 1px rgba(255, 252, 244, 0.7);
+  box-shadow: 0 12px 35px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.1), inset 0 0 0 1px rgba(var(--tc-fffcf4-rgb, 255, 252, 244), 0.7);
 
   border-radius: 14px;
 
@@ -376,7 +376,7 @@ async function submitWish() {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(217, 164, 65, 0.32);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.32);
   border-radius: 9px;
 
   pointer-events: none;
@@ -403,7 +403,7 @@ async function submitWish() {
   width: 45px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.75));
 }
 
 .dh-wishes__ornament span:last-child {
@@ -451,7 +451,7 @@ async function submitWish() {
 
   margin: 0 0 25px;
 
-  color: #6e5542;
+  color: var(--tc-6e5542, #6e5542);
 
   font-size: 13px;
 
@@ -474,11 +474,11 @@ async function submitWish() {
 
   max-width: 460px;
 
-  background: linear-gradient(170deg, rgba(255, 253, 250, 0.97), rgba(253, 246, 236, 0.94));
+  background: linear-gradient(170deg, rgba(var(--tc-fffdfa-rgb, 255, 253, 250), 0.97), rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.94));
 
-  box-shadow: 0 8px 25px rgba(60, 10, 12, 0.08);
+  box-shadow: 0 8px 25px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.08);
 
-  border: 1px solid rgba(217, 164, 65, 0.35);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.35);
   border-radius: 12px;
 
   overflow: hidden;
@@ -496,7 +496,7 @@ async function submitWish() {
 
   transform: translateX(-50%);
 
-  background: radial-gradient(circle, rgba(243, 217, 164, 0.32), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.32), transparent 70%);
 
   pointer-events: none;
 }
@@ -567,7 +567,7 @@ async function submitWish() {
 
   padding: 10px 12px;
 
-  border: 1px solid rgba(217, 164, 65, 0.35);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.35);
   border-radius: 10px;
 
   background: rgba(255, 255, 255, 0.7);
@@ -577,11 +577,11 @@ async function submitWish() {
 
 .dh-input-wrap:focus-within,
 .dh-textarea-wrap:focus-within {
-  border-color: rgba(163, 42, 42, 0.6);
+  border-color: rgba(var(--tc-a32a2a-rgb, 163, 42, 42), 0.6);
 
   background: rgba(255, 255, 255, 0.92);
 
-  box-shadow: 0 0 0 3px rgba(163, 42, 42, 0.1);
+  box-shadow: 0 0 0 3px rgba(var(--tc-a32a2a-rgb, 163, 42, 42), 0.1);
 }
 
 .dh-input-wrap .v-icon,
@@ -651,14 +651,14 @@ async function submitWish() {
 
   padding: 12px 18px;
 
-  border: 1px solid rgba(243, 217, 164, 0.65);
+  border: 1px solid rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.65);
   border-radius: 999px;
 
   color: var(--dh-red-dark);
 
-  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, #c08f34);
+  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, var(--tc-c08f34, #c08f34));
 
-  box-shadow: 0 7px 16px rgba(60, 10, 12, 0.22);
+  box-shadow: 0 7px 16px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.22);
 
   font-size: 10px;
   font-weight: 700;
@@ -673,7 +673,7 @@ async function submitWish() {
 .dh-wish-submit:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 10px 20px rgba(60, 10, 12, 0.3);
+  box-shadow: 0 10px 20px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.3);
 }
 
 .dh-wish-submit:active:not(:disabled) {
@@ -714,7 +714,7 @@ async function submitWish() {
 
   background: rgba(255, 255, 255, 0.5);
 
-  border: 1px solid rgba(217, 164, 65, 0.4);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.4);
   border-radius: 50%;
 }
 
@@ -762,7 +762,7 @@ async function submitWish() {
 
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.45));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.45));
 }
 
 .dh-list-heading > span:last-child {
@@ -802,12 +802,12 @@ async function submitWish() {
 
   text-align: left;
 
-  border: 1px solid rgba(217, 164, 65, 0.28);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.28);
   border-radius: 12px;
 
-  background: linear-gradient(170deg, rgba(255, 253, 250, 0.97), rgba(253, 246, 236, 0.94));
+  background: linear-gradient(170deg, rgba(var(--tc-fffdfa-rgb, 255, 253, 250), 0.97), rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.94));
 
-  box-shadow: 0 5px 17px rgba(60, 10, 12, 0.06);
+  box-shadow: 0 5px 17px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.06);
 
   overflow: hidden;
 
@@ -817,7 +817,7 @@ async function submitWish() {
 .dh-wish-card:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 9px 23px rgba(60, 10, 12, 0.11);
+  box-shadow: 0 9px 23px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.11);
 }
 
 .dh-card-seal {
@@ -853,7 +853,7 @@ async function submitWish() {
 
   color: var(--dh-cream);
 
-  background: linear-gradient(145deg, var(--dh-red-bright), var(--dh-red) 70%, #6a1013);
+  background: linear-gradient(145deg, var(--dh-red-bright), var(--dh-red) 70%, var(--tc-6a1013, #6a1013));
 
   border-radius: 50%;
 
@@ -862,7 +862,7 @@ async function submitWish() {
   font-size: 17px;
   font-weight: 600;
 
-  box-shadow: inset 0 0 0 2px rgba(243, 217, 164, 0.4);
+  box-shadow: inset 0 0 0 2px rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.4);
 }
 
 .dh-wish-content {
@@ -895,7 +895,7 @@ async function submitWish() {
 }
 
 .dh-wish-header span {
-  color: #6a4e3c;
+  color: var(--tc-6a4e3c, #6a4e3c);
 
   font-size: 10px;
 }
@@ -914,7 +914,7 @@ async function submitWish() {
   margin: 5px 0 0;
   padding-right: 8px;
 
-  color: #6a4e3c;
+  color: var(--tc-6a4e3c, #6a4e3c);
 
   font-size: 12px;
 
@@ -965,7 +965,7 @@ async function submitWish() {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.6));
 }
 
 .dh-wishes__bottom span:last-child {
@@ -987,14 +987,14 @@ async function submitWish() {
 
   overflow: hidden;
 
-  border-top: 1px solid rgba(217, 164, 65, 0.25);
-  border-bottom: 1px solid rgba(217, 164, 65, 0.25);
+  border-top: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.25);
+  border-bottom: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.25);
 
   background: linear-gradient(
     90deg,
-    rgba(253, 246, 236, 0.9),
-    rgba(243, 217, 164, 0.5),
-    rgba(253, 246, 236, 0.9)
+    rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.9),
+    rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.5),
+    rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.9)
   );
 }
 
@@ -1016,7 +1016,7 @@ async function submitWish() {
 
   color: var(--dh-red);
 
-  background: linear-gradient(90deg, rgba(253, 246, 236, 1) 72%, rgba(253, 246, 236, 0));
+  background: linear-gradient(90deg, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 1) 72%, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0));
 
   pointer-events: none;
 }
@@ -1069,7 +1069,7 @@ async function submitWish() {
 
   padding-right: 30px;
 
-  color: #6a4e3c;
+  color: var(--tc-6a4e3c, #6a4e3c);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -1094,7 +1094,7 @@ async function submitWish() {
 }
 
 .dh-wish-marquee-item em {
-  color: #6e5542;
+  color: var(--tc-6e5542, #6e5542);
 
   font-style: italic;
 

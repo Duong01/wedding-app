@@ -2,15 +2,15 @@
   <section class="mk-section mk-section--alt">
     <div class="mk-container">
       <header class="mk-head mk-head--center">
-        <p class="mk-eyebrow">Khách hàng nói gì</p>
+        <p class="mk-eyebrow">{{ $t('testi.eyebrow') }}</p>
 
         <h2>
-          Hơn mười hai nghìn cặp đôi
-          <em>đã gửi thiệp qua đây.</em>
+          {{ $t('testi.h2a') }}
+          <em>{{ $t('testi.h2b') }}</em>
         </h2>
       </header>
 
-      <RailHint text="Vuốt ngang để đọc thêm đánh giá" />
+      <RailHint :text="$t('testi.swipe')" />
 
       <div class="quotes mk-rail">
         <figure

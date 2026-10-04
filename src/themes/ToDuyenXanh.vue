@@ -9,8 +9,7 @@
       :wedding="wedding"
       :monogram="monogram"
       :date-label="openDateLabel"
-      @open="handleOpen"
-    />
+      @open="handleOpen" :sections="sections" />
 
     <!-- =====================================================
          THIỆP
@@ -30,16 +29,15 @@
 
       <!-- ============ NỘI DUNG ============ -->
 
-      <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" />
+      <WeddingCouple v-if="showCouple" :wedding="wedding" :guest-name="guestName" :sections="sections" />
 
-      <WeddingGallery v-if="showGallery && gallery.length" :gallery="gallery" />
+      <WeddingGallery :layout="wedding?.settings?.GalleryLayout" v-if="showGallery && gallery.length" :gallery="gallery" :sections="sections" />
 
       <WeddingEvents
         v-if="showEvents && events.length"
         :events="events"
         :recipient-name="wedding?.recipientName"
-        :settings="settings"
-      />
+        :settings="settings" :sections="sections" />
 
       <!-- ============ VIDEO CƯỚI ============ -->
 
@@ -49,11 +47,11 @@
 
       <GameSection v-if="showGame" :wedding="wedding" />
 
-      <DressCode v-if="showDressCode" />
+      <DressCode v-if="showDressCode" :sections="sections" />
 
-      <Timeline v-if="showTimeline && timeline.length" :timeline="timeline" :events="events" />
+      <Timeline v-if="showTimeline && timeline.length" :timeline="timeline" :events="events" :sections="sections" />
 
-      <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" />
+      <WeddingWishes v-if="showGuestBook" :wishes="wishes" :wedding="wedding" :sections="sections" />
 
       <StoryMilestones
         v-if="showStory && useMilestoneStory"
@@ -62,10 +60,9 @@
 
       <WeddingStory
         v-else-if="showStory && wedding?.story"
-        :story="wedding.story"
-      />
+        :story="wedding.story" :sections="sections" />
 
-      <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" />
+      <WeddingGifts v-if="showGift && gifts.length" :gifts="gifts" :sections="sections" />
 
       <WeddingFooter
         v-if="showFooter"
@@ -109,6 +106,9 @@ import WeddingFooter from "@/page/ToDuyenXanh/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
 
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
+
 const emit = defineEmits(["open"]);
 
 const wedding = computed(() => props.wedding || {});
@@ -117,7 +117,7 @@ const wedding = computed(() => props.wedding || {});
  * Bảng màu / font lấy từ theme của thiệp (xem useWeddingTheme),
  * fallback về tông "tơ duyên xanh" khi dữ liệu chưa có.
  */
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 /*
  * Ưu tiên nhạc từ wedding.music (panel Nhạc).

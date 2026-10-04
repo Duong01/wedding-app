@@ -161,14 +161,14 @@ function openInvitation() {
 
 <style scoped>
 .dh-opening {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-red-dark: #5c0e10;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-ink: #5a3d2e;
-  --dh-cream-on-red: #f7e6c4;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-red-dark: var(--tc-5c0e10, #5c0e10);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-ink: var(--tc-5a3d2e, #5a3d2e);
+  --dh-cream-on-red: var(--tc-f7e6c4, #f7e6c4);
 
   position: relative;
   isolation: isolate;
@@ -186,7 +186,7 @@ function openInvitation() {
 
   color: var(--dh-ink);
 
-  background: linear-gradient(168deg, #8f1a1e 0%, var(--dh-red) 46%, var(--dh-red-dark) 100%);
+  background: linear-gradient(168deg, var(--tc-8f1a1e, #8f1a1e) 0%, var(--dh-red) 46%, var(--dh-red-dark) 100%);
 }
 
 /* =========================================================
@@ -199,9 +199,9 @@ function openInvitation() {
   z-index: -6;
 
   background:
-    radial-gradient(ellipse at 50% 12%, rgba(243, 217, 164, 0.16), transparent 46%),
-    radial-gradient(ellipse at 10% 88%, rgba(92, 14, 16, 0.75), transparent 52%),
-    radial-gradient(ellipse at 90% 80%, rgba(163, 42, 42, 0.4), transparent 48%);
+    radial-gradient(ellipse at 50% 12%, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.16), transparent 46%),
+    radial-gradient(ellipse at 10% 88%, rgba(var(--tc-5c0e10-rgb, 92, 14, 16), 0.75), transparent 52%),
+    radial-gradient(ellipse at 90% 80%, rgba(var(--tc-a32a2a-rgb, 163, 42, 42), 0.4), transparent 48%);
 }
 
 /* Subtle diamond lattice pattern */
@@ -214,8 +214,8 @@ function openInvitation() {
   opacity: 0.5;
 
   background-image:
-    repeating-linear-gradient(45deg, rgba(243, 217, 164, 0.06) 0 1px, transparent 1px 16px),
-    repeating-linear-gradient(-45deg, rgba(243, 217, 164, 0.06) 0 1px, transparent 1px 16px);
+    repeating-linear-gradient(45deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.06) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(-45deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.06) 0 1px, transparent 1px 16px);
 
   pointer-events: none;
 }
@@ -229,7 +229,7 @@ function openInvitation() {
 
   transform: translate(-50%, -52%);
 
-  color: rgba(217, 164, 65, 0.14);
+  color: rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.14);
 
   font-size: clamp(300px, 96vw, 520px);
   line-height: 1;
@@ -277,7 +277,7 @@ function openInvitation() {
   width: 1px;
   height: 44px;
 
-  background: linear-gradient(180deg, rgba(217, 164, 65, 0.12), rgba(217, 164, 65, 0.8));
+  background: linear-gradient(180deg, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.12), rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.8));
 }
 
 .dh-lantern__cap {
@@ -305,11 +305,11 @@ function openInvitation() {
   border-radius: 24px / 28px;
 
   background:
-    repeating-linear-gradient(90deg, rgba(243, 217, 164, 0.16) 0 2px, transparent 2px 12px),
-    radial-gradient(circle at 35% 28%, #c23a35, var(--dh-red-bright) 55%, var(--dh-red) 100%);
+    repeating-linear-gradient(90deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.16) 0 2px, transparent 2px 12px),
+    radial-gradient(circle at 35% 28%, var(--tc-c23a35, #c23a35), var(--dh-red-bright) 55%, var(--dh-red) 100%);
 
   box-shadow:
-    inset 0 0 0 2px rgba(243, 217, 164, 0.28),
+    inset 0 0 0 2px rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.28),
     0 12px 26px rgba(40, 6, 8, 0.45);
 }
 
@@ -323,7 +323,7 @@ function openInvitation() {
   align-items: center;
   justify-content: center;
 
-  color: rgba(243, 217, 164, 0.85);
+  color: rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.85);
 
   font-size: 20px;
 }
@@ -332,7 +332,7 @@ function openInvitation() {
   width: 2px;
   height: 24px;
 
-  background: linear-gradient(180deg, var(--dh-gold), rgba(217, 164, 65, 0.15));
+  background: linear-gradient(180deg, var(--dh-gold), rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.15));
 }
 
 /* =========================================================
@@ -370,14 +370,14 @@ function openInvitation() {
 
   padding: 3px;
 
-  border: 1px solid rgba(217, 164, 65, 0.75);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.75);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
+  background: linear-gradient(170deg, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.97), rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.93));
 
   box-shadow:
     0 26px 60px rgba(30, 4, 6, 0.5),
-    0 0 0 5px rgba(217, 164, 65, 0.14);
+    0 0 0 5px rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.14);
 
   animation: dh-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -388,7 +388,7 @@ function openInvitation() {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(217, 164, 65, 0.45);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.45);
   border-radius: 9px;
 
   pointer-events: none;
@@ -405,7 +405,7 @@ function openInvitation() {
 
   transform: rotate(45deg);
 
-  box-shadow: 0 0 0 2px rgba(253, 246, 236, 0.9);
+  box-shadow: 0 0 0 2px rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.9);
 }
 
 .dh-card__corner--tl { top: -5px; left: -5px; }
@@ -435,11 +435,11 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  background: radial-gradient(circle at 34% 30%, #e8bd6b, var(--dh-gold) 58%, #a9782a 100%);
+  background: radial-gradient(circle at 34% 30%, var(--tc-e8bd6b, #e8bd6b), var(--dh-gold) 58%, #a9782a 100%);
 
   box-shadow:
-    0 10px 24px rgba(140, 95, 25, 0.45),
-    inset 0 0 0 3px rgba(253, 246, 236, 0.4);
+    0 10px 24px rgba(var(--tc-8c5f19-rgb, 140, 95, 25), 0.45),
+    inset 0 0 0 3px rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.4);
 
   animation: dh-seal-pulse 3.2s ease-in-out infinite;
 }
@@ -449,7 +449,7 @@ function openInvitation() {
   position: absolute;
   inset: 6px;
 
-  border: 1px dashed rgba(253, 246, 236, 0.6);
+  border: 1px dashed rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.6);
   border-radius: 50%;
 }
 
@@ -458,9 +458,9 @@ function openInvitation() {
 
   font-size: 26px;
 
-  color: #fff8ea;
+  color: var(--tc-fff8ea, #fff8ea);
 
-  text-shadow: 0 1px 2px rgba(120, 80, 20, 0.45);
+  text-shadow: 0 1px 2px rgba(var(--tc-785014-rgb, 120, 80, 20), 0.45);
 }
 
 .dh-card__invite {
@@ -507,7 +507,7 @@ function openInvitation() {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.8));
 }
 
 .dh-card__divider span:last-child {
@@ -545,10 +545,10 @@ function openInvitation() {
 
   padding: 8px 18px;
 
-  border: 1px solid rgba(217, 164, 65, 0.55);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.55);
   border-radius: 999px;
 
-  background: rgba(253, 246, 236, 0.8);
+  background: rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.8);
 
   color: var(--dh-red-bright);
 
@@ -576,16 +576,16 @@ function openInvitation() {
 
   padding: 13px 28px;
 
-  border: 1px solid rgba(243, 217, 164, 0.65);
+  border: 1px solid rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.65);
   border-radius: 999px;
 
   color: var(--dh-red-dark);
 
-  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, #c08f34);
+  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, var(--tc-c08f34, #c08f34));
 
   box-shadow:
     0 14px 30px rgba(30, 4, 6, 0.45),
-    inset 0 1px 0 rgba(255, 250, 238, 0.7);
+    inset 0 1px 0 rgba(var(--tc-fffaee-rgb, 255, 250, 238), 0.7);
 
   font-size: 10px;
   font-weight: 700;
@@ -635,7 +635,7 @@ function openInvitation() {
 
   margin: 22px 0 0;
 
-  color: rgba(247, 230, 196, 0.75);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.75);
 
   font-size: 10px;
   font-style: italic;
@@ -658,7 +658,7 @@ function openInvitation() {
   width: 34px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.7));
 }
 
 .dh-hint__line:last-child {

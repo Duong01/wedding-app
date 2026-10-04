@@ -6,14 +6,11 @@
       <span></span>
     </div>
 
-    <p class="sp-eyebrow">LỜI CHÚC TỪ BẠN</p>
+    <p class="sp-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</p>
 
-    <h2>Sổ lưu bút</h2>
+    <h2>{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
 
-    <p class="sp-wishes__intro">
-      Mỗi lời chúc là một kỷ niệm đẹp<br />
-      mà chúng mình muốn lưu giữ trong ngày đặc biệt này
-    </p>
+    <p class="sp-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
 
     <!-- =========================================
          WISH FORM
@@ -180,11 +177,13 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: { type: Array, default: () => [] },
   wedding: { type: Object, default: () => ({}) },
 });
@@ -332,11 +331,11 @@ async function submitWish() {
 
   text-align: center;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.6), rgba(255, 242, 232, 0.45));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.6), rgba(var(--tc-fff2e8-rgb, 255, 242, 232), 0.45));
 
-  box-shadow: 0 12px 35px rgba(122, 74, 61, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 12px 35px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
 
   border-radius: 28px;
 
@@ -348,7 +347,7 @@ async function submitWish() {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(224, 163, 126, 0.32);
+  border: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.32);
   border-radius: 22px;
 
   pointer-events: none;
@@ -368,14 +367,14 @@ async function submitWish() {
 
   margin-bottom: 11px;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 }
 
 .sp-wishes__ornament span {
   width: 45px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(224, 163, 126, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.7));
 }
 
 .sp-wishes__ornament span:last-child {
@@ -391,7 +390,7 @@ async function submitWish() {
 
   margin: 0;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 10px;
   font-weight: 700;
@@ -410,15 +409,17 @@ async function submitWish() {
   font-size: clamp(28px, 7vw, 35px);
   font-weight: 600;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 }
 
 .sp-wishes__intro {
+  white-space: pre-line;
+
   position: relative;
 
   margin: 0 0 25px;
 
-  color: #846859;
+  color: var(--tc-846859, #846859);
 
   font-size: 13px;
 
@@ -438,9 +439,9 @@ async function submitWish() {
 
   max-width: 460px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.75), rgba(255, 242, 232, 0.6));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.75), rgba(var(--tc-fff2e8-rgb, 255, 242, 232), 0.6));
 
-  box-shadow: 0 8px 25px rgba(122, 74, 61, 0.07);
+  box-shadow: 0 8px 25px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.07);
 
   border-radius: 20px;
 
@@ -459,7 +460,7 @@ async function submitWish() {
 
   transform: translateX(-50%);
 
-  background: radial-gradient(circle, rgba(244, 198, 169, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-f4c6a9-rgb, 244, 198, 169), 0.35), transparent 70%);
 
   pointer-events: none;
 }
@@ -467,7 +468,7 @@ async function submitWish() {
 .sp-form-decoration {
   position: absolute;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 
   opacity: 0.65;
 
@@ -487,14 +488,14 @@ async function submitWish() {
 
   margin-bottom: 18px;
 
-  color: #af5744;
+  color: var(--tc-af5744, #af5744);
 
   font-size: 13px;
   font-weight: 600;
 }
 
 .sp-form-title .v-icon {
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 }
 
 /* =========================================================
@@ -514,7 +515,7 @@ async function submitWish() {
 
   margin: 0 0 5px 5px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 10px;
   font-weight: 700;
@@ -530,7 +531,7 @@ async function submitWish() {
 
   padding: 10px 12px;
 
-  border: 1px solid rgba(214, 122, 99, 0.3);
+  border: 1px solid rgba(var(--tc-d67a63-rgb, 214, 122, 99), 0.3);
   border-radius: 12px;
 
   background: rgba(255, 255, 255, 0.7);
@@ -540,11 +541,11 @@ async function submitWish() {
 
 .sp-input-wrap:focus-within,
 .sp-textarea-wrap:focus-within {
-  border-color: rgba(214, 122, 99, 0.6);
+  border-color: rgba(var(--tc-d67a63-rgb, 214, 122, 99), 0.6);
 
   background: rgba(255, 255, 255, 0.92);
 
-  box-shadow: 0 0 0 3px rgba(214, 122, 99, 0.1);
+  box-shadow: 0 0 0 3px rgba(var(--tc-d67a63-rgb, 214, 122, 99), 0.1);
 }
 
 .sp-input-wrap .v-icon,
@@ -553,7 +554,7 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 }
 
 .sp-wishes input,
@@ -563,7 +564,7 @@ async function submitWish() {
   border: 0;
   outline: 0;
 
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
   background: transparent;
 
@@ -574,7 +575,7 @@ async function submitWish() {
 
 .sp-wishes input::placeholder,
 .sp-wishes textarea::placeholder {
-  color: #7f685b;
+  color: var(--tc-7f685b, #7f685b);
 }
 
 .sp-wishes textarea {
@@ -591,7 +592,7 @@ async function submitWish() {
   right: 7px;
   bottom: -15px;
 
-  color: #7f685b;
+  color: var(--tc-7f685b, #7f685b);
 
   font-size: 10px;
 }
@@ -617,11 +618,11 @@ async function submitWish() {
   border: 0;
   border-radius: 999px;
 
-  color: #fff6ef;
+  color: var(--tc-fff6ef, #fff6ef);
 
-  background: linear-gradient(135deg, #995746, #b85c48);
+  background: linear-gradient(135deg, var(--tc-995746, #995746), var(--tc-b85c48, #b85c48));
 
-  box-shadow: 0 7px 16px rgba(122, 74, 61, 0.2);
+  box-shadow: 0 7px 16px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.2);
 
   font-size: 10px;
   font-weight: 700;
@@ -636,7 +637,7 @@ async function submitWish() {
 .sp-wish-submit:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 10px 20px rgba(122, 74, 61, 0.28);
+  box-shadow: 0 10px 20px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.28);
 }
 
 .sp-wish-submit:active:not(:disabled) {
@@ -658,7 +659,7 @@ async function submitWish() {
 
   padding: 25px 10px 20px;
 
-  color: #7b6c62;
+  color: var(--tc-7b6c62, #7b6c62);
 }
 
 .sp-empty-flower {
@@ -671,7 +672,7 @@ async function submitWish() {
 
   margin: 0 auto 9px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   background: rgba(255, 255, 255, 0.5);
 
@@ -681,14 +682,14 @@ async function submitWish() {
 .sp-no-wishes p {
   margin: 0 0 3px;
 
-  color: #af5744;
+  color: var(--tc-af5744, #af5744);
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .sp-no-wishes span {
-  color: #7b6c62;
+  color: var(--tc-7b6c62, #7b6c62);
 
   font-size: 11px;
 
@@ -714,7 +715,7 @@ async function submitWish() {
 
   margin: 0 5px 15px;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 }
 
 .sp-list-heading > span {
@@ -722,7 +723,7 @@ async function submitWish() {
 
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(224, 163, 126, 0.4));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.4));
 }
 
 .sp-list-heading > span:last-child {
@@ -743,7 +744,7 @@ async function submitWish() {
 }
 
 .sp-list-heading .v-icon {
-  color: #995746;
+  color: var(--tc-995746, #995746);
 }
 
 /* =========================================================
@@ -762,12 +763,12 @@ async function submitWish() {
 
   text-align: left;
 
-  border: 1px solid rgba(214, 122, 99, 0.22);
+  border: 1px solid rgba(var(--tc-d67a63-rgb, 214, 122, 99), 0.22);
   border-radius: 16px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.78), rgba(255, 242, 232, 0.6));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.78), rgba(var(--tc-fff2e8-rgb, 255, 242, 232), 0.6));
 
-  box-shadow: 0 5px 17px rgba(122, 74, 61, 0.05);
+  box-shadow: 0 5px 17px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.05);
 
   overflow: hidden;
 
@@ -777,7 +778,7 @@ async function submitWish() {
 .sp-wish-card:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 9px 23px rgba(122, 74, 61, 0.09);
+  box-shadow: 0 9px 23px rgba(var(--tc-7a4a3d-rgb, 122, 74, 61), 0.09);
 }
 
 .sp-card-flower {
@@ -786,7 +787,7 @@ async function submitWish() {
   right: 8px;
   bottom: -8px;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 
   font-size: 28px;
 
@@ -811,9 +812,9 @@ async function submitWish() {
 
   margin-top: 1px;
 
-  color: #af5744;
+  color: var(--tc-af5744, #af5744);
 
-  background: linear-gradient(145deg, #fdeee4, #fbdcc9);
+  background: linear-gradient(145deg, var(--tc-fdeee4, #fdeee4), var(--tc-fbdcc9, #fbdcc9));
 
   border-radius: 50%;
 
@@ -848,14 +849,14 @@ async function submitWish() {
 }
 
 .sp-wish-header b {
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
   font-size: 13px;
   font-weight: 700;
 }
 
 .sp-wish-header span {
-  color: #7b6c62;
+  color: var(--tc-7b6c62, #7b6c62);
 
   font-size: 10px;
 }
@@ -863,7 +864,7 @@ async function submitWish() {
 .sp-wish-header > .v-icon {
   flex: 0 0 auto;
 
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   margin-top: 2px;
 }
@@ -874,7 +875,7 @@ async function submitWish() {
   margin: 5px 0 0;
   padding-right: 8px;
 
-  color: #8a6353;
+  color: var(--tc-8a6353, #8a6353);
 
   font-size: 12px;
 
@@ -918,14 +919,14 @@ async function submitWish() {
 
   margin-top: 24px;
 
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 }
 
 .sp-wishes__bottom span {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(224, 163, 126, 0.55));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.55));
 }
 
 .sp-wishes__bottom span:last-child {
@@ -947,14 +948,14 @@ async function submitWish() {
 
   overflow: hidden;
 
-  border-top: 1px solid rgba(224, 163, 126, 0.25);
-  border-bottom: 1px solid rgba(224, 163, 126, 0.25);
+  border-top: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.25);
+  border-bottom: 1px solid rgba(var(--tc-e0a37e-rgb, 224, 163, 126), 0.25);
 
   background: linear-gradient(
     90deg,
-    rgba(255, 250, 245, 0.85),
-    rgba(253, 238, 228, 0.55),
-    rgba(255, 250, 245, 0.85)
+    rgba(var(--tc-fffaf5-rgb, 255, 250, 245), 0.85),
+    rgba(var(--tc-fdeee4-rgb, 253, 238, 228), 0.55),
+    rgba(var(--tc-fffaf5-rgb, 255, 250, 245), 0.85)
   );
 }
 
@@ -974,15 +975,15 @@ async function submitWish() {
   justify-content: center;
   gap: 1px;
 
-  color: #af5744;
+  color: var(--tc-af5744, #af5744);
 
-  background: linear-gradient(90deg, rgba(255, 250, 245, 1) 72%, rgba(255, 250, 245, 0));
+  background: linear-gradient(90deg, rgba(var(--tc-fffaf5-rgb, 255, 250, 245), 1) 72%, rgba(var(--tc-fffaf5-rgb, 255, 250, 245), 0));
 
   pointer-events: none;
 }
 
 .sp-marquee-label .v-icon {
-  color: #995746;
+  color: var(--tc-995746, #995746);
 }
 
 .sp-marquee-label span {
@@ -1029,7 +1030,7 @@ async function submitWish() {
 
   padding-right: 30px;
 
-  color: #8a6353;
+  color: var(--tc-8a6353, #8a6353);
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
@@ -1039,7 +1040,7 @@ async function submitWish() {
 }
 
 .sp-wish-marquee-item i {
-  color: #995746;
+  color: var(--tc-995746, #995746);
 
   font-size: 11px;
   font-style: normal;
@@ -1048,13 +1049,13 @@ async function submitWish() {
 }
 
 .sp-wish-marquee-item strong {
-  color: #7a4a3d;
+  color: var(--tc-7a4a3d, #7a4a3d);
 
   font-weight: 700;
 }
 
 .sp-wish-marquee-item em {
-  color: #8c6857;
+  color: var(--tc-8c6857, #8c6857);
 
   font-style: italic;
 
@@ -1062,7 +1063,7 @@ async function submitWish() {
 }
 
 .sp-marquee-dot {
-  color: #86624c;
+  color: var(--tc-86624c, #86624c);
 
   font-size: 11px;
   font-weight: 400;

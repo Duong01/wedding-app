@@ -5,12 +5,17 @@
     <div class="timeline-heading">
 
       <span class="heading-kicker">
-        NGÀY TRỌNG ĐẠI
+        {{ sectionText(sections, "timeline", "Eyebrow", "NGÀY TRỌNG ĐẠI") }}
       </span>
 
       <h2>
-        LỊCH TRÌNH NGÀY CƯỚI
+        {{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}
       </h2>
+      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+      <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ig-sub-custom-head">
+        <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ig-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+      </header>
+
 
       <div class="heading-decoration">
         <span></span>
@@ -111,9 +116,11 @@
 
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: {
     type: Array,
     default: () => [],
@@ -217,7 +224,7 @@ function getDefaultIcon(type) {
 
   padding: 8px 4px 15px;
 
-  color: #681317;
+  color: var(--tc-681317, #681317);
 
   text-align: center;
 
@@ -242,7 +249,7 @@ function getDefaultIcon(type) {
 
   margin-bottom: 7px;
 
-  color: #8c6834;
+  color: var(--tc-8c6834, #8c6834);
 
   font-size: 11px;
   font-weight: 700;
@@ -254,7 +261,7 @@ function getDefaultIcon(type) {
 .timeline-heading h2 {
   margin: 0;
 
-  color: #781419;
+  color: var(--tc-781419, #781419);
 
   font-family:
     Georgia,
@@ -290,7 +297,7 @@ function getDefaultIcon(type) {
     linear-gradient(
       to right,
       transparent,
-      #b68a46
+      var(--tc-b68a46, #b68a46)
     );
 }
 
@@ -300,13 +307,13 @@ function getDefaultIcon(type) {
     linear-gradient(
       to left,
       transparent,
-      #b68a46
+      var(--tc-b68a46, #b68a46)
     );
 }
 
 
 .heading-decoration b {
-  color: #99171b;
+  color: var(--tc-99171b, #99171b);
 
   font-family:
     "Times New Roman",
@@ -321,7 +328,7 @@ function getDefaultIcon(type) {
 
   margin: 12px auto 0;
 
-  color: #80684f;
+  color: var(--tc-80684f, #80684f);
 
   font-size: 10px;
 
@@ -373,7 +380,7 @@ function getDefaultIcon(type) {
 
   padding-right: 12px;
 
-  color: #8c171b;
+  color: var(--tc-8c171b, #8c171b);
 
   font-size: 16px;
 
@@ -416,15 +423,15 @@ function getDefaultIcon(type) {
 
   border:
     1px solid
-    rgba(175, 131, 60, .65);
+    rgba(var(--tc-af833c-rgb, 175, 131, 60), .65);
 
   border-radius: 50%;
 
-  background: #fffaf0;
+  background: var(--tc-fffaf0, #fffaf0);
 
   box-shadow:
     0 2px 7px
-    rgba(100, 30, 20, .08);
+    rgba(var(--tc-641e14-rgb, 100, 30, 20), .08);
 }
 
 
@@ -441,8 +448,8 @@ function getDefaultIcon(type) {
   background:
     linear-gradient(
       135deg,
-      #a51b20,
-      #7c1116
+      var(--tc-a51b20, #a51b20),
+      var(--tc-7c1116, #7c1116)
     );
 }
 
@@ -452,7 +459,7 @@ function getDefaultIcon(type) {
 
   z-index: 2;
 
-  color: #fffaf0;
+  color: var(--tc-fffaf0, #fffaf0);
 
   font-family:
     "Times New Roman",
@@ -482,8 +489,8 @@ function getDefaultIcon(type) {
   background:
     linear-gradient(
       to bottom,
-      rgba(181, 139, 67, .65),
-      rgba(181, 139, 67, .18)
+      rgba(var(--tc-b58b43-rgb, 181, 139, 67), .65),
+      rgba(var(--tc-b58b43-rgb, 181, 139, 67), .18)
     );
 
   transform: translateX(-50%);
@@ -504,7 +511,7 @@ function getDefaultIcon(type) {
 
 
 .timeline-title {
-  color: #741317;
+  color: var(--tc-741317, #741317);
 
   font-size: 14px;
 
@@ -517,7 +524,7 @@ function getDefaultIcon(type) {
 .timeline-description {
   margin: 5px 0 0;
 
-  color: #76604c;
+  color: var(--tc-76604c, #76604c);
 
   font-size: 10px;
 
@@ -534,7 +541,7 @@ function getDefaultIcon(type) {
 
   margin-top: 7px;
 
-  color: #8d6c43;
+  color: var(--tc-8d6c43, #8d6c43);
 
   font-size: 11px;
 
@@ -543,7 +550,7 @@ function getDefaultIcon(type) {
 
 
 .timeline-location span {
-  color: #8d6935;
+  color: var(--tc-8d6935, #8d6935);
 
   font-size: 11px;
 }
@@ -556,7 +563,7 @@ function getDefaultIcon(type) {
 .timeline-empty {
   padding: 30px 10px;
 
-  color: #836b52;
+  color: var(--tc-836b52, #836b52);
 
   font-size: 11px;
 }
@@ -586,7 +593,7 @@ function getDefaultIcon(type) {
     linear-gradient(
       to right,
       transparent,
-      #b68a47
+      var(--tc-b68a47, #b68a47)
     );
 }
 
@@ -596,13 +603,13 @@ function getDefaultIcon(type) {
     linear-gradient(
       to left,
       transparent,
-      #b68a47
+      var(--tc-b68a47, #b68a47)
     );
 }
 
 
 .timeline-bottom b {
-  color: #99171b;
+  color: var(--tc-99171b, #99171b);
 
   font-family:
     "Times New Roman",
@@ -686,5 +693,38 @@ function getDefaultIcon(type) {
     font-size: 10px;
   }
 
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.ig-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.ig-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.ig-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.ig-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

@@ -1,6 +1,16 @@
 <template>
   <section class="la-gifts">
-    <h2 class="la-title">Hộp Quà Mừng</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="la-top-custom-head">
+      <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="la-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="la-sub-custom-head">
+      <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="la-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
+    </header>
+
 
     <button type="button" class="la-gift" aria-label="Mở hộp mừng cưới" @click="openGift">
       <span class="la-gift__sparkle la-gift__sparkle--1">✦</span>
@@ -134,11 +144,13 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 
 import envelope from "@/assets/romatic-pink/mini/hoa_tinh_red.webp";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },
 });
 
@@ -785,5 +797,71 @@ onBeforeUnmount(() => {
 
 :global(body.la-gift-dialog-open) {
   overflow: hidden;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.la-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.la-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.la-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.la-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.la-sub-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.la-sub-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.la-sub-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.la-sub-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

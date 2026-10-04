@@ -23,6 +23,8 @@
         :slides-per-view="'auto'"
         :centered-slides="true"
         :loop="loopEnabled"
+        :rewind="!loopEnabled && images.length > 1"
+        :autoplay="autoplayOptions"
         :speed="450"
         :grab-cursor="true"
         effect="coverflow"
@@ -99,7 +101,7 @@
 import { computed, ref } from "vue";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Keyboard } from "swiper/modules";
+import { Autoplay, Keyboard } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -139,6 +141,12 @@ const props = defineProps({
   },
 
   /* Bo góc khung */
+  /* Tự chuyển ảnh (dừng khi khách chạm/vuốt, chạy lại sau đó) */
+  autoplay: {
+    type: Boolean,
+    default: true,
+  },
+
   radius: {
     type: Number,
     default: 14,
@@ -151,7 +159,22 @@ const emit = defineEmits(["open"]);
 // SWIPER
 // =========================================================
 
-const modules = [Keyboard];
+const modules = [Keyboard, Autoplay];
+
+/*
+ * Tự chuyển ảnh mỗi 3.5s. Khách vuốt/bấm → Swiper tạm dừng
+ * rồi chạy tiếp (disableOnInteraction: false); di chuột vào
+ * ảnh cũng dừng. Tắt hẳn khi khách bật giảm chuyển động.
+ */
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+const autoplayOptions = computed(() =>
+  props.autoplay && !prefersReducedMotion && props.images.length > 1
+    ? { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }
+    : false
+);
 
 const swiperRef = ref(null);
 
@@ -228,8 +251,12 @@ function pad(number) {
 function hexToRgba(hex, alpha) {
   const match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || "");
 
+  /*
+   * Màu không phải hex (vd. var(--tc-..., #...) — màu theo
+   * bảng màu editor) → color-mix cho ra cùng độ trong.
+   */
   if (!match) {
-    return hex;
+    return `color-mix(in srgb, ${hex} ${Math.round(alpha * 100)}%, transparent)`;
   }
 
   return `rgba(${parseInt(match[1], 16)}, ${parseInt(match[2], 16)}, ${parseInt(match[3], 16)}, ${alpha})`;

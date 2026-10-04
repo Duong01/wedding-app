@@ -146,13 +146,13 @@ const dateText = computed(() => {
 
 <style scoped>
 .dh-hero {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-red-dark: #5c0e10;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-cream-on-red: #f7e6c4;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-red-dark: var(--tc-5c0e10, #5c0e10);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-cream-on-red: var(--tc-f7e6c4, #f7e6c4);
 
   position: relative;
   isolation: isolate;
@@ -167,8 +167,8 @@ const dateText = computed(() => {
   place-items: center;
 
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(243, 217, 164, 0.14), transparent 55%),
-    linear-gradient(180deg, #8f1a1e 0%, var(--dh-red) 52%, var(--dh-red-dark) 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.14), transparent 55%),
+    linear-gradient(180deg, var(--tc-8f1a1e, #8f1a1e) 0%, var(--dh-red) 52%, var(--dh-red-dark) 100%);
 }
 
 /* Subtle repeating pattern */
@@ -181,8 +181,8 @@ const dateText = computed(() => {
   opacity: 0.5;
 
   background-image:
-    repeating-linear-gradient(45deg, rgba(243, 217, 164, 0.05) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(243, 217, 164, 0.05) 0 1px, transparent 1px 18px);
+    repeating-linear-gradient(45deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.05) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(-45deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.05) 0 1px, transparent 1px 18px);
 
   pointer-events: none;
 }
@@ -220,9 +220,9 @@ const dateText = computed(() => {
 
   background: linear-gradient(
     180deg,
-    rgba(143, 26, 30, 0.55),
-    rgba(122, 18, 22, 0.35) 55%,
-    rgba(92, 14, 16, 0.6)
+    rgba(var(--tc-8f1a1e-rgb, 143, 26, 30), 0.55),
+    rgba(var(--tc-7a1216-rgb, 122, 18, 22), 0.35) 55%,
+    rgba(var(--tc-5c0e10-rgb, 92, 14, 16), 0.6)
   );
 }
 
@@ -264,7 +264,7 @@ const dateText = computed(() => {
   width: 1px;
   height: 38px;
 
-  background: linear-gradient(180deg, rgba(217, 164, 65, 0.12), rgba(217, 164, 65, 0.8));
+  background: linear-gradient(180deg, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.12), rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.8));
 }
 
 .dh-lantern__cap {
@@ -292,11 +292,11 @@ const dateText = computed(() => {
   border-radius: 22px / 26px;
 
   background:
-    repeating-linear-gradient(90deg, rgba(243, 217, 164, 0.16) 0 2px, transparent 2px 11px),
-    radial-gradient(circle at 35% 28%, #c23a35, var(--dh-red-bright) 55%, var(--dh-red) 100%);
+    repeating-linear-gradient(90deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.16) 0 2px, transparent 2px 11px),
+    radial-gradient(circle at 35% 28%, var(--tc-c23a35, #c23a35), var(--dh-red-bright) 55%, var(--dh-red) 100%);
 
   box-shadow:
-    inset 0 0 0 2px rgba(243, 217, 164, 0.28),
+    inset 0 0 0 2px rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.28),
     0 12px 26px rgba(40, 6, 8, 0.45);
 }
 
@@ -310,7 +310,7 @@ const dateText = computed(() => {
   align-items: center;
   justify-content: center;
 
-  color: rgba(243, 217, 164, 0.85);
+  color: rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.85);
 
   font-size: 18px;
 }
@@ -319,7 +319,7 @@ const dateText = computed(() => {
   width: 2px;
   height: 22px;
 
-  background: linear-gradient(180deg, var(--dh-gold), rgba(217, 164, 65, 0.15));
+  background: linear-gradient(180deg, var(--dh-gold), rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.15));
 }
 
 /* =========================================================
@@ -337,7 +337,7 @@ const dateText = computed(() => {
   position: absolute;
   top: -30px;
 
-  color: rgba(243, 217, 164, 0.5);
+  color: rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.5);
 
   font-size: 12px;
 
@@ -399,16 +399,16 @@ const dateText = computed(() => {
   font-size: 46px;
   line-height: 1;
 
-  border: 1px solid rgba(217, 164, 65, 0.6);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.6);
   border-radius: 50%;
 
-  background: radial-gradient(circle at 50% 32%, rgba(243, 217, 164, 0.2), transparent 70%);
+  background: radial-gradient(circle at 50% 32%, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.2), transparent 70%);
 
   box-shadow:
-    0 0 0 5px rgba(217, 164, 65, 0.12),
+    0 0 0 5px rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.12),
     0 10px 26px rgba(30, 4, 6, 0.35);
 
-  text-shadow: 0 2px 10px rgba(243, 217, 164, 0.35);
+  text-shadow: 0 2px 10px rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.35);
 
   animation: dh-xi-glow 4s ease-in-out infinite;
 }
@@ -462,7 +462,7 @@ const dateText = computed(() => {
   max-width: 325px;
   margin: 14px auto 8px;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 
   font-size: 12px;
 
@@ -487,8 +487,8 @@ const dateText = computed(() => {
   margin: 24px auto 0;
   padding: 14px 0;
 
-  border-top: 1px solid rgba(217, 164, 65, 0.5);
-  border-bottom: 1px solid rgba(217, 164, 65, 0.5);
+  border-top: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
+  border-bottom: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
 }
 
 .dh-hero__schedule p {
@@ -507,7 +507,7 @@ const dateText = computed(() => {
   max-width: 295px;
   margin: 24px auto 20px;
 
-  color: rgba(247, 230, 196, 0.8);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.8);
 
   font-size: 14px;
   font-style: italic;
@@ -528,7 +528,7 @@ const dateText = computed(() => {
   width: 48px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.8));
 }
 
 .dh-hero__footer span:last-child {
@@ -594,13 +594,13 @@ const dateText = computed(() => {
   0%,
   100% {
     box-shadow:
-      0 0 0 5px rgba(217, 164, 65, 0.12),
+      0 0 0 5px rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.12),
       0 10px 26px rgba(30, 4, 6, 0.35);
   }
 
   50% {
     box-shadow:
-      0 0 0 8px rgba(217, 164, 65, 0.2),
+      0 0 0 8px rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.2),
       0 12px 30px rgba(30, 4, 6, 0.45);
   }
 }

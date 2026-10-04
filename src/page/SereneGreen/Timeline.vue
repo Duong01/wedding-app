@@ -1,13 +1,11 @@
 <template>
   <section class="sg-timeline">
     <div class="sg-timeline__header">
-      <p class="sg-eyebrow">DẤU MỐC YÊU THƯƠNG</p>
+      <p class="sg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
 
-      <h2>Hành trình của chúng mình</h2>
+      <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
 
-      <p class="sg-timeline__intro">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
-      </p>
+      <p class="sg-timeline__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
     </div>
 
     <ol class="sg-timeline__list">
@@ -56,9 +54,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
 });
 
@@ -79,14 +79,14 @@ function formatTime(index) {
 
   padding: 38px 20px 32px;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
-  border: 1px solid rgba(108, 142, 122, 0.35);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.35);
   border-radius: 28px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.7), rgba(240, 246, 238, 0.5));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.7), rgba(var(--tc-f0f6ee-rgb, 240, 246, 238), 0.5));
 
-  box-shadow: 0 12px 35px rgba(40, 81, 75, 0.08);
+  box-shadow: 0 12px 35px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.08);
 
   overflow: hidden;
 }
@@ -96,7 +96,7 @@ function formatTime(index) {
   position: absolute;
   inset: 8px;
 
-  border: 1px solid rgba(108, 142, 122, 0.22);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.22);
   border-radius: 22px;
 
   pointer-events: none;
@@ -117,7 +117,7 @@ function formatTime(index) {
 .sg-eyebrow {
   margin: 0;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   font-size: 10px;
   font-weight: 700;
@@ -136,15 +136,17 @@ function formatTime(index) {
 
   line-height: 1.1;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 .sg-timeline__intro {
+  white-space: pre-line;
+
   max-width: 440px;
 
   margin: 0 auto;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 
   font-size: 13px;
 
@@ -201,19 +203,19 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 
-  border: 1px solid rgba(108, 142, 122, 0.5);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.5);
   border-radius: 50%;
 
-  background: linear-gradient(145deg, #fbfdfa, #e3efe0);
+  background: linear-gradient(145deg, var(--tc-fbfdfa, #fbfdfa), var(--tc-e3efe0, #e3efe0));
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
   font-size: 15px;
   font-weight: 700;
 
-  box-shadow: 0 5px 14px rgba(40, 81, 75, 0.1);
+  box-shadow: 0 5px 14px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.1);
 }
 
 .sg-timeline__line {
@@ -228,7 +230,7 @@ function formatTime(index) {
 
   transform: translateX(-50%);
 
-  background: linear-gradient(180deg, rgba(143, 174, 155, 0.6), rgba(143, 174, 155, 0.15));
+  background: linear-gradient(180deg, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.6), rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.15));
 }
 
 /* =========================================================
@@ -240,12 +242,12 @@ function formatTime(index) {
 
   padding: 16px 17px 17px;
 
-  border: 1px solid rgba(108, 142, 122, 0.3);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.3);
   border-radius: 18px;
 
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 246, 238, 0.75));
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(var(--tc-f0f6ee-rgb, 240, 246, 238), 0.75));
 
-  box-shadow: 0 7px 22px rgba(40, 81, 75, 0.06);
+  box-shadow: 0 7px 22px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.06);
 
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
@@ -253,9 +255,9 @@ function formatTime(index) {
 .sg-timeline__card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(108, 142, 122, 0.5);
+  border-color: rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.5);
 
-  box-shadow: 0 12px 28px rgba(40, 81, 75, 0.1);
+  box-shadow: 0 12px 28px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.1);
 }
 
 /* =========================================================
@@ -269,7 +271,7 @@ function formatTime(index) {
 
   margin-bottom: 8px;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   font-size: 11px;
   font-weight: 700;
@@ -285,11 +287,11 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   border-radius: 50%;
 
-  background: rgba(200, 212, 195, 0.5);
+  background: rgba(var(--tc-c8d4c3-rgb, 200, 212, 195), 0.5);
 }
 
 /* =========================================================
@@ -311,12 +313,12 @@ function formatTime(index) {
   align-items: center;
   justify-content: center;
 
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
-  border: 1px solid rgba(108, 142, 122, 0.35);
+  border: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.35);
   border-radius: 50%;
 
-  background: linear-gradient(145deg, #fff, #e3efe0);
+  background: linear-gradient(145deg, #fff, var(--tc-e3efe0, #e3efe0));
 
   font-size: 16px;
 }
@@ -331,7 +333,7 @@ function formatTime(index) {
 
   line-height: 1.2;
 
-  color: #28514b;
+  color: var(--tc-28514b, #28514b);
 }
 
 /* =========================================================
@@ -341,7 +343,7 @@ function formatTime(index) {
 .sg-timeline__desc {
   margin: 9px 0 0;
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 
   font-size: 13px;
 
@@ -360,9 +362,9 @@ function formatTime(index) {
   margin-top: 11px;
   padding-top: 9px;
 
-  border-top: 1px solid rgba(108, 142, 122, 0.2);
+  border-top: 1px solid rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.2);
 
-  color: #606c64;
+  color: var(--tc-606c64, #606c64);
 
   font-size: 11px;
 
@@ -370,7 +372,7 @@ function formatTime(index) {
 }
 
 .sg-timeline__location .v-icon {
-  color: #567262;
+  color: var(--tc-567262, #567262);
 
   flex: 0 0 auto;
 }
@@ -389,14 +391,14 @@ function formatTime(index) {
 
   margin-top: 27px;
 
-  color: #5a6e62;
+  color: var(--tc-5a6e62, #5a6e62);
 }
 
 .sg-timeline__footer span {
   width: 55px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.55));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.55));
 }
 
 .sg-timeline__footer span:last-child {

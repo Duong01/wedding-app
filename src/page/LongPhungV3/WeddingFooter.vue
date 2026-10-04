@@ -98,11 +98,11 @@ const weddingDate = computed(() => {
 
   box-sizing: border-box;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   text-align: center;
 
-  background: linear-gradient(180deg, rgba(90, 0, 14, 0.6) 0%, rgba(69, 0, 1, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(var(--tc-5a000e-rgb, 90, 0, 14), 0.6) 0%, rgba(var(--tc-450001-rgb, 69, 0, 1), 0.9) 100%);
 }
 
 /* =====================================================
@@ -196,7 +196,7 @@ const weddingDate = computed(() => {
 
   white-space: pre-line;
 
-  color: rgba(255, 190, 137, 0.85);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.85);
 }
 
 /* =====================================================
@@ -221,15 +221,15 @@ const weddingDate = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(to right, transparent, rgba(255, 190, 137, 0.7));
+  background: linear-gradient(to right, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7));
 }
 
 .lp-footer__line span:last-child {
-  background: linear-gradient(to left, transparent, rgba(255, 190, 137, 0.7));
+  background: linear-gradient(to left, transparent, rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7));
 }
 
 .lp-footer__line i {
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 
   font-size: 12px;
 
@@ -251,7 +251,7 @@ const weddingDate = computed(() => {
 
   line-height: 1.25;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 }
 
 .lp-footer__names span {
@@ -259,7 +259,7 @@ const weddingDate = computed(() => {
 
   margin: 0 8px;
 
-  color: rgba(255, 190, 137, 0.7);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.7);
 
   font-size: 0.62em;
 
@@ -275,7 +275,7 @@ const weddingDate = computed(() => {
 
   padding: 8px 18px;
 
-  color: #ffbe89;
+  color: var(--tc-ffbe89, #ffbe89);
 
   font-family: "Times New Roman", Times, serif;
 
@@ -284,9 +284,9 @@ const weddingDate = computed(() => {
 
   letter-spacing: 0.22em;
 
-  border-top: 1px solid rgba(255, 190, 137, 0.4);
+  border-top: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
 
-  border-bottom: 1px solid rgba(255, 190, 137, 0.4);
+  border-bottom: 1px solid rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.4);
 }
 
 /* =====================================================
@@ -300,7 +300,7 @@ const weddingDate = computed(() => {
 
   padding-top: 24px;
 
-  color: rgba(255, 190, 137, 0.5);
+  color: rgba(var(--tc-ffbe89-rgb, 255, 190, 137), 0.5);
 
   font-size: 11px;
 

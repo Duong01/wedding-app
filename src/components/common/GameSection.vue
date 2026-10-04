@@ -14,7 +14,12 @@
     nhập tên, lưu DB để chủ thiệp đối chiếu tại lễ. Chế độ
     vui: phần thưởng là lời chúc mặc định.
   -->
-  <section v-if="visible" class="game-section" :style="sectionStyle">
+  <section
+    v-if="visible"
+    ref="rootRef"
+    class="game-section"
+    :style="sectionStyle"
+  >
     <header v-if="eyebrow || heading" class="game-section__head">
       <p v-if="eyebrow" class="game-section__eyebrow">{{ eyebrow }}</p>
 
@@ -92,7 +97,9 @@ const props = defineProps({
  * không có pipeline màu nên game không còn rơi về bảng
  * :root đỏ son của theme.css (xem useSectionTheme).
  */
-const { sectionStyle } = useSectionTheme(() => props.wedding);
+const rootRef = ref(null);
+
+const { sectionStyle } = useSectionTheme(() => props.wedding, rootRef);
 
 const game = computed(() => props.wedding?.game || {});
 
@@ -222,7 +229,11 @@ function onWin(prizeTitle) {
 .game-section__eyebrow {
   margin: 0 0 6px;
 
-  /* color: var(--text-secondary, #806f66); */
+  /*
+   * --sec-*: màu đã kiểm tra tương phản với nền THẬT phía
+   * sau section của từng thiệp (xem useSectionTheme).
+   */
+  color: var(--sec-eyebrow, var(--text-secondary, #806f66));
 
   /* font-size: 10px; */
   font-weight: 700;
@@ -234,7 +245,11 @@ function onWin(prizeTitle) {
 .game-section__heading {
   margin: 0 0 8px;
 
-  /* color: var(--heading, var(--primary, #8a7a68)); */
+  /*
+   * Màu tường minh — h2 toàn cục (theme.css) lấy --primary,
+   * trùng màu nền ở thiệp nền tối → tiêu đề tàng hình.
+   */
+  color: var(--sec-heading, var(--heading, var(--primary, #8a7a68)));
 
   /* font-family: var(--font-heading, Georgia, serif); */
 
@@ -242,10 +257,24 @@ function onWin(prizeTitle) {
   font-weight: 600;
 }
 
+/* Gạch trang trí dưới tiêu đề — màu viền của thiệp */
+.game-section__heading::after {
+  content: "";
+
+  display: block;
+
+  width: 56px;
+  height: 1px;
+
+  margin: 12px auto 0;
+
+  background: var(--sec-line, var(--accent, #c79d5c));
+}
+
 .game-section__intro {
   margin: 0 0 20px;
 
-  /* color: var(--text-secondary, #806f66); */
+  color: var(--sec-muted, var(--text-secondary, #806f66));
 
   /* font-size: 13px; */
 }

@@ -104,13 +104,13 @@ const weddingDate = computed(() => {
 
 <style scoped>
 .dh-footer {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-red-dark: #5c0e10;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-cream-on-red: #f7e6c4;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-red-dark: var(--tc-5c0e10, #5c0e10);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-cream-on-red: var(--tc-f7e6c4, #f7e6c4);
 
   position: relative;
 
@@ -127,7 +127,7 @@ const weddingDate = computed(() => {
 
   font-family: "Cormorant Garamond", Georgia, serif;
 
-  background: linear-gradient(180deg, #8f1a1e 0%, var(--dh-red) 55%, var(--dh-red-dark) 100%);
+  background: linear-gradient(180deg, var(--tc-8f1a1e, #8f1a1e) 0%, var(--dh-red) 55%, var(--dh-red-dark) 100%);
 }
 
 /* Subtle repeating pattern */
@@ -141,8 +141,8 @@ const weddingDate = computed(() => {
   opacity: 0.5;
 
   background-image:
-    repeating-linear-gradient(45deg, rgba(243, 217, 164, 0.05) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(-45deg, rgba(243, 217, 164, 0.05) 0 1px, transparent 1px 18px);
+    repeating-linear-gradient(45deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.05) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(-45deg, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.05) 0 1px, transparent 1px 18px);
 
   pointer-events: none;
 }
@@ -155,7 +155,7 @@ const weddingDate = computed(() => {
 
   inset: 14px;
 
-  border: 1px solid rgba(217, 164, 65, 0.45);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.45);
 
   border-radius: 12px;
 
@@ -185,14 +185,14 @@ const weddingDate = computed(() => {
   left: -90px;
   bottom: -70px;
 
-  background: radial-gradient(circle, rgba(217, 164, 65, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.28), transparent 70%);
 }
 
 .dh-footer__glow--right {
   right: -90px;
   top: -60px;
 
-  background: radial-gradient(circle, rgba(243, 217, 164, 0.18), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.18), transparent 70%);
 }
 
 /* =====================================================
@@ -204,7 +204,7 @@ const weddingDate = computed(() => {
 
   z-index: 1;
 
-  color: rgba(217, 164, 65, 0.3);
+  color: rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.3);
 
   pointer-events: none;
 
@@ -233,7 +233,7 @@ const weddingDate = computed(() => {
 
   font-size: 12px;
 
-  color: rgba(243, 217, 164, 0.4);
+  color: rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.4);
 
   animation-delay: 2.6s;
 }
@@ -287,11 +287,11 @@ const weddingDate = computed(() => {
   width: 84px;
   height: 84px;
 
-  border: 1px solid rgba(217, 164, 65, 0.65);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.65);
 
   border-radius: 50%;
 
-  background: rgba(92, 14, 16, 0.45);
+  background: rgba(var(--tc-5c0e10-rgb, 92, 14, 16), 0.45);
 
   box-shadow: 0 8px 24px rgba(30, 4, 6, 0.3);
 }
@@ -303,7 +303,7 @@ const weddingDate = computed(() => {
 
   inset: 6px;
 
-  border: 1px dashed rgba(243, 217, 164, 0.5);
+  border: 1px dashed rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.5);
 
   border-radius: 50%;
 }
@@ -389,11 +389,11 @@ const weddingDate = computed(() => {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(to right, transparent, rgba(217, 164, 65, 0.85));
+  background: linear-gradient(to right, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.85));
 }
 
 .dh-footer__line span:last-child {
-  background: linear-gradient(to left, transparent, rgba(217, 164, 65, 0.85));
+  background: linear-gradient(to left, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.85));
 }
 
 .dh-footer__line i {
@@ -413,7 +413,7 @@ const weddingDate = computed(() => {
 
   margin: 0 auto;
 
-  color: rgba(247, 230, 196, 0.85);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.85);
 
   font-size: 11px;
 
@@ -441,9 +441,9 @@ const weddingDate = computed(() => {
 
   letter-spacing: 0.22em;
 
-  border-top: 1px solid rgba(217, 164, 65, 0.5);
+  border-top: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
 
-  border-bottom: 1px solid rgba(217, 164, 65, 0.5);
+  border-bottom: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
 }
 
 /* =====================================================
@@ -457,7 +457,7 @@ const weddingDate = computed(() => {
 
   padding-top: 24px;
 
-  color: rgba(247, 230, 196, 0.55);
+  color: rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.55);
 
   font-size: 11px;
 

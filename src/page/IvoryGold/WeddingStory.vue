@@ -23,7 +23,7 @@
         <div class="story-header">
 
           <span class="story-eyebrow">
-            CÂU CHUYỆN CỦA CHÚNG MÌNH
+            {{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}
           </span>
 
           <div class="story-title-row">
@@ -31,7 +31,7 @@
             <span class="title-line"></span>
 
             <h2>
-              THÔNG TIN VỀ CHÚNG MÌNH
+              {{ sectionText(sections, "story", "Heading", "THÔNG TIN VỀ CHÚNG MÌNH") }}
             </h2>
 
             <span class="title-line"></span>
@@ -86,10 +86,12 @@
 
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import { may } from "./nhatBinhDoAssets";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   story: {
     type: [String, Object],
     default: "",
@@ -129,7 +131,7 @@ const storyText = computed(() => {
     8px
     25px;
 
-  color: #541b1d;
+  color: var(--tc-541b1d, #541b1d);
 
   text-align: center;
 
@@ -204,14 +206,14 @@ const storyText = computed(() => {
   background:
     linear-gradient(
       135deg,
-      rgba(151, 112, 53, .8),
-      rgba(221, 196, 145, .45),
-      rgba(151, 112, 53, .8)
+      rgba(var(--tc-977035-rgb, 151, 112, 53), .8),
+      rgba(var(--tc-ddc491-rgb, 221, 196, 145), .45),
+      rgba(var(--tc-977035-rgb, 151, 112, 53), .8)
     );
 
   box-shadow:
     0 12px 35px
-    rgba(84, 25, 25, .07);
+    rgba(var(--tc-541919-rgb, 84, 25, 25), .07);
 }
 
 
@@ -230,13 +232,13 @@ const storyText = computed(() => {
   background:
     linear-gradient(
       180deg,
-      #fffdf9 0%,
-      #faf7ef 100%
+      var(--tc-fffdf9, #fffdf9) 0%,
+      var(--tc-faf7ef, #faf7ef) 100%
     );
 
   border:
     1px solid
-    rgba(155, 112, 55, .35);
+    rgba(var(--tc-9b7037-rgb, 155, 112, 55), .35);
 }
 
 
@@ -254,7 +256,7 @@ const storyText = computed(() => {
   height: 22px;
 
   border-color:
-    rgba(157, 116, 57, .65);
+    rgba(var(--tc-9d7439-rgb, 157, 116, 57), .65);
 
   pointer-events: none;
 }
@@ -306,7 +308,7 @@ const storyText = computed(() => {
 
   margin-bottom: 10px;
 
-  color: #8a6833;
+  color: var(--tc-8a6833, #8a6833);
 
   font-size: 11px;
   font-weight: 700;
@@ -336,7 +338,7 @@ const storyText = computed(() => {
 .story-title-row h2 {
   margin: 0;
 
-  color: #761418;
+  color: var(--tc-761418, #761418);
 
   font-family:
     Arial,
@@ -365,7 +367,7 @@ const storyText = computed(() => {
     linear-gradient(
       to right,
       transparent,
-      #b18a4d
+      var(--tc-b18a4d, #b18a4d)
     );
 }
 
@@ -375,7 +377,7 @@ const storyText = computed(() => {
     linear-gradient(
       to left,
       transparent,
-      #b18a4d
+      var(--tc-b18a4d, #b18a4d)
     );
 }
 
@@ -389,7 +391,7 @@ const storyText = computed(() => {
 
   margin-top: 12px;
 
-  color: #9a151a;
+  color: var(--tc-9a151a, #9a151a);
 
   font-family:
     "Times New Roman",
@@ -403,7 +405,7 @@ const storyText = computed(() => {
 
   text-shadow:
     0 2px 5px
-    rgba(140, 20, 25, .12);
+    rgba(var(--tc-8c1419-rgb, 140, 20, 25), .12);
 }
 
 
@@ -430,11 +432,11 @@ const storyText = computed(() => {
 
   border:
     1px solid
-    rgba(170, 132, 72, .18);
+    rgba(var(--tc-aa8448-rgb, 170, 132, 72), .18);
 
   box-shadow:
     inset 0 0 0 4px
-    rgba(181, 140, 77, .035);
+    rgba(var(--tc-b58c4d-rgb, 181, 140, 77), .035);
 }
 
 
@@ -445,7 +447,7 @@ const storyText = computed(() => {
 
   margin: 0;
 
-  color: #51483f;
+  color: var(--tc-51483f, #51483f);
 
   font-size: 14px;
 
@@ -464,7 +466,7 @@ const storyText = computed(() => {
 .quote {
   position: absolute;
 
-  color: #8e6933;
+  color: var(--tc-8e6933, #8e6933);
 
   font-family:
     Georgia,
@@ -517,7 +519,7 @@ const storyText = computed(() => {
     linear-gradient(
       to right,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
@@ -527,13 +529,13 @@ const storyText = computed(() => {
     linear-gradient(
       to left,
       transparent,
-      #b58a45
+      var(--tc-b58a45, #b58a45)
     );
 }
 
 
 .story-footer b {
-  color: #9a161a;
+  color: var(--tc-9a161a, #9a161a);
 
   font-size: 10px;
 
@@ -558,7 +560,7 @@ const storyText = computed(() => {
 
     box-shadow:
       0 16px 42px
-      rgba(84, 25, 25, .10);
+      rgba(var(--tc-541919-rgb, 84, 25, 25), .10);
   }
 
 }

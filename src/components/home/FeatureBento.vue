@@ -2,16 +2,18 @@
   <section class="mk-section mk-section--alt">
     <div class="mk-container">
       <header class="mk-head mk-head--center">
-        <p class="mk-eyebrow">Vì sao chọn chúng tôi</p>
+        <p class="mk-eyebrow">{{ $t('bento.eyebrow') }}</p>
 
         <h2>
-          Thiệp cưới được làm như một
-          <em>tác phẩm</em>
-          — không phải một biểu mẫu.
+          <i18n-t keypath="bento.h2" tag="span">
+            <template #work>
+              <em>{{ $t("bento.work") }}</em>
+            </template>
+          </i18n-t>
         </h2>
       </header>
 
-      <RailHint text="Vuốt ngang để xem đủ tám tính năng" />
+      <RailHint :text="$t('bento.swipe')" />
 
       <div class="bento mk-rail">
         <article

@@ -1,5 +1,5 @@
 <template>
-  <div class="ruby-romance-theme">
+  <div class="ruby-romance-theme" :style="colorVars">
     <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="ruby-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
@@ -20,7 +20,7 @@
         <section v-if="showGame" class="ruby-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="ruby-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="ruby-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
-        <section v-if="showGallery && gallery.length" class="ruby-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="ruby-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
       <section v-if="showGift && gifts.length" class="ruby-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,9 @@ import WeddingWishes from "@/page/RubyRomance/WeddingWishes.vue";
 import WeddingFooter from "@/page/RubyRomance/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -145,12 +149,12 @@ onMounted(() => {
 
 <style scoped>
 .ruby-romance-theme {
-  --theme-primary: #8c2f42;
-  --theme-secondary: #c46a7e;
-  --theme-accent: #e8b4be;
-  --theme-bg: #fdf7f8;
+  --theme-primary: var(--tc-8c2f42, #8c2f42);
+  --theme-secondary: var(--tc-c46a7e, #c46a7e);
+  --theme-accent: var(--tc-e8b4be, #e8b4be);
+  --theme-bg: var(--tc-fdf7f8, #fdf7f8);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #5c2430;
+  --theme-text: var(--tc-5c2430, #5c2430);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -160,21 +164,21 @@ onMounted(() => {
 }
 
 .ruby-invitation { width: 100%; }
-.ruby-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(245,216,222,0.8)); }
+.ruby-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-f5d8de-rgb, 245, 216, 222), 0.8)); }
 .ruby-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .ruby-romance-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .ruby-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(110, 38, 50, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-6e2632-rgb, 110, 38, 50), 0.16);
   }
 }
 </style>

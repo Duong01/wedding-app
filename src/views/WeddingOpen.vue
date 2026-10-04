@@ -49,6 +49,7 @@
       v-else-if="currentTheme"
       :is="currentTheme"
       :wedding="wedding"
+      @open="themeOpened = true"
     />
 
     <!-- =========================================================
@@ -73,11 +74,16 @@
         </button>
       </div>
     </div>
+
+    <!-- Tự cuộn tới cuối thiệp khi khách không thao tác (sau khi mở phong bì) -->
+    <AutoScroll v-if="themeOpened && currentTheme && wedding" :wedding="wedding" />
   </div>
 </template>
 
 <script setup>
-import { computed, watch } from "vue";
+import { computed, watch, ref } from "vue";
+
+import AutoScroll from "@/components/common/AutoScroll.vue";
 
 import { useRoute, useRouter } from "vue-router";
 
@@ -95,6 +101,12 @@ import themes from "@/themes";
  * chèn sẵn toàn bộ 25 font trong index.html. */
 import { ensureFonts } from "@/utils/fontLoader";
 import { fontsForTheme } from "@/data/themeFonts";
+
+/*
+ * Thiệp đã qua phong bì chưa — tự cuộn chỉ chạy sau khi mở
+ * (theme phát "open" khi khách bấm mở thiệp).
+ */
+const themeOpened = ref(false);
 
 /* =========================================================
    ROUTER

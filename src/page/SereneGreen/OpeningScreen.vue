@@ -23,7 +23,7 @@
       <span></span>
     </div>
 
-    <p class="sg-opening__eyebrow">WEDDING INVITATION</p>
+    <p class="sg-opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "WEDDING INVITATION") }}</p>
 
     <!-- =====================================================
          INVITATION CARD
@@ -32,13 +32,13 @@
       <div class="sg-card__arch"></div>
 
       <div class="sg-card__inner">
-        <p class="sg-card__kicker">SAVE THE DATE</p>
+        <p class="sg-card__kicker">{{ sectionText(sections, "opening", "Kicker", "SAVE THE DATE") }}</p>
 
         <div class="sg-card__seal">
           <span>{{ monogram }}</span>
         </div>
 
-        <p class="sg-card__invite">Trân trọng kính mời</p>
+        <p class="sg-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
 
         <h1>{{ guestName }}</h1>
 
@@ -66,23 +66,25 @@
         <v-icon size="16">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="sg-open-btn__text">CHẠM ĐỂ MỞ THIỆP</span>
+      <span class="sg-open-btn__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
 
       <span class="sg-open-btn__arrow">↗</span>
     </button>
 
     <p class="sg-hint">
       <span></span>
-      Một lời mời · Một câu chuyện · Một ngày đặc biệt
+      {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một câu chuyện · Một ngày đặc biệt") }}
       <span></span>
     </p>
   </section>
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },
   dateLabel: { type: String, default: "" },
@@ -132,12 +134,12 @@ function openInvitation() {
 
 <style scoped>
 .sg-opening {
-  --sg-deep: #28514b;
-  --sg-leaf: #567262;
-  --sg-pine: #3f6f63;
-  --sg-sage: #c8d4c3;
-  --sg-line: #5a6e62;
-  --sg-cream: #f5f8f4;
+  --sg-deep: var(--tc-28514b, #28514b);
+  --sg-leaf: var(--tc-567262, #567262);
+  --sg-pine: var(--tc-3f6f63, #3f6f63);
+  --sg-sage: var(--tc-c8d4c3, #c8d4c3);
+  --sg-line: var(--tc-5a6e62, #5a6e62);
+  --sg-cream: var(--tc-f5f8f4, #f5f8f4);
 
   position: relative;
   isolation: isolate;
@@ -155,7 +157,7 @@ function openInvitation() {
 
   color: var(--sg-deep);
 
-  background: linear-gradient(160deg, #f5f8f4 0%, #edf4eb 38%, #e3efe0 70%, #d8e8d5 100%);
+  background: linear-gradient(160deg, var(--tc-f5f8f4, #f5f8f4) 0%, var(--tc-edf4eb, #edf4eb) 38%, var(--tc-e3efe0, #e3efe0) 70%, var(--tc-d8e8d5, #d8e8d5) 100%);
 }
 
 /* =========================================================
@@ -169,8 +171,8 @@ function openInvitation() {
 
   background:
     radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.85), transparent 42%),
-    radial-gradient(ellipse at 12% 82%, rgba(200, 212, 195, 0.4), transparent 38%),
-    radial-gradient(ellipse at 88% 72%, rgba(108, 142, 122, 0.22), transparent 40%);
+    radial-gradient(ellipse at 12% 82%, rgba(var(--tc-c8d4c3-rgb, 200, 212, 195), 0.4), transparent 38%),
+    radial-gradient(ellipse at 88% 72%, rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.22), transparent 40%);
 }
 
 .sg-opening::before {
@@ -181,7 +183,7 @@ function openInvitation() {
 
   opacity: 0.14;
 
-  background-image: radial-gradient(rgba(40, 81, 75, 0.5) 0.6px, transparent 0.6px);
+  background-image: radial-gradient(rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.5) 0.6px, transparent 0.6px);
   background-size: 7px 7px;
 
   pointer-events: none;
@@ -214,7 +216,7 @@ function openInvitation() {
   left: 50%;
   transform: translateX(-50%);
 
-  background: radial-gradient(circle, rgba(143, 174, 155, 0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.22), transparent 70%);
 }
 
 /* =========================================================
@@ -232,7 +234,7 @@ function openInvitation() {
   position: absolute;
   bottom: -40px;
 
-  color: rgba(108, 142, 122, 0.55);
+  color: rgba(var(--tc-6c8e7a-rgb, 108, 142, 122), 0.55);
 
   font-size: 12px;
 
@@ -273,7 +275,7 @@ function openInvitation() {
   width: 46px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.8));
 }
 
 .sg-opening__brand span:last-child {
@@ -313,10 +315,10 @@ function openInvitation() {
 
   border-radius: 190px 190px 26px 26px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.94), rgba(240, 246, 238, 0.9));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.94), rgba(var(--tc-f0f6ee-rgb, 240, 246, 238), 0.9));
 
   box-shadow:
-    0 26px 60px rgba(40, 81, 75, 0.18),
+    0 26px 60px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.8);
 
   animation: sg-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -326,7 +328,7 @@ function openInvitation() {
   position: absolute;
   inset: 5px;
 
-  border: 1px solid rgba(143, 174, 155, 0.55);
+  border: 1px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.55);
   border-radius: 184px 184px 22px 22px;
 
   pointer-events: none;
@@ -366,11 +368,11 @@ function openInvitation() {
 
   border-radius: 50%;
 
-  background: radial-gradient(circle at 34% 30%, #8fb3a0, #567262 58%, #3f6f63 100%);
+  background: radial-gradient(circle at 34% 30%, var(--tc-8fb3a0, #8fb3a0), var(--tc-567262, #567262) 58%, var(--tc-3f6f63, #3f6f63) 100%);
 
   box-shadow:
-    0 10px 24px rgba(63, 111, 99, 0.35),
-    inset 0 0 0 3px rgba(245, 248, 244, 0.35);
+    0 10px 24px rgba(var(--tc-3f6f63-rgb, 63, 111, 99), 0.35),
+    inset 0 0 0 3px rgba(var(--tc-f5f8f4-rgb, 245, 248, 244), 0.35);
 
   animation: sg-seal-pulse 3.2s ease-in-out infinite;
 }
@@ -380,7 +382,7 @@ function openInvitation() {
   position: absolute;
   inset: 6px;
 
-  border: 1px dashed rgba(245, 248, 244, 0.55);
+  border: 1px dashed rgba(var(--tc-f5f8f4-rgb, 245, 248, 244), 0.55);
   border-radius: 50%;
 }
 
@@ -389,9 +391,9 @@ function openInvitation() {
 
   font-size: 26px;
 
-  color: #f2f8f0;
+  color: var(--tc-f2f8f0, #f2f8f0);
 
-  text-shadow: 0 1px 2px rgba(30, 70, 60, 0.4);
+  text-shadow: 0 1px 2px rgba(var(--tc-1e463c-rgb, 30, 70, 60), 0.4);
 }
 
 .sg-card__invite {
@@ -434,7 +436,7 @@ function openInvitation() {
   width: 42px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.75));
 }
 
 .sg-card__divider span:last-child {
@@ -472,10 +474,10 @@ function openInvitation() {
 
   padding: 8px 18px;
 
-  border: 1px solid rgba(143, 174, 155, 0.5);
+  border: 1px solid rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.5);
   border-radius: 999px;
 
-  background: rgba(251, 253, 250, 0.7);
+  background: rgba(var(--tc-fbfdfa-rgb, 251, 253, 250), 0.7);
 
   color: var(--sg-leaf);
 
@@ -506,11 +508,11 @@ function openInvitation() {
   border: 0;
   border-radius: 999px;
 
-  color: #f2f8f0;
+  color: var(--tc-f2f8f0, #f2f8f0);
 
-  background: linear-gradient(135deg, #567262, #3f6f63);
+  background: linear-gradient(135deg, var(--tc-567262, #567262), var(--tc-3f6f63, #3f6f63));
 
-  box-shadow: 0 14px 30px rgba(40, 81, 75, 0.32);
+  box-shadow: 0 14px 30px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.32);
 
   font-size: 10px;
   font-weight: 700;
@@ -526,7 +528,7 @@ function openInvitation() {
 .sg-open-btn:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  box-shadow: 0 18px 36px rgba(40, 81, 75, 0.4);
+  box-shadow: 0 18px 36px rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.4);
 }
 
 .sg-open-btn:disabled {
@@ -555,7 +557,7 @@ function openInvitation() {
 
   margin: 22px 0 0;
 
-  color: rgba(40, 81, 75, 0.72);
+  color: rgba(var(--tc-28514b-rgb, 40, 81, 75), 0.72);
 
   font-size: 10px;
   font-style: italic;
@@ -567,7 +569,7 @@ function openInvitation() {
   width: 34px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(143, 174, 155, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-8fae9b-rgb, 143, 174, 155), 0.6));
 }
 
 .sg-hint span:last-child {
@@ -646,15 +648,15 @@ function openInvitation() {
   100% {
     transform: scale(1);
     box-shadow:
-      0 10px 24px rgba(63, 111, 99, 0.35),
-      inset 0 0 0 3px rgba(245, 248, 244, 0.35);
+      0 10px 24px rgba(var(--tc-3f6f63-rgb, 63, 111, 99), 0.35),
+      inset 0 0 0 3px rgba(var(--tc-f5f8f4-rgb, 245, 248, 244), 0.35);
   }
 
   50% {
     transform: scale(1.05);
     box-shadow:
-      0 14px 30px rgba(63, 111, 99, 0.45),
-      inset 0 0 0 3px rgba(245, 248, 244, 0.5);
+      0 14px 30px rgba(var(--tc-3f6f63-rgb, 63, 111, 99), 0.45),
+      inset 0 0 0 3px rgba(var(--tc-f5f8f4-rgb, 245, 248, 244), 0.5);
   }
 }
 

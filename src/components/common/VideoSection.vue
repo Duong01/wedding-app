@@ -6,7 +6,12 @@
     Tự gate: settings.ShowVideo === true và có link —
     orchestrator cũng gate ngoài (2 lớp như các mục khác).
   -->
-  <section v-if="visible" class="video-section" :style="sectionStyle">
+  <section
+    v-if="visible"
+    ref="rootRef"
+    class="video-section"
+    :style="sectionStyle"
+  >
     <header v-if="eyebrow || heading" class="video-section__head">
       <p v-if="eyebrow" class="video-section__eyebrow">{{ eyebrow }}</p>
 
@@ -20,7 +25,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 import VideoEmbed from "@/components/common/VideoEmbed.vue";
 
@@ -41,7 +46,9 @@ const props = defineProps({
  * không có pipeline màu nên video không còn rơi về bảng
  * :root đỏ son của theme.css (xem useSectionTheme).
  */
-const { sectionStyle } = useSectionTheme(() => props.wedding);
+const rootRef = ref(null);
+
+const { sectionStyle } = useSectionTheme(() => props.wedding, rootRef);
 
 const video = computed(() => props.wedding?.video || {});
 
@@ -84,7 +91,11 @@ const heading = computed(() =>
 .video-section__eyebrow {
   margin: 0 0 6px;
 
-  /* color: var(--text-secondary, #806f66); */
+  /*
+   * --sec-*: màu đã kiểm tra tương phản với nền THẬT phía
+   * sau section của từng thiệp (xem useSectionTheme).
+   */
+  color: var(--sec-eyebrow, var(--text-secondary, #806f66));
 
   /* font-size: 10px; */
   font-weight: 700;
@@ -96,7 +107,11 @@ const heading = computed(() =>
 .video-section__heading {
   margin: 0 0 18px;
 
-  /* color: var(--heading, var(--primary, #8a7a68)); */
+  /*
+   * Màu tường minh — h2 toàn cục (theme.css) lấy --primary,
+   * trùng màu nền ở thiệp nền tối → tiêu đề tàng hình.
+   */
+  color: var(--sec-heading, var(--heading, var(--primary, #8a7a68)));
 
   /* font-family: var(--font-heading, Georgia, serif); */
 
@@ -104,7 +119,27 @@ const heading = computed(() =>
   font-weight: 600;
 }
 
+/* Gạch trang trí dưới tiêu đề — màu viền của thiệp */
+.video-section__heading::after {
+  content: "";
+
+  display: block;
+
+  width: 56px;
+  height: 1px;
+
+  margin: 12px auto 0;
+
+  background: var(--sec-line, var(--accent, #c79d5c));
+}
+
 .video-section__body {
   width: 100%;
+}
+
+/* Khung video: viền mảnh màu thiệp tách iframe khỏi nền */
+.video-section__body :deep(iframe) {
+  box-shadow: 0 0 0 1px var(--sec-line, var(--accent, #c79d5c)),
+    0 10px 28px rgba(0, 0, 0, 0.18);
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
-  <div class="midnight-gold-theme">
-    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" />
+  <div class="midnight-gold-theme" :style="colorVars">
+    <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" @open="handleOpen" :sections="sections" />
     <main v-else class="midnight-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
 
       <div class="midnight-content">
-        <section v-if="showCouple" class="midnight-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" /></section>
+        <section v-if="showCouple" class="midnight-section"><WeddingCouple :wedding="wedding" :guest-name="guestName" :sections="sections" /></section>
         <section v-if="showStory && useMilestoneStory" class="midnight-section"><StoryMilestones :wedding="wedding" /></section>
-        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="midnight-section"><WeddingStory :story="wedding.story" /></section>
+        <section v-if="showStory && !useMilestoneStory && wedding?.story" class="midnight-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 
-        <section v-if="showEvents && events.length" class="midnight-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :settings="settings" /></section>
+        <section v-if="showEvents && events.length" class="midnight-section"><WeddingEvents :events="events" :recipient-name="wedding?.recipientName" :settings="settings" :sections="sections" /></section>
 
         <!-- ============ VIDEO CƯỚI ============ -->
 
@@ -18,15 +18,15 @@
         <!-- ============ TRÒ CHƠI ============ -->
 
         <section v-if="showGame" class="midnight-section"><GameSection :wedding="wedding" /></section>
-        <section v-if="showTimeline && timeline.length" class="midnight-section"><Timeline :timeline="timeline" :events="events" /></section>
-        <section v-if="showCountdown" class="midnight-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" /></section>
-        <section v-if="showGallery && gallery.length" class="midnight-section"><WeddingGallery :gallery="gallery" /></section>
+        <section v-if="showTimeline && timeline.length" class="midnight-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
+        <section v-if="showCountdown" class="midnight-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="midnight-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
-      <section v-if="showGift && gifts.length" class="midnight-section"><WeddingGifts :gifts="gifts" /></section>
-      <section v-if="showGuestBook" class="midnight-section"><WeddingWishes :wishes="wishes" :wedding="wedding" /></section>
+      <section v-if="showGift && gifts.length" class="midnight-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
+      <section v-if="showGuestBook" class="midnight-section"><WeddingWishes :wishes="wishes" :wedding="wedding" :sections="sections" /></section>
 
-      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" />
+      <WeddingFooter v-if="showFooter" :wedding="wedding" :monogram="monogram" :current-year="currentYear" :sections="sections" />
       <FloatingMusic v-if="showMusic" ref="floatingMusicRef" :music="heroMusic" />
     </main>
 
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,12 @@ import WeddingWishes from "@/page/MidnightGold/WeddingWishes.vue";
 import WeddingFooter from "@/page/MidnightGold/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
+
+/* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
+const sections = computed(() => props.wedding?.sections || {});
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -144,39 +151,39 @@ onMounted(() => {
 
 <style scoped>
 .midnight-gold-theme {
-  --theme-primary: #261d23;
-  --theme-secondary: #9b7d4d;
-  --theme-accent: #d8b676;
-  --theme-bg: #17121b;
-  --theme-panel: rgba(38, 29, 35, 0.72);
-  --theme-text: #f0e6d2;
+  --theme-primary: var(--tc-261d23, #261d23);
+  --theme-secondary: var(--tc-9b7d4d, #9b7d4d);
+  --theme-accent: var(--tc-d8b676, #d8b676);
+  --theme-bg: var(--tc-17121b, #17121b);
+  --theme-panel: rgba(var(--tc-261d23-rgb, 38, 29, 35), 0.72);
+  --theme-text: var(--tc-f0e6d2, #f0e6d2);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
   background:
-    radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),
-    linear-gradient(180deg, #1d1622 0%, #17121b 45%, #120e15 100%);
+    radial-gradient(1100px 500px at 50% -140px, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.12), transparent 65%),
+    linear-gradient(180deg, var(--tc-1d1622, #1d1622) 0%, var(--tc-17121b, #17121b) 45%, var(--tc-120e15, #120e15) 100%);
   color: var(--theme-text);
   font-family: "Cormorant Garamond", Georgia, serif;
 }
 
 .midnight-invitation { width: 100%; }
-.midnight-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(216, 182, 118, 0.05), rgba(18, 14, 21, 0.55)); }
+.midnight-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.05), rgba(var(--tc-120e15-rgb, 18, 14, 21), 0.55)); }
 .midnight-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .midnight-gold-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .midnight-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background:
-      radial-gradient(1100px 500px at 50% -140px, rgba(216, 182, 118, 0.12), transparent 65%),
-      linear-gradient(180deg, #1d1622 0%, #17121b 45%, #120e15 100%);
+      radial-gradient(1100px 500px at 50% -140px, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.12), transparent 65%),
+      linear-gradient(180deg, var(--tc-1d1622, #1d1622) 0%, var(--tc-17121b, #17121b) 45%, var(--tc-120e15, #120e15) 100%);
     box-shadow: 0 0 44px rgba(0, 0, 0, 0.3);
   }
 }

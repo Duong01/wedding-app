@@ -1,7 +1,7 @@
 <template>
   <main class="mk-page">
     <div class="mk-container">
-      <PageBreadcrumb :trail="[{ label: 'Tạo thiệp cưới' }]" />
+      <PageBreadcrumb :trail="[{ label: $t('landing.create.crumb') }]" />
     </div>
 
     <!-- =====================================================
@@ -11,26 +11,24 @@
       <div class="mk-hero__glow" aria-hidden="true"></div>
 
       <div class="mk-container mk-hero__inner">
-        <p class="mk-eyebrow">Tạo thiệp cưới</p>
+        <p class="mk-eyebrow">{{ $t('landing.create.crumb') }}</p>
 
         <h1>
-          Bắt đầu tạo thiệp cưới
-          <em>ngay bây giờ.</em>
+          {{ $t('landing.create.h1a') }}
+          <em>{{ $t('landing.create.h1b') }}</em>
         </h1>
 
         <p class="mk-hero__lead">
-          Không cần đăng ký, không cần thẻ, không mất phí. Mở editor, chọn một
-          mẫu và điền thử vài dòng — bạn sẽ thấy tấm thiệp của mình hiện ra
-          ngay bên cạnh.
+          {{ $t('landing.create.lead') }}
         </p>
 
         <div class="mk-hero__actions">
           <router-link :to="{ name: 'Editor' }" class="mk-btn mk-btn--solid">
-            Mở editor tạo thiệp
+            {{ $t('landing.create.openEditor') }}
           </router-link>
 
           <router-link :to="{ name: 'Templates' }" class="mk-btn mk-btn--ghost">
-            Chọn mẫu trước
+            {{ $t('landing.create.pickFirst') }}
           </router-link>
         </div>
 
@@ -52,12 +50,12 @@
           <p class="mk-eyebrow">Trong editor</p>
 
           <h2>
-            Mọi thứ bạn cần sửa,
-            <em>đều sửa được.</em>
+            {{ $t('landing.create.editH2a') }}
+            <em>{{ $t('landing.create.editH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem thêm" />
+        <RailHint :text="$t('rail.swipeMore')" />
 
         <div class="mk-grid mk-grid--3">
           <article v-for="item in EDITOR_ITEMS" :key="item.title" class="mk-card">
@@ -77,11 +75,11 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Quy trình</p>
+          <p class="mk-eyebrow">{{ $t('landing.process') }}</p>
 
           <h2>
-            Từ mẫu trống tới thiệp gửi được
-            <em>trong ba bước.</em>
+            {{ $t('landing.create.stepsH2a') }}
+            <em>{{ $t('landing.create.stepsH2b') }}</em>
           </h2>
         </header>
 
@@ -90,7 +88,7 @@
             <span class="flow-seal" aria-hidden="true">{{ step.seal }}</span>
 
             <div>
-              <p class="flow-kicker">Bước {{ index + 1 }}</p>
+              <p class="flow-kicker">{{ $t('guide.step') }} {{ index + 1 }}</p>
 
               <h3>{{ step.title }}</h3>
 
@@ -107,15 +105,15 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Chuẩn bị</p>
+          <p class="mk-eyebrow">{{ $t('guide.prepEyebrow') }}</p>
 
           <h2>
-            Có sẵn những thứ này thì
-            <em>điền một mạch.</em>
+            {{ $t('landing.create.prepH2a') }}
+            <em>{{ $t('landing.create.prepH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ ba nhóm" />
+        <RailHint :text="$t('guide.swipeGroups')" />
 
         <div class="mk-grid mk-grid--3">
           <article
@@ -136,7 +134,7 @@
 
         <div class="mk-cta">
           <router-link :to="{ name: 'Guide' }" class="mk-btn mk-btn--outline">
-            Xem checklist đầy đủ
+            {{ $t('landing.create.fullChecklist') }}
             <span aria-hidden="true">→</span>
           </router-link>
         </div>
@@ -149,20 +147,19 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Chi phí</p>
+          <p class="mk-eyebrow">{{ $t('landing.cost') }}</p>
 
           <h2>
-            Tạo miễn phí,
-            <em>trả tiền sau.</em>
+            {{ $t('landing.create.costH2a') }}
+            <em>{{ $t('landing.create.costH2b') }}</em>
           </h2>
 
           <p>
-            Bạn dựng thiệp và chỉnh sửa bao nhiêu lần cũng được mà không mất
-            phí. Chỉ khi xuất bản và thật sự ưng ý mới cần thanh toán.
+            {{ $t('landing.create.costLead') }}
           </p>
         </header>
 
-        <RailHint text="Vuốt ngang để so ba gói" />
+        <RailHint :text="$t('pricing.swipePlans')" />
 
         <div class="mk-grid mk-grid--3">
           <article
@@ -186,7 +183,7 @@
 
         <div class="mk-cta">
           <router-link :to="{ name: 'Pricing' }" class="mk-btn mk-btn--outline">
-            Xem bảng giá đầy đủ
+            {{ $t('landing.fullPricing') }}
             <span aria-hidden="true">→</span>
           </router-link>
         </div>
@@ -199,22 +196,22 @@
     <section class="mk-section">
       <div class="mk-container faq-grid">
         <header class="faq-head">
-          <p class="mk-eyebrow">Giải đáp</p>
+          <p class="mk-eyebrow">{{ $t('guide.faqEyebrow') }}</p>
 
           <h2>
-            Trước khi
-            <em>bắt đầu.</em>
+            {{ $t('landing.create.faqH2a') }}
+            <em>{{ $t('landing.create.faqH2b') }}</em>
           </h2>
 
           <p>
-            Vài điều các cặp đôi thường hỏi ngay trước khi mở editor lần đầu.
+            {{ $t('landing.create.faqLead') }}
           </p>
 
           <router-link
             :to="{ name: 'Contact' }"
             class="mk-btn mk-btn--outline mk-btn--sm"
           >
-            Hỏi trực tiếp
+            {{ $t('landing.askDirect') }}
           </router-link>
         </header>
 
@@ -223,15 +220,16 @@
     </section>
 
     <FinalCta
-      title="Mở editor"
-      title-accent="và thử một mẫu."
-      text="Không cần đăng nhập, không mất phí. Bạn có thể bỏ dở và quay lại bất cứ lúc nào."
-      cta="Tạo thiệp ngay"
+      :title="$t('landing.create.ctaTitle')"
+      :title-accent="$t('landing.create.ctaAccent')"
+      :text="$t('landing.create.ctaText')"
+      :cta="$t('footer.createNow')"
     />
   </main>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import PageBreadcrumb from "@/components/marketing/PageBreadcrumb.vue";
 import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
 import FinalCta from "@/components/marketing/FinalCta.vue";
@@ -248,11 +246,13 @@ import {
   publicPriceLabel,
 } from "@/data/siteContent";
 
+const { t } = useI18n();
+
 const TRUST = [
-  "Không cần đăng ký để bắt đầu",
-  "Không cần thẻ thanh toán",
-  "Dùng thử 3 ngày đầy đủ tính năng",
-  "Sửa không giới hạn, kể cả sau khi gửi",
+  t("landing.create.b1"),
+  t("landing.create.b2"),
+  t("landing.create.b3"),
+  t("landing.create.b4"),
 ];
 
 /*
@@ -266,33 +266,33 @@ function isTextPrice(plan) {
 const EDITOR_ITEMS = [
   {
     orn: "囍",
-    title: "Nội dung",
-    text: "Tên cô dâu chú rể, cha mẹ hai bên, địa chỉ, giờ lễ và tiệc — nhập một lần, hiển thị đồng bộ khắp thiệp.",
+    get title() { return t("storyPanel.content"); },
+    get text() { return t("landing.create.i1"); },
   },
   {
     orn: "✦",
-    title: "Hình ảnh",
-    text: "Ảnh bìa, ảnh chân dung, album cưới. Tải lên không giới hạn, tự sắp thành album.",
+    get title() { return t("landing.create.i2t"); },
+    get text() { return t("landing.create.i2"); },
   },
   {
     orn: "❀",
-    title: "Bố cục & thứ tự",
-    text: "Bật tắt từng mục, đổi thứ tự hiển thị — thiệp chạy theo đúng mạch bạn muốn kể.",
+    get title() { return t("landing.create.i3t"); },
+    get text() { return t("landing.create.i3"); },
   },
   {
     orn: "❖",
-    title: "Tên các mục",
-    text: "Đổi tiêu đề hiển thị của từng phần. Bỏ trống thì mẫu dùng tiêu đề mặc định của nó.",
+    get title() { return t("landing.create.i4t"); },
+    get text() { return t("landing.create.i4"); },
   },
   {
     orn: "◈",
-    title: "Mừng cưới",
-    text: "Nhập số tài khoản hai bên, hệ thống tự dựng mã QR cho khách quét chuyển khoản.",
+    get title() { return t("editor.menu.gifts"); },
+    get text() { return t("landing.create.i5"); },
   },
   {
     orn: "❝",
-    title: "Xem trước tức thì",
-    text: "Mọi thay đổi hiện ngay ở khung xem trước — đúng như khách mời sẽ thấy trên điện thoại.",
+    get title() { return t("landing.create.i6t"); },
+    get text() { return t("landing.create.i6"); },
   },
 ];
 

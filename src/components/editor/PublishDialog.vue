@@ -6,12 +6,12 @@
           class="publish-box"
           role="dialog"
           aria-modal="true"
-          aria-label="Chia sẻ thiệp"
+          :aria-label="$t('publish.share')"
         >
           <button
             type="button"
             class="publish-close"
-            title="Đóng"
+            :title="$t('common.close')"
             @click="emit('close')"
           >
             <v-icon size="18"> mdi-close </v-icon>
@@ -23,26 +23,28 @@
             </div>
 
             <h3 class="publish-title">
-              {{ isExpired ? "Thiệp đang tạm ẩn" : "Thiệp đã được xuất bản" }}
+              {{ isExpired ? $t('publish.hidden') : $t('publish.published') }}
             </h3>
 
             <p class="publish-sub">
               <template v-if="isExpired">
-                Thời gian dùng thử đã kết thúc. Nội dung thiệp vẫn được giữ
-                nguyên — thanh toán một lần để mở lại cho khách mời.
+                {{ $t('publish.expired') }}
               </template>
 
               <template v-else-if="isPaid">
-                Thiệp đang hoạt động. Gửi link hoặc mã QR dưới đây cho khách
-                mời.
+                {{ $t('publish.active') }}
               </template>
 
               <template v-else>
-                Dùng thử miễn phí <strong>{{ trialDays }}</strong> ngày<template
-                  v-if="trialEndsAtText"
+                <i18n-t
+                  :keypath="trialEndsAtText ? 'publish.trialUntil' : 'publish.trial'"
+                  tag="span"
                 >
-                  , đến {{ trialEndsAtText }}</template
-                >. Sau đó cần thanh toán một lần để thiệp tiếp tục hoạt động.
+                  <template #days>
+                    <strong>{{ trialDays }}</strong>
+                  </template>
+                  <template #until>{{ trialEndsAtText }}</template>
+                </i18n-t>
               </template>
             </p>
           </div>
@@ -52,7 +54,11 @@
             <v-icon size="16"> mdi-timer-sand </v-icon>
 
             <span>
-              Còn <strong>{{ daysLeft }}</strong> ngày dùng thử
+              <i18n-t keypath="publish.daysLeft" tag="span">
+                <template #days>
+                  <strong>{{ daysLeft }}</strong>
+                </template>
+              </i18n-t>
             </span>
           </div>
 
@@ -65,7 +71,7 @@
           <div v-if="!isPaid" class="publish-price">
             <div class="publish-price__row">
               <span class="publish-price__label">
-                {{ PAID_PLAN.name }} — thanh toán một lần
+                {{ $t("publish.planOnce", { name: PAID_PLAN.name }) }}
               </span>
 
               <strong class="publish-price__value">
@@ -74,13 +80,12 @@
             </div>
 
             <p class="publish-price__note">
-              Giữ thiệp vĩnh viễn, sửa nội dung bất cứ lúc nào. Không phí
-              gia hạn hằng năm.
+              {{ $t('publish.forever') }}
             </p>
           </div>
 
           <!-- LINK KHÁCH MỜI -->
-          <label class="publish-label">Link gửi khách mời</label>
+          <label class="publish-label">{{ $t('publish.guestLink') }}</label>
 
           <div class="publish-link">
             <input :value="guestLink" type="text" readonly @focus="$event.target.select()" />
@@ -90,20 +95,20 @@
                 {{ copied ? "mdi-check" : "mdi-content-copy" }}
               </v-icon>
 
-              <span>{{ copied ? "Đã chép" : "Sao chép" }}</span>
+              <span>{{ copied ? $t('publish.copied') : $t('publish.copy') }}</span>
             </button>
           </div>
 
           <!-- QR -->
           <div v-if="qrUrl" class="publish-qr">
-            <img :src="qrUrl" alt="Mã QR mở thiệp" />
+            <img :src="qrUrl" :alt="$t('publish.qrAlt')" />
 
-            <span>Khách quét mã để mở thiệp</span>
+            <span>{{ $t('publish.scanToOpen') }}</span>
           </div>
 
           <div class="publish-actions">
             <button type="button" class="publish-btn ghost" @click="emit('close')">
-              Đóng
+              {{ $t('common.close') }}
             </button>
 
             <button
@@ -114,7 +119,7 @@
             >
               <v-icon size="16"> mdi-open-in-new </v-icon>
 
-              <span>Mở thiệp</span>
+              <span>{{ $t('publish.open') }}</span>
             </button>
 
             <button
@@ -124,7 +129,7 @@
             >
               <v-icon size="16"> mdi-credit-card-outline </v-icon>
 
-              <span>{{ isPaid ? "Thông tin thanh toán" : "Thanh toán ngay" }}</span>
+              <span>{{ isPaid ? $t('publish.paymentInfo') : $t('publish.payNow') }}</span>
             </button>
           </div>
         </div>

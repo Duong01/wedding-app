@@ -1,5 +1,5 @@
 <template>
-  <div class="jade-phoenix-theme">
+  <div class="jade-phoenix-theme" :style="colorVars">
     <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="jade-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
@@ -20,7 +20,7 @@
         <section v-if="showGame" class="jade-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="jade-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="jade-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
-        <section v-if="showGallery && gallery.length" class="jade-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="jade-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
       <section v-if="showGift && gifts.length" class="jade-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,9 @@ import WeddingWishes from "@/page/JadePhoenix/WeddingWishes.vue";
 import WeddingFooter from "@/page/JadePhoenix/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -145,12 +149,12 @@ onMounted(() => {
 
 <style scoped>
 .jade-phoenix-theme {
-  --theme-primary: #6e1f24;
-  --theme-secondary: #b98a4b;
-  --theme-accent: #e8c98a;
-  --theme-bg: #fdfaf3;
+  --theme-primary: var(--tc-6e1f24, #6e1f24);
+  --theme-secondary: var(--tc-b98a4b, #b98a4b);
+  --theme-accent: var(--tc-e8c98a, #e8c98a);
+  --theme-bg: var(--tc-fdfaf3, #fdfaf3);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #4a2328;
+  --theme-text: var(--tc-4a2328, #4a2328);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -160,21 +164,21 @@ onMounted(() => {
 }
 
 .jade-invitation { width: 100%; }
-.jade-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(243,227,196,0.8)); }
+.jade-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-f3e3c4-rgb, 243, 227, 196), 0.8)); }
 .jade-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .jade-phoenix-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .jade-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(110, 31, 36, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-6e1f24-rgb, 110, 31, 36), 0.16);
   }
 }
 </style>

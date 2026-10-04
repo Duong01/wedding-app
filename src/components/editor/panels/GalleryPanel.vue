@@ -4,9 +4,9 @@
       <div>
         <span class="panel-eyebrow"> PHOTO ALBUM </span>
 
-        <h1>Album ảnh</h1>
+        <h1>{{ $t('editor.menu.gallery') }}</h1>
 
-        <p>Thêm những khoảnh khắc đáng nhớ.</p>
+        <p>{{ $t('galleryPanel.desc') }}</p>
       </div>
 
       <button
@@ -16,7 +16,37 @@
       >
         <v-icon size="17"> mdi-image-plus-outline </v-icon>
 
-        Thêm ảnh
+        {{ $t('galleryPanel.add') }}
+      </button>
+    </div>
+
+    <!-- =====================================================
+         KIỂU HIỂN THỊ ALBUM
+    ====================================================== -->
+
+    <h3 class="sub-heading">{{ $t('galleryPanel.layout') }}</h3>
+
+    <p class="field-help block-help">
+      {{ $t('galleryPanel.layoutHint') }}
+    </p>
+
+    <div class="layout-selector">
+      <button
+        v-for="item in GALLERY_LAYOUTS"
+        :key="item.value"
+        type="button"
+        class="layout-card"
+        :class="{ active: currentLayout === item.value }"
+        :aria-pressed="currentLayout === item.value"
+        @click="setLayout(item.value)"
+      >
+        <v-icon size="20"> {{ item.icon }} </v-icon>
+
+        <strong> {{ item.label }} </strong>
+
+        <small>
+          {{ item.value === "default" ? defaultHint : item.hint }}
+        </small>
       </button>
     </div>
 
@@ -29,17 +59,17 @@
         <v-icon size="19"> mdi-cloud-upload-outline </v-icon>
 
         <div>
-          <strong> Tải nhiều ảnh cùng lúc </strong>
+          <strong> {{ $t('galleryPanel.bulk') }} </strong>
 
           <small>
-            Chọn một lần nhiều file — mỗi ảnh thành một mục trong album.
+            {{ $t('galleryPanel.bulkHint') }}
           </small>
         </div>
       </div>
 
       <UploadField
         kind="image"
-        button-text="Chọn nhiều ảnh"
+        :button-text="$t('galleryPanel.pickMany')"
         icon="mdi-image-multiple-outline"
         :show-preview="false"
         multiple
@@ -72,7 +102,7 @@
         <img
           v-if="image.Image"
           :src="image.Image"
-          :alt="`Ảnh ${index + 1}`"
+          :alt="$t('galleryPanel.photoN', { n: index + 1 })"
           loading="lazy"
           @error="image.hasError = true"
         />
@@ -80,14 +110,14 @@
         <div v-else class="image-placeholder">
           <v-icon size="32"> mdi-image-outline </v-icon>
 
-          <span> Chưa có ảnh </span>
+          <span> {{ $t('galleryPanel.noPhoto') }} </span>
         </div>
 
         <div class="gallery-input">
           <UploadField
             v-model="image.Image"
             kind="image"
-            button-text="Tải ảnh"
+            :button-text="$t('galleryPanel.upload')"
             icon="mdi-image-plus-outline"
             :show-preview="false"
             compact
@@ -96,7 +126,7 @@
           <button
             type="button"
             class="danger-icon"
-            title="Xoá ảnh"
+            :title="$t('galleryPanel.remove')"
             @click="removeGallery(index)"
           >
             <v-icon size="17"> mdi-delete-outline </v-icon>
@@ -108,35 +138,72 @@
     <div v-if="!wedding.gallery?.length" class="empty-card">
       <v-icon size="30"> mdi-image-multiple-outline </v-icon>
 
-      <strong> Album chưa có ảnh </strong>
+      <strong> {{ $t('galleryPanel.empty') }} </strong>
 
-      <span> Tải lên những khoảnh khắc đẹp nhất của hai bạn. </span>
+      <span> {{ $t('galleryPanel.emptyHint') }} </span>
     </div>
 
     <p v-else class="gallery-hint">
       <v-icon size="14"> mdi-drag </v-icon>
 
-      Kéo thả để sắp xếp thứ tự ảnh hiển thị trên thiệp.
+      {{ $t('galleryPanel.dragHint') }}
     </p>
 
     <button type="button" class="add-button" @click="addGallery">
       <v-icon> mdi-image-plus-outline </v-icon>
 
-      Thêm ảnh
+      {{ $t('galleryPanel.add') }}
     </button>
   </section>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { computed, ref } from "vue";
 
 import UploadField from "@/components/editor/UploadField.vue";
 
+import {
+  GALLERY_LAYOUTS,
+  THEME_GALLERY_LAYOUT,
+  galleryLayoutLabel,
+  resolveGalleryLayout,
+} from "@/data/galleryLayouts";
+
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
 });
+
+/*
+ * Kiểu album lưu ở settings.GalleryLayout — preview đọc
+ * thẳng nên đổi là thiệp xem trước đổi theo ngay.
+ */
+const currentLayout = computed(() =>
+  resolveGalleryLayout(props.wedding?.settings?.GalleryLayout)
+);
+
+/*
+ * Ô "Mặc định của mẫu" ghi rõ mẫu đang dùng kiểu nào.
+ */
+const defaultHint = computed(() => {
+  const name = props.wedding?.theme?.Name || "";
+
+  const label = galleryLayoutLabel(THEME_GALLERY_LAYOUT[name] || "coverflow");
+
+  return t("galleryPanel.themeDefault", { label });
+});
+
+function setLayout(value) {
+  if (!props.wedding.settings || typeof props.wedding.settings !== "object") {
+    props.wedding.settings = {};
+  }
+
+  props.wedding.settings.GalleryLayout = value;
+}
 
 function addGallery() {
   if (!props.wedding) return;
@@ -178,10 +245,10 @@ async function removeGallery(index) {
   if (!Array.isArray(props.wedding.gallery)) return;
 
   const ok = await confirmDialog({
-    title: "Xoá ảnh này?",
-    message: "Ảnh sẽ bị xoá khỏi album. Bạn vẫn hoàn tác được.",
-    detail: `Ảnh ${index + 1}`,
-    confirmText: "Xoá ảnh",
+    get title() { return t("galleryPanel.confirmTitle"); },
+    get message() { return t("galleryPanel.confirmMessage"); },
+    detail: t("galleryPanel.photoN", { n: index + 1 }),
+    get confirmText() { return t("galleryPanel.remove"); },
     danger: true,
   });
 
@@ -242,6 +309,64 @@ function onDragEnd() {
 </script>
 
 <style scoped>
+.layout-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.layout-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  padding: 13px;
+
+  color: #8a7a68;
+
+  border: 1px solid #d3c3ae;
+  border-radius: 12px;
+
+  background: rgba(255, 253, 251, 0.7);
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.layout-card.active {
+  border-color: #8a7a68;
+
+  background: rgba(138, 122, 104, 0.1);
+
+  box-shadow: inset 0 0 0 1px #8a7a68;
+}
+
+.layout-card strong {
+  color: #5c4d46;
+
+  font-size: 13px;
+}
+
+.layout-card small {
+  color: #806f66;
+
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+@media (max-width: 520px) {
+  .layout-selector {
+    grid-template-columns: 1fr;
+  }
+}
+
 .bulk-upload {
   display: flex;
 

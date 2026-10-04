@@ -4,11 +4,10 @@
       <div>
         <span class="panel-eyebrow"> SECTION TITLES </span>
 
-        <h1>Tiêu đề mục</h1>
+        <h1>{{ $t('editor.menu.sections') }}</h1>
 
         <p>
-          Đổi tên các mục hiển thị trên thiệp. Bỏ trống để dùng
-          tiêu đề mặc định của mẫu.
+          {{ $t('sections.desc') }}
         </p>
       </div>
     </div>
@@ -23,14 +22,14 @@
       <input
         v-model="keyword"
         type="text"
-        placeholder="Tìm mục cần đổi tên..."
+        :placeholder="$t('sections.search')"
       />
 
       <button
         v-if="keyword"
         type="button"
         class="search-clear"
-        title="Xoá tìm kiếm"
+        :title="$t('editor.nav.clearSearch')"
         @click="keyword = ''"
       >
         <v-icon size="15"> mdi-close </v-icon>
@@ -38,7 +37,7 @@
     </div>
 
     <p v-if="keyword && !filteredSections.length" class="search-empty">
-      Không tìm thấy mục nào khớp "{{ keyword }}".
+      {{ $t("editor.nav.noMatch", { keyword }) }}
     </p>
 
     <!-- =====================================================
@@ -58,14 +57,14 @@
         <strong>{{ section.label }}</strong>
 
         <span v-if="overrideCount(section)" class="section-badge">
-          {{ overrideCount(section) }} đã đổi
+          {{ $t("sections.changedCount", { n: overrideCount(section) }) }}
         </span>
 
         <button
           v-if="overrideCount(section)"
           type="button"
           class="section-reset"
-          title="Khôi phục mặc định của mục này"
+          :title="$t('sections.restoreOne')"
           @click="resetSection(section)"
         >
           <v-icon size="15"> mdi-restore </v-icon>
@@ -83,14 +82,14 @@
           <input
             v-model="sections()[section.key][field.name]"
             type="text"
-            :placeholder="field.default || 'Mặc định của mẫu'"
+            :placeholder="field.default || $t('sections.templateDefault')"
           />
 
           <button
             v-if="sections()[section.key][field.name]"
             type="button"
             class="field-clear"
-            title="Xoá để dùng lại mặc định"
+            :title="$t('sections.clearToDefault')"
             @click="sections()[section.key][field.name] = ''"
           >
             <v-icon size="15"> mdi-close </v-icon>
@@ -102,11 +101,14 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 
 import { SECTION_TITLES, ensureSections } from "@/data/sectionTitles";
 
 import { confirmDialog } from "@/composables/useConfirm";
+
+const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -166,10 +168,9 @@ function overrideCount(section) {
 
 async function resetSection(section) {
   const ok = await confirmDialog({
-    title: `Khôi phục "${section.label}"?`,
-    message:
-      "Các ô đã đổi trong mục này sẽ trở về tiêu đề mặc định của mẫu.",
-    confirmText: "Khôi phục",
+    title: t("sections.restoreTitle", { name: section.label }),
+    get message() { return t("sections.restoreMessage"); },
+    get confirmText() { return t("editor.draft.restore"); },
   });
 
   if (!ok) {

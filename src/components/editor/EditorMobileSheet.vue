@@ -7,7 +7,7 @@
         <div>
           <span> WEDDING EDITOR </span>
 
-          <strong> Chọn nội dung </strong>
+          <strong> {{ $t('editor.nav.chooseContent') }} </strong>
         </div>
 
         <button
@@ -29,14 +29,14 @@
         <input
           v-model="keyword"
           type="text"
-          placeholder="Tìm mục cần sửa..."
+          :placeholder="$t('editor.nav.search')"
         />
 
         <button
           v-if="keyword"
           type="button"
           class="sheet-search-clear"
-          title="Xoá tìm kiếm"
+          :title="$t('editor.nav.clearSearch')"
           @click="keyword = ''"
         >
           <v-icon size="15"> mdi-close </v-icon>
@@ -45,7 +45,7 @@
 
       <div class="mobile-menu-list">
         <p v-if="keyword && !filteredMenus.length" class="sheet-empty">
-          Không có mục nào khớp "{{ keyword }}".
+          {{ $t("editor.nav.noMatch", { keyword }) }}
         </p>
 
         <template v-for="group in visibleGroups" :key="group.id">
@@ -90,7 +90,7 @@
             <span
               v-else-if="completion[item.id]"
               class="mobile-done"
-              title="Đã có nội dung"
+              :title="$t('editor.nav.hasContent')"
             >
               <v-icon size="13"> mdi-check </v-icon>
             </span>
@@ -102,7 +102,10 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
+
+const { t } = useI18n();
 
 const props = defineProps({
   menus: { type: Array, required: true },
@@ -113,9 +116,9 @@ const props = defineProps({
 const emit = defineEmits(["select", "close"]);
 
 const GROUP_LABELS = {
-  content: "NỘI DUNG THIỆP",
-  guests: "KHÁCH MỜI",
-  config: "CẤU HÌNH",
+  get content() { return t("editor.group.content"); },
+  get guests() { return t("editor.group.guests"); },
+  get config() { return t("editor.group.config"); },
 };
 
 const groups = computed(() => {
@@ -127,7 +130,7 @@ const groups = computed(() => {
     let group = result.find((entry) => entry.id === id);
 
     if (!group) {
-      group = { id, label: GROUP_LABELS[id] || "KHÁC", items: [] };
+      group = { id, label: GROUP_LABELS[id] || t("editor.group.other"), items: [] };
 
       result.push(group);
     }
@@ -159,7 +162,7 @@ const filteredMenus = computed(() => {
 
 const visibleGroups = computed(() => {
   if (keyword.value.trim()) {
-    return [{ id: "search", label: "KẾT QUẢ", items: filteredMenus.value }];
+    return [{ id: "search", get label() { return t("editor.group.results"); }, items: filteredMenus.value }];
   }
 
   return groups.value;

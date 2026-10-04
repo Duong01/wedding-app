@@ -196,6 +196,10 @@
 .publish-button {
   height: 38px;
 
+  /* Một dòng ở mọi ngôn ngữ (ko/ja/zh dễ xuống dòng giữa chữ) */
+  white-space: nowrap;
+  flex-shrink: 0;
+
   display: inline-flex;
 
   align-items: center;

@@ -1,8 +1,8 @@
 <template>
   <section class="mg-countdown">
-    <p class="mg-eyebrow">NGÀY VUI ĐANG ĐẾN GẦN</p>
+    <p class="mg-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
 
-    <h2>Đếm ngược</h2>
+    <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
 
     <div class="mg-countdown__grid">
       <article v-for="item in values" :key="item.label" class="mg-countdown__item">
@@ -14,10 +14,12 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
   weddingDate: { type: [String, Date], default: "" },
 });
@@ -54,13 +56,13 @@ const values = computed(() => {
 .mg-countdown {
   text-align: center;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-eyebrow {
   margin: 0;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: 10px;
   font-weight: 700;
@@ -77,7 +79,7 @@ const values = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-countdown__grid {
@@ -89,7 +91,7 @@ const values = computed(() => {
 .mg-countdown__item {
   padding: 16px 2px;
 
-  border: 1px solid rgba(216, 182, 118, 0.28);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.28);
   border-radius: 16px;
 
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
@@ -102,7 +104,7 @@ const values = computed(() => {
 
   font-family: var(--font-num, "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif);
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 
   font-size: clamp(22px, 7vw, 30px);
   font-weight: 600;
@@ -115,6 +117,6 @@ const values = computed(() => {
 
   letter-spacing: 0.14em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 </style>

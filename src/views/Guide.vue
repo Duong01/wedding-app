@@ -1,7 +1,7 @@
 <template>
   <main class="mk-page">
     <div class="mk-container">
-      <PageBreadcrumb :trail="[{ label: 'Hướng dẫn' }]" />
+      <PageBreadcrumb :trail="[{ label: $t('nav.guide') }]" />
     </div>
 
     <!-- =====================================================
@@ -11,25 +11,24 @@
       <div class="mk-hero__glow" aria-hidden="true"></div>
 
       <div class="mk-container mk-hero__inner">
-        <p class="mk-eyebrow">Hướng dẫn</p>
+        <p class="mk-eyebrow">{{ $t('nav.guide') }}</p>
 
         <h1>
-          Từ số không tới thiệp hoàn chỉnh
-          <em>trong một buổi tối.</em>
+          {{ $t('guide.h1a') }}
+          <em>{{ $t('guide.h1b') }}</em>
         </h1>
 
         <p class="mk-hero__lead">
-          Bạn không cần biết thiết kế, không cần biết lập trình. Chỉ cần chuẩn
-          bị sẵn nội dung và làm theo ba bước dưới đây.
+          {{ $t('guide.lead') }}
         </p>
 
         <div class="mk-hero__actions">
           <router-link :to="{ name: 'Editor' }" class="mk-btn mk-btn--solid">
-            Vào editor tạo thiệp
+            {{ $t('guide.toEditor') }}
           </router-link>
 
           <a href="#chuan-bi" class="mk-btn mk-btn--ghost">
-            Xem checklist chuẩn bị
+            {{ $t('guide.toChecklist') }}
           </a>
         </div>
       </div>
@@ -41,11 +40,11 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Ba bước</p>
+          <p class="mk-eyebrow">{{ $t('guide.stepsEyebrow') }}</p>
 
           <h2>
-            Làm lần lượt,
-            <em>không bỏ sót gì.</em>
+            {{ $t('guide.stepsH2a') }}
+            <em>{{ $t('guide.stepsH2b') }}</em>
           </h2>
         </header>
 
@@ -69,7 +68,7 @@
             </div>
 
             <div class="step-body">
-              <p class="step-kicker">Bước {{ index + 1 }}</p>
+              <p class="step-kicker">{{ $t('guide.step') }} {{ index + 1 }}</p>
 
               <h3>{{ step.title }}</h3>
 
@@ -93,20 +92,19 @@
     <section id="chuan-bi" class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Chuẩn bị</p>
+          <p class="mk-eyebrow">{{ $t('guide.prepEyebrow') }}</p>
 
           <h2>
-            Gom đủ những thứ này
-            <em>trước khi bắt đầu.</em>
+            {{ $t('guide.prepH2a') }}
+            <em>{{ $t('guide.prepH2b') }}</em>
           </h2>
 
           <p>
-            Chuẩn bị trước giúp bạn điền một mạch, không phải dừng lại tìm
-            thông tin giữa chừng.
+            {{ $t('guide.prepLead') }}
           </p>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ ba nhóm" />
+        <RailHint :text="$t('guide.swipeGroups')" />
 
         <div class="mk-grid mk-grid--3">
           <article
@@ -133,15 +131,15 @@
     <section class="mk-section">
       <div class="mk-container">
         <header class="mk-head mk-head--center">
-          <p class="mk-eyebrow">Mẹo nhỏ</p>
+          <p class="mk-eyebrow">{{ $t('guide.tipsEyebrow') }}</p>
 
           <h2>
-            Bốn điều giúp thiệp
-            <em>đẹp hơn hẳn.</em>
+            {{ $t('guide.tipsH2a') }}
+            <em>{{ $t('guide.tipsH2b') }}</em>
           </h2>
         </header>
 
-        <RailHint text="Vuốt ngang để xem đủ bốn mẹo" />
+        <RailHint :text="$t('guide.swipeTips')" />
 
         <div class="mk-grid mk-grid--4">
           <article v-for="tip in GUIDE_TIPS" :key="tip.title" class="mk-card">
@@ -164,8 +162,8 @@
           <p class="mk-eyebrow">Video</p>
 
           <h2>
-            Xem làm mẫu
-            <em>trong 2 phút.</em>
+            {{ $t('guide.videoH2a') }}
+            <em>{{ $t('guide.videoH2b') }}</em>
           </h2>
         </header>
 
@@ -173,7 +171,7 @@
           <iframe
             v-if="playing"
             :src="embedUrl"
-            title="Video hướng dẫn tạo thiệp cưới"
+            :title="$t('guide.videoTitle')"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
             loading="lazy"
@@ -191,7 +189,7 @@
               </svg>
             </span>
 
-            <span class="video-label">Phát video hướng dẫn</span>
+            <span class="video-label">{{ $t('guide.playVideo') }}</span>
           </button>
         </div>
       </div>
@@ -203,23 +201,22 @@
     <section class="mk-section">
       <div class="mk-container faq-grid">
         <header class="faq-head">
-          <p class="mk-eyebrow">Giải đáp</p>
+          <p class="mk-eyebrow">{{ $t('guide.faqEyebrow') }}</p>
 
           <h2>
-            Vẫn còn
-            <em>vướng mắc?</em>
+            {{ $t('guide.faqH2a') }}
+            <em>{{ $t('guide.faqH2b') }}</em>
           </h2>
 
           <p>
-            Nếu câu trả lời không có ở đây, nhắn tụi mình — luôn có người thật
-            trả lời.
+            {{ $t('guide.faqLead') }}
           </p>
 
           <router-link
             :to="{ name: 'Contact' }"
             class="mk-btn mk-btn--outline mk-btn--sm"
           >
-            Liên hệ hỗ trợ
+            {{ $t('guide.contactSupport') }}
           </router-link>
         </header>
 
@@ -228,14 +225,15 @@
     </section>
 
     <FinalCta
-      title="Đã đủ tự tin?"
-      title-accent="Bắt đầu thôi."
-      text="Mở editor, chọn một mẫu bạn thích và thử điền vài dòng. Không mất phí, không cần đăng nhập."
+      :title="$t('guide.ctaTitle')"
+      :title-accent="$t('guide.ctaAccent')"
+      :text="$t('guide.ctaText')"
     />
   </main>
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 
 import PageBreadcrumb from "@/components/marketing/PageBreadcrumb.vue";
@@ -248,6 +246,8 @@ import { useSeo, faqJsonLd } from "@/composables/useSeo";
 import { FAQS, GUIDE_CHECKLIST, GUIDE_TIPS } from "@/data/siteContent";
 import { previewByStem } from "@/utils/weddingCard";
 
+const { t } = useI18n();
+
 const VIDEO_ID = "PggDHkV0nGU";
 
 const playing = ref(false);
@@ -259,38 +259,44 @@ const embedUrl = computed(
 const DETAILED_STEPS = [
   {
     seal: "壹",
-    title: "Chọn mẫu thiệp",
+    get title() { return t("guide.d1.title"); },
     image: previewByStem("song_hy_red"),
-    text: "Mở thư viện mẫu và lọc theo bộ sưu tập bạn thích. Bấm vào một mẫu để xem thử toàn bộ thiệp trước khi quyết định.",
-    points: [
-      "Lọc theo bộ sưu tập: Á Đông, Kim tuyến, Lãng mạn, Thiên nhiên, Tối giản",
-      "Xem trước đúng như khách mời sẽ thấy",
-      "Đổi mẫu bất cứ lúc nào — nội dung đã điền được giữ nguyên",
-    ],
+    get text() { return t("guide.d1.text"); },
+    get points() {
+      return [
+        t("guide.d1.p1"),
+        t("guide.d1.p2"),
+        t("guide.d1.p3"),
+      ];
+    },
   },
   {
     seal: "贰",
-    title: "Điền nội dung",
+    get title() { return t("guide.d2.title"); },
     image: previewByStem("jasmine_white"),
-    text: "Editor chia theo từng mục: cô dâu chú rể, sự kiện, album ảnh, câu chuyện, mừng cưới. Điền tới đâu xem trước tới đó.",
-    points: [
-      "Mọi thay đổi hiển thị ngay ở khung xem trước bên cạnh",
-      "Bỏ trống ô nào thì mẫu dùng nội dung mặc định của nó",
-      "Đổi được tên các mục hiển thị trên thiệp",
-      "Lưu nháp bất cứ lúc nào, quay lại làm tiếp sau",
-    ],
+    get text() { return t("guide.d2.text"); },
+    get points() {
+      return [
+        t("guide.d2.p1"),
+        t("guide.d2.p2"),
+        t("guide.d2.p3"),
+        t("guide.d2.p4"),
+      ];
+    },
   },
   {
     seal: "叁",
-    title: "Xuất bản và gửi",
+    get title() { return t("guide.d3.title"); },
     image: previewByStem("cherry_blossom_pink"),
-    text: "Bấm xuất bản để lấy đường link chia sẻ. Gửi qua Zalo, Messenger, Facebook hoặc in mã QR lên thiệp giấy.",
-    points: [
-      "Đường link dạng thiepduyen.com/ten-hai-ban, dễ đọc",
-      "Khách mở là xem được, không cần cài ứng dụng",
-      "Dùng thử 3 ngày đầy đủ tính năng trước khi thanh toán",
-      "Sửa nội dung sau khi gửi vẫn được, link không đổi",
-    ],
+    get text() { return t("guide.d3.text"); },
+    get points() {
+      return [
+        t("guide.d3.p1"),
+        t("guide.d3.p2"),
+        t("guide.d3.p3"),
+        t("guide.d3.p4"),
+      ];
+    },
   },
 ];
 

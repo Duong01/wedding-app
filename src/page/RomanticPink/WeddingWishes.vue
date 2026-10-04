@@ -3,14 +3,11 @@
     <!-- =========================
          HEADER
     ========================== -->
-    <div class="gg-eyebrow">LỜI CHÚC TỪ BẠN</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</div>
 
-    <h2 class="gg-title">Sổ lưu bút</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
 
-    <p class="gg-lead">
-      Mỗi lời chúc là một kỷ niệm đẹp<br />
-      mà chúng mình muốn lưu giữ trong ngày đặc biệt này
-    </p>
+    <p class="gg-lead">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
 
     <!-- =========================
          WISH MARQUEE
@@ -127,6 +124,7 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import { useRoute } from "vue-router";
@@ -134,6 +132,7 @@ import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   wishes: {
     type: Array,
     default: () => [],
@@ -576,5 +575,9 @@ async function add() {
   .wish-track {
     animation: none;
   }
+}
+
+.gg-lead {
+  white-space: pre-line;
 }
 </style>

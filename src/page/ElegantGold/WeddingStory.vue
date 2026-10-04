@@ -1,6 +1,11 @@
 <template>
   <section class="la-story">
-    <h2 class="la-title">{{ storyTitle || "Chuyện tình yêu" }}</h2>
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="la-top-custom-head">
+      <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
+    </header>
+
+    <h2 class="la-title">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
 
     <div class="la-story__card">
       <span class="la-story__quote">“</span>
@@ -13,9 +18,10 @@
 </template>
 
 <script setup>
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
-const props = defineProps({ story: { type: [String, Object], default: "" } });
+const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>
   typeof props.story === "string"
@@ -102,5 +108,38 @@ const storyTitle = computed(() =>
 
     font-size: 16px;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.la-top-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.la-top-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.la-top-custom-head__heading {
+  margin: 0;
+  color: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.la-top-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

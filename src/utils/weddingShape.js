@@ -68,5 +68,18 @@ export function ensureNewSections(wedding) {
     settings.ShowSeasonFx = true;
   }
 
+  /* Tự cuộn thiệp khi khách không thao tác — mặc định bật */
+  if (typeof settings.AutoScroll !== "boolean") {
+    settings.AutoScroll = true;
+  }
+
+  /*
+   * Kiểu album (data/galleryLayouts.js) — thiệp cũ chưa có
+   * thì "default" = kiểu gốc của mẫu, hiển thị như trước.
+   */
+  if (typeof settings.GalleryLayout !== "string" || !settings.GalleryLayout) {
+    settings.GalleryLayout = "default";
+  }
+
   return wedding;
 }

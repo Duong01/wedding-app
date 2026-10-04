@@ -51,13 +51,13 @@ const storyTitle = computed(() => {
 .lc-story {
   text-align: center;
 
-  color: #584a5b;
+  color: var(--tc-584a5b, #584a5b);
 }
 
 .lc-eyebrow {
   margin: 0;
 
-  color: #766384;
+  color: var(--tc-766384, #766384);
 
   font-size: 10px;
   font-weight: 700;
@@ -73,13 +73,13 @@ const storyTitle = computed(() => {
   font-size: clamp(30px, 8vw, 40px);
   font-weight: 400;
 
-  color: #584a5b;
+  color: var(--tc-584a5b, #584a5b);
 }
 
 .lc-quote {
   height: 35px;
 
-  color: #736482;
+  color: var(--tc-736482, #736482);
 
   font: 64px Georgia, serif;
   line-height: 1;
@@ -98,7 +98,7 @@ const storyTitle = computed(() => {
 .lc-tail {
   margin-top: 18px;
 
-  color: #766384;
+  color: var(--tc-766384, #766384);
 
   font-size: 15px;
 

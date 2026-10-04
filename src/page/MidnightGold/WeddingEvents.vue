@@ -1,5 +1,11 @@
 <template>
   <section class="mg-events" ref="sectionRef">
+    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
+    <header v-if="sectionOverride(sections, 'events', 'Eyebrow') || sectionOverride(sections, 'events', 'Heading')" class="mg-custom-head">
+      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="mg-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+      <h2 v-if="sectionOverride(sections, 'events', 'Heading')" class="mg-custom-head__heading">{{ sectionOverride(sections, "events", "Heading") }}</h2>
+    </header>
+
     <div class="mg-events__list">
       <article
         v-for="(event, index) in normalizedEvents"
@@ -214,6 +220,7 @@
 </template>
 
 <script setup>
+import { sectionOverride } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
@@ -226,6 +233,7 @@ const showMap = computed(() => props.settings?.ShowMap === true);
 
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   events: { type: Array, default: () => [] },
   recipientName: { type: [Object, Array, String], default: null },
   settings: { type: Object, default: () => ({}) },
@@ -519,9 +527,9 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
-  border: 1px solid rgba(216, 182, 118, 0.28);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.28);
   border-radius: 26px;
 
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
@@ -536,7 +544,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(216, 182, 118, 0.18);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.18);
   border-radius: 20px;
 
   pointer-events: none;
@@ -561,7 +569,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-mini-divider {
@@ -570,14 +578,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-mini-divider span {
   width: 35px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.7));
 }
 
 .mg-mini-divider span:last-child {
@@ -606,7 +614,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-event-main-date {
@@ -626,7 +634,7 @@ onBeforeUnmount(() => {
 
   line-height: 0.85;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-date-side {
@@ -638,21 +646,21 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-date-side strong {
   font-size: 18px;
   font-weight: 600;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-event-lunar {
   font-size: 14px;
   font-style: italic;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 /* =====================================================
@@ -669,7 +677,7 @@ onBeforeUnmount(() => {
   margin: 10px auto 0;
   padding: 15px 0;
 
-  border-bottom: 1px solid rgba(216, 182, 118, 0.25);
+  border-bottom: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.25);
 }
 
 .mg-event-time div {
@@ -684,14 +692,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-event-time strong {
   font-size: 23px;
   font-weight: 600;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 /* =====================================================
@@ -719,7 +727,7 @@ onBeforeUnmount(() => {
 
   width: 1px;
 
-  background: rgba(216, 182, 118, 0.4);
+  background: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.4);
 }
 
 .mg-schedule-row {
@@ -744,9 +752,9 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #d8b676;
+  border: 1px solid var(--tc-d8b676, #d8b676);
 
-  background: #1d1622;
+  background: var(--tc-1d1622, #1d1622);
 
   z-index: 2;
 }
@@ -754,7 +762,7 @@ onBeforeUnmount(() => {
 .mg-schedule-dot span {
   font-size: 11px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-schedule-content {
@@ -771,14 +779,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-schedule-content strong {
   font-size: 21px;
   font-weight: 600;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 /* =====================================================
@@ -809,7 +817,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-calendar__header strong {
@@ -817,7 +825,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.1em;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-calendar__weekdays,
@@ -833,14 +841,14 @@ onBeforeUnmount(() => {
 .mg-calendar__weekdays {
   padding-bottom: 8px;
 
-  border-bottom: 1px solid rgba(216, 182, 118, 0.2);
+  border-bottom: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.2);
 }
 
 .mg-calendar__weekdays span {
   font-size: 10px;
   font-weight: 700;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-calendar__cell {
@@ -854,7 +862,7 @@ onBeforeUnmount(() => {
 .mg-normal-day {
   font-size: 12px;
 
-  color: rgba(240, 230, 210, 0.72);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.72);
 }
 
 .mg-active-day {
@@ -873,7 +881,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-active-day span:last-child {
@@ -881,7 +889,7 @@ onBeforeUnmount(() => {
 
   font-weight: 700;
 
-  color: #261d23;
+  color: var(--tc-261d23, #261d23);
 }
 
 .mg-calendar-btn {
@@ -899,7 +907,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 /* =====================================================
@@ -921,11 +929,11 @@ onBeforeUnmount(() => {
   border: 0;
   border-radius: 999px;
 
-  color: #261d23;
+  color: var(--tc-261d23, #261d23);
 
-  background: linear-gradient(135deg, #d8b676, #9b7d4d);
+  background: linear-gradient(135deg, var(--tc-d8b676, #d8b676), var(--tc-9b7d4d, #9b7d4d));
 
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(216, 182, 118, 0.15);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.15);
 
   font-size: 11px;
   font-weight: 700;
@@ -940,7 +948,7 @@ onBeforeUnmount(() => {
 .mg-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 28px rgba(216, 182, 118, 0.25);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 28px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.25);
 }
 
 /* =====================================================
@@ -957,14 +965,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-event-bottom span {
   width: 60px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(216, 182, 118, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.6));
 }
 
 .mg-event-bottom span:last-child {
@@ -1027,16 +1035,16 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(216, 182, 118, 0.4);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.4);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, #221a28, #17121b);
+  background: linear-gradient(170deg, var(--tc-221a28, #221a28), var(--tc-17121b, #17121b));
 
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(216, 182, 118, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.08);
 
   text-align: center;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-modal-close {
@@ -1051,7 +1059,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 
   background: transparent;
 
@@ -1067,7 +1075,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-modal-header > span {
@@ -1075,7 +1083,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-modal-header h3 {
@@ -1086,7 +1094,7 @@ onBeforeUnmount(() => {
   font-size: 32px;
   font-weight: 600;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-modal-header p {
@@ -1094,7 +1102,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: rgba(240, 230, 210, 0.72);
+  color: rgba(var(--tc-f0e6d2-rgb, 240, 230, 210), 0.72);
 }
 
 /* =====================================================
@@ -1117,7 +1125,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-form-group input {
@@ -1125,14 +1133,14 @@ onBeforeUnmount(() => {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(216, 182, 118, 0.3);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.3);
   border-radius: 12px;
 
   outline: none;
 
   font-size: 16px;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   background: rgba(255, 255, 255, 0.06);
 
@@ -1140,13 +1148,13 @@ onBeforeUnmount(() => {
 }
 
 .mg-form-group input::placeholder {
-  color: #8d7f6d;
+  color: var(--tc-8d7f6d, #8d7f6d);
 }
 
 .mg-form-group input:focus {
-  border-color: #d8b676;
+  border-color: var(--tc-d8b676, #d8b676);
 
-  box-shadow: 0 0 0 3px rgba(216, 182, 118, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.14);
 }
 
 .mg-attendance {
@@ -1158,14 +1166,14 @@ onBeforeUnmount(() => {
 .mg-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(216, 182, 118, 0.3);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.3);
   border-radius: 12px;
 
   text-align: left;
 
   font-size: 13px;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   background: rgba(255, 255, 255, 0.05);
 
@@ -1175,9 +1183,9 @@ onBeforeUnmount(() => {
 }
 
 .mg-attendance-option.selected {
-  border-color: #d8b676;
+  border-color: var(--tc-d8b676, #d8b676);
 
-  background: rgba(216, 182, 118, 0.12);
+  background: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.12);
 
   font-weight: 600;
 }
@@ -1185,7 +1193,7 @@ onBeforeUnmount(() => {
 .mg-attendance-option span {
   margin-right: 8px;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-people-control {
@@ -1199,12 +1207,12 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid rgba(216, 182, 118, 0.5);
+  border: 1px solid rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.5);
   border-radius: 50%;
 
   font-size: 20px;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 
   background: rgba(255, 255, 255, 0.06);
 
@@ -1218,7 +1226,7 @@ onBeforeUnmount(() => {
 
   font-size: 18px;
 
-  color: #f0e6d2;
+  color: var(--tc-f0e6d2, #f0e6d2);
 }
 
 .mg-recipient-box {
@@ -1226,12 +1234,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px dashed rgba(216, 182, 118, 0.45);
+  border: 1px dashed rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.45);
   border-radius: 16px;
 
   text-align: center;
 
-  background: rgba(216, 182, 118, 0.06);
+  background: rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.06);
 }
 
 .mg-recipient-box span {
@@ -1241,7 +1249,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #b9a88f;
+  color: var(--tc-b9a88f, #b9a88f);
 }
 
 .mg-recipient-box strong {
@@ -1252,7 +1260,7 @@ onBeforeUnmount(() => {
   font-size: 28px;
   font-weight: 400;
 
-  color: #d8b676;
+  color: var(--tc-d8b676, #d8b676);
 }
 
 .mg-form-error,
@@ -1269,15 +1277,15 @@ onBeforeUnmount(() => {
 }
 
 .mg-form-error {
-  color: #e08a8a;
+  color: var(--tc-e08a8a, #e08a8a);
 
-  background: rgba(224, 138, 138, 0.1);
+  background: rgba(var(--tc-e08a8a-rgb, 224, 138, 138), 0.1);
 }
 
 .mg-form-success {
-  color: #a8c79a;
+  color: var(--tc-a8c79a, #a8c79a);
 
-  background: rgba(168, 199, 154, 0.1);
+  background: rgba(var(--tc-a8c79a-rgb, 168, 199, 154), 0.1);
 }
 
 .mg-modal-submit {
@@ -1295,11 +1303,11 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #261d23;
+  color: var(--tc-261d23, #261d23);
 
-  background: linear-gradient(135deg, #d8b676, #9b7d4d);
+  background: linear-gradient(135deg, var(--tc-d8b676, #d8b676), var(--tc-9b7d4d, #9b7d4d));
 
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(216, 182, 118, 0.15);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(var(--tc-d8b676-rgb, 216, 182, 118), 0.15);
 
   cursor: pointer;
 
@@ -1417,5 +1425,38 @@ onBeforeUnmount(() => {
   .mg-modal-submit {
     transition: none;
   }
+}
+
+/* Tiêu đề mục do người dùng nhập (mẫu gốc không có) */
+.mg-custom-head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.mg-custom-head__eyebrow {
+  margin: 0 0 6px;
+  color: var(--tc-d8b676, #d8b676);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.mg-custom-head__heading {
+  margin: 0;
+  color: var(--tc-f0e6d2, #f0e6d2);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.mg-custom-head__intro {
+  margin: 10px auto 0;
+  max-width: 440px;
+  color: var(--tc-d8b676, #d8b676);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 </style>

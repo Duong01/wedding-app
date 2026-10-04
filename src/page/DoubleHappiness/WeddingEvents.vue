@@ -497,13 +497,13 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .dh-events {
-  --dh-red: #7a1216;
-  --dh-red-bright: #a32a2a;
-  --dh-red-dark: #5c0e10;
-  --dh-gold: #d9a441;
-  --dh-gold-light: #f3d9a4;
-  --dh-cream: #fdf6ec;
-  --dh-ink: #5a3d2e;
+  --dh-red: var(--tc-7a1216, #7a1216);
+  --dh-red-bright: var(--tc-a32a2a, #a32a2a);
+  --dh-red-dark: var(--tc-5c0e10, #5c0e10);
+  --dh-gold: var(--tc-d9a441, #d9a441);
+  --dh-gold-light: var(--tc-f3d9a4, #f3d9a4);
+  --dh-cream: var(--tc-fdf6ec, #fdf6ec);
+  --dh-ink: var(--tc-5a3d2e, #5a3d2e);
 
   position: relative;
 
@@ -544,7 +544,7 @@ onBeforeUnmount(() => {
   font-size: clamp(27px, 7vw, 34px);
   font-weight: 600;
 
-  color: var(--dh-cream-on-red, #f7e6c4);
+  color: var(--dh-cream-on-red, var(--tc-f7e6c4, #f7e6c4));
 }
 
 /* =====================================================
@@ -581,12 +581,12 @@ onBeforeUnmount(() => {
 
   color: var(--dh-ink);
 
-  border: 1px solid rgba(217, 164, 65, 0.55);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.55);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, rgba(253, 246, 236, 0.97), rgba(247, 230, 196, 0.93));
+  background: linear-gradient(170deg, rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.97), rgba(var(--tc-f7e6c4-rgb, 247, 230, 196), 0.93));
 
-  box-shadow: 0 18px 44px rgba(60, 10, 12, 0.14);
+  box-shadow: 0 18px 44px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.14);
 
   overflow: hidden;
 }
@@ -597,7 +597,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(217, 164, 65, 0.32);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.32);
   border-radius: 9px;
 
   pointer-events: none;
@@ -638,7 +638,7 @@ onBeforeUnmount(() => {
   width: 35px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.75));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.75));
 }
 
 .dh-mini-divider span:last-child {
@@ -713,7 +713,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
   font-style: italic;
 
-  color: #6e5542;
+  color: var(--tc-6e5542, #6e5542);
 }
 
 /* =====================================================
@@ -730,7 +730,7 @@ onBeforeUnmount(() => {
   margin: 10px auto 0;
   padding: 15px 0;
 
-  border-bottom: 1px solid rgba(217, 164, 65, 0.35);
+  border-bottom: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.35);
 }
 
 .dh-event-time div {
@@ -780,7 +780,7 @@ onBeforeUnmount(() => {
 
   width: 1px;
 
-  background: rgba(217, 164, 65, 0.5);
+  background: rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.5);
 }
 
 .dh-schedule-row {
@@ -835,7 +835,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #6e5542;
+  color: var(--tc-6e5542, #6e5542);
 }
 
 .dh-schedule-content strong {
@@ -897,7 +897,7 @@ onBeforeUnmount(() => {
 .dh-calendar__weekdays {
   padding-bottom: 8px;
 
-  border-bottom: 1px solid rgba(217, 164, 65, 0.3);
+  border-bottom: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.3);
 }
 
 .dh-calendar__weekdays span {
@@ -918,7 +918,7 @@ onBeforeUnmount(() => {
 .dh-normal-day {
   font-size: 12px;
 
-  color: #6a4e3c;
+  color: var(--tc-6a4e3c, #6a4e3c);
 }
 
 .dh-active-day {
@@ -982,14 +982,14 @@ onBeforeUnmount(() => {
 
   padding: 13px 18px;
 
-  border: 1px solid rgba(243, 217, 164, 0.6);
+  border: 1px solid rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.6);
   border-radius: 999px;
 
   color: var(--dh-red-dark);
 
-  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, #c08f34);
+  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, var(--tc-c08f34, #c08f34));
 
-  box-shadow: 0 10px 24px rgba(60, 10, 12, 0.28);
+  box-shadow: 0 10px 24px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.28);
 
   font-size: 11px;
   font-weight: 700;
@@ -1004,7 +1004,7 @@ onBeforeUnmount(() => {
 .dh-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(60, 10, 12, 0.36);
+  box-shadow: 0 14px 30px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.36);
 }
 
 /* =====================================================
@@ -1028,7 +1028,7 @@ onBeforeUnmount(() => {
   width: 60px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.65));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.65));
 }
 
 .dh-event-bottom span:last-child {
@@ -1091,10 +1091,10 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(217, 164, 65, 0.6);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.6);
   border-radius: 14px;
 
-  background: linear-gradient(170deg, #fdf6ec, #f7e6c4);
+  background: linear-gradient(170deg, var(--tc-fdf6ec, #fdf6ec), var(--tc-f7e6c4, #f7e6c4));
 
   box-shadow: 0 30px 80px rgba(30, 4, 6, 0.4);
 
@@ -1109,7 +1109,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(217, 164, 65, 0.3);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.3);
   border-radius: 9px;
 
   pointer-events: none;
@@ -1170,7 +1170,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #6a4e3c;
+  color: var(--tc-6a4e3c, #6a4e3c);
 }
 
 /* =====================================================
@@ -1201,7 +1201,7 @@ onBeforeUnmount(() => {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(217, 164, 65, 0.45);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.45);
   border-radius: 12px;
 
   outline: none;
@@ -1210,7 +1210,7 @@ onBeforeUnmount(() => {
 
   color: var(--dh-red);
 
-  background: rgba(253, 246, 236, 0.9);
+  background: rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.9);
 
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1218,7 +1218,7 @@ onBeforeUnmount(() => {
 .dh-form-group input:focus {
   border-color: var(--dh-red-bright);
 
-  box-shadow: 0 0 0 3px rgba(163, 42, 42, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--tc-a32a2a-rgb, 163, 42, 42), 0.14);
 }
 
 .dh-attendance {
@@ -1230,7 +1230,7 @@ onBeforeUnmount(() => {
 .dh-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(217, 164, 65, 0.45);
+  border: 1px solid rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.45);
   border-radius: 12px;
 
   text-align: left;
@@ -1239,7 +1239,7 @@ onBeforeUnmount(() => {
 
   color: var(--dh-red);
 
-  background: rgba(253, 246, 236, 0.8);
+  background: rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.8);
 
   cursor: pointer;
 
@@ -1249,7 +1249,7 @@ onBeforeUnmount(() => {
 .dh-attendance-option.selected {
   border-color: var(--dh-red-bright);
 
-  background: rgba(163, 42, 42, 0.1);
+  background: rgba(var(--tc-a32a2a-rgb, 163, 42, 42), 0.1);
 
   font-weight: 600;
 }
@@ -1298,12 +1298,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px dashed rgba(217, 164, 65, 0.6);
+  border: 1px dashed rgba(var(--tc-d9a441-rgb, 217, 164, 65), 0.6);
   border-radius: 16px;
 
   text-align: center;
 
-  background: rgba(253, 246, 236, 0.7);
+  background: rgba(var(--tc-fdf6ec-rgb, 253, 246, 236), 0.7);
 }
 
 .dh-recipient-box span {
@@ -1341,9 +1341,9 @@ onBeforeUnmount(() => {
 }
 
 .dh-form-error {
-  color: #a34d4d;
+  color: var(--tc-a34d4d, #a34d4d);
 
-  background: rgba(163, 77, 77, 0.08);
+  background: rgba(var(--tc-a34d4d-rgb, 163, 77, 77), 0.08);
 }
 
 .dh-form-success {
@@ -1359,7 +1359,7 @@ onBeforeUnmount(() => {
 
   padding: 14px;
 
-  border: 1px solid rgba(243, 217, 164, 0.6);
+  border: 1px solid rgba(var(--tc-f3d9a4-rgb, 243, 217, 164), 0.6);
   border-radius: 999px;
 
   font-size: 10px;
@@ -1369,9 +1369,9 @@ onBeforeUnmount(() => {
 
   color: var(--dh-red-dark);
 
-  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, #c08f34);
+  background: linear-gradient(135deg, var(--dh-gold-light), var(--dh-gold) 60%, var(--tc-c08f34, #c08f34));
 
-  box-shadow: 0 10px 24px rgba(60, 10, 12, 0.28);
+  box-shadow: 0 10px 24px rgba(var(--tc-3c0a0c-rgb, 60, 10, 12), 0.28);
 
   cursor: pointer;
 

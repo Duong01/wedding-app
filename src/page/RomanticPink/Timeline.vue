@@ -2,13 +2,11 @@
   <section class="timeline">
     <!-- HEADER -->
     <div class="timeline-header">
-      <div class="gg-eyebrow">DẤU MỐC YÊU THƯƠNG</div>
+      <div class="gg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</div>
 
-      <h2 class="gg-title">Lịch trình ngày cưới</h2>
+      <h2 class="gg-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
 
-      <p class="gg-lead">
-        Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay
-      </p>
+      <p class="gg-lead">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
     </div>
 
     <!-- TIMELINE -->
@@ -60,9 +58,11 @@
 </template>
 
 <script setup>
+import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 const props = defineProps({
+  sections: { type: Object, default: () => ({}) },
   timeline: {
     type: Array,
     default: () => [],
@@ -244,5 +244,9 @@ function formatTime(index) {
   .timeline-description {
     font-size: 13px;
   }
+}
+
+.gg-lead {
+  white-space: pre-line;
 }
 </style>

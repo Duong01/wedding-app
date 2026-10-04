@@ -2,16 +2,15 @@
   <section class="mk-section mk-section--alt">
     <div class="mk-container">
       <header class="mk-head mk-head--center">
-        <p class="mk-eyebrow">Bộ sưu tập</p>
+        <p class="mk-eyebrow">{{ $t('stats.collections') }}</p>
 
         <h2>
-          Bảy bản sắc,
-          <em>một ngày chung đôi.</em>
+          {{ $t('collections.h2a') }}
+          <em>{{ $t('collections.h2b') }}</em>
         </h2>
 
         <p>
-          Mỗi bộ sưu tập bám theo một tinh thần riêng — chọn hướng rồi xem
-          toàn bộ mẫu trong đó.
+          {{ $t('collections.lead') }}
         </p>
       </header>
 
@@ -36,7 +35,7 @@
               {{ col.orn }}
             </span>
 
-            <span class="col-count">{{ col.count }} mẫu</span>
+            <span class="col-count">{{ $t("collections.count", { n: col.count }) }}</span>
           </div>
 
           <div class="col-body">
@@ -47,7 +46,7 @@
             <p class="col-text">{{ col.text }}</p>
 
             <span class="col-more">
-              Xem bộ sưu tập
+              {{ $t('collections.view') }}
               <span aria-hidden="true">→</span>
             </span>
           </div>

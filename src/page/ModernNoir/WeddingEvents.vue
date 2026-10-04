@@ -516,7 +516,7 @@ onBeforeUnmount(() => {
 .mn-eyebrow {
   margin: 0;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 
   font-size: 10px;
   font-weight: 700;
@@ -535,7 +535,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 /* =====================================================
@@ -570,14 +570,14 @@ onBeforeUnmount(() => {
 
   text-align: center;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 
-  border: 1px solid rgba(184, 160, 122, 0.35);
+  border: 1px solid rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.35);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(244, 234, 212, 0.65));
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.8), rgba(var(--tc-f4ead4-rgb, 244, 234, 212), 0.65));
 
-  box-shadow: 0 18px 44px rgba(58, 58, 58, 0.08);
+  box-shadow: 0 18px 44px rgba(var(--tc-3a3a3a-rgb, 58, 58, 58), 0.08);
 
   overflow: hidden;
 }
@@ -587,7 +587,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(201, 180, 140, 0.25);
+  border: 1px solid rgba(var(--tc-c9b48c-rgb, 201, 180, 140), 0.25);
   border-radius: 20px;
 
   pointer-events: none;
@@ -612,7 +612,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.04em;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-mini-divider {
@@ -621,14 +621,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: #4d4d4d;
+  color: var(--tc-4d4d4d, #4d4d4d);
 }
 
 .mn-mini-divider span {
   width: 35px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 180, 140, 0.7));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c9b48c-rgb, 201, 180, 140), 0.7));
 }
 
 .mn-mini-divider span:last-child {
@@ -657,7 +657,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.24em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-event-main-date {
@@ -677,7 +677,7 @@ onBeforeUnmount(() => {
 
   line-height: 0.85;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-date-side {
@@ -689,21 +689,21 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.14em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-date-side strong {
   font-size: 18px;
   font-weight: 600;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-event-lunar {
   font-size: 14px;
   font-style: italic;
 
-  color: #4f4f4f;
+  color: var(--tc-4f4f4f, #4f4f4f);
 }
 
 /* =====================================================
@@ -720,7 +720,7 @@ onBeforeUnmount(() => {
   margin: 10px auto 0;
   padding: 15px 0;
 
-  border-bottom: 1px solid rgba(201, 180, 140, 0.3);
+  border-bottom: 1px solid rgba(var(--tc-c9b48c-rgb, 201, 180, 140), 0.3);
 }
 
 .mn-event-time div {
@@ -735,14 +735,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-event-time strong {
   font-size: 23px;
   font-weight: 600;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 /* =====================================================
@@ -770,7 +770,7 @@ onBeforeUnmount(() => {
 
   width: 1px;
 
-  background: rgba(201, 180, 140, 0.45);
+  background: rgba(var(--tc-c9b48c-rgb, 201, 180, 140), 0.45);
 }
 
 .mn-schedule-row {
@@ -795,9 +795,9 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #4d4d4d;
+  border: 1px solid var(--tc-4d4d4d, #4d4d4d);
 
-  background: #fbf8f0;
+  background: var(--tc-fbf8f0, #fbf8f0);
 
   z-index: 2;
 }
@@ -805,7 +805,7 @@ onBeforeUnmount(() => {
 .mn-schedule-dot span {
   font-size: 11px;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-schedule-content {
@@ -822,14 +822,14 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.16em;
 
-  color: #4f4f4f;
+  color: var(--tc-4f4f4f, #4f4f4f);
 }
 
 .mn-schedule-content strong {
   font-size: 21px;
   font-weight: 600;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 /* =====================================================
@@ -860,7 +860,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-calendar__header strong {
@@ -868,7 +868,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.1em;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-calendar__weekdays,
@@ -884,14 +884,14 @@ onBeforeUnmount(() => {
 .mn-calendar__weekdays {
   padding-bottom: 8px;
 
-  border-bottom: 1px solid rgba(201, 180, 140, 0.25);
+  border-bottom: 1px solid rgba(var(--tc-c9b48c-rgb, 201, 180, 140), 0.25);
 }
 
 .mn-calendar__weekdays span {
   font-size: 10px;
   font-weight: 700;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-calendar__cell {
@@ -905,7 +905,7 @@ onBeforeUnmount(() => {
 .mn-normal-day {
   font-size: 12px;
 
-  color: #5c5c5c;
+  color: var(--tc-5c5c5c, #5c5c5c);
 }
 
 .mn-active-day {
@@ -924,7 +924,7 @@ onBeforeUnmount(() => {
 
   font-size: 31px;
 
-  color: #4d4d4d;
+  color: var(--tc-4d4d4d, #4d4d4d);
 }
 
 .mn-active-day span:last-child {
@@ -932,7 +932,7 @@ onBeforeUnmount(() => {
 
   font-weight: 700;
 
-  color: #fcfaf3;
+  color: var(--tc-fcfaf3, #fcfaf3);
 }
 
 .mn-calendar-btn {
@@ -950,7 +950,7 @@ onBeforeUnmount(() => {
 
   text-decoration: none;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 /* =====================================================
@@ -972,11 +972,11 @@ onBeforeUnmount(() => {
   border: 0;
   border-radius: 999px;
 
-  color: #fcfaf3;
+  color: var(--tc-fcfaf3, #fcfaf3);
 
-  background: linear-gradient(135deg, #474747, #6b6b6b);
+  background: linear-gradient(135deg, var(--tc-474747, #474747), var(--tc-6b6b6b, #6b6b6b));
 
-  box-shadow: 0 10px 24px rgba(58, 58, 58, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-3a3a3a-rgb, 58, 58, 58), 0.24);
 
   font-size: 11px;
   font-weight: 700;
@@ -991,7 +991,7 @@ onBeforeUnmount(() => {
 .mn-rsvp-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 14px 30px rgba(58, 58, 58, 0.32);
+  box-shadow: 0 14px 30px rgba(var(--tc-3a3a3a-rgb, 58, 58, 58), 0.32);
 }
 
 /* =====================================================
@@ -1008,14 +1008,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 12px;
 
-  color: #4d4d4d;
+  color: var(--tc-4d4d4d, #4d4d4d);
 }
 
 .mn-event-bottom span {
   width: 60px;
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(201, 180, 140, 0.6));
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-c9b48c-rgb, 201, 180, 140), 0.6));
 }
 
 .mn-event-bottom span:last-child {
@@ -1062,7 +1062,7 @@ onBeforeUnmount(() => {
 
   padding: 20px;
 
-  background: rgba(43, 43, 43, 0.45);
+  background: rgba(var(--tc-2b2b2b-rgb, 43, 43, 43), 0.45);
 
   backdrop-filter: blur(6px);
 }
@@ -1078,16 +1078,16 @@ onBeforeUnmount(() => {
 
   padding: 40px 30px;
 
-  border: 1px solid rgba(184, 160, 122, 0.45);
+  border: 1px solid rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.45);
   border-radius: 26px;
 
-  background: linear-gradient(170deg, #fdfcf7, #f6eedb);
+  background: linear-gradient(170deg, var(--tc-fdfcf7, #fdfcf7), var(--tc-f6eedb, #f6eedb));
 
-  box-shadow: 0 30px 80px rgba(43, 43, 43, 0.3);
+  box-shadow: 0 30px 80px rgba(var(--tc-2b2b2b-rgb, 43, 43, 43), 0.3);
 
   text-align: center;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-modal-close {
@@ -1102,7 +1102,7 @@ onBeforeUnmount(() => {
 
   font-size: 27px;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 
   background: transparent;
 
@@ -1118,7 +1118,7 @@ onBeforeUnmount(() => {
 
   margin-bottom: 8px;
 
-  color: #4d4d4d;
+  color: var(--tc-4d4d4d, #4d4d4d);
 }
 
 .mn-modal-header > span {
@@ -1126,7 +1126,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.28em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-modal-header h3 {
@@ -1137,7 +1137,7 @@ onBeforeUnmount(() => {
   font-size: 32px;
   font-weight: 600;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-modal-header p {
@@ -1145,7 +1145,7 @@ onBeforeUnmount(() => {
 
   font-size: 14px;
 
-  color: #5c5c5c;
+  color: var(--tc-5c5c5c, #5c5c5c);
 }
 
 /* =====================================================
@@ -1168,7 +1168,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.12em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-form-group input {
@@ -1176,24 +1176,24 @@ onBeforeUnmount(() => {
 
   padding: 13px 14px;
 
-  border: 1px solid rgba(184, 160, 122, 0.4);
+  border: 1px solid rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.4);
   border-radius: 12px;
 
   outline: none;
 
   font-size: 16px;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 
-  background: rgba(253, 252, 247, 0.9);
+  background: rgba(var(--tc-fdfcf7-rgb, 253, 252, 247), 0.9);
 
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .mn-form-group input:focus {
-  border-color: #474747;
+  border-color: var(--tc-474747, #474747);
 
-  box-shadow: 0 0 0 3px rgba(184, 160, 122, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.14);
 }
 
 .mn-attendance {
@@ -1205,16 +1205,16 @@ onBeforeUnmount(() => {
 .mn-attendance-option {
   padding: 12px 14px;
 
-  border: 1px solid rgba(184, 160, 122, 0.4);
+  border: 1px solid rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.4);
   border-radius: 12px;
 
   text-align: left;
 
   font-size: 13px;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 
-  background: rgba(253, 252, 247, 0.8);
+  background: rgba(var(--tc-fdfcf7-rgb, 253, 252, 247), 0.8);
 
   cursor: pointer;
 
@@ -1222,9 +1222,9 @@ onBeforeUnmount(() => {
 }
 
 .mn-attendance-option.selected {
-  border-color: #474747;
+  border-color: var(--tc-474747, #474747);
 
-  background: rgba(184, 160, 122, 0.12);
+  background: rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.12);
 
   font-weight: 600;
 }
@@ -1232,7 +1232,7 @@ onBeforeUnmount(() => {
 .mn-attendance-option span {
   margin-right: 8px;
 
-  color: #4d4d4d;
+  color: var(--tc-4d4d4d, #4d4d4d);
 }
 
 .mn-people-control {
@@ -1246,14 +1246,14 @@ onBeforeUnmount(() => {
   width: 38px;
   height: 38px;
 
-  border: 1px solid #4d4d4d;
+  border: 1px solid var(--tc-4d4d4d, #4d4d4d);
   border-radius: 50%;
 
   font-size: 20px;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 
-  background: #fbf8f0;
+  background: var(--tc-fbf8f0, #fbf8f0);
 
   cursor: pointer;
 }
@@ -1265,7 +1265,7 @@ onBeforeUnmount(() => {
 
   font-size: 18px;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-recipient-box {
@@ -1273,12 +1273,12 @@ onBeforeUnmount(() => {
 
   padding: 18px;
 
-  border: 1px dashed rgba(184, 160, 122, 0.5);
+  border: 1px dashed rgba(var(--tc-b8a07a-rgb, 184, 160, 122), 0.5);
   border-radius: 16px;
 
   text-align: center;
 
-  background: rgba(252, 250, 244, 0.7);
+  background: rgba(var(--tc-fcfaf4-rgb, 252, 250, 244), 0.7);
 }
 
 .mn-recipient-box span {
@@ -1288,7 +1288,7 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.22em;
 
-  color: #474747;
+  color: var(--tc-474747, #474747);
 }
 
 .mn-recipient-box strong {
@@ -1299,7 +1299,7 @@ onBeforeUnmount(() => {
   font-size: 28px;
   font-weight: 400;
 
-  color: #3a3a3a;
+  color: var(--tc-3a3a3a, #3a3a3a);
 }
 
 .mn-form-error,
@@ -1316,15 +1316,15 @@ onBeforeUnmount(() => {
 }
 
 .mn-form-error {
-  color: #8a6a3a;
+  color: var(--tc-8a6a3a, #8a6a3a);
 
-  background: rgba(138, 106, 58, 0.08);
+  background: rgba(var(--tc-8a6a3a-rgb, 138, 106, 58), 0.08);
 }
 
 .mn-form-success {
-  color: #8a7354;
+  color: var(--tc-8a7354, #8a7354);
 
-  background: rgba(138, 115, 84, 0.08);
+  background: rgba(var(--tc-8a7354-rgb, 138, 115, 84), 0.08);
 }
 
 .mn-modal-submit {
@@ -1342,11 +1342,11 @@ onBeforeUnmount(() => {
 
   letter-spacing: 0.2em;
 
-  color: #fcfaf3;
+  color: var(--tc-fcfaf3, #fcfaf3);
 
-  background: linear-gradient(135deg, #474747, #6b6b6b);
+  background: linear-gradient(135deg, var(--tc-474747, #474747), var(--tc-6b6b6b, #6b6b6b));
 
-  box-shadow: 0 10px 24px rgba(58, 58, 58, 0.24);
+  box-shadow: 0 10px 24px rgba(var(--tc-3a3a3a-rgb, 58, 58, 58), 0.24);
 
   cursor: pointer;
 

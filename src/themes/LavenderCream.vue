@@ -1,5 +1,5 @@
 <template>
-  <div class="lavender-cream-theme">
+  <div class="lavender-cream-theme" :style="colorVars">
     <OpeningScreen v-if="!opened" :wedding="wedding" :monogram="monogram" :date-label="openDateLabel" :sections="sections" @open="handleOpen" />
     <main v-else class="lavender-invitation">
       <WeddingHero v-if="showHero" :wedding="wedding" :monogram="monogram" :date-label="heroDateLabel" :event="primaryEvent" :guest-name="guestName" />
@@ -20,7 +20,7 @@
         <section v-if="showGame" class="lavender-section"><GameSection :wedding="wedding" /></section>
         <section v-if="showTimeline && timeline.length" class="lavender-section"><Timeline :timeline="timeline" :events="events" :sections="sections" /></section>
         <section v-if="showCountdown" class="lavender-section"><WeddingCountdown :countdown="countdownTarget" :wedding-date="wedding?.weddingDate" :sections="sections" /></section>
-        <section v-if="showGallery && gallery.length" class="lavender-section"><WeddingGallery :gallery="gallery" :sections="sections" /></section>
+        <section v-if="showGallery && gallery.length" class="lavender-section"><WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" /></section>
 
       </div>
       <section v-if="showGift && gifts.length" class="lavender-section"><WeddingGifts :gifts="gifts" :sections="sections" /></section>
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { useThemeColorVars } from "@/composables/useThemeColorVars";
 import { computed, nextTick, ref, onMounted } from "vue";
 import dayjs from "dayjs";
 import FloatingMusic from "@/components/common/FloatingMusic.vue";
@@ -58,6 +59,9 @@ import WeddingWishes from "@/page/LavenderCream/WeddingWishes.vue";
 import WeddingFooter from "@/page/LavenderCream/WeddingFooter.vue";
 
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
+
+/* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
+const { colorVars } = useThemeColorVars(() => props.wedding);
 
 const emit = defineEmits(["open"]);
 const wedding = computed(() => props.wedding || {})
@@ -145,12 +149,12 @@ onMounted(() => {
 
 <style scoped>
 .lavender-cream-theme {
-  --theme-primary: #584a5b;
-  --theme-secondary: #a086b4;
-  --theme-accent: #d8c0de;
-  --theme-bg: #faf8fc;
+  --theme-primary: var(--tc-584a5b, #584a5b);
+  --theme-secondary: var(--tc-a086b4, #a086b4);
+  --theme-accent: var(--tc-d8c0de, #d8c0de);
+  --theme-bg: var(--tc-faf8fc, #faf8fc);
   --theme-panel: rgba(255,255,255,0.72);
-  --theme-text: #433846;
+  --theme-text: var(--tc-433846, #433846);
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -160,21 +164,21 @@ onMounted(() => {
 }
 
 .lavender-invitation { width: 100%; }
-.lavender-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(241,235,244,0.8)); }
+.lavender-content { padding: 0 20px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(var(--tc-f1ebf4-rgb, 241, 235, 244), 0.8)); }
 .lavender-section { max-width: 1100px; margin: 0 auto 22px; }
 
 /* Màn hình rộng: nền ngoài thiệp là màu giấy, thiệp ở giữa
    giữ nguyên nền như bản mobile. */
 @media (min-width: 768px) {
   .lavender-cream-theme {
-    background: #f2ead8;
+    background: var(--tc-f2ead8, #f2ead8);
   }
 
   .lavender-invitation {
     width: min(900px, 100%);
     margin: 0 auto;
     background: var(--theme-bg);
-    box-shadow: 0 0 44px rgba(88, 74, 91, 0.16);
+    box-shadow: 0 0 44px rgba(var(--tc-584a5b-rgb, 88, 74, 91), 0.16);
   }
 }
 </style>

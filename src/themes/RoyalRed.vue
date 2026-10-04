@@ -67,7 +67,7 @@
         ================================================ -->
 
         <section v-if="showGallery && gallery.length" class="rr-section">
-          <WeddingGallery :gallery="gallery" :sections="sections" />
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
         </section>
 
         <!-- ===============================================
@@ -229,7 +229,7 @@ const emit = defineEmits(["open"]);
    THEME
 ========================================================== */
 
-const { theme, themeStyle } = useWeddingTheme(props.wedding);
+const { theme, themeStyle } = useWeddingTheme(() => props.wedding);
 
 /* ==========================================================
    WEDDING
