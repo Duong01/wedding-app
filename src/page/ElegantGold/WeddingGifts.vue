@@ -5,14 +5,14 @@
       <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "gifts", "Heading", $t("Hộp Quà Mừng")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="la-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="la-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
     </header>
 
 
-    <button type="button" class="la-gift" aria-label="Mở hộp mừng cưới" @click="openGift">
+    <button type="button" class="la-gift" :aria-label="$t('Mở hộp mừng cưới')" @click="openGift">
       <span class="la-gift__sparkle la-gift__sparkle--1">✦</span>
       <span class="la-gift__sparkle la-gift__sparkle--2">✦</span>
       <span class="la-gift__sparkle la-gift__sparkle--3">✦</span>
@@ -26,7 +26,7 @@
         <img :src="envelope" alt="" class="la-gift__card" aria-hidden="true" />
       </span>
 
-      <span class="la-gift__hint">Nhấn để mở</span>
+      <span class="la-gift__hint">{{ $t("Nhấn để mở") }}</span>
     </button>
 
     <!-- =====================================================
@@ -39,11 +39,11 @@
 
           <div class="la-gift-dialog__card" role="dialog" aria-modal="true">
             <div class="la-gift-dialog__head">
-              <button type="button" class="la-gift-dialog__close" aria-label="Đóng" @click="closeGift">
-                ×
+              <button type="button" class="la-gift-dialog__close" :aria-label="$t('Đóng')" @click="closeGift">
+                {{ "×" }}
               </button>
 
-              <h3>Hộp Quà Mừng</h3>
+              <h3>{{ $t("Hộp Quà Mừng") }}</h3>
             </div>
 
             <div class="la-gift-dialog__body">
@@ -57,21 +57,21 @@
                     v-if="item.QrCode"
                     type="button"
                     class="la-account__qr"
-                    aria-label="Xem QR lớn"
+                    :aria-label="$t('Xem QR lớn')"
                     @click="openQr(item)"
                   >
-                    <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" />
+                    <img :src="item.QrCode" :alt="item.Name || $t('QR mừng cưới')" />
                   </button>
 
                   <div class="la-account__info">
                     <p v-if="item.BankName">{{ item.BankName }}</p>
 
                     <p class="la-account__number">
-                      {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                      {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                     </p>
 
                     <p class="la-account__owner">
-                      {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                      {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                     </p>
                   </div>
 
@@ -85,7 +85,7 @@
                       <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
 
-                    Lưu QR
+                    {{ $t("Lưu QR") }}
                   </button>
 
                   <button
@@ -94,13 +94,13 @@
                     class="la-account__save"
                     @click="copyAccount(item)"
                   >
-                    Sao chép số tài khoản
+                    {{ $t("Sao chép số tài khoản") }}
                   </button>
                 </article>
               </div>
 
               <p v-else class="la-gift-dialog__empty">
-                Thông tin chuyển khoản đang được cập nhật.
+                {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
               </p>
             </div>
           </div>
@@ -115,17 +115,17 @@
           <div class="la-qr-preview__backdrop" @click="closeQr"></div>
 
           <div class="la-qr-preview__card">
-            <button type="button" class="la-qr-preview__close" aria-label="Đóng QR" @click="closeQr">
-              ×
+            <button type="button" class="la-qr-preview__close" :aria-label="$t('Đóng QR')" @click="closeQr">
+              {{ "×" }}
             </button>
 
-            <p class="la-qr-preview__title">{{ previewQr.Name || "QR MỪNG CƯỚI" }}</p>
+            <p class="la-qr-preview__title">{{ previewQr.Name || $t("QR MỪNG CƯỚI") }}</p>
 
             <div class="la-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+              <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
             </div>
 
-            <p class="la-qr-preview__hint">Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p class="la-qr-preview__hint">{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -134,7 +134,7 @@
               download
               class="la-pill la-qr-preview__save"
             >
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -148,7 +148,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 
 import envelope from "@/assets/romatic-pink/mini/hoa_tinh_red.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },

@@ -45,8 +45,7 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
+import { t } from "@/lang";
 /* =====================================================
    PROPS
 ===================================================== */
@@ -68,13 +67,12 @@ const props = defineProps({
   },
 });
 
-
 /* =====================================================
    TIÊU ĐỀ MỤC
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "countdown", "Heading", "Đếm ngược")
+  sectionText(props.sections, "countdown", "Heading", t("Đếm ngược"))
 );
 
 

@@ -5,9 +5,9 @@
       <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="mw-title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+    <h2 class="mw-title">{{ sectionText(sections, "countdown", "Heading", $t("Cùng đếm ngược")) }}</h2>
 
-    <p class="mw-lead">Ngày trọng đại đang đến gần</p>
+    <p class="mw-lead">{{ $t("Ngày trọng đại đang đến gần") }}</p>
 
     <div class="mw-countdown__grid">
       <div v-for="item in items" :key="item.label" class="mw-countdown__item">
@@ -24,7 +24,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   countdown: {
@@ -78,10 +78,10 @@ const values = computed(() => {
 });
 
 const items = computed(() => [
-  { label: "NGÀY", value: String(values.value.days).padStart(2, "0") },
-  { label: "GIỜ", value: String(values.value.hours).padStart(2, "0") },
-  { label: "PHÚT", value: String(values.value.minutes).padStart(2, "0") },
-  { label: "GIÂY", value: String(values.value.seconds).padStart(2, "0") },
+  { label: t("NGÀY"), value: String(values.value.days).padStart(2, "0") },
+  { label: t("GIỜ"), value: String(values.value.hours).padStart(2, "0") },
+  { label: t("PHÚT"), value: String(values.value.minutes).padStart(2, "0") },
+  { label: t("GIÂY"), value: String(values.value.seconds).padStart(2, "0") },
 ]);
 
 onMounted(() => {

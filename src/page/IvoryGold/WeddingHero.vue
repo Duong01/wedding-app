@@ -58,7 +58,7 @@
         <span class="top-line"></span>
 
         <span>
-          THIỆP HỒNG BÁO HỶ
+          {{ $t("THIỆP HỒNG BÁO HỶ") }}
         </span>
 
         <span class="top-line"></span>
@@ -83,7 +83,7 @@
       <!-- SMALL INTRO -->
 
       <div class="hero-intro">
-        HỶ KẾT LƯƠNG DUYÊN
+        {{ $t("HỶ KẾT LƯƠNG DUYÊN") }}
       </div>
 
 
@@ -99,7 +99,7 @@
           v-if="coupleImage"
           :src="coupleImage"
           class="couple"
-          alt="Cô dâu chú rể"
+          :alt="$t('Cô dâu chú rể')"
         />
 
       </div>
@@ -133,7 +133,7 @@
       <div class="date-block">
 
         <div class="date-label">
-          NGÀY VUI
+          {{ $t("NGÀY VUI") }}
         </div>
 
         <div class="date">
@@ -146,7 +146,7 @@
       <!-- BOTTOM MESSAGE -->
 
       <div class="subtitle">
-        TRĂM NĂM HẠNH PHÚC
+        {{ $t("TRĂM NĂM HẠNH PHÚC") }}
       </div>
 
 
@@ -192,7 +192,6 @@ const props = defineProps({
     default: "",
   },
 });
-
 
 const wedding = computed(() => props.wedding || {});
 

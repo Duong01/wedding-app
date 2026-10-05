@@ -1,0 +1,1725 @@
+Tổng: 491 chuỗi khác nhau
+
+### 63× "CHỦ NHẬT"
+    src/page/BohoTerracotta/WeddingCouple.vue:219 · "CHỦ NHẬT",
+    src/page/BohoTerracotta/WeddingEvents.vue:337 · "CHỦ NHẬT",
+
+### 49× "THỨ HAI"
+    src/page/BohoTerracotta/WeddingCouple.vue:220 · "THỨ HAI",
+    src/page/BohoTerracotta/WeddingEvents.vue:338 · "THỨ HAI",
+
+### 49× "THỨ BA"
+    src/page/BohoTerracotta/WeddingCouple.vue:221 · "THỨ BA",
+    src/page/BohoTerracotta/WeddingEvents.vue:339 · "THỨ BA",
+
+### 49× "THỨ TƯ"
+    src/page/BohoTerracotta/WeddingCouple.vue:222 · "THỨ TƯ",
+    src/page/BohoTerracotta/WeddingEvents.vue:340 · "THỨ TƯ",
+
+### 49× "THỨ NĂM"
+    src/page/BohoTerracotta/WeddingCouple.vue:223 · "THỨ NĂM",
+    src/page/BohoTerracotta/WeddingEvents.vue:341 · "THỨ NĂM",
+
+### 49× "THỨ SÁU"
+    src/page/BohoTerracotta/WeddingCouple.vue:224 · "THỨ SÁU",
+    src/page/BohoTerracotta/WeddingEvents.vue:342 · "THỨ SÁU",
+
+### 49× "THỨ BẢY"
+    src/page/BohoTerracotta/WeddingCouple.vue:225 · "THỨ BẢY",
+    src/page/BohoTerracotta/WeddingEvents.vue:343 · "THỨ BẢY",
+
+### 48× "ĐANG GỬI..."
+    src/page/BohoTerracotta/WeddingEvents.vue:253 · {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+    src/page/BohoTerracotta/WeddingWishes.vue:41 · {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+
+### 45× "Nhập tên của bạn"
+    src/page/BohoTerracotta/WeddingEvents.vue:206 · placeholder="Nhập tên của bạn"
+    src/page/BotanicalLeaf/WeddingEvents.vue:168 · <input v-model.trim="form.name" type="text" maxlength="100" placeholder="Nhập tên của bạn" />
+
+### 44× "Quý khách"
+    src/page/BohoTerracotta/WeddingCouple.vue:161 · guestName: { type: String, default: "Quý khách" },
+    src/page/BohoTerracotta/WeddingHero.vue:93 · guestName: { type: String, default: "Quý khách" },
+
+### 44× "TRÂN TRỌNG KÍNH MỜI"
+    src/page/BohoTerracotta/WeddingEvents.vue:195 · <span>TRÂN TRỌNG KÍNH MỜI</span>
+    src/page/BohoTerracotta/WeddingHero.vue:56 · <p class="bq-hero__guest-label">TRÂN TRỌNG KÍNH MỜI</p>
+
+### 43× "QR mừng cưới"
+    src/page/BohoTerracotta/WeddingGifts.vue:87 · <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" />
+    src/page/BohoTerracotta/WeddingGifts.vue:155 · <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+
+### 40× "Chưa cập nhật"
+    src/page/BohoTerracotta/WeddingGifts.vue:96 · {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+    src/page/BohoTerracotta/WeddingGifts.vue:104 · {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+
+### 40× "Sao chép số tài khoản"
+    src/page/BohoTerracotta/WeddingGifts.vue:110 · title="Sao chép số tài khoản"
+    src/page/BohoTerracotta/WeddingGifts.vue:111 · aria-label="Sao chép số tài khoản"
+
+### 36× "LỜI CHÚC"
+    src/page/BotanicalLeaf/WeddingWishes.vue:33 · <span>LỜI CHÚC</span>
+    src/page/BotanicalLeaf/WeddingWishes.vue:90 · <label>LỜI CHÚC</label>
+
+### 29× "Hộp mừng cưới"
+    src/page/BotanicalLeaf/WeddingGifts.vue:76 · <h3 id="bl-gift-dialog-title">Hộp mừng cưới</h3>
+    src/page/BotanicalLeaf/WeddingGifts.vue:234 · sectionText(props.sections, "gifts", "Heading", "Hộp mừng cưới")
+
+### 28× "Khách mời"
+    src/page/BohoTerracotta/WeddingWishes.vue:110 · return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+    src/page/BotanicalLeaf/WeddingWishes.vue:234 · return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+
+### 27× "Họ và tên"
+    src/page/BohoTerracotta/WeddingEvents.vue:200 · <label>Họ và tên</label>
+    src/page/BotanicalLeaf/WeddingEvents.vue:166 · <label>Họ và tên</label>
+
+### 27× "THÁNG"
+    src/page/BotanicalLeaf/WeddingCouple.vue:77 · <span>THÁNG</span>
+    src/page/BotanicalLeaf/WeddingEvents.vue:33 · <span>THÁNG</span>
+
+### 27× "NĂM"
+    src/page/BotanicalLeaf/WeddingCouple.vue:84 · <span>NĂM</span>
+    src/page/BotanicalLeaf/WeddingEvents.vue:40 · <span>NĂM</span>
+
+### 27× "THỜI GIAN"
+    src/page/BotanicalLeaf/WeddingCouple.vue:93 · <span class="bl-time-label">THỜI GIAN</span>
+    src/page/BotanicalLeaf/WeddingEvents.vue:51 · <small>THỜI GIAN</small>
+
+### 25× "Số người tham dự"
+    src/page/BohoTerracotta/WeddingEvents.vue:235 · <label>Số người tham dự</label>
+    src/page/BotanicalLeaf/WeddingEvents.vue:200 · <label>Số người tham dự</label>
+
+### 25× "GỬI XÁC NHẬN"
+    src/page/BohoTerracotta/WeddingEvents.vue:253 · {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+    src/page/BotanicalLeaf/WeddingEvents.vue:213 · {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+
+### 25× "Có tham dự"
+    src/page/BohoTerracotta/WeddingEvents.vue:486 · form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+    src/page/BotanicalLeaf/WeddingEvents.vue:440 · form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+
+### 25× "Không tham dự"
+    src/page/BohoTerracotta/WeddingEvents.vue:486 · form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+    src/page/BotanicalLeaf/WeddingEvents.vue:440 · form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+
+### 25× "Không thể gửi xác nhận."
+    src/page/BohoTerracotta/WeddingEvents.vue:496 · throw new Error(result?.message || "Không thể gửi xác nhận.");
+    src/page/BotanicalLeaf/WeddingEvents.vue:450 · throw new Error(result?.message || "Không thể gửi xác nhận.");
+
+### 24× "Trân trọng kính mời"
+    src/page/BohoTerracotta/OpeningScreen.vue:70 · <p class="bq-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+    src/page/BotanicalLeaf/OpeningScreen.vue:105 · sectionText(props.sections, "opening", "Invite", "Trân trọng kính mời")
+
+### 24× "NGÀY"
+    src/page/BohoTerracotta/WeddingCountdown.vue:48 · ["NGÀY", Math.floor(seconds / 86400)],
+    src/page/BotanicalLeaf/WeddingCountdown.vue:53 · ["NGÀY", Math.floor(seconds / 86400)],
+
+### 24× "GIỜ"
+    src/page/BohoTerracotta/WeddingCountdown.vue:49 · ["GIỜ", Math.floor((seconds % 86400) / 3600)],
+    src/page/BotanicalLeaf/WeddingCountdown.vue:54 · ["GIỜ", Math.floor((seconds % 86400) / 3600)],
+
+### 24× "PHÚT"
+    src/page/BohoTerracotta/WeddingCountdown.vue:50 · ["PHÚT", Math.floor((seconds % 3600) / 60)],
+    src/page/BotanicalLeaf/WeddingCountdown.vue:55 · ["PHÚT", Math.floor((seconds % 3600) / 60)],
+
+### 24× "GIÂY"
+    src/page/BohoTerracotta/WeddingCountdown.vue:51 · ["GIÂY", seconds % 60],
+    src/page/BotanicalLeaf/WeddingCountdown.vue:56 · ["GIÂY", seconds % 60],
+
+### 24× "Bạn có tham dự không?"
+    src/page/BohoTerracotta/WeddingEvents.vue:211 · <label>Bạn có tham dự không?</label>
+    src/page/BotanicalLeaf/WeddingEvents.vue:173 · <label>Bạn có tham dự không?</label>
+
+### 24× "Vui lòng chọn xác nhận tham dự."
+    src/page/BohoTerracotta/WeddingEvents.vue:468 · errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    src/page/BotanicalLeaf/WeddingEvents.vue:422 · errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+
+### 24× "GỬI LỜI CHÚC"
+    src/page/BohoTerracotta/WeddingWishes.vue:41 · {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+    src/page/BotanicalLeaf/WeddingWishes.vue:106 · <span>{{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}</span>
+
+### 23× "Xác nhận tham dự"
+    src/page/BohoTerracotta/WeddingEvents.vue:188 · <h3 class="bq-confirm__title">Xác nhận tham dự</h3>
+    src/page/BotanicalLeaf/WeddingEvents.vue:153 · <h3>Xác nhận tham dự</h3>
+
+### 23× "Mở hộp mừng cưới"
+    src/page/BohoTerracotta/WeddingGifts.vue:18 · <button type="button" class="bq-envelope" aria-label="Mở hộp mừng cưới" @click="openGift">
+    src/page/BotanicalLeaf/WeddingGifts.vue:19 · <button type="button" class="bl-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
+
+### 23× "Không thể sao chép số tài khoản"
+    src/page/BohoTerracotta/WeddingGifts.vue:220 · console.warn("Không thể sao chép số tài khoản", error);
+    src/page/BotanicalLeaf/WeddingGifts.vue:282 · console.warn("Không thể sao chép số tài khoản", error);
+
+### 23× "submitting ? \"ĐANG GỬI...\" : \"GỬI LỜI CHÚC\""
+    src/page/BohoTerracotta/WeddingWishes.vue:41 · {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+    src/page/BotanicalLeaf/WeddingWishes.vue:106 · <span>{{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}</span>
+
+### 22× "Ông Bà"
+    src/page/BohoTerracotta/WeddingCouple.vue:33 · <span class="bq-family__label">Ông Bà</span>
+    src/page/BohoTerracotta/WeddingCouple.vue:57 · <span class="bq-family__label">Ông Bà</span>
+
+### 22× "submitting ? \"ĐANG GỬI...\" : \"GỬI XÁC NHẬN\""
+    src/page/BohoTerracotta/WeddingEvents.vue:253 · {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+    src/page/BotanicalLeaf/WeddingEvents.vue:213 · {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+
+### 22× "Chưa có hình ảnh"
+    src/page/BohoTerracotta/WeddingGallery.vue:27 · <p>Chưa có hình ảnh</p>
+    src/page/BotanicalLeaf/WeddingGallery.vue:30 · <p>Chưa có hình ảnh</p>
+
+### 22× "Vui lòng nhập tên của bạn"
+    src/page/BohoTerracotta/WeddingWishes.vue:169 · alert("Vui lòng nhập tên của bạn");
+    src/page/BotanicalLeaf/WeddingWishes.vue:291 · alert("Vui lòng nhập tên của bạn");
+
+### 22× "Vui lòng nhập lời chúc"
+    src/page/BohoTerracotta/WeddingWishes.vue:174 · alert("Vui lòng nhập lời chúc");
+    src/page/BotanicalLeaf/WeddingWishes.vue:296 · alert("Vui lòng nhập lời chúc");
+
+### 22× "Gửi lời chúc thành công ❤️"
+    src/page/BohoTerracotta/WeddingWishes.vue:198 · alert("Gửi lời chúc thành công ❤️");
+    src/page/BotanicalLeaf/WeddingWishes.vue:320 · alert("Gửi lời chúc thành công ❤️");
+
+### 22× "Không thể gửi lời chúc."
+    src/page/BohoTerracotta/WeddingWishes.vue:205 · alert(result?.message || "Không thể gửi lời chúc.");
+    src/page/BotanicalLeaf/WeddingWishes.vue:327 · alert(result?.message || "Không thể gửi lời chúc.");
+
+### 22× "Có lỗi xảy ra, vui lòng thử lại."
+    src/page/BohoTerracotta/WeddingWishes.vue:210 · alert(error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại.");
+    src/page/BotanicalLeaf/WeddingWishes.vue:334 · "Có lỗi xảy ra, vui lòng thử lại."
+
+### 21× "Xem QR lớn"
+    src/page/BohoTerracotta/WeddingGifts.vue:84 · aria-label="Xem QR lớn"
+    src/page/BotanicalLeaf/WeddingGifts.vue:105 · aria-label="Xem QR lớn"
+
+### 21× "Đóng QR"
+    src/page/BohoTerracotta/WeddingGifts.vue:147 · aria-label="Đóng QR"
+    src/page/BotanicalLeaf/WeddingGifts.vue:187 · <button type="button" class="bl-qr-preview__close" aria-label="Đóng QR" @click="closeQr">
+
+### 21× "Một lời chúc yêu thương"
+    src/page/BohoTerracotta/WeddingWishes.vue:114 · return wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương";
+    src/page/BotanicalLeaf/WeddingWishes.vue:238 · return wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương";
+
+### 21× "Sổ lưu bút"
+    src/page/BotanicalLeaf/WeddingWishes.vue:198 · sectionText(props.sections, "guestbook", "Heading", "Sổ lưu bút")
+    src/page/ChampagneBlush/WeddingWishes.vue:11 · <h2>{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+
+### 20× "Một dấu mốc đặc biệt"
+    src/page/BohoTerracotta/Timeline.vue:48 · {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+    src/page/BotanicalLeaf/Timeline.vue:35 · <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
+
+### 20× "item.Title || item.Name || \"Một dấu mốc đặc biệt\""
+    src/page/BohoTerracotta/Timeline.vue:48 · {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+    src/page/BotanicalLeaf/Timeline.vue:35 · <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
+
+### 20× "Vui lòng nhập họ và tên."
+    src/page/BohoTerracotta/WeddingEvents.vue:463 · errorMessage.value = "Vui lòng nhập họ và tên.";
+    src/page/BotanicalLeaf/WeddingEvents.vue:417 · errorMessage.value = "Vui lòng nhập họ và tên.";
+
+### 20× "Cảm ơn bạn đã xác nhận tham dự ❤️"
+    src/page/BohoTerracotta/WeddingEvents.vue:499 · successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    src/page/BotanicalLeaf/WeddingEvents.vue:453 · successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+
+### 20× "Có lỗi xảy ra. Vui lòng thử lại."
+    src/page/BohoTerracotta/WeddingEvents.vue:508 · "Có lỗi xảy ra. Vui lòng thử lại.";
+    src/page/BotanicalLeaf/WeddingEvents.vue:462 · "Có lỗi xảy ra. Vui lòng thử lại.";
+
+### 20× "item.Name || 'QR mừng cưới'"
+    src/page/BohoTerracotta/WeddingGifts.vue:87 · <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" />
+    src/page/BotanicalLeaf/WeddingGifts.vue:115 · <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" class="bl-qr-code" />
+
+### 20× "item.AccountName || item.Owner || \"Chưa cập nhật\""
+    src/page/BohoTerracotta/WeddingGifts.vue:96 · {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+    src/page/BotanicalLeaf/WeddingGifts.vue:132 · {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+
+### 20× "item.AccountNumber || item.Number || \"Chưa cập nhật\""
+    src/page/BohoTerracotta/WeddingGifts.vue:104 · {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+    src/page/BotanicalLeaf/WeddingGifts.vue:144 · {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+
+### 20× "QR MỪNG CƯỚI"
+    src/page/BohoTerracotta/WeddingGifts.vue:153 · <p class="bq-qr-preview__title">{{ previewQr.Name || "QR MỪNG CƯỚI" }}</p>
+    src/page/BotanicalLeaf/WeddingGifts.vue:192 · {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+
+### 20× "previewQr.Name || 'QR mừng cưới'"
+    src/page/BohoTerracotta/WeddingGifts.vue:155 · <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+    src/page/BotanicalLeaf/WeddingGifts.vue:196 · <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+
+### 20× "Nhấn giữ vào ảnh để lưu QR về điện thoại"
+    src/page/BohoTerracotta/WeddingGifts.vue:157 · <p class="bq-qr-preview__hint">Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+    src/page/BotanicalLeaf/WeddingGifts.vue:199 · <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+
+### 20× "Đã sao chép số tài khoản"
+    src/page/BotanicalLeaf/WeddingGifts.vue:280 · console.log("Đã sao chép số tài khoản");
+    src/page/ChampagneBlush/WeddingGifts.vue:260 · console.log("Đã sao chép số tài khoản");
+
+### 19× "Bạn thân mến"
+    src/page/BohoTerracotta/OpeningScreen.vue:146 · "Bạn thân mến"
+    src/page/BotanicalLeaf/OpeningScreen.vue:145 · "Bạn thân mến"
+
+### 19× "TÀI KHOẢN "
+    src/page/BohoTerracotta/WeddingGifts.vue:72 · {{ item.Name || item.BankName || `TÀI KHOẢN ${index + 1}` }}
+    src/page/BotanicalLeaf/WeddingGifts.vue:92 · {{ item.Name || item.BankName || `TÀI KHOẢN ${index + 1}` }}
+
+### 19× "CHỦ TÀI KHOẢN"
+    src/page/BohoTerracotta/WeddingGifts.vue:93 · <span class="bq-account__row-label">CHỦ TÀI KHOẢN</span>
+    src/page/BotanicalLeaf/WeddingGifts.vue:129 · <span class="bl-info-label">CHỦ TÀI KHOẢN</span>
+
+### 19× "SỐ TÀI KHOẢN"
+    src/page/BohoTerracotta/WeddingGifts.vue:101 · <span class="bq-account__row-label">SỐ TÀI KHOẢN</span>
+    src/page/BotanicalLeaf/WeddingGifts.vue:141 · <span class="bl-info-label">SỐ TÀI KHOẢN</span>
+
+### 19× "previewQr.Name || \"QR MỪNG CƯỚI\""
+    src/page/BohoTerracotta/WeddingGifts.vue:153 · <p class="bq-qr-preview__title">{{ previewQr.Name || "QR MỪNG CƯỚI" }}</p>
+    src/page/BotanicalLeaf/WeddingGifts.vue:192 · {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+
+### 19× "TÊN CỦA BẠN"
+    src/page/BotanicalLeaf/WeddingWishes.vue:75 · <label>TÊN CỦA BẠN</label>
+    src/page/ChampagneBlush/WeddingWishes.vue:73 · <label>TÊN CỦA BẠN</label>
+
+### 18× "Chưa có lời chúc nào"
+    src/page/BohoTerracotta/WeddingWishes.vue:50 · <p>Chưa có lời chúc nào</p>
+    src/page/BotanicalLeaf/WeddingWishes.vue:121 · <p>Chưa có lời chúc nào</p>
+
+### 18× "Hãy là người đầu tiên gửi lời yêu thương"
+    src/page/BohoTerracotta/WeddingWishes.vue:52 · <small>Hãy là người đầu tiên gửi lời yêu thương</small>
+    src/page/BotanicalLeaf/WeddingWishes.vue:123 · <span>Hãy là người đầu tiên gửi lời yêu thương</span>
+
+### 18× "Thông tin tiệc cưới"
+    src/page/BotanicalLeaf/WeddingCouple.vue:117 · sectionText(props.sections, "couple", "Heading", "Thông tin tiệc cưới")
+    src/page/ChampagneBlush/WeddingCouple.vue:5 · <h2>{{ sectionText(sections, "couple", "Heading", "Thông tin tiệc cưới") }}</h2>
+
+### 18× "Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi."
+    src/page/BotanicalLeaf/WeddingEvents.vue:155 · <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+    src/page/ChampagneBlush/WeddingEvents.vue:155 · <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+
+### 17× "CHẠM ĐỂ MỞ"
+    src/page/BohoTerracotta/WeddingGifts.vue:42 · <span class="bq-envelope__hint">CHẠM ĐỂ MỞ</span>
+    src/page/BotanicalLeaf/WeddingGifts.vue:36 · <span>CHẠM ĐỂ MỞ</span>
+
+### 17× "TIỆC CƯỚI"
+    src/page/BotanicalLeaf/WeddingEvents.vue:18 · <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+    src/page/ChampagneBlush/WeddingEvents.vue:18 · <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+
+### 17× "Đóng hộp mừng cưới"
+    src/page/BotanicalLeaf/WeddingGifts.vue:70 · <button type="button" class="bl-gift-dialog__close" aria-label="Đóng hộp mừng cưới" @click="closeGift">
+    src/page/ChampagneBlush/WeddingGifts.vue:68 · <button type="button" class="cb-gift-dialog__close" aria-label="Đóng hộp mừng cưới" @click="closeGift">
+
+### 17× "CÂU CHUYỆN CỦA CHÚNG MÌNH"
+    src/page/BotanicalLeaf/WeddingStory.vue:32 · sectionText(props.sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH")
+    src/page/ChampagneBlush/WeddingStory.vue:3 · <p class="cb-eyebrow">{{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</p>
+
+### 17× "Viết lời chúc dành cho cô dâu & chú rể..."
+    src/page/BotanicalLeaf/WeddingWishes.vue:98 · placeholder="Viết lời chúc dành cho cô dâu & chú rể..."
+    src/page/ChampagneBlush/WeddingWishes.vue:96 · placeholder="Viết lời chúc dành cho cô dâu & chú rể..."
+
+### 16× "Gửi lời yêu thương"
+    src/page/BotanicalLeaf/WeddingWishes.vue:26 · <span>Gửi lời yêu thương</span>
+    src/page/ChampagneBlush/WeddingWishes.vue:24 · <span>Gửi lời yêu thương</span>
+
+### 16× "Mỗi lời chúc là một kỷ niệm đẹp\\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này"
+    src/page/BotanicalLeaf/WeddingWishes.vue:206 · "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này"
+    src/page/ChampagneBlush/WeddingWishes.vue:13 · <p class="cb-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mì
+
+### 15× "sectionText(sections, \"opening\", \"Invite\", \"Trân trọng kính mời\")"
+    src/page/BohoTerracotta/OpeningScreen.vue:70 · <p class="bq-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+    src/page/ChampagneBlush/OpeningScreen.vue:39 · <p class="cb-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+
+### 15× "DẤU MỐC "
+    src/page/BotanicalLeaf/Timeline.vue:89 · return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
+    src/page/ChampagneBlush/Timeline.vue:68 · return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
+
+### 15× "event.Title || \"TIỆC CƯỚI\""
+    src/page/BotanicalLeaf/WeddingEvents.vue:18 · <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+    src/page/ChampagneBlush/WeddingEvents.vue:18 · <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+
+### 15× "Những lời chúc và tình cảm của bạn\\nlà món quà quý giá nhất dành cho chúng mình"
+    src/page/BotanicalLeaf/WeddingGifts.vue:242 · "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình"
+    src/page/ChampagneBlush/WeddingGifts.vue:13 · <p class="cb-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà qu
+
+### 14× "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay"
+    src/page/BotanicalLeaf/Timeline.vue:84 · "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay"
+    src/page/ChampagneBlush/Timeline.vue:8 · <p class="cb-timeline__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mìn
+
+### 14× "Đếm ngược"
+    src/page/BotanicalLeaf/WeddingCountdown.vue:33 · sectionText(props.sections, "countdown", "Heading", "Đếm ngược")
+    src/page/ChampagneBlush/WeddingCountdown.vue:5 · <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
+
+### 14× "CHÚ RỂ"
+    src/page/BotanicalLeaf/WeddingCouple.vue:34 · <span class="bl-person__role">CHÚ RỂ</span>
+    src/page/ChampagneBlush/WeddingCouple.vue:34 · <span class="cb-person__role">CHÚ RỂ</span>
+
+### 14× "CÔ DÂU"
+    src/page/BotanicalLeaf/WeddingCouple.vue:61 · <span class="bl-person__role">CÔ DÂU</span>
+    src/page/ChampagneBlush/WeddingCouple.vue:61 · <span class="cb-person__role">CÔ DÂU</span>
+
+### 14× "ĐÓN KHÁCH"
+    src/page/BotanicalLeaf/WeddingEvents.vue:62 · <span>ĐÓN KHÁCH</span>
+    src/page/ChampagneBlush/WeddingEvents.vue:62 · <span>ĐÓN KHÁCH</span>
+
+### 14× "KHAI TIỆC"
+    src/page/BotanicalLeaf/WeddingEvents.vue:71 · <span>KHAI TIỆC</span>
+    src/page/ChampagneBlush/WeddingEvents.vue:71 · <span>KHAI TIỆC</span>
+
+### 14× "MỘT CHÚT YÊU THƯƠNG"
+    src/page/BotanicalLeaf/WeddingGifts.vue:74 · <div class="bl-gift-dialog__eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+    src/page/ChampagneBlush/WeddingGifts.vue:72 · <div class="cb-gift-dialog__eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+
+### 14× "THỨ "
+    src/page/BotanicalLeaf/WeddingHero.vue:139 · return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    src/page/ChampagneBlush/WeddingHero.vue:135 · return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+
+### 14× "}, NGÀY "
+    src/page/BotanicalLeaf/WeddingHero.vue:139 · return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    src/page/ChampagneBlush/WeddingHero.vue:135 · return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+
+### 13× "CHẠM ĐỂ MỞ THIỆP"
+    src/page/BotanicalLeaf/OpeningScreen.vue:109 · sectionText(props.sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP")
+    src/page/ChampagneBlush/OpeningScreen.vue:67 · <span class="cb-open-btn__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
+
+### 13× "DẤU MỐC YÊU THƯƠNG"
+    src/page/BotanicalLeaf/Timeline.vue:72 · sectionText(props.sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG")
+    src/page/ChampagneBlush/Timeline.vue:4 · <p class="cb-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
+
+### 13× "Hành trình của chúng mình"
+    src/page/BotanicalLeaf/Timeline.vue:76 · sectionText(props.sections, "timeline", "Heading", "Hành trình của chúng mình")
+    src/page/ChampagneBlush/Timeline.vue:6 · <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
+
+### 13× "NGÀY VUI ĐANG ĐẾN GẦN"
+    src/page/BotanicalLeaf/WeddingCountdown.vue:29 · sectionText(props.sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN")
+    src/page/ChampagneBlush/WeddingCountdown.vue:3 · <p class="cb-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
+
+### 13× "TRÂN TRỌNG BÁO HỶ"
+    src/page/BotanicalLeaf/WeddingCouple.vue:113 · sectionText(props.sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ")
+    src/page/ChampagneBlush/WeddingCouple.vue:3 · <p class="cb-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}</p>
+
+### 13× "Chú rể của gia đình chúng mình"
+    src/page/BotanicalLeaf/WeddingCouple.vue:142 · "Chú rể của gia đình chúng mình"
+    src/page/ChampagneBlush/WeddingCouple.vue:133 · "Chú rể của gia đình chúng mình"
+
+### 13× "Cô dâu của gia đình chúng mình"
+    src/page/BotanicalLeaf/WeddingCouple.vue:149 · "Cô dâu của gia đình chúng mình"
+    src/page/ChampagneBlush/WeddingCouple.vue:140 · "Cô dâu của gia đình chúng mình"
+
+### 13× "LỊCH"
+    src/page/BotanicalLeaf/WeddingEvents.vue:80 · <span>LỊCH</span>
+    src/page/ChampagneBlush/WeddingEvents.vue:80 · <span>LỊCH</span>
+
+### 13× "GỬI YÊU THƯƠNG"
+    src/page/BotanicalLeaf/WeddingGifts.vue:230 · sectionText(props.sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG")
+    src/page/ChampagneBlush/WeddingGifts.vue:9 · <p class="cb-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG") }}</p>
+
+### 13× "LỜI CHÚC TỪ BẠN"
+    src/page/BotanicalLeaf/WeddingWishes.vue:194 · sectionText(props.sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN")
+    src/page/ChampagneBlush/WeddingWishes.vue:9 · <p class="cb-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</p>
+
+### 12× "Một lời mời · Một câu chuyện · Một ngày đặc biệt"
+    src/page/BotanicalLeaf/OpeningScreen.vue:117 · "Một lời mời · Một câu chuyện · Một ngày đặc biệt"
+    src/page/ChampagneBlush/OpeningScreen.vue:74 · {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một câu chuyện · Một ngày đặc biệt") }}
+
+### 12× "Album Ảnh Cưới"
+    src/page/BotanicalLeaf/WeddingGallery.vue:66 · sectionText(props.sections, "gallery", "Heading", "Album Ảnh Cưới")
+    src/page/ChampagneBlush/WeddingGallery.vue:6 · <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+
+### 12× "sectionText(sections, \"guestbook\", \"Heading\", \"Sổ lưu bút\")"
+    src/page/ChampagneBlush/WeddingWishes.vue:11 · <h2>{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    src/page/ElegantGold/WeddingWishes.vue:8 · <h2 class="la-title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+
+### 12× "Hộp Quà Mừng"
+    src/page/ElegantGold/WeddingGifts.vue:8 · <h2 class="la-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    src/page/ElegantGold/WeddingGifts.vue:46 · <h3>Hộp Quà Mừng</h3>
+
+### 12× "Đã xảy ra lỗi. Vui lòng thử lại."
+    src/page/IvoryGold/WeddingEvents.vue:651 · errorMessage.value = error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+    src/page/IvoryGold/WeddingEvents.vue:657 · errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+
+### 11× "Đóng"
+    src/page/ElegantGold/WeddingEvents.vue:145 · <button type="button" class="la-confirm__close" aria-label="Đóng" @click="closeConfirmModal">
+    src/page/ElegantGold/WeddingGifts.vue:42 · <button type="button" class="la-gift-dialog__close" aria-label="Đóng" @click="closeGift">
+
+### 9× "MỞ THIỆP"
+    src/page/BohoTerracotta/OpeningScreen.vue:89 · <span class="bq-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+    src/page/DongSon/OpeningScreen.vue:42 · <span>{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+
+### 9× "sectionText(sections, \"opening\", \"Button\", \"MỞ THIỆP\")"
+    src/page/BohoTerracotta/OpeningScreen.vue:89 · <span class="bq-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+    src/page/DongSon/OpeningScreen.vue:42 · <span>{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+
+### 8× "Đón khách"
+    src/page/BohoTerracotta/WeddingEvents.vue:100 · <span class="bq-schedule__label">Đón khách</span>
+    src/page/ElegantGold/WeddingEvents.vue:49 · <span class="la-schedule__label">Đón khách</span>
+
+### 8× "Khai tiệc"
+    src/page/BohoTerracotta/WeddingEvents.vue:105 · <span class="bq-schedule__label">Khai tiệc</span>
+    src/page/ElegantGold/WeddingEvents.vue:55 · <span class="la-schedule__label">Khai tiệc</span>
+
+### 8× "TIỆC BÁO HỶ"
+    src/page/BotanicalLeaf/WeddingEvents.vue:243 · sectionText(props.sections, "events", "Eyebrow", "TIỆC BÁO HỶ")
+    src/page/ChateauBlue/WeddingEvents.vue:243 · sectionText(props.sections, "events", "Eyebrow", "TIỆC BÁO HỶ")
+
+### 8× "Thông tin tiệc báo hỷ"
+    src/page/BotanicalLeaf/WeddingEvents.vue:247 · sectionText(props.sections, "events", "Heading", "Thông tin tiệc báo hỷ")
+    src/page/ChateauBlue/WeddingEvents.vue:247 · sectionText(props.sections, "events", "Heading", "Thông tin tiệc báo hỷ")
+
+### 8× "Những khoảnh khắc đẹp nhất\\ndược lưu giữ cùng chúng mình"
+    src/page/BotanicalLeaf/WeddingGallery.vue:74 · "Những khoảnh khắc đẹp nhất\ndược lưu giữ cùng chúng mình"
+    src/page/ChateauBlue/WeddingGallery.vue:74 · "Những khoảnh khắc đẹp nhất\ndược lưu giữ cùng chúng mình"
+
+### 8× "sectionText(sections, \"guestbook\", \"Intro\", \"Mỗi lời chúc là một kỷ niệm đẹp\\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này\")"
+    src/page/ChampagneBlush/WeddingWishes.vue:13 · <p class="cb-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mì
+    src/page/ElegantGold/WeddingWishes.vue:10 · <p class="la-lead">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn l
+
+### 7× "NGÀY CỦA CHÚNG MÌNH"
+    src/page/BohoTerracotta/OpeningScreen.vue:74 · <p class="bq-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+    src/page/ElegantGold/OpeningScreen.vue:51 · <p class="la-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+
+### 7× "dateLabel || \"NGÀY CỦA CHÚNG MÌNH\""
+    src/page/BohoTerracotta/OpeningScreen.vue:74 · <p class="bq-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+    src/page/ElegantGold/OpeningScreen.vue:51 · <p class="la-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+
+### 7× "Tiệc cưới sẽ diễn ra vào lúc:"
+    src/page/BohoTerracotta/WeddingEvents.vue:59 · {{ event.Title || "Tiệc cưới sẽ diễn ra vào lúc:" }}
+    src/page/ElegantGold/WeddingEvents.vue:19 · <h3 class="la-event__lead">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+
+### 7× "sectionText(sections, \"gifts\", \"Intro\", \"Những lời chúc và tình cảm của bạn\\nlà món quà quý giá nhất dành cho chúng mình\")"
+    src/page/ChampagneBlush/WeddingGifts.vue:13 · <p class="cb-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà qu
+    src/page/EmeraldLuxe/WeddingGifts.vue:27 · <p class="cr-heading__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà 
+
+### 7× "Lịch trình ngày cưới"
+    src/page/ElegantGold/Timeline.vue:11 · <h2 class="la-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+    src/page/EmeraldLuxe/Timeline.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+
+### 7× "Album Ảnh"
+    src/page/ElegantGold/WeddingGallery.vue:10 · <h2 class="la-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+    src/page/ModernWhite/WeddingGallery.vue:8 · <h2 class="mw-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+
+### 7× "Nhấn để mở"
+    src/page/ElegantGold/WeddingGifts.vue:29 · <span class="la-gift__hint">Nhấn để mở</span>
+    src/page/ModernWhite/WeddingGifts.vue:41 · <span class="mw-gift__hint">Nhấn để mở</span>
+
+### 7× "Cô dâu"
+    src/page/ElegantGold/WeddingHero.vue:19 · alt="Cô dâu"
+    src/page/EmeraldLuxe/WeddingCouple.vue:95 · <img v-if="brideAvatar" :src="brideAvatar" alt="Cô dâu" draggable="false" />
+
+### 7× "Chú rể"
+    src/page/ElegantGold/WeddingHero.vue:34 · alt="Chú rể"
+    src/page/EmeraldLuxe/WeddingCouple.vue:79 · <img v-if="groomAvatar" :src="groomAvatar" alt="Chú rể" draggable="false" />
+
+### 6× "THÔNG TIN TIỆC CƯỚI"
+    src/page/BohoTerracotta/WeddingEvents.vue:41 · <h2 class="bq-heading">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
+    src/page/IvoryGold/WeddingEvents.vue:19 · {{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}
+
+### 6× "Hộp quà mừng"
+    src/page/BohoTerracotta/WeddingGifts.vue:61 · <h3 class="bq-gift-dialog__title">Hộp quà mừng</h3>
+    src/page/EmeraldLuxe/WeddingGifts.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng") }}</h2>
+
+### 6× "sectionText(sections, \"timeline\", \"Intro\", \"Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay\")"
+    src/page/ChampagneBlush/Timeline.vue:8 · <p class="cb-timeline__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mìn
+    src/page/EmeraldLuxe/Timeline.vue:27 · <p class="cr-heading__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình
+
+### 6× "sectionText(sections, \"story\", \"Eyebrow\", \"CÂU CHUYỆN CỦA CHÚNG MÌNH\")"
+    src/page/ChampagneBlush/WeddingStory.vue:3 · <p class="cb-eyebrow">{{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</p>
+    src/page/IvoryGold/WeddingStory.vue:26 · {{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}
+
+### 6× "[WeddingWishes] Không tải được lời chúc:"
+    src/page/DongSon/WeddingWishes.vue:249 · console.warn("[WeddingWishes] Không tải được lời chúc:", error);
+    src/page/ElegantGold/WeddingWishes.vue:204 · console.warn("[WeddingWishes] Không tải được lời chúc:", error);
+
+### 6× "Thông tin lễ cưới"
+    src/page/ElegantGold/WeddingCouple.vue:8 · <h2 class="la-title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+    src/page/EmeraldLuxe/WeddingCouple.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+
+### 6× "sectionText(sections, \"gallery\", \"Heading\", \"Album Ảnh\")"
+    src/page/ElegantGold/WeddingGallery.vue:10 · <h2 class="la-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+    src/page/ModernWhite/WeddingGallery.vue:8 · <h2 class="mw-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+
+### 6× "sectionText(sections, \"gifts\", \"Heading\", \"Hộp Quà Mừng\")"
+    src/page/ElegantGold/WeddingGifts.vue:8 · <h2 class="la-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    src/page/ModernWhite/WeddingGifts.vue:8 · <h2 class="mw-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+
+### 6× "Những khoảnh khắc đẹp nhất\\nđược lưu giữ cùng chúng mình"
+    src/page/EmeraldLuxe/WeddingGallery.vue:27 · <p class="cr-heading__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng
+    src/page/LongPhungV3/WeddingGallery.vue:12 · <p class="lp-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng
+
+### 6× "sectionText(sections, \"gallery\", \"Intro\", \"Những khoảnh khắc đẹp nhất\\nđược lưu giữ cùng chúng mình\")"
+    src/page/EmeraldLuxe/WeddingGallery.vue:27 · <p class="cr-heading__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng
+    src/page/LongPhungV3/WeddingGallery.vue:12 · <p class="lp-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng
+
+### 6× "TƯ GIA"
+    src/page/ModernWhite/WeddingCouple.vue:70 · {{ location || "TƯ GIA" }}
+    src/page/NhatBinhDo/WeddingCouple.vue:248 · "TƯ GIA"
+
+### 6× "Xem ảnh "
+    src/components/gallery/GalleryModal.vue:141 · :aria-label="`Xem ảnh ${i + 1}`"
+    src/components/gallery/GalleryShowcase.vue:54 · :aria-label="`Xem ảnh ${index + 1}`"
+
+### 5× "LỊCH TRÌNH NGÀY CƯỚI"
+    src/page/BohoTerracotta/Timeline.vue:9 · <h2 class="bq-heading">{{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}</h2>
+    src/page/IvoryGold/Timeline.vue:12 · {{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}
+
+### 5× "sectionText(sections, \"timeline\", \"Heading\", \"LỊCH TRÌNH NGÀY CƯỚI\")"
+    src/page/BohoTerracotta/Timeline.vue:9 · <h2 class="bq-heading">{{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}</h2>
+    src/page/IvoryGold/Timeline.vue:12 · {{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}
+
+### 5× "THÔNG TIN LỄ CƯỚI"
+    src/page/BohoTerracotta/WeddingCouple.vue:25 · <h2 class="bq-heading">{{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}</h2>
+    src/page/IvoryGold/WeddingCouple.vue:17 · {{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}
+
+### 5× "sectionText(sections, \"couple\", \"Heading\", \"THÔNG TIN LỄ CƯỚI\")"
+    src/page/BohoTerracotta/WeddingCouple.vue:25 · <h2 class="bq-heading">{{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}</h2>
+    src/page/IvoryGold/WeddingCouple.vue:17 · {{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}
+
+### 5× "sectionText(sections, \"events\", \"Heading\", \"THÔNG TIN TIỆC CƯỚI\")"
+    src/page/BohoTerracotta/WeddingEvents.vue:41 · <h2 class="bq-heading">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
+    src/page/IvoryGold/WeddingEvents.vue:19 · {{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}
+
+### 5× "sectionText(sections, \"opening\", \"Button\", \"CHẠM ĐỂ MỞ THIỆP\")"
+    src/page/ChampagneBlush/OpeningScreen.vue:67 · <span class="cb-open-btn__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
+    src/page/MidnightGold/OpeningScreen.vue:67 · <span class="mg-open-btn__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
+
+### 5× "sectionText(sections, \"timeline\", \"Eyebrow\", \"DẤU MỐC YÊU THƯƠNG\")"
+    src/page/ChampagneBlush/Timeline.vue:4 · <p class="cb-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
+    src/page/MidnightGold/Timeline.vue:4 · <p class="mg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
+
+### 5× "sectionText(sections, \"timeline\", \"Heading\", \"Hành trình của chúng mình\")"
+    src/page/ChampagneBlush/Timeline.vue:6 · <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
+    src/page/DongSon/Timeline.vue:10 · <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
+
+### 5× "sectionText(sections, \"countdown\", \"Eyebrow\", \"NGÀY VUI ĐANG ĐẾN GẦN\")"
+    src/page/ChampagneBlush/WeddingCountdown.vue:3 · <p class="cb-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
+    src/page/MidnightGold/WeddingCountdown.vue:3 · <p class="mg-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
+
+### 5× "sectionText(sections, \"countdown\", \"Heading\", \"Đếm ngược\")"
+    src/page/ChampagneBlush/WeddingCountdown.vue:5 · <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
+    src/page/EmeraldLuxe/WeddingCountdown.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
+
+### 5× "sectionText(sections, \"couple\", \"Eyebrow\", \"TRÂN TRỌNG BÁO HỶ\")"
+    src/page/ChampagneBlush/WeddingCouple.vue:3 · <p class="cb-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}</p>
+    src/page/IvoryGold/WeddingCouple.vue:13 · {{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}
+
+### 5× "sectionText(sections, \"gallery\", \"Heading\", \"Album Ảnh Cưới\")"
+    src/page/ChampagneBlush/WeddingGallery.vue:6 · <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+    src/page/MidnightGold/WeddingGallery.vue:6 · <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+
+### 5× "sectionText(sections, \"gifts\", \"Eyebrow\", \"GỬI YÊU THƯƠNG\")"
+    src/page/ChampagneBlush/WeddingGifts.vue:9 · <p class="cb-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG") }}</p>
+    src/page/MidnightGold/WeddingGifts.vue:9 · <p class="mg-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG") }}</p>
+
+### 5× "sectionText(sections, \"gifts\", \"Heading\", \"Hộp mừng cưới\")"
+    src/page/ChampagneBlush/WeddingGifts.vue:11 · <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp mừng cưới") }}</h2>
+    src/page/MidnightGold/WeddingGifts.vue:11 · <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp mừng cưới") }}</h2>
+
+### 5× "sectionText(sections, \"guestbook\", \"Eyebrow\", \"LỜI CHÚC TỪ BẠN\")"
+    src/page/ChampagneBlush/WeddingWishes.vue:9 · <p class="cb-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</p>
+    src/page/MidnightGold/WeddingWishes.vue:9 · <p class="mg-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</p>
+
+### 5× "sectionText(sections, \"timeline\", \"Heading\", \"Lịch trình ngày cưới\")"
+    src/page/ElegantGold/Timeline.vue:11 · <h2 class="la-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+    src/page/EmeraldLuxe/Timeline.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+
+### 5× "Cùng đếm ngược"
+    src/page/ElegantGold/WeddingCountdown.vue:8 · <h2 class="la-title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+    src/page/ModernWhite/WeddingCountdown.vue:8 · <h2 class="mw-title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+
+### 5× "sectionText(sections, \"countdown\", \"Heading\", \"Cùng đếm ngược\")"
+    src/page/ElegantGold/WeddingCountdown.vue:8 · <h2 class="la-title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+    src/page/ModernWhite/WeddingCountdown.vue:8 · <h2 class="mw-title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+
+### 5× "sectionText(sections, \"couple\", \"Heading\", \"Thông tin lễ cưới\")"
+    src/page/ElegantGold/WeddingCouple.vue:8 · <h2 class="la-title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+    src/page/EmeraldLuxe/WeddingCouple.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+
+### 5× "sectionText(sections, \"events\", \"Heading\", \"Thông tin tiệc cưới\")"
+    src/page/ElegantGold/WeddingEvents.vue:8 · <h2 class="la-title">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
+    src/page/EmeraldLuxe/WeddingEvents.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
+
+### 5× "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    src/page/ElegantGold/WeddingFooter.vue:66 · "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    src/page/LongPhungV3/WeddingFooter.vue:77 · "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+
+### 5× "Vui lòng nhập họ tên."
+    src/page/IvoryGold/WeddingEvents.vue:608 · errorMessage.value = "Vui lòng nhập họ tên.";
+    src/page/ModernWhite/WeddingEvents.vue:333 · errorMessage.value = "Vui lòng nhập họ tên.";
+
+### 5× "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️"
+    src/page/IvoryGold/WeddingEvents.vue:646 · successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+    src/page/ModernWhite/WeddingEvents.vue:367 · "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+
+### 5× "Ảnh trước"
+    src/components/gallery/GalleryModal.vue:63 · aria-label="Ảnh trước"
+    src/components/gallery/GalleryShowcase.vue:63 · <button type="button" class="gs-nav__btn" aria-label="Ảnh trước" :disabled="current === 0" @click="cardSwiper?.slidePrev
+
+### 5× "Ảnh tiếp theo"
+    src/components/gallery/GalleryModal.vue:112 · aria-label="Ảnh tiếp theo"
+    src/components/gallery/GalleryShowcase.vue:69 · <button type="button" class="gs-nav__btn" aria-label="Ảnh tiếp theo" :disabled="current >= images.length - 1" @click="ca
+
+### 5× "`Xem ảnh ${index + 1}`"
+    src/components/gallery/GalleryShowcase.vue:54 · :aria-label="`Xem ảnh ${index + 1}`"
+    src/components/gallery/GalleryShowcase.vue:103 · :aria-label="`Xem ảnh ${index + 1}`"
+
+### 5× "`Khoảnh khắc cưới ${index + 1}`"
+    src/components/gallery/GalleryShowcase.vue:57 · <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+    src/components/gallery/GalleryShowcase.vue:106 · <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+
+### 5× "Khoảnh khắc cưới "
+    src/components/gallery/GalleryShowcase.vue:57 · <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+    src/components/gallery/GalleryShowcase.vue:106 · <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+
+### 4× "Ảnh cưới"
+    src/page/BohoTerracotta/OpeningScreen.vue:39 · <img v-if="coverImage" :src="coverImage" alt="Ảnh cưới" draggable="false" />
+    src/page/BohoTerracotta/WeddingHero.vue:25 · <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" draggable="false" />
+
+### 4× "Một lời mời · Một lời hẹn · Một đời hạnh phúc"
+    src/page/BohoTerracotta/OpeningScreen.vue:92 · <p class="bq-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}</p>
+    src/page/ElegantGold/OpeningScreen.vue:70 · {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}
+
+### 4× "sectionText(sections, \"opening\", \"Hint\", \"Một lời mời · Một lời hẹn · Một đời hạnh phúc\")"
+    src/page/BohoTerracotta/OpeningScreen.vue:92 · <p class="bq-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}</p>
+    src/page/ElegantGold/OpeningScreen.vue:70 · {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}
+
+### 4× "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
+    src/page/BohoTerracotta/WeddingFooter.vue:67 · "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
+    src/page/EmeraldLuxe/WeddingFooter.vue:97 · "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
+
+### 4× "CHẠM VÀO QR ĐỂ XEM LỚN"
+    src/page/BohoTerracotta/WeddingGifts.vue:89 · <span>CHẠM VÀO QR ĐỂ XEM LỚN</span>
+    src/page/EmeraldLuxe/WeddingGifts.vue:112 · <span>CHẠM VÀO QR ĐỂ XEM LỚN</span>
+
+### 4× "sectionText(sections, \"opening\", \"Hint\", \"Một lời mời · Một câu chuyện · Một ngày đặc biệt\")"
+    src/page/ChampagneBlush/OpeningScreen.vue:74 · {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một câu chuyện · Một ngày đặc biệt") }}
+    src/page/MidnightGold/OpeningScreen.vue:74 · {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một câu chuyện · Một ngày đặc biệt") }}
+
+### 4× "sectionText(sections, \"couple\", \"Heading\", \"Thông tin tiệc cưới\")"
+    src/page/ChampagneBlush/WeddingCouple.vue:5 · <h2>{{ sectionText(sections, "couple", "Heading", "Thông tin tiệc cưới") }}</h2>
+    src/page/MidnightGold/WeddingCouple.vue:5 · <h2>{{ sectionText(sections, "couple", "Heading", "Thông tin tiệc cưới") }}</h2>
+
+### 4× "Một người bạn"
+    src/page/DongSon/WeddingWishes.vue:204 · return wish?.Name || wish?.name || wish?.GuestName || "Một người bạn";
+    src/page/ElegantGold/WeddingWishes.vue:159 · return wish?.Name || wish?.name || wish?.GuestName || "Một người bạn";
+
+### 4× "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\\nCÙNG CHÚNG MÌNH"
+    src/page/DoubleHappiness/WeddingFooter.vue:92 · "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\nCÙNG CHÚNG MÌNH"
+    src/page/SongHacRed/WeddingFooter.vue:75 · "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\nCÙNG CHÚNG MÌNH"
+
+### 4× "Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé."
+    src/page/ElegantGold/DressCode.vue:48 · return "Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé.";
+    src/page/ElegantGold/DressCode.vue:59 · "Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé."
+
+### 4× "Trưởng Nam"
+    src/page/ElegantGold/WeddingCouple.vue:124 · const groomRole = computed(() => props.wedding?.couple?.Groom?.Role || "Trưởng Nam");
+    src/page/ElegantGold/WeddingHero.vue:113 · const groomRole = computed(() => props.wedding?.couple?.Groom?.Role || "Trưởng Nam");
+
+### 4× "Chuyện tình yêu"
+    src/page/ElegantGold/WeddingStory.vue:8 · <h2 class="la-title">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
+    src/page/EmeraldLuxe/WeddingStory.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
+
+### 4× "THÁNG "
+    src/page/NhatBinhDo/WeddingCouple.vue:310 · return `THÁNG ${String(firstEvent.value.Month).padStart(2, "0")}`;
+    src/page/NhatBinhDo/WeddingCouple.vue:314 · ? `THÁNG ${String(dateObject.value.getMonth() + 1).padStart(2, "0")}`
+
+### 4× "Tạo lời chúc bằng AI"
+    src/page/NhatBinhDo/WeddingWishes.vue:53 · title="Tạo lời chúc bằng AI"
+    src/page/NhatBinhDo/WeddingWishes.vue:54 · aria-label="Tạo lời chúc bằng AI"
+
+### 3× "Trang phục dự tiệc"
+    src/page/BohoTerracotta/DressCode.vue:50 · return value.Note || value.Description || value.Content || "Trang phục dự tiệc";
+    src/page/BohoTerracotta/DressCode.vue:57 · return "Trang phục dự tiệc";
+
+### 3× "CÙNG ĐẾM NGƯỢC"
+    src/page/BohoTerracotta/WeddingCountdown.vue:8 · <h2 class="bq-countdown__title">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</h2>
+    src/page/SongHyRed/WeddingEvents.vue:54 · <p class="shy-countdown__label">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</p>
+
+### 3× "sectionText(sections, \"countdown\", \"Heading\", \"CÙNG ĐẾM NGƯỢC\")"
+    src/page/BohoTerracotta/WeddingCountdown.vue:8 · <h2 class="bq-countdown__title">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</h2>
+    src/page/SongHyRed/WeddingEvents.vue:54 · <p class="shy-countdown__label">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</p>
+
+### 3× "ÚT NỮ"
+    src/page/BohoTerracotta/WeddingCouple.vue:102 · <span class="bq-person__role">ÚT NỮ</span>
+    src/page/SongHyRed/WeddingCouple.vue:125 · () => props.wedding?.couple?.Bride?.Role || "ÚT NỮ"
+
+### 3× "ĐỊA ĐIỂM"
+    src/page/BohoTerracotta/WeddingEvents.vue:112 · <span class="bq-event__place-label">ĐỊA ĐIỂM</span>
+    src/page/DongSon/WeddingEvents.vue:46 · <b>ĐỊA ĐIỂM</b>
+
+### 3× "LỄ CƯỚI"
+    src/page/DongSon/WeddingEvents.vue:31 · {{ event.type || event.Type || event.title || "LỄ CƯỚI" }}
+    src/page/IvoryGold/WeddingEvents.vue:779 · cuoi: "LỄ CƯỚI",
+
+### 3× "Đã sao chép số tài khoản ✓"
+    src/page/DongSon/WeddingGifts.vue:169 · copyState.value = "Đã sao chép số tài khoản ✓";
+    src/page/IvoryGold/WeddingGifts.vue:380 · copyState.value = "Đã sao chép số tài khoản ✓";
+
+### 3× "Không thể sao chép, vui lòng chép thủ công"
+    src/page/DongSon/WeddingGifts.vue:173 · copyState.value = "Không thể sao chép, vui lòng chép thủ công";
+    src/page/IvoryGold/WeddingGifts.vue:386 · copyState.value = "Không thể sao chép, vui lòng chép thủ công";
+
+### 3× "Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi."
+    src/page/ElegantGold/WeddingEvents.vue:399 · details: "Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.",
+    src/page/ModernWhite/WeddingEvents.vue:485 · details: "Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.",
+
+### 3× "sectionText(sections, \"story\", \"Heading\", storyTitle || \"Chuyện tình yêu\")"
+    src/page/ElegantGold/WeddingStory.vue:8 · <h2 class="la-title">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
+    src/page/EmeraldLuxe/WeddingStory.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
+
+### 3× "NGÀY TRỌNG ĐẠI"
+    src/page/IvoryGold/Timeline.vue:8 · {{ sectionText(sections, "timeline", "Eyebrow", "NGÀY TRỌNG ĐẠI") }}
+    src/page/IvoryGold/WeddingEvents.vue:787 · return labels[type] || "NGÀY TRỌNG ĐẠI";
+
+### 3× "XÁC NHẬN THAM DỰ"
+    src/page/IvoryGold/WeddingEvents.vue:385 · <h3>XÁC NHẬN THAM DỰ</h3>
+    src/page/NhatBinhDo/WeddingEvents.vue:203 · <h3>XÁC NHẬN THAM DỰ</h3>
+
+### 3× "LỄ THÀNH HÔN"
+    src/page/IvoryGold/WeddingEvents.vue:783 · thanhhon: "LỄ THÀNH HÔN",
+    src/page/ModernWhite/OpeningScreen.vue:45 · <h1 class="mw-card__title">LỄ THÀNH HÔN</h1>
+
+### 3× "Mở thiệp"
+    src/page/NhatBinhDo/OpeningScreen.vue:8 · aria-label="Mở thiệp"
+    src/page/RoyalRed/OpeningScreen.vue:8 · aria-label="Mở thiệp"
+
+### 3× "Nhập tên của bạn*"
+    src/page/NhatBinhDo/WeddingWishes.vue:35 · placeholder="Nhập tên của bạn*"
+    src/page/RoyalRed/WeddingWishes.vue:159 · const namePlaceholder = "Nhập tên của bạn*";
+
+### 3× "Nhập lời chúc của bạn*"
+    src/page/NhatBinhDo/WeddingWishes.vue:43 · placeholder="Nhập lời chúc của bạn*"
+    src/page/RoyalRed/WeddingWishes.vue:161 · const messagePlaceholder = "Nhập lời chúc của bạn*";
+
+### 3× "Vui lòng nhập tên của bạn."
+    src/page/NhatBinhDo/WeddingWishes.vue:275 · alert("Vui lòng nhập tên của bạn.");
+    src/page/RoyalRed/WeddingWishes.vue:247 · alert("Vui lòng nhập tên của bạn.");
+
+### 3× "Vui lòng nhập lời chúc."
+    src/page/NhatBinhDo/WeddingWishes.vue:281 · alert("Vui lòng nhập lời chúc.");
+    src/page/RoyalRed/WeddingWishes.vue:253 · alert("Vui lòng nhập lời chúc.");
+
+### 3× "Gửi lời chúc thất bại."
+    src/page/NhatBinhDo/WeddingWishes.vue:300 · throw new Error(result?.message || "Gửi lời chúc thất bại.");
+    src/page/RoyalRed/WeddingWishes.vue:280 · throw new Error(result?.message || "Gửi lời chúc thất bại.");
+
+### 3× "Cảm ơn bạn! Lời chúc đã được gửi ❤️"
+    src/page/NhatBinhDo/WeddingWishes.vue:303 · alert("Cảm ơn bạn! Lời chúc đã được gửi ❤️");
+    src/page/RoyalRed/WeddingWishes.vue:283 · alert("Cảm ơn bạn! Lời chúc đã được gửi ❤️");
+
+### 3× "item.Name || item.GuestName || \"Khách mời\""
+    src/page/RomanticPink/WeddingWishes.vue:24 · <strong>{{ item.Name || item.GuestName || "Khách mời" }}</strong>
+    src/page/RomanticPink/WeddingWishes.vue:40 · <strong>{{ item.Name || item.GuestName || "Khách mời" }}</strong>
+
+### 2× "Đóng hộp quà mừng"
+    src/page/BohoTerracotta/WeddingGifts.vue:55 · aria-label="Đóng hộp quà mừng"
+    src/page/EmeraldLuxe/WeddingGifts.vue:71 · aria-label="Đóng hộp quà mừng"
+
+### 2× "SỔ LƯU BÚT"
+    src/page/BohoTerracotta/WeddingWishes.vue:8 · <h2 class="bq-heading">{{ sectionText(sections, "guestbook", "Heading", "SỔ LƯU BÚT") }}</h2>
+    src/page/LongPhungV3/WeddingWishes.vue:9 · <h2>{{ sectionText(sections, "guestbook", "Heading", "SỔ LƯU BÚT") }}</h2>
+
+### 2× "sectionText(sections, \"guestbook\", \"Heading\", \"SỔ LƯU BÚT\")"
+    src/page/BohoTerracotta/WeddingWishes.vue:8 · <h2 class="bq-heading">{{ sectionText(sections, "guestbook", "Heading", "SỔ LƯU BÚT") }}</h2>
+    src/page/LongPhungV3/WeddingWishes.vue:9 · <h2>{{ sectionText(sections, "guestbook", "Heading", "SỔ LƯU BÚT") }}</h2>
+
+### 2× "Nhập tên*"
+    src/page/BohoTerracotta/WeddingWishes.vue:24 · placeholder="Nhập tên*"
+    src/page/SongHacRed/WeddingWishes.vue:52 · placeholder="Nhập tên*"
+
+### 2× "Nhập lời chúc*"
+    src/page/BohoTerracotta/WeddingWishes.vue:33 · placeholder="Nhập lời chúc*"
+    src/page/SongHacRed/WeddingWishes.vue:60 · placeholder="Nhập lời chúc*"
+
+### 2× "Mừng cưới"
+    src/page/DongSon/WeddingGifts.vue:37 · {{ gift.name || gift.Name || gift.title || "Mừng cưới" }}
+    src/page/TraditionalRed/WeddingGifts.vue:90 · {{ gift.Name || gift.AccountName || "Mừng cưới" }}
+
+### 2× "Không xác định được thiệp. Vui lòng thử lại."
+    src/page/DongSon/WeddingWishes.vue:267 · alert("Không xác định được thiệp. Vui lòng thử lại.");
+    src/page/ElegantGold/WeddingWishes.vue:222 · alert("Không xác định được thiệp. Vui lòng thử lại.");
+
+### 2× "Váy áo lịch sự, thoải mái để bạn dễ dàng vui trọn buổi tiệc."
+    src/page/ElegantGold/DressCode.vue:35 · "Váy áo lịch sự, thoải mái để bạn dễ dàng vui trọn buổi tiệc.",
+    src/page/ModernWhite/DressCode.vue:35 · "Váy áo lịch sự, thoải mái để bạn dễ dàng vui trọn buổi tiệc.",
+
+### 2× "Hạn chế các tông màu quá chói để tổng thể ảnh cưới được hài hoà."
+    src/page/ElegantGold/DressCode.vue:36 · "Hạn chế các tông màu quá chói để tổng thể ảnh cưới được hài hoà.",
+    src/page/ModernWhite/DressCode.vue:36 · "Hạn chế các tông màu quá chói để tổng thể ảnh cưới được hài hoà.",
+
+### 2× "VÀO LÚC"
+    src/page/ElegantGold/WeddingCouple.vue:69 · <p class="la-date__lead">VÀO LÚC</p>
+    src/page/ModernWhite/WeddingCouple.vue:73 · <p class="mw-date__lead">VÀO LÚC</p>
+
+### 2× "Thứ Nữ"
+    src/page/ElegantGold/WeddingCouple.vue:126 · const brideRole = computed(() => props.wedding?.couple?.Bride?.Role || "Thứ Nữ");
+    src/page/ElegantGold/WeddingHero.vue:115 · const brideRole = computed(() => props.wedding?.couple?.Bride?.Role || "Thứ Nữ");
+
+### 2× "Đám cưới"
+    src/page/ElegantGold/WeddingEvents.vue:350 · title: item.Title || "Đám cưới",
+    src/page/ModernWhite/WeddingEvents.vue:483 · text: event?.Title || "Đám cưới",
+
+### 2× "Chưa có lời chúc nào. Hãy là người đầu tiên!"
+    src/page/ElegantGold/WeddingWishes.vue:105 · <p v-else class="la-wishes__empty">Chưa có lời chúc nào. Hãy là người đầu tiên!</p>
+    src/page/RomanticPink/WeddingWishes.vue:92 · <p>Chưa có lời chúc nào. Hãy là người đầu tiên!</p>
+
+### 2× "THIỆP MỜI"
+    src/page/IvoryGold/OpeningScreen.vue:80 · {{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}
+    src/page/ModernWhite/OpeningScreen.vue:43 · <p class="mw-card__kicker">{{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}</p>
+
+### 2× "sectionText(sections, \"opening\", \"Kicker\", \"THIỆP MỜI\")"
+    src/page/IvoryGold/OpeningScreen.vue:80 · {{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}
+    src/page/ModernWhite/OpeningScreen.vue:43 · <p class="mw-card__kicker">{{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}</p>
+
+### 2× "Lịch trình"
+    src/page/IvoryGold/Timeline.vue:169 · "Lịch trình",
+    src/page/ModernWhite/Timeline.vue:68 · Title: data.Title || data.Name || data.TypeLabel || "Lịch trình",
+
+### 2× "BỐ"
+    src/page/IvoryGold/WeddingCouple.vue:202 · <span class="parent-role">BỐ</span>
+    src/page/IvoryGold/WeddingCouple.vue:237 · <span class="parent-role">BỐ</span>
+
+### 2× "MẸ"
+    src/page/IvoryGold/WeddingCouple.vue:211 · <span class="parent-role">MẸ</span>
+    src/page/IvoryGold/WeddingCouple.vue:246 · <span class="parent-role">MẸ</span>
+
+### 2× "sectionText(sections, \"events\", \"Eyebrow\", \"TRÂN TRỌNG KÍNH MỜI\")"
+    src/page/IvoryGold/WeddingEvents.vue:15 · {{ sectionText(sections, "events", "Eyebrow", "TRÂN TRỌNG KÍNH MỜI") }}
+    src/page/RomanticPink/WeddingEvents.vue:7 · <div class="gg-eyebrow">{{ sectionText(sections, "events", "Eyebrow", "TRÂN TRỌNG KÍNH MỜI") }}</div>
+
+### 2× "LỄ VU QUY"
+    src/page/IvoryGold/WeddingEvents.vue:777 · vuquy: "LỄ VU QUY",
+    src/page/RoyalRed/WeddingEvents.vue:637 · vuquy: "LỄ VU QUY",
+
+### 2× "MỪNG CƯỚI NHÀ TRAI"
+    src/page/IvoryGold/WeddingGifts.vue:286 · ? "MỪNG CƯỚI NHÀ TRAI"
+    src/page/NhatBinhDo/WeddingGifts.vue:227 · (index === 0 ? "MỪNG CƯỚI NHÀ TRAI" : "MỪNG CƯỚI NHÀ GÁI"),
+
+### 2× "MỪNG CƯỚI NHÀ GÁI"
+    src/page/IvoryGold/WeddingGifts.vue:287 · : "MỪNG CƯỚI NHÀ GÁI"
+    src/page/NhatBinhDo/WeddingGifts.vue:227 · (index === 0 ? "MỪNG CƯỚI NHÀ TRAI" : "MỪNG CƯỚI NHÀ GÁI"),
+
+### 2× "Gửi những lời chúc tốt đẹp nhất..."
+    src/page/IvoryGold/WeddingWishes.vue:82 · placeholder="Gửi những lời chúc tốt đẹp nhất..."
+    src/page/ModernWhite/WeddingWishes.vue:64 · placeholder="Gửi những lời chúc tốt đẹp nhất..."
+
+### 2× "TRÂN TRỌNG BÁO TIN"
+    src/page/LongPhungV3/WeddingCouple.vue:10 · <h2>{{ sectionText(sections, "couple", "Heading", "TRÂN TRỌNG BÁO TIN") }}</h2>
+    src/page/RomanticPink/WeddingCouple.vue:6 · <div class="gg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO TIN") }}</div>
+
+### 2× "Út Nữ"
+    src/page/ModernWhite/WeddingCouple.vue:146 · () => wedding.value?.couple?.Bride?.Role || "Út Nữ"
+    src/page/ToDuyenXanh/WeddingCouple.vue:161 · const brideRole = computed(() => bride.value.Role || "Út Nữ");
+
+### 2× "ĐANG MỞ..."
+    src/page/NhatBinhDo/OpeningScreen.vue:110 · {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
+    src/page/RoyalRed/OpeningScreen.vue:97 · {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
+
+### 2× "isOpening ? \"ĐANG MỞ...\" : buttonLabel"
+    src/page/NhatBinhDo/OpeningScreen.vue:110 · {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
+    src/page/RoyalRed/OpeningScreen.vue:97 · {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
+
+### 2× "Chúc hai bạn trăm năm hạnh phúc, sớm sinh quý tử!"
+    src/page/NhatBinhDo/WeddingWishes.vue:246 · "Chúc hai bạn trăm năm hạnh phúc, sớm sinh quý tử!",
+    src/page/TraditionalRed/WeddingWishes.vue:186 · "Chúc hai bạn trăm năm hạnh phúc, sớm sinh quý tử!",
+
+### 2× "Chúc mừng hai bạn về chung một nhà. Mong hai bạn luôn yêu thương nhau như ngày đầu!"
+    src/page/NhatBinhDo/WeddingWishes.vue:247 · "Chúc mừng hai bạn về chung một nhà. Mong hai bạn luôn yêu thương nhau như ngày đầu!",
+    src/page/TraditionalRed/WeddingWishes.vue:187 · "Chúc mừng hai bạn về chung một nhà. Mong hai bạn luôn yêu thương nhau như ngày đầu!",
+
+### 2× "Chúc cô dâu chú rể trăm năm hảo hợp, gia đình luôn đầm ấm."
+    src/page/NhatBinhDo/WeddingWishes.vue:248 · "Chúc cô dâu chú rể trăm năm hảo hợp, gia đình luôn đầm ấm.",
+    src/page/TraditionalRed/WeddingWishes.vue:188 · "Chúc cô dâu chú rể trăm năm hảo hợp, gia đình luôn đầm ấm.",
+
+### 2× "Mừng hạnh phúc hai bạn! Chúc hai bạn luôn nắm tay nhau đi hết chặng đường dài."
+    src/page/NhatBinhDo/WeddingWishes.vue:249 · "Mừng hạnh phúc hai bạn! Chúc hai bạn luôn nắm tay nhau đi hết chặng đường dài.",
+    src/page/TraditionalRed/WeddingWishes.vue:189 · "Mừng hạnh phúc hai bạn! Chúc hai bạn luôn nắm tay nhau đi hết chặng đường dài.",
+
+### 2× "Mong rằng cuộc sống hôn nhân sẽ là hành trình tuyệt vời nhất của hai bạn."
+    src/page/NhatBinhDo/WeddingWishes.vue:250 · "Mong rằng cuộc sống hôn nhân sẽ là hành trình tuyệt vời nhất của hai bạn.",
+    src/page/TraditionalRed/WeddingWishes.vue:190 · "Mong rằng cuộc sống hôn nhân sẽ là hành trình tuyệt vời nhất của hai bạn.",
+
+### 2× "Chúc hai bạn một đời bình an, một nhà hạnh phúc, một lòng son sắt."
+    src/page/NhatBinhDo/WeddingWishes.vue:251 · "Chúc hai bạn một đời bình an, một nhà hạnh phúc, một lòng son sắt.",
+    src/page/TraditionalRed/WeddingWishes.vue:191 · "Chúc hai bạn một đời bình an, một nhà hạnh phúc, một lòng son sắt.",
+
+### 2× "Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới."
+    src/page/RomanticPink/DressCode.vue:58 · "Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới."
+    src/page/RomanticPink/DressCode.vue:62 · return "Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới.";
+
+### 2× "MỐC "
+    src/page/RomanticPink/Timeline.vue:75 · return `MỐC ${String(index + 1).padStart(2, "0")}`;
+    src/page/ToDuyenXanh/Timeline.vue:119 · return `MỐC ${String(index + 1).padStart(2, "0")}`;
+
+### 2× "trưởng nam"
+    src/page/RomanticPink/WeddingCouple.vue:154 · () => props.wedding?.couple?.Groom?.Role || "trưởng nam"
+    src/page/SongHacRed/WeddingCouple.vue:157 · () => props.wedding?.couple?.Groom?.Role || "trưởng nam"
+
+### 2× "item.Content || item.Message || \"Một lời chúc yêu thương\""
+    src/page/RomanticPink/WeddingWishes.vue:27 · “{{ item.Content || item.Message || "Một lời chúc yêu thương" }}”
+    src/page/RomanticPink/WeddingWishes.vue:43 · “{{ item.Content || item.Message || "Một lời chúc yêu thương" }}”
+
+### 2× "submitting ? \"ĐANG GỬI...\" : submitLabel"
+    src/page/RoyalRed/WeddingEvents.vue:320 · {{ submitting ? "ĐANG GỬI..." : submitLabel }}
+    src/page/RoyalRed/WeddingWishes.vue:57 · {{ submitting ? "ĐANG GỬI..." : submitLabel }}
+
+### 2× "sectionText(sections, \"story\", \"Heading\", \"CÂU CHUYỆN CỦA CHÚNG MÌNH\")"
+    src/page/SongHacRed/WeddingStory.vue:12 · <h2 class="shc-story__bar">{{ sectionText(sections, "story", "Heading", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</h2>
+    src/page/SongHyRed/WeddingStory.vue:12 · <h2 class="shy-bar">{{ sectionText(sections, "story", "Heading", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</h2>
+
+### 2× "Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau"
+    src/page/SongHyRed/DressCode.vue:19 · <p class="shy-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mì
+    src/page/ToDuyenXanh/DressCode.vue:35 · <p class="tdx-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mì
+
+### 2× "sectionText(sections, \"dressCode\", \"Intro\", \"Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau\")"
+    src/page/SongHyRed/DressCode.vue:19 · <p class="shy-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mì
+    src/page/ToDuyenXanh/DressCode.vue:35 · <p class="tdx-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mì
+
+### 2× "Song hỷ"
+    src/page/SongHyRed/OpeningScreen.vue:35 · <img class="shy-card__hy" :src="chuHy" alt="Song hỷ" draggable="false" />
+    src/page/SongHyRed/WeddingHero.vue:30 · <img class="shy-hero__hy" :src="chuHy" alt="Song hỷ" draggable="false" />
+
+### 2× "ÚT NAM"
+    src/page/SongHyRed/WeddingCouple.vue:121 · () => props.wedding?.couple?.Groom?.Role || "ÚT NAM"
+    src/page/SongHyRed/WeddingHero.vue:148 · () => props.wedding?.couple?.Groom?.Role || "ÚT NAM"
+
+### 2× "Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này"
+    src/page/SongHyRed/WeddingWishes.vue:19 · <p class="shy-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp mà chúng mì
+    src/page/ToDuyenXanh/WeddingWishes.vue:42 · <p class="tdx-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp mà chúng mì
+
+### 2× "sectionText(sections, \"guestbook\", \"Intro\", \"Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này\")"
+    src/page/SongHyRed/WeddingWishes.vue:19 · <p class="shy-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp mà chúng mì
+    src/page/ToDuyenXanh/WeddingWishes.vue:42 · <p class="tdx-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp mà chúng mì
+
+### 2× "Đang gửi..."
+    src/page/TraditionalRed/WeddingEvents.vue:217 · {{ submitting ? "Đang gửi..." : "GỬI XÁC NHẬN" }}
+    src/components/common/PrizeClaim.vue:40 · {{ submitting ? "Đang gửi..." : done ? "Đã nhận quà" : "Nhận quà" }}
+
+### 2× "Không nhận được quà. Thử lại nhé!"
+    src/components/common/PrizeClaim.vue:130 · message.value = result?.message || "Không nhận được quà. Thử lại nhé!";
+    src/components/common/PrizeClaim.vue:136 · message.value = "Không nhận được quà. Thử lại nhé!";
+
+### 2× "CÀO ĐỂ NHẬN QUÀ"
+    src/components/common/ScratchCard.vue:36 · <span class="scratch-card__hint"> CÀO ĐỂ NHẬN QUÀ </span>
+    src/components/common/ScratchCard.vue:192 · ctx.fillText("CÀO ĐỂ NHẬN QUÀ", rect.width / 2, rect.height / 2);
+
+### 2× "Lên đầu trang"
+    src/components/common/ScrollTop.vue:7 · aria-label="Lên đầu trang"
+    src/components/common/ScrollTop.vue:8 · title="Lên đầu trang"
+
+### 2× "Đường dẫn thiệp không hợp lệ."
+    src/views/WeddingApi.vue:280 · store.error = "Đường dẫn thiệp không hợp lệ.";
+    src/views/WeddingApi.vue:347 · store.error = "Đường dẫn thiệp không hợp lệ.";
+
+### 2× "Thiệp này chưa được đăng ký."
+    src/views/WeddingApi.vue:319 · store.error = result?.message || "Thiệp này chưa được đăng ký.";
+    src/views/WeddingApi.vue:342 · store.error = "Thiệp này chưa được đăng ký.";
+
+### 1× "TRƯỞNG NAM"
+    src/page/BohoTerracotta/WeddingCouple.vue:96 · <span class="bq-person__role">TRƯỞNG NAM</span>
+
+### 1× "event.Title || \"Tiệc cưới sẽ diễn ra vào lúc:\""
+    src/page/BohoTerracotta/WeddingEvents.vue:59 · {{ event.Title || "Tiệc cưới sẽ diễn ra vào lúc:" }}
+
+### 1× "ALBUM ẢNH"
+    src/page/BohoTerracotta/WeddingGallery.vue:8 · <h2 class="bq-heading">{{ sectionText(sections, "gallery", "Heading", "ALBUM ẢNH") }}</h2>
+
+### 1× "sectionText(sections, \"gallery\", \"Heading\", \"ALBUM ẢNH\")"
+    src/page/BohoTerracotta/WeddingGallery.vue:8 · <h2 class="bq-heading">{{ sectionText(sections, "gallery", "Heading", "ALBUM ẢNH") }}</h2>
+
+### 1× "HỘP QUÀ MỪNG"
+    src/page/BohoTerracotta/WeddingGifts.vue:8 · <h2 class="bq-heading">{{ sectionText(sections, "gifts", "Heading", "HỘP QUÀ MỪNG") }}</h2>
+
+### 1× "sectionText(sections, \"gifts\", \"Heading\", \"HỘP QUÀ MỪNG\")"
+    src/page/BohoTerracotta/WeddingGifts.vue:8 · <h2 class="bq-heading">{{ sectionText(sections, "gifts", "Heading", "HỘP QUÀ MỪNG") }}</h2>
+
+### 1× "CHUYỆN TÌNH YÊU"
+    src/page/BohoTerracotta/WeddingStory.vue:17 · <h2 class="bq-heading">{{ sectionText(sections, "story", "Heading", storyTitle || "CHUYỆN TÌNH YÊU") }}</h2>
+
+### 1× "sectionText(sections, \"story\", \"Heading\", storyTitle || \"CHUYỆN TÌNH YÊU\")"
+    src/page/BohoTerracotta/WeddingStory.vue:17 · <h2 class="bq-heading">{{ sectionText(sections, "story", "Heading", storyTitle || "CHUYỆN TÌNH YÊU") }}</h2>
+
+### 1× "[BaroqueDarkRed][Wishes] Không tải được lời chúc:"
+    src/page/BohoTerracotta/WeddingWishes.vue:155 · console.warn("[BaroqueDarkRed][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[BotanicalLeaf][Wishes] Không tải được lời chúc:"
+    src/page/BotanicalLeaf/WeddingWishes.vue:277 · console.warn("[BotanicalLeaf][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[ChampagneBlush][Wishes] Không tải được lời chúc:"
+    src/page/ChampagneBlush/WeddingWishes.vue:258 · console.warn("[ChampagneBlush][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[ChateauBlue][Wishes] Không tải được lời chúc:"
+    src/page/ChateauBlue/WeddingWishes.vue:277 · console.warn("[ChateauBlue][Wishes] Không tải được lời chúc:", error);
+
+### 1× "THIỆP CƯỚI"
+    src/page/DongSon/OpeningScreen.vue:15 · <div class="eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI") }}</div>
+
+### 1× "sectionText(sections, \"opening\", \"Eyebrow\", \"THIỆP CƯỚI\")"
+    src/page/DongSon/OpeningScreen.vue:15 · <div class="eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI") }}</div>
+
+### 1× "guestName || \"Quý khách\""
+    src/page/DongSon/OpeningScreen.vue:32 · {{ guestName || "Quý khách" }}
+
+### 1× "Một dấu mốc đáng nhớ"
+    src/page/DongSon/Timeline.vue:34 · {{ item.Title || item.Name || "Một dấu mốc đáng nhớ" }}
+
+### 1× "item.Title || item.Name || \"Một dấu mốc đáng nhớ\""
+    src/page/DongSon/Timeline.vue:34 · {{ item.Title || item.Name || "Một dấu mốc đáng nhớ" }}
+
+### 1× "Đếm ngược ngày vui"
+    src/page/DongSon/WeddingCountdown.vue:11 · <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược ngày vui") }}</h2>
+
+### 1× "sectionText(sections, \"countdown\", \"Heading\", \"Đếm ngược ngày vui\")"
+    src/page/DongSon/WeddingCountdown.vue:11 · <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược ngày vui") }}</h2>
+
+### 1× "Đôi uyên ương"
+    src/page/DongSon/WeddingCouple.vue:12 · <h2>{{ sectionText(sections, "couple", "Heading", "Đôi uyên ương") }}</h2>
+
+### 1× "sectionText(sections, \"couple\", \"Heading\", \"Đôi uyên ương\")"
+    src/page/DongSon/WeddingCouple.vue:12 · <h2>{{ sectionText(sections, "couple", "Heading", "Đôi uyên ương") }}</h2>
+
+### 1× "Người con trai của gia đình"
+    src/page/DongSon/WeddingCouple.vue:128 · groom.value?.description || "Người con trai của gia đình"
+
+### 1× "Người con gái của gia đình"
+    src/page/DongSon/WeddingCouple.vue:132 · bride.value?.description || "Người con gái của gia đình"
+
+### 1× "Ngày trọng đại"
+    src/page/DongSon/WeddingEvents.vue:10 · <h2>{{ sectionText(sections, "events", "Heading", "Ngày trọng đại") }}</h2>
+
+### 1× "sectionText(sections, \"events\", \"Heading\", \"Ngày trọng đại\")"
+    src/page/DongSon/WeddingEvents.vue:10 · <h2>{{ sectionText(sections, "events", "Heading", "Ngày trọng đại") }}</h2>
+
+### 1× "event.type || event.Type || event.title || \"LỄ CƯỚI\""
+    src/page/DongSon/WeddingEvents.vue:31 · {{ event.type || event.Type || event.title || "LỄ CƯỚI" }}
+
+### 1× "Lễ thành hôn"
+    src/page/DongSon/WeddingEvents.vue:35 · {{ event.name || event.Name || event.title || "Lễ thành hôn" }}
+
+### 1× "event.name || event.Name || event.title || \"Lễ thành hôn\""
+    src/page/DongSon/WeddingEvents.vue:35 · {{ event.name || event.Name || event.title || "Lễ thành hôn" }}
+
+### 1× "Cảm ơn bạn đã dành thời gian đến chung vui cùng gia đình chúng mình."
+    src/page/DongSon/WeddingFooter.vue:104 · "Cảm ơn bạn đã dành thời gian đến chung vui cùng gia đình chúng mình."
+
+### 1× "Khoảnh khắc yêu thương"
+    src/page/DongSon/WeddingGallery.vue:10 · <h2>{{ sectionText(sections, "gallery", "Heading", "Khoảnh khắc yêu thương") }}</h2>
+
+### 1× "sectionText(sections, \"gallery\", \"Heading\", \"Khoảnh khắc yêu thương\")"
+    src/page/DongSon/WeddingGallery.vue:10 · <h2>{{ sectionText(sections, "gallery", "Heading", "Khoảnh khắc yêu thương") }}</h2>
+
+### 1× "Những hình ảnh chúng mình muốn lưu giữ mãi."
+    src/page/DongSon/WeddingGallery.vue:16 · <p>Những hình ảnh chúng mình muốn lưu giữ mãi.</p>
+
+### 1× "Hộp quà mừng cưới"
+    src/page/DongSon/WeddingGifts.vue:14 · <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng cưới") }}</h2>
+
+### 1× "sectionText(sections, \"gifts\", \"Heading\", \"Hộp quà mừng cưới\")"
+    src/page/DongSon/WeddingGifts.vue:14 · <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng cưới") }}</h2>
+
+### 1× "gift.name || gift.Name || gift.title || \"Mừng cưới\""
+    src/page/DongSon/WeddingGifts.vue:37 · {{ gift.name || gift.Name || gift.title || "Mừng cưới" }}
+
+### 1× "previewQr.name || previewQr.Name || \"QR MỪNG CƯỚI\""
+    src/page/DongSon/WeddingGifts.vue:96 · {{ previewQr.name || previewQr.Name || "QR MỪNG CƯỚI" }}
+
+### 1× "ĐÔNG SƠN · TRĂM NĂM HẠNH PHÚC"
+    src/page/DongSon/WeddingHero.vue:57 · <i>ĐÔNG SƠN · TRĂM NĂM HẠNH PHÚC</i>
+
+### 1× "Chuyện chúng mình"
+    src/page/DongSon/WeddingStory.vue:15 · <h2>{{ sectionText(sections, "story", "Heading", "Chuyện chúng mình") }}</h2>
+
+### 1× "sectionText(sections, \"story\", \"Heading\", \"Chuyện chúng mình\")"
+    src/page/DongSon/WeddingStory.vue:15 · <h2>{{ sectionText(sections, "story", "Heading", "Chuyện chúng mình") }}</h2>
+
+### 1× "Lời chúc yêu thương"
+    src/page/DongSon/WeddingWishes.vue:11 · <h2>{{ sectionText(sections, "guestbook", "Heading", "Lời chúc yêu thương") }}</h2>
+
+### 1× "sectionText(sections, \"guestbook\", \"Heading\", \"Lời chúc yêu thương\")"
+    src/page/DongSon/WeddingWishes.vue:11 · <h2>{{ sectionText(sections, "guestbook", "Heading", "Lời chúc yêu thương") }}</h2>
+
+### 1× "✦ Gửi lời yêu thương ✦"
+    src/page/DongSon/WeddingWishes.vue:68 · <b>✦ Gửi lời yêu thương ✦</b>
+
+### 1× "Viết lời chúc dành cho đôi uyên ương..."
+    src/page/DongSon/WeddingWishes.vue:90 · placeholder="Viết lời chúc dành cho đôi uyên ương..."
+
+### 1× "NGÀY TRỌNG ĐẠI CỦA CHÚNG MÌNH"
+    src/page/DoubleHappiness/OpeningScreen.vue:64 · <p class="dh-card__date">{{ dateLabel || "NGÀY TRỌNG ĐẠI CỦA CHÚNG MÌNH" }}</p>
+
+### 1× "dateLabel || \"NGÀY TRỌNG ĐẠI CỦA CHÚNG MÌNH\""
+    src/page/DoubleHappiness/OpeningScreen.vue:64 · <p class="dh-card__date">{{ dateLabel || "NGÀY TRỌNG ĐẠI CỦA CHÚNG MÌNH" }}</p>
+
+### 1× "THIỆP MỜI CƯỚI"
+    src/page/DoubleHappiness/OpeningScreen.vue:104 · sectionText(props.sections, "opening", "Eyebrow", "THIỆP MỜI CƯỚI")
+
+### 1× "KỶ NIỆM TƯƠI ĐẸP"
+    src/page/DoubleHappiness/WeddingGallery.vue:64 · sectionText(props.sections, "gallery", "Eyebrow", "KỶ NIỆM TƯƠI ĐẸP")
+
+### 1× "Album Hình Cưới"
+    src/page/DoubleHappiness/WeddingGallery.vue:68 · sectionText(props.sections, "gallery", "Heading", "Album Hình Cưới")
+
+### 1× "[DoubleHappiness][Wishes] Không tải được lời chúc:"
+    src/page/DoubleHappiness/WeddingWishes.vue:278 · console.warn("[DoubleHappiness][Wishes] Không tải được lời chúc:", error);
+
+### 1× "Ưu tiên trang phục tông đỏ, trắng hoặc đen để hài hoà cùng không gian tiệc."
+    src/page/ElegantGold/DressCode.vue:34 · "Ưu tiên trang phục tông đỏ, trắng hoặc đen để hài hoà cùng không gian tiệc.",
+
+### 1× "Từng giây trôi qua là một bước gần hơn đến ngày chúng mình chung đôi"
+    src/page/ElegantGold/WeddingCountdown.vue:10 · <p class="la-lead">Từng giây trôi qua là một bước gần hơn đến ngày chúng mình chung đôi</p>
+
+### 1× "Tư gia"
+    src/page/ElegantGold/WeddingCouple.vue:145 · "Tư gia"
+
+### 1× "Tài khoản "
+    src/page/ElegantGold/WeddingGifts.vue:53 · {{ item.Name || item.BankName || `Tài khoản ${index + 1}` }}
+
+### 1× "Viết lời chúc dành cho cô dâu &amp; chú rể..."
+    src/page/ElegantGold/WeddingWishes.vue:73 · placeholder="Viết lời chúc dành cho cô dâu &amp; chú rể..."
+
+### 1× "Album ảnh cưới"
+    src/page/EmeraldLuxe/WeddingGallery.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "gallery", "Heading", "Album ảnh cưới") }}</h2>
+
+### 1× "sectionText(sections, \"gallery\", \"Heading\", \"Album ảnh cưới\")"
+    src/page/EmeraldLuxe/WeddingGallery.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "gallery", "Heading", "Album ảnh cưới") }}</h2>
+
+### 1× "sectionText(sections, \"gifts\", \"Heading\", \"Hộp quà mừng\")"
+    src/page/EmeraldLuxe/WeddingGifts.vue:17 · <h2 class="cr-heading__vi">{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng") }}</h2>
+
+### 1× "Mở hộp quà mừng"
+    src/page/EmeraldLuxe/WeddingGifts.vue:33 · <button type="button" class="cr-envelope" aria-label="Mở hộp quà mừng" @click="openGift">
+
+### 1× "[EmeraldLuxe][Wishes] Không tải được lời chúc:"
+    src/page/EmeraldLuxe/WeddingWishes.vue:218 · console.warn("[EmeraldLuxe][Wishes] Không tải được lời chúc:", error);
+
+### 1× "sectionText(sections, \"timeline\", \"Eyebrow\", \"NGÀY TRỌNG ĐẠI\")"
+    src/page/IvoryGold/Timeline.vue:8 · {{ sectionText(sections, "timeline", "Eyebrow", "NGÀY TRỌNG ĐẠI") }}
+
+### 1× "NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN"
+    src/page/IvoryGold/WeddingCountdown.vue:5 · {{ sectionText(sections, "countdown", "Eyebrow", "NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN") }}
+
+### 1× "sectionText(sections, \"countdown\", \"Eyebrow\", \"NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN\")"
+    src/page/IvoryGold/WeddingCountdown.vue:5 · {{ sectionText(sections, "countdown", "Eyebrow", "NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN") }}
+
+### 1× "event.Title || \"THÔNG TIN TIỆC CƯỚI\""
+    src/page/IvoryGold/WeddingEvents.vue:66 · {{ event.Title || "THÔNG TIN TIỆC CƯỚI" }}
+
+### 1× "Có, tôi sẽ tham dự"
+    src/page/IvoryGold/WeddingEvents.vue:436 · <span> Có, tôi sẽ tham dự </span>
+
+### 1× "Rất tiếc, tôi không thể tham dự"
+    src/page/IvoryGold/WeddingEvents.vue:449 · <span> Rất tiếc, tôi không thể tham dự </span>
+
+### 1× "NHỮNG KHOẢNH KHẮC"
+    src/page/IvoryGold/WeddingGallery.vue:11 · {{ sectionText(sections, "gallery", "Eyebrow", "NHỮNG KHOẢNH KHẮC") }}
+
+### 1× "sectionText(sections, \"gallery\", \"Eyebrow\", \"NHỮNG KHOẢNH KHẮC\")"
+    src/page/IvoryGold/WeddingGallery.vue:11 · {{ sectionText(sections, "gallery", "Eyebrow", "NHỮNG KHOẢNH KHẮC") }}
+
+### 1× "KHOẢNH KHẮC CỦA CHÚNG MÌNH"
+    src/page/IvoryGold/WeddingGallery.vue:15 · {{ sectionText(sections, "gallery", "Heading", "KHOẢNH KHẮC CỦA CHÚNG MÌNH") }}
+
+### 1× "sectionText(sections, \"gallery\", \"Heading\", \"KHOẢNH KHẮC CỦA CHÚNG MÌNH\")"
+    src/page/IvoryGold/WeddingGallery.vue:15 · {{ sectionText(sections, "gallery", "Heading", "KHOẢNH KHẮC CỦA CHÚNG MÌNH") }}
+
+### 1× "MỘT CHÚT TẤM LÒNG"
+    src/page/IvoryGold/WeddingGifts.vue:11 · {{ sectionText(sections, "gifts", "Eyebrow", "MỘT CHÚT TẤM LÒNG") }}
+
+### 1× "sectionText(sections, \"gifts\", \"Eyebrow\", \"MỘT CHÚT TẤM LÒNG\")"
+    src/page/IvoryGold/WeddingGifts.vue:11 · {{ sectionText(sections, "gifts", "Eyebrow", "MỘT CHÚT TẤM LÒNG") }}
+
+### 1× "MỪNG CƯỚI"
+    src/page/IvoryGold/WeddingGifts.vue:15 · {{ sectionText(sections, "gifts", "Heading", "MỪNG CƯỚI") }}
+
+### 1× "sectionText(sections, \"gifts\", \"Heading\", \"MỪNG CƯỚI\")"
+    src/page/IvoryGold/WeddingGifts.vue:15 · {{ sectionText(sections, "gifts", "Heading", "MỪNG CƯỚI") }}
+
+### 1× "SAO CHÉP"
+    src/page/IvoryGold/WeddingGifts.vue:185 · <span>SAO CHÉP</span>
+
+### 1× "Cô dâu chú rể"
+    src/page/IvoryGold/WeddingHero.vue:102 · alt="Cô dâu chú rể"
+
+### 1× "THÔNG TIN VỀ CHÚNG MÌNH"
+    src/page/IvoryGold/WeddingStory.vue:34 · {{ sectionText(sections, "story", "Heading", "THÔNG TIN VỀ CHÚNG MÌNH") }}
+
+### 1× "sectionText(sections, \"story\", \"Heading\", \"THÔNG TIN VỀ CHÚNG MÌNH\")"
+    src/page/IvoryGold/WeddingStory.vue:34 · {{ sectionText(sections, "story", "Heading", "THÔNG TIN VỀ CHÚNG MÌNH") }}
+
+### 1× "LỜI CHÚC YÊU THƯƠNG"
+    src/page/IvoryGold/WeddingWishes.vue:8 · <span class="wish-kicker"> {{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC YÊU THƯƠNG") }} </span>
+
+### 1× "sectionText(sections, \"guestbook\", \"Eyebrow\", \"LỜI CHÚC YÊU THƯƠNG\")"
+    src/page/IvoryGold/WeddingWishes.vue:8 · <span class="wish-kicker"> {{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC YÊU THƯƠNG") }} </span>
+
+### 1× "GỬI ĐẾN CHÚNG MÌNH"
+    src/page/IvoryGold/WeddingWishes.vue:10 · <h2>{{ sectionText(sections, "guestbook", "Heading", "GỬI ĐẾN CHÚNG MÌNH") }}</h2>
+
+### 1× "sectionText(sections, \"guestbook\", \"Heading\", \"GỬI ĐẾN CHÚNG MÌNH\")"
+    src/page/IvoryGold/WeddingWishes.vue:10 · <h2>{{ sectionText(sections, "guestbook", "Heading", "GỬI ĐẾN CHÚNG MÌNH") }}</h2>
+
+### 1× "GỬI LỜI CHÚC ĐẾN CÔ DÂU CHÚ RỂ"
+    src/page/IvoryGold/WeddingWishes.vue:56 · <span> GỬI LỜI CHÚC ĐẾN CÔ DÂU CHÚ RỂ </span>
+
+### 1× "HỌ VÀ TÊN"
+    src/page/IvoryGold/WeddingWishes.vue:62 · <label> HỌ VÀ TÊN </label>
+
+### 1× "NHỮNG LỜI CHÚC"
+    src/page/IvoryGold/WeddingWishes.vue:104 · <strong> NHỮNG LỜI CHÚC </strong>
+
+### 1× "[JadePhoenix][Wishes] Không tải được lời chúc:"
+    src/page/JadePhoenix/WeddingWishes.vue:277 · console.warn("[JadePhoenix][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[LavenderCream][Wishes] Không tải được lời chúc:"
+    src/page/LavenderCream/WeddingWishes.vue:277 · console.warn("[LavenderCream][Wishes] Không tải được lời chúc:", error);
+
+### 1× "THIỆP CƯỚI LONG PHỤNG"
+    src/page/LongPhungV3/OpeningScreen.vue:19 · <p class="lp-opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI LONG PHỤNG") }}</p>
+
+### 1× "sectionText(sections, \"opening\", \"Eyebrow\", \"THIỆP CƯỚI LONG PHỤNG\")"
+    src/page/LongPhungV3/OpeningScreen.vue:19 · <p class="lp-opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI LONG PHỤNG") }}</p>
+
+### 1× "LỊCH TRÌNH NGÀY VUI"
+    src/page/LongPhungV3/Timeline.vue:13 · <h2>{{ sectionText(sections, "timeline", "Heading", title || "LỊCH TRÌNH NGÀY VUI") }}</h2>
+
+### 1× "sectionText(sections, \"timeline\", \"Heading\", title || \"LỊCH TRÌNH NGÀY VUI\")"
+    src/page/LongPhungV3/Timeline.vue:13 · <h2>{{ sectionText(sections, "timeline", "Heading", title || "LỊCH TRÌNH NGÀY VUI") }}</h2>
+
+### 1× "ĐẾM NGƯỢC NGÀY VUI"
+    src/page/LongPhungV3/WeddingCountdown.vue:9 · <h2>{{ sectionText(sections, "countdown", "Heading", "ĐẾM NGƯỢC NGÀY VUI") }}</h2>
+
+### 1× "sectionText(sections, \"countdown\", \"Heading\", \"ĐẾM NGƯỢC NGÀY VUI\")"
+    src/page/LongPhungV3/WeddingCountdown.vue:9 · <h2>{{ sectionText(sections, "countdown", "Heading", "ĐẾM NGƯỢC NGÀY VUI") }}</h2>
+
+### 1× "sectionText(sections, \"couple\", \"Heading\", \"TRÂN TRỌNG BÁO TIN\")"
+    src/page/LongPhungV3/WeddingCouple.vue:10 · <h2>{{ sectionText(sections, "couple", "Heading", "TRÂN TRỌNG BÁO TIN") }}</h2>
+
+### 1× "NHÀ GÁI"
+    src/page/LongPhungV3/WeddingCouple.vue:21 · <p class="lp-family__parent-title">NHÀ GÁI</p>
+
+### 1× "NHÀ TRAI"
+    src/page/LongPhungV3/WeddingCouple.vue:37 · <p class="lp-family__parent-title">NHÀ TRAI</p>
+
+### 1× "ALBUM ẢNH CƯỚI"
+    src/page/LongPhungV3/WeddingGallery.vue:9 · <h2>{{ sectionText(sections, "gallery", "Heading", "ALBUM ẢNH CƯỚI") }}</h2>
+
+### 1× "sectionText(sections, \"gallery\", \"Heading\", \"ALBUM ẢNH CƯỚI\")"
+    src/page/LongPhungV3/WeddingGallery.vue:9 · <h2>{{ sectionText(sections, "gallery", "Heading", "ALBUM ẢNH CƯỚI") }}</h2>
+
+### 1× "HỘP MỪNG CƯỚI"
+    src/page/LongPhungV3/WeddingGifts.vue:9 · <h2>{{ sectionText(sections, "gifts", "Heading", "HỘP MỪNG CƯỚI") }}</h2>
+
+### 1× "sectionText(sections, \"gifts\", \"Heading\", \"HỘP MỪNG CƯỚI\")"
+    src/page/LongPhungV3/WeddingGifts.vue:9 · <h2>{{ sectionText(sections, "gifts", "Heading", "HỘP MỪNG CƯỚI") }}</h2>
+
+### 1× "CÂU CHUYỆN TÌNH YÊU"
+    src/page/LongPhungV3/WeddingStory.vue:9 · <h2>{{ sectionText(sections, "story", "Heading", storyTitle || "CÂU CHUYỆN TÌNH YÊU") }}</h2>
+
+### 1× "sectionText(sections, \"story\", \"Heading\", storyTitle || \"CÂU CHUYỆN TÌNH YÊU\")"
+    src/page/LongPhungV3/WeddingStory.vue:9 · <h2>{{ sectionText(sections, "story", "Heading", storyTitle || "CÂU CHUYỆN TÌNH YÊU") }}</h2>
+
+### 1× "[LongPhungV3][Wishes] Không tải được lời chúc:"
+    src/page/LongPhungV3/WeddingWishes.vue:254 · console.warn("[LongPhungV3][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[MidnightGold][Wishes] Không tải được lời chúc:"
+    src/page/MidnightGold/WeddingWishes.vue:258 · console.warn("[MidnightGold][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[ModernNoir][Wishes] Không tải được lời chúc:"
+    src/page/ModernNoir/WeddingWishes.vue:277 · console.warn("[ModernNoir][Wishes] Không tải được lời chúc:", error);
+
+### 1× "Ưu tiên trang phục tông xanh, trắng hoặc pastel để hài hoà cùng không gian tiệc."
+    src/page/ModernWhite/DressCode.vue:34 · "Ưu tiên trang phục tông xanh, trắng hoặc pastel để hài hoà cùng không gian tiệc.",
+
+### 1× "Chưa có lịch trình."
+    src/page/ModernWhite/Timeline.vue:35 · <p v-else class="mw-timeline__empty">Chưa có lịch trình.</p>
+
+### 1× "Ngày trọng đại đang đến gần"
+    src/page/ModernWhite/WeddingCountdown.vue:10 · <p class="mw-lead">Ngày trọng đại đang đến gần</p>
+
+### 1× "location || \"TƯ GIA\""
+    src/page/ModernWhite/WeddingCouple.vue:70 · {{ location || "TƯ GIA" }}
+
+### 1× "Chưa có thông tin mừng cưới"
+    src/page/ModernWhite/WeddingGifts.vue:44 · <p v-else class="mw-gift-empty">Chưa có thông tin mừng cưới</p>
+
+### 1× "Mừng cưới nhà trai"
+    src/page/ModernWhite/WeddingGifts.vue:173 · (index === 0 ? "Mừng cưới nhà trai" : "Mừng cưới nhà gái"),
+
+### 1× "Mừng cưới nhà gái"
+    src/page/ModernWhite/WeddingGifts.vue:173 · (index === 0 ? "Mừng cưới nhà trai" : "Mừng cưới nhà gái"),
+
+### 1× "Gửi đến chúng mình những lời chúc thật ấm áp nhé"
+    src/page/ModernWhite/WeddingWishes.vue:10 · <p class="mw-lead">{{ sectionText(sections, "guestbook", "Intro", "Gửi đến chúng mình những lời chúc thật ấm áp nhé") }}
+
+### 1× "sectionText(sections, \"guestbook\", \"Intro\", \"Gửi đến chúng mình những lời chúc thật ấm áp nhé\")"
+    src/page/ModernWhite/WeddingWishes.vue:10 · <p class="mw-lead">{{ sectionText(sections, "guestbook", "Intro", "Gửi đến chúng mình những lời chúc thật ấm áp nhé") }}
+
+### 1× "Lời chúc"
+    src/page/ModernWhite/WeddingWishes.vue:57 · <label for="mw-wish-message">Lời chúc</label>
+
+### 1× "[NhatBinhDo] Không thể sao chép:"
+    src/page/NhatBinhDo/WeddingGifts.vue:282 · console.warn("[NhatBinhDo] Không thể sao chép:", error);
+
+### 1× "[NhatBinhDo] Không tải được QR:"
+    src/page/NhatBinhDo/WeddingGifts.vue:324 · console.error("[NhatBinhDo] Không tải được QR:", error);
+
+### 1× "Đầu thiệp"
+    src/page/NhatBinhDo/WeddingHero.vue:2 · <header class="cfr-hero" aria-label="Đầu thiệp">
+
+### 1× "[NhatBinhDo] Không tải được lời chúc:"
+    src/page/NhatBinhDo/WeddingWishes.vue:226 · console.warn("[NhatBinhDo] Không tải được lời chúc:", error);
+
+### 1× "TRANG PHỤC"
+    src/page/RomanticPink/DressCode.vue:3 · <div class="gg-eyebrow">{{ sectionText(sections, "dressCode", "Eyebrow", "TRANG PHỤC") }}</div>
+
+### 1× "sectionText(sections, \"dressCode\", \"Eyebrow\", \"TRANG PHỤC\")"
+    src/page/RomanticPink/DressCode.vue:3 · <div class="gg-eyebrow">{{ sectionText(sections, "dressCode", "Eyebrow", "TRANG PHỤC") }}</div>
+
+### 1× "Tông hồng – đỏ rượu là màu chủ đạo của ngày vui"
+    src/page/RomanticPink/DressCode.vue:45 · "Tông hồng – đỏ rượu là màu chủ đạo của ngày vui",
+
+### 1× "Ưu tiên trang phục nhẹ nhàng, thanh lịch"
+    src/page/RomanticPink/DressCode.vue:46 · "Ưu tiên trang phục nhẹ nhàng, thanh lịch",
+
+### 1× "Hạn chế màu trắng để dành riêng cho cô dâu"
+    src/page/RomanticPink/DressCode.vue:47 · "Hạn chế màu trắng để dành riêng cho cô dâu",
+
+### 1× "Biểu tượng cưới"
+    src/page/RomanticPink/OpeningScreen.vue:59 · <img :src="icon" alt="Biểu tượng cưới" />
+
+### 1× "sectionText(sections, \"couple\", \"Eyebrow\", \"TRÂN TRỌNG BÁO TIN\")"
+    src/page/RomanticPink/WeddingCouple.vue:6 · <div class="gg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO TIN") }}</div>
+
+### 1× "LỄ THÀNH HÔN TẠI"
+    src/page/RomanticPink/WeddingCouple.vue:75 · <p class="date-lead">LỄ THÀNH HÔN TẠI</p>
+
+### 1× "con gái út"
+    src/page/RomanticPink/WeddingCouple.vue:158 · () => props.wedding?.couple?.Bride?.Role || "con gái út"
+
+### 1× "Lễ Thành Hôn"
+    src/page/RomanticPink/WeddingEvents.vue:408 · title: item.Title || "Lễ Thành Hôn",
+
+### 1× "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI"
+    src/page/RomanticPink/WeddingFooter.vue:23 · <p class="footer-subtitle">CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI</p>
+
+### 1× "Sự hiện diện của Quý khách là niềm vui lớn nhất của chúng mình."
+    src/page/RomanticPink/WeddingFooter.vue:148 · "Sự hiện diện của Quý khách là niềm vui lớn nhất của chúng mình."
+
+### 1× "KHOẢNH KHẮC"
+    src/page/RomanticPink/WeddingGallery.vue:5 · <span class="gg-eyebrow">{{ sectionText(sections, "gallery", "Eyebrow", "KHOẢNH KHẮC") }}</span>
+
+### 1× "sectionText(sections, \"gallery\", \"Eyebrow\", \"KHOẢNH KHẮC\")"
+    src/page/RomanticPink/WeddingGallery.vue:5 · <span class="gg-eyebrow">{{ sectionText(sections, "gallery", "Eyebrow", "KHOẢNH KHẮC") }}</span>
+
+### 1× "previewQr.Name || previewQr.BankName || \"QR mừng cưới\""
+    src/page/RomanticPink/WeddingGifts.vue:185 · <p>{{ previewQr.Name || previewQr.BankName || "QR mừng cưới" }}</p>
+
+### 1× "KÍNH MỜI"
+    src/page/RomanticPink/WeddingHero.vue:37 · <span class="guest-label">KÍNH MỜI</span>
+
+### 1× "[WeddingWishes] Không gửi được lời chúc:"
+    src/page/RomanticPink/WeddingWishes.vue:249 · console.warn("[WeddingWishes] Không gửi được lời chúc:", error);
+
+### 1× "Út Nam"
+    src/page/RoyalRed/WeddingCouple.vue:202 · () => props.wedding?.couple?.Groom?.Role || "Út Nam"
+
+### 1× "Trưởng Nữ"
+    src/page/RoyalRed/WeddingCouple.vue:206 · () => props.wedding?.couple?.Bride?.Role || "Trưởng Nữ"
+
+### 1× "Thêm vào lịch"
+    src/page/RoyalRed/WeddingEvents.vue:393 · const calendarLabel = "Thêm vào lịch";
+
+### 1× "Đã xảy ra lỗi. Vui lòng thử lại!."
+    src/page/RoyalRed/WeddingEvents.vue:569 · error?.message || "Đã xảy ra lỗi. Vui lòng thử lại!.";
+
+### 1× "Sao chép"
+    src/page/RoyalRed/WeddingGifts.vue:186 · const copyLabel = "Sao chép";
+
+### 1× "Hãy là người đầu tiên gửi những lời chúc tốt đẹp nhất đến cô dâu chú rể."
+    src/page/RoyalRed/WeddingWishes.vue:170 · "Hãy là người đầu tiên gửi những lời chúc tốt đẹp nhất đến cô dâu chú rể."
+
+### 1× "[RubyRomance][Wishes] Không tải được lời chúc:"
+    src/page/RubyRomance/WeddingWishes.vue:277 · console.warn("[RubyRomance][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[SereneGreen][Wishes] Không tải được lời chúc:"
+    src/page/SereneGreen/WeddingWishes.vue:258 · console.warn("[SereneGreen][Wishes] Không tải được lời chúc:", error);
+
+### 1× "sectionText(sections, \"dressCode\", \"Intro\", \"Trang phục dự tiệc\")"
+    src/page/SongHacRed/DressCode.vue:15 · <p class="shc-dress__subtitle">{{ sectionText(sections, "dressCode", "Intro", "Trang phục dự tiệc") }}</p>
+
+### 1× "Trăng soi đôi hạc · Vạn sự song toàn"
+    src/page/SongHacRed/OpeningScreen.vue:101 · <p class="shc-hint">{{ sectionText(sections, "opening", "Hint", "Trăng soi đôi hạc · Vạn sự song toàn") }}</p>
+
+### 1× "sectionText(sections, \"opening\", \"Hint\", \"Trăng soi đôi hạc · Vạn sự song toàn\")"
+    src/page/SongHacRed/OpeningScreen.vue:101 · <p class="shc-hint">{{ sectionText(sections, "opening", "Hint", "Trăng soi đôi hạc · Vạn sự song toàn") }}</p>
+
+### 1× "út nữ"
+    src/page/SongHacRed/WeddingCouple.vue:161 · () => props.wedding?.couple?.Bride?.Role || "út nữ"
+
+### 1× "Đang tính toán..."
+    src/page/SongHacRed/WeddingEvents.vue:425 · return "Đang tính toán...";
+
+### 1× "Chúng mình đã về chung một nhà ❤️"
+    src/page/SongHacRed/WeddingEvents.vue:431 · return "Chúng mình đã về chung một nhà ❤️";
+
+### 1× "Sắp diễn ra!"
+    src/page/SongHacRed/WeddingEvents.vue:446 · return parts.length ? `Còn ${parts.join(" ")}` : "Sắp diễn ra!";
+
+### 1× "Còn "
+    src/page/SongHacRed/WeddingEvents.vue:446 · return parts.length ? `Còn ${parts.join(" ")}` : "Sắp diễn ra!";
+
+### 1× " : \"Sắp diễn ra!\";\r"
+    src/page/SongHacRed/WeddingEvents.vue:446 · return parts.length ? `Còn ${parts.join(" ")}` : "Sắp diễn ra!";
+
+### 1× "[SongHacRed][Wishes] Không tải được lời chúc:"
+    src/page/SongHacRed/WeddingWishes.vue:210 · console.warn("[SongHacRed][Wishes] Không tải được lời chúc:", error);
+
+### 1× "ĐỎ MẬN"
+    src/page/SongHyRed/DressCode.vue:39 · { name: "ĐỎ MẬN", hex: "#800000" },
+
+### 1× "VÀNG ĐỒNG"
+    src/page/SongHyRed/DressCode.vue:41 · { name: "VÀNG ĐỒNG", hex: "#fbbf24" },
+
+### 1× "Một lời mời · Một chữ song hỷ · Một đời hạnh phúc"
+    src/page/SongHyRed/OpeningScreen.vue:58 · <p class="shy-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một chữ song hỷ · Một đời hạnh phúc") }}<
+
+### 1× "sectionText(sections, \"opening\", \"Hint\", \"Một lời mời · Một chữ song hỷ · Một đời hạnh phúc\")"
+    src/page/SongHyRed/OpeningScreen.vue:58 · <p class="shy-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một chữ song hỷ · Một đời hạnh phúc") }}<
+
+### 1× "[SongHyRed][Wishes] Không tải được lời chúc:"
+    src/page/SongHyRed/WeddingWishes.vue:223 · console.warn("[SongHyRed][Wishes] Không tải được lời chúc:", error);
+
+### 1× "[SunsetPeach][Wishes] Không tải được lời chúc:"
+    src/page/SunsetPeach/WeddingWishes.vue:258 · console.warn("[SunsetPeach][Wishes] Không tải được lời chúc:", error);
+
+### 1× "XANH RÊU"
+    src/page/ToDuyenXanh/DressCode.vue:57 · { name: "XANH RÊU", hex: "#5e813c" },
+
+### 1× "XANH RỪNG"
+    src/page/ToDuyenXanh/DressCode.vue:58 · { name: "XANH RỪNG", hex: "#1a3500" },
+
+### 1× "Một lời mời · Một nhành hoa · Một đời hạnh phúc"
+    src/page/ToDuyenXanh/OpeningScreen.vue:80 · <p class="tdx-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một nhành hoa · Một đời hạnh phúc") }}</p
+
+### 1× "sectionText(sections, \"opening\", \"Hint\", \"Một lời mời · Một nhành hoa · Một đời hạnh phúc\")"
+    src/page/ToDuyenXanh/OpeningScreen.vue:80 · <p class="tdx-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một nhành hoa · Một đời hạnh phúc") }}</p
+
+### 1× "Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình"
+    src/page/ToDuyenXanh/WeddingGallery.vue:35 · <p class="tdx-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất được lưu giữ cùng
+
+### 1× "sectionText(sections, \"gallery\", \"Intro\", \"Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình\")"
+    src/page/ToDuyenXanh/WeddingGallery.vue:35 · <p class="tdx-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất được lưu giữ cùng
+
+### 1× "Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình"
+    src/page/ToDuyenXanh/WeddingGifts.vue:42 · <p class="tdx-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn là món quà qu
+
+### 1× "sectionText(sections, \"gifts\", \"Intro\", \"Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình\")"
+    src/page/ToDuyenXanh/WeddingGifts.vue:42 · <p class="tdx-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn là món quà qu
+
+### 1× "[ToDuyenXanh][Wishes] Không tải được lời chúc:"
+    src/page/ToDuyenXanh/WeddingWishes.vue:252 · console.warn("[ToDuyenXanh][Wishes] Không tải được lời chúc:", error);
+
+### 1× "Thân Mời"
+    src/page/TraditionalRed/OpeningScreen.vue:58 · <p class="tr-cover__invite-label">{{ sectionText(sections, "opening", "Invite", "Thân Mời") }}</p>
+
+### 1× "sectionText(sections, \"opening\", \"Invite\", \"Thân Mời\")"
+    src/page/TraditionalRed/OpeningScreen.vue:58 · <p class="tr-cover__invite-label">{{ sectionText(sections, "opening", "Invite", "Thân Mời") }}</p>
+
+### 1× "sectionText(sections, \"opening\", \"Button\", \"Mở thiệp\")"
+    src/page/TraditionalRed/OpeningScreen.vue:70 · <span>{{ sectionText(sections, "opening", "Button", "Mở thiệp") }}</span>
+
+### 1× "Chúc mừng hạnh phúc!"
+    src/page/TraditionalRed/WeddingCountdown.vue:11 · <p v-if="isFinished">Chúc mừng hạnh phúc!</p>
+
+### 1× "Bạn sẽ tham dự chứ?"
+    src/page/TraditionalRed/WeddingEvents.vue:172 · <span>Bạn sẽ tham dự chứ?</span>
+
+### 1× "submitting ? \"Đang gửi...\" : \"GỬI XÁC NHẬN\""
+    src/page/TraditionalRed/WeddingEvents.vue:217 · {{ submitting ? "Đang gửi..." : "GỬI XÁC NHẬN" }}
+
+### 1× "Đám cưới "
+    src/page/TraditionalRed/WeddingEvents.vue:344 · const title = `Đám cưới ${groomName.value} & ${brideName.value}`;
+
+### 1× "Tiệc cưới của "
+    src/page/TraditionalRed/WeddingEvents.vue:353 · details: `Tiệc cưới của ${groomName.value} & ${brideName.value}`,
+
+### 1× "gift.Name || gift.AccountName || \"Mừng cưới\""
+    src/page/TraditionalRed/WeddingGifts.vue:90 · {{ gift.Name || gift.AccountName || "Mừng cưới" }}
+
+### 1× "[TraditionalRed] Không tải được QR:"
+    src/page/TraditionalRed/WeddingGifts.vue:233 · console.error("[TraditionalRed] Không tải được QR:", error);
+
+### 1× "Chữ Hỷ"
+    src/page/TraditionalRed/WeddingHero.vue:8 · <img :src="chuHy" alt="Chữ Hỷ" class="tr-hero__band-mark" />
+
+### 1× "Phượng"
+    src/page/TraditionalRed/WeddingHero.vue:30 · <img :src="phuong" alt="Phượng" />
+
+### 1× "Rồng"
+    src/page/TraditionalRed/WeddingHero.vue:34 · <img :src="rong" alt="Rồng" />
+
+### 1× "wish.name || wish.Name || wish.guestName || wish.GuestName || \"Một người bạn\""
+    src/page/TraditionalRed/WeddingWishes.vue:76 · {{ wish.name || wish.Name || wish.guestName || wish.GuestName || "Một người bạn" }}
+
+### 1× "[TraditionalRed] Không tải được lời chúc:"
+    src/page/TraditionalRed/WeddingWishes.vue:166 · console.warn("[TraditionalRed] Không tải được lời chúc:", error);
+
+### 1× "[WatercolorBlush][Wishes] Không tải được lời chúc:"
+    src/page/WatercolorBlush/WeddingWishes.vue:277 · console.warn("[WatercolorBlush][Wishes] Không tải được lời chúc:", error);
+
+### 1× "Cảm ơn bạn đã cùng vui với chúng mình!"
+    src/components/common/CoupleQuiz.vue:166 · : "Cảm ơn bạn đã cùng vui với chúng mình!";
+
+### 1× "`Bản đồ ${event?.Location || event?.Title || 'sự kiện'}`"
+    src/components/common/EventMap.vue:18 · :title="`Bản đồ ${event?.Location || event?.Title || 'sự kiện'}`"
+
+### 1× "sự kiện"
+    src/components/common/EventMap.vue:18 · :title="`Bản đồ ${event?.Location || event?.Title || 'sự kiện'}`"
+
+### 1× "Bản đồ "
+    src/components/common/EventMap.vue:18 · :title="`Bản đồ ${event?.Location || event?.Title || 'sự kiện'}`"
+
+### 1× "Chưa có bản đồ cho địa điểm này"
+    src/components/common/EventMap.vue:24 · <small>Chưa có bản đồ cho địa điểm này</small>
+
+### 1× "Bật hoặc tắt nhạc"
+    src/components/common/FloatingMusic.vue:19 · aria-label="Bật hoặc tắt nhạc"
+
+### 1× "CÙNG VUI CHƠI"
+    src/components/common/GameSection.vue:174 · sectionText(props.wedding?.sections, "game", "Eyebrow", "CÙNG VUI CHƠI")
+
+### 1× "Nguyễn Văn A"
+    src/components/common/Loading.vue:65 · const groomName=ref("Nguyễn Văn A");
+
+### 1× "Trần Thị B"
+    src/components/common/Loading.vue:67 · const brideName=ref("Trần Thị B");
+
+### 1× "Tuyệt vời! Chúc bạn trăm năm hạnh phúc!"
+    src/components/common/MemoryMatch.vue:111 · "Tuyệt vời! Chúc bạn trăm năm hạnh phúc!",
+
+### 1× "Ghép nhanh quá! May mắn ngập tràn!"
+    src/components/common/MemoryMatch.vue:112 · "Ghép nhanh quá! May mắn ngập tràn!",
+
+### 1× "Xuất sắc! Vạn sự như ý!"
+    src/components/common/MemoryMatch.vue:113 · "Xuất sắc! Vạn sự như ý!",
+
+### 1× "Họ và tên của bạn"
+    src/components/common/PrizeClaim.vue:24 · placeholder="Họ và tên của bạn"
+
+### 1× "Đã nhận quà"
+    src/components/common/PrizeClaim.vue:40 · {{ submitting ? "Đang gửi..." : done ? "Đã nhận quà" : "Nhận quà" }}
+
+### 1× "Nhận quà"
+    src/components/common/PrizeClaim.vue:40 · {{ submitting ? "Đang gửi..." : done ? "Đã nhận quà" : "Nhận quà" }}
+
+### 1× "submitting ? \"Đang gửi...\" : done ? \"Đã nhận quà\" : \"Nhận quà\""
+    src/components/common/PrizeClaim.vue:40 · {{ submitting ? "Đang gửi..." : done ? "Đã nhận quà" : "Nhận quà" }}
+
+### 1× "Xem trước — quà sẽ được lưu khi khách thật nhận."
+    src/components/common/PrizeClaim.vue:96 · message.value = "Xem trước — quà sẽ được lưu khi khách thật nhận.";
+
+### 1× "Nhận quà thành công!"
+    src/components/common/PrizeClaim.vue:118 · message.value = result.message || "Nhận quà thành công!";
+
+### 1× "Trăm năm hạnh phúc!"
+    src/components/common/ScratchCard.vue:91 · "Trăm năm hạnh phúc!",
+
+### 1× "May mắn ngập tràn!"
+    src/components/common/ScratchCard.vue:92 · "May mắn ngập tràn!",
+
+### 1× "Vạn sự như ý!"
+    src/components/common/ScratchCard.vue:93 · "Vạn sự như ý!",
+
+### 1× "Một đời bên nhau!"
+    src/components/common/ScratchCard.vue:94 · "Một đời bên nhau!",
+
+### 1× "Thiệp"
+    src/components/common/SiteFooter.vue:11 · <span class="footer-mark">Thiệp</span>
+
+### 1× "Duyên"
+    src/components/common/SiteFooter.vue:12 · <span class="footer-name">Duyên</span>
+
+### 1× "item.Title || 'Khoảnh khắc'"
+    src/components/common/StoryMilestones.vue:36 · :alt="item.Title || 'Khoảnh khắc'"
+
+### 1× "Khoảnh khắc"
+    src/components/common/StoryMilestones.vue:36 · :alt="item.Title || 'Khoảnh khắc'"
+
+### 1× "Chuyện Tình Yêu"
+    src/components/common/StoryMilestones.vue:79 · props.wedding?.story?.Title || "Chuyện Tình Yêu"
+
+### 1× "title || 'Video cưới'"
+    src/components/common/VideoEmbed.vue:14 · :title="title || 'Video cưới'"
+
+### 1× "Video cưới"
+    src/components/common/VideoEmbed.vue:14 · :title="title || 'Video cưới'"
+
+### 1× "KHOẢNH KHẮC YÊU THƯƠNG"
+    src/components/common/VideoSection.vue:62 · sectionText(props.wedding?.sections, "video", "Eyebrow", "KHOẢNH KHẮC YÊU THƯƠNG")
+
+### 1× "Video Cưới"
+    src/components/common/VideoSection.vue:70 · video.value?.Title || "Video Cưới"
+
+### 1× "Đóng album"
+    src/components/gallery/GalleryModal.vue:32 · aria-label="Đóng album"
+
+### 1× "current.title || `Ảnh cưới ${index + 1}`"
+    src/components/gallery/GalleryModal.vue:90 · :alt="current.title || `Ảnh cưới ${index + 1}`"
+
+### 1× "Ảnh cưới "
+    src/components/gallery/GalleryModal.vue:90 · :alt="current.title || `Ảnh cưới ${index + 1}`"
+
+### 1× "`Xem ảnh ${i + 1}`"
+    src/components/gallery/GalleryModal.vue:141 · :aria-label="`Xem ảnh ${i + 1}`"
+
+### 1× "Album ảnh"
+    src/components/gallery/GalleryModal.vue:222 · default: "Album ảnh",
+
+### 1× "Vuốt sang để lật ảnh · chạm ảnh để xem lớn"
+    src/components/gallery/GalleryShowcase.vue:74 · <p class="gs-hint">Vuốt sang để lật ảnh · chạm ảnh để xem lớn</p>
+
+### 1× "`Đến ảnh ${index + 1}`"
+    src/components/gallery/ModernGalleryCarousel.vue:93 · :aria-label="`Đến ảnh ${index + 1}`"
+
+### 1× "Đến ảnh "
+    src/components/gallery/ModernGalleryCarousel.vue:93 · :aria-label="`Đến ảnh ${index + 1}`"
+
+### 1× "Đang mở thiệp..."
+    src/views/WeddingApi.vue:10 · <div class="loading-title">Đang mở thiệp...</div>
+
+### 1× "Vui lòng chờ một chút"
+    src/views/WeddingApi.vue:12 · <div class="loading-text">Vui lòng chờ một chút</div>
+
+### 1× "Thiệp này chưa được đăng ký"
+    src/views/WeddingApi.vue:43 · <h1>Thiệp này chưa được đăng ký</h1>
+
+### 1× "Thiệp cưới bạn đang tìm kiếm không tồn tại hoặc đã được thay đổi."
+    src/views/WeddingApi.vue:45 · <p>Thiệp cưới bạn đang tìm kiếm không tồn tại hoặc đã được thay đổi.</p>
+
+### 1× "Không tìm thấy mẫu thiệp"
+    src/views/WeddingApi.vue:70 · <h1>Không tìm thấy mẫu thiệp</h1>
+
+### 1× "Thiệp tạm ẩn"
+    src/views/WeddingApi.vue:165 · return "Thiệp tạm ẩn";
+
+### 1× "Thiệp chưa được xuất bản"
+    src/views/WeddingApi.vue:167 · return "Thiệp chưa được xuất bản";
+
+### 1× "Thiệp chưa được kích hoạt"
+    src/views/WeddingApi.vue:169 · return "Thiệp chưa được kích hoạt";
+
+### 1× "Thời gian dùng thử của thiệp đã kết thúc và thiệp chưa được "
+    src/views/WeddingApi.vue:177 · "Thời gian dùng thử của thiệp đã kết thúc và thiệp chưa được " +
+
+### 1× "thanh toán. Toàn bộ nội dung vẫn được giữ nguyên — vui lòng "
+    src/views/WeddingApi.vue:178 · "thanh toán. Toàn bộ nội dung vẫn được giữ nguyên — vui lòng " +
+
+### 1× "liên hệ cô dâu chú rể."
+    src/views/WeddingApi.vue:179 · "liên hệ cô dâu chú rể."
+
+### 1× "Cô dâu chú rể chưa xuất bản thiệp này cho khách mời. "
+    src/views/WeddingApi.vue:183 · "Cô dâu chú rể chưa xuất bản thiệp này cho khách mời. " +
+
+### 1× "Vui lòng quay lại sau."
+    src/views/WeddingApi.vue:184 · "Vui lòng quay lại sau."
+
+### 1× "Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ "
+    src/views/WeddingApi.vue:188 · "Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ " +
+
+### 1× "với cô dâu chú rể hoặc quay lại sau."
+    src/views/WeddingApi.vue:189 · "với cô dâu chú rể hoặc quay lại sau."
+
+### 1× "Máy chủ đang gặp sự cố. Vui lòng thử lại sau."
+    src/views/WeddingApi.vue:352 · store.error = "Máy chủ đang gặp sự cố. Vui lòng thử lại sau.";
+
+### 1× "Không thể tải dữ liệu thiệp."
+    src/views/WeddingApi.vue:356 · store.error = "Không thể tải dữ liệu thiệp.";

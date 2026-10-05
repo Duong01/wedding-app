@@ -19,7 +19,7 @@
 
       <p class="shy-card__kicker">{{ sectionText(sections, "opening", "Kicker", "WEDDING INVITATION") }}</p>
 
-      <p class="shy-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+      <p class="shy-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
       <h1 class="shy-card__guest">{{ guestName }}</h1>
 
@@ -32,12 +32,12 @@
       <p class="shy-card__names">
         <span>{{ groomName }}</span>
 
-        <img class="shy-card__hy" :src="chuHy" alt="Song hỷ" draggable="false" />
+        <img class="shy-card__hy" :src="chuHy" :alt="$t('Song hỷ')" draggable="false" />
 
         <span>{{ brideName }}</span>
       </p>
 
-      <p class="shy-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+      <p class="shy-card__date">{{ dateLabel || $t("NGÀY CỦA CHÚNG MÌNH") }}</p>
     </div>
 
     <!-- =====================================================
@@ -52,10 +52,10 @@
         </svg>
       </span>
 
-      <span class="shy-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+      <span class="shy-open-btn__text">{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
     </button>
 
-    <p class="shy-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một chữ song hỷ · Một đời hạnh phúc") }}</p>
+    <p class="shy-hint">{{ sectionText(sections, "opening", "Hint", $t("Một lời mời · Một chữ song hỷ · Một đời hạnh phúc")) }}</p>
   </section>
 </template>
 
@@ -64,7 +64,6 @@ import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import { chuHy, star } from "./songHyRedAssets";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },

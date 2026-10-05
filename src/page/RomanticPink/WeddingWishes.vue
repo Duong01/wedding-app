@@ -3,11 +3,11 @@
     <!-- =========================
          HEADER
     ========================== -->
-    <div class="gg-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", $t("LỜI CHÚC TỪ BẠN")) }}</div>
 
-    <h2 class="gg-title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
 
-    <p class="gg-lead">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
+    <p class="gg-lead">{{ sectionText(sections, "guestbook", "Intro", $t("Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này")) }}</p>
 
     <!-- =========================
          WISH MARQUEE
@@ -21,10 +21,10 @@
               :key="`marquee-a-${item.Id || index}`"
               class="wish-marquee-item"
             >
-              <strong>{{ item.Name || item.GuestName || "Khách mời" }}</strong>
+              <strong>{{ item.Name || item.GuestName || $t("Khách mời") }}</strong>
 
               <em>
-                “{{ item.Content || item.Message || "Một lời chúc yêu thương" }}”
+                “{{ item.Content || item.Message || $t("Một lời chúc yêu thương") }}”
               </em>
 
               <b class="marquee-dot">✦</b>
@@ -37,10 +37,10 @@
               :key="`marquee-b-${item.Id || index}`"
               class="wish-marquee-item"
             >
-              <strong>{{ item.Name || item.GuestName || "Khách mời" }}</strong>
+              <strong>{{ item.Name || item.GuestName || $t("Khách mời") }}</strong>
 
               <em>
-                “{{ item.Content || item.Message || "Một lời chúc yêu thương" }}”
+                “{{ item.Content || item.Message || $t("Một lời chúc yêu thương") }}”
               </em>
 
               <b class="marquee-dot">✦</b>
@@ -56,31 +56,31 @@
     <div class="wish-form-card">
       <form @submit.prevent="add">
         <div class="input-group">
-          <label>TÊN CỦA BẠN</label>
+          <label>{{ $t("TÊN CỦA BẠN") }}</label>
 
           <input
             v-model.trim="name"
             type="text"
             maxlength="60"
-            placeholder="Nhập tên của bạn"
+            :placeholder="$t('Nhập tên của bạn')"
           />
         </div>
 
         <div class="input-group">
-          <label>LỜI CHÚC</label>
+          <label>{{ $t("LỜI CHÚC") }}</label>
 
           <textarea
             v-model.trim="message"
             rows="4"
             maxlength="500"
-            placeholder="Viết lời chúc dành cho cô dâu & chú rể..."
+            :placeholder="$t('Viết lời chúc dành cho cô dâu & chú rể...')"
           ></textarea>
 
           <div class="character-count">{{ message.length }}/500</div>
         </div>
 
         <button type="submit" class="wish-submit" :disabled="!message">
-          GỬI LỜI CHÚC
+          {{ $t("GỬI LỜI CHÚC") }}
         </button>
       </form>
     </div>
@@ -89,7 +89,7 @@
          EMPTY
     ========================== -->
     <div v-if="items.length === 0" class="no-wishes">
-      <p>Chưa có lời chúc nào. Hãy là người đầu tiên!</p>
+      <p>{{ $t("Chưa có lời chúc nào. Hãy là người đầu tiên!") }}</p>
     </div>
 
     <!-- =========================
@@ -108,7 +108,7 @@
 
           <div class="wish-content">
             <div class="wish-header">
-              <b>{{ item.Name || item.GuestName || "Khách mời" }}</b>
+              <b>{{ item.Name || item.GuestName || $t("Khách mời") }}</b>
 
               <span v-if="item.CreatedAt">
                 {{ formatTime(item.CreatedAt) }}
@@ -130,7 +130,7 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: {
@@ -199,7 +199,7 @@ function formatTime(dateString) {
     return dateString;
   }
 
-  return date.toLocaleDateString("vi-VN", {
+  return date.toLocaleDateString(localeTag(), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -220,7 +220,7 @@ async function add() {
   try {
     const response = await addWish({
       slug,
-      guestName: name.value?.trim() || "Khách mời",
+      guestName: name.value?.trim() || t("Khách mời"),
       message: content,
     });
 
@@ -235,7 +235,7 @@ async function add() {
       added.value.unshift({
         Id: `local-${Date.now()}`,
 
-        Name: name.value?.trim() || "Khách mời",
+        Name: name.value?.trim() || t("Khách mời"),
 
         Content: content,
 
@@ -251,7 +251,7 @@ async function add() {
     added.value.unshift({
       Id: `local-${Date.now()}`,
 
-      Name: name.value?.trim() || "Khách mời",
+      Name: name.value?.trim() || t("Khách mời"),
 
       Content: content,
 

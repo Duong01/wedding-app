@@ -6,7 +6,7 @@
         v-if="images.length > 1"
         type="button"
         class="mgc__arrow mgc__arrow--prev"
-        aria-label="Ảnh trước"
+        :aria-label="$t('Ảnh trước')"
         @click="slidePrev"
       >
         <v-icon size="24">mdi-chevron-left</v-icon>
@@ -43,12 +43,12 @@
           <button
             type="button"
             class="mgc__frame"
-            :aria-label="`Xem ảnh ${index + 1}`"
+            :aria-label="`${$t('Xem ảnh ')}${index + 1}`"
             @click="onSlideClick(index)"
           >
             <img
               :src="src(item)"
-              :alt="`Khoảnh khắc cưới ${index + 1}`"
+              :alt="`${$t('Khoảnh khắc cưới ')}${index + 1}`"
               loading="lazy"
               decoding="async"
               draggable="false"
@@ -67,7 +67,7 @@
         v-if="images.length > 1"
         type="button"
         class="mgc__arrow mgc__arrow--next"
-        aria-label="Ảnh tiếp theo"
+        :aria-label="$t('Ảnh tiếp theo')"
         @click="slideNext"
       >
         <v-icon size="24">mdi-chevron-right</v-icon>
@@ -90,7 +90,7 @@
         :key="index"
         type="button"
         :class="{ active: index === currentIndex }"
-        :aria-label="`Đến ảnh ${index + 1}`"
+        :aria-label="`${$t('Đến ảnh ')}${index + 1}`"
         @click="slideTo(index)"
       ></button>
     </div>
@@ -105,7 +105,6 @@ import { Autoplay, Keyboard } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-
 // =========================================================
 // PROPS
 // =========================================================

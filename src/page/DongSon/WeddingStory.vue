@@ -12,7 +12,7 @@
           <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
         </header>
 
-        <h2>{{ sectionText(sections, "story", "Heading", "Chuyện chúng mình") }}</h2>
+        <h2>{{ sectionText(sections, "story", "Heading", $t("Chuyện chúng mình")) }}</h2>
       </div>
 
       <div class="story-divider">𓅃</div>
@@ -26,18 +26,15 @@
       </p>
 
       <p v-else>
-        Từ một cuộc gặp gỡ tình cờ, những câu chuyện nhỏ
-        dần trở thành những ký ức lớn. Và hôm nay,
-        chúng mình quyết định viết tiếp câu chuyện ấy
-        bằng một lời hẹn ước trăm năm.
+        {{ $t("Từ một cuộc gặp gỡ tình cờ, những câu chuyện nhỏ dần trở thành những ký ức lớn. Và hôm nay, chúng mình quyết định viết tiếp câu chuyện ấy bằng một lời hẹn ước trăm năm.") }}
       </p>
 
       <div class="quote">
         <span>“</span>
         <em>
-          Cảm ơn vì đã đến,
+          {{ $t("Cảm ơn vì đã đến,") }}
           <br />
-          ở lại và cùng nhau đi đến hôm nay.
+          {{ $t("ở lại và cùng nhau đi đến hôm nay.") }}
         </em>
         <span>”</span>
       </div>

@@ -45,7 +45,7 @@
 
       <p class="couple-quiz__blessing">
         <template v-if="prizeMode">
-          🎁 Bạn nhận được:
+          {{ $t("🎁 Bạn nhận được:") }}
           <strong>{{ prize }}</strong>
         </template>
 
@@ -58,11 +58,11 @@
         class="couple-quiz__claim"
         @click="$emit('win', prize)"
       >
-        Nhận quà
+        {{ $t("Nhận quà") }}
       </button>
 
       <button v-else type="button" class="couple-quiz__again" @click="restart">
-        Làm lại
+        {{ $t("Làm lại") }}
       </button>
     </div>
   </div>
@@ -72,7 +72,6 @@
 import { computed, ref } from "vue";
 
 import { pickRandomPrize } from "@/data/gameData";
-
 const props = defineProps({
   /*
    * Danh sách câu hỏi (wedding.gameQuestions) — mỗi câu:

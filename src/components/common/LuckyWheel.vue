@@ -50,7 +50,7 @@
         <strong>{{ result }}</strong>
 
         <button type="button" class="lucky-wheel__again" @click="result = null">
-          Quay tiếp
+          {{ $t("Quay tiếp") }}
         </button>
       </div>
     </Transition>
@@ -59,7 +59,6 @@
 
 <script setup>
 import { computed, ref } from "vue";
-
 const props = defineProps({
   prizes: { type: Array, default: () => [] },
 

@@ -22,7 +22,7 @@
       <!-- KHUNG ẢNH BAROQUE -->
       <div class="bq-hero__frame">
         <div class="bq-hero__photo">
-          <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" draggable="false" />
+          <img v-if="heroImage" :src="heroImage" :alt="$t('Ảnh cưới')" draggable="false" />
 
           <span v-else class="bq-hero__photo-empty" aria-hidden="true">❦</span>
         </div>
@@ -53,12 +53,12 @@
         draggable="false"
       />
 
-      <p class="bq-hero__guest-label">TRÂN TRỌNG KÍNH MỜI</p>
+      <p class="bq-hero__guest-label">{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</p>
 
       <p class="bq-hero__guest">{{ guestName }}</p>
 
       <p class="bq-hero__intro">
-        Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+        {{ $t("Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại") }}
       </p>
 
       <p class="bq-hero__place">{{ location }}</p>
@@ -69,7 +69,7 @@
       </div>
 
       <p class="bq-hero__message">
-        Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+        {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!") }}
       </p>
 
       <div class="bq-hero__footer" aria-hidden="true">
@@ -86,7 +86,7 @@ import { computed } from "vue";
 import dayjs from "dayjs";
 
 import { flower5, frame, goldenLine } from "./bohoTerracottaAssets";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
@@ -155,16 +155,16 @@ const dateText = computed(() => {
 
   if (date.isValid()) {
     const weekdays = [
-      "CHỦ NHẬT",
-      "THỨ HAI",
-      "THỨ BA",
-      "THỨ TƯ",
-      "THỨ NĂM",
-      "THỨ SÁU",
-      "THỨ BẢY",
+      t("CHỦ NHẬT"),
+      t("THỨ HAI"),
+      t("THỨ BA"),
+      t("THỨ TƯ"),
+      t("THỨ NĂM"),
+      t("THỨ SÁU"),
+      t("THỨ BẢY"),
     ];
 
-    return `${weekdays[date.day()]}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(weekdays[date.day()])}${t(", NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

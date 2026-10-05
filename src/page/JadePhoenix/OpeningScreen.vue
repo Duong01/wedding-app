@@ -81,7 +81,6 @@
 import { computed, ref } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },

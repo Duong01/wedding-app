@@ -21,9 +21,9 @@
       </div>
 
       <p class="intro">
-        cùng gia đình hai bên
+        {{ $t("cùng gia đình hai bên") }}
         <br />
-        trân trọng báo tin
+        {{ $t("trân trọng báo tin") }}
       </p>
 
       <h1>
@@ -43,9 +43,9 @@
       </p>
 
       <p class="message">
-        Một hành trình mới bắt đầu
+        {{ $t("Một hành trình mới bắt đầu") }}
         <br />
-        bằng một lời hẹn ước trăm năm
+        {{ $t("bằng một lời hẹn ước trăm năm") }}
       </p>
     </div>
 
@@ -54,7 +54,7 @@
 
     <div class="hero-bottom">
       <span />
-      <i>ĐÔNG SƠN · TRĂM NĂM HẠNH PHÚC</i>
+      <i>{{ $t("ĐÔNG SƠN · TRĂM NĂM HẠNH PHÚC") }}</i>
       <span />
     </div>
   </section>
@@ -62,7 +62,7 @@
 
 <script setup>
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -73,7 +73,7 @@ const props = defineProps({
 });
 
 const heroTitle = computed(
-  () => props.wedding?.hero?.Title || "TRÂN TRỌNG KÍNH MỜI"
+  () => props.wedding?.hero?.Title || t("TRÂN TRỌNG KÍNH MỜI")
 );
 
 const groomName = computed(() =>

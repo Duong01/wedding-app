@@ -29,7 +29,7 @@
 
     <div v-else class="dh-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -48,7 +48,7 @@ import { sectionText } from "@/data/sectionTitles";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
+import { t } from "@/lang";
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
@@ -61,11 +61,11 @@ const props = defineProps({
 });
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "gallery", "Eyebrow", "KỶ NIỆM TƯƠI ĐẸP")
+  sectionText(props.sections, "gallery", "Eyebrow", t("KỶ NIỆM TƯƠI ĐẸP"))
 );
 
 const heading = computed(() =>
-  sectionText(props.sections, "gallery", "Heading", "Album Hình Cưới")
+  sectionText(props.sections, "gallery", "Heading", t("Album Hình Cưới"))
 );
 
 const intro = computed(() =>
@@ -73,7 +73,7 @@ const intro = computed(() =>
     props.sections,
     "gallery",
     "Intro",
-    "Những khoảnh khắc đẹp nhất\ndược lưu giữ cùng chúng mình"
+    t("Những khoảnh khắc đẹp nhất\ndược lưu giữ cùng chúng mình")
   )
 );
 

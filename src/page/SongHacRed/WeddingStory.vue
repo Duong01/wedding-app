@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shc-story__bar">{{ sectionText(sections, "story", "Heading", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</h2>
+    <h2 class="shc-story__bar">{{ sectionText(sections, "story", "Heading", $t("CÂU CHUYỆN CỦA CHÚNG MÌNH")) }}</h2>
 
     <!-- =====================================================
          NỘI DUNG
@@ -30,7 +30,6 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>

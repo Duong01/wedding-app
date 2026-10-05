@@ -7,7 +7,7 @@
         <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
+      <h2>{{ sectionText(sections, "timeline", "Heading", $t("Hành trình của chúng mình")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ds-sub-custom-head">
         <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ds-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -31,7 +31,7 @@
           </span>
 
           <h3>
-            {{ item.Title || item.Name || "Một dấu mốc đáng nhớ" }}
+            {{ item.Title || item.Name || $t("Một dấu mốc đáng nhớ") }}
           </h3>
 
           <p>
@@ -46,7 +46,6 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: {

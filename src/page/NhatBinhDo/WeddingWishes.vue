@@ -32,7 +32,7 @@
           <input
             v-model.trim="form.name"
             type="text"
-            placeholder="Nhập tên của bạn*"
+            :placeholder="$t('Nhập tên của bạn*')"
             maxlength="500"
             autocomplete="name"
           />
@@ -40,7 +40,7 @@
 
         <textarea
           v-model.trim="form.message"
-          placeholder="Nhập lời chúc của bạn*"
+          :placeholder="$t('Nhập lời chúc của bạn*')"
           rows="4"
           maxlength="10000"
         ></textarea>
@@ -50,8 +50,8 @@
             <button
               type="button"
               class="cfr-wishes__ai"
-              title="Tạo lời chúc bằng AI"
-              aria-label="Tạo lời chúc bằng AI"
+              :title="$t('Tạo lời chúc bằng AI')"
+              :aria-label="$t('Tạo lời chúc bằng AI')"
               @click="generateWish"
             >
               🪄
@@ -63,7 +63,7 @@
             class="cfr-pill cfr-wishes__submit"
             :disabled="submitting || !form.name || !form.message"
           >
-            {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+            {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}
           </button>
         </div>
 
@@ -79,7 +79,7 @@
     <div class="cfr-wishes__list">
 
       <p v-if="!allWishes.length" class="cfr-wishes__empty">
-        Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé ♡
+        {{ $t("Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé ♡") }}
       </p>
 
       <article
@@ -116,8 +116,7 @@ import { useRoute } from "vue-router";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 import { addWish, getAllWishes } from "@/model/api";
-
-
+import { t } from "@/lang";
 /* =====================================================
    PROPS
 ===================================================== */
@@ -182,7 +181,7 @@ function wishName(wish) {
     wish?.name ||
     wish?.GuestName ||
     wish?.guestName ||
-    "Khách mời"
+    t("Khách mời")
   );
 }
 
@@ -272,13 +271,13 @@ async function submit() {
   const message = form.message.trim();
 
   if (!name) {
-    alert("Vui lòng nhập tên của bạn.");
+    alert(t("Vui lòng nhập tên của bạn."));
 
     return;
   }
 
   if (!message) {
-    alert("Vui lòng nhập lời chúc.");
+    alert(t("Vui lòng nhập lời chúc."));
 
     return;
   }
@@ -297,10 +296,10 @@ async function submit() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Gửi lời chúc thất bại.");
+      throw new Error(result?.message || t("Gửi lời chúc thất bại."));
     }
 
-    alert("Cảm ơn bạn! Lời chúc đã được gửi ❤️");
+    alert(t("Cảm ơn bạn! Lời chúc đã được gửi ❤️"));
 
     form.name = "";
     form.message = "";
@@ -309,7 +308,7 @@ async function submit() {
   } catch (error) {
     console.error("[NhatBinhDo] Guest book error:", error);
 
-    alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+    alert(t("Đã xảy ra lỗi. Vui lòng thử lại."));
   } finally {
     submitting.value = false;
   }

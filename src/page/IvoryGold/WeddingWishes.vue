@@ -5,9 +5,9 @@
     ========================================== -->
 
     <div class="wish-heading">
-      <span class="wish-kicker"> {{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC YÊU THƯƠNG") }} </span>
+      <span class="wish-kicker"> {{ sectionText(sections, "guestbook", "Eyebrow", $t("LỜI CHÚC YÊU THƯƠNG")) }} </span>
 
-      <h2>{{ sectionText(sections, "guestbook", "Heading", "GỬI ĐẾN CHÚNG MÌNH") }}</h2>
+      <h2>{{ sectionText(sections, "guestbook", "Heading", $t("GỬI ĐẾN CHÚNG MÌNH")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="ig-sub-custom-head">
         <p v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="ig-sub-custom-head__intro">{{ sectionOverride(sections, "guestbook", "Intro") }}</p>
@@ -53,33 +53,33 @@
       <div class="form-title">
         <span class="form-title-icon">♡</span>
 
-        <span> GỬI LỜI CHÚC ĐẾN CÔ DÂU CHÚ RỂ </span>
+        <span> {{ $t("GỬI LỜI CHÚC ĐẾN CÔ DÂU CHÚ RỂ") }} </span>
 
         <span class="form-title-icon">♡</span>
       </div>
 
       <div class="form-group">
-        <label> HỌ VÀ TÊN </label>
+        <label> {{ $t("HỌ VÀ TÊN") }} </label>
 
         <div class="input-wrap">
           <input
             v-model="form.name"
             type="text"
             maxlength="80"
-            placeholder="Nhập tên của bạn"
+            :placeholder="$t('Nhập tên của bạn')"
           />
         </div>
       </div>
 
       <div class="form-group">
-        <label> LỜI CHÚC </label>
+        <label> {{ $t("LỜI CHÚC") }} </label>
 
         <div class="input-wrap textarea-wrap">
           <textarea
             v-model="form.message"
             rows="4"
             maxlength="500"
-            placeholder="Gửi những lời chúc tốt đẹp nhất..."
+            :placeholder="$t('Gửi những lời chúc tốt đẹp nhất...')"
           ></textarea>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <button type="button" :disabled="!canSubmit || submitting" class="submit-button" @click="submitWish">
         <span> ♡ </span>
 
-        GỬI LỜI CHÚC
+        {{ $t("GỬI LỜI CHÚC") }}
 
         <span> ♡ </span>
       </button>
@@ -101,7 +101,7 @@
       <div class="list-heading">
         <span></span>
 
-        <strong> NHỮNG LỜI CHÚC </strong>
+        <strong> {{ $t("NHỮNG LỜI CHÚC") }} </strong>
 
         <span></span>
       </div>
@@ -132,7 +132,7 @@
     ========================================== -->
 
     <div v-else class="wish-empty">
-      Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé ♡
+      {{ $t("Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé ♡") }}
     </div>
   </section>
 </template>
@@ -142,6 +142,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { addWish, getAllWishes } from "@/model/api";
 import { useRoute } from "vue-router";
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: {
@@ -187,7 +188,7 @@ const canSubmit = computed(() => {
 ========================================= */
 
 function getName(wish) {
-  return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+  return wish?.Name || wish?.GuestName || wish?.FullName || t("Khách mời");
 }
 
 /* =========================================
@@ -232,11 +233,11 @@ if(route.params.slug  && route.name === "WeddingByApi") {
 
 async function submitWish() {
   if (!form.name || !form.name.trim()) {
-    alert("Vui lòng nhập tên của bạn");
+    alert(t("Vui lòng nhập tên của bạn"));
     return;
   }
   if (!form.message || !form.message.trim()) {
-    alert("Vui lòng nhập lời chúc");
+    alert(t("Vui lòng nhập lời chúc"));
     return;
   }
 
@@ -260,7 +261,7 @@ async function submitWish() {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      alert("Gửi lời chúc thành công ❤️");
+      alert(t("Gửi lời chúc thành công ❤️"));
       form.name = "";
       form.message = "";
 
@@ -268,13 +269,13 @@ async function submitWish() {
 
       await loadWishes();
     } else {
-      alert(result?.message || "Không thể gửi lời chúc.");
+      alert(result?.message || t("Không thể gửi lời chúc."));
     }
   } catch (error) {
     console.error(error);
     alert(
       error?.response?.data?.message ||
-        "Có lỗi xảy ra, vui lòng thử lại."
+        t("Có lỗi xảy ra, vui lòng thử lại.")
     );
   } finally {
     submitting.value = false;

@@ -163,7 +163,7 @@ import WeddingFooter from "@/page/TraditionalRed/WeddingFooter.vue";
 import { rongPhuong, cloud } from "@/page/TraditionalRed/traditionalRedAssets";
 
 import { useWeddingTheme } from "@/composables/useWeddingTheme";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -261,7 +261,7 @@ const guestName = computed(
       ? wedding.value.recipientName[0]?.Name
       : wedding.value?.recipientName?.Name) ||
     wedding.value?.guestName ||
-    "Quý khách"
+    t("Quý khách")
 );
 
 /* =========================================================

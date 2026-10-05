@@ -56,7 +56,7 @@
 
 
     <p v-else class="cfr-timeline__empty">
-      Chưa có lịch trình.
+      {{ $t("Chưa có lịch trình.") }}
     </p>
 
   </section>
@@ -67,8 +67,7 @@
 import { computed } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
+import { t } from "@/lang";
 const props = defineProps({
   timeline: {
     type: Array,
@@ -86,13 +85,12 @@ const props = defineProps({
   },
 });
 
-
 /* =====================================================
    TIÊU ĐỀ MỤC
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "timeline", "Heading", "Lịch trình ngày cưới")
+  sectionText(props.sections, "timeline", "Heading", t("Lịch trình ngày cưới"))
 );
 
 

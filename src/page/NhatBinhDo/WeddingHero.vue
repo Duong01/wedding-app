@@ -1,5 +1,5 @@
 <template>
-  <header class="cfr-hero" aria-label="Đầu thiệp">
+  <header class="cfr-hero" :aria-label="$t('Đầu thiệp')">
     <div class="cfr-hero__frame">
       <img :src="flowerFrame" alt="" aria-hidden="true" />
 
@@ -23,8 +23,6 @@
 import { computed } from "vue";
 
 import { flowerFrame } from "./crystalFloralAssets";
-
-
 const props = defineProps({
   wedding: {
     type: Object,
@@ -41,7 +39,6 @@ const props = defineProps({
     default: "",
   },
 });
-
 
 const wedding = computed(() => props.wedding || {});
 

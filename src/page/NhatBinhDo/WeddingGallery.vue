@@ -37,7 +37,7 @@
       />
 
       <p v-else class="cfr-gallery__empty">
-        Chưa có hình ảnh
+        {{ $t("Chưa có hình ảnh") }}
       </p>
     </div>
 
@@ -64,7 +64,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
@@ -87,7 +86,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 /* =====================================================
    TIÊU ĐỀ MỤC

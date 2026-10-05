@@ -71,8 +71,6 @@
 import { computed } from "vue";
 
 import { flower } from "./royalRedAssets";
-
-
 const props = defineProps({
   wedding: {
     type: Object,
@@ -94,7 +92,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 const groom = computed(
   () =>

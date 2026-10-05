@@ -5,7 +5,7 @@
       'is-opening': isOpening,
       'is-opened': isOpened,
     }"
-    aria-label="Mở thiệp"
+    :aria-label="$t('Mở thiệp')"
   >
 
     <!-- =====================================================
@@ -94,7 +94,7 @@
             :disabled="isOpening"
             @click="openInvitation"
           >
-            {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
+            {{ isOpening ? $t("ĐANG MỞ...") : buttonLabel }}
           </button>
 
           <p class="rr-open__hint">
@@ -117,8 +117,6 @@ import { computed, ref } from "vue";
 import { sectionText } from "@/data/sectionTitles";
 
 import { flower } from "./royalRedAssets";
-
-
 /* =========================================================
    PROPS
 ========================================================= */
@@ -149,7 +147,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 const emit = defineEmits(["open"]);
 

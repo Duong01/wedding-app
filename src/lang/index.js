@@ -1,6 +1,16 @@
 import { createI18n } from "vue-i18n";
 
 /*
+ * Bản dịch "chữ trên thiệp" theo từng ngôn ngữ — key là
+ * chuỗi tiếng Việt gốc (dạng 1 file 1 ngôn ngữ, xem đầu
+ * các file đó). Nạp vào messages cùng bảng modules/*.js.
+ */
+import enUS from "./en_US.js";
+import zhCN from "./zh_CN.js";
+import koKR from "./ko_KR.js";
+import jaJP from "./ja_JP.js";
+
+/*
  * =========================================================
  * ĐA NGÔN NGỮ — WEBSITE + TRANG CHỈNH SỬA
  * =========================================================
@@ -14,6 +24,12 @@ import { createI18n } from "vue-i18n";
  *
  * → dễ soát thiếu / lệch giữa các ngôn ngữ. Thiếu bản dịch
  * (chuỗi rỗng) thì rơi về tiếng Việt.
+ *
+ * Riêng CHỮ TRÊN THIỆP (khách mời xem): key là chuỗi tiếng
+ * Việt gốc, bản dịch nằm ở src/lang/en_US.js, zh_CN.js,
+ * ko_KR.js, ja_JP.js (dạng 1 file 1 ngôn ngữ — xem đầu
+ * file đó). $t("Chuỗi tiếng Việt") tự tra theo ngôn ngữ
+ * thiệp (setCardLocale — xem cuối file này).
  *
  * Nội dung thiệp cưới (khách mời xem) KHÔNG đi theo ngôn
  * ngữ giao diện — giữ đúng chữ chủ thiệp nhập.
@@ -67,6 +83,18 @@ function buildMessages() {
         }
       });
     }
+  }
+
+  /*
+   * Gộp bảng "chữ trên thiệp" (key = chuỗi tiếng Việt gốc)
+   * vào messages — không đè key trùng của modules/*.js vì
+   * key dạng câu tiếng Việt không bao giờ trùng key dạng
+   * "nav.templates".
+   */
+  const CARD_TABLES = { en: enUS, zh: zhCN, ko: koKR, ja: jaJP };
+
+  for (const [code, table] of Object.entries(CARD_TABLES)) {
+    Object.assign(messages[code], table);
   }
 
   return messages;
@@ -159,5 +187,61 @@ export function currentLocale() {
  * Dịch ngoài component (store, utils, thông báo lỗi...).
  */
 export const t = (...args) => i18n.global.t(...args);
+
+/*
+ * =========================================================
+ * NGÔN NGỮ THIỆP (khác ngôn ngữ giao diện web)
+ * =========================================================
+ * Chữ trên thiệp (khách mời xem) theo lựa chọn của CHỦ
+ * THIỆP trong editor — wedding.language. Trang khách xem
+ * gọi setCardLocale(wedding.language) sau khi tải thiệp;
+ * mọi $t() trong theme tự hiển thị đúng ngôn ngữ thiệp.
+ *
+ * Rời trang thiệp → clearCardLocale() trả về ngôn ngữ
+ * giao diện (tránh ảnh hưởng các trang web khác).
+ */
+
+let cardLocaleCode = null;
+
+export function setCardLocale(code) {
+  if (!LOCALE_CODES.includes(code)) {
+    return;
+  }
+
+  cardLocaleCode = code;
+
+  i18n.global.locale.value = code;
+}
+
+export function clearCardLocale() {
+  if (cardLocaleCode === null) {
+    return;
+  }
+
+  cardLocaleCode = null;
+
+  i18n.global.locale.value = detectLocale();
+}
+
+export function isCardLocaleActive() {
+  return cardLocaleCode !== null;
+}
+
+/*
+ * Tag BCP-47 cho Intl (toLocaleDateString / toLocaleTimeString)
+ * theo ngôn ngữ hiện tại — dùng trong các theme khi format
+ * ngày giờ trên thiệp.
+ */
+const INTL_TAGS = {
+  vi: "vi-VN",
+  en: "en-US",
+  zh: "zh-CN",
+  ko: "ko-KR",
+  ja: "ja-JP",
+};
+
+export function localeTag() {
+  return INTL_TAGS[i18n.global.locale.value] || INTL_TAGS.vi;
+}
 
 export default i18n;

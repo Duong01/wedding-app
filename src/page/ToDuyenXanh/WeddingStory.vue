@@ -46,7 +46,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { flowerDecoration, lineDecoration } from "./toDuyenXanhAssets";
-
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>

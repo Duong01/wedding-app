@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="shy-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shy-bar">{{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}</h2>
+    <h2 class="shy-bar">{{ sectionText(sections, "timeline", "Heading", $t("LỊCH TRÌNH NGÀY CƯỚI")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="shy-sub-custom-head">
       <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="shy-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -49,7 +49,7 @@
 
           <!-- MÔ TẢ -->
           <span class="shy-timeline__body">
-            <b>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</b>
+            <b>{{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}</b>
 
             <em v-if="item.Description || item.Content">
               {{ item.Description || item.Content }}
@@ -66,7 +66,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
@@ -75,7 +75,7 @@ const props = defineProps({
 const items = computed(() => props.timeline || []);
 
 function formatTime(index) {
-  return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
+  return `${t("DẤU MỐC ")}${String(index + 1).padStart(2, "0")}`;
 }
 </script>
 

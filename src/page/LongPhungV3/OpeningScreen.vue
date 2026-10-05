@@ -16,7 +16,7 @@
       aria-hidden="true"
     >✦</span>
 
-    <p class="lp-opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI LONG PHỤNG") }}</p>
+    <p class="lp-opening__eyebrow">{{ sectionText(sections, "opening", "Eyebrow", $t("THIỆP CƯỚI LONG PHỤNG")) }}</p>
 
     <!-- THIỆP -->
     <div class="lp-card">
@@ -26,7 +26,7 @@
 
       <p class="lp-card__kicker">{{ sectionText(sections, "opening", "Kicker", "SAVE THE DATE") }}</p>
 
-      <p class="lp-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+      <p class="lp-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
       <h1>{{ guestName }}</h1>
 
@@ -42,7 +42,7 @@
         {{ brideName }}
       </p>
 
-      <p class="lp-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+      <p class="lp-card__date">{{ dateLabel || $t("NGÀY CỦA CHÚNG MÌNH") }}</p>
     </div>
 
     <!-- NÚT MỞ -->
@@ -51,14 +51,14 @@
         <v-icon size="16">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="lp-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+      <span class="lp-open-btn__text">{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
 
       <span class="lp-open-btn__arrow">✦</span>
     </button>
 
     <p class="lp-hint">
       <span></span>
-      {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}
+      {{ sectionText(sections, "opening", "Hint", $t("Một lời mời · Một lời hẹn · Một đời hạnh phúc")) }}
       <span></span>
     </p>
   </section>
@@ -70,7 +70,6 @@ import { computed, ref } from "vue";
 import phung from "@/assets/decor/longphung-v3/phung.webp";
 import rong from "@/assets/decor/longphung-v3/rong.webp";
 import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },

@@ -37,7 +37,7 @@
         <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="tdx-heading">{{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}</h2>
+      <h2 class="tdx-heading">{{ sectionText(sections, "timeline", "Heading", $t("LỊCH TRÌNH NGÀY CƯỚI")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="tdx-sub-custom-head">
         <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="tdx-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -72,7 +72,7 @@
 
           <!-- MÔ TẢ -->
           <div class="tdx-timeline__body">
-            <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
+            <h3>{{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}</h3>
 
             <p v-if="item.Description || item.Content">
               {{ item.Description || item.Content }}
@@ -89,6 +89,7 @@
 </template>
 
 <script setup>
+import { t } from "@/lang";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
@@ -116,7 +117,7 @@ function iconFor(index) {
 }
 
 function formatTime(index) {
-  return `MỐC ${String(index + 1).padStart(2, "0")}`;
+  return `${t("MỐC ")}${String(index + 1).padStart(2, "0")}`;
 }
 </script>
 

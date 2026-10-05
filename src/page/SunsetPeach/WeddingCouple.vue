@@ -1,8 +1,8 @@
 <template>
   <section class="sp-couple">
-    <p class="sp-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}</p>
+    <p class="sp-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", $t("TRÂN TRỌNG BÁO HỶ")) }}</p>
 
-    <h2>{{ sectionText(sections, "couple", "Heading", "Thông tin tiệc cưới") }}</h2>
+    <h2>{{ sectionText(sections, "couple", "Heading", $t("Thông tin tiệc cưới")) }}</h2>
 
     <div class="sp-rule">
       <span></span>
@@ -31,7 +31,7 @@
 
         <h3>{{ groom }}</h3>
 
-        <span class="sp-person__role">CHÚ RỂ</span>
+        <span class="sp-person__role">{{ $t("CHÚ RỂ") }}</span>
 
         <p class="sp-person__desc">{{ groomDescription }}</p>
       </article>
@@ -58,7 +58,7 @@
 
         <h3>{{ bride }}</h3>
 
-        <span class="sp-person__role">CÔ DÂU</span>
+        <span class="sp-person__role">{{ $t("CÔ DÂU") }}</span>
 
         <p class="sp-person__desc">{{ brideDescription }}</p>
       </article>
@@ -74,14 +74,14 @@
 
       <div class="sp-date-main">
         <div class="sp-date-side">
-          <span>THÁNG</span>
+          <span>{{ $t("THÁNG") }}</span>
           <strong>{{ weddingMonth }}</strong>
         </div>
 
         <div class="sp-date-day">{{ weddingDay }}</div>
 
         <div class="sp-date-side">
-          <span>NĂM</span>
+          <span>{{ $t("NĂM") }}</span>
           <strong>{{ weddingYear }}</strong>
         </div>
       </div>
@@ -90,7 +90,7 @@
 
       <div v-if="weddingTime" class="sp-wedding-time">
         <div class="sp-time-content">
-          <span class="sp-time-label">THỜI GIAN</span>
+          <span class="sp-time-label">{{ $t("THỜI GIAN") }}</span>
           <strong>{{ weddingTime }}</strong>
         </div>
       </div>
@@ -101,7 +101,7 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -130,14 +130,14 @@ const groomDescription = computed(
   () =>
     props.wedding?.couple?.Groom?.Description ||
     props.wedding?.couple?.Groom?.Address ||
-    "Chú rể của gia đình chúng mình"
+    t("Chú rể của gia đình chúng mình")
 );
 
 const brideDescription = computed(
   () =>
     props.wedding?.couple?.Bride?.Description ||
     props.wedding?.couple?.Bride?.Address ||
-    "Cô dâu của gia đình chúng mình"
+    t("Cô dâu của gia đình chúng mình")
 );
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
@@ -196,9 +196,9 @@ const weddingYear = computed(() => {
 const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
-  const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+  const weekdays = [t("CHỦ NHẬT"), t("THỨ HAI"), t("THỨ BA"), t("THỨ TƯ"), t("THỨ NĂM"), t("THỨ SÁU"), t("THỨ BẢY")];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(
@@ -234,7 +234,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", hour12: false });
+      return date.toLocaleTimeString(localeTag(), { hour: "2-digit", minute: "2-digit", hour12: false });
     }
   }
 

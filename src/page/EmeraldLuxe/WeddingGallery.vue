@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "gallery", "Heading", "Album ảnh cưới") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "gallery", "Heading", $t("Album ảnh cưới")) }}</h2>
 
       <p class="cr-heading__zh">婚紗相簿</p>
 
@@ -24,7 +24,7 @@
         <span></span>
       </div>
 
-      <p class="cr-heading__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
+      <p class="cr-heading__intro">{{ sectionText(sections, "gallery", "Intro", $t("Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình")) }}</p>
     </header>
 
     <GalleryShowcase
@@ -38,7 +38,7 @@
 
     <div v-else class="cr-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -58,7 +58,6 @@ import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 import { cherryBlossom } from "./emeraldLuxeAssets";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

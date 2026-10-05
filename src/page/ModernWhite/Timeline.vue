@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="mw-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+    <h2 class="mw-title">{{ sectionText(sections, "timeline", "Heading", $t("Lịch trình ngày cưới")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="mw-sub-custom-head">
       <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="mw-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -32,14 +32,14 @@
       </li>
     </ol>
 
-    <p v-else class="mw-timeline__empty">Chưa có lịch trình.</p>
+    <p v-else class="mw-timeline__empty">{{ $t("Chưa có lịch trình.") }}</p>
   </section>
 </template>
 
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: {
@@ -65,7 +65,7 @@ const items = computed(() => {
 
         Time: data.Time || data.StartTime || data.EventTime || "",
 
-        Title: data.Title || data.Name || data.TypeLabel || "Lịch trình",
+        Title: data.Title || data.Name || data.TypeLabel || t("Lịch trình"),
       };
     })
     .filter((item) => item.Time || item.Title);

@@ -7,13 +7,13 @@
         <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "gallery", "Heading", "Khoảnh khắc yêu thương") }}</h2>
+      <h2>{{ sectionText(sections, "gallery", "Heading", $t("Khoảnh khắc yêu thương")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="ds-sub-custom-head">
         <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="ds-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
       </header>
 
-      <p>Những hình ảnh chúng mình muốn lưu giữ mãi.</p>
+      <p>{{ $t("Những hình ảnh chúng mình muốn lưu giữ mãi.") }}</p>
     </div>
 
     <GalleryShowcase
@@ -29,7 +29,7 @@
 
     <div v-else class="gallery-empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -47,7 +47,6 @@ import { ref, defineAsyncComponent } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

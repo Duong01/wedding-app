@@ -6,7 +6,7 @@
         <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "story", "Heading", storyTitle || "CÂU CHUYỆN TÌNH YÊU") }}</h2>
+      <h2>{{ sectionText(sections, "story", "Heading", storyTitle || $t("CÂU CHUYỆN TÌNH YÊU")) }}</h2>
     </div>
 
     <div class="lp-story__quote">“</div>
@@ -20,7 +20,6 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>

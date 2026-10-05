@@ -20,7 +20,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   story: {
@@ -34,7 +34,7 @@ const title = computed(() => {
     return props.story.Title;
   }
 
-  return "Chuyện tình yêu";
+  return t("Chuyện tình yêu");
 });
 
 const storyText = computed(() => {

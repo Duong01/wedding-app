@@ -83,7 +83,7 @@ import { sectionText } from "@/data/sectionTitles";
 import { DEFAULT_WHEEL_PRIZES, gameTypeMeta } from "@/data/gameData";
 
 import { useSectionTheme } from "@/composables/useSectionTheme";
-
+import { t } from "@/lang";
 const props = defineProps({
   /*
    * Nhận cả object wedding — prop duy nhất mọi orchestrator
@@ -171,7 +171,7 @@ const wheelPrizes = computed(() =>
 const slug = computed(() => props.wedding?.slug || props.wedding?.Slug || "");
 
 const eyebrow = computed(() =>
-  sectionText(props.wedding?.sections, "game", "Eyebrow", "CÙNG VUI CHƠI")
+  sectionText(props.wedding?.sections, "game", "Eyebrow", t("CÙNG VUI CHƠI"))
 );
 
 const heading = computed(() =>

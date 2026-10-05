@@ -12,6 +12,14 @@ export function ensureNewSections(wedding) {
     return wedding;
   }
 
+  /*
+   * Ngôn ngữ thiệp (khách mời xem) — thiệp cũ chưa có
+   * thì mặc định tiếng Việt, hiển thị như trước.
+   */
+  if (typeof wedding.language !== "string" || !wedding.language) {
+    wedding.language = "vi";
+  }
+
   if (!wedding.video || typeof wedding.video !== "object") {
     wedding.video = { Enabled: true, Url: "", Title: "" };
   }

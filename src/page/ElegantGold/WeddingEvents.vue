@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "events", "Heading", $t("Thông tin tiệc cưới")) }}</h2>
 
     <article
       v-for="(event, index) in normalizedEvents"
@@ -16,7 +16,7 @@
       <!-- =====================================================
            GIỜ TIỆC
       ====================================================== -->
-      <h3 class="la-event__lead">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+      <h3 class="la-event__lead">{{ $t("Tiệc cưới sẽ diễn ra vào lúc:") }}</h3>
 
       <p v-if="event.time" class="la-event__time">{{ event.time }}</p>
 
@@ -46,13 +46,13 @@
       ====================================================== -->
       <div v-if="event.receptionTime || event.ceremonyTime" class="la-event__schedule">
         <div v-if="event.receptionTime" class="la-schedule">
-          <span class="la-schedule__label">Đón khách</span>
+          <span class="la-schedule__label">{{ $t("Đón khách") }}</span>
 
           <span class="la-schedule__value">{{ event.receptionTime }}</span>
         </div>
 
         <div v-if="event.ceremonyTime" class="la-schedule">
-          <span class="la-schedule__label">Khai tiệc</span>
+          <span class="la-schedule__label">{{ $t("Khai tiệc") }}</span>
 
           <span class="la-schedule__value">{{ event.ceremonyTime }}</span>
         </div>
@@ -122,14 +122,14 @@
         rel="noopener noreferrer"
         class="la-event__calendar-link"
       >
-        Thêm vào lịch
+        {{ $t("Thêm vào lịch") }}
       </a>
 
       <!-- =====================================================
            XÁC NHẬN THAM DỰ
       ====================================================== -->
       <button type="button" class="la-pill la-event__rsvp" @click="openConfirmModal(event)">
-        XÁC NHẬN THAM DỰ
+        {{ $t("XÁC NHẬN THAM DỰ") }}
       </button>
     <EventMap v-if="index === 0 && showMap" :event="event" />
     </article>
@@ -142,36 +142,36 @@
       <Transition name="la-modal">
         <div v-if="showConfirmModal" class="la-confirm" @click.self="closeConfirmModal">
           <div class="la-confirm__card">
-            <button type="button" class="la-confirm__close" aria-label="Đóng" @click="closeConfirmModal">
-              ×
+            <button type="button" class="la-confirm__close" :aria-label="$t('Đóng')" @click="closeConfirmModal">
+              {{ "×" }}
             </button>
 
-            <h3 class="la-confirm__title">Xác nhận tham dự</h3>
+            <h3 class="la-confirm__title">{{ $t("Xác nhận tham dự") }}</h3>
 
             <p class="la-confirm__desc">
-              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+              {{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}
             </p>
 
             <div v-if="hasRecipient" class="la-confirm__recipient">
-              <span>TRÂN TRỌNG KÍNH MỜI</span>
+              <span>{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</span>
 
               <strong>{{ recipientName }}</strong>
             </div>
 
             <div v-else class="la-field">
-              <label for="la-rsvp-name">Họ và tên</label>
+              <label for="la-rsvp-name">{{ $t("Họ và tên") }}</label>
 
               <input
                 id="la-rsvp-name"
                 v-model.trim="form.name"
                 type="text"
                 maxlength="100"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
               />
             </div>
 
             <div class="la-field">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="la-attendance">
                 <button
@@ -181,7 +181,7 @@
                   @click="form.attendance = 'attending'"
                 >
                   <span>✓</span>
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -190,14 +190,14 @@
                   :class="{ selected: form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  <span>×</span>
-                  Rất tiếc, tôi không thể tham dự
+                  <span>{{ "×" }}</span>
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
 
             <div v-if="form.attendance === 'attending'" class="la-field">
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="la-people">
                 <button type="button" @click="decreasePeople">−</button>
@@ -218,7 +218,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -238,6 +238,7 @@ import { Confirm } from "@/model/api";
 
 import calendarFrame from "@/assets/love-art/lich.webp";
 import calendarHeart from "@/assets/love-art/tim.webp";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -304,9 +305,9 @@ const normalizedEvents = computed(() =>
       month = date.format("MM");
       year = date.format("YYYY");
 
-      const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+      const weekdays = [t("CHỦ NHẬT"), t("THỨ HAI"), t("THỨ BA"), t("THỨ TƯ"), t("THỨ NĂM"), t("THỨ SÁU"), t("THỨ BẢY")];
 
-      weekday = weekdays[date.day()];
+      weekday = t(weekdays[date.day()]);
     }
 
     const time =
@@ -347,7 +348,7 @@ const normalizedEvents = computed(() =>
         buildCalendarUrl({
           date,
           time,
-          title: item.Title || "Đám cưới",
+          title: item.Title || t("Đám cưới"),
           location: [location, address].filter(Boolean).join(", "),
         }),
     };
@@ -396,7 +397,7 @@ function buildCalendarUrl({ date, time, title, location }) {
     action: "TEMPLATE",
     text: title,
     dates: `${start.format("YYYYMMDDTHHmmss")}/${end.format("YYYYMMDDTHHmmss")}`,
-    details: "Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.",
+    details: t("Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi."),
     location: location || "",
   });
 
@@ -447,12 +448,12 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!hasRecipient.value && !form.value.name) {
-    errorMessage.value = "Vui lòng nhập họ và tên.";
+    errorMessage.value = t("Vui lòng nhập họ và tên.");
     return;
   }
 
   if (!form.value.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
     return;
   }
 
@@ -469,7 +470,7 @@ async function submitConfirmation() {
       Slug: slug,
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
-      Attendance: form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+      Attendance: form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
       NumberOfPeople: form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
 
@@ -478,17 +479,17 @@ async function submitConfirmation() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể gửi xác nhận.");
+      throw new Error(result?.message || t("Không thể gửi xác nhận."));
     }
 
-    successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    successMessage.value = t("Cảm ơn bạn đã xác nhận tham dự ❤️");
 
     setTimeout(() => {
       closeConfirmModal();
     }, 1800);
   } catch (error) {
     errorMessage.value =
-      error?.response?.data?.message || error?.message || "Có lỗi xảy ra. Vui lòng thử lại.";
+      error?.response?.data?.message || error?.message || t("Có lỗi xảy ra. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

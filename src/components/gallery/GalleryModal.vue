@@ -29,7 +29,7 @@
         <button
           type="button"
           class="gm__close"
-          aria-label="Đóng album"
+          :aria-label="$t('Đóng album')"
           @click="close"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -60,7 +60,7 @@
             v-if="images.length > 1"
             type="button"
             class="gm__arrow gm__arrow--prev"
-            aria-label="Ảnh trước"
+            :aria-label="$t('Ảnh trước')"
             @click.stop="prev"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -87,7 +87,7 @@
                 :key="current.key"
                 ref="setPhotoRef"
                 :src="current.src"
-                :alt="current.title || `Ảnh cưới ${index + 1}`"
+                :alt="current.title || `${$t('Ảnh cưới ')}${index + 1}`"
                 class="gm__photo"
                 :class="{ 'is-loaded': loadedKeys.has(current.key) }"
                 :style="zoomed ? zoomStyle : null"
@@ -109,7 +109,7 @@
             v-if="images.length > 1"
             type="button"
             class="gm__arrow gm__arrow--next"
-            aria-label="Ảnh tiếp theo"
+            :aria-label="$t('Ảnh tiếp theo')"
             @click.stop="next"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -138,7 +138,7 @@
             class="gm__thumb"
             :class="{ 'is-active': i === index }"
             :style="i === index ? { outlineColor: accent } : null"
-            :aria-label="`Xem ảnh ${i + 1}`"
+            :aria-label="`${$t('Xem ảnh ')}${i + 1}`"
             :aria-current="i === index ? 'true' : undefined"
             @click="goTo(i)"
           >
@@ -152,7 +152,6 @@
 
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
-
 /*
  * =========================================================
  * ALBUM ẢNH TOÀN MÀN HÌNH — DÙNG CHUNG CHO MỌI MẪU THIỆP

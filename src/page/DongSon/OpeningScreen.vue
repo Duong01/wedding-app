@@ -12,7 +12,7 @@
     <div class="opening-pattern top-pattern" />
 
     <div class="opening-content">
-      <div class="eyebrow">{{ sectionText(sections, "opening", "Eyebrow", "THIỆP CƯỚI") }}</div>
+      <div class="eyebrow">{{ sectionText(sections, "opening", "Eyebrow", $t("THIỆP CƯỚI")) }}</div>
 
       <div class="monogram">
         {{ monogram }}
@@ -25,11 +25,11 @@
       </div>
 
       <p class="invitation-text">
-        {{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}
+        {{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}
       </p>
 
       <h1>
-        {{ guestName || "Quý khách" }}
+        {{ guestName || $t("Quý khách") }}
       </h1>
 
       <p class="date">
@@ -39,7 +39,7 @@
       <button class="open-button" @click="$emit('open')">
         <span class="button-ring" />
         <span class="button-icon">◉</span>
-        <span>{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+        <span>{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
       </button>
     </div>
 
@@ -55,7 +55,6 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {

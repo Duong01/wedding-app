@@ -16,7 +16,7 @@
     ====================================================== -->
 
     <div class="shy-dress__inner">
-      <p class="shy-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau") }}</p>
+      <p class="shy-dress__intro">{{ sectionText(sections, "dressCode", "Intro", $t("Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau")) }}</p>
 
       <ul class="shy-dress__palette">
         <li v-for="color in palette" :key="color.hex" class="shy-dress__swatch">
@@ -31,7 +31,6 @@
 
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
 defineProps({
   sections: { type: Object, default: () => ({}) },
 });

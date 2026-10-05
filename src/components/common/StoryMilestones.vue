@@ -33,7 +33,7 @@
           <img
             v-if="item.Image"
             :src="item.Image"
-            :alt="item.Title || 'Khoảnh khắc'"
+            :alt="item.Title || $t('Khoảnh khắc')"
             class="story-milestones__image"
             loading="lazy"
           />
@@ -51,7 +51,7 @@
 import { computed } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, required: true },
 });
@@ -67,7 +67,7 @@ const eyebrow = computed(() =>
     props.wedding?.sections,
     "story",
     "Eyebrow",
-    "CÂU CHUYỆN CỦA CHÚNG MÌNH"
+    t("CÂU CHUYỆN CỦA CHÚNG MÌNH")
   )
 );
 
@@ -76,7 +76,7 @@ const heading = computed(() =>
     props.wedding?.sections,
     "story",
     "Heading",
-    props.wedding?.story?.Title || "Chuyện Tình Yêu"
+    props.wedding?.story?.Title || t("Chuyện Tình Yêu")
   )
 );
 </script>

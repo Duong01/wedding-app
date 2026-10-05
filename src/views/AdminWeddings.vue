@@ -353,6 +353,7 @@ import {
 } from "@/model/api";
 
 import { WEDDING_STATUS as STATUS } from "@/model/weddingAdmin";
+import { useTabResume } from "@/composables/useTabResume";
 
 defineOptions({
   name: "AdminWeddings",
@@ -414,6 +415,11 @@ async function loadWeddings() {
 }
 
 onMounted(() => {
+  loadWeddings();
+});
+
+/* Quay lại tab sau thời gian dài → danh sách có thể stale, load lại */
+useTabResume(() => {
   loadWeddings();
 });
 

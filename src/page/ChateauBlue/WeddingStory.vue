@@ -16,7 +16,7 @@
 import { computed } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
+import { t } from "@/lang";
 const props = defineProps({
   story: { type: [String, Object], default: "" },
   sections: { type: Object, default: () => ({}) },
@@ -29,7 +29,7 @@ const content = computed(() =>
 );
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH")
+  sectionText(props.sections, "story", "Eyebrow", t("CÂU CHUYỆN CỦA CHÚNG MÌNH"))
 );
 
 /*

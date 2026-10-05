@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shc-gallery__title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+    <h2 class="shc-gallery__title">{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="shc-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="shc-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
@@ -34,7 +34,7 @@
 
       <div v-else class="shc-gallery__empty">
         <v-icon size="30">mdi-image-outline</v-icon>
-        <p>Chưa có hình ảnh</p>
+        <p>{{ $t("Chưa có hình ảnh") }}</p>
       </div>
     </div>
 
@@ -53,7 +53,6 @@ import { defineAsyncComponent, ref } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

@@ -5,9 +5,9 @@
       <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "countdown", "Heading", $t("Cùng đếm ngược")) }}</h2>
 
-    <p class="la-lead">Từng giây trôi qua là một bước gần hơn đến ngày chúng mình chung đôi</p>
+    <p class="la-lead">{{ $t("Từng giây trôi qua là một bước gần hơn đến ngày chúng mình chung đôi") }}</p>
 
     <div class="la-countdown__grid">
       <article v-for="item in values" :key="item.label" class="la-countdown__item">
@@ -23,7 +23,7 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
@@ -48,10 +48,10 @@ const values = computed(() => {
   const seconds = Math.max(0, dayjs(target.value).diff(dayjs(now.value), "second"));
 
   return [
-    ["NGÀY", Math.floor(seconds / 86400)],
-    ["GIỜ", Math.floor((seconds % 86400) / 3600)],
-    ["PHÚT", Math.floor((seconds % 3600) / 60)],
-    ["GIÂY", seconds % 60],
+    [t("NGÀY"), Math.floor(seconds / 86400)],
+    [t("GIỜ"), Math.floor((seconds % 86400) / 3600)],
+    [t("PHÚT"), Math.floor((seconds % 3600) / 60)],
+    [t("GIÂY"), seconds % 60],
   ].map(([label, value]) => ({
     label,
     value: String(value).padStart(2, "0"),

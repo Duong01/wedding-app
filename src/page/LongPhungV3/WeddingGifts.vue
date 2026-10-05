@@ -6,14 +6,14 @@
         <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "gifts", "Heading", "HỘP MỪNG CƯỚI") }}</h2>
+      <h2>{{ sectionText(sections, "gifts", "Heading", $t("HỘP MỪNG CƯỚI")) }}</h2>
     </div>
 
-    <p class="lp-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình") }}</p>
+    <p class="lp-gifts__intro">{{ sectionText(sections, "gifts", "Intro", $t("Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình")) }}</p>
 
     <div class="lp-gifts__list">
       <article class="lp-gifts__item">
-        <button type="button" class="lp-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
+        <button type="button" class="lp-gift-btn" :aria-label="$t('Mở hộp mừng cưới')" @click="openGift">
           <div class="lp-gift-glow"></div>
 
           <div class="lp-gift-box">
@@ -28,7 +28,7 @@
           <div class="lp-gift-shadow"></div>
 
           <div class="lp-gift-hint">
-            <span>CHẠM ĐỂ MỞ</span>
+            <span>{{ $t("CHẠM ĐỂ MỞ") }}</span>
             <v-icon size="14">mdi-heart-outline</v-icon>
           </div>
         </button>
@@ -44,17 +44,16 @@
           <div class="lp-gift-dialog__backdrop" @click="closeGift"></div>
 
           <div class="lp-gift-dialog__card" role="dialog" aria-modal="true" aria-labelledby="lp-gift-dialog-title">
-            <button type="button" class="lp-gift-dialog__close" aria-label="Đóng hộp mừng cưới" @click="closeGift">
+            <button type="button" class="lp-gift-dialog__close" :aria-label="$t('Đóng hộp mừng cưới')" @click="closeGift">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <img :src="chuHy" alt="" aria-hidden="true" class="lp-gift-dialog__symbol" />
 
-            <h3 id="lp-gift-dialog-title">Hộp mừng cưới</h3>
+            <h3 id="lp-gift-dialog-title">{{ $t("Hộp mừng cưới") }}</h3>
 
             <p class="lp-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể,
-              bạn có thể chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <div v-if="gifts.length" class="lp-account-grid">
@@ -79,7 +78,7 @@
                   v-if="item.QrCode"
                   type="button"
                   class="lp-qr-button"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
                   <div class="lp-qr-frame">
@@ -89,24 +88,24 @@
                     <div class="lp-qr-corner lp-qr-corner--br"></div>
 
                     <div class="lp-qr-inner">
-                      <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" class="lp-qr-code" />
+                      <img :src="item.QrCode" :alt="item.Name || $t('QR mừng cưới')" class="lp-qr-code" />
                     </div>
                   </div>
 
                   <div class="lp-qr-hint">
                     <v-icon size="12">mdi-magnify-plus-outline</v-icon>
 
-                    CHẠM VÀO QR ĐỂ XEM LỚN
+                    {{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}
                   </div>
                 </button>
 
                 <div class="lp-account-info">
                   <div class="lp-info-row">
                     <div class="lp-info-left">
-                      <span class="lp-info-label">CHỦ TÀI KHOẢN</span>
+                      <span class="lp-info-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                       <span class="lp-info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                        {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                       </span>
                     </div>
                   </div>
@@ -115,18 +114,18 @@
 
                   <div class="lp-info-row">
                     <div class="lp-info-left">
-                      <span class="lp-info-label">SỐ TÀI KHOẢN</span>
+                      <span class="lp-info-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                       <span class="lp-info-value lp-account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                        {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                       </span>
                     </div>
 
                     <button
                       type="button"
                       class="lp-copy-button"
-                      title="Sao chép số tài khoản"
-                      aria-label="Sao chép số tài khoản"
+                      :title="$t('Sao chép số tài khoản')"
+                      :aria-label="$t('Sao chép số tài khoản')"
                       @click="copyAccount(item)"
                     >
                       <v-icon size="14">mdi-content-copy</v-icon>
@@ -141,7 +140,7 @@
             </div>
 
             <div v-else class="lp-account-desc">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </div>
 
             <div class="lp-gift-dialog__footer">
@@ -161,19 +160,19 @@
           <div class="lp-qr-preview__backdrop" @click="closeQr"></div>
 
           <div class="lp-qr-preview__card">
-            <button type="button" class="lp-qr-preview__close" aria-label="Đóng QR" @click="closeQr">
+            <button type="button" class="lp-qr-preview__close" :aria-label="$t('Đóng QR')" @click="closeQr">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="lp-qr-preview__title">
-              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+              {{ previewQr.Name || $t("QR MỪNG CƯỚI") }}
             </div>
 
             <div class="lp-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+              <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
             </div>
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p>{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -184,7 +183,7 @@
             >
               <v-icon size="15">mdi-download</v-icon>
 
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -197,7 +196,6 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },

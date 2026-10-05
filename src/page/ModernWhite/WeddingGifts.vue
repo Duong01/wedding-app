@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="mw-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <h2 class="mw-title">{{ sectionText(sections, "gifts", "Heading", $t("Hộp Quà Mừng")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="mw-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="mw-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
@@ -20,7 +20,7 @@
       v-if="normalizedGifts.length"
       type="button"
       class="mw-gift"
-      aria-label="Mở hộp mừng cưới"
+      :aria-label="$t('Mở hộp mừng cưới')"
       @click="openGift(0)"
     >
       <span class="mw-gift__sparkle mw-gift__sparkle--1" aria-hidden="true">✦</span>
@@ -38,10 +38,10 @@
         </span>
       </span>
 
-      <span class="mw-gift__hint">Nhấn để mở</span>
+      <span class="mw-gift__hint">{{ $t("Nhấn để mở") }}</span>
     </button>
 
-    <p v-else class="mw-gift-empty">Chưa có thông tin mừng cưới</p>
+    <p v-else class="mw-gift-empty">{{ $t("Chưa có thông tin mừng cưới") }}</p>
 
     <!-- =====================================================
          GIFT DIALOG
@@ -52,15 +52,15 @@
         <div v-if="dialog" class="mw-gift-modal" @click.self="closeGift">
           <div class="mw-gift-modal__card">
             <div class="mw-gift-modal__head">
-              <h3>Hộp Quà Mừng</h3>
+              <h3>{{ $t("Hộp Quà Mừng") }}</h3>
 
               <button
                 type="button"
                 class="mw-gift-modal__close"
-                aria-label="Đóng"
+                :aria-label="$t('Đóng')"
                 @click="closeGift"
               >
-                ×
+                {{ "×" }}
               </button>
             </div>
 
@@ -99,7 +99,7 @@
                   class="mw-account__save"
                   @click="copyAccount(gift)"
                 >
-                  Sao chép số tài khoản
+                  {{ $t("Sao chép số tài khoản") }}
                 </button>
               </div>
             </div>
@@ -126,11 +126,11 @@
               download
               class="mw-pill mw-qr-card__save"
             >
-              Lưu ảnh QR
+              {{ $t("Lưu ảnh QR") }}
             </a>
 
             <button type="button" class="mw-qr-card__close" @click="closeQr">
-              Đóng
+              {{ $t("Đóng") }}
             </button>
           </div>
         </div>
@@ -144,7 +144,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onBeforeUnmount, ref } from "vue";
 
 import envelope from "@/assets/romatic-pink/mini/spring_garden_blue.webp";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: {
@@ -170,7 +170,7 @@ const normalizedGifts = computed(() =>
         title:
           item.Title ||
           item.Name ||
-          (index === 0 ? "Mừng cưới nhà trai" : "Mừng cưới nhà gái"),
+          (index === 0 ? t("Mừng cưới nhà trai") : t("Mừng cưới nhà gái")),
 
         bankName: item.BankName || item.bank_name || "",
 
@@ -268,11 +268,11 @@ async function copyAccount(gift) {
   try {
     await navigator.clipboard.writeText(String(number));
 
-    copyState.value = "Đã sao chép số tài khoản ✓";
+    copyState.value = t("Đã sao chép số tài khoản ✓");
   } catch (error) {
     console.warn("Không thể sao chép số tài khoản", error);
 
-    copyState.value = "Không thể sao chép, vui lòng chép thủ công";
+    copyState.value = t("Không thể sao chép, vui lòng chép thủ công");
   }
 
   window.clearTimeout(copyTimer);

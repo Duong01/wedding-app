@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 
 import {
   Login,
+  GoogleLogin,
   RegisterAccount,
   CheckSession,
   LogOut,
@@ -248,6 +249,41 @@ export const useAuthStore = defineStore("auth", {
        * Ưu tiên Role trong user object,
        * fallback về claim Role trong token.
        */
+      const payload = decodeJwtPayload(this.token);
+
+      this.role =
+        this.user?.Role || payload?.Role || ROLES.GUEST;
+
+      this.sessionVerified = true;
+
+      this.persist();
+
+      return this.user;
+    },
+
+    /*
+     * Đăng nhập bằng Google — frontend nhận id_token từ
+     * Google Identity Services, gửi lên backend xác thực
+     * (backend đối chiếu aud với GoogleClientId trong
+     * Web.config, tự tạo tài khoản nếu email chưa có).
+     * Response cùng cấu trúc Login thường.
+     */
+    async loginWithGoogle(idToken) {
+      const response = await GoogleLogin({
+        Token: idToken,
+      });
+
+      const result = response?.data;
+
+      if (!result || result.status !== "success" || !result.data?.token) {
+        throw new Error(
+          result?.message || t("login.googleFailed")
+        );
+      }
+
+      this.token = result.data.token;
+      this.user = result.data.user || null;
+
       const payload = decodeJwtPayload(this.token);
 
       this.role =

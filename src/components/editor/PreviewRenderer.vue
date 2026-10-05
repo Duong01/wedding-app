@@ -28,6 +28,8 @@ import {
 
 import themes from "@/themes";
 
+import { setCardLocale, clearCardLocale } from "@/lang";
+
 import { ensureFonts } from "@/utils/fontLoader";
 
 import { fontsForTheme } from "@/data/themeFonts";
@@ -73,6 +75,11 @@ watch(
   (value) => {
     if (value) {
       ensureFonts(fontsForTheme(value));
+
+      /* Ngôn ngữ thiệp — đổi trong editor là preview đổi theo */
+      setCardLocale(value.language);
+    } else {
+      clearCardLocale();
     }
   }
 );
@@ -135,6 +142,8 @@ onBeforeUnmount(() => {
     "message",
     onMessage
   );
+
+  clearCardLocale();
 });
 </script>
 

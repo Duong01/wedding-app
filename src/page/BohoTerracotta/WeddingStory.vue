@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="bq-heading">{{ sectionText(sections, "story", "Heading", storyTitle || "CHUYỆN TÌNH YÊU") }}</h2>
+      <h2 class="bq-heading">{{ sectionText(sections, "story", "Heading", storyTitle || $t("CHUYỆN TÌNH YÊU")) }}</h2>
 
       <img
         :src="line2"
@@ -34,7 +34,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { flower4, line2 } from "./bohoTerracottaAssets";
-
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>

@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="tr-events__title">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
+    <h2 class="tr-events__title">{{ sectionText(sections, "events", "Heading", $t("Thông tin tiệc cưới")) }}</h2>
 
     <div
       v-for="(event, index) in normalizedEvents"
@@ -21,7 +21,7 @@
       </h3>
 
       <div class="tr-events__reception">
-        <h3 class="tr-events__reception-lead">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+        <h3 class="tr-events__reception-lead">{{ $t("Tiệc cưới sẽ diễn ra vào lúc:") }}</h3>
 
         <div v-if="event.receptionTime" class="tr-events__reception-time">
           {{ event.receptionTime }}
@@ -50,13 +50,13 @@
           class="tr-events__milestones"
         >
           <div v-if="event.guestTime" class="tr-events__milestone">
-            <span class="tr-events__milestone-label">Đón khách</span>
+            <span class="tr-events__milestone-label">{{ $t("Đón khách") }}</span>
 
             <span class="tr-events__milestone-time">{{ event.guestTime }}</span>
           </div>
 
           <div v-if="event.receptionTime" class="tr-events__milestone">
-            <span class="tr-events__milestone-label">Khai tiệc</span>
+            <span class="tr-events__milestone-label">{{ $t("Khai tiệc") }}</span>
 
             <span class="tr-events__milestone-time">
               {{ event.receptionTime }}
@@ -81,7 +81,7 @@
             </div>
 
             <div class="tr-events__calendar-week">
-              <div v-for="label in WEEK_LABELS" :key="label">{{ label }}</div>
+              <div v-for="label in WEEK_LABELS" :key="label">{{ $t(label) }}</div>
             </div>
 
             <div class="tr-events__calendar-grid">
@@ -115,7 +115,7 @@
           rel="noopener noreferrer"
           class="tr-events__calendar-link"
         >
-          Thêm vào lịch
+          {{ $t("Thêm vào lịch") }}
         </a>
 
         <!-- BẢN ĐỒ — theo từng sự kiện -->
@@ -130,7 +130,7 @@
 
     <div class="tr-events__rsvp">
       <button type="button" class="tr-events__rsvp-button" @click="openConfirm">
-        XÁC NHẬN THAM DỰ
+        {{ $t("XÁC NHẬN THAM DỰ") }}
       </button>
     </div>
 
@@ -144,17 +144,17 @@
         class="tr-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Xác nhận tham dự"
+        :aria-label="$t('Xác nhận tham dự')"
         @click.self="closeConfirm"
       >
         <div class="tr-modal__box">
           <header class="tr-modal__head">
-            <h3>Xác nhận tham dự</h3>
+            <h3>{{ $t("Xác nhận tham dự") }}</h3>
 
             <button
               type="button"
               class="tr-modal__close"
-              aria-label="Đóng"
+              :aria-label="$t('Đóng')"
               @click="closeConfirm"
             >
               ✕
@@ -163,13 +163,13 @@
 
           <div class="tr-modal__body">
             <label class="tr-modal__field">
-              <span>Họ và tên</span>
+              <span>{{ $t("Họ và tên") }}</span>
 
-              <input v-model.trim="form.name" type="text" placeholder="Họ và tên" />
+              <input v-model.trim="form.name" type="text" :placeholder="$t('Họ và tên')" />
             </label>
 
             <div class="tr-modal__field">
-              <span>Bạn sẽ tham dự chứ?</span>
+              <span>{{ $t("Bạn sẽ tham dự chứ?") }}</span>
 
               <div class="tr-modal__choices">
                 <button
@@ -177,7 +177,7 @@
                   :class="{ 'is-active': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  Có tham dự
+                  {{ $t("Có tham dự") }}
                 </button>
 
                 <button
@@ -185,13 +185,13 @@
                   :class="{ 'is-active': form.attendance === 'absent' }"
                   @click="form.attendance = 'absent'"
                 >
-                  Không tham dự
+                  {{ $t("Không tham dự") }}
                 </button>
               </div>
             </div>
 
             <div v-if="form.attendance === 'attending'" class="tr-modal__field">
-              <span>Số người tham dự</span>
+              <span>{{ $t("Số người tham dự") }}</span>
 
               <div class="tr-modal__counter">
                 <button type="button" @click="decreasePeople">−</button>
@@ -214,7 +214,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "Đang gửi..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("Đang gửi...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -234,7 +234,7 @@ import { Confirm } from "@/model/api";
 import WeddingCountdown from "./WeddingCountdown.vue";
 
 import EventMap from "@/components/common/EventMap.vue";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   events: {
@@ -292,7 +292,7 @@ function toTimeLabel(raw) {
     const date = new Date(value);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,
@@ -341,7 +341,7 @@ function buildCalendarUrl(event) {
   const stamp = (date) =>
     date.toISOString().replace(/[-:]|\.\d{3}/g, "").slice(0, 15) + "Z";
 
-  const title = `Đám cưới ${groomName.value} & ${brideName.value}`;
+  const title = `${t("Đám cưới ")}${groomName.value} & ${brideName.value}`;
 
   const location = event?.Address || event?.Location || "";
 
@@ -350,7 +350,7 @@ function buildCalendarUrl(event) {
     text: title,
     dates: `${stamp(start)}/${stamp(end)}`,
     ctz: "Asia/Saigon",
-    details: `Tiệc cưới của ${groomName.value} & ${brideName.value}`,
+    details: `${t("Tiệc cưới của ")}${groomName.value} & ${brideName.value}`,
     location,
   });
 
@@ -376,7 +376,7 @@ const normalizedEvents = computed(() => {
       day = String(date.getDate()).padStart(2, "0");
       month = String(date.getMonth() + 1).padStart(2, "0");
       year = String(date.getFullYear());
-      weekday = WEEKDAYS[date.getDay()];
+      weekday = t(WEEKDAYS[date.getDay()]);
     }
 
     if (item.Day) day = String(item.Day).padStart(2, "0");
@@ -451,7 +451,7 @@ const groomName = computed(
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Chú rể"
+    t("Chú rể")
 );
 
 const brideName = computed(
@@ -459,7 +459,7 @@ const brideName = computed(
     props.wedding?.BrideName ||
     props.wedding?.brideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Cô dâu"
+    t("Cô dâu")
 );
 
 /* =========================================================
@@ -519,7 +519,7 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!form.name) {
-    errorMessage.value = "Vui lòng nhập họ tên.";
+    errorMessage.value = t("Vui lòng nhập họ tên.");
 
     return;
   }
@@ -534,7 +534,7 @@ async function submitConfirmation() {
     Slug: slug,
     RecipientToken: route.params.token || null,
     GuestName: form.name,
-    Attendance: form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+    Attendance: form.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
     NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0,
   };
 
@@ -545,11 +545,11 @@ async function submitConfirmation() {
       payload,
       (result) => {
         if (!result || result.status !== "success") {
-          throw new Error(result?.message || "Không thể gửi xác nhận.");
+          throw new Error(result?.message || t("Không thể gửi xác nhận."));
         }
 
         successMessage.value =
-          "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+          t("Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️");
 
         setTimeout(() => {
           showConfirmModal.value = false;
@@ -557,11 +557,11 @@ async function submitConfirmation() {
       },
       (error) => {
         errorMessage.value =
-          error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+          error?.data?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
       }
     );
   } catch (error) {
-    errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+    errorMessage.value = error?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

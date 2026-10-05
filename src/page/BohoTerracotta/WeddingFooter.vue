@@ -31,7 +31,7 @@ import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { goldenLine } from "./bohoTerracottaAssets";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -64,7 +64,7 @@ const brideName = computed(
 const thanksMessage = computed(
   () =>
     wedding.value?.footer?.Message ||
-    "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
+    t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH")
 );
 
 const copyrightText = computed(
@@ -84,7 +84,7 @@ const weddingDate = computed(() => {
 
   if (Number.isNaN(date.getTime())) return String(raw);
 
-  return date.toLocaleDateString("vi-VN", {
+  return date.toLocaleDateString(localeTag(), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",

@@ -26,7 +26,7 @@
     <button
       type="button"
       class="rr-gift__box"
-      aria-label="Mở hộp mừng cưới"
+      :aria-label="$t('Mở hộp mừng cưới')"
       @click="openGift"
     >
 
@@ -77,10 +77,10 @@
             <button
               type="button"
               class="rr-gift__modal-close"
-              aria-label="Đóng"
+              :aria-label="$t('Đóng')"
               @click="closeGift"
             >
-              ×
+              {{ "×" }}
             </button>
 
             <h3>{{ heading }}</h3>
@@ -145,8 +145,7 @@
 import { computed, ref } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
+import { t } from "@/lang";
 /* =====================================================
    PROPS
 ===================================================== */
@@ -168,22 +167,21 @@ const props = defineProps({
   },
 });
 
-
 /* =====================================================
    TIÊU ĐỀ MỤC
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "gifts", "Heading", "Hộp quà mừng")
+  sectionText(props.sections, "gifts", "Heading", t("Hộp quà mừng"))
 );
 
 const intro = computed(() =>
   sectionText(props.sections, "gifts", "Intro")
 );
 
-const hintLabel = "Nhấn để mở";
+const hintLabel = t("Nhấn để mở");
 
-const copyLabel = "Sao chép";
+const copyLabel = t("Sao chép");
 
 
 /* =====================================================
@@ -218,7 +216,7 @@ const normalizedGifts = computed(() =>
         (index === 0
           ? props.wedding?.BrideName || props.wedding?.brideName
           : props.wedding?.GroomName || props.wedding?.groomName) ||
-        "Hộp mừng cưới",
+        t("Hộp mừng cưới"),
 
       qr: data.QrCode || data.Qr || data.Image || "",
 
@@ -240,7 +238,7 @@ async function copy(value) {
   try {
     await navigator.clipboard.writeText(value);
 
-    alert("Đã sao chép số tài khoản");
+    alert(t("Đã sao chép số tài khoản"));
   } catch (error) {
     console.error(error);
   }

@@ -87,7 +87,7 @@
         </div>
 
         <p class="lp-hero__message">
-          Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!
+          {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!") }}
         </p>
       </div>
     </header>
@@ -102,7 +102,9 @@ import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
 import frame from "@/assets/decor/longphung-v3/frame.svg";
 import phung from "@/assets/decor/longphung-v3/phung.webp";
 import rong from "@/assets/decor/longphung-v3/rong.webp";
+import { t } from "@/lang";
 
+const HERO_WEEKDAYS = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
 /*
  * Đường viền khung ảnh SVG — lấy từ frame.svg gốc của mẫu
  * Long Phụng V3 Đỏ (viewBox "-7.5 0 754 1099").
@@ -154,7 +156,7 @@ onUnmounted(() => {
 const showPhotos = computed(() => props.wedding?.hero?.ShowPhotos !== false);
 
 const heroSubtitle = computed(
-  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+  () => props.wedding?.hero?.Subtitle || t("TRÂN TRỌNG KÍNH MỜI")
 );
 
 const groomName = computed(
@@ -215,7 +217,7 @@ const dateText = computed(() => {
   const date = dayjs(raw);
 
   if (date.isValid()) {
-    return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(HERO_WEEKDAYS[date.day()])}, ${t("NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

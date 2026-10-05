@@ -42,7 +42,7 @@
         <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="tdx-cd-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="tdx-heading">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
+      <h2 class="tdx-heading">{{ sectionText(sections, "events", "Heading", $t("THÔNG TIN TIỆC CƯỚI")) }}</h2>
 
       <article
         v-for="(event, index) in normalizedEvents"
@@ -72,27 +72,27 @@
 
         <!-- ĐẾM NGƯỢC -->
         <div v-if="event.hasDate" class="tdx-countdown">
-          <p class="tdx-countdown__label">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</p>
+          <p class="tdx-countdown__label">{{ sectionText(sections, "countdown", "Heading", $t("CÙNG ĐẾM NGƯỢC")) }}</p>
 
           <div class="tdx-countdown__grid">
             <div class="tdx-countdown__cell">
               <strong>{{ countdown.days }}</strong>
-              <span>NGÀY</span>
+              <span>{{ $t("NGÀY") }}</span>
             </div>
 
             <div class="tdx-countdown__cell">
               <strong>{{ countdown.hours }}</strong>
-              <span>GIỜ</span>
+              <span>{{ $t("GIỜ") }}</span>
             </div>
 
             <div class="tdx-countdown__cell">
               <strong>{{ countdown.minutes }}</strong>
-              <span>PHÚT</span>
+              <span>{{ $t("PHÚT") }}</span>
             </div>
 
             <div class="tdx-countdown__cell">
               <strong>{{ countdown.seconds }}</strong>
-              <span>GIÂY</span>
+              <span>{{ $t("GIÂY") }}</span>
             </div>
           </div>
         </div>
@@ -149,13 +149,13 @@
             class="tdx-calendar__link"
           >
             <span aria-hidden="true">＋</span>
-            THÊM VÀO LỊCH
+            {{ $t("THÊM VÀO LỊCH") }}
           </a>
         </div>
 
         <!-- RSVP -->
         <button type="button" class="tdx-rsvp-btn" @click="openConfirmModal(event)">
-          XÁC NHẬN THAM DỰ
+          {{ $t("XÁC NHẬN THAM DỰ") }}
         </button>
       <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
@@ -170,37 +170,37 @@
       <Transition name="tdx-modal">
         <div v-if="showConfirmModal" class="tdx-confirm-overlay" @click.self="closeConfirmModal">
           <div class="tdx-confirm-modal">
-            <button type="button" class="tdx-modal-close" @click="closeConfirmModal">×</button>
+            <button type="button" class="tdx-modal-close" @click="closeConfirmModal">{{ "×" }}</button>
 
             <div class="tdx-modal-header">
               <span>THE CELEBRATION</span>
 
-              <h3>Xác nhận tham dự</h3>
+              <h3>{{ $t("Xác nhận tham dự") }}</h3>
 
-              <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+              <p>{{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}</p>
             </div>
 
             <!-- KHÁCH ĐƯỢC MỜI -->
             <div v-if="hasRecipient" class="tdx-recipient-box">
-              <span>TRÂN TRỌNG KÍNH MỜI</span>
+              <span>{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
             <!-- HỌ TÊN -->
             <div v-else class="tdx-form-group">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
                 maxlength="100"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
               />
             </div>
 
             <!-- THAM DỰ -->
             <div class="tdx-form-group">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="tdx-attendance">
                 <button
@@ -210,7 +210,7 @@
                   @click="form.attendance = 'attending'"
                 >
                   <span>✓</span>
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -219,15 +219,15 @@
                   :class="{ selected: form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  <span>×</span>
-                  Rất tiếc, tôi không thể tham dự
+                  <span>{{ "×" }}</span>
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
 
             <!-- SỐ NGƯỜI -->
             <div v-if="form.attendance === 'attending'" class="tdx-form-group">
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="tdx-people-control">
                 <button type="button" @click="decreasePeople">−</button>
@@ -245,7 +245,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -255,6 +255,7 @@
 </template>
 
 <script setup>
+import { t } from "@/lang";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
@@ -332,16 +333,16 @@ const normalizedEvents = computed(() => {
       year = date.format("YYYY");
 
       const weekdays = [
-        "CHỦ NHẬT",
-        "THỨ HAI",
-        "THỨ BA",
-        "THỨ TƯ",
-        "THỨ NĂM",
-        "THỨ SÁU",
-        "THỨ BẢY",
+        t("CHỦ NHẬT"),
+        t("THỨ HAI"),
+        t("THỨ BA"),
+        t("THỨ TƯ"),
+        t("THỨ NĂM"),
+        t("THỨ SÁU"),
+        t("THỨ BẢY"),
       ];
 
-      weekday = weekdays[date.day()];
+      weekday = t(weekdays[date.day()]);
     }
 
     const calendarDays =
@@ -495,12 +496,12 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!hasRecipient.value && !form.value.name) {
-    errorMessage.value = "Vui lòng nhập họ và tên.";
+    errorMessage.value = t("Vui lòng nhập họ và tên.");
     return;
   }
 
   if (!form.value.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
     return;
   }
 
@@ -518,7 +519,7 @@ async function submitConfirmation() {
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
       Attendance:
-        form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+        form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
       NumberOfPeople:
         form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
@@ -528,10 +529,10 @@ async function submitConfirmation() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể gửi xác nhận.");
+      throw new Error(result?.message || t("Không thể gửi xác nhận."));
     }
 
-    successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    successMessage.value = t("Cảm ơn bạn đã xác nhận tham dự ❤️");
 
     setTimeout(() => {
       closeConfirmModal();
@@ -540,7 +541,7 @@ async function submitConfirmation() {
     errorMessage.value =
       error?.response?.data?.message ||
       error?.message ||
-      "Có lỗi xảy ra. Vui lòng thử lại.";
+      t("Có lỗi xảy ra. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

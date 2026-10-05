@@ -140,7 +140,7 @@ import WeddingFooter from "@/page/BohoTerracotta/WeddingFooter.vue";
 import { useWeddingTheme } from "@/composables/useWeddingTheme";
 
 import { background } from "@/page/BohoTerracotta/bohoTerracottaAssets";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -242,7 +242,7 @@ const guestName = computed(
       ? wedding.value.recipientName[0]?.Name
       : wedding.value?.recipientName?.Name) ||
     wedding.value?.guestName ||
-    "Quý khách"
+    t("Quý khách")
 );
 
 /* =========================================================
@@ -292,16 +292,16 @@ const heroDateLabel = computed(() => {
   if (!value.isValid()) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return `${weekdays[value.day()]}, ${value.format("DD/MM/YYYY")}`;
+  return `${t(weekdays[value.day()])}, ${value.format("DD/MM/YYYY")}`;
 });
 
 /* =========================================================

@@ -27,7 +27,7 @@
     <button
       type="button"
       class="cfr-gift__envelope"
-      aria-label="Mở hộp mừng cưới"
+      :aria-label="$t('Mở hộp mừng cưới')"
       @click="openGift"
     >
       <span class="cfr-gift__sparkle cfr-gift__sparkle--1" aria-hidden="true">✦</span>
@@ -53,7 +53,7 @@
         />
       </span>
 
-      <span class="cfr-gift__hint">Nhấn để mở</span>
+      <span class="cfr-gift__hint">{{ $t("Nhấn để mở") }}</span>
     </button>
 
 
@@ -70,7 +70,7 @@
           class="cfr-gift__modal"
           role="dialog"
           aria-modal="true"
-          aria-label="Hộp quà mừng"
+          :aria-label="$t('Hộp quà mừng')"
           @click.self="closeGift"
         >
           <div class="cfr-gift__box">
@@ -81,7 +81,7 @@
               <button
                 type="button"
                 class="cfr-gift__box-close"
-                aria-label="Đóng"
+                :aria-label="$t('Đóng')"
                 @click="closeGift"
               >
                 ✕
@@ -91,7 +91,7 @@
             <div class="cfr-gift__box-body">
 
               <div v-if="!normalizedGifts.length" class="cfr-gift__empty">
-                Chưa có thông tin mừng cưới.
+                {{ $t("Chưa có thông tin mừng cưới.") }}
               </div>
 
               <div v-else class="cfr-gift__cards">
@@ -142,7 +142,7 @@
                         ></path>
                       </svg>
 
-                      Lưu QR
+                      {{ $t("Lưu QR") }}
                     </button>
 
                     <button
@@ -151,7 +151,7 @@
                       class="cfr-gift__action"
                       @click="copyAccount(gift.accountNumber)"
                     >
-                      Sao chép số tài khoản
+                      {{ $t("Sao chép số tài khoản") }}
                     </button>
                   </div>
 
@@ -181,8 +181,7 @@ import { computed, onUnmounted, ref } from "vue";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 import { envelopeNhatBinhRed } from "./nhatBinhDoAssets";
-
-
+import { t } from "@/lang";
 /* =====================================================
    PROPS
 ===================================================== */
@@ -198,7 +197,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 /* =====================================================
    TIÊU ĐỀ MỤC
@@ -224,7 +222,7 @@ const normalizedGifts = computed(() =>
         title:
           item.Title ||
           item.Name ||
-          (index === 0 ? "MỪNG CƯỚI NHÀ TRAI" : "MỪNG CƯỚI NHÀ GÁI"),
+          (index === 0 ? t("MỪNG CƯỚI NHÀ TRAI") : t("MỪNG CƯỚI NHÀ GÁI")),
 
         bankName: item.BankName || item.bank_name || "",
 
@@ -277,7 +275,7 @@ async function copyAccount(number) {
   try {
     await navigator.clipboard.writeText(String(number));
 
-    alert("Đã sao chép số tài khoản");
+    alert(t("Đã sao chép số tài khoản"));
   } catch (error) {
     console.warn("[NhatBinhDo] Không thể sao chép:", error);
   }

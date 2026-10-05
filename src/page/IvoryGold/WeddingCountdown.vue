@@ -2,7 +2,7 @@
   <div class="countdown">
 
     <div class="countdown-intro">
-      {{ sectionText(sections, "countdown", "Eyebrow", "NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN") }}
+      {{ sectionText(sections, "countdown", "Eyebrow", $t("NGÀY TRỌNG ĐẠI ĐANG ĐẾN GẦN")) }}
     </div>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'countdown', 'Heading')" class="ig-cd-custom-head">
@@ -28,7 +28,7 @@
 
         </div>
 
-        <span>NGÀY</span>
+        <span>{{ $t("NGÀY") }}</span>
       </div>
 
 
@@ -52,7 +52,7 @@
 
         </div>
 
-        <span>GIỜ</span>
+        <span>{{ $t("GIỜ") }}</span>
       </div>
 
 
@@ -76,7 +76,7 @@
 
         </div>
 
-        <span>PHÚT</span>
+        <span>{{ $t("PHÚT") }}</span>
       </div>
 
 
@@ -104,7 +104,7 @@
 
         </div>
 
-        <span>GIÂY</span>
+        <span>{{ $t("GIÂY") }}</span>
 
       </div>
 
@@ -131,7 +131,6 @@ const props = defineProps({
     default: null,
   },
 });
-
 
 /* =========================================================
    CURRENT TIME

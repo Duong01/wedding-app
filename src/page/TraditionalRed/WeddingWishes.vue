@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="tr-wishes__title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    <h2 class="tr-wishes__title">{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="tr-sub-custom-head">
       <p v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="tr-sub-custom-head__intro">{{ sectionOverride(sections, "guestbook", "Intro") }}</p>
@@ -21,7 +21,7 @@
         <input
           v-model.trim="form.name"
           type="text"
-          placeholder="Nhập tên của bạn*"
+          :placeholder="$t('Nhập tên của bạn*')"
           maxlength="500"
           autocomplete="name"
         />
@@ -29,7 +29,7 @@
 
       <textarea
         v-model.trim="form.message"
-        placeholder="Nhập lời chúc của bạn*"
+        :placeholder="$t('Nhập lời chúc của bạn*')"
         rows="4"
         maxlength="10000"
       ></textarea>
@@ -39,8 +39,8 @@
           <button
             type="button"
             class="tr-wishes__ai"
-            title="Tạo lời chúc bằng AI"
-            aria-label="Tạo lời chúc bằng AI"
+            :title="$t('Tạo lời chúc bằng AI')"
+            :aria-label="$t('Tạo lời chúc bằng AI')"
             @click="generateWish"
           >
             🪄
@@ -52,7 +52,7 @@
           class="tr-wishes__submit"
           :disabled="submitting || !form.name || !form.message"
         >
-          {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+          {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}
         </button>
       </div>
     </form>
@@ -63,7 +63,7 @@
 
     <div class="tr-wishes__list">
       <p v-if="!allWishes.length" class="tr-wishes__empty">
-        Chưa có lời chúc nào. Hãy là người đầu tiên!
+        {{ $t("Chưa có lời chúc nào. Hãy là người đầu tiên!") }}
       </p>
 
       <article
@@ -73,7 +73,7 @@
       >
         <div class="tr-wishes__item-head">
           <strong class="tr-wishes__author">
-            {{ wish.name || wish.Name || wish.guestName || wish.GuestName || "Một người bạn" }}
+            {{ wish.name || wish.Name || wish.guestName || wish.GuestName || $t("Một người bạn") }}
           </strong>
 
           <span v-if="wishTime(wish)" class="tr-wishes__time">
@@ -96,7 +96,7 @@ import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: {
@@ -206,13 +206,13 @@ async function submit() {
   const message = form.message.trim();
 
   if (!name) {
-    alert("Vui lòng nhập tên của bạn.");
+    alert(t("Vui lòng nhập tên của bạn."));
 
     return;
   }
 
   if (!message) {
-    alert("Vui lòng nhập lời chúc.");
+    alert(t("Vui lòng nhập lời chúc."));
 
     return;
   }
@@ -231,10 +231,10 @@ async function submit() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Gửi lời chúc thất bại.");
+      throw new Error(result?.message || t("Gửi lời chúc thất bại."));
     }
 
-    alert("Cảm ơn bạn! Lời chúc đã được gửi ❤️");
+    alert(t("Cảm ơn bạn! Lời chúc đã được gửi ❤️"));
 
     form.name = "";
     form.message = "";
@@ -243,7 +243,7 @@ async function submit() {
   } catch (error) {
     console.error("Guest book error:", error);
 
-    alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+    alert(t("Đã xảy ra lỗi. Vui lòng thử lại."));
   } finally {
     submitting.value = false;
   }

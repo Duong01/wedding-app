@@ -22,7 +22,7 @@
         <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="bq-heading">{{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}</h2>
+      <h2 class="bq-heading">{{ sectionText(sections, "couple", "Heading", $t("THÔNG TIN LỄ CƯỚI")) }}</h2>
 
       <!-- =====================================================
            GIA ĐÌNH HAI BÊN
@@ -30,7 +30,7 @@
 
       <div class="bq-families">
         <div class="bq-family">
-          <span class="bq-family__label">Ông Bà</span>
+          <span class="bq-family__label">{{ $t("Ông Bà") }}</span>
 
           <span v-if="groomParents.Father" class="bq-family__name">
             {{ groomParents.Father }}
@@ -54,7 +54,7 @@
         />
 
         <div class="bq-family">
-          <span class="bq-family__label">Ông Bà</span>
+          <span class="bq-family__label">{{ $t("Ông Bà") }}</span>
 
           <span v-if="brideParents.Father" class="bq-family__name">
             {{ brideParents.Father }}
@@ -75,7 +75,7 @@
       ====================================================== -->
 
       <p class="bq-couple__announce">
-        TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+        {{ $t("TRÂN TRỌNG BÁO TIN") }}<br />{{ $t("LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
       </p>
 
       <img
@@ -93,13 +93,13 @@
       <div class="bq-people">
         <h3 class="bq-person__name">{{ groom }}</h3>
 
-        <span class="bq-person__role">TRƯỞNG NAM</span>
+        <span class="bq-person__role">{{ $t("TRƯỞNG NAM") }}</span>
 
         <span class="bq-people__amp" aria-hidden="true">&amp;</span>
 
         <h3 class="bq-person__name">{{ bride }}</h3>
 
-        <span class="bq-person__role">ÚT NỮ</span>
+        <span class="bq-person__role">{{ $t("ÚT NỮ") }}</span>
       </div>
 
       <!-- =====================================================
@@ -108,7 +108,7 @@
 
       <div class="bq-date">
         <p class="bq-date__place">
-          LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />TƯ GIA
+          {{ $t("LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI") }}<br />{{ $t("TƯ GIA") }}
         </p>
 
         <div class="bq-date__when">
@@ -154,7 +154,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { flower3, line2, line3, line4 } from "./bohoTerracottaAssets";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -216,16 +216,16 @@ const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(
@@ -256,7 +256,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

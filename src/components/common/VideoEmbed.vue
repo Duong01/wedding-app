@@ -11,7 +11,7 @@
     <iframe
       v-if="parsed"
       :src="autoplayUrl(parsed.embedUrl)"
-      :title="title || 'Video cưới'"
+      :title="title || $t('Video cưới')"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
       loading="lazy"
@@ -41,7 +41,6 @@
 import { computed } from "vue";
 
 import { autoplayUrl, parseVideoUrl } from "@/utils/videoEmbed";
-
 const props = defineProps({
   url: { type: String, default: "" },
 

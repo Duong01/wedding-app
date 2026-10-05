@@ -40,9 +40,9 @@
       <div class="mw-card">
         <div class="mw-card__outer">
           <div class="mw-card__inner">
-            <p class="mw-card__kicker">{{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}</p>
+            <p class="mw-card__kicker">{{ sectionText(sections, "opening", "Kicker", $t("THIỆP MỜI")) }}</p>
 
-            <h1 class="mw-card__title">LỄ THÀNH HÔN</h1>
+            <h1 class="mw-card__title">{{ $t("LỄ THÀNH HÔN") }}</h1>
 
             <div class="mw-divider">
               <span></span>
@@ -50,7 +50,7 @@
               <span></span>
             </div>
 
-            <p class="mw-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+            <p class="mw-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
             <div v-if="recipient" class="mw-card__guest">
               <span class="mw-card__guest-line"></span>
@@ -75,8 +75,8 @@
             </div>
 
             <p class="mw-card__message">
-              Sự hiện diện của Quý khách<br />
-              là niềm vinh hạnh của gia đình chúng tôi
+              {{ $t("Sự hiện diện của Quý khách") }}<br />
+              {{ $t("là niềm vinh hạnh của gia đình chúng tôi") }}
             </p>
 
             <div class="mw-card__bottom">
@@ -114,7 +114,7 @@
         class="mw-open-button"
         @click="openInvitation"
       >
-        <span class="mw-open-button__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+        <span class="mw-open-button__text">{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
 
         <span class="mw-open-button__arrow">↓</span>
       </button>
@@ -125,7 +125,6 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {

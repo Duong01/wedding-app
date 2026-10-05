@@ -8,11 +8,11 @@
     <div class="gift-heading">
 
       <span class="gift-kicker">
-        {{ sectionText(sections, "gifts", "Eyebrow", "MỘT CHÚT TẤM LÒNG") }}
+        {{ sectionText(sections, "gifts", "Eyebrow", $t("MỘT CHÚT TẤM LÒNG")) }}
       </span>
 
       <h2>
-        {{ sectionText(sections, "gifts", "Heading", "MỪNG CƯỚI") }}
+        {{ sectionText(sections, "gifts", "Heading", $t("MỪNG CƯỚI")) }}
       </h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ig-sub-custom-head">
@@ -27,9 +27,7 @@
       </div>
 
       <p>
-        Sự hiện diện và lời chúc phúc của bạn
-        đã là món quà quý giá nhất dành cho
-        chúng mình.
+        {{ $t("Sự hiện diện và lời chúc phúc của bạn đã là món quà quý giá nhất dành cho chúng mình.") }}
       </p>
 
     </div>
@@ -90,7 +88,7 @@
       v-else
       class="gift-empty"
     >
-      Chưa có thông tin mừng cưới
+      {{ $t("Chưa có thông tin mừng cưới") }}
     </div>
 
 
@@ -115,10 +113,10 @@
             <button
               type="button"
               class="modal-close"
-              aria-label="Đóng"
+              :aria-label="$t('Đóng')"
               @click="closeGift"
             >
-              ×
+              {{ "×" }}
             </button>
 
 
@@ -130,7 +128,7 @@
 
 
             <span class="modal-kicker">
-              MỪNG CƯỚI
+              {{ $t("MỪNG CƯỚI") }}
             </span>
 
 
@@ -177,12 +175,12 @@
                 v-if="selectedGift?.accountNumber"
                 type="button"
                 class="copy-button"
-                aria-label="Sao chép số tài khoản"
+                :aria-label="$t('Sao chép số tài khoản')"
                 @click="copyAccount(selectedGift)"
               >
                 <v-icon size="14">mdi-content-copy</v-icon>
 
-                <span>SAO CHÉP</span>
+                <span>{{ $t("SAO CHÉP") }}</span>
               </button>
 
             </div>
@@ -204,7 +202,7 @@
 
                 <img
                   :src="selectedGift.qr"
-                  alt="QR mừng cưới"
+                  :alt="$t('QR mừng cưới')"
                 />
 
               </div>
@@ -213,7 +211,7 @@
 
 
             <p class="modal-note">
-              Quét mã QR để gửi lời chúc mừng
+              {{ $t("Quét mã QR để gửi lời chúc mừng") }}
             </p>
 
 
@@ -230,7 +228,7 @@
               class="modal-button"
               @click="closeGift"
             >
-              ĐÓNG
+              {{ $t("ĐÓNG") }}
             </button>
 
           </div>
@@ -249,8 +247,7 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 import  lixi  from "@/assets/nhat-binh-do-red/nhat_binh_red.webp";
-
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: {
@@ -258,7 +255,6 @@ const props = defineProps({
     default: () => [],
   },
 });
-
 
 /* =========================================
    NORMALIZE
@@ -283,8 +279,8 @@ const normalizedGifts = computed(() => {
           item.Name ||
           (
             index === 0
-              ? "MỪNG CƯỚI NHÀ TRAI"
-              : "MỪNG CƯỚI NHÀ GÁI"
+              ? t("MỪNG CƯỚI NHÀ TRAI")
+              : t("MỪNG CƯỚI NHÀ GÁI")
           ),
 
         bankName:
@@ -377,13 +373,13 @@ async function copyAccount(gift) {
 
     await navigator.clipboard.writeText(String(number));
 
-    copyState.value = "Đã sao chép số tài khoản ✓";
+    copyState.value = t("Đã sao chép số tài khoản ✓");
 
   } catch (error) {
 
     console.warn("Không thể sao chép số tài khoản", error);
 
-    copyState.value = "Không thể sao chép, vui lòng chép thủ công";
+    copyState.value = t("Không thể sao chép, vui lòng chép thủ công");
 
   }
 

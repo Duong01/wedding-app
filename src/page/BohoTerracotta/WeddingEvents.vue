@@ -38,7 +38,7 @@
         <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="bq-heading">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
+      <h2 class="bq-heading">{{ sectionText(sections, "events", "Heading", $t("THÔNG TIN TIỆC CƯỚI")) }}</h2>
 
       <img
         :src="line2"
@@ -56,7 +56,7 @@
           :style="{ '--delay': `${index * 120}ms` }"
         >
           <h3 class="bq-event__title">
-            {{ event.Title || "Tiệc cưới sẽ diễn ra vào lúc:" }}
+            {{ event.Title || $t("Tiệc cưới sẽ diễn ra vào lúc:") }}
           </h3>
 
           <!-- NGÀY GIỜ -->
@@ -97,19 +97,19 @@
           <!-- ĐÓN KHÁCH / KHAI TIỆC -->
           <div v-if="event.receptionTime || event.ceremonyTime" class="bq-event__schedule">
             <div v-if="event.receptionTime" class="bq-schedule">
-              <span class="bq-schedule__label">Đón khách</span>
+              <span class="bq-schedule__label">{{ $t("Đón khách") }}</span>
               <strong class="bq-schedule__time">{{ event.receptionTime }}</strong>
             </div>
 
             <div v-if="event.ceremonyTime" class="bq-schedule">
-              <span class="bq-schedule__label">Khai tiệc</span>
+              <span class="bq-schedule__label">{{ $t("Khai tiệc") }}</span>
               <strong class="bq-schedule__time">{{ event.ceremonyTime }}</strong>
             </div>
           </div>
 
           <!-- ĐỊA ĐIỂM -->
           <div v-if="event.location || event.address" class="bq-event__place">
-            <span class="bq-event__place-label">ĐỊA ĐIỂM</span>
+            <span class="bq-event__place-label">{{ $t("ĐỊA ĐIỂM") }}</span>
 
             <p v-if="event.location" class="bq-event__place-name">{{ event.location }}</p>
 
@@ -163,7 +163,7 @@
             rel="noopener noreferrer"
             class="bq-event__calendar-link"
           >
-            Thêm vào lịch
+            {{ $t("Thêm vào lịch") }}
           </a>
         <EventMap v-if="index === 0 && showMap" :event="event" />
         </article>
@@ -172,7 +172,7 @@
 
       <!-- XÁC NHẬN THAM DỰ -->
       <button type="button" class="bq-rsvp-btn" @click="openConfirmModal(normalizedEvents[0])">
-        XÁC NHẬN THAM DỰ
+        {{ $t("XÁC NHẬN THAM DỰ") }}
       </button>
     </div>
 
@@ -183,32 +183,32 @@
       <Transition name="bq-modal">
         <div v-if="showConfirmModal" class="bq-confirm" @click.self="closeConfirmModal">
           <div class="bq-confirm__card">
-            <button type="button" class="bq-confirm__close" @click="closeConfirmModal">×</button>
+            <button type="button" class="bq-confirm__close" @click="closeConfirmModal">{{ "×" }}</button>
 
-            <h3 class="bq-confirm__title">Xác nhận tham dự</h3>
+            <h3 class="bq-confirm__title">{{ $t("Xác nhận tham dự") }}</h3>
 
             <p class="bq-confirm__desc">
-              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+              {{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}
             </p>
 
             <div v-if="hasRecipient" class="bq-confirm__recipient">
-              <span>TRÂN TRỌNG KÍNH MỜI</span>
+              <span>{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
             <div v-else class="bq-field">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
                 maxlength="100"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
               />
             </div>
 
             <div class="bq-field">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="bq-attendance">
                 <button
@@ -217,7 +217,7 @@
                   :class="{ 'is-selected': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -226,13 +226,13 @@
                   :class="{ 'is-selected': form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  Rất tiếc, tôi không thể tham dự
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
 
             <div v-if="form.attendance === 'attending'" class="bq-field">
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="bq-people-control">
                 <button type="button" @click="decreasePeople">−</button>
@@ -250,7 +250,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -269,6 +269,7 @@ import { Confirm } from "@/model/api";
 import EventMap from "@/components/common/EventMap.vue";
 
 import { flower3, flower4, line2, line4 } from "./bohoTerracottaAssets";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -334,16 +335,16 @@ const normalizedEvents = computed(() => {
       year = date.format("YYYY");
 
       const weekdays = [
-        "CHỦ NHẬT",
-        "THỨ HAI",
-        "THỨ BA",
-        "THỨ TƯ",
-        "THỨ NĂM",
-        "THỨ SÁU",
-        "THỨ BẢY",
+        t("CHỦ NHẬT"),
+        t("THỨ HAI"),
+        t("THỨ BA"),
+        t("THỨ TƯ"),
+        t("THỨ NĂM"),
+        t("THỨ SÁU"),
+        t("THỨ BẢY"),
       ];
 
-      weekday = weekdays[date.day()];
+      weekday = t(weekdays[date.day()]);
     }
 
     const calendarDays =
@@ -460,12 +461,12 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!hasRecipient.value && !form.value.name) {
-    errorMessage.value = "Vui lòng nhập họ và tên.";
+    errorMessage.value = t("Vui lòng nhập họ và tên.");
     return;
   }
 
   if (!form.value.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
     return;
   }
 
@@ -483,7 +484,7 @@ async function submitConfirmation() {
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
       Attendance:
-        form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+        form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
       NumberOfPeople:
         form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
@@ -493,10 +494,10 @@ async function submitConfirmation() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể gửi xác nhận.");
+      throw new Error(result?.message || t("Không thể gửi xác nhận."));
     }
 
-    successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    successMessage.value = t("Cảm ơn bạn đã xác nhận tham dự ❤️");
 
     setTimeout(() => {
       closeConfirmModal();
@@ -505,7 +506,7 @@ async function submitConfirmation() {
     errorMessage.value =
       error?.response?.data?.message ||
       error?.message ||
-      "Có lỗi xảy ra. Vui lòng thử lại.";
+      t("Có lỗi xảy ra. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
 
       <p class="cr-heading__zh">賓客留言</p>
 
@@ -24,14 +24,14 @@
         <span></span>
       </div>
 
-      <p class="cr-heading__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
+      <p class="cr-heading__intro">{{ sectionText(sections, "guestbook", "Intro", $t("Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này")) }}</p>
     </header>
 
     <!-- =========================================
          FORM GỬI LỜI CHÚC
     ========================================== -->
     <div class="cr-wish-form">
-      <p class="cr-wish-form__title">Gửi lời yêu thương</p>
+      <p class="cr-wish-form__title">{{ $t("Gửi lời yêu thương") }}</p>
 
       <!-- DÒNG CHỮ CHẠY -->
       <div v-if="items.length" class="cr-marquee">
@@ -66,30 +66,30 @@
 
       <form @submit.prevent="submitWish">
         <div class="cr-field">
-          <label>TÊN CỦA BẠN</label>
+          <label>{{ $t("TÊN CỦA BẠN") }}</label>
 
           <input
             v-model.trim="form.name"
             type="text"
             maxlength="60"
-            placeholder="Nhập tên của bạn"
+            :placeholder="$t('Nhập tên của bạn')"
           />
         </div>
 
         <div class="cr-field">
-          <label>LỜI CHÚC</label>
+          <label>{{ $t("LỜI CHÚC") }}</label>
 
           <textarea
             v-model.trim="form.message"
             maxlength="500"
-            placeholder="Viết lời chúc dành cho cô dâu & chú rể..."
+            :placeholder="$t('Viết lời chúc dành cho cô dâu & chú rể...')"
           ></textarea>
 
           <div class="cr-field__count">{{ form.message.length }}/500</div>
         </div>
 
         <button type="submit" class="cr-wish-submit" :disabled="!canSubmit || submitting">
-          {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+          {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}
         </button>
       </form>
     </div>
@@ -100,9 +100,9 @@
     <div v-if="items.length === 0" class="cr-wishes__empty">
       <span aria-hidden="true">❀</span>
 
-      <p>Chưa có lời chúc nào</p>
+      <p>{{ $t("Chưa có lời chúc nào") }}</p>
 
-      <small>Hãy là người đầu tiên gửi lời yêu thương</small>
+      <small>{{ $t("Hãy là người đầu tiên gửi lời yêu thương") }}</small>
     </div>
 
     <!-- =========================================
@@ -139,7 +139,7 @@ import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
 
 import { cherryBlossom } from "./emeraldLuxeAssets";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: { type: Array, default: () => [] },
@@ -170,11 +170,11 @@ const canSubmit = computed(() => {
 });
 
 function getName(wish) {
-  return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+  return wish?.Name || wish?.GuestName || wish?.FullName || t("Khách mời");
 }
 
 function getMessage(wish) {
-  return wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương";
+  return wish?.Message || wish?.Content || wish?.Wish || t("Một lời chúc yêu thương");
 }
 
 function formatTime(dateString) {
@@ -186,7 +186,7 @@ function formatTime(dateString) {
     return dateString;
   }
 
-  return date.toLocaleDateString("vi-VN", {
+  return date.toLocaleDateString(localeTag(), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -229,12 +229,12 @@ if (route.params.slug && route.name === "WeddingByApi") {
 
 async function submitWish() {
   if (!form.name || !form.name.trim()) {
-    alert("Vui lòng nhập tên của bạn");
+    alert(t("Vui lòng nhập tên của bạn"));
     return;
   }
 
   if (!form.message || !form.message.trim()) {
-    alert("Vui lòng nhập lời chúc");
+    alert(t("Vui lòng nhập lời chúc"));
     return;
   }
 
@@ -258,19 +258,19 @@ async function submitWish() {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      alert("Gửi lời chúc thành công ❤️");
+      alert(t("Gửi lời chúc thành công ❤️"));
 
       form.name = "";
       form.message = "";
 
       await loadWishes();
     } else {
-      alert(result?.message || "Không thể gửi lời chúc.");
+      alert(result?.message || t("Không thể gửi lời chúc."));
     }
   } catch (error) {
     console.error(error);
 
-    alert(error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại.");
+    alert(error?.response?.data?.message || t("Có lỗi xảy ra, vui lòng thử lại."));
   } finally {
     submitting.value = false;
   }

@@ -98,15 +98,7 @@
           type="button"
           class="carousel__dot"
           :class="{ 'is-active': index === activeIndex }"
-          :aria-label="$t('carousel.goTo', { n: index + 1 })"
-          @click="goTo(index)"
-        ></button>
-      </div>
-
-      <button
-        type="button"
-        class="carousel__btn"
-        :aria-label="$t('carousel.next')"
+          :aria-label="$t('carousel.goTo', { n: index + 1 })" @click="goTo(index)" ></button> </div> <button type="button" class="carousel__btn" :aria-label="$t('carousel.next')"
         @click="next"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">

@@ -45,7 +45,7 @@
 
 <script setup>
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -97,7 +97,7 @@ const weddingDate = computed(() => {
 const thanksMessage = computed(() => {
   return (
     wedding.value?.footer?.Message ||
-    "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH"
+    t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH")
   );
 });
 

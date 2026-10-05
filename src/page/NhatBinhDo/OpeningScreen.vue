@@ -5,7 +5,7 @@
       'is-opening': isOpening,
       'is-opened': isOpened,
     }"
-    aria-label="Mở thiệp"
+    :aria-label="$t('Mở thiệp')"
   >
 
     <!-- =====================================================
@@ -107,7 +107,7 @@
             :disabled="isOpening"
             @click="openInvitation"
           >
-            {{ isOpening ? "ĐANG MỞ..." : buttonLabel }}
+            {{ isOpening ? $t("ĐANG MỞ...") : buttonLabel }}
           </button>
 
           <p class="cfr-open__hint">
@@ -162,7 +162,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 const emit = defineEmits(["open"]);
 

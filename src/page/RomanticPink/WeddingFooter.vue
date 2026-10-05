@@ -20,7 +20,7 @@
     <div class="footer-content">
       <div class="footer-eyebrow">{{ sectionText(sections, "footer", "Eyebrow", "THANK YOU") }}</div>
 
-      <p class="footer-subtitle">CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI</p>
+      <p class="footer-subtitle">{{ $t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI") }}</p>
 
       <!-- Monogram -->
       <div class="monogram">
@@ -52,8 +52,8 @@
 
       <!-- Quote -->
       <p class="footer-quote">
-        Một ngày thật đẹp<br />
-        một tình yêu thật đẹp
+        {{ $t("Một ngày thật đẹp") }}<br />
+        {{ $t("một tình yêu thật đẹp") }}
       </p>
 
       <!-- Copyright -->
@@ -69,7 +69,7 @@ import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
 import flower from "@/assets/glass-garden-pink/flower2-decoration.webp";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {
@@ -145,7 +145,7 @@ const footerMessage = computed(() => {
   return (
     props.wedding?.footer?.Message ||
     props.wedding?.footer?.Content ||
-    "Sự hiện diện của Quý khách là niềm vui lớn nhất của chúng mình."
+    t("Sự hiện diện của Quý khách là niềm vui lớn nhất của chúng mình.")
   );
 });
 </script>

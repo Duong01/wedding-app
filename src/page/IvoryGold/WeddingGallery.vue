@@ -8,11 +8,11 @@
     <div class="gallery-heading">
 
       <span class="heading-kicker">
-        {{ sectionText(sections, "gallery", "Eyebrow", "NHỮNG KHOẢNH KHẮC") }}
+        {{ sectionText(sections, "gallery", "Eyebrow", $t("NHỮNG KHOẢNH KHẮC")) }}
       </span>
 
       <h2>
-        {{ sectionText(sections, "gallery", "Heading", "KHOẢNH KHẮC CỦA CHÚNG MÌNH") }}
+        {{ sectionText(sections, "gallery", "Heading", $t("KHOẢNH KHẮC CỦA CHÚNG MÌNH")) }}
       </h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="ig-sub-custom-head">
@@ -54,7 +54,7 @@
       v-else
       class="gallery-empty"
     >
-      Chưa có hình ảnh
+      {{ $t("Chưa có hình ảnh") }}
     </div>
 
 
@@ -81,7 +81,6 @@ import { ref, defineAsyncComponent } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
@@ -100,7 +99,6 @@ const props = defineProps({
     default: () => [],
   },
 });
-
 
 /* =====================================================
    DIALOG

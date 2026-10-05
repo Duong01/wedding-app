@@ -43,12 +43,12 @@
 
       <!-- ẢNH ĐÔI UYÊN ƯƠNG -->
       <figure class="cr-hero__photo">
-        <img v-if="heroImage" :src="heroImage" alt="Ảnh cưới" draggable="false" />
+        <img v-if="heroImage" :src="heroImage" :alt="$t('Ảnh cưới')" draggable="false" />
 
         <img
           v-else
           :src="coupleMain"
-          alt="Ảnh cưới"
+          :alt="$t('Ảnh cưới')"
           draggable="false"
         />
 
@@ -61,12 +61,12 @@
         />
       </figure>
 
-      <p class="cr-hero__guest-label">TRÂN TRỌNG KÍNH MỜI</p>
+      <p class="cr-hero__guest-label">{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</p>
 
       <p class="cr-hero__guest">{{ guestName }}</p>
 
       <p class="cr-hero__intro">
-        Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+        {{ $t("Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại") }}
       </p>
 
       <p class="cr-hero__place">{{ location }}</p>
@@ -77,7 +77,7 @@
       </div>
 
       <p class="cr-hero__message">
-        Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+        {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!") }}
       </p>
 
       <div class="cr-hero__footer" aria-hidden="true">
@@ -90,6 +90,7 @@
 </template>
 
 <script setup>
+import { t } from "@/lang";
 import { computed } from "vue";
 import dayjs from "dayjs";
 
@@ -111,7 +112,7 @@ const props = defineProps({
 const heroTitle = computed(() => props.wedding?.hero?.Title || "SAVE THE DATE");
 
 const heroSubtitle = computed(
-  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+  () => props.wedding?.hero?.Subtitle || t("TRÂN TRỌNG KÍNH MỜI")
 );
 
 const groomName = computed(
@@ -172,16 +173,16 @@ const dateText = computed(() => {
 
   if (date.isValid()) {
     const weekdays = [
-      "CHỦ NHẬT",
-      "THỨ HAI",
-      "THỨ BA",
-      "THỨ TƯ",
-      "THỨ NĂM",
-      "THỨ SÁU",
-      "THỨ BẢY",
+      t("CHỦ NHẬT"),
+      t("THỨ HAI"),
+      t("THỨ BA"),
+      t("THỨ TƯ"),
+      t("THỨ NĂM"),
+      t("THỨ SÁU"),
+      t("THỨ BẢY"),
     ];
 
-    return `${weekdays[date.day()]}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(weekdays[date.day()])}${t(", NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

@@ -29,6 +29,8 @@ const ROUTES = [
   "/bang-gia",
   "/huong-dan",
   "/lien-he",
+  "/editor",
+  "/preview-bare",
 ];
 
 /* ---------------------------------------------------------
@@ -246,6 +248,10 @@ try {
     app.use(createPinia());
     app.use(createVuetify());
     app.use(router);
+
+    /* Mọi template dùng $t() — thiếu i18n là render văng ngay. */
+    const { default: i18n } = await vite.ssrLoadModule("/src/lang/index.js");
+    app.use(i18n);
 
     const warnings = [];
     app.config.warnHandler = (msg) => warnings.push(msg);

@@ -51,27 +51,27 @@
           <button
             type="button"
             class="gs-frame gs-cards__frame"
-            :aria-label="`Xem ảnh ${index + 1}`"
+            :aria-label="`${$t('Xem ảnh ')}${index + 1}`"
             @click="index === current ? emit('open', index) : cardSwiper?.slideTo(index)"
           >
-            <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+            <img :src="src(item)" :alt="`${$t('Khoảnh khắc cưới ')}${index + 1}`" loading="lazy" decoding="async" draggable="false" />
           </button>
         </SwiperSlide>
       </Swiper>
 
       <div class="gs-nav">
-        <button type="button" class="gs-nav__btn" aria-label="Ảnh trước" :disabled="current === 0" @click="cardSwiper?.slidePrev()">
+        <button type="button" class="gs-nav__btn" :aria-label="$t('Ảnh trước')" :disabled="current === 0" @click="cardSwiper?.slidePrev()">
           <v-icon size="20">mdi-chevron-left</v-icon>
         </button>
 
         <span class="gs-counter"><strong>{{ pad(current + 1) }}</strong> / {{ pad(images.length) }}</span>
 
-        <button type="button" class="gs-nav__btn" aria-label="Ảnh tiếp theo" :disabled="current >= images.length - 1" @click="cardSwiper?.slideNext()">
+        <button type="button" class="gs-nav__btn" :aria-label="$t('Ảnh tiếp theo')" :disabled="current >= images.length - 1" @click="cardSwiper?.slideNext()">
           <v-icon size="20">mdi-chevron-right</v-icon>
         </button>
       </div>
 
-      <p class="gs-hint">Vuốt sang để lật ảnh · chạm ảnh để xem lớn</p>
+      <p class="gs-hint">{{ $t("Vuốt sang để lật ảnh · chạm ảnh để xem lớn") }}</p>
     </div>
 
     <!-- ===================================================
@@ -100,22 +100,22 @@
             class="gs-frame gs-ring__panel"
             :class="{ 'is-front': index === ringIndex }"
             :style="ringPanelStyle(index)"
-            :aria-label="`Xem ảnh ${index + 1}`"
+            :aria-label="`${$t('Xem ảnh ')}${index + 1}`"
             @click="onRingClick(index)"
           >
-            <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+            <img :src="src(item)" :alt="`${$t('Khoảnh khắc cưới ')}${index + 1}`" loading="lazy" decoding="async" draggable="false" />
           </button>
         </div>
       </div>
 
       <div class="gs-nav">
-        <button type="button" class="gs-nav__btn" aria-label="Ảnh trước" @click="ringStep(-1)">
+        <button type="button" class="gs-nav__btn" :aria-label="$t('Ảnh trước')" @click="ringStep(-1)">
           <v-icon size="20">mdi-chevron-left</v-icon>
         </button>
 
         <span class="gs-counter"><strong>{{ pad(ringIndex + 1) }}</strong> / {{ pad(images.length) }}</span>
 
-        <button type="button" class="gs-nav__btn" aria-label="Ảnh tiếp theo" @click="ringStep(1)">
+        <button type="button" class="gs-nav__btn" :aria-label="$t('Ảnh tiếp theo')" @click="ringStep(1)">
           <v-icon size="20">mdi-chevron-right</v-icon>
         </button>
       </div>
@@ -138,23 +138,23 @@
           :key="index"
           type="button"
           class="gs-film__frame"
-          :aria-label="`Xem ảnh ${index + 1}`"
+          :aria-label="`${$t('Xem ảnh ')}${index + 1}`"
           @click="emit('open', index)"
         >
-          <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+          <img :src="src(item)" :alt="`${$t('Khoảnh khắc cưới ')}${index + 1}`" loading="lazy" decoding="async" draggable="false" />
 
           <span class="gs-film__no">{{ pad(index + 1) }}</span>
         </button>
       </div>
 
       <div class="gs-nav">
-        <button type="button" class="gs-nav__btn" aria-label="Ảnh trước" @click="filmStep(-1)">
+        <button type="button" class="gs-nav__btn" :aria-label="$t('Ảnh trước')" @click="filmStep(-1)">
           <v-icon size="20">mdi-chevron-left</v-icon>
         </button>
 
         <span class="gs-counter"><strong>{{ pad(current + 1) }}</strong> / {{ pad(images.length) }}</span>
 
-        <button type="button" class="gs-nav__btn" aria-label="Ảnh tiếp theo" @click="filmStep(1)">
+        <button type="button" class="gs-nav__btn" :aria-label="$t('Ảnh tiếp theo')" @click="filmStep(1)">
           <v-icon size="20">mdi-chevron-right</v-icon>
         </button>
       </div>
@@ -172,11 +172,11 @@
           class="gs-tile"
           :class="tileClass(index)"
           :style="activeLayout === 'polaroid' ? polaroidStyle(index) : null"
-          :aria-label="`Xem ảnh ${index + 1}`"
+          :aria-label="`${$t('Xem ảnh ')}${index + 1}`"
           @click="emit('open', index)"
         >
           <span class="gs-tile__photo">
-            <img :src="src(item)" :alt="`Khoảnh khắc cưới ${index + 1}`" loading="lazy" decoding="async" draggable="false" />
+            <img :src="src(item)" :alt="`${$t('Khoảnh khắc cưới ')}${index + 1}`" loading="lazy" decoding="async" draggable="false" />
           </span>
 
           <span v-if="activeLayout === 'polaroid'" class="gs-polaroid__caption">♥ {{ pad(index + 1) }}</span>
@@ -205,7 +205,6 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 
 import ModernGalleryCarousel from "@/components/gallery/ModernGalleryCarousel.vue";
-
 const props = defineProps({
   images: { type: Array, default: () => [] },
 

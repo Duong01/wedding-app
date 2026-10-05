@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="shy-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shy-bar">{{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}</h2>
+    <h2 class="shy-bar">{{ sectionText(sections, "events", "Heading", $t("THÔNG TIN TIỆC CƯỚI")) }}</h2>
 
     <!-- =====================================================
          NỘI DUNG
@@ -29,7 +29,7 @@
             <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="shy-cd-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
           </header>
 
-          <h3 class="shy-event__title">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+          <h3 class="shy-event__title">{{ $t("Tiệc cưới sẽ diễn ra vào lúc:") }}</h3>
 
           <p v-if="event.time" class="shy-event__time">{{ event.time }}</p>
 
@@ -51,27 +51,27 @@
 
           <!-- ĐẾM NGƯỢC -->
           <div class="shy-countdown">
-            <p class="shy-countdown__label">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</p>
+            <p class="shy-countdown__label">{{ sectionText(sections, "countdown", "Heading", $t("CÙNG ĐẾM NGƯỢC")) }}</p>
 
             <div class="shy-countdown__grid">
               <div class="shy-countdown__cell">
                 <strong>{{ countdown.days }}</strong>
-                <span>NGÀY</span>
+                <span>{{ $t("NGÀY") }}</span>
               </div>
 
               <div class="shy-countdown__cell">
                 <strong>{{ countdown.hours }}</strong>
-                <span>GIỜ</span>
+                <span>{{ $t("GIỜ") }}</span>
               </div>
 
               <div class="shy-countdown__cell">
                 <strong>{{ countdown.minutes }}</strong>
-                <span>PHÚT</span>
+                <span>{{ $t("PHÚT") }}</span>
               </div>
 
               <div class="shy-countdown__cell">
                 <strong>{{ countdown.seconds }}</strong>
-                <span>GIÂY</span>
+                <span>{{ $t("GIÂY") }}</span>
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
               rel="noopener noreferrer"
               class="shy-calendar__link"
             >
-              Thêm vào lịch
+              {{ $t("Thêm vào lịch") }}
             </a>
           </div>
         </template>
@@ -134,7 +134,7 @@
 
         <!-- RSVP -->
         <button type="button" class="shy-rsvp-btn" @click="openConfirmModal(event)">
-          XÁC NHẬN THAM DỰ
+          {{ $t("XÁC NHẬN THAM DỰ") }}
         </button>
       <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
@@ -149,37 +149,37 @@
       <Transition name="shy-modal">
         <div v-if="showConfirmModal" class="shy-confirm-overlay" @click.self="closeConfirmModal">
           <div class="shy-confirm-modal">
-            <button type="button" class="shy-modal-close" @click="closeConfirmModal">×</button>
+            <button type="button" class="shy-modal-close" @click="closeConfirmModal">{{ "×" }}</button>
 
             <div class="shy-modal-header">
               <span>THE CELEBRATION</span>
 
-              <h3>Xác nhận tham dự</h3>
+              <h3>{{ $t("Xác nhận tham dự") }}</h3>
 
-              <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+              <p>{{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}</p>
             </div>
 
             <!-- KHÁCH ĐƯỢC MỜI -->
             <div v-if="hasRecipient" class="shy-recipient-box">
-              <span>TRÂN TRỌNG KÍNH MỜI</span>
+              <span>{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
             <!-- HỌ TÊN -->
             <div v-else class="shy-form-group">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
                 maxlength="100"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
               />
             </div>
 
             <!-- THAM DỰ -->
             <div class="shy-form-group">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="shy-attendance">
                 <button
@@ -189,7 +189,7 @@
                   @click="form.attendance = 'attending'"
                 >
                   <span>✓</span>
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -198,15 +198,15 @@
                   :class="{ selected: form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  <span>×</span>
-                  Rất tiếc, tôi không thể tham dự
+                  <span>{{ "×" }}</span>
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
 
             <!-- SỐ NGƯỜI -->
             <div v-if="form.attendance === 'attending'" class="shy-form-group">
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="shy-people-control">
                 <button type="button" @click="decreasePeople">−</button>
@@ -224,7 +224,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -240,6 +240,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -305,16 +306,16 @@ const normalizedEvents = computed(() => {
       year = date.format("YYYY");
 
       const weekdays = [
-        "CHỦ NHẬT",
-        "THỨ HAI",
-        "THỨ BA",
-        "THỨ TƯ",
-        "THỨ NĂM",
-        "THỨ SÁU",
-        "THỨ BẢY",
+        t("CHỦ NHẬT"),
+        t("THỨ HAI"),
+        t("THỨ BA"),
+        t("THỨ TƯ"),
+        t("THỨ NĂM"),
+        t("THỨ SÁU"),
+        t("THỨ BẢY"),
       ];
 
-      weekday = weekdays[date.day()];
+      weekday = t(weekdays[date.day()]);
     }
 
     const calendarDays =
@@ -469,12 +470,12 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!hasRecipient.value && !form.value.name) {
-    errorMessage.value = "Vui lòng nhập họ và tên.";
+    errorMessage.value = t("Vui lòng nhập họ và tên.");
     return;
   }
 
   if (!form.value.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
     return;
   }
 
@@ -492,7 +493,7 @@ async function submitConfirmation() {
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
       Attendance:
-        form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+        form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
       NumberOfPeople:
         form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
@@ -502,10 +503,10 @@ async function submitConfirmation() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể gửi xác nhận.");
+      throw new Error(result?.message || t("Không thể gửi xác nhận."));
     }
 
-    successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    successMessage.value = t("Cảm ơn bạn đã xác nhận tham dự ❤️");
 
     setTimeout(() => {
       closeConfirmModal();
@@ -514,7 +515,7 @@ async function submitConfirmation() {
     errorMessage.value =
       error?.response?.data?.message ||
       error?.message ||
-      "Có lỗi xảy ra. Vui lòng thử lại.";
+      t("Có lỗi xảy ra. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

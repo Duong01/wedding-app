@@ -31,8 +31,8 @@
       </div>
 
       <p class="rr-footer__thanks">
-        CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI<br />
-        CÙNG CHÚNG MÌNH
+        {{ $t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI") }}<br />
+        {{ $t("CÙNG CHÚNG MÌNH") }}
       </p>
 
       <div class="rr-footer__date">{{ weddingDate }}</div>
@@ -46,7 +46,6 @@
 import { computed } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G&B" },

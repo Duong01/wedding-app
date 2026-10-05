@@ -143,7 +143,6 @@ import WeddingGifts from "@/page/DongSon/WeddingGifts.vue";
 import WeddingWishes from "@/page/DongSon/WeddingWishes.vue";
 
 import WeddingFooter from "@/page/DongSon/WeddingFooter.vue";
-
 const props = defineProps({
   wedding: {
     type: Object,

@@ -12,11 +12,11 @@
       <div class="heading-content">
 
         <span class="heading-subtitle">
-          {{ sectionText(sections, "events", "Eyebrow", "TRÂN TRỌNG KÍNH MỜI") }}
+          {{ sectionText(sections, "events", "Eyebrow", $t("TRÂN TRỌNG KÍNH MỜI")) }}
         </span>
 
         <h2>
-          {{ sectionText(sections, "events", "Heading", "THÔNG TIN TIỆC CƯỚI") }}
+          {{ sectionText(sections, "events", "Heading", $t("THÔNG TIN TIỆC CƯỚI")) }}
         </h2>
 
         <div class="heading-symbol">
@@ -63,7 +63,7 @@
           </span>
 
           <h3>
-            {{ event.Title || "THÔNG TIN TIỆC CƯỚI" }}
+            {{ event.Title || $t("THÔNG TIN TIỆC CƯỚI") }}
           </h3>
 
           <div class="title-decoration">
@@ -162,7 +162,7 @@
             </span>
 
             <span class="schedule-label">
-              ĐÓN KHÁCH
+              {{ $t("ĐÓN KHÁCH") }}
             </span>
 
             <strong>
@@ -182,7 +182,7 @@
             </span>
 
             <span class="schedule-label">
-              KHAI TIỆC
+              {{ $t("KHAI TIỆC") }}
             </span>
 
             <strong>
@@ -206,7 +206,7 @@
           <div class="calendar-top">
 
             <span class="calendar-label">
-              LỊCH
+              {{ $t("LỊCH") }}
             </span>
 
             <strong>
@@ -282,7 +282,7 @@
             class="calendar-link"
           >
             <span>＋</span>
-            THÊM VÀO LỊCH
+            {{ $t("THÊM VÀO LỊCH") }}
           </a>
 
         </div>
@@ -322,7 +322,7 @@
             rel="noopener noreferrer"
             class="map-link"
           >
-            XEM VỊ TRÍ TRÊN BẢN ĐỒ
+            {{ $t("XEM VỊ TRÍ TRÊN BẢN ĐỒ") }}
           </a>
 
         </div>
@@ -338,7 +338,7 @@
           @click="openConfirmModal"
         >
           <span>♡</span>
-          XÁC NHẬN THAM DỰ
+          {{ $t("XÁC NHẬN THAM DỰ") }}
         </button>
 
 
@@ -375,16 +375,16 @@
         <div class="confirm-modal">
           <!-- CLOSE -->
           <button class="modal-close" type="button" @click="closeConfirmModal">
-            ×
+            {{ "×" }}
           </button>
 
           <!-- HEADER -->
           <div class="modal-header">
             <div class="modal-symbol">❖</div>
 
-            <h3>XÁC NHẬN THAM DỰ</h3>
+            <h3>{{ $t("XÁC NHẬN THAM DỰ") }}</h3>
 
-            <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+            <p>{{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}</p>
           </div>
 
           <!-- =================================================
@@ -393,7 +393,7 @@
 
           <template v-if="hasRecipient">
             <div class="recipient-box">
-              <div class="recipient-label">TRÂN TRỌNG KÍNH MỜI</div>
+              <div class="recipient-label">{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</div>
 
               <div class="recipient-name">
                 {{ recipientName }}
@@ -407,12 +407,12 @@
 
           <template v-else>
             <div class="form-group">
-              <label> Họ và tên </label>
+              <label> {{ $t("Họ và tên") }} </label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
                 maxlength="100"
               />
             </div>
@@ -420,7 +420,7 @@
 
           <!-- ATTEND -->
           <div class="form-group">
-            <label> Bạn có tham dự không? </label>
+            <label> {{ $t("Bạn có tham dự không?") }} </label>
 
             <div class="attendance-options">
               <button
@@ -433,7 +433,7 @@
               >
                 <span class="option-icon"> ✓ </span>
 
-                <span> Có, tôi sẽ tham dự </span>
+                <span> {{ $t("Có, tôi sẽ tham dự") }} </span>
               </button>
 
               <button
@@ -444,16 +444,16 @@
                 }"
                 @click="form.attendance = 'not_attending'"
               >
-                <span class="option-icon"> × </span>
+                <span class="option-icon"> {{ "×" }} </span>
 
-                <span> Rất tiếc, tôi không thể tham dự </span>
+                <span> {{ $t("Rất tiếc, tôi không thể tham dự") }} </span>
               </button>
             </div>
           </div>
 
           <!-- NUMBER OF PEOPLE -->
           <div v-if="form.attendance === 'attending'" class="form-group">
-            <label> Số người tham dự </label>
+            <label> {{ $t("Số người tham dự") }} </label>
 
             <div class="people-control">
               <button type="button" @click="decreasePeople">−</button>
@@ -483,9 +483,9 @@
             :disabled="submitting"
             @click="submitConfirmation"
           >
-            <span v-if="!submitting"> GỬI XÁC NHẬN </span>
+            <span v-if="!submitting"> {{ $t("GỬI XÁC NHẬN") }} </span>
 
-            <span v-else> ĐANG GỬI... </span>
+            <span v-else> {{ $t("ĐANG GỬI...") }} </span>
           </button>
         </div>
       </div>
@@ -501,6 +501,7 @@ import EventMap from "@/components/common/EventMap.vue";
 import { computed, reactive, ref } from "vue";
 import { Confirm } from "@/model/api";
 import { useRoute } from "vue-router";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -605,13 +606,13 @@ async function submitConfirmation() {
   ========================== */
 
   if (!form.name) {
-    errorMessage.value = "Vui lòng nhập họ tên.";
+    errorMessage.value = t("Vui lòng nhập họ tên.");
 
     return;
   }
 
   if (!form.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
 
     return;
   }
@@ -628,7 +629,7 @@ async function submitConfirmation() {
     Slug: slug,
     RecipientToken: route.params.token || null,
     GuestName: form.name,
-    Attendance: form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+    Attendance: form.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
     NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0
   };
 
@@ -641,20 +642,20 @@ async function submitConfirmation() {
   try {
     Confirm(payload, (result) =>{
       if (!result || result.status !== "success") {
-        throw new Error(result?.message || "Không thể gửi xác nhận.");
+        throw new Error(result?.message || t("Không thể gửi xác nhận."));
       }
-      successMessage.value = "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+      successMessage.value = t("Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️");
       setTimeout(() => {
         showConfirmModal.value = false;
       }, 2500);
     },(error) =>{
-      errorMessage.value = error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+      errorMessage.value = error?.data?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
     })
 
 
 
   } catch (error) {
-    errorMessage.value = error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+    errorMessage.value = error?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }
@@ -774,17 +775,17 @@ function getTypeLabel(type) {
 
   const labels = {
 
-    vuquy: "LỄ VU QUY",
+    vuquy: t("LỄ VU QUY"),
 
-    cuoi: "LỄ CƯỚI",
+    cuoi: t("LỄ CƯỚI"),
 
-    tiec: "TIỆC CƯỚI",
+    tiec: t("TIỆC CƯỚI"),
 
-    thanhhon: "LỄ THÀNH HÔN",
+    thanhhon: t("LỄ THÀNH HÔN"),
 
   };
 
-  return labels[type] || "NGÀY TRỌNG ĐẠI";
+  return labels[type] || t("NGÀY TRỌNG ĐẠI");
 }
 
 

@@ -61,7 +61,7 @@
           {{ brideName }}
         </p>
 
-        <p class="dh-card__date">{{ dateLabel || "NGÀY TRỌNG ĐẠI CỦA CHÚNG MÌNH" }}</p>
+        <p class="dh-card__date">{{ dateLabel || $t("NGÀY TRỌNG ĐẠI CỦA CHÚNG MÌNH") }}</p>
       </div>
     </div>
 
@@ -88,7 +88,6 @@
 import { computed, ref } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G & B" },

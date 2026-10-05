@@ -67,8 +67,6 @@ import { computed } from "vue";
 import { sectionText } from "@/data/sectionTitles";
 
 import { flower2, flower3 } from "./crystalFloralAssets";
-
-
 const props = defineProps({
   story: {
     type: [String, Object],
@@ -80,7 +78,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 /* =========================================================
    TIÊU ĐỀ MỤC

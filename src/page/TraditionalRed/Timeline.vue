@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="tr-timeline__title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+    <h2 class="tr-timeline__title">{{ sectionText(sections, "timeline", "Heading", $t("Lịch trình ngày cưới")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="tr-sub-custom-head">
       <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="tr-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -37,7 +37,6 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: {

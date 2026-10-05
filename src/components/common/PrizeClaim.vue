@@ -14,14 +14,14 @@
       <strong class="prize-claim__title"> {{ prizeTitle }} </strong>
 
       <p class="prize-claim__hint">
-        Nhập họ tên để cô dâu chú rể chuẩn bị quà cho bạn tại lễ cưới.
+        {{ $t("Nhập họ tên để cô dâu chú rể chuẩn bị quà cho bạn tại lễ cưới.") }}
       </p>
 
       <input
         v-model.trim="name"
         type="text"
         class="prize-claim__input"
-        placeholder="Họ và tên của bạn"
+        :placeholder="$t('Họ và tên của bạn')"
         maxlength="100"
         :disabled="done"
         @keyup.enter="submit"
@@ -37,11 +37,11 @@
         :disabled="submitting || done || !name"
         @click="submit"
       >
-        {{ submitting ? "Đang gửi..." : done ? "Đã nhận quà" : "Nhận quà" }}
+        {{ submitting ? $t("Đang gửi...") : done ? $t("Đã nhận quà") : $t("Nhận quà") }}
       </button>
 
       <small v-if="isPreview" class="prize-claim__preview-note">
-        Chế độ xem trước — không lưu.
+        {{ $t("Chế độ xem trước — không lưu.") }}
       </small>
     </div>
   </div>
@@ -51,7 +51,7 @@
 import { computed, ref } from "vue";
 
 import { claimGamePrize } from "@/model/api";
-
+import { t } from "@/lang";
 const props = defineProps({
   /* Title quà khách vừa trúng. */
   prizeTitle: { type: String, required: true },
@@ -93,7 +93,7 @@ async function submit() {
 
   if (isPreview.value) {
     done.value = true;
-    message.value = "Xem trước — quà sẽ được lưu khi khách thật nhận.";
+    message.value = t("Xem trước — quà sẽ được lưu khi khách thật nhận.");
     isError.value = false;
 
     return;
@@ -115,7 +115,7 @@ async function submit() {
 
     if (result && result.status === "success") {
       done.value = true;
-      message.value = result.message || "Nhận quà thành công!";
+      message.value = result.message || t("Nhận quà thành công!");
 
       /*
        * Soft-guard: lần sau mở lại thiệp không hiện form
@@ -127,13 +127,13 @@ async function submit() {
         /* localStorage bị chặn — bỏ qua */
       }
     } else {
-      message.value = result?.message || "Không nhận được quà. Thử lại nhé!";
+      message.value = result?.message || t("Không nhận được quà. Thử lại nhé!");
       isError.value = true;
     }
   } catch (error) {
     console.warn("[PrizeClaim] claimGamePrize error:", error);
 
-    message.value = "Không nhận được quà. Thử lại nhé!";
+    message.value = t("Không nhận được quà. Thử lại nhé!");
     isError.value = true;
   } finally {
     submitting.value = false;

@@ -37,11 +37,11 @@
         <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="tdx-heading">{{ sectionText(sections, "gifts", "Heading", "Hộp mừng cưới") }}</h2>
+      <h2 class="tdx-heading">{{ sectionText(sections, "gifts", "Heading", $t("Hộp mừng cưới")) }}</h2>
 
-      <p class="tdx-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình") }}</p>
+      <p class="tdx-gifts__intro">{{ sectionText(sections, "gifts", "Intro", $t("Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình")) }}</p>
 
-      <button type="button" class="tdx-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
+      <button type="button" class="tdx-gift-btn" :aria-label="$t('Mở hộp mừng cưới')" @click="openGift">
         <span class="tdx-gift-glow" aria-hidden="true"></span>
 
         <span class="tdx-gift-box">
@@ -55,7 +55,7 @@
 
         <span class="tdx-gift-shadow" aria-hidden="true"></span>
 
-        <span class="tdx-gift-hint">CHẠM ĐỂ MỞ</span>
+        <span class="tdx-gift-hint">{{ $t("CHẠM ĐỂ MỞ") }}</span>
       </button>
     </div>
 
@@ -77,19 +77,18 @@
             <button
               type="button"
               class="tdx-gift-dialog__close"
-              aria-label="Đóng hộp mừng cưới"
+              :aria-label="$t('Đóng hộp mừng cưới')"
               @click="closeGift"
             >
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
-            <div class="tdx-gift-dialog__eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+            <div class="tdx-gift-dialog__eyebrow">{{ $t("MỘT CHÚT YÊU THƯƠNG") }}</div>
 
-            <h3 id="tdx-gift-dialog-title">Hộp mừng cưới</h3>
+            <h3 id="tdx-gift-dialog-title">{{ $t("Hộp mừng cưới") }}</h3>
 
             <p class="tdx-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể,
-              bạn có thể chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <div v-if="gifts.length" class="tdx-account-grid">
@@ -118,7 +117,7 @@
                   v-if="item.QrCode"
                   type="button"
                   class="tdx-qr-button"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
                   <div class="tdx-qr-frame">
@@ -130,22 +129,22 @@
                     <div class="tdx-qr-inner">
                       <img
                         :src="item.QrCode"
-                        :alt="item.Name || 'QR mừng cưới'"
+                        :alt="item.Name || $t('QR mừng cưới')"
                         class="tdx-qr-code"
                       />
                     </div>
                   </div>
 
-                  <div class="tdx-qr-hint">CHẠM VÀO QR ĐỂ XEM LỚN</div>
+                  <div class="tdx-qr-hint">{{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}</div>
                 </button>
 
                 <div class="tdx-account-info">
                   <div class="tdx-info-row">
                     <div class="tdx-info-left">
-                      <span class="tdx-info-label">CHỦ TÀI KHOẢN</span>
+                      <span class="tdx-info-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                       <span class="tdx-info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                        {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                       </span>
                     </div>
                   </div>
@@ -154,18 +153,18 @@
 
                   <div class="tdx-info-row">
                     <div class="tdx-info-left">
-                      <span class="tdx-info-label">SỐ TÀI KHOẢN</span>
+                      <span class="tdx-info-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                       <span class="tdx-info-value tdx-account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                        {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                       </span>
                     </div>
 
                     <button
                       type="button"
                       class="tdx-copy-button"
-                      title="Sao chép số tài khoản"
-                      aria-label="Sao chép số tài khoản"
+                      :title="$t('Sao chép số tài khoản')"
+                      :aria-label="$t('Sao chép số tài khoản')"
                       @click="copyAccount(item)"
                     >
                       <v-icon size="14">mdi-content-copy</v-icon>
@@ -180,7 +179,7 @@
             </div>
 
             <div v-else class="tdx-account-desc">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </div>
           </div>
         </div>
@@ -195,21 +194,21 @@
             <button
               type="button"
               class="tdx-qr-preview__close"
-              aria-label="Đóng QR"
+              :aria-label="$t('Đóng QR')"
               @click="closeQr"
             >
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="tdx-qr-preview__title">
-              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+              {{ previewQr.Name || $t("QR MỪNG CƯỚI") }}
             </div>
 
             <div class="tdx-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+              <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
             </div>
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p>{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -218,7 +217,7 @@
               download
               class="tdx-qr-preview__save"
             >
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>

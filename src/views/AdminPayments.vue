@@ -449,6 +449,7 @@
 import { computed, onMounted, ref } from "vue";
 
 import { useRouter } from "vue-router";
+import { useTabResume } from "@/composables/useTabResume";
 
 import {
   getPaymentInfo,
@@ -582,6 +583,12 @@ async function loadConfig() {
 }
 
 onMounted(() => {
+  loadRequests();
+  loadConfig();
+});
+
+/* Quay lại tab sau thời gian dài → load lại danh sách + cấu hình */
+useTabResume(() => {
   loadRequests();
   loadConfig();
 });

@@ -179,11 +179,11 @@ export default {
     "すでにアカウントをお持ちですか？",
   ],
   "login.identifierPlaceholder": [
-    "username hoặc you@example.com",
-    "username or you@example.com",
-    "用户名或 you@example.com",
-    "아이디 또는 you@example.com",
-    "ユーザー名 または you@example.com",
+    "username hoặc you{'@'}example.com",
+    "username or you{'@'}example.com",
+    "用户名或 you{'@'}example.com",
+    "아이디 또는 you{'@'}example.com",
+    "ユーザー名 または you{'@'}example.com",
   ],
   "login.loggingIn": [
     "Đang đăng nhập...",

@@ -7,7 +7,7 @@
       <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="la-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="la-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
@@ -27,7 +27,7 @@
       />
 
       <div v-else class="la-gallery__empty">
-        <p>Chưa có hình ảnh</p>
+        <p>{{ $t("Chưa có hình ảnh") }}</p>
       </div>
     </div>
 
@@ -48,7 +48,6 @@ import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 import threeHearts from "@/assets/love-art/3 tim.webp";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

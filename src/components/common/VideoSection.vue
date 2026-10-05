@@ -32,7 +32,7 @@ import VideoEmbed from "@/components/common/VideoEmbed.vue";
 import { sectionText } from "@/data/sectionTitles";
 
 import { useSectionTheme } from "@/composables/useSectionTheme";
-
+import { t } from "@/lang";
 const props = defineProps({
   /*
    * Nhận cả object wedding — prop duy nhất mọi orchestrator
@@ -59,7 +59,7 @@ const visible = computed(
 );
 
 const eyebrow = computed(() =>
-  sectionText(props.wedding?.sections, "video", "Eyebrow", "KHOẢNH KHẮC YÊU THƯƠNG")
+  sectionText(props.wedding?.sections, "video", "Eyebrow", t("KHOẢNH KHẮC YÊU THƯƠNG"))
 );
 
 const heading = computed(() =>
@@ -67,7 +67,7 @@ const heading = computed(() =>
     props.wedding?.sections,
     "video",
     "Heading",
-    video.value?.Title || "Video Cưới"
+    video.value?.Title || t("Video Cưới")
   )
 );
 </script>

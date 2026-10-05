@@ -129,6 +129,54 @@
           </span>
         </button>
 
+        <!-- Đăng nhập bằng Google -->
+        <div class="auth-divider">
+          <span>{{ $t('login.googleOr') }}</span>
+        </div>
+
+        <!--
+          Nút custom — bấm gọi google.accounts.id.prompt().
+          Nếu prompt bị chặn (cooldown sau khi người dùng đã đóng,
+          trình duyệt không hỗ trợ FedCM...) thì thay bằng nút
+          Google chính thức (renderButton) — luôn mở được.
+        -->
+        <button
+          v-if="!googleFallback"
+          type="button"
+          class="google-btn"
+          :disabled="googleSubmitting"
+          @click="startGoogleLogin"
+        >
+          <v-progress-circular
+            v-if="googleSubmitting"
+            indeterminate
+            size="16"
+            width="2"
+          />
+
+          <!-- Logo Google (SVG chính thức, không phụ thuộc icon font) -->
+          <svg
+            v-else
+            class="google-logo"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+            <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+            <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+            <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+          </svg>
+
+          <span>{{ $t('login.google') }}</span>
+        </button>
+
+        <!-- Nút Google chính thức (dự phòng khi prompt bị chặn) -->
+        <div
+          v-else
+          id="google-fallback-btn"
+          class="google-fallback"
+        ></div>
+
         <p class="auth-switch">
           {{ $t('login.noAccount') }}
 
@@ -429,6 +477,155 @@ const showPassword = ref(false);
 const submitting = ref(false);
 const errorMessage = ref("");
 const successMessage = ref("");
+
+/* =========================================================
+   GOOGLE LOGIN (Google Identity Services)
+   - Nạp script https://accounts.google.com/gsi/client
+   - Bấm nút → google.accounts.id.prompt() hiện popup chọn
+     tài khoản Google → nhận id_token (credential) → gửi
+     lên backend /AccountApi/GoogleLogin xác thực.
+========================================================= */
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+const googleSubmitting = ref(false);
+const googleFallback = ref(false);
+let googleScriptPromise = null;
+
+function loadGoogleScript() {
+  if (window.google?.accounts?.id) {
+    return Promise.resolve();
+  }
+
+  if (googleScriptPromise) {
+    return googleScriptPromise;
+  }
+
+  googleScriptPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+
+    script.onload = resolve;
+    script.onerror = () => {
+      googleScriptPromise = null;
+      reject(new Error(t("login.googleFailed")));
+    };
+
+    document.head.appendChild(script);
+  });
+
+  return googleScriptPromise;
+}
+
+async function startGoogleLogin() {
+  if (googleSubmitting.value) {
+    return;
+  }
+
+  errorMessage.value = "";
+  googleSubmitting.value = true;
+
+  try {
+    await loadGoogleScript();
+
+    /*
+     * initialize() chỉ được gọi 1 lần — GIS ném lỗi
+     * "IdpFrameInitialized" nếu gọi lại.
+     */
+    if (!window.__googleIdInitialized) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: onGoogleCredential,
+        use_fedcm_for_prompt: true,
+      });
+
+      window.__googleIdInitialized = true;
+    }
+
+    googleSubmitting.value = false;
+
+    /*
+     * prompt() có thể bị chặn: người dùng đã đóng popup trước
+     * đó (cooldown ~giờ), trình duyệt không hỗ trợ FedCM...
+     * momental notification (isDisplayMoment + not skipped)
+     * → OK; bị chặn → chuyển sang nút Google chính thức.
+     */
+    window.google.accounts.id.prompt((notification) => {
+      if (
+        notification &&
+        !notification.isDisplayMoment() &&
+        !notification.isSkippedMoment()
+      ) {
+        return;
+      }
+
+      if (
+        notification &&
+        notification.isSkippedMoment() &&
+        notification.getSkippedReason() !== "user_cancel"
+      ) {
+        enableGoogleFallback();
+      }
+    });
+  } catch (e) {
+    googleSubmitting.value = false;
+    errorMessage.value = e?.message || t("login.googleFailed");
+  }
+}
+
+/*
+ * prompt() không hiện được → render nút Google chính thức
+ * (renderButton luôn mở được account picker).
+ */
+function enableGoogleFallback() {
+  googleFallback.value = true;
+
+  nextTick(() => {
+    const host = document.getElementById("google-fallback-btn");
+
+    if (!host || !window.google?.accounts?.id) {
+      return;
+    }
+
+    window.google.accounts.id.renderButton(host, {
+      type: "standard",
+      theme: "outline",
+      size: "large",
+      shape: "pill",
+      text: "continue_with",
+      logo_alignment: "center",
+      width: 320,
+    });
+  });
+}
+
+function onGoogleCredential(response) {
+  /*
+   * response.credential = id_token (JWT) — backend
+   * xác thực qua oauth2.googleapis.com/tokeninfo.
+   */
+  if (!response?.credential) {
+    errorMessage.value = t("login.googleFailed");
+    return;
+  }
+
+  googleSubmitting.value = true;
+
+  auth
+    .loginWithGoogle(response.credential)
+    .then(() => {
+      redirectAfterAuth();
+    })
+    .catch((e) => {
+      errorMessage.value = e?.message || t("login.googleFailed");
+    })
+    .finally(() => {
+      googleSubmitting.value = false;
+    });
+}
 
 const loginForm = reactive({
   email: "",
@@ -939,6 +1136,97 @@ async function submitForgot() {
   opacity: 0.65;
 
   cursor: not-allowed;
+}
+
+/* ==================================================
+   GOOGLE LOGIN
+================================================== */
+
+.auth-divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 18px 0 14px;
+
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-size: 12.5px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: var(--studio-line, rgba(43, 33, 24, 0.14));
+}
+
+.google-btn {
+  width: 100%;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 12px 0;
+
+  border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.14));
+
+  border-radius: 999px;
+
+  background: var(--studio-card, #fffdf8);
+
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.google-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 24px rgba(43, 33, 24, 0.12);
+}
+
+.google-btn:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.google-logo {
+  width: 18px;
+
+  height: 18px;
+
+  flex-shrink: 0;
+}
+
+/* Nút Google chính thức (dự phòng) — căn giữa trong card */
+.google-fallback {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
 }
 
 .auth-switch {

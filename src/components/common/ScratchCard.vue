@@ -33,10 +33,10 @@
 
     <!-- FALLBACK: KHÔNG CÓ CANVAS / REDUCED MOTION -->
     <div v-else-if="!revealed" class="scratch-card__fallback">
-      <span class="scratch-card__hint"> CÀO ĐỂ NHẬN QUÀ </span>
+      <span class="scratch-card__hint"> {{ $t("CÀO ĐỂ NHẬN QUÀ") }} </span>
 
       <button type="button" class="scratch-card__button" @click="reveal">
-        Nhận quà
+        {{ $t("Nhận quà") }}
       </button>
     </div>
 
@@ -48,11 +48,11 @@
         class="scratch-card__claim"
         @click="$emit('win', prize)"
       >
-        Nhận quà
+        {{ $t("Nhận quà") }}
       </button>
 
       <button v-else type="button" class="scratch-card__again" @click="reset">
-        Cào lại
+        {{ $t("Cào lại") }}
       </button>
     </div>
   </div>
@@ -62,7 +62,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 import { pickRandomPrize } from "@/data/gameData";
-
+import { t } from "@/lang";
 const props = defineProps({
   /*
    * Danh sách quà [{ Title, Description }] (chế độ quà) —
@@ -189,7 +189,7 @@ function drawCover() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  ctx.fillText("CÀO ĐỂ NHẬN QUÀ", rect.width / 2, rect.height / 2);
+  ctx.fillText(t("CÀO ĐỂ NHẬN QUÀ"), rect.width / 2, rect.height / 2);
 }
 
 function startScratch(event) {

@@ -16,14 +16,13 @@
       @click="stop(true)"
     >
       <span class="auto-scroll-hint__dot" aria-hidden="true"></span>
-      Đang tự cuộn · chạm để dừng
+      {{ $t("Đang tự cuộn · chạm để dừng") }}
     </button>
   </Transition>
 </template>
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
-
 const props = defineProps({
   wedding: { type: Object, default: null },
 });

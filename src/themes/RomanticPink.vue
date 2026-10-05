@@ -116,7 +116,7 @@ import Timeline from "@/page/RomanticPink/Timeline.vue";
 import WeddingGifts from "@/page/RomanticPink/WeddingGifts.vue";
 import WeddingWishes from "@/page/RomanticPink/WeddingWishes.vue";
 import WeddingFooter from "@/page/RomanticPink/WeddingFooter.vue";
-
+import { t } from "@/lang";
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
 
 /* Tiêu đề mục người dùng sửa ở panel "Tiêu đề mục" */
@@ -180,7 +180,7 @@ const guestName = computed(
       ? wedding.value.recipientName[0]?.Name
       : wedding.value?.recipientName?.Name) ||
     wedding.value?.guestName ||
-    "Quý khách"
+    t("Quý khách")
 );
 const showHero = computed(() => settings.value.ShowHero !== false);
 const showCouple = computed(() => settings.value.ShowCouple !== false);

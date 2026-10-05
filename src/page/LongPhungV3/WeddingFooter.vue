@@ -39,7 +39,7 @@ import { computed } from "vue";
 import chuHy from "@/assets/decor/longphung-v3/chu-hy.webp";
 import phung from "@/assets/decor/longphung-v3/phung.webp";
 import rong from "@/assets/decor/longphung-v3/rong.webp";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G&B" },
@@ -74,7 +74,7 @@ const thanksMessage = computed(() => {
   return (
     wedding.value?.footer?.Message ||
     wedding.value?.thankYouNote ||
-    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    t("Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!")
   );
 });
 

@@ -9,25 +9,30 @@ export default defineConfig({
   // ==========================================
   server: {
     proxy: {
-      // '/api': {
-      //   target: 'http://localhost:51763',
-      //   changeOrigin: true,
-      //   secure: false,
-      //   rewrite: (path) => path
-      // },
       '/api': {
-        target: 'http://apiwedding.somee.com',
+        target: 'http://localhost:51763',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path
       },
+      // '/api': {
+      //   target: 'http://apiwedding.somee.com',
+      //   changeOrigin: true,
+      //   secure: false,
+      //   rewrite: (path) => path
+      // },
 
       // Ảnh / nhạc upload lên server API
       '/Uploads': {
-        target: 'http://apiwedding.somee.com',
+        target: 'http://localhost:51763',
         changeOrigin: true,
         secure: false
       }
+      // '/Uploads': {
+      //   target: 'http://apiwedding.somee.com',
+      //   changeOrigin: true,
+      //   secure: false
+      // }
     },
 
     client: {

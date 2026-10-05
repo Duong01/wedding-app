@@ -30,9 +30,9 @@
         <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="tdx-heading">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+      <h2 class="tdx-heading">{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh")) }}</h2>
 
-      <p class="tdx-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình") }}</p>
+      <p class="tdx-gallery__intro">{{ sectionText(sections, "gallery", "Intro", $t("Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình")) }}</p>
     </div>
 
     <GalleryShowcase
@@ -48,7 +48,7 @@
 
     <div v-else class="tdx-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -68,7 +68,6 @@ import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
 
 import { flowerDecoration, lineDecoration } from "./toDuyenXanhAssets";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

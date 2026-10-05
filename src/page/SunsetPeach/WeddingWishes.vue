@@ -6,11 +6,11 @@
       <span></span>
     </div>
 
-    <p class="sp-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", "LỜI CHÚC TỪ BẠN") }}</p>
+    <p class="sp-eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", $t("LỜI CHÚC TỪ BẠN")) }}</p>
 
-    <h2>{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    <h2>{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
 
-    <p class="sp-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
+    <p class="sp-wishes__intro">{{ sectionText(sections, "guestbook", "Intro", $t("Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này")) }}</p>
 
     <!-- =========================================
          WISH FORM
@@ -21,14 +21,14 @@
 
       <div class="sp-form-title">
         <v-icon size="18">mdi-feather</v-icon>
-        <span>Gửi lời yêu thương</span>
+        <span>{{ $t("Gửi lời yêu thương") }}</span>
       </div>
 
       <!-- MARQUEE -->
       <div v-if="items.length" class="sp-wish-marquee">
         <div class="sp-marquee-label">
           <v-icon size="13">mdi-heart</v-icon>
-          <span>LỜI CHÚC</span>
+          <span>{{ $t("LỜI CHÚC") }}</span>
         </div>
 
         <div class="sp-marquee-window">
@@ -70,7 +70,7 @@
 
       <form @submit.prevent="submitWish">
         <div class="sp-input-group">
-          <label>TÊN CỦA BẠN</label>
+          <label>{{ $t("TÊN CỦA BẠN") }}</label>
 
           <div class="sp-input-wrap">
             <v-icon size="17">mdi-account-outline</v-icon>
@@ -79,13 +79,13 @@
               v-model.trim="form.name"
               type="text"
               maxlength="60"
-              placeholder="Nhập tên của bạn"
+              :placeholder="$t('Nhập tên của bạn')"
             />
           </div>
         </div>
 
         <div class="sp-input-group">
-          <label>LỜI CHÚC</label>
+          <label>{{ $t("LỜI CHÚC") }}</label>
 
           <div class="sp-textarea-wrap">
             <v-icon size="17">mdi-heart-outline</v-icon>
@@ -93,7 +93,7 @@
             <textarea
               v-model.trim="form.message"
               maxlength="500"
-              placeholder="Viết lời chúc dành cho cô dâu & chú rể..."
+              :placeholder="$t('Viết lời chúc dành cho cô dâu & chú rể...')"
             ></textarea>
           </div>
 
@@ -101,7 +101,7 @@
         </div>
 
         <button type="submit" class="sp-wish-submit" :disabled="!canSubmit || submitting">
-          <span>{{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}</span>
+          <span>{{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}</span>
 
           <v-icon size="15">mdi-heart-outline</v-icon>
         </button>
@@ -116,9 +116,9 @@
         <v-icon size="27">mdi-flower-outline</v-icon>
       </div>
 
-      <p>Chưa có lời chúc nào</p>
+      <p>{{ $t("Chưa có lời chúc nào") }}</p>
 
-      <span>Hãy là người đầu tiên gửi lời yêu thương</span>
+      <span>{{ $t("Hãy là người đầu tiên gửi lời yêu thương") }}</span>
     </div>
 
     <!-- =========================================
@@ -181,7 +181,7 @@ import { sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: { type: Array, default: () => [] },
@@ -212,11 +212,11 @@ const canSubmit = computed(() => {
 });
 
 function getName(wish) {
-  return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+  return wish?.Name || wish?.GuestName || wish?.FullName || t("Khách mời");
 }
 
 function getMessage(wish) {
-  return wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương";
+  return wish?.Message || wish?.Content || wish?.Wish || t("Một lời chúc yêu thương");
 }
 
 function formatTime(dateString) {
@@ -228,7 +228,7 @@ function formatTime(dateString) {
     return dateString;
   }
 
-  return date.toLocaleDateString("vi-VN", {
+  return date.toLocaleDateString(localeTag(), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -269,12 +269,12 @@ if(route.params.slug  && route.name === "WeddingByApi") {
 
 async function submitWish() {
   if (!form.name || !form.name.trim()) {
-    alert("Vui lòng nhập tên của bạn");
+    alert(t("Vui lòng nhập tên của bạn"));
     return;
   }
 
   if (!form.message || !form.message.trim()) {
-    alert("Vui lòng nhập lời chúc");
+    alert(t("Vui lòng nhập lời chúc"));
     return;
   }
 
@@ -298,21 +298,21 @@ async function submitWish() {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      alert("Gửi lời chúc thành công ❤️");
+      alert(t("Gửi lời chúc thành công ❤️"));
 
       form.name = "";
       form.message = "";
 
       await loadWishes();
     } else {
-      alert(result?.message || "Không thể gửi lời chúc.");
+      alert(result?.message || t("Không thể gửi lời chúc."));
     }
   } catch (error) {
     console.error(error);
 
     alert(
       error?.response?.data?.message ||
-        "Có lỗi xảy ra, vui lòng thử lại."
+        t("Có lỗi xảy ra, vui lòng thử lại.")
     );
   } finally {
     submitting.value = false;

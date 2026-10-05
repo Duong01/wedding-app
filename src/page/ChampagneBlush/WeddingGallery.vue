@@ -3,7 +3,7 @@
     <div class="cb-gallery__heading">
       <span class="cb-gallery__kicker">{{ sectionText(sections, "gallery", "Eyebrow", "MEMORIES") }}</span>
 
-      <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+      <h2>{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh Cưới")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="cb-custom-head">
         <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="cb-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
@@ -17,8 +17,8 @@
       </div>
 
       <p class="cb-gallery__intro">
-        Những khoảnh khắc đẹp nhất<br />
-        được lưu giữ cùng chúng mình
+        {{ $t("Những khoảnh khắc đẹp nhất") }}<br />
+        {{ $t("được lưu giữ cùng chúng mình") }}
       </p>
     </div>
 
@@ -33,7 +33,7 @@
 
     <div v-else class="cb-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -51,7 +51,6 @@ import { ref, defineAsyncComponent } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

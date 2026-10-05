@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "events", "Heading", "Thông tin tiệc cưới") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "events", "Heading", $t("Thông tin tiệc cưới")) }}</h2>
 
       <p class="cr-heading__zh">婚宴資訊</p>
 
@@ -32,7 +32,7 @@
         class="cr-event reveal"
         :style="{ '--delay': `${index * 120}ms` }"
       >
-        <h3 class="cr-event__title">{{ event.Title || "TIỆC CƯỚI" }}</h3>
+        <h3 class="cr-event__title">{{ event.Title || $t("TIỆC CƯỚI") }}</h3>
 
         <div class="cr-event__ornament" aria-hidden="true">
           <span></span>
@@ -46,14 +46,14 @@
 
           <div class="cr-event__date-main">
             <div class="cr-date-side">
-              <span>THÁNG</span>
+              <span>{{ $t("THÁNG") }}</span>
               <strong>{{ event.month }}</strong>
             </div>
 
             <div class="cr-event__day">{{ event.day }}</div>
 
             <div class="cr-date-side">
-              <span>NĂM</span>
+              <span>{{ $t("NĂM") }}</span>
               <strong>{{ event.year }}</strong>
             </div>
           </div>
@@ -63,7 +63,7 @@
 
         <!-- GIỜ -->
         <div v-if="event.time" class="cr-event__time">
-          <span>THỜI GIAN</span>
+          <span>{{ $t("THỜI GIAN") }}</span>
           <strong>{{ event.time }}</strong>
         </div>
 
@@ -73,7 +73,7 @@
             <span class="cr-schedule-row__dot" aria-hidden="true">❀</span>
 
             <div>
-              <span>ĐÓN KHÁCH</span>
+              <span>{{ $t("ĐÓN KHÁCH") }}</span>
               <strong>{{ event.receptionTime }}</strong>
             </div>
           </div>
@@ -82,7 +82,7 @@
             <span class="cr-schedule-row__dot" aria-hidden="true">❀</span>
 
             <div>
-              <span>KHAI TIỆC</span>
+              <span>{{ $t("KHAI TIỆC") }}</span>
               <strong>{{ event.ceremonyTime }}</strong>
             </div>
           </div>
@@ -90,7 +90,7 @@
 
         <!-- ĐỊA ĐIỂM -->
         <div v-if="event.location || event.address" class="cr-event__place">
-          <span class="cr-event__place-label">ĐỊA ĐIỂM</span>
+          <span class="cr-event__place-label">{{ $t("ĐỊA ĐIỂM") }}</span>
 
           <p v-if="event.location" class="cr-event__place-name">{{ event.location }}</p>
 
@@ -100,7 +100,7 @@
         <!-- LỊCH -->
         <div v-if="index === 0 && event.date && event.calendarDays?.length" class="cr-calendar">
           <div class="cr-calendar__header">
-            <span>LỊCH</span>
+            <span>{{ $t("LỊCH") }}</span>
             <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
           </div>
 
@@ -144,13 +144,13 @@
             rel="noopener noreferrer"
             class="cr-calendar__btn"
           >
-            ＋ THÊM VÀO LỊCH
+            {{ $t("＋ THÊM VÀO LỊCH") }}
           </a>
         </div>
 
         <!-- XÁC NHẬN -->
         <button type="button" class="cr-rsvp-btn" @click="openConfirmModal(event)">
-          XÁC NHẬN THAM DỰ
+          {{ $t("XÁC NHẬN THAM DỰ") }}
         </button>
       <EventMap v-if="index === 0 && showMap" :event="event" />
       </article>
@@ -164,7 +164,7 @@
       <Transition name="cr-modal">
         <div v-if="showConfirmModal" class="cr-confirm" @click.self="closeConfirmModal">
           <div class="cr-confirm__card">
-            <button type="button" class="cr-confirm__close" @click="closeConfirmModal">×</button>
+            <button type="button" class="cr-confirm__close" @click="closeConfirmModal">{{ "×" }}</button>
 
             <img
               :src="doubleHappiness"
@@ -173,30 +173,30 @@
               draggable="false"
             />
 
-            <h3 class="cr-confirm__title">Xác nhận tham dự</h3>
+            <h3 class="cr-confirm__title">{{ $t("Xác nhận tham dự") }}</h3>
 
             <p class="cr-confirm__desc">
-              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+              {{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}
             </p>
 
             <div v-if="hasRecipient" class="cr-confirm__recipient">
-              <span>TRÂN TRỌNG KÍNH MỜI</span>
+              <span>{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
             <div v-else class="cr-field">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
                 maxlength="100"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
               />
             </div>
 
             <div class="cr-field">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="cr-attendance">
                 <button
@@ -205,7 +205,7 @@
                   :class="{ 'is-selected': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -214,13 +214,13 @@
                   :class="{ 'is-selected': form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  Rất tiếc, tôi không thể tham dự
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
 
             <div v-if="form.attendance === 'attending'" class="cr-field">
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="cr-people-control">
                 <button type="button" @click="decreasePeople">−</button>
@@ -238,7 +238,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -257,6 +257,7 @@ import { Confirm } from "@/model/api";
 import EventMap from "@/components/common/EventMap.vue";
 
 import { decorativeDiamond, doubleHappiness } from "./emeraldLuxeAssets";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -322,16 +323,16 @@ const normalizedEvents = computed(() => {
       year = date.format("YYYY");
 
       const weekdays = [
-        "CHỦ NHẬT",
-        "THỨ HAI",
-        "THỨ BA",
-        "THỨ TƯ",
-        "THỨ NĂM",
-        "THỨ SÁU",
-        "THỨ BẢY",
+        t("CHỦ NHẬT"),
+        t("THỨ HAI"),
+        t("THỨ BA"),
+        t("THỨ TƯ"),
+        t("THỨ NĂM"),
+        t("THỨ SÁU"),
+        t("THỨ BẢY"),
       ];
 
-      weekday = weekdays[date.day()];
+      weekday = t(weekdays[date.day()]);
     }
 
     const calendarDays =
@@ -446,12 +447,12 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!hasRecipient.value && !form.value.name) {
-    errorMessage.value = "Vui lòng nhập họ và tên.";
+    errorMessage.value = t("Vui lòng nhập họ và tên.");
     return;
   }
 
   if (!form.value.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
     return;
   }
 
@@ -469,7 +470,7 @@ async function submitConfirmation() {
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
       Attendance:
-        form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+        form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
       NumberOfPeople:
         form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
@@ -479,10 +480,10 @@ async function submitConfirmation() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể gửi xác nhận.");
+      throw new Error(result?.message || t("Không thể gửi xác nhận."));
     }
 
-    successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    successMessage.value = t("Cảm ơn bạn đã xác nhận tham dự ❤️");
 
     setTimeout(() => {
       closeConfirmModal();
@@ -491,7 +492,7 @@ async function submitConfirmation() {
     errorMessage.value =
       error?.response?.data?.message ||
       error?.message ||
-      "Có lỗi xảy ra. Vui lòng thử lại.";
+      t("Có lỗi xảy ra. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

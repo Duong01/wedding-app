@@ -17,7 +17,7 @@
 import { computed } from "vue";
 
 import { BRAND } from "@/data/siteContent";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -32,7 +32,7 @@ const props = defineProps({
 const thanksMessage = computed(
   () =>
     props.wedding?.footer?.Message ||
-    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    t("Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!")
 );
 </script>
 

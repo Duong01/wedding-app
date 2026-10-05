@@ -23,7 +23,7 @@
           </Transition>
         </div>
 
-        <span>NGÀY</span>
+        <span>{{ $t("NGÀY") }}</span>
       </div>
 
 
@@ -40,7 +40,7 @@
           </Transition>
         </div>
 
-        <span>GIỜ</span>
+        <span>{{ $t("GIỜ") }}</span>
       </div>
 
 
@@ -57,7 +57,7 @@
           </Transition>
         </div>
 
-        <span>PHÚT</span>
+        <span>{{ $t("PHÚT") }}</span>
       </div>
 
 
@@ -74,7 +74,7 @@
           </Transition>
         </div>
 
-        <span>GIÂY</span>
+        <span>{{ $t("GIÂY") }}</span>
       </div>
 
     </div>
@@ -87,8 +87,6 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
 const props = defineProps({
   countdown: {
     type: [Object, String],
@@ -105,7 +103,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 /* =========================================================
    TIÊU ĐỀ MỤC

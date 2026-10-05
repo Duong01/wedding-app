@@ -39,7 +39,7 @@
 
 
     <p v-else class="rr-gallery__empty">
-      Chưa có hình ảnh
+      {{ $t("Chưa có hình ảnh") }}
     </p>
 
 
@@ -65,8 +65,7 @@ import { galleryLayoutFor } from "@/data/galleryLayouts";
 import { computed, defineAsyncComponent, ref } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
+import { t } from "@/lang";
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
@@ -90,14 +89,12 @@ const props = defineProps({
   },
 });
 
-
-
 /* =====================================================
    TIÊU ĐỀ MỤC
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "gallery", "Heading", "Album Ảnh")
+  sectionText(props.sections, "gallery", "Heading", t("Album Ảnh"))
 );
 
 

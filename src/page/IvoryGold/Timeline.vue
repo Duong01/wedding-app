@@ -5,11 +5,11 @@
     <div class="timeline-heading">
 
       <span class="heading-kicker">
-        {{ sectionText(sections, "timeline", "Eyebrow", "NGÀY TRỌNG ĐẠI") }}
+        {{ sectionText(sections, "timeline", "Eyebrow", $t("NGÀY TRỌNG ĐẠI")) }}
       </span>
 
       <h2>
-        {{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}
+        {{ sectionText(sections, "timeline", "Heading", $t("LỊCH TRÌNH NGÀY CƯỚI")) }}
       </h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="ig-sub-custom-head">
@@ -24,7 +24,7 @@
       </div>
 
       <p>
-        Những khoảnh khắc đặc biệt trong ngày vui của chúng mình
+        {{ $t("Những khoảnh khắc đặc biệt trong ngày vui của chúng mình") }}
       </p>
 
     </div>
@@ -97,7 +97,7 @@
       v-else
       class="timeline-empty"
     >
-      Chưa có lịch trình.
+      {{ $t("Chưa có lịch trình.") }}
     </div>
 
 
@@ -118,7 +118,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: {
@@ -131,7 +131,6 @@ const props = defineProps({
     default: () => [],
   },
 });
-
 
 /*
  * Có thể truyền:
@@ -166,7 +165,7 @@ const items = computed(() => {
           data.Title ||
           data.Name ||
           data.TypeLabel ||
-          "Lịch trình",
+          t("Lịch trình"),
 
         Description:
           data.Description ||

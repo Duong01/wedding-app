@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="tr-gift__title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <h2 class="tr-gift__title">{{ sectionText(sections, "gifts", "Heading", $t("Hộp Quà Mừng")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="tr-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="tr-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
@@ -19,7 +19,7 @@
     <button
       type="button"
       class="tr-gift__envelope"
-      aria-label="Mở hộp mừng cưới"
+      :aria-label="$t('Mở hộp mừng cưới')"
       @click="openGift"
     >
       <span class="tr-gift__sparkle tr-gift__sparkle--1" aria-hidden="true">✦</span>
@@ -45,7 +45,7 @@
         />
       </span>
 
-      <span class="tr-gift__hint">Nhấn để mở</span>
+      <span class="tr-gift__hint">{{ $t("Nhấn để mở") }}</span>
     </button>
 
     <!-- =====================================================
@@ -58,17 +58,17 @@
         class="tr-gift__modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Hộp quà mừng"
+        :aria-label="$t('Hộp quà mừng')"
         @click.self="closeGift"
       >
         <div class="tr-gift__box">
           <header class="tr-gift__box-head">
-            <h2>Hộp Quà Mừng</h2>
+            <h2>{{ $t("Hộp Quà Mừng") }}</h2>
 
             <button
               type="button"
               class="tr-gift__box-close"
-              aria-label="Đóng"
+              :aria-label="$t('Đóng')"
               @click="closeGift"
             >
               ✕
@@ -77,7 +77,7 @@
 
           <div class="tr-gift__box-body">
             <div v-if="!gifts.length" class="tr-gift__empty">
-              Chưa có thông tin mừng cưới.
+              {{ $t("Chưa có thông tin mừng cưới.") }}
             </div>
 
             <div v-else class="tr-gift__cards">
@@ -87,7 +87,7 @@
                 class="tr-gift__card"
               >
                 <h3 class="tr-gift__card-name">
-                  {{ gift.Name || gift.AccountName || "Mừng cưới" }}
+                  {{ gift.Name || gift.AccountName || $t("Mừng cưới") }}
                 </h3>
 
                 <div v-if="gift.QrCode" class="tr-gift__qr">
@@ -127,7 +127,7 @@
                       ></path>
                     </svg>
 
-                    Lưu QR
+                    {{ $t("Lưu QR") }}
                   </button>
 
                   <button
@@ -136,7 +136,7 @@
                     class="tr-gift__action"
                     @click="copy(gift.AccountNumber)"
                   >
-                    Sao chép số tài khoản
+                    {{ $t("Sao chép số tài khoản") }}
                   </button>
                 </div>
 
@@ -157,7 +157,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { ref } from "vue";
 
 import { envelopeDragonPhoenix } from "./traditionalRedAssets";
-
+import { t } from "@/lang";
 defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: {
@@ -189,7 +189,7 @@ async function copy(value) {
   try {
     await navigator.clipboard.writeText(value);
 
-    alert("Đã sao chép số tài khoản");
+    alert(t("Đã sao chép số tài khoản"));
   } catch (error) {
     console.error(error);
   }

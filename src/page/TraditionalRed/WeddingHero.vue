@@ -5,7 +5,7 @@
     ====================================================== -->
 
     <div class="tr-hero__band">
-      <img :src="chuHy" alt="Chữ Hỷ" class="tr-hero__band-mark" />
+      <img :src="chuHy" :alt="$t('Chữ Hỷ')" class="tr-hero__band-mark" />
     </div>
 
     <!-- =====================================================
@@ -27,11 +27,11 @@
         ref="phuongRef"
         class="tr-hero__pair-item tr-hero__pair-item--phuong"
       >
-        <img :src="phuong" alt="Phượng" />
+        <img :src="phuong" :alt="$t('Phượng')" />
       </div>
 
       <div ref="rongRef" class="tr-hero__pair-item tr-hero__pair-item--rong">
-        <img :src="rong" alt="Rồng" />
+        <img :src="rong" :alt="$t('Rồng')" />
       </div>
     </div>
   </header>
@@ -41,7 +41,7 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 
 import { chuHy, phuong, rong } from "./traditionalRedAssets";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -55,7 +55,7 @@ const groomShort = computed(
     props.wedding?.groomName ||
     props.wedding?.hero?.GroomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Chú rể"
+    t("Chú rể")
 );
 
 const brideShort = computed(
@@ -64,7 +64,7 @@ const brideShort = computed(
     props.wedding?.brideName ||
     props.wedding?.hero?.BrideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Cô dâu"
+    t("Cô dâu")
 );
 
 /* =========================================================

@@ -7,18 +7,18 @@
         <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "couple", "Heading", "TRÂN TRỌNG BÁO TIN") }}</h2>
+      <h2>{{ sectionText(sections, "couple", "Heading", $t("TRÂN TRỌNG BÁO TIN")) }}</h2>
     </div>
 
     <p class="lp-couple__announce">
-      LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+      {{ $t("LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
     </p>
 
     <!-- Gia đình hai bên: 1fr | divider | 1fr -->
     <div class="lp-family">
       <!-- NHÀ CHÚ RỂ -->
       <div class="lp-family__side">
-        <p class="lp-family__parent-title">NHÀ GÁI</p>
+        <p class="lp-family__parent-title">{{ $t("NHÀ GÁI") }}</p>
 
         <p class="lp-family__parent">Ông {{ groomParents?.Father || "—" }}</p>
         <p class="lp-family__parent">Bà {{ groomParents?.Mother || "—" }}</p>
@@ -34,7 +34,7 @@
 
       <!-- NHÀ TRAI -->
       <div class="lp-family__side">
-        <p class="lp-family__parent-title">NHÀ TRAI</p>
+        <p class="lp-family__parent-title">{{ $t("NHÀ TRAI") }}</p>
 
         <p class="lp-family__parent">Ông {{ brideParents?.Father || "—" }}</p>
         <p class="lp-family__parent">Bà {{ brideParents?.Mother || "—" }}</p>
@@ -75,7 +75,7 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
-
+import { localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -184,7 +184,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", hour12: false });
+      return date.toLocaleTimeString(localeTag(), { hour: "2-digit", minute: "2-digit", hour12: false });
     }
   }
 

@@ -96,6 +96,7 @@ export const uploadMedia = (file, success, error) => {
 ====================== */
 
 export const Login = (param, success, error) => {return https.Post(`/AccountApi/Login`, param, success, error);};
+export const GoogleLogin = (param, success, error) => {return https.Post(`/AccountApi/GoogleLogin`, param, success, error);};
 export const RegisterAccount = (param, success, error) => {return https.Post(`/AccountApi/Register`, param, success, error);};
 export const CheckSession = (success, error) => {return https.Get(`/AccountApi/CheckSession`, {}, success, error);};
 export const LogOut = (success, error) => {return https.Post(`/AccountApi/LogOut`, {}, success, error);};

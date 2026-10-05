@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="bq-countdown__title">{{ sectionText(sections, "countdown", "Heading", "CÙNG ĐẾM NGƯỢC") }}</h2>
+    <h2 class="bq-countdown__title">{{ sectionText(sections, "countdown", "Heading", $t("CÙNG ĐẾM NGƯỢC")) }}</h2>
 
     <p class="bq-countdown__value">
       {{ values[0].value }} ngày {{ values[1].value }} giờ
@@ -18,7 +18,7 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
@@ -45,10 +45,10 @@ const values = computed(() => {
   const seconds = Math.max(0, dayjs(target.value).diff(dayjs(now.value), "second"));
 
   return [
-    ["NGÀY", Math.floor(seconds / 86400)],
-    ["GIỜ", Math.floor((seconds % 86400) / 3600)],
-    ["PHÚT", Math.floor((seconds % 3600) / 60)],
-    ["GIÂY", seconds % 60],
+    [t("NGÀY"), Math.floor(seconds / 86400)],
+    [t("GIỜ"), Math.floor((seconds % 86400) / 3600)],
+    [t("PHÚT"), Math.floor((seconds % 3600) / 60)],
+    [t("GIÂY"), seconds % 60],
   ].map(([label, value]) => ({
     label,
     value: String(value).padStart(2, "0"),

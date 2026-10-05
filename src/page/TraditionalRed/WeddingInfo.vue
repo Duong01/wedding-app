@@ -9,11 +9,11 @@
       <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="tr-info__title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+    <h2 class="tr-info__title">{{ sectionText(sections, "couple", "Heading", $t("Thông tin lễ cưới")) }}</h2>
 
     <div class="tr-info__families">
       <div class="tr-info__family">
-        <span class="tr-info__family-label">Ông Bà</span>
+        <span class="tr-info__family-label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="groomFather" class="tr-info__family-name">
           {{ groomFather }}
@@ -31,7 +31,7 @@
       <span class="tr-info__family-divider" aria-hidden="true"></span>
 
       <div class="tr-info__family">
-        <span class="tr-info__family-label">Ông Bà</span>
+        <span class="tr-info__family-label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="brideFather" class="tr-info__family-name">
           {{ brideFather }}
@@ -48,7 +48,7 @@
     </div>
 
     <p class="tr-info__announce">
-      TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+      {{ $t("TRÂN TRỌNG BÁO TIN") }}<br />{{ $t("LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
     </p>
 
     <!-- ============ TÊN CÔ DÂU CHÚ RỂ ============ -->
@@ -73,7 +73,7 @@
 
     <div class="tr-info__when">
       <p class="tr-info__when-place">
-        LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />{{ ceremonyPlace }}
+        {{ $t("LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI") }}<br />{{ ceremonyPlace }}
       </p>
 
       <p v-if="ceremonyTime" class="tr-info__when-time">
@@ -102,7 +102,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {
@@ -120,7 +120,7 @@ const groomFull = computed(
     props.wedding?.GroomName ||
     props.wedding?.groomName ||
     props.wedding?.couple?.Groom?.Name ||
-    "Chú rể"
+    t("Chú rể")
 );
 
 const brideFull = computed(
@@ -128,7 +128,7 @@ const brideFull = computed(
     props.wedding?.BrideName ||
     props.wedding?.brideName ||
     props.wedding?.couple?.Bride?.Name ||
-    "Cô dâu"
+    t("Cô dâu")
 );
 
 const groomRole = computed(
@@ -183,7 +183,7 @@ const ceremonyPlace = computed(
     firstEvent.value?.Location ||
     firstEvent.value?.Address ||
     props.wedding?.hero?.Location ||
-    "TƯ GIA"
+    t("TƯ GIA")
 );
 
 const ceremonyTime = computed(() => {
@@ -229,7 +229,7 @@ const weekday = computed(() => {
     return String(firstEvent.value.Weekday).toUpperCase();
   }
 
-  return dateObject.value ? WEEKDAYS[dateObject.value.getDay()] : "";
+  return dateObject.value ? t(WEEKDAYS[dateObject.value.getDay()]) : "";
 });
 
 const day = computed(() => {
@@ -244,11 +244,11 @@ const day = computed(() => {
 
 const monthLabel = computed(() => {
   if (firstEvent.value?.Month) {
-    return `THÁNG ${String(firstEvent.value.Month).padStart(2, "0")}`;
+    return `${t("THÁNG ")}${String(firstEvent.value.Month).padStart(2, "0")}`;
   }
 
   return dateObject.value
-    ? `THÁNG ${String(dateObject.value.getMonth() + 1).padStart(2, "0")}`
+    ? `${t("THÁNG ")}${String(dateObject.value.getMonth() + 1).padStart(2, "0")}`
     : "";
 });
 

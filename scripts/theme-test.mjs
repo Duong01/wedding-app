@@ -446,6 +446,10 @@ try {
       app.use(createVuetify());
       app.use(router);
 
+      /* Theme dùng $t() cho chữ trên thiệp — thiếu i18n là văng. */
+      const { default: i18n } = await vite.ssrLoadModule("/src/lang/index.js");
+      app.use(i18n);
+
       await router.push("/");
       await router.isReady();
 

@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "story", "Heading", storyTitle || "Chuyện tình yêu") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "story", "Heading", storyTitle || $t("Chuyện tình yêu")) }}</h2>
 
       <p class="cr-heading__zh">愛情故事</p>
 
@@ -40,7 +40,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { decorativeFlowers } from "./emeraldLuxeAssets";
-
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>

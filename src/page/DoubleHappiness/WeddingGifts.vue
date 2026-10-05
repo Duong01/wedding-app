@@ -16,7 +16,7 @@
 
     <div class="dh-gifts__list">
       <article class="dh-gifts__item">
-        <button type="button" class="dh-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
+        <button type="button" class="dh-gift-btn" :aria-label="$t('Mở hộp mừng cưới')" @click="openGift">
           <div class="dh-gift-glow"></div>
 
           <div class="dh-gift-box">
@@ -31,7 +31,7 @@
           <div class="dh-gift-shadow"></div>
 
           <div class="dh-gift-hint">
-            <span>CHẠM ĐỂ MỞ</span>
+            <span>{{ $t("CHẠM ĐỂ MỞ") }}</span>
             <v-icon size="14">mdi-heart-outline</v-icon>
           </div>
         </button>
@@ -63,17 +63,16 @@
               <span></span>
             </div>
 
-            <button type="button" class="dh-gift-dialog__close" aria-label="Đóng hộp mừng cưới" @click="closeGift">
+            <button type="button" class="dh-gift-dialog__close" :aria-label="$t('Đóng hộp mừng cưới')" @click="closeGift">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
-            <div class="dh-gift-dialog__eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+            <div class="dh-gift-dialog__eyebrow">{{ $t("MỘT CHÚT YÊU THƯƠNG") }}</div>
 
-            <h3 id="dh-gift-dialog-title">Hộp mừng cưới</h3>
+            <h3 id="dh-gift-dialog-title">{{ $t("Hộp mừng cưới") }}</h3>
 
             <p class="dh-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể,
-              bạn có thể chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <div v-if="gifts.length" class="dh-account-grid">
@@ -98,7 +97,7 @@
                   v-if="item.QrCode"
                   type="button"
                   class="dh-qr-button"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
                   <div class="dh-qr-frame">
@@ -108,24 +107,24 @@
                     <div class="dh-qr-corner dh-qr-corner--br"></div>
 
                     <div class="dh-qr-inner">
-                      <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" class="dh-qr-code" />
+                      <img :src="item.QrCode" :alt="item.Name || $t('QR mừng cưới')" class="dh-qr-code" />
                     </div>
                   </div>
 
                   <div class="dh-qr-hint">
                     <v-icon size="12">mdi-magnify-plus-outline</v-icon>
 
-                    CHẠM VÀO QR ĐỂ XEM LỚN
+                    {{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}
                   </div>
                 </button>
 
                 <div class="dh-account-info">
                   <div class="dh-info-row">
                     <div class="dh-info-left">
-                      <span class="dh-info-label">CHỦ TÀI KHOẢN</span>
+                      <span class="dh-info-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                       <span class="dh-info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                        {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                       </span>
                     </div>
                   </div>
@@ -134,18 +133,18 @@
 
                   <div class="dh-info-row">
                     <div class="dh-info-left">
-                      <span class="dh-info-label">SỐ TÀI KHOẢN</span>
+                      <span class="dh-info-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                       <span class="dh-info-value dh-account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                        {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                       </span>
                     </div>
 
                     <button
                       type="button"
                       class="dh-copy-button"
-                      title="Sao chép số tài khoản"
-                      aria-label="Sao chép số tài khoản"
+                      :title="$t('Sao chép số tài khoản')"
+                      :aria-label="$t('Sao chép số tài khoản')"
                       @click="copyAccount(item)"
                     >
                       <v-icon size="14">mdi-content-copy</v-icon>
@@ -160,7 +159,7 @@
             </div>
 
             <div v-else class="dh-account-desc">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </div>
 
             <div class="dh-gift-dialog__footer">
@@ -180,19 +179,19 @@
           <div class="dh-qr-preview__backdrop" @click="closeQr"></div>
 
           <div class="dh-qr-preview__card">
-            <button type="button" class="dh-qr-preview__close" aria-label="Đóng QR" @click="closeQr">
+            <button type="button" class="dh-qr-preview__close" :aria-label="$t('Đóng QR')" @click="closeQr">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="dh-qr-preview__title">
-              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+              {{ previewQr.Name || $t("QR MỪNG CƯỚI") }}
             </div>
 
             <div class="dh-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+              <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
             </div>
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p>{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -203,7 +202,7 @@
             >
               <v-icon size="15">mdi-download</v-icon>
 
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -216,18 +215,18 @@
 import { computed, onBeforeUnmount, ref } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
+import { t } from "@/lang";
 const props = defineProps({
   gifts: { type: Array, default: () => [] },
   sections: { type: Object, default: () => ({}) },
 });
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG")
+  sectionText(props.sections, "gifts", "Eyebrow", t("GỬI YÊU THƯƠNG"))
 );
 
 const heading = computed(() =>
-  sectionText(props.sections, "gifts", "Heading", "Hộp mừng cưới")
+  sectionText(props.sections, "gifts", "Heading", t("Hộp mừng cưới"))
 );
 
 const intro = computed(() =>
@@ -235,7 +234,7 @@ const intro = computed(() =>
     props.sections,
     "gifts",
     "Intro",
-    "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình"
+    t("Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình")
   )
 );
 

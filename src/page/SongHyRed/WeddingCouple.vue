@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="shy-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shy-bar">{{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}</h2>
+    <h2 class="shy-bar">{{ sectionText(sections, "couple", "Heading", $t("THÔNG TIN LỄ CƯỚI")) }}</h2>
 
     <!-- =====================================================
          NỘI DUNG
@@ -19,7 +19,7 @@
       <!-- ÔNG BÀ HAI HỌ -->
       <div class="shy-parents">
         <div class="shy-parents__col">
-          <span class="shy-parents__label">Ông Bà</span>
+          <span class="shy-parents__label">{{ $t("Ông Bà") }}</span>
 
           <span v-if="groomFather" class="shy-parents__name">{{ groomFather }}</span>
 
@@ -31,7 +31,7 @@
         <div class="shy-parents__divider" aria-hidden="true"></div>
 
         <div class="shy-parents__col">
-          <span class="shy-parents__label">Ông Bà</span>
+          <span class="shy-parents__label">{{ $t("Ông Bà") }}</span>
 
           <span v-if="brideFather" class="shy-parents__name">{{ brideFather }}</span>
 
@@ -43,8 +43,7 @@
 
       <!-- BÁO TIN -->
       <p class="shy-couple__announce">
-        TRÂN TRỌNG BÁO TIN
-        LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+        {{ $t("TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
       </p>
 
       <!-- TÊN CÔ DÂU CHÚ RỂ -->
@@ -92,7 +91,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -118,11 +117,11 @@ const bride = computed(
 );
 
 const groomRole = computed(
-  () => props.wedding?.couple?.Groom?.Role || "ÚT NAM"
+  () => props.wedding?.couple?.Groom?.Role || t("ÚT NAM")
 );
 
 const brideRole = computed(
-  () => props.wedding?.couple?.Bride?.Role || "ÚT NỮ"
+  () => props.wedding?.couple?.Bride?.Role || t("ÚT NỮ")
 );
 
 const groomFather = computed(() => props.wedding?.couple?.Groom?.Father || "");
@@ -137,7 +136,7 @@ const ceremonyPlace = computed(
   () =>
     props.wedding?.events?.[0]?.Location ||
     props.wedding?.hero?.Location ||
-    "TƯ GIA"
+    t("TƯ GIA")
 );
 
 const weddingDate = computed(
@@ -178,16 +177,16 @@ const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(
@@ -224,7 +223,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

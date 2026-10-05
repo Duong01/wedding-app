@@ -11,14 +11,14 @@
         <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng cưới") }}</h2>
+      <h2>{{ sectionText(sections, "gifts", "Heading", $t("Hộp quà mừng cưới")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ds-sub-custom-head">
         <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="ds-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
       </header>
 
       <p>
-        Sự hiện diện của bạn đã là món quà quý giá nhất.
+        {{ $t("Sự hiện diện của bạn đã là món quà quý giá nhất.") }}
       </p>
     </div>
 
@@ -34,14 +34,14 @@
         </div>
 
         <h3>
-          {{ gift.name || gift.Name || gift.title || "Mừng cưới" }}
+          {{ gift.name || gift.Name || gift.title || $t("Mừng cưới") }}
         </h3>
 
         <button
           v-if="giftQr(gift)"
           type="button"
           class="qr-button"
-          aria-label="Xem QR lớn"
+          :aria-label="$t('Xem QR lớn')"
           @click="openQr(gift)"
         >
           <div class="qr-placeholder">
@@ -49,7 +49,7 @@
           </div>
 
           <div class="qr-hint">
-            <span>◈</span> CHẠM ĐỂ XEM QR LỚN
+            <span>◈</span> {{ $t("CHẠM ĐỂ XEM QR LỚN") }}
           </div>
         </button>
 
@@ -70,7 +70,7 @@
             v-if="gift.accountNumber || gift.AccountNumber || gift.number"
             type="button"
             class="copy-button"
-            aria-label="Sao chép số tài khoản"
+            :aria-label="$t('Sao chép số tài khoản')"
             @click="copyAccount(gift)"
           >
             <v-icon size="14">mdi-content-copy</v-icon>
@@ -88,19 +88,19 @@
           <div class="qr-preview__backdrop" @click="closeQr"></div>
 
           <div class="qr-preview__card">
-            <button type="button" class="qr-preview__close" aria-label="Đóng QR" @click="closeQr">
+            <button type="button" class="qr-preview__close" :aria-label="$t('Đóng QR')" @click="closeQr">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="qr-preview__title">
-              {{ previewQr.name || previewQr.Name || "QR MỪNG CƯỚI" }}
+              {{ previewQr.name || previewQr.Name || $t("QR MỪNG CƯỚI") }}
             </div>
 
             <div class="qr-preview__image">
-              <img :src="previewQrSrc" alt="QR mừng cưới" />
+              <img :src="previewQrSrc" :alt="$t('QR mừng cưới')" />
             </div>
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p>{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQrSrc"
@@ -111,7 +111,7 @@
             >
               <v-icon size="15">mdi-download</v-icon>
 
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -123,7 +123,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onBeforeUnmount, ref } from "vue";
-
+import { t } from "@/lang";
 defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: {
@@ -166,11 +166,11 @@ async function copyAccount(gift) {
   try {
     await navigator.clipboard.writeText(String(number));
 
-    copyState.value = "Đã sao chép số tài khoản ✓";
+    copyState.value = t("Đã sao chép số tài khoản ✓");
   } catch (error) {
     console.warn("Không thể sao chép số tài khoản", error);
 
-    copyState.value = "Không thể sao chép, vui lòng chép thủ công";
+    copyState.value = t("Không thể sao chép, vui lòng chép thủ công");
   }
 
   window.clearTimeout(copyTimer);

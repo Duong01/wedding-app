@@ -3,11 +3,11 @@
     <!-- =========================
          HEADER
     ========================== -->
-    <div class="gg-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG") }}</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", $t("GỬI YÊU THƯƠNG")) }}</div>
 
-    <h2 class="gg-title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "gifts", "Heading", $t("Hộp Quà Mừng")) }}</h2>
 
-    <p class="gg-lead">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình") }}</p>
+    <p class="gg-lead">{{ sectionText(sections, "gifts", "Intro", $t("Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình")) }}</p>
 
     <!-- =========================
          GIFT BOX
@@ -16,7 +16,7 @@
       <button
         type="button"
         class="gift-box-button"
-        aria-label="Mở hộp mừng cưới"
+        :aria-label="$t('Mở hộp mừng cưới')"
         @click="openGift"
       >
         <!-- Lấp lánh -->
@@ -36,14 +36,14 @@
 
         <!-- Hộp quà -->
         <span class="gift-bob">
-          <img :src="gift" alt="Hộp mừng cưới" loading="lazy" decoding="async" />
+          <img :src="gift" :alt="$t('Hộp mừng cưới')" loading="lazy" decoding="async" />
         </span>
 
         <!-- Bóng đổ -->
         <span class="gift-shadow"></span>
       </button>
 
-      <p class="gift-hint">CHẠM ĐỂ MỞ</p>
+      <p class="gift-hint">{{ $t("CHẠM ĐỂ MỞ") }}</p>
     </div>
 
     <!-- =====================================================
@@ -63,19 +63,18 @@
             <button
               type="button"
               class="dialog-close"
-              aria-label="Đóng hộp mừng cưới"
+              :aria-label="$t('Đóng hộp mừng cưới')"
               @click="closeGift"
             >
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
-            <div class="dialog-eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+            <div class="dialog-eyebrow">{{ $t("MỘT CHÚT YÊU THƯƠNG") }}</div>
 
-            <h3 id="gift-dialog-title">Hộp Quà Mừng</h3>
+            <h3 id="gift-dialog-title">{{ $t("Hộp Quà Mừng") }}</h3>
 
             <p class="dialog-description">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có
-              thể chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <!-- =================================================
@@ -104,42 +103,42 @@
                   v-if="item.QrCode"
                   type="button"
                   class="qr-button"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
                   <img
                     :src="item.QrCode"
-                    :alt="item.Name || 'QR mừng cưới'"
+                    :alt="item.Name || $t('QR mừng cưới')"
                     class="qr-code"
                   />
 
-                  <span class="qr-hint">CHẠM VÀO QR ĐỂ XEM LỚN</span>
+                  <span class="qr-hint">{{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}</span>
                 </button>
 
                 <!-- Account information -->
                 <div class="account-info">
                   <div class="info-row">
-                    <span class="info-label">CHỦ TÀI KHOẢN</span>
+                    <span class="info-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                     <span class="info-value">
-                      {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                      {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                     </span>
                   </div>
 
                   <div class="info-divider"></div>
 
                   <div class="info-row">
-                    <span class="info-label">SỐ TÀI KHOẢN</span>
+                    <span class="info-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                     <span class="info-value account-number">
-                      {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                      {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                     </span>
 
                     <button
                       type="button"
                       class="copy-button"
-                      title="Sao chép số tài khoản"
-                      aria-label="Sao chép số tài khoản"
+                      :title="$t('Sao chép số tài khoản')"
+                      :aria-label="$t('Sao chép số tài khoản')"
                       @click="copyAccount(item)"
                     >
                       <v-icon size="14">mdi-content-copy</v-icon>
@@ -154,7 +153,7 @@
             </div>
 
             <div v-else class="account-description">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </div>
           </div>
         </div>
@@ -171,7 +170,7 @@
             <button
               type="button"
               class="qr-preview-close"
-              aria-label="Đóng QR"
+              :aria-label="$t('Đóng QR')"
               @click="closeQr"
             >
               <v-icon size="18">mdi-close</v-icon>
@@ -179,10 +178,10 @@
 
             <img
               :src="previewQr.QrCode"
-              :alt="previewQr.Name || 'QR mừng cưới'"
+              :alt="previewQr.Name || $t('QR mừng cưới')"
             />
 
-            <p>{{ previewQr.Name || previewQr.BankName || "QR mừng cưới" }}</p>
+            <p>{{ previewQr.Name || previewQr.BankName || $t("QR mừng cưới") }}</p>
           </div>
         </div>
       </Transition>
@@ -194,7 +193,6 @@
 import { sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 import gift from "@/assets/romatic-pink/gift.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: {

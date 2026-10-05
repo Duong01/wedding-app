@@ -1,11 +1,11 @@
 <template>
   <section class="mg-timeline">
     <div class="mg-timeline__header">
-      <p class="mg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</p>
+      <p class="mg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", $t("DẤU MỐC YÊU THƯƠNG")) }}</p>
 
-      <h2>{{ sectionText(sections, "timeline", "Heading", "Hành trình của chúng mình") }}</h2>
+      <h2>{{ sectionText(sections, "timeline", "Heading", $t("Hành trình của chúng mình")) }}</h2>
 
-      <p class="mg-timeline__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
+      <p class="mg-timeline__intro">{{ sectionText(sections, "timeline", "Intro", $t("Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay")) }}</p>
     </div>
 
     <ol class="mg-timeline__list">
@@ -30,7 +30,7 @@
           <div class="mg-timeline__title-row">
             <div class="mg-timeline__icon">{{ item.Icon || "✦" }}</div>
 
-            <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
+            <h3>{{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}</h3>
           </div>
 
           <p v-if="item.Description || item.Content" class="mg-timeline__desc">
@@ -56,7 +56,7 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
@@ -65,7 +65,7 @@ const props = defineProps({
 const items = computed(() => props.timeline || []);
 
 function formatTime(index) {
-  return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
+  return `${t("DẤU MỐC ")}${String(index + 1).padStart(2, "0")}`;
 }
 </script>
 

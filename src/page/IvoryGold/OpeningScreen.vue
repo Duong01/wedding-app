@@ -77,11 +77,11 @@
             <!-- TITLE -->
 
             <p class="red-card__kicker">
-              {{ sectionText(sections, "opening", "Kicker", "THIỆP MỜI") }}
+              {{ sectionText(sections, "opening", "Kicker", $t("THIỆP MỜI")) }}
             </p>
 
             <h1 class="red-card__title">
-              LỄ THÀNH HÔN
+              {{ $t("LỄ THÀNH HÔN") }}
             </h1>
 
 
@@ -99,7 +99,7 @@
             <!-- INVITATION -->
 
             <p class="red-card__invite">
-              {{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}
+              {{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}
             </p>
 
 
@@ -164,8 +164,8 @@
             <!-- MESSAGE -->
 
             <p class="red-card__message">
-              Sự hiện diện của Quý khách<br />
-              là niềm vinh hạnh của gia đình chúng tôi
+              {{ $t("Sự hiện diện của Quý khách") }}<br />
+              {{ $t("là niềm vinh hạnh của gia đình chúng tôi") }}
             </p>
 
 
@@ -245,7 +245,7 @@
         <span class="red-open-button__border">
 
           <span class="red-open-button__text">
-            MỞ THIỆP
+            {{ $t("MỞ THIỆP") }}
           </span>
 
           <span class="red-open-button__arrow">
@@ -271,7 +271,7 @@
       <span>✦</span>
 
       <small>
-        HÂN HẠNH ĐÓN TIẾP
+        {{ $t("HÂN HẠNH ĐÓN TIẾP") }}
       </small>
 
       <span>✦</span>
@@ -309,7 +309,6 @@ const props = defineProps({
   },
 
 });
-
 
 const emit = defineEmits([
   "open",

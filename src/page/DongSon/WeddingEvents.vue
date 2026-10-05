@@ -7,7 +7,7 @@
         <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "events", "Heading", "Ngày trọng đại") }}</h2>
+      <h2>{{ sectionText(sections, "events", "Heading", $t("Ngày trọng đại")) }}</h2>
       <div class="title-mark">✦</div>
     </div>
 
@@ -28,22 +28,22 @@
 
         <div class="event-content">
           <span class="event-type">
-            {{ event.type || event.Type || event.title || "LỄ CƯỚI" }}
+            {{ event.type || event.Type || event.title || $t("LỄ CƯỚI") }}
           </span>
 
           <h3>
-            {{ event.name || event.Name || event.title || "Lễ thành hôn" }}
+            {{ event.name || event.Name || event.title || $t("Lễ thành hôn") }}
           </h3>
 
           <div class="event-row">
-            <b>THỜI GIAN</b>
+            <b>{{ $t("THỜI GIAN") }}</b>
             <span>
               {{ event.time || event.Time || event.EventTime || "" }}
             </span>
           </div>
 
           <div class="event-row">
-            <b>ĐỊA ĐIỂM</b>
+            <b>{{ $t("ĐỊA ĐIỂM") }}</b>
             <span>
               {{ event.location || event.Location || "" }}
             </span>
@@ -56,7 +56,7 @@
             rel="noopener noreferrer"
             class="map-button"
           >
-            XEM BẢN ĐỒ
+            {{ $t("XEM BẢN ĐỒ") }}
           </a>
         </div>
       <EventMap v-if="index === 0 && showMap" :event="event" />
@@ -71,7 +71,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import EventMap from "@/components/common/EventMap.vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   events: {

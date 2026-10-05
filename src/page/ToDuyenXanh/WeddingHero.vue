@@ -84,12 +84,12 @@
       <!-- LỜI MỜI -->
       <p class="tdx-hero__kicker">{{ heroTitle }}</p>
 
-      <p class="tdx-hero__guest-label">TRÂN TRỌNG KÍNH MỜI</p>
+      <p class="tdx-hero__guest-label">{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</p>
 
       <p class="tdx-hero__guest">{{ guestName }}</p>
 
       <p class="tdx-hero__intro">
-        Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+        {{ $t("Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại") }}
       </p>
 
       <p class="tdx-hero__place">{{ location }}</p>
@@ -100,7 +100,7 @@
       </div>
 
       <p class="tdx-hero__message">
-        Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+        {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!") }}
       </p>
 
       <div class="tdx-hero__footer" aria-hidden="true">
@@ -113,6 +113,7 @@
 </template>
 
 <script setup>
+import { t } from "@/lang";
 import { computed } from "vue";
 import dayjs from "dayjs";
 
@@ -201,16 +202,16 @@ const dateText = computed(() => {
 
   if (date.isValid()) {
     const weekdays = [
-      "CHỦ NHẬT",
-      "THỨ HAI",
-      "THỨ BA",
-      "THỨ TƯ",
-      "THỨ NĂM",
-      "THỨ SÁU",
-      "THỨ BẢY",
+      t("CHỦ NHẬT"),
+      t("THỨ HAI"),
+      t("THỨ BA"),
+      t("THỨ TƯ"),
+      t("THỨ NĂM"),
+      t("THỨ SÁU"),
+      t("THỨ BẢY"),
     ];
 
-    return `${weekdays[date.day()]}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(weekdays[date.day()])}${t(", NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

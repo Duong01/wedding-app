@@ -37,7 +37,7 @@
           <span>{{ monogram }}</span>
         </div>
 
-        <p class="sp-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+        <p class="sp-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
         <h1>{{ guestName }}</h1>
 
@@ -65,14 +65,14 @@
         <v-icon size="16">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="sp-open-btn__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
+      <span class="sp-open-btn__text">{{ sectionText(sections, "opening", "Button", $t("CHẠM ĐỂ MỞ THIỆP")) }}</span>
 
       <span class="sp-open-btn__arrow">↗</span>
     </button>
 
     <p class="sp-hint">
       <span></span>
-      {{ sectionText(sections, "opening", "Hint", "Một lời mời · Một câu chuyện · Một ngày đặc biệt") }}
+      {{ sectionText(sections, "opening", "Hint", $t("Một lời mời · Một câu chuyện · Một ngày đặc biệt")) }}
       <span></span>
     </p>
   </section>
@@ -81,7 +81,6 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },

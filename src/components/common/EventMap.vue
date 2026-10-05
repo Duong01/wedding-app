@@ -15,13 +15,13 @@
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       allowfullscreen
-      :title="`Bản đồ ${event?.Location || event?.Title || 'sự kiện'}`"
+      :title="`${$t('Bản đồ ')}${event?.Location || event?.Title || $t('sự kiện')}`"
     ></iframe>
 
     <div v-else class="event-map__placeholder">
       <span aria-hidden="true">📍</span>
 
-      <small>Chưa có bản đồ cho địa điểm này</small>
+      <small>{{ $t("Chưa có bản đồ cho địa điểm này") }}</small>
     </div>
 
     <a
@@ -35,7 +35,7 @@
         <path d="M12 2 4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
       </svg>
 
-      CHỈ ĐƯỜNG
+      {{ $t("CHỈ ĐƯỜNG") }}
     </a>
   </div>
 </template>
@@ -44,7 +44,6 @@
 import { computed } from "vue";
 
 import { mapDirectionsUrl, mapEmbedUrl } from "@/utils/mapEmbed";
-
 const props = defineProps({
   /*
    * 1 event đơn (không phải mảng) — component nằm trong

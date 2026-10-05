@@ -15,7 +15,7 @@
       >
         <!-- EVENT TITLE -->
         <div class="mg-event-heading">
-          <h2>{{ event.Title || "TIỆC CƯỚI" }}</h2>
+          <h2>{{ event.Title || $t("TIỆC CƯỚI") }}</h2>
 
           <div class="mg-mini-divider">
             <span></span>
@@ -30,14 +30,14 @@
 
           <div class="mg-event-main-date">
             <div class="mg-date-side">
-              <span>THÁNG</span>
+              <span>{{ $t("THÁNG") }}</span>
               <strong>{{ event.month }}</strong>
             </div>
 
             <div class="mg-date-number">{{ event.day }}</div>
 
             <div class="mg-date-side">
-              <span>NĂM</span>
+              <span>{{ $t("NĂM") }}</span>
               <strong>{{ event.year }}</strong>
             </div>
           </div>
@@ -48,7 +48,7 @@
         <!-- TIME -->
         <div v-if="event.time" class="mg-event-time">
           <div>
-            <small>THỜI GIAN</small>
+            <small>{{ $t("THỜI GIAN") }}</small>
             <strong>{{ event.time }}</strong>
           </div>
         </div>
@@ -59,7 +59,7 @@
             <div class="mg-schedule-dot"><span>✧</span></div>
 
             <div class="mg-schedule-content">
-              <span>ĐÓN KHÁCH</span>
+              <span>{{ $t("ĐÓN KHÁCH") }}</span>
               <strong>{{ event.receptionTime }}</strong>
             </div>
           </div>
@@ -68,7 +68,7 @@
             <div class="mg-schedule-dot"><span>✦</span></div>
 
             <div class="mg-schedule-content">
-              <span>KHAI TIỆC</span>
+              <span>{{ $t("KHAI TIỆC") }}</span>
               <strong>{{ event.ceremonyTime }}</strong>
             </div>
           </div>
@@ -77,7 +77,7 @@
         <!-- CALENDAR -->
         <div v-if="index === 0 && event.date && event.calendarDays?.length" class="mg-calendar">
           <div class="mg-calendar__header">
-            <span>LỊCH</span>
+            <span>{{ $t("LỊCH") }}</span>
             <strong>THÁNG {{ event.month }} · {{ event.year }}</strong>
           </div>
 
@@ -117,14 +117,14 @@
             class="mg-calendar-btn"
           >
             <span>＋</span>
-            THÊM VÀO LỊCH
+            {{ $t("THÊM VÀO LỊCH") }}
           </a>
         </div>
 
         <!-- RSVP -->
         <button type="button" class="mg-rsvp-btn" @click="openConfirmModal(event)">
           <span>✦</span>
-          XÁC NHẬN THAM DỰ
+          {{ $t("XÁC NHẬN THAM DỰ") }}
           <span>✦</span>
         </button>
 
@@ -143,34 +143,34 @@
       <Transition name="mg-modal">
         <div v-if="showConfirmModal" class="mg-confirm-overlay" @click.self="closeConfirmModal">
           <div class="mg-confirm-modal">
-            <button type="button" class="mg-modal-close" @click="closeConfirmModal">×</button>
+            <button type="button" class="mg-modal-close" @click="closeConfirmModal">{{ "×" }}</button>
 
             <div class="mg-modal-header">
               <div class="mg-modal-symbol">✦</div>
 
               <span>THE CELEBRATION</span>
 
-              <h3>Xác nhận tham dự</h3>
+              <h3>{{ $t("Xác nhận tham dự") }}</h3>
 
-              <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+              <p>{{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}</p>
             </div>
 
             <!-- RECIPIENT -->
             <div v-if="hasRecipient" class="mg-recipient-box">
-              <span>TRÂN TRỌNG KÍNH MỜI</span>
+              <span>{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</span>
               <strong>{{ recipientName }}</strong>
             </div>
 
             <!-- NAME -->
             <div v-else class="mg-form-group">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
-              <input v-model.trim="form.name" type="text" maxlength="100" placeholder="Nhập tên của bạn" />
+              <input v-model.trim="form.name" type="text" maxlength="100" :placeholder="$t('Nhập tên của bạn')" />
             </div>
 
             <!-- ATTENDANCE -->
             <div class="mg-form-group">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="mg-attendance">
                 <button
@@ -180,7 +180,7 @@
                   @click="form.attendance = 'attending'"
                 >
                   <span>✓</span>
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -189,15 +189,15 @@
                   :class="{ selected: form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  <span>×</span>
-                  Rất tiếc, tôi không thể tham dự
+                  <span>{{ "×" }}</span>
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
 
             <!-- PEOPLE -->
             <div v-if="form.attendance === 'attending'" class="mg-form-group">
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="mg-people-control">
                 <button type="button" @click="decreasePeople">−</button>
@@ -210,7 +210,7 @@
             <div v-if="successMessage" class="mg-form-success">{{ successMessage }}</div>
 
             <button type="button" class="mg-modal-submit" :disabled="submitting" @click="submitConfirmation">
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
           </div>
         </div>
@@ -226,6 +226,7 @@ import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { Confirm } from "@/model/api";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -290,9 +291,9 @@ const normalizedEvents = computed(() => {
       month = date.format("MM");
       year = date.format("YYYY");
 
-      const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+      const weekdays = [t("CHỦ NHẬT"), t("THỨ HAI"), t("THỨ BA"), t("THỨ TƯ"), t("THỨ NĂM"), t("THỨ SÁU"), t("THỨ BẢY")];
 
-      weekday = weekdays[date.day()];
+      weekday = t(weekdays[date.day()]);
     }
 
     const calendarDays = item.calendarDays || buildCalendarDays(Number(year), Number(month));
@@ -406,12 +407,12 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!hasRecipient.value && !form.value.name) {
-    errorMessage.value = "Vui lòng nhập họ và tên.";
+    errorMessage.value = t("Vui lòng nhập họ và tên.");
     return;
   }
 
   if (!form.value.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
     return;
   }
 
@@ -429,7 +430,7 @@ async function submitConfirmation() {
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
       Attendance:
-        form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+        form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
       NumberOfPeople:
         form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
@@ -439,10 +440,10 @@ async function submitConfirmation() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Không thể gửi xác nhận.");
+      throw new Error(result?.message || t("Không thể gửi xác nhận."));
     }
 
-    successMessage.value = "Cảm ơn bạn đã xác nhận tham dự ❤️";
+    successMessage.value = t("Cảm ơn bạn đã xác nhận tham dự ❤️");
 
     setTimeout(() => {
       closeConfirmModal();
@@ -451,7 +452,7 @@ async function submitConfirmation() {
     errorMessage.value =
       error?.response?.data?.message ||
       error?.message ||
-      "Có lỗi xảy ra. Vui lòng thử lại.";
+      t("Có lỗi xảy ra. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

@@ -42,8 +42,6 @@
 import { computed } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
 const props = defineProps({
   dressCode: {
     type: [Object, Array, String],
@@ -55,7 +53,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
 
 /* =========================================================
    TIÊU ĐỀ MỤC

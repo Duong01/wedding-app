@@ -5,10 +5,10 @@
       <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="tr-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="tr-countdown__title">{{ sectionText(sections, "countdown", "Heading", "Cùng đếm ngược") }}</h2>
+    <h2 class="tr-countdown__title">{{ sectionText(sections, "countdown", "Heading", $t("Cùng đếm ngược")) }}</h2>
 
     <div class="tr-countdown__value">
-      <p v-if="isFinished">Chúc mừng hạnh phúc!</p>
+      <p v-if="isFinished">{{ $t("Chúc mừng hạnh phúc!") }}</p>
 
       <p v-else>
         {{ remain.days }} ngày {{ remain.hours }} giờ {{ remain.minutes }} phút
@@ -21,7 +21,6 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   target: {

@@ -2,11 +2,11 @@
   <section class="memories-section">
     <!-- HEADER -->
     <div class="memories-heading">
-      <span class="gg-eyebrow">{{ sectionText(sections, "gallery", "Eyebrow", "KHOẢNH KHẮC") }}</span>
+      <span class="gg-eyebrow">{{ sectionText(sections, "gallery", "Eyebrow", $t("KHOẢNH KHẮC")) }}</span>
 
-      <h2 class="gg-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+      <h2 class="gg-title">{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh Cưới")) }}</h2>
 
-      <p class="gg-lead">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
+      <p class="gg-lead">{{ sectionText(sections, "gallery", "Intro", $t("Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình")) }}</p>
     </div>
 
     <!-- GALLERY -->
@@ -23,7 +23,7 @@
     <!-- EMPTY -->
     <div v-else class="gallery-empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <!-- LIGHTBOX -->
@@ -42,7 +42,6 @@ import { ref, defineAsyncComponent } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

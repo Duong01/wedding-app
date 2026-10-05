@@ -32,7 +32,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   dressCode: {
@@ -47,14 +47,14 @@ const note = computed(() => {
   const value = props.dressCode;
 
   if (value && !Array.isArray(value) && typeof value === "object") {
-    return value.Note || value.Description || value.Content || "Trang phục dự tiệc";
+    return value.Note || value.Description || value.Content || t("Trang phục dự tiệc");
   }
 
   if (typeof value === "string" && value.trim()) {
     return value.trim();
   }
 
-  return "Trang phục dự tiệc";
+  return t("Trang phục dự tiệc");
 });
 
 const swatches = computed(() => {

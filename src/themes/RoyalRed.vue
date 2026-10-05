@@ -207,7 +207,7 @@ import WeddingWishes from "@/page/RoyalRed/WeddingWishes.vue";
 import WeddingFooter from "@/page/RoyalRed/WeddingFooter.vue";
 
 import { flower } from "@/page/RoyalRed/royalRedAssets";
-
+import { t } from "@/lang";
 /* ==========================================================
    PROPS
 ========================================================== */
@@ -367,7 +367,7 @@ const guestName = computed(
       ? wedding.value.recipientName[0]?.Name
       : wedding.value?.recipientName?.Name) ||
     wedding.value?.guestName ||
-    "Quý khách"
+    t("Quý khách")
 );
 
 /* ==========================================================

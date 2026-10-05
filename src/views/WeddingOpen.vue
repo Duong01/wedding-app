@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { computed, watch, ref } from "vue";
+import { computed, watch, ref, onBeforeUnmount } from "vue";
 
 import AutoScroll from "@/components/common/AutoScroll.vue";
 
@@ -101,6 +101,7 @@ import themes from "@/themes";
  * chèn sẵn toàn bộ 25 font trong index.html. */
 import { ensureFonts } from "@/utils/fontLoader";
 import { fontsForTheme } from "@/data/themeFonts";
+import { setCardLocale, clearCardLocale } from "@/lang";
 
 /*
  * Thiệp đã qua phong bì chưa — tự cuộn chỉ chạy sau khi mở
@@ -152,6 +153,11 @@ watch(
   (value) => {
     if (value) {
       ensureFonts(fontsForTheme(value));
+
+      /* Ngôn ngữ thiệp — chủ thiệp chọn trong editor */
+      setCardLocale(value.language);
+    } else {
+      clearCardLocale();
     }
   },
   { immediate: true }
@@ -240,6 +246,11 @@ function goHome() {
  * /view dùng lại đúng store này, xoá đi thì phải gọi lại API
  * ngay sau đó — chậm và thừa.
  */
+
+/* Rời trang thiệp → trả ngôn ngữ về giao diện web */
+onBeforeUnmount(() => {
+  clearCardLocale();
+});
 </script>
 
 <style scoped>

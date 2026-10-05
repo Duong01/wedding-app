@@ -10,7 +10,7 @@
         <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "timeline", "Heading", title || "LỊCH TRÌNH NGÀY VUI") }}</h2>
+      <h2>{{ sectionText(sections, "timeline", "Heading", title || $t("LỊCH TRÌNH NGÀY VUI")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="lp-sub-custom-head">
         <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="lp-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -29,7 +29,7 @@
         <article class="lp-timeline__card">
           <time v-if="item.Time || item.Date">{{ item.Time || item.Date }}</time>
 
-          <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
+          <h3>{{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}</h3>
 
           <p v-if="item.Description || item.Content">{{ item.Description || item.Content }}</p>
 
@@ -47,7 +47,6 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import chimEn from "@/assets/decor/longphung-v3/chim-en.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },

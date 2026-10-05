@@ -43,7 +43,7 @@
 
       <p class="tdx-card__kicker">{{ sectionText(sections, "opening", "Kicker", "WEDDING INVITATION") }}</p>
 
-      <p class="tdx-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+      <p class="tdx-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
       <h1 class="tdx-card__guest">{{ guestName }}</h1>
 
@@ -59,7 +59,7 @@
         <span>{{ brideName }}</span>
       </p>
 
-      <p class="tdx-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+      <p class="tdx-card__date">{{ dateLabel || $t("NGÀY CỦA CHÚNG MÌNH") }}</p>
     </div>
 
     <!-- =====================================================
@@ -74,10 +74,10 @@
         </svg>
       </span>
 
-      <span class="tdx-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+      <span class="tdx-open-btn__text">{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
     </button>
 
-    <p class="tdx-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một nhành hoa · Một đời hạnh phúc") }}</p>
+    <p class="tdx-hint">{{ sectionText(sections, "opening", "Hint", $t("Một lời mời · Một nhành hoa · Một đời hạnh phúc")) }}</p>
   </section>
 </template>
 

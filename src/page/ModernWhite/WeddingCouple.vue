@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="mw-title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+    <h2 class="mw-title">{{ sectionText(sections, "couple", "Heading", $t("Thông tin lễ cưới")) }}</h2>
 
     <!-- =====================================================
          HAI HỌ TỪ THÂN
@@ -13,7 +13,7 @@
 
     <div v-if="hasFamilyInfo" class="mw-parents">
       <div v-if="hasGroomFamily" class="mw-parents__col">
-        <span class="mw-parents__label">Ông Bà</span>
+        <span class="mw-parents__label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="groomFather" class="mw-parents__name">{{ groomFather }}</span>
 
@@ -25,7 +25,7 @@
       <span class="mw-parents__divider" aria-hidden="true"></span>
 
       <div v-if="hasBrideFamily" class="mw-parents__col">
-        <span class="mw-parents__label">Ông Bà</span>
+        <span class="mw-parents__label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="brideFather" class="mw-parents__name">{{ brideFather }}</span>
 
@@ -40,8 +40,7 @@
     ====================================================== -->
 
     <p class="mw-couple__announce">
-      TRÂN TRỌNG BÁO TIN
-      LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+      {{ $t("TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
     </p>
 
     <!-- =====================================================
@@ -67,10 +66,10 @@
     <div v-if="hasDate" class="mw-date">
       <p class="mw-date__place">
         LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI
-        {{ location || "TƯ GIA" }}
+        {{ location || $t("TƯ GIA") }}
       </p>
 
-      <p class="mw-date__lead">VÀO LÚC</p>
+      <p class="mw-date__lead">{{ $t("VÀO LÚC") }}</p>
 
       <div v-if="time" class="mw-date__time">{{ time }}</div>
 
@@ -97,7 +96,7 @@
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
-
+import { t } from "@/lang";
 const WEEKDAYS = [
   "CHỦ NHẬT",
   "THỨ HAI",
@@ -139,11 +138,11 @@ const brideName = computed(
 );
 
 const groomRole = computed(
-  () => wedding.value?.couple?.Groom?.Role || "Trưởng Nam"
+  () => wedding.value?.couple?.Groom?.Role || t("Trưởng Nam")
 );
 
 const brideRole = computed(
-  () => wedding.value?.couple?.Bride?.Role || "Út Nữ"
+  () => wedding.value?.couple?.Bride?.Role || t("Út Nữ")
 );
 
 /* =========================================================
@@ -207,7 +206,7 @@ const weekday = computed(() => {
     return primaryEvent.value.Weekday;
   }
 
-  return parsedDate.value ? WEEKDAYS[parsedDate.value.day()] : "";
+  return parsedDate.value ? t(WEEKDAYS[parsedDate.value.day()]) : "";
 });
 
 const day = computed(() =>

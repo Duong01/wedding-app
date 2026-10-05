@@ -5,9 +5,9 @@
       <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="mw-title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    <h2 class="mw-title">{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
 
-    <p class="mw-lead">{{ sectionText(sections, "guestbook", "Intro", "Gửi đến chúng mình những lời chúc thật ấm áp nhé") }}</p>
+    <p class="mw-lead">{{ sectionText(sections, "guestbook", "Intro", $t("Gửi đến chúng mình những lời chúc thật ấm áp nhé")) }}</p>
 
     <!-- =====================================================
          MARQUEE
@@ -42,26 +42,26 @@
 
     <form class="mw-wish-form" @submit.prevent="submitWish">
       <div class="mw-wish-form__group">
-        <label for="mw-wish-name">Họ và tên</label>
+        <label for="mw-wish-name">{{ $t("Họ và tên") }}</label>
 
         <input
           id="mw-wish-name"
           v-model="form.name"
           type="text"
           maxlength="80"
-          placeholder="Nhập tên của bạn"
+          :placeholder="$t('Nhập tên của bạn')"
         />
       </div>
 
       <div class="mw-wish-form__group">
-        <label for="mw-wish-message">Lời chúc</label>
+        <label for="mw-wish-message">{{ $t("Lời chúc") }}</label>
 
         <textarea
           id="mw-wish-message"
           v-model="form.message"
           rows="4"
           maxlength="500"
-          placeholder="Gửi những lời chúc tốt đẹp nhất..."
+          :placeholder="$t('Gửi những lời chúc tốt đẹp nhất...')"
         ></textarea>
 
         <span class="mw-wish-form__count">{{ form.message.length }}/500</span>
@@ -72,7 +72,7 @@
         class="mw-pill mw-wish-form__submit"
         :disabled="!canSubmit || submitting"
       >
-        {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+        {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}
       </button>
     </form>
 
@@ -97,7 +97,7 @@
     </div>
 
     <p v-else class="mw-wish-empty">
-      Chưa có lời chúc nào. Hãy là người đầu tiên!
+      {{ $t("Chưa có lời chúc nào. Hãy là người đầu tiên!") }}
     </p>
   </section>
 </template>
@@ -108,7 +108,7 @@ import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: {
@@ -148,7 +148,7 @@ const canSubmit = computed(
 ========================================================= */
 
 function getName(wish) {
-  return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+  return wish?.Name || wish?.GuestName || wish?.FullName || t("Khách mời");
 }
 
 function getMessage(wish) {
@@ -203,13 +203,13 @@ if (route.params.slug && route.name === "WeddingByApi") {
 
 async function submitWish() {
   if (!form.name || !form.name.trim()) {
-    alert("Vui lòng nhập tên của bạn");
+    alert(t("Vui lòng nhập tên của bạn"));
 
     return;
   }
 
   if (!form.message || !form.message.trim()) {
-    alert("Vui lòng nhập lời chúc");
+    alert(t("Vui lòng nhập lời chúc"));
 
     return;
   }
@@ -228,7 +228,7 @@ async function submitWish() {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      alert("Gửi lời chúc thành công ❤️");
+      alert(t("Gửi lời chúc thành công ❤️"));
 
       form.name = "";
       form.message = "";
@@ -237,13 +237,13 @@ async function submitWish() {
 
       await loadWishes();
     } else {
-      alert(result?.message || "Không thể gửi lời chúc.");
+      alert(result?.message || t("Không thể gửi lời chúc."));
     }
   } catch (error) {
     console.error(error);
 
     alert(
-      error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại."
+      error?.response?.data?.message || t("Có lỗi xảy ra, vui lòng thử lại.")
     );
   } finally {
     submitting.value = false;

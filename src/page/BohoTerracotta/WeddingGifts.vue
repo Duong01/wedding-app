@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="bq-heading">{{ sectionText(sections, "gifts", "Heading", "HỘP QUÀ MỪNG") }}</h2>
+    <h2 class="bq-heading">{{ sectionText(sections, "gifts", "Heading", $t("HỘP QUÀ MỪNG")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="bq-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="bq-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
@@ -15,7 +15,7 @@
     <!-- =====================================================
          PHONG BÌ MỪNG CƯỚI
     ====================================================== -->
-    <button type="button" class="bq-envelope" aria-label="Mở hộp mừng cưới" @click="openGift">
+    <button type="button" class="bq-envelope" :aria-label="$t('Mở hộp mừng cưới')" @click="openGift">
       <span class="bq-envelope__spark bq-envelope__spark--1" aria-hidden="true">✦</span>
       <span class="bq-envelope__spark bq-envelope__spark--2" aria-hidden="true">✦</span>
       <span class="bq-envelope__spark bq-envelope__spark--3" aria-hidden="true">✦</span>
@@ -39,7 +39,7 @@
         </span>
       </span>
 
-      <span class="bq-envelope__hint">CHẠM ĐỂ MỞ</span>
+      <span class="bq-envelope__hint">{{ $t("CHẠM ĐỂ MỞ") }}</span>
     </button>
 
     <!-- =====================================================
@@ -52,17 +52,16 @@
             <button
               type="button"
               class="bq-gift-dialog__close"
-              aria-label="Đóng hộp quà mừng"
+              :aria-label="$t('Đóng hộp quà mừng')"
               @click="closeGift"
             >
-              ×
+              {{ "×" }}
             </button>
 
-            <h3 class="bq-gift-dialog__title">Hộp quà mừng</h3>
+            <h3 class="bq-gift-dialog__title">{{ $t("Hộp quà mừng") }}</h3>
 
             <p class="bq-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể
-              chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <div v-if="gifts.length" class="bq-accounts">
@@ -81,34 +80,34 @@
                   v-if="item.QrCode"
                   type="button"
                   class="bq-account__qr"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
-                  <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" />
+                  <img :src="item.QrCode" :alt="item.Name || $t('QR mừng cưới')" />
 
-                  <span>CHẠM VÀO QR ĐỂ XEM LỚN</span>
+                  <span>{{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}</span>
                 </button>
 
                 <div class="bq-account__row">
-                  <span class="bq-account__row-label">CHỦ TÀI KHOẢN</span>
+                  <span class="bq-account__row-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                   <span class="bq-account__row-value">
-                    {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                    {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                   </span>
                 </div>
 
                 <div class="bq-account__row">
-                  <span class="bq-account__row-label">SỐ TÀI KHOẢN</span>
+                  <span class="bq-account__row-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                   <span class="bq-account__row-value bq-account__number">
-                    {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                    {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                   </span>
 
                   <button
                     type="button"
                     class="bq-account__copy"
-                    title="Sao chép số tài khoản"
-                    aria-label="Sao chép số tài khoản"
+                    :title="$t('Sao chép số tài khoản')"
+                    :aria-label="$t('Sao chép số tài khoản')"
                     @click="copyAccount(item)"
                   >
                     <svg
@@ -131,7 +130,7 @@
             </div>
 
             <p v-else class="bq-gift-dialog__desc">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </p>
           </div>
         </div>
@@ -144,17 +143,17 @@
             <button
               type="button"
               class="bq-gift-dialog__close"
-              aria-label="Đóng QR"
+              :aria-label="$t('Đóng QR')"
               @click="closeQr"
             >
-              ×
+              {{ "×" }}
             </button>
 
-            <p class="bq-qr-preview__title">{{ previewQr.Name || "QR MỪNG CƯỚI" }}</p>
+            <p class="bq-qr-preview__title">{{ previewQr.Name || $t("QR MỪNG CƯỚI") }}</p>
 
-            <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+            <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
 
-            <p class="bq-qr-preview__hint">Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p class="bq-qr-preview__hint">{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -163,7 +162,7 @@
               download
               class="bq-qr-preview__save"
             >
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -177,7 +176,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 
 import { goldenLine } from "./bohoTerracottaAssets";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },

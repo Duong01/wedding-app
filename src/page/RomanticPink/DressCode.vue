@@ -1,6 +1,6 @@
 <template>
   <section class="dress-code">
-    <div class="gg-eyebrow">{{ sectionText(sections, "dressCode", "Eyebrow", "TRANG PHỤC") }}</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "dressCode", "Eyebrow", $t("TRANG PHỤC")) }}</div>
 
     <h2 class="gg-title">{{ sectionText(sections, "dressCode", "Heading", "Dress Code") }}</h2>
 
@@ -30,7 +30,7 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   dressCode: {
@@ -55,11 +55,11 @@ const note = computed(() => {
       value.Note ||
       value.Description ||
       value.Content ||
-      "Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới."
+      t("Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới.")
     );
   }
 
-  return "Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới.";
+  return t("Để bức ảnh chung thêm hài hoà, chúng mình rất mong quý khách chọn trang phục theo bảng màu bên dưới.");
 });
 
 const swatches = computed(() => {

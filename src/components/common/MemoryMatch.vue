@@ -48,7 +48,7 @@
 
       <p class="memory-match__prize">
         <template v-if="prizeMode">
-          🎁 Bạn nhận được:
+          {{ $t("🎁 Bạn nhận được:") }}
           <strong>{{ prize }}</strong>
         </template>
 
@@ -61,11 +61,11 @@
         class="memory-match__claim"
         @click="$emit('win', prize)"
       >
-        Nhận quà
+        {{ $t("Nhận quà") }}
       </button>
 
       <button v-else type="button" class="memory-match__again" @click="restart">
-        Chơi lại
+        {{ $t("Chơi lại") }}
       </button>
     </div>
   </div>
@@ -75,7 +75,6 @@
 import { computed, onMounted, ref } from "vue";
 
 import { pickRandomPrize } from "@/data/gameData";
-
 const props = defineProps({
   /* Ảnh riêng cho game — bỏ trống dùng ảnh album. */
   images: { type: Array, default: () => [] },

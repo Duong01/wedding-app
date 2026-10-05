@@ -9,15 +9,15 @@
           <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
         </header>
 
-        <h2>{{ sectionText(sections, "couple", "Heading", "Đôi uyên ương") }}</h2>
+        <h2>{{ sectionText(sections, "couple", "Heading", $t("Đôi uyên ương")) }}</h2>
       </div>
       <span class="heading-line" />
     </div>
 
     <div class="couple-intro">
-      Hai người, hai hành trình
+      {{ $t("Hai người, hai hành trình") }}
       <br />
-      nay cùng bước chung một con đường.
+      {{ $t("nay cùng bước chung một con đường.") }}
     </div>
 
     <div class="couple-grid">
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <span class="role">CHÚ RỂ</span>
+        <span class="role">{{ $t("CHÚ RỂ") }}</span>
         <h3>{{ groomName }}</h3>
         <p>{{ groomDescription }}</p>
       </article>
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <span class="role">CÔ DÂU</span>
+        <span class="role">{{ $t("CÔ DÂU") }}</span>
         <h3>{{ brideName }}</h3>
         <p>{{ brideDescription }}</p>
       </article>
@@ -78,7 +78,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {
@@ -125,11 +125,11 @@ const brideImage = computed(() =>
 );
 
 const groomDescription = computed(() =>
-  groom.value?.description || "Người con trai của gia đình"
+  groom.value?.description || t("Người con trai của gia đình")
 );
 
 const brideDescription = computed(() =>
-  bride.value?.description || "Người con gái của gia đình"
+  bride.value?.description || t("Người con gái của gia đình")
 );
 
 function initials(name) {

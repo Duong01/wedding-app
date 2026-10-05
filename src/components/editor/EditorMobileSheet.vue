@@ -45,78 +45,7 @@
 
       <div class="mobile-menu-list">
         <p v-if="keyword && !filteredMenus.length" class="sheet-empty">
-          {{ $t("editor.nav.noMatch", { keyword }) }}
-        </p>
-
-        <template v-for="group in visibleGroups" :key="group.id">
-          <div class="mobile-menu-group">
-            {{ group.label }}
-          </div>
-
-          <button
-            v-for="item in group.items"
-            :key="item.id"
-            type="button"
-            class="mobile-menu-item"
-            :class="{
-              active: activeMenu === item.id,
-            }"
-            @click="emit('select', item.id)"
-          >
-            <span class="mobile-menu-icon">
-              <v-icon size="19">
-                {{ item.icon }}
-              </v-icon>
-            </span>
-
-            <span>
-              <strong>
-                {{ item.label }}
-              </strong>
-
-              <small>
-                {{ item.description }}
-              </small>
-            </span>
-
-            <v-icon
-              v-if="activeMenu === item.id"
-              class="mobile-check"
-              size="18"
-            >
-              mdi-check
-            </v-icon>
-
-            <span
-              v-else-if="completion[item.id]"
-              class="mobile-done"
-              :title="$t('editor.nav.hasContent')"
-            >
-              <v-icon size="13"> mdi-check </v-icon>
-            </span>
-          </button>
-        </template>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { useI18n } from "vue-i18n";
-import { computed, ref } from "vue";
-
-const { t } = useI18n();
-
-const props = defineProps({
-  menus: { type: Array, required: true },
-  activeMenu: { type: String, required: true },
-  completion: { type: Object, default: () => ({}) },
-});
-
-const emit = defineEmits(["select", "close"]);
-
-const GROUP_LABELS = {
-  get content() { return t("editor.group.content"); },
+          {{ $t("editor.nav.noMatch", { keyword }) }} </p> <template v-for="group in visibleGroups" :key="group.id"> <div class="mobile-menu-group"> {{ group.label }} </div> <button v-for="item in group.items" :key="item.id" type="button" class="mobile-menu-item" :class="{ active: activeMenu === item.id, }" @click="emit('select', item.id)" > <span class="mobile-menu-icon"> <v-icon size="19"> {{ item.icon }} </v-icon> </span> <span> <strong> {{ item.label }} </strong> <small> {{ item.description }} </small> </span> <v-icon v-if="activeMenu === item.id" class="mobile-check" size="18" > mdi-check </v-icon> <span v-else-if="completion[item.id]" class="mobile-done" :title="$t('editor.nav.hasContent')" > <v-icon size="13"> mdi-check </v-icon> </span> </button> </template> </div> </div> </div> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed, ref } from "vue"; const { t } = useI18n(); const props = defineProps({ menus: { type: Array, required: true }, activeMenu: { type: String, required: true }, completion: { type: Object, default: () => ({}) }, }); const emit = defineEmits(["select", "close"]); const GROUP_LABELS = { get content() { return t("editor.group.content"); },
   get guests() { return t("editor.group.guests"); },
   get config() { return t("editor.group.config"); },
 };

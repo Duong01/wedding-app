@@ -27,7 +27,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const DEFAULT_COLORS = ["#d70c1b", "#ffffff", "#000000"];
 
 const DEFAULT_SUGGESTIONS = [
@@ -45,7 +45,7 @@ const value = computed(() => props.dressCode);
 
 const note = computed(() => {
   if (!value.value) {
-    return "Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé.";
+    return t("Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé.");
   }
 
   if (typeof value.value === "string") {
@@ -56,7 +56,7 @@ const note = computed(() => {
     value.value.Note ||
     value.value.Description ||
     value.value.Content ||
-    "Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé."
+    t("Để bức ảnh chung của chúng ta thật hài hoà, bạn hãy chọn trang phục theo gợi ý bên dưới nhé.")
   );
 });
 

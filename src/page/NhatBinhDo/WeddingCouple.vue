@@ -17,7 +17,7 @@
     <div class="cfr-info__families">
 
       <div class="cfr-info__family">
-        <span class="cfr-info__family-label">Ông Bà</span>
+        <span class="cfr-info__family-label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="groomFather" class="cfr-info__family-name">
           {{ groomFather }}
@@ -37,7 +37,7 @@
 
 
       <div class="cfr-info__family">
-        <span class="cfr-info__family-label">Ông Bà</span>
+        <span class="cfr-info__family-label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="brideFather" class="cfr-info__family-name">
           {{ brideFather }}
@@ -98,11 +98,11 @@
     <div class="cfr-info__when">
 
       <p class="cfr-info__when-place">
-        LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />{{ ceremonyPlace }}
+        {{ $t("LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI") }}<br />{{ ceremonyPlace }}
       </p>
 
       <p class="cfr-info__when-label">
-        VÀO LÚC
+        {{ $t("VÀO LÚC") }}
       </p>
 
       <div v-if="ceremonyTime" class="cfr-info__when-time">
@@ -139,8 +139,7 @@
 import { computed } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -178,7 +177,7 @@ const groomName = computed(
     wedding.value?.GroomName ||
     wedding.value?.groomName ||
     wedding.value?.couple?.Groom?.Name ||
-    "Chú rể"
+    t("Chú rể")
 );
 
 const brideName = computed(
@@ -186,7 +185,7 @@ const brideName = computed(
     wedding.value?.BrideName ||
     wedding.value?.brideName ||
     wedding.value?.couple?.Bride?.Name ||
-    "Cô dâu"
+    t("Cô dâu")
 );
 
 const groomRole = computed(
@@ -245,7 +244,7 @@ const ceremonyPlace = computed(
     firstEvent.value?.Location ||
     firstEvent.value?.Address ||
     wedding.value?.hero?.Location ||
-    "TƯ GIA"
+    t("TƯ GIA")
 );
 
 const ceremonyTime = computed(() => {
@@ -292,7 +291,7 @@ const weekday = computed(() => {
     return String(firstEvent.value.Weekday).toUpperCase();
   }
 
-  return dateObject.value ? WEEKDAYS[dateObject.value.getDay()] : "";
+  return dateObject.value ? t(WEEKDAYS[dateObject.value.getDay()]) : "";
 });
 
 const day = computed(() => {
@@ -307,11 +306,11 @@ const day = computed(() => {
 
 const monthLabel = computed(() => {
   if (firstEvent.value?.Month) {
-    return `THÁNG ${String(firstEvent.value.Month).padStart(2, "0")}`;
+    return `${t("THÁNG ")}${String(firstEvent.value.Month).padStart(2, "0")}`;
   }
 
   return dateObject.value
-    ? `THÁNG ${String(dateObject.value.getMonth() + 1).padStart(2, "0")}`
+    ? `${t("THÁNG ")}${String(dateObject.value.getMonth() + 1).padStart(2, "0")}`
     : "";
 });
 

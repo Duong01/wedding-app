@@ -37,12 +37,12 @@
         <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="tdx-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="tdx-heading">{{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}</h2>
+      <h2 class="tdx-heading">{{ sectionText(sections, "couple", "Heading", $t("THÔNG TIN LỄ CƯỚI")) }}</h2>
 
       <!-- ÔNG BÀ HAI HỌ -->
       <div class="tdx-parents">
         <div class="tdx-parents__col">
-          <span class="tdx-parents__label">Ông Bà</span>
+          <span class="tdx-parents__label">{{ $t("Ông Bà") }}</span>
 
           <span v-if="groomFather" class="tdx-parents__name">{{ groomFather }}</span>
 
@@ -54,7 +54,7 @@
         <div class="tdx-parents__divider" aria-hidden="true"></div>
 
         <div class="tdx-parents__col">
-          <span class="tdx-parents__label">Ông Bà</span>
+          <span class="tdx-parents__label">{{ $t("Ông Bà") }}</span>
 
           <span v-if="brideFather" class="tdx-parents__name">{{ brideFather }}</span>
 
@@ -66,8 +66,7 @@
 
       <!-- BÁO TIN -->
       <p class="tdx-couple__announce">
-        TRÂN TRỌNG BÁO TIN
-        LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+        {{ $t("TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
       </p>
 
       <!-- TÊN CÔ DÂU CHÚ RỂ -->
@@ -113,6 +112,7 @@
 </template>
 
 <script setup>
+import { t, localeTag } from "@/lang";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
@@ -157,8 +157,8 @@ const brideMother = computed(() => bride.value.Mother || "");
 const groomAddress = computed(() => groom.value.Address || "");
 const brideAddress = computed(() => bride.value.Address || "");
 
-const groomRole = computed(() => groom.value.Role || "Trưởng Nam");
-const brideRole = computed(() => bride.value.Role || "Út Nữ");
+const groomRole = computed(() => groom.value.Role || t("Trưởng Nam"));
+const brideRole = computed(() => bride.value.Role || t("Út Nữ"));
 
 const ceremonyPlace = computed(() => {
   const event = Array.isArray(props.wedding?.events) ? props.wedding.events[0] : null;
@@ -167,7 +167,7 @@ const ceremonyPlace = computed(() => {
     event?.Location ||
     event?.Address ||
     props.wedding?.hero?.Location ||
-    "TƯ GIA"
+    t("TƯ GIA")
   );
 });
 
@@ -204,16 +204,16 @@ const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(
@@ -241,7 +241,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

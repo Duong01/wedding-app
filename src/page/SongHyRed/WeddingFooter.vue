@@ -32,7 +32,7 @@
 
 <script setup>
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   monogram: { type: String, default: "G&B" },
@@ -66,7 +66,7 @@ const brideName = computed(() => {
 const thanksMessage = computed(() => {
   return (
     wedding.value?.footer?.Message ||
-    "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\nCÙNG CHÚNG MÌNH"
+    t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\nCÙNG CHÚNG MÌNH")
   );
 });
 

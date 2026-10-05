@@ -23,7 +23,7 @@
         <div class="story-header">
 
           <span class="story-eyebrow">
-            {{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}
+            {{ sectionText(sections, "story", "Eyebrow", $t("CÂU CHUYỆN CỦA CHÚNG MÌNH")) }}
           </span>
 
           <div class="story-title-row">
@@ -31,7 +31,7 @@
             <span class="title-line"></span>
 
             <h2>
-              {{ sectionText(sections, "story", "Heading", "THÔNG TIN VỀ CHÚNG MÌNH") }}
+              {{ sectionText(sections, "story", "Heading", $t("THÔNG TIN VỀ CHÚNG MÌNH")) }}
             </h2>
 
             <span class="title-line"></span>
@@ -89,7 +89,6 @@
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import { may } from "./nhatBinhDoAssets";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   story: {
@@ -97,7 +96,6 @@ const props = defineProps({
     default: "",
   },
 });
-
 
 const storyText = computed(() => {
 

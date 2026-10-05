@@ -36,7 +36,7 @@
       <!-- KHUNG ẢNH BAROQUE -->
       <div class="bq-card__frame">
         <div class="bq-card__photo">
-          <img v-if="coverImage" :src="coverImage" alt="Ảnh cưới" draggable="false" />
+          <img v-if="coverImage" :src="coverImage" :alt="$t('Ảnh cưới')" draggable="false" />
 
           <span v-else class="bq-card__photo-empty" aria-hidden="true">❦</span>
         </div>
@@ -67,11 +67,11 @@
         draggable="false"
       />
 
-      <p class="bq-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+      <p class="bq-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
       <h1 class="bq-card__guest">{{ guestName }}</h1>
 
-      <p class="bq-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+      <p class="bq-card__date">{{ dateLabel || $t("NGÀY CỦA CHÚNG MÌNH") }}</p>
     </div>
 
     <!-- =====================================================
@@ -86,10 +86,10 @@
         </svg>
       </span>
 
-      <span class="bq-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+      <span class="bq-open-btn__text">{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
     </button>
 
-    <p class="bq-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}</p>
+    <p class="bq-hint">{{ sectionText(sections, "opening", "Hint", $t("Một lời mời · Một lời hẹn · Một đời hạnh phúc")) }}</p>
   </section>
 </template>
 
@@ -98,7 +98,6 @@ import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 
 import { background, flower5, frame, goldenLine } from "./bohoTerracottaAssets";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },

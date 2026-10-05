@@ -126,13 +126,7 @@
               <input
                 v-model="question[`Option${key}`]"
                 type="text"
-                :placeholder="$t('gamePanel.answerPlaceholder', { key })"
-              />
-            </div>
-          </div>
-
-          <div class="editor-field full">
-            <label>{{ $t('gamePanel.correct') }}</label>
+                :placeholder="$t('gamePanel.answerPlaceholder', { key })" /> </div> </div> <div class="editor-field full"> <label>{{ $t('gamePanel.correct') }}</label>
 
             <div class="correct-row">
               <button

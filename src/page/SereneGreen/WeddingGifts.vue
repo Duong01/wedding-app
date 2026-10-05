@@ -6,15 +6,15 @@
       <span></span>
     </div>
 
-    <p class="sg-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", "GỬI YÊU THƯƠNG") }}</p>
+    <p class="sg-eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", $t("GỬI YÊU THƯƠNG")) }}</p>
 
-    <h2>{{ sectionText(sections, "gifts", "Heading", "Hộp mừng cưới") }}</h2>
+    <h2>{{ sectionText(sections, "gifts", "Heading", $t("Hộp mừng cưới")) }}</h2>
 
-    <p class="sg-gifts__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình") }}</p>
+    <p class="sg-gifts__intro">{{ sectionText(sections, "gifts", "Intro", $t("Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình")) }}</p>
 
     <div class="sg-gifts__list">
       <article class="sg-gifts__item">
-        <button type="button" class="sg-gift-btn" aria-label="Mở hộp mừng cưới" @click="openGift">
+        <button type="button" class="sg-gift-btn" :aria-label="$t('Mở hộp mừng cưới')" @click="openGift">
           <div class="sg-gift-glow"></div>
 
           <div class="sg-gift-box">
@@ -31,7 +31,7 @@
           <div class="sg-gift-shadow"></div>
 
           <div class="sg-gift-hint">
-            <span>CHẠM ĐỂ MỞ</span>
+            <span>{{ $t("CHẠM ĐỂ MỞ") }}</span>
             <v-icon size="14">mdi-heart-outline</v-icon>
           </div>
         </button>
@@ -65,17 +65,16 @@
               <span></span>
             </div>
 
-            <button type="button" class="sg-gift-dialog__close" aria-label="Đóng hộp mừng cưới" @click="closeGift">
+            <button type="button" class="sg-gift-dialog__close" :aria-label="$t('Đóng hộp mừng cưới')" @click="closeGift">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
-            <div class="sg-gift-dialog__eyebrow">MỘT CHÚT YÊU THƯƠNG</div>
+            <div class="sg-gift-dialog__eyebrow">{{ $t("MỘT CHÚT YÊU THƯƠNG") }}</div>
 
-            <h3 id="sg-gift-dialog-title">Hộp mừng cưới</h3>
+            <h3 id="sg-gift-dialog-title">{{ $t("Hộp mừng cưới") }}</h3>
 
             <p class="sg-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể,
-              bạn có thể chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <div v-if="gifts.length" class="sg-account-grid">
@@ -100,7 +99,7 @@
                   v-if="item.QrCode"
                   type="button"
                   class="sg-qr-button"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
                   <div class="sg-qr-frame">
@@ -110,24 +109,24 @@
                     <div class="sg-qr-corner sg-qr-corner--br"></div>
 
                     <div class="sg-qr-inner">
-                      <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" class="sg-qr-code" />
+                      <img :src="item.QrCode" :alt="item.Name || $t('QR mừng cưới')" class="sg-qr-code" />
                     </div>
                   </div>
 
                   <div class="sg-qr-hint">
                     <v-icon size="12">mdi-magnify-plus-outline</v-icon>
 
-                    CHẠM VÀO QR ĐỂ XEM LỚN
+                    {{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}
                   </div>
                 </button>
 
                 <div class="sg-account-info">
                   <div class="sg-info-row">
                     <div class="sg-info-left">
-                      <span class="sg-info-label">CHỦ TÀI KHOẢN</span>
+                      <span class="sg-info-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                       <span class="sg-info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                        {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                       </span>
                     </div>
                   </div>
@@ -136,18 +135,18 @@
 
                   <div class="sg-info-row">
                     <div class="sg-info-left">
-                      <span class="sg-info-label">SỐ TÀI KHOẢN</span>
+                      <span class="sg-info-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                       <span class="sg-info-value sg-account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                        {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                       </span>
                     </div>
 
                     <button
                       type="button"
                       class="sg-copy-button"
-                      title="Sao chép số tài khoản"
-                      aria-label="Sao chép số tài khoản"
+                      :title="$t('Sao chép số tài khoản')"
+                      :aria-label="$t('Sao chép số tài khoản')"
                       @click="copyAccount(item)"
                     >
                       <v-icon size="14">mdi-content-copy</v-icon>
@@ -162,7 +161,7 @@
             </div>
 
             <div v-else class="sg-account-desc">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </div>
 
             <div class="sg-gift-dialog__footer">
@@ -182,19 +181,19 @@
           <div class="sg-qr-preview__backdrop" @click="closeQr"></div>
 
           <div class="sg-qr-preview__card">
-            <button type="button" class="sg-qr-preview__close" aria-label="Đóng QR" @click="closeQr">
+            <button type="button" class="sg-qr-preview__close" :aria-label="$t('Đóng QR')" @click="closeQr">
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="sg-qr-preview__title">
-              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+              {{ previewQr.Name || $t("QR MỪNG CƯỚI") }}
             </div>
 
             <div class="sg-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+              <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
             </div>
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p>{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -205,7 +204,7 @@
             >
               <v-icon size="15">mdi-download</v-icon>
 
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -217,7 +216,6 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },

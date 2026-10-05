@@ -56,10 +56,10 @@
           <div class="card-eyebrow">{{ sectionText(sections, "opening", "Kicker", "SAVE THE DATE") }}</div>
 
           <div class="card-icon">
-            <img :src="icon" alt="Biểu tượng cưới" />
+            <img :src="icon" :alt="$t('Biểu tượng cưới')" />
           </div>
 
-          <p class="card-invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+          <p class="card-invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
           <h1>{{ guestName }}</h1>
 
@@ -116,14 +116,14 @@
         <v-icon size="17">mdi-email-open-outline</v-icon>
       </span>
 
-      <span class="open-button__text">{{ sectionText(sections, "opening", "Button", "CHẠM ĐỂ MỞ THIỆP") }}</span>
+      <span class="open-button__text">{{ sectionText(sections, "opening", "Button", $t("CHẠM ĐỂ MỞ THIỆP")) }}</span>
 
       <span class="open-button__arrow">↗</span>
     </button>
 
     <p class="hint">
       <span></span>
-      Một lời mời · Một câu chuyện · Một ngày đặc biệt
+      {{ $t("Một lời mời · Một câu chuyện · Một ngày đặc biệt") }}
       <span></span>
     </p>
 
@@ -143,7 +143,6 @@ import { sectionText } from "@/data/sectionTitles";
 import { computed, ref } from "vue";
 import { icon } from "@/page/RomanticPink/romaticpink";
 import flower from "@/assets/glass-garden-pink/flower1-decoration.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {

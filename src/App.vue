@@ -440,6 +440,9 @@ import { NAV_LINKS } from "@/data/siteContent";
 
 import { getPaymentRequests, getMyWeddings } from "@/model/api";
 
+// Tự đồng bộ lại khi quay lại tab sau thời gian dài
+import { useTabResume } from "@/composables/useTabResume";
+
 // Auth store
 import { useAuthStore } from "@/stores/auth";
 
@@ -848,6 +851,47 @@ watch(
     loadMyWeddingCount();
   }
 );
+
+/*
+ * QUAY LẠI TAB SAU THỜI GIAN DÀI
+ *
+ * Tab để lâu ở background → trình duyệt freeze timer /
+ * discard tab / khôi phục từ bfcache. Dữ liệu trên trang
+ * đã stale, token có thể hết hạn giữa chừng. Khi người
+ * dùng quay lại:
+ *
+ *  - Có token → xác thực lại session (CheckSession) —
+ *    nếu token đã chết thì forceLogout ngay tại đây,
+ *    thay vì để API đầu tiên văng alert 401.
+ *  - Tải lại badge số thiệp + thanh toán chờ (Admin).
+ *
+ * Trang thiệp khách mời (/wedding/..., /:slug) KHÔNG
+ * reload cứng — nhạc đang phát, animation đang chạy,
+ * reload làm khách mất trải nghiệm. Chỉ các trang app
+ * (Manage/Admin/Editor...) mới cần dữ liệu tươi.
+ */
+useTabResume(() => {
+  if (auth.isLoggedIn) {
+    /*
+     * Xác thực lại session — token có thể đã chết trong
+     * lúc tab bị discard. restoreSession tự forceLogout
+     * nếu token không còn hợp lệ (guard sẽ đá về login
+     * ở lần điều hướng kế tiếp).
+     */
+    auth.restoreSession().then((valid) => {
+      if (!valid) {
+        return;
+      }
+
+      auth.sessionVerified = true;
+
+      loadMyWeddingCount();
+      loadPendingPayments();
+    });
+  } else {
+    loadMyWeddingCount();
+  }
+});
 
 onBeforeUnmount(() => {
   document.removeEventListener("click", onDocumentClick);

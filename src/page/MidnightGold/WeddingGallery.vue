@@ -3,7 +3,7 @@
     <div class="mg-gallery__heading">
       <span class="mg-gallery__kicker">{{ sectionText(sections, "gallery", "Eyebrow", "MEMORIES") }}</span>
 
-      <h2>{{ sectionText(sections, "gallery", "Heading", "Album Ảnh Cưới") }}</h2>
+      <h2>{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh Cưới")) }}</h2>
 
       <div class="mg-gallery__ornament">
         <span></span>
@@ -11,7 +11,7 @@
         <span></span>
       </div>
 
-      <p class="mg-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
+      <p class="mg-gallery__intro">{{ sectionText(sections, "gallery", "Intro", $t("Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình")) }}</p>
     </div>
 
     <GalleryShowcase
@@ -26,7 +26,7 @@
 
     <div v-else class="mg-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -44,7 +44,6 @@ import { ref, defineAsyncComponent } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

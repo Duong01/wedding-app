@@ -5,7 +5,7 @@
       <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="mw-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="mw-title">{{ sectionText(sections, "gallery", "Heading", "Album Ảnh") }}</h2>
+    <h2 class="mw-title">{{ sectionText(sections, "gallery", "Heading", $t("Album Ảnh")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="mw-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="mw-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
@@ -23,7 +23,7 @@
       @open="openGallery"
     />
 
-    <p v-else class="mw-gallery__empty">Chưa có hình ảnh</p>
+    <p v-else class="mw-gallery__empty">{{ $t("Chưa có hình ảnh") }}</p>
 
     <GalleryModal
       v-if="dialog"
@@ -40,7 +40,6 @@ import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, defineAsyncComponent, ref } from "vue";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );
@@ -55,7 +54,6 @@ const props = defineProps({
     default: () => [],
   },
 });
-
 
 const dialog = ref(false);
 

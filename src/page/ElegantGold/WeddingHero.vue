@@ -16,7 +16,7 @@
             <img
               v-if="bridePhoto"
               :src="bridePhoto"
-              alt="Cô dâu"
+              :alt="$t('Cô dâu')"
               class="la-frame__photo"
               draggable="false"
             />
@@ -31,7 +31,7 @@
             <img
               v-if="groomPhoto"
               :src="groomPhoto"
-              alt="Chú rể"
+              :alt="$t('Chú rể')"
               class="la-frame__photo"
               draggable="false"
             />
@@ -83,7 +83,7 @@ import hoaTim from "@/assets/love-art/hoa tim.webp";
 import dau from "@/assets/love-art/dau.webp";
 import re from "@/assets/love-art/re.webp";
 import tim from "@/assets/love-art/tim.webp";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
@@ -110,9 +110,9 @@ const brideName = computed(
     ""
 );
 
-const groomRole = computed(() => props.wedding?.couple?.Groom?.Role || "Trưởng Nam");
+const groomRole = computed(() => props.wedding?.couple?.Groom?.Role || t("Trưởng Nam"));
 
-const brideRole = computed(() => props.wedding?.couple?.Bride?.Role || "Thứ Nữ");
+const brideRole = computed(() => props.wedding?.couple?.Bride?.Role || t("Thứ Nữ"));
 
 const bridePhoto = computed(
   () =>

@@ -27,7 +27,7 @@
         <p class="shy-hero__name">{{ groomName }}</p>
       </div>
 
-      <img class="shy-hero__hy" :src="chuHy" alt="Song hỷ" draggable="false" />
+      <img class="shy-hero__hy" :src="chuHy" :alt="$t('Song hỷ')" draggable="false" />
 
       <div class="shy-hero__side">
         <p class="shy-hero__role">{{ brideRole }}</p>
@@ -90,12 +90,12 @@
     ====================================================== -->
 
     <div class="shy-hero__invite">
-      <p class="shy-hero__guest-label">TRÂN TRỌNG KÍNH MỜI</p>
+      <p class="shy-hero__guest-label">{{ $t("TRÂN TRỌNG KÍNH MỜI") }}</p>
 
       <p class="shy-hero__guest">{{ guestName }}</p>
 
       <p class="shy-hero__intro">
-        Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+        {{ $t("Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại") }}
       </p>
 
       <p v-if="location" class="shy-hero__place">{{ location }}</p>
@@ -106,7 +106,7 @@
       </div>
 
       <p class="shy-hero__message">
-        Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+        {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!") }}
       </p>
     </div>
   </header>
@@ -117,7 +117,9 @@ import { computed } from "vue";
 import dayjs from "dayjs";
 
 import { chuHy, star } from "./songHyRedAssets";
+import { t } from "@/lang";
 
+const HERO_WEEKDAYS = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
@@ -145,11 +147,11 @@ const brideName = computed(
 );
 
 const groomRole = computed(
-  () => props.wedding?.couple?.Groom?.Role || "ÚT NAM"
+  () => props.wedding?.couple?.Groom?.Role || t("ÚT NAM")
 );
 
 const brideRole = computed(
-  () => props.wedding?.couple?.Bride?.Role || "ÚT NỮ"
+  () => props.wedding?.couple?.Bride?.Role || t("ÚT NỮ")
 );
 
 const location = computed(
@@ -182,7 +184,7 @@ const dateText = computed(() => {
   const date = dayjs(raw);
 
   if (date.isValid()) {
-    return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(HERO_WEEKDAYS[date.day()])}, ${t("NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

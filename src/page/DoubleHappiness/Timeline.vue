@@ -32,7 +32,7 @@
           <div class="dh-timeline__title-row">
             <div class="dh-timeline__icon">{{ item.Icon || "囍" }}</div>
 
-            <h3>{{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}</h3>
+            <h3>{{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}</h3>
           </div>
 
           <p v-if="item.Description || item.Content" class="dh-timeline__desc">
@@ -59,7 +59,7 @@
 import { computed } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
-
+import { t } from "@/lang";
 const props = defineProps({
   timeline: { type: Array, default: () => [] },
   sections: { type: Object, default: () => ({}) },
@@ -68,11 +68,11 @@ const props = defineProps({
 const items = computed(() => props.timeline || []);
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG")
+  sectionText(props.sections, "timeline", "Eyebrow", t("DẤU MỐC YÊU THƯƠNG"))
 );
 
 const heading = computed(() =>
-  sectionText(props.sections, "timeline", "Heading", "Hành trình của chúng mình")
+  sectionText(props.sections, "timeline", "Heading", t("Hành trình của chúng mình"))
 );
 
 const intro = computed(() =>
@@ -80,12 +80,12 @@ const intro = computed(() =>
     props.sections,
     "timeline",
     "Intro",
-    "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay"
+    t("Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay")
   )
 );
 
 function formatTime(index) {
-  return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
+  return `${t("DẤU MỐC ")}${String(index + 1).padStart(2, "0")}`;
 }
 </script>
 

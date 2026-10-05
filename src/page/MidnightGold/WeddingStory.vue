@@ -1,6 +1,6 @@
 <template>
   <section class="mg-story">
-    <p class="mg-eyebrow">{{ sectionText(sections, "story", "Eyebrow", "CÂU CHUYỆN CỦA CHÚNG MÌNH") }}</p>
+    <p class="mg-eyebrow">{{ sectionText(sections, "story", "Eyebrow", $t("CÂU CHUYỆN CỦA CHÚNG MÌNH")) }}</p>
 
     <h2>{{ sectionText(sections, "story", "Heading", storyTitle) }}</h2>
 
@@ -15,7 +15,6 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 
 const content = computed(() =>

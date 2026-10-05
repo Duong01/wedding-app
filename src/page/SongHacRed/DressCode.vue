@@ -12,7 +12,7 @@
 
       <h2 class="shc-dress__title">{{ sectionText(sections, "dressCode", "Heading", "DRESS CODE") }}</h2>
 
-      <p class="shc-dress__subtitle">{{ sectionText(sections, "dressCode", "Intro", "Trang phục dự tiệc") }}</p>
+      <p class="shc-dress__subtitle">{{ sectionText(sections, "dressCode", "Intro", $t("Trang phục dự tiệc")) }}</p>
     </div>
 
     <!-- =====================================================
@@ -35,7 +35,6 @@
 
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
 defineProps({
   sections: { type: Object, default: () => ({}) },
 });

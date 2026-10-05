@@ -54,7 +54,7 @@
           class="rr-wishes__submit"
           :disabled="!form.name || !form.message || submitting"
         >
-          {{ submitting ? "ĐANG GỬI..." : submitLabel }}
+          {{ submitting ? $t("ĐANG GỬI...") : submitLabel }}
         </button>
 
       </div>
@@ -81,7 +81,7 @@
               wish.Name ||
               wish.guestName ||
               wish.GuestName ||
-              "Một người bạn"
+              $t("Một người bạn")
             }}
           </span>
 
@@ -124,8 +124,7 @@ import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
+import { t } from "@/lang";
 /* =========================================================
    PROPS
 ========================================================= */
@@ -147,27 +146,26 @@ const props = defineProps({
   },
 });
 
-
 /* =========================================================
    TIÊU ĐỀ MỤC
 ========================================================= */
 
 const heading = computed(() =>
-  sectionText(props.sections, "guestbook", "Heading", "Sổ lưu bút")
+  sectionText(props.sections, "guestbook", "Heading", t("Sổ lưu bút"))
 );
 
-const namePlaceholder = "Nhập tên của bạn*";
+const namePlaceholder = t("Nhập tên của bạn*");
 
-const messagePlaceholder = "Nhập lời chúc của bạn*";
+const messagePlaceholder = t("Nhập lời chúc của bạn*");
 
-const submitLabel = "GỬI LỜI CHÚC";
+const submitLabel = t("GỬI LỜI CHÚC");
 
 const emptyText = computed(() =>
   sectionText(
     props.sections,
     "guestbook",
     "Intro",
-    "Hãy là người đầu tiên gửi những lời chúc tốt đẹp nhất đến cô dâu chú rể."
+    t("Hãy là người đầu tiên gửi những lời chúc tốt đẹp nhất đến cô dâu chú rể.")
   )
 );
 
@@ -244,13 +242,13 @@ async function submit() {
   const message = form.message.trim();
 
   if (!name) {
-    alert("Vui lòng nhập tên của bạn.");
+    alert(t("Vui lòng nhập tên của bạn."));
 
     return;
   }
 
   if (!message) {
-    alert("Vui lòng nhập lời chúc.");
+    alert(t("Vui lòng nhập lời chúc."));
 
     return;
   }
@@ -277,10 +275,10 @@ async function submit() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      throw new Error(result?.message || "Gửi lời chúc thất bại.");
+      throw new Error(result?.message || t("Gửi lời chúc thất bại."));
     }
 
-    alert("Cảm ơn bạn! Lời chúc đã được gửi ❤️");
+    alert(t("Cảm ơn bạn! Lời chúc đã được gửi ❤️"));
 
     form.name = "";
 
@@ -290,7 +288,7 @@ async function submit() {
   } catch (error) {
     console.error("Guest book error:", error);
 
-    alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+    alert(t("Đã xảy ra lỗi. Vui lòng thử lại."));
   } finally {
     submitting.value = false;
   }

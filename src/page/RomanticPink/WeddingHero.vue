@@ -34,12 +34,12 @@
         <p class="announce">{{ heroSubtitle }}</p>
 
         <div class="guest-block">
-          <span class="guest-label">KÍNH MỜI</span>
+          <span class="guest-label">{{ $t("KÍNH MỜI") }}</span>
           <p class="guest">{{ guestName }}</p>
         </div>
 
         <p class="intro">
-          Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+          {{ $t("Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại") }}
         </p>
 
         <p class="place">{{ location }}</p>
@@ -50,7 +50,7 @@
         </div>
 
         <p class="message">
-          Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+          {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!") }}
         </p>
 
         <div class="hero-footer">
@@ -67,7 +67,7 @@ import dayjs from "dayjs";
 import { icon } from "@/page/RomanticPink/romaticpink";
 import leaf from "@/assets/glass-garden-pink/leaf1-bloom.webp";
 import flower from "@/assets/glass-garden-pink/flower1-decoration.webp";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
@@ -79,7 +79,7 @@ const props = defineProps({
 const heroTitle = computed(() => props.wedding?.hero?.Title || "SAVE THE DATE");
 
 const heroSubtitle = computed(
-  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+  () => props.wedding?.hero?.Subtitle || t("TRÂN TRỌNG KÍNH MỜI")
 );
 
 const groomName = computed(
@@ -131,16 +131,16 @@ const dateText = computed(() => {
 
   if (date.isValid()) {
     const weekdays = [
-      "CHỦ NHẬT",
-      "THỨ HAI",
-      "THỨ BA",
-      "THỨ TƯ",
-      "THỨ NĂM",
-      "THỨ SÁU",
-      "THỨ BẢY",
+      t("CHỦ NHẬT"),
+      t("THỨ HAI"),
+      t("THỨ BA"),
+      t("THỨ TƯ"),
+      t("THỨ NĂM"),
+      t("THỨ SÁU"),
+      t("THỨ BẢY"),
     ];
 
-    return `${weekdays[date.day()]}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(weekdays[date.day()])}${t(", NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

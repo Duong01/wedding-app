@@ -7,9 +7,9 @@
       <div class="loading-content">
         <div class="loading-heart">♥</div>
 
-        <div class="loading-title">Đang mở thiệp...</div>
+        <div class="loading-title">{{ $t("Đang mở thiệp...") }}</div>
 
-        <div class="loading-text">Vui lòng chờ một chút</div>
+        <div class="loading-text">{{ $t("Vui lòng chờ một chút") }}</div>
 
         <div class="loading-spinner"></div>
       </div>
@@ -28,7 +28,7 @@
         <p>{{ blockMessage }}</p>
 
         <button type="button" class="back-button" @click="goHome">
-          Quay lại trang chủ
+          {{ $t("Quay lại trang chủ") }}
         </button>
       </div>
     </div>
@@ -40,12 +40,12 @@
       <div class="error-content">
         <div class="error-icon">♥</div>
 
-        <h1>Thiệp này chưa được đăng ký</h1>
+        <h1>{{ $t("Thiệp này chưa được đăng ký") }}</h1>
 
-        <p>Thiệp cưới bạn đang tìm kiếm không tồn tại hoặc đã được thay đổi.</p>
+        <p>{{ $t("Thiệp cưới bạn đang tìm kiếm không tồn tại hoặc đã được thay đổi.") }}</p>
 
         <button type="button" class="back-button" @click="goHome">
-          Quay lại trang chủ
+          {{ $t("Quay lại trang chủ") }}
         </button>
       </div>
     </div>
@@ -67,18 +67,18 @@
       <div class="theme-error-content">
         <div class="theme-error-icon">⚠</div>
 
-        <h1>Không tìm thấy mẫu thiệp</h1>
+        <h1>{{ $t("Không tìm thấy mẫu thiệp") }}</h1>
 
         <p>
           Theme
           <strong>
             {{ wedding?.theme?.Name || "unknown" }}
           </strong>
-          chưa được đăng ký.
+          {{ $t("chưa được đăng ký.") }}
         </p>
 
         <button type="button" class="back-button" @click="goHome">
-          Quay lại trang chủ
+          {{ $t("Quay lại trang chủ") }}
         </button>
       </div>
     </div>
@@ -112,7 +112,7 @@ import themes from "@/themes";
 /* Font riêng của theme đang mở — nạp đúng lúc cần. */
 import { ensureFonts } from "@/utils/fontLoader";
 import { fontsForTheme } from "@/data/themeFonts";
-
+import { t, setCardLocale, clearCardLocale } from "@/lang";
 /*
  * Thiệp đã qua phong bì chưa — tự cuộn chỉ chạy sau khi mở
  * (theme phát "open" khi khách bấm mở thiệp).
@@ -162,32 +162,22 @@ const blockIcon = computed(() => {
 const blockTitle = computed(() => {
   switch (blockReason.value) {
     case "expired":
-      return "Thiệp tạm ẩn";
+      return t("Thiệp tạm ẩn");
     case "draft":
-      return "Thiệp chưa được xuất bản";
+      return t("Thiệp chưa được xuất bản");
     default:
-      return "Thiệp chưa được kích hoạt";
+      return t("Thiệp chưa được kích hoạt");
   }
 });
 
 const blockMessage = computed(() => {
   switch (blockReason.value) {
     case "expired":
-      return (
-        "Thời gian dùng thử của thiệp đã kết thúc và thiệp chưa được " +
-        "thanh toán. Toàn bộ nội dung vẫn được giữ nguyên — vui lòng " +
-        "liên hệ cô dâu chú rể."
-      );
+      return t("Thời gian dùng thử của thiệp đã kết thúc và thiệp chưa được thanh toán. Toàn bộ nội dung vẫn được giữ nguyên — vui lòng liên hệ cô dâu chú rể.");
     case "draft":
-      return (
-        "Cô dâu chú rể chưa xuất bản thiệp này cho khách mời. " +
-        "Vui lòng quay lại sau."
-      );
+      return t("Cô dâu chú rể chưa xuất bản thiệp này cho khách mời. Vui lòng quay lại sau.");
     default:
-      return (
-        "Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ " +
-        "với cô dâu chú rể hoặc quay lại sau."
-      );
+      return t("Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ với cô dâu chú rể hoặc quay lại sau.");
   }
 });
 
@@ -244,6 +234,11 @@ watch(
   (value) => {
     if (value) {
       ensureFonts(fontsForTheme(value));
+
+      /* Ngôn ngữ thiệp — chủ thiệp chọn trong editor */
+      setCardLocale(value.language);
+    } else {
+      clearCardLocale();
     }
   },
   { immediate: true }
@@ -277,7 +272,7 @@ async function loadWedding() {
 
   if (typeof slug !== "string" || !slug.trim()) {
     store.wedding = null;
-    store.error = "Đường dẫn thiệp không hợp lệ.";
+    store.error = t("Đường dẫn thiệp không hợp lệ.");
     return;
   }
 
@@ -316,7 +311,7 @@ async function loadWedding() {
       }
 
       store.wedding = null;
-      store.error = result?.message || "Thiệp này chưa được đăng ký.";
+      store.error = result?.message || t("Thiệp này chưa được đăng ký");
       return;
     }
 
@@ -339,26 +334,25 @@ async function loadWedding() {
         return;
       }
 
-      store.error = "Thiệp này chưa được đăng ký.";
+      store.error = t("Thiệp này chưa được đăng ký");
       return;
     }
 
     if (error?.response?.status === 400) {
-      store.error = "Đường dẫn thiệp không hợp lệ.";
+      store.error = t("Đường dẫn thiệp không hợp lệ.");
       return;
     }
 
     if (error?.response?.status >= 500) {
-      store.error = "Máy chủ đang gặp sự cố. Vui lòng thử lại sau.";
+      store.error = t("Máy chủ đang gặp sự cố. Vui lòng thử lại sau.");
       return;
     }
 
-    store.error = "Không thể tải dữ liệu thiệp.";
+    store.error = t("Không thể tải dữ liệu thiệp.");
   } finally {
     store.loading = false;
   }
 }
-
 
 /* =========================================================
    WATCH URL
@@ -409,6 +403,9 @@ onBeforeUnmount(() => {
   store.wedding = null;
 
   store.error = null;
+
+  /* Trả ngôn ngữ về giao diện web */
+  clearCardLocale();
 });
 </script>
 

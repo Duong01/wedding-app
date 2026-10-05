@@ -211,17 +211,17 @@
           <button
             type="button"
             class="rr-confirm__close"
-            aria-label="Đóng"
+            :aria-label="$t('Đóng')"
             @click="closeConfirmModal"
           >
-            ×
+            {{ "×" }}
           </button>
 
           <div class="rr-confirm__head">
             <h3>{{ rsvpLabel }}</h3>
 
             <p>
-              Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.
+              {{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}
             </p>
           </div>
 
@@ -242,12 +242,12 @@
             <!-- KHÔNG CÓ NGƯỜI ĐƯỢC MỜI -->
 
             <div v-else class="rr-confirm__field">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
                 maxlength="100"
               />
             </div>
@@ -256,7 +256,7 @@
             <!-- THAM DỰ -->
 
             <div class="rr-confirm__field">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="rr-confirm__options">
 
@@ -266,7 +266,7 @@
                   :class="{ 'is-selected': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  Có, tôi sẽ tham dự
+                  {{ $t("Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -277,7 +277,7 @@
                   }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  Rất tiếc, tôi không thể tham dự
+                  {{ $t("Rất tiếc, tôi không thể tham dự") }}
                 </button>
 
               </div>
@@ -290,7 +290,7 @@
               v-if="form.attendance === 'attending'"
               class="rr-confirm__field"
             >
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="rr-confirm__people">
                 <button type="button" @click="decreasePeople">−</button>
@@ -317,7 +317,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : submitLabel }}
+              {{ submitting ? $t("ĐANG GỬI...") : submitLabel }}
             </button>
 
           </div>
@@ -337,6 +337,7 @@ import { useRoute } from "vue-router";
 
 import { Confirm } from "@/model/api";
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -370,7 +371,6 @@ const props = defineProps({
   },
 });
 
-
 const route = useRoute();
 
 
@@ -379,22 +379,22 @@ const route = useRoute();
 ========================================================= */
 
 const heading = computed(() =>
-  sectionText(props.sections, "events", "Heading", "Thông tin tiệc cưới")
+  sectionText(props.sections, "events", "Heading", t("Thông tin tiệc cưới"))
 );
 
 const inviteLabel = computed(() =>
-  sectionText(props.sections, "events", "Eyebrow", "Trân trọng kính mời")
+  sectionText(props.sections, "events", "Eyebrow", t("Trân trọng kính mời"))
 );
 
-const rsvpLabel = "XÁC NHẬN THAM DỰ";
+const rsvpLabel = t("XÁC NHẬN THAM DỰ");
 
-const submitLabel = "GỬI XÁC NHẬN";
+const submitLabel = t("GỬI XÁC NHẬN");
 
-const calendarLabel = "Thêm vào lịch";
+const calendarLabel = t("Thêm vào lịch");
 
-const receptionLabel = "Đón khách";
+const receptionLabel = t("Đón khách");
 
-const ceremonyLabel = "Khai tiệc";
+const ceremonyLabel = t("Khai tiệc");
 
 const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
@@ -516,13 +516,13 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!form.name) {
-    errorMessage.value = "Vui lòng nhập họ tên.";
+    errorMessage.value = t("Vui lòng nhập họ tên.");
 
     return;
   }
 
   if (!form.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
 
     return;
   }
@@ -538,7 +538,7 @@ async function submitConfirmation() {
     RecipientToken: route.params.token || null,
     GuestName: form.name,
     Attendance:
-      form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+      form.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
     NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0,
   };
 
@@ -549,11 +549,11 @@ async function submitConfirmation() {
       payload,
       (result) => {
         if (!result || result.status !== "success") {
-          throw new Error(result?.message || "Không thể gửi xác nhận.");
+          throw new Error(result?.message || t("Không thể gửi xác nhận."));
         }
 
         successMessage.value =
-          "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+          t("Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️");
 
         setTimeout(() => {
           showConfirmModal.value = false;
@@ -561,12 +561,12 @@ async function submitConfirmation() {
       },
       (error) => {
         errorMessage.value =
-          error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+          error?.data?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
       }
     );
   } catch (error) {
     errorMessage.value =
-      error?.message || "Đã xảy ra lỗi. Vui lòng thử lại!.";
+      error?.message || t("Đã xảy ra lỗi. Vui lòng thử lại!.");
   } finally {
     submitting.value = false;
   }
@@ -634,16 +634,16 @@ const normalizedEvents = computed(() => {
 
 function getTypeLabel(type) {
   const labels = {
-    vuquy: "LỄ VU QUY",
+    vuquy: t("LỄ VU QUY"),
 
-    cuoi: "LỄ CƯỚI",
+    cuoi: t("LỄ CƯỚI"),
 
-    tiec: "TIỆC CƯỚI",
+    tiec: t("TIỆC CƯỚI"),
 
-    thanhhon: "LỄ THÀNH HÔN",
+    thanhhon: t("LỄ THÀNH HÔN"),
   };
 
-  return labels[type] || "NGÀY TRỌNG ĐẠI";
+  return labels[type] || t("NGÀY TRỌNG ĐẠI");
 }
 
 

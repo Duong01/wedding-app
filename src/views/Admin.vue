@@ -336,6 +336,7 @@
 import { computed, onMounted, ref } from "vue";
 
 import { useAuthStore, ROLES, ROLE_LABELS } from "@/stores/auth";
+import { useTabResume } from "@/composables/useTabResume";
 import {
   GetAllAccounts,
   UpdateAccountRole,
@@ -377,6 +378,11 @@ const roleOptions = [
 ========================================================= */
 
 onMounted(() => {
+  loadAccounts();
+});
+
+/* Quay lại tab sau thời gian dài → danh sách có thể stale, load lại */
+useTabResume(() => {
   loadAccounts();
 });
 

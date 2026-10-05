@@ -8,7 +8,7 @@
           <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="ds-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
         </header>
 
-        <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược ngày vui") }}</h2>
+        <h2>{{ sectionText(sections, "countdown", "Heading", $t("Đếm ngược ngày vui")) }}</h2>
       </div>
 
       <div class="timer">
@@ -34,7 +34,7 @@
 <script setup>
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   countdown: {
@@ -82,10 +82,10 @@ const remaining = computed(() => {
 });
 
 const timerItems = computed(() => [
-  { label: "NGÀY", value: remaining.value.days },
-  { label: "GIỜ", value: remaining.value.hours },
-  { label: "PHÚT", value: remaining.value.minutes },
-  { label: "GIÂY", value: remaining.value.seconds },
+  { label: t("NGÀY"), value: remaining.value.days },
+  { label: t("GIỜ"), value: remaining.value.hours },
+  { label: t("PHÚT"), value: remaining.value.minutes },
+  { label: t("GIÂY"), value: remaining.value.seconds },
 ]);
 
 onMounted(() => {

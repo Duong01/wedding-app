@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "gifts", "Heading", "Hộp quà mừng") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "gifts", "Heading", $t("Hộp quà mừng")) }}</h2>
 
       <p class="cr-heading__zh">禮物盒</p>
 
@@ -24,13 +24,13 @@
         <span></span>
       </div>
 
-      <p class="cr-heading__intro">{{ sectionText(sections, "gifts", "Intro", "Những lời chúc và tình cảm của bạn\nlà món quà quý giá nhất dành cho chúng mình") }}</p>
+      <p class="cr-heading__intro">{{ sectionText(sections, "gifts", "Intro", $t("Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình")) }}</p>
     </header>
 
     <!-- =====================================================
          PHONG BÌ MỪNG CƯỚI
     ====================================================== -->
-    <button type="button" class="cr-envelope" aria-label="Mở hộp quà mừng" @click="openGift">
+    <button type="button" class="cr-envelope" :aria-label="$t('Mở hộp quà mừng')" @click="openGift">
       <span class="cr-envelope__glow" aria-hidden="true"></span>
 
       <!-- Phong bì sau — lật ngược, nghiêng lệch ra sau -->
@@ -55,7 +55,7 @@
         <span class="cr-envelope__spark cr-envelope__spark--3" aria-hidden="true">❀</span>
       </span>
 
-      <span class="cr-envelope__hint">CHẠM ĐỂ MỞ</span>
+      <span class="cr-envelope__hint">{{ $t("CHẠM ĐỂ MỞ") }}</span>
     </button>
 
     <!-- =====================================================
@@ -68,10 +68,10 @@
             <button
               type="button"
               class="cr-gift-dialog__close"
-              aria-label="Đóng hộp quà mừng"
+              :aria-label="$t('Đóng hộp quà mừng')"
               @click="closeGift"
             >
-              ×
+              {{ "×" }}
             </button>
 
             <img
@@ -81,11 +81,10 @@
               draggable="false"
             />
 
-            <h3 class="cr-gift-dialog__title">Hộp quà mừng</h3>
+            <h3 class="cr-gift-dialog__title">{{ $t("Hộp quà mừng") }}</h3>
 
             <p class="cr-gift-dialog__desc">
-              Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể
-              chuyển khoản qua các tài khoản bên dưới.
+              {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
             </p>
 
             <div v-if="gifts.length" class="cr-accounts">
@@ -104,34 +103,34 @@
                   v-if="item.QrCode"
                   type="button"
                   class="cr-account__qr"
-                  aria-label="Xem QR lớn"
+                  :aria-label="$t('Xem QR lớn')"
                   @click="openQr(item)"
                 >
-                  <img :src="item.QrCode" :alt="item.Name || 'QR mừng cưới'" />
+                  <img :src="item.QrCode" :alt="item.Name || $t('QR mừng cưới')" />
 
-                  <span>CHẠM VÀO QR ĐỂ XEM LỚN</span>
+                  <span>{{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}</span>
                 </button>
 
                 <div class="cr-account__row">
-                  <span class="cr-account__row-label">CHỦ TÀI KHOẢN</span>
+                  <span class="cr-account__row-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                   <span class="cr-account__row-value">
-                    {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                    {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                   </span>
                 </div>
 
                 <div class="cr-account__row">
-                  <span class="cr-account__row-label">SỐ TÀI KHOẢN</span>
+                  <span class="cr-account__row-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                   <span class="cr-account__row-value cr-account__number">
-                    {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                    {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                   </span>
 
                   <button
                     type="button"
                     class="cr-account__copy"
-                    title="Sao chép số tài khoản"
-                    aria-label="Sao chép số tài khoản"
+                    :title="$t('Sao chép số tài khoản')"
+                    :aria-label="$t('Sao chép số tài khoản')"
                     @click="copyAccount(item)"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
@@ -148,7 +147,7 @@
             </div>
 
             <p v-else class="cr-gift-dialog__desc">
-              Thông tin chuyển khoản đang được cập nhật.
+              {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
             </p>
           </div>
         </div>
@@ -161,17 +160,17 @@
             <button
               type="button"
               class="cr-gift-dialog__close"
-              aria-label="Đóng QR"
+              :aria-label="$t('Đóng QR')"
               @click="closeQr"
             >
-              ×
+              {{ "×" }}
             </button>
 
-            <p class="cr-qr-preview__title">{{ previewQr.Name || "QR MỪNG CƯỚI" }}</p>
+            <p class="cr-qr-preview__title">{{ previewQr.Name || $t("QR MỪNG CƯỚI") }}</p>
 
-            <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+            <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
 
-            <p class="cr-qr-preview__hint">Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p class="cr-qr-preview__hint">{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -180,7 +179,7 @@
               download
               class="cr-qr-preview__save"
             >
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -194,7 +193,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { onBeforeUnmount, ref } from "vue";
 
 import { decorativeDiamond, doubleHappiness } from "./emeraldLuxeAssets";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },

@@ -32,7 +32,7 @@
 
       <h2 class="tdx-heading">{{ sectionText(sections, "dressCode", "Heading", "Dress Code") }}</h2>
 
-      <p class="tdx-dress__intro">{{ sectionText(sections, "dressCode", "Intro", "Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau") }}</p>
+      <p class="tdx-dress__intro">{{ sectionText(sections, "dressCode", "Intro", $t("Để bức ảnh chung thêm phần hài hoà, chúng mình mong quý khách ghé thăm buổi tiệc với trang phục mang tông màu sau")) }}</p>
 
       <ul class="tdx-dress__palette">
         <li v-for="color in palette" :key="color.hex" class="tdx-dress__swatch">
@@ -52,7 +52,6 @@ defineProps({
   sections: { type: Object, default: () => ({}) },
 });
 import { flowerDecoration, lineDecoration } from "./toDuyenXanhAssets";
-
 const palette = [
   { name: "XANH RÊU", hex: "#5e813c" },
   { name: "XANH RỪNG", hex: "#1a3500" },

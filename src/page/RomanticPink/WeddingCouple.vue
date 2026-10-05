@@ -3,9 +3,9 @@
     <!-- =========================
          TITLE
     ========================== -->
-    <div class="gg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO TIN") }}</div>
+    <div class="gg-eyebrow">{{ sectionText(sections, "couple", "Eyebrow", $t("TRÂN TRỌNG BÁO TIN")) }}</div>
 
-    <h2 class="gg-title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+    <h2 class="gg-title">{{ sectionText(sections, "couple", "Heading", $t("Thông tin lễ cưới")) }}</h2>
 
     <!-- =========================
          PARENTS
@@ -13,7 +13,7 @@
     <div class="parents-grid">
       <!-- NHÀ TRAI -->
       <div class="parents-col parents-col--groom">
-        <span class="parents-label">Ông Bà</span>
+        <span class="parents-label">{{ $t("Ông Bà") }}</span>
 
         <p v-if="groomParents?.Father" class="parents-name">
           {{ groomParents.Father }}
@@ -33,7 +33,7 @@
 
       <!-- NHÀ GÁI -->
       <div class="parents-col parents-col--bride">
-        <span class="parents-label">Ông Bà</span>
+        <span class="parents-label">{{ $t("Ông Bà") }}</span>
 
         <p v-if="brideParents?.Father" class="parents-name">
           {{ brideParents.Father }}
@@ -72,12 +72,12 @@
          WEDDING DATE
     ========================== -->
     <div class="wedding-date">
-      <p class="date-lead">LỄ THÀNH HÔN TẠI</p>
+      <p class="date-lead">{{ $t("LỄ THÀNH HÔN TẠI") }}</p>
 
       <p v-if="location" class="date-place">{{ location }}</p>
 
       <p v-if="weddingTime" class="date-time-lead">
-        VÀO LÚC
+        {{ $t("VÀO LÚC") }}
         <strong>{{ weddingTime }}</strong>
       </p>
 
@@ -91,14 +91,14 @@
       <!-- NGÀY / THÁNG / NĂM -->
       <div class="date-main">
         <div class="date-side">
-          <span>THÁNG</span>
+          <span>{{ $t("THÁNG") }}</span>
           <strong>{{ weddingMonth }}</strong>
         </div>
 
         <div class="date-day">{{ weddingDay }}</div>
 
         <div class="date-side">
-          <span>NĂM</span>
+          <span>{{ $t("NĂM") }}</span>
           <strong>{{ weddingYear }}</strong>
         </div>
       </div>
@@ -114,7 +114,7 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {
@@ -151,11 +151,11 @@ const bride = computed(
 );
 
 const groomRole = computed(
-  () => props.wedding?.couple?.Groom?.Role || "trưởng nam"
+  () => props.wedding?.couple?.Groom?.Role || t("trưởng nam")
 );
 
 const brideRole = computed(
-  () => props.wedding?.couple?.Bride?.Role || "con gái út"
+  () => props.wedding?.couple?.Bride?.Role || t("con gái út")
 );
 
 /* =====================================================
@@ -240,16 +240,16 @@ const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 /* =====================================================
@@ -296,7 +296,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

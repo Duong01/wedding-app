@@ -179,7 +179,6 @@ import DressCode from "@/page/ModernWhite/DressCode.vue";
 import WeddingGifts from "@/page/ModernWhite/WeddingGifts.vue";
 import WeddingWishes from "@/page/ModernWhite/WeddingWishes.vue";
 import WeddingFooter from "@/page/ModernWhite/WeddingFooter.vue";
-
 /* ==========================================================
    PROPS
 ========================================================== */

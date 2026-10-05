@@ -1,8 +1,8 @@
 <template>
   <section class="sg-countdown">
-    <p class="sg-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", "NGÀY VUI ĐANG ĐẾN GẦN") }}</p>
+    <p class="sg-eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", $t("NGÀY VUI ĐANG ĐẾN GẦN")) }}</p>
 
-    <h2>{{ sectionText(sections, "countdown", "Heading", "Đếm ngược") }}</h2>
+    <h2>{{ sectionText(sections, "countdown", "Heading", $t("Đếm ngược")) }}</h2>
 
     <div class="sg-countdown__grid">
       <article v-for="item in values" :key="item.label" class="sg-countdown__item">
@@ -17,7 +17,7 @@
 import { sectionText } from "@/data/sectionTitles";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import dayjs from "dayjs";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   countdown: { type: [String, Date, Object], default: "" },
@@ -41,10 +41,10 @@ const values = computed(() => {
   const seconds = Math.max(0, dayjs(target.value).diff(dayjs(now.value), "second"));
 
   return [
-    ["NGÀY", Math.floor(seconds / 86400)],
-    ["GIỜ", Math.floor((seconds % 86400) / 3600)],
-    ["PHÚT", Math.floor((seconds % 3600) / 60)],
-    ["GIÂY", seconds % 60],
+    [t("NGÀY"), Math.floor(seconds / 86400)],
+    [t("GIỜ"), Math.floor((seconds % 86400) / 3600)],
+    [t("PHÚT"), Math.floor((seconds % 3600) / 60)],
+    [t("GIÂY"), seconds % 60],
   ].map(([label, value]) => ({
     label,
     value: String(value).padStart(2, "0"),

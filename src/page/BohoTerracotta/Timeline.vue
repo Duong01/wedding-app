@@ -6,7 +6,7 @@
         <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="bq-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="bq-heading">{{ sectionText(sections, "timeline", "Heading", "LỊCH TRÌNH NGÀY CƯỚI") }}</h2>
+      <h2 class="bq-heading">{{ sectionText(sections, "timeline", "Heading", $t("LỊCH TRÌNH NGÀY CƯỚI")) }}</h2>
       <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
       <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="bq-sub-custom-head">
         <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="bq-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -45,7 +45,7 @@
           </span>
 
           <span class="bq-timeline__label">
-            {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+            {{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}
           </span>
         </li>
       </ol>
@@ -66,7 +66,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { cake, camera, cook, goldenLine } from "./bohoTerracottaAssets";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },

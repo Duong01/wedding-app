@@ -27,8 +27,7 @@ import { computed } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
 import { BRAND } from "@/data/siteContent";
-
-
+import { t } from "@/lang";
 /* =====================================================
    PROPS
 ===================================================== */
@@ -55,7 +54,6 @@ const props = defineProps({
   },
 });
 
-
 const wedding = computed(() => props.wedding || {});
 
 
@@ -76,7 +74,7 @@ const thanksMessage = computed(() => {
   return (
     wedding.value?.footer?.Message ||
     eyebrow.value ||
-    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    t("Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!")
   );
 });
 

@@ -147,8 +147,7 @@
 import { computed } from "vue";
 
 import { sectionOverride, sectionText } from "@/data/sectionTitles";
-
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -166,13 +165,12 @@ const props = defineProps({
   },
 });
 
-
 /* =====================================================
    TIÊU ĐỀ MỤC
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "couple", "Heading", "Thông tin lễ cưới")
+  sectionText(props.sections, "couple", "Heading", t("Thông tin lễ cưới"))
 );
 
 
@@ -199,11 +197,11 @@ const bride = computed(
 );
 
 const groomRole = computed(
-  () => props.wedding?.couple?.Groom?.Role || "Út Nam"
+  () => props.wedding?.couple?.Groom?.Role || t("Út Nam")
 );
 
 const brideRole = computed(
-  () => props.wedding?.couple?.Bride?.Role || "Trưởng Nữ"
+  () => props.wedding?.couple?.Bride?.Role || t("Trưởng Nữ")
 );
 
 
@@ -212,11 +210,11 @@ const brideRole = computed(
 ===================================================== */
 
 const groomFamilyLabel = computed(
-  () => props.wedding?.couple?.Groom?.FamilyLabel || "Ông Bà"
+  () => props.wedding?.couple?.Groom?.FamilyLabel || t("Ông Bà")
 );
 
 const brideFamilyLabel = computed(
-  () => props.wedding?.couple?.Bride?.FamilyLabel || "Ông Bà"
+  () => props.wedding?.couple?.Bride?.FamilyLabel || t("Ông Bà")
 );
 
 const groomParents = computed(() => {
@@ -284,16 +282,16 @@ const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(() => {
@@ -348,7 +346,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

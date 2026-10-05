@@ -62,6 +62,7 @@
 </template>
 
 <script setup>
+import { t } from "@/lang";
 import { computed } from "vue";
 
 import {
@@ -103,7 +104,7 @@ const brideName = computed(() => {
 const thanksMessage = computed(() => {
   return (
     wedding.value?.footer?.Message ||
-    "CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\nCÙNG CHÚNG MÌNH"
+    t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI\nCÙNG CHÚNG MÌNH")
   );
 });
 

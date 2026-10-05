@@ -31,8 +31,8 @@
       </div>
 
       <p class="mg-footer__thanks">
-        CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI<br />
-        CÙNG CHÚNG MÌNH
+        {{ $t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI") }}<br />
+        {{ $t("CÙNG CHÚNG MÌNH") }}
       </p>
 
       <div class="mg-footer__date">{{ weddingDate }}</div>
@@ -45,7 +45,6 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },

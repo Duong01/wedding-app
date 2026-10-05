@@ -38,7 +38,7 @@
 
 <script setup>
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   wedding: {
     type: Object,
@@ -81,7 +81,7 @@ const brideName = computed(
 const thanksMessage = computed(
   () =>
     wedding.value?.footer?.Message ||
-    "Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!"
+    t("Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!")
 );
 
 const copyrightText = computed(

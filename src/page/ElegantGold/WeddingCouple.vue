@@ -5,14 +5,14 @@
       <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "couple", "Heading", $t("Thông tin lễ cưới")) }}</h2>
 
     <!-- =====================================================
          ÔNG BÀ HAI BÊN
     ====================================================== -->
     <div class="la-parents">
       <div class="la-parents__side">
-        <span class="la-parents__label">Ông Bà</span>
+        <span class="la-parents__label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="groomFather" class="la-parents__name">{{ groomFather }}</span>
 
@@ -24,7 +24,7 @@
       <div class="la-parents__divider"></div>
 
       <div class="la-parents__side">
-        <span class="la-parents__label">Ông Bà</span>
+        <span class="la-parents__label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="brideFather" class="la-parents__name">{{ brideFather }}</span>
 
@@ -38,8 +38,8 @@
          BÁO TIN
     ====================================================== -->
     <p class="la-couple__announce">
-      TRÂN TRỌNG BÁO TIN<br />
-      LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+      {{ $t("TRÂN TRỌNG BÁO TIN") }}<br />
+      {{ $t("LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
     </p>
 
     <!-- =====================================================
@@ -62,11 +62,11 @@
     ====================================================== -->
     <div class="la-date">
       <p class="la-date__place">
-        LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br />
+        {{ $t("LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI") }}<br />
         {{ location }}
       </p>
 
-      <p class="la-date__lead">VÀO LÚC</p>
+      <p class="la-date__lead">{{ $t("VÀO LÚC") }}</p>
 
       <p v-if="weddingTime" class="la-date__time">{{ weddingTime }}</p>
 
@@ -96,7 +96,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import love from "@/assets/love-art/love.webp";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -121,9 +121,9 @@ const brideName = computed(
     ""
 );
 
-const groomRole = computed(() => props.wedding?.couple?.Groom?.Role || "Trưởng Nam");
+const groomRole = computed(() => props.wedding?.couple?.Groom?.Role || t("Trưởng Nam"));
 
-const brideRole = computed(() => props.wedding?.couple?.Bride?.Role || "Thứ Nữ");
+const brideRole = computed(() => props.wedding?.couple?.Bride?.Role || t("Thứ Nữ"));
 
 const groomFather = computed(() => props.wedding?.couple?.Groom?.Father || "");
 
@@ -142,7 +142,7 @@ const location = computed(
     props.wedding?.events?.[0]?.Location ||
     props.wedding?.hero?.Location ||
     props.wedding?.location ||
-    "Tư gia"
+    t("Tư gia")
 );
 
 /* =========================================================
@@ -187,9 +187,9 @@ const weddingYear = computed(() => {
 const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
-  const weekdays = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
+  const weekdays = [t("CHỦ NHẬT"), t("THỨ HAI"), t("THỨ BA"), t("THỨ TƯ"), t("THỨ NĂM"), t("THỨ SÁU"), t("THỨ BẢY")];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(
@@ -219,7 +219,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

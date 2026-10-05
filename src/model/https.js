@@ -71,27 +71,44 @@ function extractApiMessage(data, fallback) {
   return fallback;
 }
 
+/*
+ * Chống alert 401 dồn dập: khi token chết giữa phiên,
+ * nhiều API đang chạy song song cùng fail 401 — chỉ
+ * alert + redirect MỘT lần cho đợt đó (reset khi đã
+ * sang trang login hoặc có request thành công lại).
+ */
+let authRedirected = false;
+
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    /* Request thành công → token còn sống, mở khóa lại */
+    authRedirected = false;
+
+    return response;
+  },
 
   (error) => {
     const status = error.response?.status;
 
     if (status === 401 && !error.config?.skipAuthRedirect) {
-      alert(
-        extractApiMessage(
-          error.response?.data,
-          t("auth.sessionExpired")
-        )
-      );
+      if (!authRedirected) {
+        authRedirected = true;
 
-      if (router.currentRoute.value.path !== "/login") {
-        router.push({
-          path: "/login",
-          query: {
-            redirect: router.currentRoute.value.fullPath,
-          },
-        });
+        alert(
+          extractApiMessage(
+            error.response?.data,
+            t("auth.sessionExpired")
+          )
+        );
+
+        if (router.currentRoute.value.path !== "/login") {
+          router.push({
+            path: "/login",
+            query: {
+              redirect: router.currentRoute.value.fullPath,
+            },
+          });
+        }
       }
     }
 

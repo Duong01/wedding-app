@@ -8,7 +8,7 @@
       <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "timeline", "Heading", $t("Lịch trình ngày cưới")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="la-sub-custom-head">
       <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="la-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
@@ -32,7 +32,7 @@
         </span>
 
         <span class="la-timeline__label">
-          {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+          {{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}
         </span>
       </li>
     </ol>
@@ -45,7 +45,6 @@ import { computed } from "vue";
 
 import dauLy from "@/assets/love-art/dau ly.webp";
 import reLy from "@/assets/love-art/re ly.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },

@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shc-wishes__title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    <h2 class="shc-wishes__title">{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="shc-sub-custom-head">
       <p v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="shc-sub-custom-head__intro">{{ sectionOverride(sections, "guestbook", "Intro") }}</p>
@@ -49,7 +49,7 @@
           type="text"
           class="shc-wish-form__input"
           maxlength="500"
-          placeholder="Nhập tên*"
+          :placeholder="$t('Nhập tên*')"
           required
         />
 
@@ -57,7 +57,7 @@
           v-model.trim="form.message"
           class="shc-wish-form__textarea"
           maxlength="10000"
-          placeholder="Nhập lời chúc*"
+          :placeholder="$t('Nhập lời chúc*')"
           rows="4"
           required
         ></textarea>
@@ -68,7 +68,7 @@
             class="shc-wish-form__submit"
             :disabled="!canSubmit || submitting"
           >
-            {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+            {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}
           </button>
         </div>
       </form>
@@ -78,9 +78,9 @@
       ========================================== -->
 
       <div v-if="items.length === 0" class="shc-wishes__empty">
-        <p>Chưa có lời chúc nào</p>
+        <p>{{ $t("Chưa có lời chúc nào") }}</p>
 
-        <span>Hãy là người đầu tiên gửi lời yêu thương</span>
+        <span>{{ $t("Hãy là người đầu tiên gửi lời yêu thương") }}</span>
       </div>
 
       <!-- =========================================
@@ -113,7 +113,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWish, getAllWishes } from "@/model/api";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: { type: Array, default: () => [] },
@@ -144,11 +144,11 @@ const canSubmit = computed(() => {
 });
 
 function getName(wish) {
-  return wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời";
+  return wish?.Name || wish?.GuestName || wish?.FullName || t("Khách mời");
 }
 
 function getMessage(wish) {
-  return wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương";
+  return wish?.Message || wish?.Content || wish?.Wish || t("Một lời chúc yêu thương");
 }
 
 
@@ -160,9 +160,9 @@ function getMessage(wish) {
 const wishItems = computed(() =>
   (props.wishes || [])
     .map((wish) => ({
-      name: wish?.Name || wish?.GuestName || wish?.FullName || "Khách mời",
+      name: wish?.Name || wish?.GuestName || wish?.FullName || t("Khách mời"),
       message:
-        wish?.Message || wish?.Content || wish?.Wish || "Một lời chúc yêu thương",
+        wish?.Message || wish?.Content || wish?.Wish || t("Một lời chúc yêu thương"),
     }))
     .filter((wish) => wish.name || wish.message)
 );
@@ -178,7 +178,7 @@ function formatTime(dateString) {
     return dateString;
   }
 
-  return date.toLocaleDateString("vi-VN", {
+  return date.toLocaleDateString(localeTag(), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -221,12 +221,12 @@ if (route.params.slug && route.name === "WeddingByApi") {
 
 async function submitWish() {
   if (!form.name || !form.name.trim()) {
-    alert("Vui lòng nhập tên của bạn");
+    alert(t("Vui lòng nhập tên của bạn"));
     return;
   }
 
   if (!form.message || !form.message.trim()) {
-    alert("Vui lòng nhập lời chúc");
+    alert(t("Vui lòng nhập lời chúc"));
     return;
   }
 
@@ -250,19 +250,19 @@ async function submitWish() {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      alert("Gửi lời chúc thành công ❤️");
+      alert(t("Gửi lời chúc thành công ❤️"));
 
       form.name = "";
       form.message = "";
 
       await loadWishes();
     } else {
-      alert(result?.message || "Không thể gửi lời chúc.");
+      alert(result?.message || t("Không thể gửi lời chúc."));
     }
   } catch (error) {
     console.error(error);
 
-    alert(error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại.");
+    alert(error?.response?.data?.message || t("Có lỗi xảy ra, vui lòng thử lại."));
   } finally {
     submitting.value = false;
   }

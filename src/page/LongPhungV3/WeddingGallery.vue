@@ -6,10 +6,10 @@
         <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="lp-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
       </header>
 
-      <h2>{{ sectionText(sections, "gallery", "Heading", "ALBUM ẢNH CƯỚI") }}</h2>
+      <h2>{{ sectionText(sections, "gallery", "Heading", $t("ALBUM ẢNH CƯỚI")) }}</h2>
     </div>
 
-    <p class="lp-gallery__intro">{{ sectionText(sections, "gallery", "Intro", "Những khoảnh khắc đẹp nhất\nđược lưu giữ cùng chúng mình") }}</p>
+    <p class="lp-gallery__intro">{{ sectionText(sections, "gallery", "Intro", $t("Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình")) }}</p>
 
     <!-- CAROUSEL VÒNG -->
     <GalleryShowcase
@@ -25,7 +25,7 @@
 
     <div v-else class="lp-gallery__empty">
       <v-icon size="30">mdi-image-outline</v-icon>
-      <p>Chưa có hình ảnh</p>
+      <p>{{ $t("Chưa có hình ảnh") }}</p>
     </div>
 
     <GalleryModal
@@ -43,7 +43,6 @@ import { ref, defineAsyncComponent } from "vue";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
-
 const GalleryModal = defineAsyncComponent(() =>
   import("@/components/gallery/GalleryModal.vue")
 );

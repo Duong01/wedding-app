@@ -242,11 +242,11 @@ export default {
     "動画リンク",
   ],
   "videoPanel.supported": [
-    "Hỗ trợ: youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/@user/video/…",
-    "Supported: youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/@user/video/…",
-    "支持：youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/@user/video/…",
-    "지원: youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/@user/video/…",
-    "対応：youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/@user/video/…",
+    "Hỗ trợ: youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/{'@'}user/video/…",
+    "Supported: youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/{'@'}user/video/…",
+    "支持：youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/{'@'}user/video/…",
+    "지원: youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/{'@'}user/video/…",
+    "対応：youtube.com/watch?v=… · youtu.be/… · youtube.com/shorts/… · tiktok.com/{'@'}user/video/…",
   ],
   "videoPanel.autoplayNote": [
     "Video tự phát khi khách lướt tới, ở chế độ tắt tiếng (trình duyệt chặn tự phát có tiếng) — khách bấm icon loa trên player để nghe.",

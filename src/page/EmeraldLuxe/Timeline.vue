@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "timeline", "Heading", $t("Lịch trình ngày cưới")) }}</h2>
 
       <p class="cr-heading__zh">婚禮當日流程</p>
 
@@ -24,7 +24,7 @@
         <span></span>
       </div>
 
-      <p class="cr-heading__intro">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
+      <p class="cr-heading__intro">{{ sectionText(sections, "timeline", "Intro", $t("Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay")) }}</p>
     </header>
 
     <ol class="cr-timeline__list">
@@ -49,7 +49,7 @@
           </div>
 
           <h3 class="cr-timeline__title">
-            {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+            {{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}
           </h3>
 
           <p v-if="item.Description || item.Content" class="cr-timeline__desc">
@@ -70,7 +70,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { decorativeFlowers } from "./emeraldLuxeAssets";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: { type: Array, default: () => [] },
@@ -80,7 +80,7 @@ const props = defineProps({
 const items = computed(() => props.timeline || []);
 
 function formatTime(index) {
-  return `DẤU MỐC ${String(index + 1).padStart(2, "0")}`;
+  return `${t("DẤU MỐC ")}${String(index + 1).padStart(2, "0")}`;
 }
 </script>
 

@@ -10,11 +10,11 @@
 
       <div class="heading-content">
         <span class="heading-subtitle">
-          {{ sectionText(sections, "couple", "Eyebrow", "TRÂN TRỌNG BÁO HỶ") }}
+          {{ sectionText(sections, "couple", "Eyebrow", $t("TRÂN TRỌNG BÁO HỶ")) }}
         </span>
 
         <h2>
-          {{ sectionText(sections, "couple", "Heading", "THÔNG TIN LỄ CƯỚI") }}
+          {{ sectionText(sections, "couple", "Heading", $t("THÔNG TIN LỄ CƯỚI")) }}
         </h2>
 
         <div class="double-happiness">
@@ -48,7 +48,7 @@
         </div>
 
         <div class="person-role">
-          CHÚ RỂ
+          {{ $t("CHÚ RỂ") }}
         </div>
 
         <h3>
@@ -93,7 +93,7 @@
         </div>
 
         <div class="person-role">
-          CÔ DÂU
+          {{ $t("CÔ DÂU") }}
         </div>
 
         <h3>
@@ -121,7 +121,7 @@
     >
 
       <div class="date-label">
-        THỜI GIAN CỬ HÀNH
+        {{ $t("THỜI GIAN CỬ HÀNH") }}
       </div>
 
 
@@ -192,14 +192,14 @@
         class="family"
       >
         <div class="family-label">
-          HỌ CHÚ RỂ
+          {{ $t("HỌ CHÚ RỂ") }}
         </div>
 
         <div
           v-if="groomFather"
           class="parent"
         >
-          <span class="parent-role">BỐ</span>
+          <span class="parent-role">{{ $t("BỐ") }}</span>
 
           <strong>{{ groomFather }}</strong>
         </div>
@@ -208,7 +208,7 @@
           v-if="groomMother"
           class="parent"
         >
-          <span class="parent-role">MẸ</span>
+          <span class="parent-role">{{ $t("MẸ") }}</span>
 
           <strong>{{ groomMother }}</strong>
         </div>
@@ -227,14 +227,14 @@
         class="family"
       >
         <div class="family-label">
-          HỌ CÔ DÂU
+          {{ $t("HỌ CÔ DÂU") }}
         </div>
 
         <div
           v-if="brideFather"
           class="parent"
         >
-          <span class="parent-role">BỐ</span>
+          <span class="parent-role">{{ $t("BỐ") }}</span>
 
           <strong>{{ brideFather }}</strong>
         </div>
@@ -243,7 +243,7 @@
           v-if="brideMother"
           class="parent"
         >
-          <span class="parent-role">MẸ</span>
+          <span class="parent-role">{{ $t("MẸ") }}</span>
 
           <strong>{{ brideMother }}</strong>
         </div>
@@ -283,7 +283,7 @@
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import dayjs from "dayjs";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: {
@@ -417,16 +417,16 @@ const weekday = computed(() => {
   }
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[parsedDate.value.day()];
+  return t(weekdays[parsedDate.value.day()]);
 });
 
 

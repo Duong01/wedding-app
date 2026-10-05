@@ -102,15 +102,7 @@
         <img
           v-if="image.Image"
           :src="image.Image"
-          :alt="$t('galleryPanel.photoN', { n: index + 1 })"
-          loading="lazy"
-          @error="image.hasError = true"
-        />
-
-        <div v-else class="image-placeholder">
-          <v-icon size="32"> mdi-image-outline </v-icon>
-
-          <span> {{ $t('galleryPanel.noPhoto') }} </span>
+          :alt="$t('galleryPanel.photoN', { n: index + 1 })" loading="lazy" @error="image.hasError = true" /> <div v-else class="image-placeholder"> <v-icon size="32"> mdi-image-outline </v-icon> <span> {{ $t('galleryPanel.noPhoto') }} </span>
         </div>
 
         <div class="gallery-input">

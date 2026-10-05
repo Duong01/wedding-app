@@ -46,7 +46,7 @@
 
       <p class="cr-card__kicker">{{ sectionText(sections, "opening", "Kicker", "WEDDING INVITATION") }}</p>
 
-      <p class="cr-card__invite">{{ sectionText(sections, "opening", "Invite", "Trân trọng kính mời") }}</p>
+      <p class="cr-card__invite">{{ sectionText(sections, "opening", "Invite", $t("Trân trọng kính mời")) }}</p>
 
       <h1 class="cr-card__guest">{{ guestName }}</h1>
 
@@ -62,7 +62,7 @@
         <span>{{ brideName }}</span>
       </p>
 
-      <p class="cr-card__date">{{ dateLabel || "NGÀY CỦA CHÚNG MÌNH" }}</p>
+      <p class="cr-card__date">{{ dateLabel || $t("NGÀY CỦA CHÚNG MÌNH") }}</p>
     </div>
 
     <!-- =====================================================
@@ -77,10 +77,10 @@
         </svg>
       </span>
 
-      <span class="cr-open-btn__text">{{ sectionText(sections, "opening", "Button", "MỞ THIỆP") }}</span>
+      <span class="cr-open-btn__text">{{ sectionText(sections, "opening", "Button", $t("MỞ THIỆP")) }}</span>
     </button>
 
-    <p class="cr-hint">{{ sectionText(sections, "opening", "Hint", "Một lời mời · Một lời hẹn · Một đời hạnh phúc") }}</p>
+    <p class="cr-hint">{{ sectionText(sections, "opening", "Hint", $t("Một lời mời · Một lời hẹn · Một đời hạnh phúc")) }}</p>
   </section>
 </template>
 

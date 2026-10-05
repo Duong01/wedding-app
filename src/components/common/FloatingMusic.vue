@@ -16,7 +16,7 @@
         playing: store.playing
       }"
       @click="toggle"
-      aria-label="Bật hoặc tắt nhạc"
+      :aria-label="$t('Bật hoặc tắt nhạc')"
     >
       <v-icon size="30">
         {{
@@ -38,7 +38,6 @@ import {
 } from "vue";
 
 import { useMusic } from "@/composables/useMusic";
-
 const props = defineProps({
   music: {
     type: Object,

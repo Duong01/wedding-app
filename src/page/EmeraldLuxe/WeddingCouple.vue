@@ -14,7 +14,7 @@
         <p v-if="sectionOverride(sections, 'couple', 'Eyebrow')" class="cr-top-custom-head__eyebrow">{{ sectionOverride(sections, "couple", "Eyebrow") }}</p>
       </header>
 
-      <h2 class="cr-heading__vi">{{ sectionText(sections, "couple", "Heading", "Thông tin lễ cưới") }}</h2>
+      <h2 class="cr-heading__vi">{{ sectionText(sections, "couple", "Heading", $t("Thông tin lễ cưới")) }}</h2>
 
       <p class="cr-heading__zh">婚禮資訊</p>
 
@@ -31,7 +31,7 @@
 
     <div class="cr-families">
       <div class="cr-family">
-        <span class="cr-family__label">Ông Bà</span>
+        <span class="cr-family__label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="groomParents.Father" class="cr-family__name">
           {{ groomParents.Father }}
@@ -49,7 +49,7 @@
       <span class="cr-families__divider" aria-hidden="true"></span>
 
       <div class="cr-family">
-        <span class="cr-family__label">Ông Bà</span>
+        <span class="cr-family__label">{{ $t("Ông Bà") }}</span>
 
         <span v-if="brideParents.Father" class="cr-family__name">
           {{ brideParents.Father }}
@@ -66,7 +66,7 @@
     </div>
 
     <p class="cr-couple__announce">
-      TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
+      {{ $t("TRÂN TRỌNG BÁO TIN") }}<br />{{ $t("LỄ THÀNH HÔN CỦA CON CHÚNG TÔI") }}
     </p>
 
     <!-- =====================================================
@@ -76,14 +76,14 @@
     <div class="cr-people">
       <article class="cr-person">
         <div class="cr-person__avatar">
-          <img v-if="groomAvatar" :src="groomAvatar" alt="Chú rể" draggable="false" />
+          <img v-if="groomAvatar" :src="groomAvatar" :alt="$t('Chú rể')" draggable="false" />
 
           <span v-else class="cr-person__initial">{{ groom.charAt(0) || "♥" }}</span>
         </div>
 
         <h3 class="cr-person__name">{{ groom }}</h3>
 
-        <span class="cr-person__role">CHÚ RỂ</span>
+        <span class="cr-person__role">{{ $t("CHÚ RỂ") }}</span>
 
         <p class="cr-person__desc">{{ groomDescription }}</p>
       </article>
@@ -92,14 +92,14 @@
 
       <article class="cr-person">
         <div class="cr-person__avatar">
-          <img v-if="brideAvatar" :src="brideAvatar" alt="Cô dâu" draggable="false" />
+          <img v-if="brideAvatar" :src="brideAvatar" :alt="$t('Cô dâu')" draggable="false" />
 
           <span v-else class="cr-person__initial">{{ bride.charAt(0) || "♥" }}</span>
         </div>
 
         <h3 class="cr-person__name">{{ bride }}</h3>
 
-        <span class="cr-person__role">CÔ DÂU</span>
+        <span class="cr-person__role">{{ $t("CÔ DÂU") }}</span>
 
         <p class="cr-person__desc">{{ brideDescription }}</p>
       </article>
@@ -118,14 +118,14 @@
 
       <div class="cr-date__main">
         <div class="cr-date__side">
-          <span>THÁNG</span>
+          <span>{{ $t("THÁNG") }}</span>
           <strong>{{ weddingMonth }}</strong>
         </div>
 
         <div class="cr-date__day">{{ weddingDay }}</div>
 
         <div class="cr-date__side">
-          <span>NĂM</span>
+          <span>{{ $t("NĂM") }}</span>
           <strong>{{ weddingYear }}</strong>
         </div>
       </div>
@@ -133,7 +133,7 @@
       <p v-if="weddingLunar" class="cr-date__lunar">{{ weddingLunar }}</p>
 
       <div v-if="weddingTime" class="cr-date__time">
-        <span>THỜI GIAN</span>
+        <span>{{ $t("THỜI GIAN") }}</span>
         <strong>{{ weddingTime }}</strong>
       </div>
     </div>
@@ -145,7 +145,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 
 import { cherryBlossom } from "./emeraldLuxeAssets";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wedding: { type: Object, default: () => ({}) },
@@ -190,14 +190,14 @@ const groomDescription = computed(
   () =>
     props.wedding?.couple?.Groom?.Description ||
     props.wedding?.couple?.Groom?.Address ||
-    "Chú rể của gia đình chúng mình"
+    t("Chú rể của gia đình chúng mình")
 );
 
 const brideDescription = computed(
   () =>
     props.wedding?.couple?.Bride?.Description ||
     props.wedding?.couple?.Bride?.Address ||
-    "Cô dâu của gia đình chúng mình"
+    t("Cô dâu của gia đình chúng mình")
 );
 
 const groomParents = computed(() => props.wedding?.couple?.Groom || {});
@@ -237,16 +237,16 @@ const weddingWeekday = computed(() => {
   if (!dateObject.value) return "";
 
   const weekdays = [
-    "CHỦ NHẬT",
-    "THỨ HAI",
-    "THỨ BA",
-    "THỨ TƯ",
-    "THỨ NĂM",
-    "THỨ SÁU",
-    "THỨ BẢY",
+    t("CHỦ NHẬT"),
+    t("THỨ HAI"),
+    t("THỨ BA"),
+    t("THỨ TƯ"),
+    t("THỨ NĂM"),
+    t("THỨ SÁU"),
+    t("THỨ BẢY"),
   ];
 
-  return weekdays[dateObject.value.getDay()];
+  return t(weekdays[dateObject.value.getDay()]);
 });
 
 const weddingLunar = computed(
@@ -277,7 +277,7 @@ const weddingTime = computed(() => {
     const date = new Date(time);
 
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleTimeString("vi-VN", {
+      return date.toLocaleTimeString(localeTag(), {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,

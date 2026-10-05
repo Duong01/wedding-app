@@ -2,11 +2,11 @@
   <section class="timeline">
     <!-- HEADER -->
     <div class="timeline-header">
-      <div class="gg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", "DẤU MỐC YÊU THƯƠNG") }}</div>
+      <div class="gg-eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", $t("DẤU MỐC YÊU THƯƠNG")) }}</div>
 
-      <h2 class="gg-title">{{ sectionText(sections, "timeline", "Heading", "Lịch trình ngày cưới") }}</h2>
+      <h2 class="gg-title">{{ sectionText(sections, "timeline", "Heading", $t("Lịch trình ngày cưới")) }}</h2>
 
-      <p class="gg-lead">{{ sectionText(sections, "timeline", "Intro", "Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay") }}</p>
+      <p class="gg-lead">{{ sectionText(sections, "timeline", "Intro", $t("Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay")) }}</p>
     </div>
 
     <!-- TIMELINE -->
@@ -38,7 +38,7 @@
         <!-- CONTENT -->
         <div class="timeline-content">
           <h3 class="timeline-title">
-            {{ item.Title || item.Name || "Một dấu mốc đặc biệt" }}
+            {{ item.Title || item.Name || $t("Một dấu mốc đặc biệt") }}
           </h3>
 
           <p
@@ -60,7 +60,7 @@
 <script setup>
 import { sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
-
+import { t } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   timeline: {
@@ -72,7 +72,7 @@ const props = defineProps({
 const items = computed(() => props.timeline || []);
 
 function formatTime(index) {
-  return `MỐC ${String(index + 1).padStart(2, "0")}`;
+  return `${t("MỐC ")}${String(index + 1).padStart(2, "0")}`;
 }
 </script>
 

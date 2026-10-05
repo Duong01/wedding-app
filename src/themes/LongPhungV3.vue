@@ -57,7 +57,7 @@ import Timeline from "@/page/LongPhungV3/Timeline.vue";
 import WeddingGifts from "@/page/LongPhungV3/WeddingGifts.vue";
 import WeddingWishes from "@/page/LongPhungV3/WeddingWishes.vue";
 import WeddingFooter from "@/page/LongPhungV3/WeddingFooter.vue";
-
+import { t } from "@/lang";
 const props = defineProps({ wedding: { type: Object, required: true }, startOpened: { type: Boolean, default: false } });
 
 /* Màu chủ thiệp chỉnh trong editor (xem useThemeColorVars) */
@@ -94,7 +94,7 @@ const gifts = computed(() => Array.isArray(wedding.value?.gifts) ? wedding.value
 const wishes = computed(() => Array.isArray(wedding.value?.guestBook?.Guest) ? wedding.value.guestBook.Guest : []);
 const primaryEvent = computed(() => events.value[0] || {});
 const countdownTarget = computed(() => wedding.value?.countdown?.Target || wedding.value?.countdown || wedding.value?.weddingDate);
-const guestName = computed(() => (Array.isArray(wedding.value?.recipientName) ? wedding.value.recipientName[0]?.Name : wedding.value?.recipientName?.Name) || wedding.value?.guestName || "Quý khách");
+const guestName = computed(() => (Array.isArray(wedding.value?.recipientName) ? wedding.value.recipientName[0]?.Name : wedding.value?.recipientName?.Name) || wedding.value?.guestName || t("Quý khách"));
 const showHero = computed(() => settings.value.ShowHero !== false);
 const showCouple = computed(() => settings.value.ShowCouple !== false);
 const showStory = computed(() => settings.value.ShowStory !== false);

@@ -9,7 +9,7 @@
       <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="shc-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="shc-gifts__title">{{ sectionText(sections, "gifts", "Heading", "Hộp Quà Mừng") }}</h2>
+    <h2 class="shc-gifts__title">{{ sectionText(sections, "gifts", "Heading", $t("Hộp Quà Mừng")) }}</h2>
     <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
     <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="shc-sub-custom-head">
       <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="shc-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
@@ -24,7 +24,7 @@
       <button
         type="button"
         class="shc-gift-btn"
-        aria-label="Mở hộp mừng cưới"
+        :aria-label="$t('Mở hộp mừng cưới')"
         @click="openGift"
       >
         <span class="shc-gift-sparkle shc-gift-sparkle--1" aria-hidden="true">✦</span>
@@ -50,7 +50,7 @@
           />
         </span>
 
-        <span class="shc-gift-hint">Nhấn để mở</span>
+        <span class="shc-gift-hint">{{ $t("Nhấn để mở") }}</span>
       </button>
     </div>
 
@@ -74,20 +74,19 @@
             <button
               type="button"
               class="shc-gift-dialog__close"
-              aria-label="Đóng hộp mừng cưới"
+              :aria-label="$t('Đóng hộp mừng cưới')"
               @click="closeGift"
             >
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="shc-gift-dialog__header">
-              <h3 id="shc-gift-dialog-title">Hộp Quà Mừng</h3>
+              <h3 id="shc-gift-dialog-title">{{ $t("Hộp Quà Mừng") }}</h3>
             </div>
 
             <div class="shc-gift-dialog__body">
               <p class="shc-gift-dialog__desc">
-                Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể,
-                bạn có thể chuyển khoản qua các tài khoản bên dưới.
+                {{ $t("Nếu bạn muốn gửi lời chúc và món quà nhỏ đến cô dâu chú rể, bạn có thể chuyển khoản qua các tài khoản bên dưới.") }}
               </p>
 
               <div v-if="gifts.length" class="shc-account-grid">
@@ -116,13 +115,13 @@
                     v-if="item.QrCode"
                     type="button"
                     class="shc-qr-button"
-                    aria-label="Xem QR lớn"
+                    :aria-label="$t('Xem QR lớn')"
                     @click="openQr(item)"
                   >
                     <div class="shc-qr-frame">
                       <img
                         :src="item.QrCode"
-                        :alt="item.Name || 'QR mừng cưới'"
+                        :alt="item.Name || $t('QR mừng cưới')"
                         class="shc-qr-code"
                       />
                     </div>
@@ -130,33 +129,33 @@
                     <div class="shc-qr-hint">
                       <v-icon size="12">mdi-magnify-plus-outline</v-icon>
 
-                      CHẠM VÀO QR ĐỂ XEM LỚN
+                      {{ $t("CHẠM VÀO QR ĐỂ XEM LỚN") }}
                     </div>
                   </button>
 
                   <div class="shc-account-info">
                     <div class="shc-info-row">
-                      <span class="shc-info-label">CHỦ TÀI KHOẢN</span>
+                      <span class="shc-info-label">{{ $t("CHỦ TÀI KHOẢN") }}</span>
 
                       <span class="shc-info-value">
-                        {{ item.AccountName || item.Owner || "Chưa cập nhật" }}
+                        {{ item.AccountName || item.Owner || $t("Chưa cập nhật") }}
                       </span>
                     </div>
 
                     <div class="shc-info-divider"></div>
 
                     <div class="shc-info-row">
-                      <span class="shc-info-label">SỐ TÀI KHOẢN</span>
+                      <span class="shc-info-label">{{ $t("SỐ TÀI KHOẢN") }}</span>
 
                       <span class="shc-info-value shc-account-number">
-                        {{ item.AccountNumber || item.Number || "Chưa cập nhật" }}
+                        {{ item.AccountNumber || item.Number || $t("Chưa cập nhật") }}
                       </span>
 
                       <button
                         type="button"
                         class="shc-copy-button"
-                        title="Sao chép số tài khoản"
-                        aria-label="Sao chép số tài khoản"
+                        :title="$t('Sao chép số tài khoản')"
+                        :aria-label="$t('Sao chép số tài khoản')"
                         @click="copyAccount(item)"
                       >
                         <v-icon size="14">mdi-content-copy</v-icon>
@@ -171,7 +170,7 @@
               </div>
 
               <div v-else class="shc-account-desc">
-                Thông tin chuyển khoản đang được cập nhật.
+                {{ $t("Thông tin chuyển khoản đang được cập nhật.") }}
               </div>
             </div>
           </div>
@@ -188,21 +187,21 @@
             <button
               type="button"
               class="shc-qr-preview__close"
-              aria-label="Đóng QR"
+              :aria-label="$t('Đóng QR')"
               @click="closeQr"
             >
               <v-icon size="18">mdi-close</v-icon>
             </button>
 
             <div class="shc-qr-preview__title">
-              {{ previewQr.Name || "QR MỪNG CƯỚI" }}
+              {{ previewQr.Name || $t("QR MỪNG CƯỚI") }}
             </div>
 
             <div class="shc-qr-preview__image">
-              <img :src="previewQr.QrCode" :alt="previewQr.Name || 'QR mừng cưới'" />
+              <img :src="previewQr.QrCode" :alt="previewQr.Name || $t('QR mừng cưới')" />
             </div>
 
-            <p>Nhấn giữ vào ảnh để lưu QR về điện thoại</p>
+            <p>{{ $t("Nhấn giữ vào ảnh để lưu QR về điện thoại") }}</p>
 
             <a
               :href="previewQr.QrCode"
@@ -213,7 +212,7 @@
             >
               <v-icon size="15">mdi-download</v-icon>
 
-              MỞ / LƯU ẢNH QR
+              {{ $t("MỞ / LƯU ẢNH QR") }}
             </a>
           </div>
         </div>
@@ -227,7 +226,6 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed, onBeforeUnmount, ref } from "vue";
 
 import envelope from "@/assets/longphung/envelope.webp";
-
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   gifts: { type: Array, default: () => [] },

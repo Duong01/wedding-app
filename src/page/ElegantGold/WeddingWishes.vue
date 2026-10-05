@@ -5,9 +5,9 @@
       <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="la-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
     </header>
 
-    <h2 class="la-title">{{ sectionText(sections, "guestbook", "Heading", "Sổ lưu bút") }}</h2>
+    <h2 class="la-title">{{ sectionText(sections, "guestbook", "Heading", $t("Sổ lưu bút")) }}</h2>
 
-    <p class="la-lead">{{ sectionText(sections, "guestbook", "Intro", "Mỗi lời chúc là một kỷ niệm đẹp\nmà chúng mình muốn lưu giữ trong ngày đặc biệt này") }}</p>
+    <p class="la-lead">{{ sectionText(sections, "guestbook", "Intro", $t("Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này")) }}</p>
 
     <!-- =====================================================
          DẢI LỜI CHÚC CHẠY NGANG
@@ -51,33 +51,33 @@
     ====================================================== -->
     <form class="la-wish-form" @submit.prevent="submitWish">
       <div class="la-field">
-        <label for="la-wish-name">TÊN CỦA BẠN</label>
+        <label for="la-wish-name">{{ $t("TÊN CỦA BẠN") }}</label>
 
         <input
           id="la-wish-name"
           v-model.trim="form.name"
           type="text"
           maxlength="60"
-          placeholder="Nhập tên của bạn"
+          :placeholder="$t('Nhập tên của bạn')"
         />
       </div>
 
       <div class="la-field">
-        <label for="la-wish-message">LỜI CHÚC</label>
+        <label for="la-wish-message">{{ $t("LỜI CHÚC") }}</label>
 
         <textarea
           id="la-wish-message"
           v-model.trim="form.message"
           rows="4"
           maxlength="500"
-          placeholder="Viết lời chúc dành cho cô dâu &amp; chú rể..."
+          :placeholder="$t('Viết lời chúc dành cho cô dâu & chú rể...')"
         ></textarea>
 
         <div class="la-wish-form__count">{{ form.message.length }}/500</div>
       </div>
 
       <button type="submit" class="la-pill la-wish-form__submit" :disabled="!canSubmit || submitting">
-        {{ submitting ? "ĐANG GỬI..." : "GỬI LỜI CHÚC" }}
+        {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI LỜI CHÚC") }}
       </button>
     </form>
 
@@ -102,7 +102,7 @@
       </article>
     </div>
 
-    <p v-else class="la-wishes__empty">Chưa có lời chúc nào. Hãy là người đầu tiên!</p>
+    <p v-else class="la-wishes__empty">{{ $t("Chưa có lời chúc nào. Hãy là người đầu tiên!") }}</p>
   </section>
 </template>
 
@@ -113,7 +113,7 @@ import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { addWish, getAllWishes } from "@/model/api";
-
+import { t, localeTag } from "@/lang";
 const props = defineProps({
   sections: { type: Object, default: () => ({}) },
   wishes: {
@@ -156,7 +156,7 @@ const canSubmit = computed(
 );
 
 function getWishName(wish) {
-  return wish?.Name || wish?.name || wish?.GuestName || "Một người bạn";
+  return wish?.Name || wish?.name || wish?.GuestName || t("Một người bạn");
 }
 
 function getWishMessage(wish) {
@@ -172,7 +172,7 @@ function getWishTime(wish) {
 
   if (Number.isNaN(date.getTime())) return String(raw);
 
-  return date.toLocaleDateString("vi-VN", {
+  return date.toLocaleDateString(localeTag(), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -207,19 +207,19 @@ async function loadWishes() {
 
 async function submitWish() {
   if (!form.name.trim()) {
-    alert("Vui lòng nhập tên của bạn");
+    alert(t("Vui lòng nhập tên của bạn"));
     return;
   }
 
   if (!form.message.trim()) {
-    alert("Vui lòng nhập lời chúc");
+    alert(t("Vui lòng nhập lời chúc"));
     return;
   }
 
   const slug = buildSlug();
 
   if (!slug) {
-    alert("Không xác định được thiệp. Vui lòng thử lại.");
+    alert(t("Không xác định được thiệp. Vui lòng thử lại."));
     return;
   }
 
@@ -235,19 +235,19 @@ async function submitWish() {
     const result = response?.data;
 
     if (result && result.status === "success") {
-      alert("Gửi lời chúc thành công ❤️");
+      alert(t("Gửi lời chúc thành công ❤️"));
 
       form.name = "";
       form.message = "";
 
       await loadWishes();
     } else {
-      alert(result?.message || "Không thể gửi lời chúc.");
+      alert(result?.message || t("Không thể gửi lời chúc."));
     }
   } catch (error) {
     console.error(error);
 
-    alert(error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại.");
+    alert(error?.response?.data?.message || t("Có lỗi xảy ra, vui lòng thử lại."));
   } finally {
     submitting.value = false;
   }

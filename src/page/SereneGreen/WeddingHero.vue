@@ -49,7 +49,7 @@
         <p class="sg-hero__guest">{{ guestName }}</p>
 
         <p class="sg-hero__intro">
-          Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại
+          {{ $t("Đến dự buổi tiệc chung vui cùng gia đình chúng mình tại") }}
         </p>
 
         <p class="sg-hero__place">{{ location }}</p>
@@ -60,7 +60,7 @@
         </div>
 
         <p class="sg-hero__message">
-          Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!
+          {{ $t("Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng mình!") }}
         </p>
 
         <div class="sg-hero__footer">
@@ -83,7 +83,9 @@
 <script setup>
 import { computed } from "vue";
 import dayjs from "dayjs";
+import { t } from "@/lang";
 
+const HERO_WEEKDAYS = ["CHỦ NHẬT", "THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY"];
 const props = defineProps({
   wedding: { type: Object, default: () => ({}) },
   event: { type: Object, default: () => ({}) },
@@ -97,7 +99,7 @@ const heroTitle = computed(
 );
 
 const heroSubtitle = computed(
-  () => props.wedding?.hero?.Subtitle || "TRÂN TRỌNG KÍNH MỜI"
+  () => props.wedding?.hero?.Subtitle || t("TRÂN TRỌNG KÍNH MỜI")
 );
 
 const groomName = computed(
@@ -148,7 +150,7 @@ const dateText = computed(() => {
   const date = dayjs(raw);
 
   if (date.isValid()) {
-    return `${date.day() === 0 ? "CHỦ NHẬT" : `THỨ ${date.day() + 1}`}, NGÀY ${date.format("DD/MM/YYYY")}`;
+    return `${t(HERO_WEEKDAYS[date.day()])}, ${t("NGÀY ")}${date.format("DD/MM/YYYY")}`;
   }
 
   return props.dateLabel || "";

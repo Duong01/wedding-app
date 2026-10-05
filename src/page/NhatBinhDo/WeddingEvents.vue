@@ -30,7 +30,7 @@
       ========================================== -->
 
       <h3 class="cfr-party__kicker">
-        Tiệc báo hỷ sẽ diễn ra vào lúc:
+        {{ $t("Tiệc báo hỷ sẽ diễn ra vào lúc:") }}
       </h3>
 
       <div v-if="event.time" class="cfr-party__time">
@@ -72,7 +72,7 @@
         class="cfr-party__milestones"
       >
         <div v-if="event.receptionTime" class="cfr-party__milestone">
-          <span class="cfr-party__milestone-label">Đón khách</span>
+          <span class="cfr-party__milestone-label">{{ $t("Đón khách") }}</span>
 
           <span class="cfr-party__milestone-time">
             {{ event.receptionTime }}
@@ -80,7 +80,7 @@
         </div>
 
         <div v-if="event.ceremonyTime" class="cfr-party__milestone">
-          <span class="cfr-party__milestone-label">Khai tiệc</span>
+          <span class="cfr-party__milestone-label">{{ $t("Khai tiệc") }}</span>
 
           <span class="cfr-party__milestone-time">
             {{ event.ceremonyTime }}
@@ -155,7 +155,7 @@
         rel="noopener noreferrer"
         class="cfr-link cfr-party__calendar-link"
       >
-        Thêm vào lịch
+        {{ $t("Thêm vào lịch") }}
       </a>
 
 
@@ -168,7 +168,7 @@
         class="cfr-pill cfr-party__rsvp"
         @click="openConfirmModal"
       >
-        XÁC NHẬN THAM DỰ
+        {{ $t("XÁC NHẬN THAM DỰ") }}
       </button>
 
     <EventMap v-if="index === 0 && showMap" :event="event" />
@@ -193,16 +193,16 @@
           <button
             type="button"
             class="cfr-confirm__close"
-            aria-label="Đóng"
+            :aria-label="$t('Đóng')"
             @click="closeConfirmModal"
           >
             ✕
           </button>
 
           <div class="cfr-confirm__head">
-            <h3>XÁC NHẬN THAM DỰ</h3>
+            <h3>{{ $t("XÁC NHẬN THAM DỰ") }}</h3>
 
-            <p>Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.</p>
+            <p>{{ $t("Sự hiện diện của bạn là niềm vui đối với gia đình chúng tôi.") }}</p>
           </div>
 
           <div class="cfr-confirm__body">
@@ -211,7 +211,7 @@
 
             <div v-if="hasRecipient" class="cfr-confirm__recipient">
               <div class="cfr-confirm__recipient-label">
-                TRÂN TRỌNG KÍNH MỜI
+                {{ $t("TRÂN TRỌNG KÍNH MỜI") }}
               </div>
 
               <div class="cfr-confirm__recipient-name">
@@ -222,12 +222,12 @@
             <!-- TỰ NHẬP TÊN -->
 
             <div v-else class="cfr-confirm__group">
-              <label>Họ và tên</label>
+              <label>{{ $t("Họ và tên") }}</label>
 
               <input
                 v-model.trim="form.name"
                 type="text"
-                placeholder="Nhập tên của bạn"
+                :placeholder="$t('Nhập tên của bạn')"
                 maxlength="100"
               />
             </div>
@@ -236,7 +236,7 @@
             <!-- THAM DỰ -->
 
             <div class="cfr-confirm__group">
-              <label>Bạn có tham dự không?</label>
+              <label>{{ $t("Bạn có tham dự không?") }}</label>
 
               <div class="cfr-confirm__options">
                 <button
@@ -245,7 +245,7 @@
                   :class="{ 'is-selected': form.attendance === 'attending' }"
                   @click="form.attendance = 'attending'"
                 >
-                  ✓ Có, tôi sẽ tham dự
+                  {{ $t("✓ Có, tôi sẽ tham dự") }}
                 </button>
 
                 <button
@@ -254,7 +254,7 @@
                   :class="{ 'is-selected': form.attendance === 'not_attending' }"
                   @click="form.attendance = 'not_attending'"
                 >
-                  ✕ Rất tiếc, tôi không thể tham dự
+                  {{ $t("✕ Rất tiếc, tôi không thể tham dự") }}
                 </button>
               </div>
             </div>
@@ -266,7 +266,7 @@
               v-if="form.attendance === 'attending'"
               class="cfr-confirm__group"
             >
-              <label>Số người tham dự</label>
+              <label>{{ $t("Số người tham dự") }}</label>
 
               <div class="cfr-confirm__people">
                 <button type="button" @click="decreasePeople">−</button>
@@ -293,7 +293,7 @@
               :disabled="submitting"
               @click="submitConfirmation"
             >
-              {{ submitting ? "ĐANG GỬI..." : "GỬI XÁC NHẬN" }}
+              {{ submitting ? $t("ĐANG GỬI...") : $t("GỬI XÁC NHẬN") }}
             </button>
 
           </div>
@@ -317,6 +317,7 @@ import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import EventMap from "@/components/common/EventMap.vue";
 
 import { calendarFrame } from "./crystalFloralAssets";
+import { t } from "@/lang";
 /*
  * Bản đồ gộp vào từng sự kiện — gate bằng ShowMap.
  */
@@ -537,13 +538,13 @@ async function submitConfirmation() {
   successMessage.value = "";
 
   if (!form.name) {
-    errorMessage.value = "Vui lòng nhập họ tên.";
+    errorMessage.value = t("Vui lòng nhập họ tên.");
 
     return;
   }
 
   if (!form.attendance) {
-    errorMessage.value = "Vui lòng chọn xác nhận tham dự.";
+    errorMessage.value = t("Vui lòng chọn xác nhận tham dự.");
 
     return;
   }
@@ -559,7 +560,7 @@ async function submitConfirmation() {
     RecipientToken: route.params.token || null,
     GuestName: form.name,
     Attendance:
-      form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
+      form.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
     NumberOfPeople:
       form.attendance === "attending" ? form.numberOfPeople : 0,
   };
@@ -571,11 +572,11 @@ async function submitConfirmation() {
       payload,
       (result) => {
         if (!result || result.status !== "success") {
-          throw new Error(result?.message || "Không thể gửi xác nhận.");
+          throw new Error(result?.message || t("Không thể gửi xác nhận."));
         }
 
         successMessage.value =
-          "Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️";
+          t("Cảm ơn bạn! Xác nhận của bạn đã được gửi thành công ❤️");
 
         setTimeout(() => {
           showConfirmModal.value = false;
@@ -583,12 +584,12 @@ async function submitConfirmation() {
       },
       (error) => {
         errorMessage.value =
-          error?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+          error?.data?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
       }
     );
   } catch (error) {
     errorMessage.value =
-      error?.message || "Đã xảy ra lỗi. Vui lòng thử lại.";
+      error?.message || t("Đã xảy ra lỗi. Vui lòng thử lại.");
   } finally {
     submitting.value = false;
   }

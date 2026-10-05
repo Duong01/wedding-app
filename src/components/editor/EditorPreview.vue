@@ -121,7 +121,7 @@
 
 <script setup>
 import { useI18n } from "vue-i18n";
-import { computed, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 
 import { useRouter, useRoute } from "vue-router";
 
@@ -132,6 +132,8 @@ import { useWeddingEditorStore } from "@/stores/weddingEditor";
 import { useAuthStore } from "@/stores/auth";
 
 import { AddDataWedding } from "@/model/api";
+
+import { setCardLocale, clearCardLocale } from "@/lang";
 
 /*
  * =========================================================
@@ -187,6 +189,27 @@ const saveError = ref(false);
  */
 const wedding = computed(() => {
   return editorStore.wedding;
+});
+
+/*
+ * Trang xem trước render theme trực tiếp (không qua iframe
+ * /preview-bare) — phải tự đặt ngôn ngữ thiệp, nếu không
+ * chữ trên thiệp sẽ theo ngôn ngữ giao diện.
+ */
+watch(
+  wedding,
+  (value) => {
+    if (value) {
+      setCardLocale(value.language);
+    } else {
+      clearCardLocale();
+    }
+  },
+  { immediate: true }
+);
+
+onBeforeUnmount(() => {
+  clearCardLocale();
 });
 
 /* =========================================================
