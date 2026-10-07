@@ -342,15 +342,13 @@ async function submitConfirmation() {
     return;
   }
 
-  const slug = route.params.token
-    ? `${route.params.slug}/${route.params.token}`
-    : route.params.slug || "";
+  const slug = route.params.slug || "";
 
   const payload = {
     Slug: slug,
     RecipientToken: route.params.token || null,
     GuestName: form.name,
-    Attendance: form.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
+    Attendance: form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
     NumberOfPeople: form.attendance === "attending" ? form.numberOfPeople : 0,
   };
 

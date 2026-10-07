@@ -78,12 +78,11 @@ import ScratchCard from "@/components/common/ScratchCard.vue";
 import MemoryMatch from "@/components/common/MemoryMatch.vue";
 import PrizeClaim from "@/components/common/PrizeClaim.vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 import { DEFAULT_WHEEL_PRIZES, gameTypeMeta } from "@/data/gameData";
 
 import { useSectionTheme } from "@/composables/useSectionTheme";
-import { t } from "@/lang";
 const props = defineProps({
   /*
    * Nhận cả object wedding — prop duy nhất mọi orchestrator
@@ -170,8 +169,13 @@ const wheelPrizes = computed(() =>
 
 const slug = computed(() => props.wedding?.slug || props.wedding?.Slug || "");
 
+/*
+ * Eyebrow CHỈ hiện khi người dùng tự nhập ở panel "Tiêu đề
+ * mục" — tránh mục có 2 tiêu đề (1 mặc định + 1 người dùng
+ * sửa). Mặc định: 1 tiêu đề lớn + 1 dòng intro.
+ */
 const eyebrow = computed(() =>
-  sectionText(props.wedding?.sections, "game", "Eyebrow", t("CÙNG VUI CHƠI"))
+  sectionOverride(props.wedding?.sections, "game", "Eyebrow")
 );
 
 const heading = computed(() =>

@@ -1,7 +1,7 @@
 <template>
-  <section class="mk-section">
+  <section ref="root" class="mk-section">
     <div class="mk-container">
-      <header class="mk-head mk-head--center">
+      <header class="mk-head mk-head--center rv">
         <p class="mk-eyebrow">{{ $t('pricing.feature') }}</p>
 
         <h2>
@@ -14,7 +14,7 @@
         </p>
       </header>
 
-      <div class="tabs" role="tablist">
+      <div class="tabs rv" role="tablist">
         <button
           v-for="(group, index) in FEATURE_GROUPS"
           :key="group.id"
@@ -29,7 +29,7 @@
         </button>
       </div>
 
-      <div class="panel">
+      <div class="panel rv" data-rv-delay="1">
         <div class="panel-media">
           <img
             :src="active.image"
@@ -68,8 +68,11 @@
 <script setup>
 import { computed, ref } from "vue";
 
+import { useReveal } from "@/composables/useReveal";
 import { FEATURE_GROUPS } from "@/data/siteContent";
 import { previewByStem } from "@/utils/weddingCard";
+
+const root = useReveal();
 
 const activeIndex = ref(0);
 

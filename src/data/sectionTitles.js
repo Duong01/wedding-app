@@ -1,5 +1,7 @@
 import { t } from "@/lang";
 
+import { effectiveGameType, gameTypeMeta } from "@/data/gameData";
+
 /*
  * Tiêu đề các mục trên thiệp (section titles).
  *
@@ -226,6 +228,38 @@ export function sectionText(sections, key, field, fallback = "") {
 
   if (fallback) {
     return fallback;
+  }
+
+  const section = SECTION_TITLES.find((item) => item.key === key);
+
+  return section?.fields.find((item) => item.name === field)?.default || "";
+}
+
+/*
+ * Giá trị mặc định sẽ hiển thị trên thiệp cho 1 ô — tính
+ * cả fallback động (story/video/game Heading lấy tiêu đề
+ * từ panel khác). Panel "Tiêu đề mục" dùng hàm này để fill
+ * sẵn chữ mặc định vào các ô ngay từ đầu.
+ */
+export function sectionDefault(wedding, key, field) {
+  /* Mục có dữ liệu riêng (panel khác quản lý) */
+  if (key === "story" && field === "Heading") {
+    return (
+      (typeof wedding?.story === "object" && wedding.story?.Title) ||
+      t("Chuyện tình yêu")
+    );
+  }
+
+  if (key === "video" && field === "Heading") {
+    return wedding?.video?.Title || t("Video Cưới");
+  }
+
+  if (key === "game" && field === "Heading") {
+    return wedding?.game?.Title || gameTypeMeta(effectiveGameType(wedding)).label;
+  }
+
+  if (key === "game" && field === "Intro") {
+    return gameTypeMeta(effectiveGameType(wedding)).intro;
   }
 
   const section = SECTION_TITLES.find((item) => item.key === key);

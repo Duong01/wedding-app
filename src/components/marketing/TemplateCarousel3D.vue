@@ -33,14 +33,38 @@
           :aria-hidden="index !== activeIndex"
           @click="onCardClick(index)"
         >
-          <div class="carousel__cover">
+          <div
+            class="carousel__cover"
+            @mouseenter="scroll.start"
+            @mouseleave="scroll.stop"
+          >
             <img
+              v-if="!isFailed(item.id)"
               :src="item.src"
               :alt="item.label"
+              :data-card-id="item.id"
               loading="lazy"
               draggable="false"
-              @error="handleImageError"
+              @load="onImgLoad(item.id)"
+              @error="onImgError(item.id, $event)"
             />
+
+            <!-- mạng treo / server không phản hồi — chỗ giữ chỗ + thử lại -->
+            <div v-else class="carousel__fallback">
+              <span class="carousel__fallback-orn" aria-hidden="true">
+                {{ item.orn }}
+              </span>
+
+              <p>{{ $t('carousel.imgFailed') }}</p>
+
+              <button
+                type="button"
+                class="carousel__retry"
+                @click.stop="retryImage(item.id)"
+              >
+                {{ $t('common.retry') }}
+              </button>
+            </div>
 
             <span
               v-if="item.isNew"
@@ -53,9 +77,9 @@
               {{ item.orn }}
             </span>
 
-            <div class="carousel__veil">
-              <span>{{ $t('payment.viewCard') }}</span>
-            </div>
+            <span v-if="!isFailed(item.id)" class="carousel__veil">
+              {{ $t('payment.viewCard') }}
+            </span>
           </div>
 
           <div class="carousel__body">
@@ -127,6 +151,8 @@ import {
   watch,
 } from "vue";
 
+import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
+
 const props = defineProps({
   /*
    * Mảng item đã chuẩn hoá qua toCardItem() —
@@ -141,6 +167,13 @@ const props = defineProps({
    * 5 thiệp cùng lúc — đủ để tạo chiều sâu mà không rối.
    */
   visible: { type: Number, default: 2 },
+
+  /*
+   * Mức timeout tải ảnh (ms). Quá thời gian này mà ảnh chưa
+   * load xong (mạng treo, server không phản hồi) thì thay
+   * bằng chỗ giữ chỗ + nút thử lại.
+   */
+  imgTimeoutMs: { type: Number, default: 8000 },
 });
 
 const emit = defineEmits(["select"]);
@@ -155,6 +188,157 @@ let pointerStartX = 0;
 let pointerDelta = 0;
 
 const count = computed(() => props.items.length);
+
+/* =====================================================
+   TẢI ẢNH — TIMEOUT + THỬ LẠI
+   -----------------------------------------------------------
+   Ảnh lazy-load (chỉ tải khi card vào khung nhìn). Mỗi ảnh
+   treo một đồng hồ: quá imgTimeoutMs mà chưa load xong thì
+   đánh dấu thất bại → hiện chỗ giữ chỗ + nút thử lại. Ảnh
+   lỗi (onerror — 404, mất mạng ngay lập tức) cũng rơi vào
+   trạng thái này sau khi đã thử ảnh fallback một lần.
+===================================================== */
+
+const failedIds = ref(new Set());
+
+const imgTimers = new Map();
+
+function isFailed(id) {
+  return failedIds.value.has(id);
+}
+
+function clearImgTimer(id) {
+  const t = imgTimers.get(id);
+
+  if (t) {
+    clearTimeout(t);
+
+    imgTimers.delete(id);
+  }
+}
+
+function markFailed(id) {
+  clearImgTimer(id);
+
+  failedIds.value = new Set(failedIds.value).add(id);
+}
+
+/*
+ * Gắn đồng hồ cho ảnh — gọi khi component gắn vào và khi
+ * bấm thử lại. Ảnh đã tải xong rồi thì bỏ qua.
+ */
+function armImgTimer(id) {
+  if (isFailed(id)) return;
+
+  clearImgTimer(id);
+
+  imgTimers.set(
+    id,
+    setTimeout(function check() {
+      const img = stageRef.value?.querySelector(
+        `img[data-card-id="${CSS.escape(String(id))}"]`
+      );
+
+      /* ảnh không còn trong DOM (đổi bộ lọc) — thôi theo dõi */
+      if (!img) {
+        imgTimers.delete(id);
+
+        return;
+      }
+
+      /*
+       * Ảnh lazy chưa bắt đầu tải (card còn ngoài khung
+       * nhìn — currentSrc rỗng): lên lịch lại chờ tới khi
+       * nó thật sự bắt đầu tải rồi mới canh timeout.
+       */
+      if (!img.currentSrc) {
+        imgTimers.set(id, setTimeout(check, props.imgTimeoutMs));
+
+        return;
+      }
+
+      /*
+       * Đang tải mà quá hạn — mạng treo, mất kết nối,
+       * server không phản hồi → đánh dấu thất bại.
+       */
+      if (!img.complete) {
+        markFailed(id);
+      }
+    }, props.imgTimeoutMs)
+  );
+}
+
+function onImgLoad(id) {
+  clearImgTimer(id);
+}
+
+function onImgError(id, event) {
+  clearImgTimer(id);
+
+  /*
+   * Ảnh lỗi → thử ảnh fallback của thư viện một lần; nếu
+   * fallback cũng lỗi (mất mạng thật sự) thì đánh dấu thất
+   * bại để hiện chỗ giữ chỗ + nút thử lại.
+   */
+  const fallback = props.items[0]?.src;
+
+  if (fallback && event.target.src !== fallback) {
+    event.target.src = fallback;
+
+    armImgTimer(id);
+
+    return;
+  }
+
+  markFailed(id);
+}
+
+function retryImage(id) {
+  const next = new Set(failedIds.value);
+
+  next.delete(id);
+
+  failedIds.value = next;
+
+  /*
+   * v-if quay lại render ảnh — đợi DOM cập nhật rồi mới
+   * gắn lại đồng hồ cho lượt tải mới.
+   */
+  requestAnimationFrame(() => armImgTimer(id));
+}
+
+/* Danh sách đổi (lọc bộ sưu tập) → xoá trạng thái cũ */
+watch(
+  () => props.items,
+  () => {
+    imgTimers.forEach((t) => clearTimeout(t));
+
+    imgTimers.clear();
+
+    failedIds.value = new Set();
+  }
+);
+
+onBeforeUnmount(() => {
+  imgTimers.forEach((t) => clearTimeout(t));
+
+  imgTimers.clear();
+});
+
+/* Gắn đồng hồ cho mọi ảnh khi component gắn vào */
+onMounted(() => {
+  props.items.forEach((item) => armImgTimer(item.id));
+});
+
+/* =====================================================
+   HOVER — ẢNH TỰ CUỘN
+   -----------------------------------------------------------
+   Ảnh xem trước là ảnh nguyên trang thiệp (~1:12); hover
+   vào card, ảnh tự cuộn xuống chậm rãi cho xem trọn bộ
+   thiết kế (xem composables/useHoverAutoScroll.js).
+===================================================== */
+
+const scroll = useHoverAutoScroll();
 
 /*
  * Khoảng cách vòng tròn ngắn nhất từ card tới vị trí
@@ -369,18 +553,6 @@ watch(
 onMounted(startTimer);
 
 onBeforeUnmount(stopTimer);
-
-/* =====================================================
-   ẢNH LỖI
-===================================================== */
-
-function handleImageError(event) {
-  const fallback = props.items[0]?.src;
-
-  if (fallback && event.target.src !== fallback) {
-    event.target.src = fallback;
-  }
-}
 </script>
 
 <style scoped>
@@ -464,15 +636,98 @@ function handleImageError(event) {
   );
 }
 
+/*
+ * Ảnh để height:auto — phần tràn của ảnh nguyên trang nằm
+ * dưới khung, useHoverAutoScroll cuộn bằng translateY khi
+ * hover (xem composables/useHoverAutoScroll.js).
+ */
 .carousel__cover img {
-  width: 100%;
-  height: 100%;
+  display: block;
 
-  object-fit: cover;
+  width: 100%;
+  height: auto;
 
   user-select: none;
 
   -webkit-user-drag: none;
+}
+
+/* =====================================================
+   CHỖ GIỮ CHỖ KHI ẢNH THẤT BẠI — ornament + thử lại
+===================================================== */
+
+.carousel__fallback {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 16px;
+
+  background: color-mix(
+    in srgb,
+    var(--card-bg, #f7f1e6) 82%,
+    var(--card-accent, #b9975b)
+  );
+
+  text-align: center;
+}
+
+.carousel__fallback-orn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid color-mix(in srgb, var(--card-accent, #b9975b) 40%, transparent);
+  border-radius: 12px;
+
+  color: var(--card-seal, #a63a2e);
+
+  font-family: var(--font-symbol);
+  font-size: 20px;
+}
+
+.carousel__fallback p {
+  margin: 0;
+
+  color: var(--card-ink, var(--studio-ink, #2b2118));
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.carousel__retry {
+  padding: 8px 18px;
+
+  border: 1px solid color-mix(in srgb, var(--card-seal, #a63a2e) 45%, transparent);
+  border-radius: 999px;
+
+  background: transparent;
+  color: var(--card-seal, #a63a2e);
+
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.carousel__retry:hover {
+  background: var(--card-seal, #a63a2e);
+  color: #fff;
 }
 
 .carousel__new {
@@ -522,39 +777,46 @@ function handleImageError(event) {
   font-size: 15px;
 }
 
+/*
+ * Pill "Xem thiệp" trượt lên từ đáy khi hover — không phủ
+ * toàn ảnh để khách vẫn xem được ảnh đang tự cuộn.
+ */
 .carousel__veil {
   position: absolute;
-  inset: 0;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  bottom: 12px;
+  left: 50%;
 
-  background: color-mix(
-    in srgb,
-    var(--card-seal, #a63a2e) 44%,
-    rgba(20, 12, 8, 0.4)
-  );
-
-  opacity: 0;
-
-  transition: opacity 0.35s ease;
-}
-
-.carousel__card.is-active:hover .carousel__veil {
-  opacity: 1;
-}
-
-.carousel__veil span {
-  padding: 10px 20px;
+  padding: 8px 18px;
 
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 999px;
 
+  background: rgba(20, 12, 8, 0.55);
   color: #fff;
 
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
+
+  white-space: nowrap;
+
+  transform: translate(-50%, 10px);
+
+  opacity: 0;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+
+  pointer-events: none;
+
+  backdrop-filter: blur(4px);
+}
+
+.carousel__card.is-active:hover .carousel__veil {
+  transform: translate(-50%, 0);
+
+  opacity: 1;
 }
 
 .carousel__body {

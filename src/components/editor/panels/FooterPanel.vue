@@ -84,6 +84,8 @@
 </template>
 
 <script setup>
+import { t } from "@/lang";
+
 const props = defineProps({
   wedding: { type: Object, required: true },
 });
@@ -95,6 +97,56 @@ const props = defineProps({
 if (typeof props.wedding.thankYouNote !== "string") {
   props.wedding.thankYouNote = "";
 }
+
+/*
+ * TỰ FILL DỮ LIỆU MẶC ĐỊNH cho mục "Chân thiệp".
+ *
+ * Ô nào người dùng chưa nhập thì điền sẵn chữ mặc định
+ * (giống panel "Tiêu đề mục") — chân thiệp không còn để
+ * trống. Người dùng sửa thì giá trị sửa được lưu và hiển
+ * thị trên thiệp; xóa trắng thì quay lại mặc định.
+ */
+function ensureFooter() {
+  if (!props.wedding.footer || typeof props.wedding.footer !== "object") {
+    props.wedding.footer = {};
+  }
+
+  const footer = props.wedding.footer;
+
+  const coupleGroom =
+    props.wedding.groomName ||
+    props.wedding.GroomName ||
+    props.wedding.couple?.Groom?.Name ||
+    "";
+
+  const coupleBride =
+    props.wedding.brideName ||
+    props.wedding.BrideName ||
+    props.wedding.couple?.Bride?.Name ||
+    "";
+
+  if (!(footer.GroomName || "").trim()) {
+    footer.GroomName = coupleGroom;
+  }
+
+  if (!(footer.BrideName || "").trim()) {
+    footer.BrideName = coupleBride;
+  }
+
+  if (!(footer.Message || "").trim()) {
+    footer.Message = t("CẢM ƠN BẠN ĐÃ ĐẾN CHUNG VUI CÙNG CHÚNG MÌNH");
+  }
+
+  if (!(footer.Copyright || "").trim()) {
+    const parts = [coupleBride, coupleGroom].filter(Boolean);
+
+    footer.Copyright = parts.length
+      ? parts.join(" & ")
+      : `© ${new Date().getFullYear()}`;
+  }
+}
+
+ensureFooter();
 
 function fillCopyrightFromCouple() {
   const bride = props.wedding.brideName || props.wedding.couple?.Bride?.Name;

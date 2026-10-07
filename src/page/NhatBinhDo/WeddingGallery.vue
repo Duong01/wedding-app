@@ -5,17 +5,16 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="cfr-top-custom-head">
-      <p v-if="sectionOverride(sections, 'gallery', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gallery", "Eyebrow") }}</p>
+    <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+    <header class="cfr-top-custom-head">
+      <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "gallery", "Eyebrow", $t("KỶ NIỆM TƯƠI ĐẸP")) }}</p>
     </header>
 
     <h2 class="cfr-title">
       {{ heading }}
     </h2>
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'gallery', 'Intro')" class="cfr-sub-custom-head">
-      <p v-if="sectionOverride(sections, 'gallery', 'Intro')" class="cfr-sub-custom-head__intro">{{ sectionOverride(sections, "gallery", "Intro") }}</p>
+    <header class="cfr-sub-custom-head">
+      <p class="cfr-sub-custom-head__intro">{{ sectionText(sections, "gallery", "Intro", $t("Những khoảnh khắc đẹp nhất được lưu giữ cùng chúng mình")) }}</p>
     </header>
 
 
@@ -29,9 +28,9 @@
         v-if="gallery.length"
         :images="gallery"
         :layout="galleryLayoutFor('nhat-binh-do', layout)"
-        accent="#9c1f2c"
-        text-color="#9c1f2c"
-        frame-bg="#fbf8f3"
+        accent="var(--cfr-red, #9c1f2c)"
+        text-color="var(--cfr-red, #9c1f2c)"
+        frame-bg="var(--cfr-cream, #fbf8f3)"
         :radius="16"
         @open="openLightbox"
       />
@@ -60,7 +59,8 @@
 <script setup>
 import { computed, defineAsyncComponent, ref } from "vue";
 
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
+import { t } from "@/lang";
 
 import GalleryShowcase from "@/components/gallery/GalleryShowcase.vue";
 import { galleryLayoutFor } from "@/data/galleryLayouts";
@@ -92,7 +92,7 @@ const props = defineProps({
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "gallery", "Heading")
+  sectionText(props.sections, "gallery", "Heading", t("Album Hình Cưới"))
 );
 
 

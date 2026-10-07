@@ -1,7 +1,7 @@
 <template>
-  <section class="mk-section">
+  <section ref="root" class="mk-section">
     <div class="mk-container">
-      <header class="mk-head mk-head--center">
+      <header class="mk-head mk-head--center rv">
         <p class="mk-eyebrow">{{ $t('nav.pricing') }}</p>
 
         <h2>
@@ -18,10 +18,11 @@
 
       <div class="plans mk-rail">
         <article
-          v-for="plan in PRICING_PLANS"
+          v-for="(plan, index) in PRICING_PLANS"
           :key="plan.id"
-          class="plan"
+          class="plan rv"
           :class="{ 'is-highlight': plan.highlight }"
+          :data-rv-delay="index"
         >
           <span v-if="plan.highlight" class="plan-badge">
             {{ $t('pricing.popular') }}
@@ -72,7 +73,10 @@
 <script setup>
 import RailHint from "@/components/marketing/RailHint.vue";
 
+import { useReveal } from "@/composables/useReveal";
 import { PRICING_PLANS, publicPriceLabel } from "@/data/siteContent";
+
+const root = useReveal();
 
 /*
  * Gói trả phí không còn hiện con số trên trang công khai —

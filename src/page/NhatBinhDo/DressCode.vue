@@ -6,9 +6,9 @@
     ====================================================== -->
 
     <div class="cfr-dress__head">
-      <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-      <header v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="cfr-top-custom-head">
-        <p v-if="sectionOverride(sections, 'dressCode', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "dressCode", "Eyebrow") }}</p>
+      <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+      <header class="cfr-top-custom-head">
+        <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "dressCode", "Eyebrow", $t("TRANG PHỤC")) }}</p>
       </header>
 
       <h2 class="cfr-title">
@@ -41,7 +41,8 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
+import { t } from "@/lang";
 const props = defineProps({
   dressCode: {
     type: [Object, Array, String],
@@ -59,11 +60,11 @@ const props = defineProps({
 ========================================================= */
 
 const heading = computed(() =>
-  sectionText(props.sections, "dressCode", "Heading")
+  sectionText(props.sections, "dressCode", "Heading", "Dress Code")
 );
 
 const intro = computed(() =>
-  sectionText(props.sections, "dressCode", "Intro")
+  sectionText(props.sections, "dressCode", "Intro", t("Trang phục dự tiệc"))
 );
 
 
@@ -71,7 +72,15 @@ const intro = computed(() =>
    BẢNG MÀU
 ========================================================= */
 
-const DEFAULT_COLORS = ["#9c1f2c", "#560207", "#f6ecd9"];
+/*
+ * Màu mặc định bám theo màu giao diện (theme.Colors) —
+ * đổi màu ở panel "Giao diện" thì bảng màu tự đổi theo.
+ */
+const DEFAULT_COLORS = [
+  "var(--cfr-red, #9c1f2c)",
+  "var(--cfr-red-deep, #560207)",
+  "var(--cfr-cream-2, #f6ecd9)",
+];
 
 
 const swatches = computed(() => {

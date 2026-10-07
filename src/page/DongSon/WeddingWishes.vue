@@ -223,9 +223,7 @@ function getWishTime(wish) {
 }
 
 function buildSlug() {
-  return route.params.token
-    ? `${route.params.slug}/${route.params.token}`
-    : route.params.slug;
+  return route.params.slug;
 }
 
 async function loadWishes() {

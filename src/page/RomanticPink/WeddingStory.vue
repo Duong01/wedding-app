@@ -1,6 +1,6 @@
 <template>
   <section class="story">
-    <div class="gg-eyebrow">{{ sectionText(sections, "story", "Eyebrow", $t("CÂU CHUYỆN CỦA CHÚNG MÌNH")) }}</div>
+    <div v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="gg-eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</div>
 
     <h2 class="gg-title">{{ sectionText(sections, "story", "Heading", storyTitle || $t("Chuyện tình yêu")) }}</h2>
 
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 

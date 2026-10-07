@@ -752,6 +752,20 @@ export default {
     "목록에서 청첩장을 삭제했습니다",
     "一覧から招待状を削除しました",
   ],
+  "manage.deleted": [
+    "Đã xóa thiệp.",
+    "Invitation deleted.",
+    "请柬已删除。",
+    "청첩장을 삭제했습니다.",
+    "招待状を削除しました。",
+  ],
+  "manage.deleteFailed": [
+    "Không thể xóa thiệp.",
+    "Couldn't delete the invitation.",
+    "无法删除请柬。",
+    "청첩장을 삭제할 수 없습니다.",
+    "招待状を削除できませんでした。",
+  ],
   "manage.loadGuestsFailed": [
     "Không thể tải danh sách khách mời.",
     "Couldn't load the guest list.",

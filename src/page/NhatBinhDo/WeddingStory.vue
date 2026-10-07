@@ -26,7 +26,7 @@
 
     <header class="cfr-story__head">
 
-      <span class="cfr-story__eyebrow">
+      <span v-if="eyebrow" class="cfr-story__eyebrow">
         {{ eyebrow }}
       </span>
 
@@ -64,7 +64,8 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { t } from "@/lang";
 
 import { flower2, flower3 } from "./crystalFloralAssets";
 const props = defineProps({
@@ -84,7 +85,7 @@ const props = defineProps({
 ========================================================= */
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "story", "Eyebrow")
+  sectionOverride(props.sections, "story", "Eyebrow")
 );
 
 

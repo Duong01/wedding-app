@@ -135,17 +135,31 @@
         </div>
 
         <!--
-          Nút custom — bấm gọi google.accounts.id.prompt().
-          Nếu prompt bị chặn (cooldown sau khi người dùng đã đóng,
-          trình duyệt không hỗ trợ FedCM...) thì thay bằng nút
-          Google chính thức (renderButton) — luôn mở được.
+          Nút Google CHÍNH THỨC (renderButton) — GIS tự vẽ,
+          bấm luôn mở được hộp chọn tài khoản (không phụ thuộc
+          One Tap / FedCM như prompt()).
+
+          GIS chỉ vẽ khi origin hiện tại đã đăng ký trong
+          Google Console — chưa đăng ký thì im lặng không vẽ
+          gì, nên giữ nút dự phòng bên dưới.
+        -->
+        <div
+          v-show="googleButtonReady"
+          id="google-btn"
+          class="google-btn-host"
+        ></div>
+
+        <!--
+          Nút dự phòng — hiện khi nút chính thức chưa vẽ xong
+          hoặc bị GIS từ chối (origin chưa đăng ký / mất mạng).
+          Bấm thử vẽ lại; vẫn không được thì báo lỗi rõ ràng.
         -->
         <button
-          v-if="!googleFallback"
+          v-if="!googleButtonReady"
           type="button"
           class="google-btn"
           :disabled="googleSubmitting"
-          @click="startGoogleLogin"
+          @click="retryGoogleButton"
         >
           <v-progress-circular
             v-if="googleSubmitting"
@@ -154,7 +168,6 @@
             width="2"
           />
 
-          <!-- Logo Google (SVG chính thức, không phụ thuộc icon font) -->
           <svg
             v-else
             class="google-logo"
@@ -163,19 +176,12 @@
           >
             <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
             <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
-            <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+            <path fill="#4CAF50" d="M24,44c5.166,0,9.861-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
             <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
           </svg>
 
           <span>{{ $t('login.google') }}</span>
         </button>
-
-        <!-- Nút Google chính thức (dự phòng khi prompt bị chặn) -->
-        <div
-          v-else
-          id="google-fallback-btn"
-          class="google-fallback"
-        ></div>
 
         <p class="auth-switch">
           {{ $t('login.noAccount') }}
@@ -325,7 +331,8 @@
         </div>
 
         <div class="field">
-          <label for="reg-email">Email <span class="optional">{{ $t('login.optional') }}</span></label>
+          <!-- <label for="reg-email">Email <span class="optional">{{ $t('login.optional') }}</span></label> -->
+          <label for="reg-email">Email</label>
 
           <input
             id="reg-email"
@@ -333,28 +340,33 @@
             type="email"
             autocomplete="email"
             placeholder="you@example.com"
+            required
           />
         </div>
 
         <div class="field">
-          <label for="reg-fullname">{{ $t('login.fullName') }} <span class="optional">{{ $t('login.optional') }}</span></label>
+          <!-- <label for="reg-fullname">{{ $t('login.fullName') }} <span class="optional">{{ $t('login.optional') }}</span></label> -->
+          <label for="reg-fullname">{{ $t('login.fullName') }}</label>
 
           <input
             id="reg-fullname"
             v-model.trim="registerForm.fullName"
             type="text"
             :placeholder="$t('login.namePlaceholder')"
+            required
           />
         </div>
 
         <div class="field">
-          <label for="reg-phone">{{ $t('login.phone') }} <span class="optional">{{ $t('login.optional') }}</span></label>
+          <!-- <label for="reg-phone">{{ $t('login.phone') }} <span class="optional">{{ $t('login.optional') }}</span></label> -->
+          <label for="reg-phone">{{ $t('login.phone') }}</label>
 
           <input
             id="reg-phone"
             v-model.trim="registerForm.phone"
             type="tel"
             placeholder="0912 345 678"
+            required
           />
         </div>
 
@@ -428,7 +440,7 @@
 
 <script setup>
 import { useI18n } from "vue-i18n";
-import { computed, nextTick, reactive, ref, watch } from "vue";
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
@@ -481,15 +493,26 @@ const successMessage = ref("");
 /* =========================================================
    GOOGLE LOGIN (Google Identity Services)
    - Nạp script https://accounts.google.com/gsi/client
-   - Bấm nút → google.accounts.id.prompt() hiện popup chọn
-     tài khoản Google → nhận id_token (credential) → gửi
-     lên backend /AccountApi/GoogleLogin xác thực.
+   - Render nút Google CHÍNH THỨC bằng renderButton() ngay
+     khi vào trang (theo mẫu đăng nhập WebPhim) — bấm nút
+     mở hộp chọn tài khoản Google → nhận id_token
+     (credential) → gửi lên backend /AccountApi/GoogleLogin.
+   - KHÔNG dùng google.accounts.id.prompt() (One Tap): hay
+     bị chặn (cooldown sau khi người dùng đóng, FedCM tắt,
+     /gsi/status 403...) khiến bấm nút mà không có gì xảy ra.
 ========================================================= */
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const googleSubmitting = ref(false);
-const googleFallback = ref(false);
+
+/*
+ * Nút chính thức (renderButton) chỉ được GIS vẽ khi origin
+ * hiện tại đã đăng ký trong Google Console. Chưa đăng ký /
+ * mất mạng → GIS im lặng không vẽ gì → phải có nút dự phòng.
+ */
+const googleButtonReady = ref(false);
+const googleButtonFailed = ref(false);
 let googleScriptPromise = null;
 
 function loadGoogleScript() {
@@ -520,86 +543,113 @@ function loadGoogleScript() {
   return googleScriptPromise;
 }
 
-async function startGoogleLogin() {
-  if (googleSubmitting.value) {
+/*
+ * initialize() chỉ được gọi 1 lần — GIS ném lỗi
+ * "IdpFrameInitialized" nếu gọi lại.
+ */
+function initGoogleClient() {
+  /*
+   * Callback bọc qua window: initialize() chỉ được gọi 1 lần
+   * nhưng component có thể bị dựng lại (HMR, quay lại trang) —
+   * wrapper luôn trỏ tới handler mới nhất.
+   */
+  window.__googleCredentialHandler = onGoogleCredential;
+
+  if (window.__googleIdInitialized) {
     return;
   }
 
-  errorMessage.value = "";
-  googleSubmitting.value = true;
+  window.google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: (response) => window.__googleCredentialHandler?.(response),
+  });
+
+  window.__googleIdInitialized = true;
+}
+
+/*
+ * Render nút Google chính thức vào div #google-btn.
+ * renderButton luôn mở được account picker khi bấm —
+ * không phụ thuộc FedCM / prompt().
+ */
+async function renderGoogleButton() {
+  const host = document.getElementById("google-btn");
+
+  if (!host || !window.google?.accounts?.id) {
+    googleButtonFailed.value = true;
+    return;
+  }
+
+  googleButtonFailed.value = false;
+
+  window.google.accounts.id.renderButton(host, {
+    type: "standard",
+    theme: "outline",
+    size: "large",
+    shape: "pill",
+    text: "signin_with",
+    logo_alignment: "center",
+    width: 320,
+  });
+
+  /*
+   * GIS không có callback lỗi cho renderButton — origin chưa
+   * đăng ký thì nó im lặng không vẽ. Đợi rồi kiểm tra iframe
+   * bên trong: có iframe = nút đã hiện; không = bật nút dự phòng.
+   */
+  await new Promise((resolve) => setTimeout(resolve, 1200));
+
+  googleButtonReady.value = !!host.querySelector("iframe");
+
+  if (!googleButtonReady.value) {
+    googleButtonFailed.value = true;
+  }
+}
+
+onMounted(async () => {
+  if (!GOOGLE_CLIENT_ID) {
+    console.warn("[Login] Thiếu VITE_GOOGLE_CLIENT_ID — bỏ qua nút Google.");
+    googleButtonFailed.value = true;
+    return;
+  }
 
   try {
     await loadGoogleScript();
 
-    /*
-     * initialize() chỉ được gọi 1 lần — GIS ném lỗi
-     * "IdpFrameInitialized" nếu gọi lại.
-     */
-    if (!window.__googleIdInitialized) {
-      window.google.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
-        callback: onGoogleCredential,
-        use_fedcm_for_prompt: true,
-      });
+    initGoogleClient();
 
-      window.__googleIdInitialized = true;
-    }
-
-    googleSubmitting.value = false;
-
-    /*
-     * prompt() có thể bị chặn: người dùng đã đóng popup trước
-     * đó (cooldown ~giờ), trình duyệt không hỗ trợ FedCM...
-     * momental notification (isDisplayMoment + not skipped)
-     * → OK; bị chặn → chuyển sang nút Google chính thức.
-     */
-    window.google.accounts.id.prompt((notification) => {
-      if (
-        notification &&
-        !notification.isDisplayMoment() &&
-        !notification.isSkippedMoment()
-      ) {
-        return;
-      }
-
-      if (
-        notification &&
-        notification.isSkippedMoment() &&
-        notification.getSkippedReason() !== "user_cancel"
-      ) {
-        enableGoogleFallback();
-      }
-    });
+    await renderGoogleButton();
   } catch (e) {
-    googleSubmitting.value = false;
-    errorMessage.value = e?.message || t("login.googleFailed");
+    console.warn("[Login] Không tải được Google GIS:", e?.message);
+    googleButtonFailed.value = true;
   }
-}
+});
 
 /*
- * prompt() không hiện được → render nút Google chính thức
- * (renderButton luôn mở được account picker).
+ * Nút dự phòng: thử vẽ lại nút chính thức (có thể mạng vừa
+ * hồi). Vẫn không được thì báo lỗi rõ ràng thay vì im lặng.
  */
-function enableGoogleFallback() {
-  googleFallback.value = true;
+async function retryGoogleButton() {
+  if (googleSubmitting.value) {
+    return;
+  }
 
-  nextTick(() => {
-    const host = document.getElementById("google-fallback-btn");
+  googleSubmitting.value = true;
+  errorMessage.value = "";
 
-    if (!host || !window.google?.accounts?.id) {
-      return;
-    }
+  try {
+    await loadGoogleScript();
+    initGoogleClient();
+    await renderGoogleButton();
+  } catch (e) {
+    console.warn("[Login] retryGoogleButton:", e?.message);
+  } finally {
+    googleSubmitting.value = false;
+  }
 
-    window.google.accounts.id.renderButton(host, {
-      type: "standard",
-      theme: "outline",
-      size: "large",
-      shape: "pill",
-      text: "continue_with",
-      logo_alignment: "center",
-      width: 320,
-    });
-  });
+  if (!googleButtonReady.value) {
+    errorMessage.value = t("login.googleUnavailable");
+  }
 }
 
 function onGoogleCredential(response) {
@@ -645,9 +695,16 @@ const forgotForm = reactive({
   password: "",
 });
 
-watch(mode, () => {
+watch(mode, async (value) => {
   errorMessage.value = "";
   successMessage.value = "";
+
+  /* Quay lại tab Đăng nhập → render lại nút Google (div bị dựng lại) */
+  if (value === "login") {
+    await nextTick();
+
+    renderGoogleButton();
+  }
 });
 
 /* =========================================================
@@ -1167,6 +1224,21 @@ async function submitForgot() {
   background: var(--studio-line, rgba(43, 33, 24, 0.14));
 }
 
+/*
+ * Nút Google chính thức (renderButton) — GIS tự vẽ iframe
+ * bên trong. Chỉ cần căn giữa + đủ chỗ cho nút pill 320px.
+ */
+.google-btn-host {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+
+  min-height: 44px;
+}
+
+/* Nút dự phòng khi GIS chưa vẽ được nút chính thức */
 .google-btn {
   width: 100%;
 
@@ -1218,15 +1290,6 @@ async function submitForgot() {
   height: 18px;
 
   flex-shrink: 0;
-}
-
-/* Nút Google chính thức (dự phòng) — căn giữa trong card */
-.google-fallback {
-  display: flex;
-
-  justify-content: center;
-
-  width: 100%;
 }
 
 .auth-switch {

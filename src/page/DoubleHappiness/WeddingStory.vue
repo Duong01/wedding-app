@@ -15,7 +15,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { t } from "@/lang";
 const props = defineProps({
   story: { type: [String, Object], default: "" },
@@ -29,7 +29,7 @@ const content = computed(() =>
 );
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "story", "Eyebrow", t("CÂU CHUYỆN CỦA CHÚNG MÌNH"))
+  sectionOverride(props.sections, "story", "Eyebrow")
 );
 
 /*

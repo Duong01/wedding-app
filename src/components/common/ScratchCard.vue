@@ -19,16 +19,19 @@
       </small>
     </div>
 
-    <!-- LỚP BẠC CÀO -->
+    <!-- LỚP BẠC CÀO — giữ mounted sau khi mở (không v-if theo
+         revealed): "Cào lại" vẽ lại trên cùng 1 canvas, v-if
+         remount thì context cũ bị detach, lớp bạc không vẽ lại -->
     <canvas
-      v-if="canvasReady && !revealed"
+      v-if="canvasReady"
       ref="canvasRef"
       class="scratch-card__canvas"
-      :class="{ 'scratch-card__canvas--fading': fading }"
+      :class="{ 'scratch-card__canvas--fading': revealed }"
       @pointerdown="startScratch"
       @pointermove="scratch"
       @pointerup="stopScratch"
       @pointerleave="stopScratch"
+      @pointercancel="stopScratch"
     ></canvas>
 
     <!-- FALLBACK: KHÔNG CÓ CANVAS / REDUCED MOTION -->
@@ -59,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
 import { pickRandomPrize } from "@/data/gameData";
 import { t } from "@/lang";
@@ -78,8 +81,6 @@ const canvasRef = ref(null);
 const canvasReady = ref(false);
 
 const revealed = ref(false);
-
-const fading = ref(false);
 
 const prize = ref("");
 
@@ -100,7 +101,7 @@ let scratching = false;
 
 let lastCheck = 0;
 
-onMounted(() => {
+onMounted(async () => {
   prize.value = prizeMode.value
     ? pickRandomPrize(props.prizes.map((p) => p.Title))
     : pickRandomPrize(BLESSINGS);
@@ -122,19 +123,30 @@ onMounted(() => {
     return;
   }
 
+  /*
+   * Canvas render với v-if="canvasReady" — phải bật cờ TRƯỚC
+   * thì ref mới tồn tại. Chờ nextTick cho DOM cập nhật rồi
+   * mới vẽ lớp bạc.
+   */
+  canvasReady.value = true;
+
+  await nextTick();
+
   const canvas = canvasRef.value;
 
   if (!canvas || !canvas.getContext) {
+    canvasReady.value = false;
+
     return;
   }
 
   ctx = canvas.getContext("2d");
 
   if (!ctx) {
+    canvasReady.value = false;
+
     return;
   }
-
-  canvasReady.value = true;
 
   drawCover();
 });
@@ -242,8 +254,6 @@ function checkProgress() {
     return;
   }
 
-  const rect = canvas.getBoundingClientRect();
-
   /*
    * Sample lưới 24x24 thay vì mọi pixel — đủ chính xác
    * cho ngưỡng 55% mà nhẹ hơn nhiều.
@@ -280,8 +290,6 @@ function reveal() {
 
   revealed.value = true;
 
-  fading.value = true;
-
   try {
     import("canvas-confetti").then(({ default: confetti }) => {
       confetti({
@@ -299,7 +307,6 @@ function reveal() {
 
 function reset() {
   revealed.value = false;
-  fading.value = false;
 
   prize.value = prizeMode.value
     ? pickRandomPrize(props.prizes.map((p) => p.Title))

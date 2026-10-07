@@ -1,7 +1,7 @@
 <template>
-  <section class="mk-section mk-section--alt">
+  <section ref="root" class="mk-section mk-section--alt">
     <div class="mk-container support-grid">
-      <div class="support-copy">
+      <div class="support-copy rv">
         <p class="mk-eyebrow">{{ $t('footer.support') }}</p>
 
         <h2>
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="support-stats">
+      <div class="support-stats rv" data-rv-delay="1">
         <div class="stat">
           <strong>{{ $t('support.s1v') }}</strong>
           <span>{{ $t('support.s1') }}</span>
@@ -50,7 +50,10 @@
 </template>
 
 <script setup>
+import { useReveal } from "@/composables/useReveal";
 import { CONTACT } from "@/data/siteContent";
+
+const root = useReveal();
 </script>
 
 <style scoped>

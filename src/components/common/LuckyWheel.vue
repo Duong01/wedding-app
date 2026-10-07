@@ -125,9 +125,14 @@ const rotorStyle = computed(() => ({
 /*
  * Nhãn nằm dọc theo bán kính: xoay đến giữa ô rồi đẩy
  * ra ngoài bằng translateY âm.
+ *
+ * Trừ 90°: phần tử nhãn trải theo trục +x (hướng 3 giờ)
+ * tính từ tâm, còn ô conic-gradient bắt đầu từ hướng 12 giờ
+ * — không trừ thì nhãn nằm giữa ô kế tiếp (lệch 2 ô với
+ * vòng 8 quà) và kết quả không trùng nhãn dưới kim.
  */
 function labelStyle(index) {
-  const angle = index * slice.value + slice.value / 2;
+  const angle = index * slice.value + slice.value / 2 - 90;
 
   return {
     transform: `rotate(${angle}deg) translateY(-38%)`,

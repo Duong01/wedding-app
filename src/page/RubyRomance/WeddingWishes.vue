@@ -297,11 +297,7 @@ async function submitWish() {
     return;
   }
 
-  const slug = route.params.slug
-    ? route.params.token
-      ? `${route.params.slug}/${route.params.token}`
-      : route.params.slug
-    : "";
+  const slug = route.params.slug || "";
 
   const param = {
     slug: slug,

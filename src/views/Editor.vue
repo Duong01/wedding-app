@@ -1117,6 +1117,21 @@ async function backToTemplates() {
     }
   }
 
+  /*
+   * Trở về NGAY TRANG TRƯỚC ĐÓ (không cố định /templates):
+   * người dùng có thể vào editor từ "Thiệp của tôi", từ
+   * trang mẫu, hay từ link trực tiếp. Dùng history.back()
+   * để giữ đúng luồng điều hướng; chỉ khi không có trang
+   * trước (mở tab mới / vào thẳng link) mới fallback về
+   * danh sách mẫu.
+   */
+  const hasPrevious = !!window.history.state?.back;
+
+  if (hasPrevious) {
+    router.back();
+    return;
+  }
+
   await router.push({
     path: "/templates",
   });

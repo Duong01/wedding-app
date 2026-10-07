@@ -12,7 +12,7 @@
 
     <FeatureTabs />
 
-    <CollectionShowcase :weddings="weddings" />
+    <!-- <CollectionShowcase :weddings="weddings" /> -->
 
     <Testimonials />
 
@@ -35,7 +35,7 @@ import TemplateGallery from "@/components/home/TemplateGallery.vue";
 import FeatureBento from "@/components/home/FeatureBento.vue";
 import HowItWorks from "@/components/home/HowItWorks.vue";
 import FeatureTabs from "@/components/home/FeatureTabs.vue";
-import CollectionShowcase from "@/components/home/CollectionShowcase.vue";
+// import CollectionShowcase from "@/components/home/CollectionShowcase.vue";
 import Testimonials from "@/components/home/Testimonials.vue";
 import PricingTeaser from "@/components/home/PricingTeaser.vue";
 import SupportBlock from "@/components/home/SupportBlock.vue";

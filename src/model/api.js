@@ -18,6 +18,18 @@ export const GetWedding = (slug, token) => {
 
   return https.Get(path);
 };
+
+/*
+ * Load thiệp để CHỈNH SỬA (editor) — yêu cầu đăng nhập chủ
+ * sở hữu. Khác GetWedding: bỏ qua cổng chặn publish/trial nên
+ * thiệp Draft (vừa lưu, chưa xuất bản) vẫn mở lại được.
+ */
+export const GetWeddingForEdit = (slug) => {
+  return https.Get(
+    `/wedding/getWeddingForEdit`,
+    { slug }
+  );
+};
 export const Confirm = (param, success, error) => {return https.Post(`/wedding/confirm`, param, success, error);};
 export const AddDataWedding = (param, success, error) => {return https.Post(`/wedding/AddDataWedding`, param, success, error);};
 
@@ -205,3 +217,16 @@ export const updatePaymentInfo = (param, success, error) => {return https.Post(`
  * "Quản lý thiệp" (/manage).
  */
 export const getMyWeddings = (success, error) => {return https.Get(`/wedding/getMyWeddings`, {}, success, error);};
+
+/*
+ * Xóa thiệp của chính mình (Admin xóa được mọi thiệp).
+ * Backend đọc slug từ query string — tham số đơn của Web API.
+ */
+export const deleteWedding = (slug, success, error) => {
+  return https.Delete(
+    `/wedding/deleteWedding`,
+    { slug },
+    success,
+    error
+  );
+};

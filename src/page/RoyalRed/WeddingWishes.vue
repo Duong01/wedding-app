@@ -260,11 +260,7 @@ async function submit() {
      * Gửi lời chúc lên API (addWish).
      * Slug kèm token để ghi đúng thiệp của khách mời.
      */
-    const slug = route.params.slug
-      ? route.params.token
-        ? `${route.params.slug}/${route.params.token}`
-        : route.params.slug
-      : "";
+    const slug = route.params.slug || "";
 
     const response = await addWish({
       slug,

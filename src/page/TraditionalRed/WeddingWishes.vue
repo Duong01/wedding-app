@@ -220,11 +220,7 @@ async function submit() {
   submitting.value = true;
 
   try {
-    const slug = route.params.slug
-      ? route.params.token
-        ? `${route.params.slug}/${route.params.token}`
-        : route.params.slug
-      : "";
+    const slug = route.params.slug || "";
 
     const response = await addWish({ slug, guestName: name, message });
 

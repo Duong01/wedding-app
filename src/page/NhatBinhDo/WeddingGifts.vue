@@ -5,17 +5,16 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="cfr-top-custom-head">
-      <p v-if="sectionOverride(sections, 'gifts', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "gifts", "Eyebrow") }}</p>
+    <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+    <header class="cfr-top-custom-head">
+      <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "gifts", "Eyebrow", $t("GỬI YÊU THƯƠNG")) }}</p>
     </header>
 
     <h2 class="cfr-title">
       {{ heading }}
     </h2>
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'gifts', 'Intro')" class="cfr-sub-custom-head">
-      <p v-if="sectionOverride(sections, 'gifts', 'Intro')" class="cfr-sub-custom-head__intro">{{ sectionOverride(sections, "gifts", "Intro") }}</p>
+    <header class="cfr-sub-custom-head">
+      <p class="cfr-sub-custom-head__intro">{{ sectionText(sections, "gifts", "Intro", $t("Những lời chúc và tình cảm của bạn là món quà quý giá nhất dành cho chúng mình")) }}</p>
     </header>
 
 
@@ -178,7 +177,7 @@
 <script setup>
 import { computed, onUnmounted, ref } from "vue";
 
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
 
 import { envelopeNhatBinhRed } from "./nhatBinhDoAssets";
 import { t } from "@/lang";
@@ -203,7 +202,7 @@ const props = defineProps({
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "gifts", "Heading")
+  sectionText(props.sections, "gifts", "Heading", t("Hộp mừng cưới"))
 );
 
 

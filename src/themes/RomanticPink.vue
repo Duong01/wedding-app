@@ -384,15 +384,15 @@ onMounted(() => {
 
   overflow: hidden;
 
-  background-color: var(--gg-mist-rose);
-  backdrop-filter: blur(7px) saturate(1.08);
-  -webkit-backdrop-filter: blur(7px) saturate(1.08);
+  /* background-color: var(--gg-mist-rose); */
+  /* backdrop-filter: blur(7px) saturate(1.08);
+  -webkit-backdrop-filter: blur(7px) saturate(1.08); */
 
   border-top: 1px solid var(--gg-line);
   border-bottom: 1px solid var(--gg-line);
   border-radius: 30px 30px 0 0;
 
-  box-shadow: var(--gg-glass);
+  /* box-shadow: var(--gg-glass); */
 }
 
 /* =========================================================
@@ -487,8 +487,8 @@ onMounted(() => {
 /* Thẻ kính dùng lại được ở component con */
 .romantic-pink :deep(.gg-glass) {
   background-color: var(--gg-mist);
-  backdrop-filter: blur(7px) saturate(1.08);
-  -webkit-backdrop-filter: blur(7px) saturate(1.08);
+  /* backdrop-filter: blur(7px) saturate(1.08);
+  -webkit-backdrop-filter: blur(7px) saturate(1.08); */
   border: 1px solid var(--gg-line);
   border-radius: 20px;
   box-shadow: var(--gg-glass);

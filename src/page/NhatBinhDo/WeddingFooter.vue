@@ -68,7 +68,7 @@ const wedding = computed(() => props.wedding || {});
 ===================================================== */
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "footer", "Eyebrow")
+  sectionText(props.sections, "footer", "Eyebrow", "SAVE THE DATE")
 );
 
 

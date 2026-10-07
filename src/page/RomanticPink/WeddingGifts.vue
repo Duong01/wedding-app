@@ -303,6 +303,11 @@ onBeforeUnmount(() => {
 
 .gift-stage {
   margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .gift-box-button {

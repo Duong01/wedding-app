@@ -36,13 +36,7 @@
           />
         </section>
 
-        <!-- ===============================================
-             ALBUM ẢNH
-        ================================================ -->
-
-        <section v-if="showGallery && gallery.length" class="mw-section">
-          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
-        </section>
+       
 
         <!-- ===============================================
              THÔNG TIN LỄ CƯỚI
@@ -55,7 +49,13 @@
         <!-- ===============================================
              CHUYỆN TÌNH YÊU
         ================================================ -->
+         <!-- ===============================================
+             ALBUM ẢNH
+        ================================================ -->
 
+        <section v-if="showGallery && gallery.length" class="mw-section">
+          <WeddingGallery :layout="wedding?.settings?.GalleryLayout" :gallery="gallery" :sections="sections" />
+        </section>
         <section v-if="showStory && useMilestoneStory" class="mw-section"><StoryMilestones :wedding="wedding" /></section>
         <section v-if="showStory && !useMilestoneStory && wedding?.story" class="mw-section"><WeddingStory :story="wedding.story" :sections="sections" /></section>
 

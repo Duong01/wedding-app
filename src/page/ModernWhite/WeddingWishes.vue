@@ -164,9 +164,7 @@ function buildSlug() {
     return "";
   }
 
-  return route.params.token
-    ? `${route.params.slug}/${route.params.token}`
-    : route.params.slug;
+  return route.params.slug;
 }
 
 /* =========================================================

@@ -558,6 +558,31 @@
 }
 
 /* ===========================================================
+   REVEAL-ON-SCROLL
+   -----------------------------------------------------------
+   Khối mang class .rv ẩn (opacity 0) rồi hiện vào khi cuộn
+   tới — xem composables/useReveal.js. Phần trượt + mờ vào
+   chạy bằng Web Animations API ngay trong composable nên
+   ở đây chỉ cần trạng thái ban đầu và trạng thái cuối.
+   Người dùng giảm chuyển động thì .rv được thêm .is-in ngay
+   từ đầu nên không bao giờ kẹt ở trạng thái ẩn.
+=========================================================== */
+
+.rv {
+  opacity: 0;
+}
+
+.rv.is-in {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    opacity: 1;
+  }
+}
+
+/* ===========================================================
    FAQ
 =========================================================== */
 

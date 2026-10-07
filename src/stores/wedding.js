@@ -2,7 +2,7 @@ import { t } from "@/lang";
 
 import { defineStore } from "pinia";
 
-import { GetWedding } from "@/model/api";
+import { GetWedding, GetWeddingForEdit } from "@/model/api";
 
 /*
  * 26 mẫu demo (JSON) — import LAZY, không import tĩnh.
@@ -140,7 +140,40 @@ export const useWeddingStore = defineStore("wedding", {
 
         /*
          * Gọi API thật.
+         *
+         * 1. GetWeddingForEdit — endpoint cho CHỦ SỞ HỮU: bỏ qua
+         *    cổng chặn publish/trial nên thiệp Draft (vừa lưu,
+         *    chưa xuất bản) vẫn mở lại được để chỉnh sửa.
+         *    Chỉ gọi khi có token đăng nhập (endpoint yêu cầu
+         *    đăng nhập — khách chưa đăng nhập sẽ nhận 401).
+         * 2. GetWedding — endpoint công khai cho khách mời:
+         *    chỉ trả thiệp đã xuất bản / đã thanh toán.
          */
+        const hasAuthToken = !!localStorage.getItem("token");
+
+        if (hasAuthToken) {
+          try {
+            const editResponse = await GetWeddingForEdit(slug);
+
+            const editResult = editResponse?.data;
+
+            if (editResult && editResult.status === "success" && editResult.data) {
+              const data = editResult.data;
+
+              this.cache[slug] = data;
+
+              this.wedding = data;
+
+              return data;
+            }
+          } catch (editError) {
+            console.warn(
+              `[wedding store] getWeddingForEdit lỗi cho "${slug}", thử endpoint công khai.`,
+              editError?.response?.status || editError?.message
+            );
+          }
+        }
+
         try {
           const response = await GetWedding(slug);
 

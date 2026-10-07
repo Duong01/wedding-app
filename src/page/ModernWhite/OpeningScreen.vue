@@ -207,6 +207,10 @@ function openInvitation() {
 </script>
 
 <style scoped>
+/* =========================================================
+   OPENING — GIỮ NGUYÊN PALETTE GỐC
+========================================================= */
+
 .mw-opening {
   position: relative;
   isolation: isolate;
@@ -216,59 +220,252 @@ function openInvitation() {
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   min-height: 100svh;
 
-  padding: 40px 20px;
+  padding: 32px 20px;
 
   overflow: hidden;
 
   background-color: var(--mw-paper);
   color: var(--mw-ink);
+
+  /* Cho cảm giác chuyển cảnh mềm */
+  transition:
+    background-color 0.8s ease,
+    opacity 0.8s ease;
 }
 
 /* =========================================================
-   NỀN
+   BACKGROUND
 ========================================================= */
 
 .mw-opening__bg {
   position: absolute;
   inset: 0;
+
   z-index: -10;
 
   background:
-    radial-gradient(ellipse at 50% 4%, rgba(72, 108, 125, 0.1), transparent 55%),
-    radial-gradient(ellipse at 8% 92%, rgba(72, 108, 125, 0.07), transparent 48%),
-    radial-gradient(ellipse at 92% 86%, rgba(72, 108, 125, 0.06), transparent 48%);
+    radial-gradient(
+      ellipse at 50% 15%,
+      rgba(72, 108, 125, 0.13),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 10% 90%,
+      rgba(72, 108, 125, 0.08),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      rgba(72, 108, 125, 0.08),
+      transparent 42%
+    );
+
+  animation: mw-bg-breathe 7s ease-in-out infinite alternate;
 }
+
+@keyframes mw-bg-breathe {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   VÒNG ÁNH SÁNG SAU PHONG BÌ
+========================================================= */
+
+.mw-opening::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(80vw, 560px);
+  height: min(80vw, 560px);
+
+  transform: translate(-50%, -52%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(72, 108, 125, 0.07);
+
+  box-shadow:
+    0 0 80px rgba(72, 108, 125, 0.06),
+    inset 0 0 80px rgba(72, 108, 125, 0.04);
+
+  animation: mw-halo 5s ease-in-out infinite;
+}
+
+@keyframes mw-halo {
+  0%,
+  100% {
+    transform: translate(-50%, -52%) scale(0.94);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translate(-50%, -52%) scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   SPARK
+========================================================= */
 
 .mw-spark {
   position: absolute;
+
   z-index: -2;
 
-  color: rgba(72, 108, 125, 0.5);
+  color: var(--mw-blue);
 
   font-size: 12px;
 
+  opacity: 0.25;
+
   pointer-events: none;
 
-  animation: mw-spark-twinkle 3.6s ease-in-out infinite;
+  animation:
+    mw-spark
+    3.8s
+    ease-in-out
+    infinite;
 }
 
-.mw-spark--1 { top: 10%; left: 12%; }
-.mw-spark--2 { top: 18%; right: 14%; font-size: 11px; animation-delay: -0.5s; }
-.mw-spark--3 { top: 32%; left: 7%; font-size: 10px; animation-delay: -1.1s; }
-.mw-spark--4 { top: 44%; right: 8%; animation-delay: -1.7s; }
-.mw-spark--5 { top: 58%; left: 13%; font-size: 10px; animation-delay: -2.2s; }
-.mw-spark--6 { top: 66%; right: 12%; font-size: 11px; animation-delay: -2.8s; }
-.mw-spark--7 { top: 80%; left: 9%; animation-delay: -3.2s; }
-.mw-spark--8 { top: 86%; right: 17%; font-size: 11px; animation-delay: -0.9s; }
-.mw-spark--9 { top: 8%; right: 32%; font-size: 10px; animation-delay: -1.4s; }
-.mw-spark--10 { top: 92%; left: 30%; font-size: 10px; animation-delay: -2s; }
-.mw-spark--11 { top: 26%; left: 24%; font-size: 10px; animation-delay: -2.6s; }
-.mw-spark--12 { top: 72%; right: 28%; font-size: 10px; animation-delay: -3.4s; }
+.mw-spark--1 {
+  top: 10%;
+  left: 12%;
+}
+
+.mw-spark--2 {
+  top: 18%;
+  right: 14%;
+
+  font-size: 9px;
+
+  animation-delay: -0.5s;
+}
+
+.mw-spark--3 {
+  top: 32%;
+  left: 7%;
+
+  font-size: 10px;
+
+  animation-delay: -1s;
+}
+
+.mw-spark--4 {
+  top: 44%;
+  right: 8%;
+
+  animation-delay: -1.5s;
+}
+
+.mw-spark--5 {
+  top: 58%;
+  left: 13%;
+
+  font-size: 9px;
+
+  animation-delay: -2s;
+}
+
+.mw-spark--6 {
+  top: 66%;
+  right: 12%;
+
+  animation-delay: -2.5s;
+}
+
+.mw-spark--7 {
+  top: 80%;
+  left: 9%;
+
+  font-size: 10px;
+
+  animation-delay: -3s;
+}
+
+.mw-spark--8 {
+  top: 86%;
+  right: 17%;
+
+  font-size: 9px;
+
+  animation-delay: -0.8s;
+}
+
+.mw-spark--9 {
+  top: 8%;
+  right: 32%;
+
+  font-size: 9px;
+
+  animation-delay: -1.3s;
+}
+
+.mw-spark--10 {
+  top: 92%;
+  left: 30%;
+
+  font-size: 9px;
+
+  animation-delay: -1.9s;
+}
+
+.mw-spark--11 {
+  top: 26%;
+  left: 24%;
+
+  font-size: 8px;
+
+  animation-delay: -2.4s;
+}
+
+.mw-spark--12 {
+  top: 72%;
+  right: 28%;
+
+  font-size: 8px;
+
+  animation-delay: -3.1s;
+}
+
+@keyframes mw-spark {
+  0%,
+  100% {
+    opacity: 0.15;
+
+    transform:
+      translateY(0)
+      scale(0.7)
+      rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.9;
+
+    transform:
+      translateY(-6px)
+      scale(1.25)
+      rotate(25deg);
+  }
+}
 
 /* =========================================================
-   PHONG BÌ
+   ENVELOPE
 ========================================================= */
 
 .mw-envelope {
@@ -277,8 +474,39 @@ function openInvitation() {
   width: min(100%, 340px);
   height: 460px;
 
-  perspective: 1200px;
+  perspective: 1400px;
+
+  /*
+   * Trạng thái chờ:
+   * phong bì không đứng im hoàn toàn,
+   * có chuyển động "thở" rất nhẹ.
+   */
+  animation:
+    mw-envelope-float
+    4.8s
+    ease-in-out
+    infinite;
+
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease,
+    opacity 0.7s ease;
 }
+
+@keyframes mw-envelope-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(0.25deg);
+  }
+}
+
+/* =========================================================
+   BACK
+========================================================= */
 
 .mw-envelope__back {
   position: absolute;
@@ -287,12 +515,65 @@ function openInvitation() {
   padding: 12px;
 
   border: 1px solid var(--mw-hairline);
+
   border-radius: 16px;
 
-  background-color: var(--mw-blue-mist);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.45),
+      var(--mw-blue-mist)
+    );
+
+  box-shadow:
+    inset 0 0 30px rgba(72, 108, 125, 0.035),
+    0 22px 50px rgba(30, 50, 60, 0.1);
+
+  overflow: hidden;
 }
 
+.mw-envelope__back::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 75%
+    );
+
+  transform: translateX(-120%);
+
+  animation:
+    mw-envelope-shine
+    5s
+    ease-in-out
+    infinite;
+}
+
+@keyframes mw-envelope-shine {
+  0%,
+  55% {
+    transform: translateX(-120%);
+  }
+
+  75%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* =========================================================
+   BORDER
+========================================================= */
+
 .mw-envelope__border {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,7 +582,19 @@ function openInvitation() {
   height: 100%;
 
   border: 1px dashed var(--mw-hairline);
+
   border-radius: 10px;
+}
+
+.mw-envelope__border::after {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+
+  border: 1px solid rgba(72, 108, 125, 0.06);
+
+  border-radius: 7px;
 }
 
 .mw-envelope__symbol {
@@ -311,6 +604,10 @@ function openInvitation() {
   font-size: 40px;
 
   opacity: 0.35;
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.8s ease;
 }
 
 /* =========================================================
@@ -319,6 +616,7 @@ function openInvitation() {
 
 .mw-card {
   position: absolute;
+
   inset: 0;
 
   z-index: 2;
@@ -330,40 +628,115 @@ function openInvitation() {
   padding: 16px;
 
   /*
-   * Thiệp nhô lên trên miệng phong bì để tên cô dâu
-   * chú rể + ngày cưới nhìn thấy được ngay từ đầu,
-   * không bị mặt trước phong bì che khuất.
+   * QUAN TRỌNG:
+   * Thiệp nằm cao hơn miệng phong bì.
+   * Ban đầu chỉ lộ phần vừa đủ.
    */
-  transform: translateY(-16%);
+  transform:
+    translateY(-17%)
+    scale(0.98);
 
-  transform-origin: 50% 100%;
+  transform-origin: center bottom;
 
   transition:
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.5s ease;
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s ease,
+    filter 0.7s ease;
 }
 
+/* =========================================================
+   CARD OUTER
+========================================================= */
+
 .mw-card__outer {
+  position: relative;
+
   width: 100%;
 
   padding: 10px;
 
   border: 1px solid var(--mw-hairline);
+
   border-radius: 14px;
 
   background-color: var(--mw-paper);
 
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 18px 40px rgba(30, 50, 60, 0.12),
+    0 3px 8px rgba(30, 50, 60, 0.05);
 }
 
+.mw-card__outer::before {
+  content: "";
+
+  position: absolute;
+  inset: 5px;
+
+  border: 1px solid var(--mw-hairline-soft);
+
+  border-radius: 9px;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   CARD INNER
+========================================================= */
+
 .mw-card__inner {
+  position: relative;
+
+  min-height: 400px;
+
   padding: 30px 20px 24px;
 
   border: 1px solid var(--mw-hairline-soft);
+
   border-radius: 8px;
 
+  background:
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(72, 108, 125, 0.035),
+      transparent 55%
+    ),
+    var(--mw-paper);
+
   text-align: center;
+
+  overflow: hidden;
 }
+
+/* =========================================================
+   DECORATIVE CORNERS
+========================================================= */
+
+.mw-card__inner::before,
+.mw-card__inner::after {
+  content: "✦";
+
+  position: absolute;
+
+  color: var(--mw-blue);
+
+  font-size: 9px;
+
+  opacity: 0.4;
+}
+
+.mw-card__inner::before {
+  top: 12px;
+  left: 14px;
+}
+
+.mw-card__inner::after {
+  right: 14px;
+  bottom: 12px;
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
 
 .mw-card__kicker {
   margin: 0 0 10px;
@@ -371,6 +744,7 @@ function openInvitation() {
   color: var(--mw-ink-soft);
 
   font-family: var(--mw-font-serif);
+
   font-size: 10px;
 
   letter-spacing: 0.34em;
@@ -383,18 +757,46 @@ function openInvitation() {
   color: var(--mw-blue);
 
   font-family: var(--mw-font-serif);
+
   font-size: 22px;
+
   font-weight: 400;
 
   letter-spacing: 0.1em;
 }
 
+.mw-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  margin: 14px 0 3px;
+}
+
+.mw-divider span {
+  width: 38px;
+  height: 1px;
+
+  background-color: var(--mw-hairline);
+}
+
+.mw-divider i {
+  color: var(--mw-blue);
+
+  font-size: 9px;
+
+  font-style: normal;
+}
+
 .mw-card__invite {
-  margin: 18px 0 6px;
+  margin: 15px 0 6px;
 
   color: var(--mw-ink);
 
   font-family: var(--mw-font-serif);
+
   font-size: 11px;
 
   letter-spacing: 0.24em;
@@ -405,13 +807,14 @@ function openInvitation() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
 
-  margin-bottom: 14px;
+  gap: 7px;
+
+  margin-bottom: 13px;
 }
 
 .mw-card__guest-line {
-  width: 60px;
+  width: 55px;
   height: 1px;
 
   background-color: var(--mw-hairline);
@@ -421,7 +824,9 @@ function openInvitation() {
   color: var(--mw-blue);
 
   font-family: var(--mw-font-script);
-  font-size: 30px;
+
+  font-size: 29px;
+
   font-weight: 400;
 }
 
@@ -429,13 +834,13 @@ function openInvitation() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
 }
 
 .mw-card__name {
   color: var(--mw-blue);
 
   font-family: var(--mw-font-script);
+
   font-size: 26px;
 
   line-height: 1.4;
@@ -445,6 +850,7 @@ function openInvitation() {
   color: var(--mw-blue);
 
   font-family: var(--mw-font-script);
+
   font-size: 20px;
 }
 
@@ -452,13 +858,15 @@ function openInvitation() {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 10px;
 
-  margin-top: 16px;
+  margin-top: 15px;
 
   color: var(--mw-ink);
 
   font-family: var(--mw-font-serif);
+
   font-size: 11px;
 
   letter-spacing: 0.2em;
@@ -472,11 +880,12 @@ function openInvitation() {
 }
 
 .mw-card__message {
-  margin: 16px 0 0;
+  margin: 15px 0 0;
 
   color: var(--mw-ink-soft);
 
   font-family: var(--mw-font-serif);
+
   font-size: 11px;
 
   line-height: 1.7;
@@ -486,6 +895,7 @@ function openInvitation() {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 8px;
 
   margin-top: 18px;
@@ -497,14 +907,14 @@ function openInvitation() {
   color: var(--mw-ink-soft);
 
   font-family: var(--mw-font-serif);
+
   font-size: 9px;
 
   letter-spacing: 0.24em;
 }
 
 /* =========================================================
-   MẶT TRƯỚC PHONG BÌ — túi đáy, chỉ che nửa dưới
-   để phần trên của thiệp (tên + ngày) lộ ra ngoài.
+   FRONT ENVELOPE
 ========================================================= */
 
 .mw-envelope__front {
@@ -516,28 +926,30 @@ function openInvitation() {
 
   z-index: 3;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 46%;
+  height: 47%;
 
   overflow: hidden;
 
   border: 1px solid var(--mw-hairline);
+
   border-radius: 16px;
 
-  background-color: var(--mw-blue-mist);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.38),
+      var(--mw-blue-mist)
+    );
 
   transform-origin: 50% 100%;
 
-  transition: transform 0.9s cubic-bezier(0.5, 0, 0.75, 0.4), opacity 0.6s ease;
+  transition:
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
 }
 
-/*
- * Nắp tam giác gắn mép trên của túi — nhìn như phong bì
- * thật đang hé miệng, thiệp chui lên từ trong.
- */
+/* Miệng phong bì */
+
 .mw-envelope__front::before {
   content: "";
 
@@ -547,12 +959,31 @@ function openInvitation() {
   left: 0;
 
   width: 100%;
-  height: 90px;
+  height: 95px;
 
-  background: linear-gradient(180deg, var(--mw-paper), var(--mw-blue-mist));
+  background:
+    linear-gradient(
+      180deg,
+      var(--mw-paper),
+      var(--mw-blue-mist)
+    );
 
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  clip-path:
+    polygon(
+      0 0,
+      50% 100%,
+      100% 0
+    );
+
+  filter:
+    drop-shadow(
+      0 2px 4px rgba(30, 50, 60, 0.08)
+    );
 }
+
+/* =========================================================
+   FLOWERS
+========================================================= */
 
 .mw-envelope__flower {
   position: absolute;
@@ -560,6 +991,10 @@ function openInvitation() {
   color: var(--mw-blue-soft);
 
   font-size: 26px;
+
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
 }
 
 .mw-envelope__flower--left {
@@ -574,11 +1009,17 @@ function openInvitation() {
   transform: rotate(180deg);
 }
 
+/* =========================================================
+   SEAL
+========================================================= */
+
 .mw-envelope__seal {
   position: absolute;
 
-  top: 46px;
+  top: 45px;
   left: 50%;
+
+  z-index: 5;
 
   display: flex;
   align-items: center;
@@ -587,155 +1028,491 @@ function openInvitation() {
   width: 76px;
   height: 76px;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%)
+    scale(1);
 
   border: 1px solid var(--mw-blue);
+
   border-radius: 50%;
 
   background-color: var(--mw-paper);
+
   color: var(--mw-blue);
 
   font-family: serif;
+
   font-size: 30px;
 
-  animation: mw-seal-pulse 3.4s ease-in-out infinite;
+  box-shadow:
+    0 8px 20px rgba(30, 50, 60, 0.08);
+
+  animation:
+    mw-seal-breathe
+    3.5s
+    ease-in-out
+    infinite;
+
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s ease,
+    opacity 0.4s ease;
+}
+
+@keyframes mw-seal-breathe {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      scale(1.045);
+  }
 }
 
 /* =========================================================
-   NÚT MỞ
+   ⭐ HOVER / USER INTERACTION
+========================================================= */
+
+/*
+ * Khi người dùng đưa chuột vào:
+ *
+ * - Phong bì nhích lên
+ * - Thiệp trồi lên
+ * - Nội dung thiệp lộ ra nhiều hơn
+ * - Seal sáng lên
+ * - Hoa dịch nhẹ
+ *
+ * => tạo cảm giác "hãy mở tôi".
+ */
+
+.mw-envelope:hover {
+  transform:
+    translateY(-12px)
+    scale(1.015);
+
+  filter:
+    drop-shadow(
+      0 30px 55px rgba(30, 50, 60, 0.18)
+    );
+}
+
+.mw-envelope:hover .mw-card {
+  transform:
+    translateY(-29%)
+    scale(1.015);
+
+  filter:
+    drop-shadow(
+      0 10px 18px rgba(30, 50, 60, 0.08)
+    );
+}
+
+.mw-envelope:hover .mw-envelope__seal {
+  transform:
+    translateX(-50%)
+    scale(1.12);
+
+  box-shadow:
+    0 0 0 7px rgba(72, 108, 125, 0.05),
+    0 10px 24px rgba(30, 50, 60, 0.12);
+}
+
+.mw-envelope:hover .mw-envelope__symbol {
+  opacity: 0.55;
+
+  transform:
+    scale(1.08)
+    translateY(4px);
+}
+
+.mw-envelope:hover .mw-envelope__flower--left {
+  transform:
+    translate(-4px, -3px)
+    rotate(-12deg);
+}
+
+.mw-envelope:hover .mw-envelope__flower--right {
+  transform:
+    translate(4px, -3px)
+    rotate(180deg);
+}
+
+/* =========================================================
+   OPEN BUTTON
 ========================================================= */
 
 .mw-open-button {
+  position: relative;
+
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+
   gap: 10px;
 
-  margin-top: 30px;
-  padding: 13px 32px;
+  margin-top: 28px;
 
-  border: none;
+  min-width: 170px;
+
+  padding: 13px 28px;
+
+  border: 1px solid var(--mw-hairline);
+
   border-radius: 999px;
 
-  background-color: var(--mw-blue);
-  color: var(--mw-paper);
+  background-color: rgba(255, 255, 255, 0.55);
+
+  color: var(--mw-blue);
 
   font-family: var(--mw-font-serif);
-  font-size: 13px;
+
+  font-size: 11px;
+
   font-weight: 600;
 
   letter-spacing: 0.2em;
+
   text-indent: 0.1em;
 
   cursor: pointer;
 
-  transition: transform 0.25s ease, background-color 0.25s ease;
+  overflow: hidden;
+
+  box-shadow:
+    0 7px 22px rgba(30, 50, 60, 0.07);
+
+  backdrop-filter: blur(5px);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.mw-open-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  left: -100%;
+
+  width: 55%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation:
+    mw-button-shine
+    3.5s
+    ease-in-out
+    infinite;
+}
+
+@keyframes mw-button-shine {
+  0%,
+  55% {
+    left: -100%;
+  }
+
+  75%,
+  100% {
+    left: 140%;
+  }
 }
 
 .mw-open-button:hover {
-  transform: translateY(-2px);
+  transform:
+    translateY(-3px)
+    scale(1.02);
 
-  background-color: var(--mw-blue-deep);
+  background-color: rgba(255, 255, 255, 0.8);
+
+  box-shadow:
+    0 12px 30px rgba(30, 50, 60, 0.12);
+}
+
+.mw-open-button:active {
+  transform:
+    translateY(0)
+    scale(0.96);
+}
+
+.mw-open-button__text,
+.mw-open-button__arrow {
+  position: relative;
+
+  z-index: 1;
 }
 
 .mw-open-button__arrow {
   font-size: 14px;
+
+  animation:
+    mw-arrow
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+@keyframes mw-arrow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
 }
 
 /* =========================================================
-   ANIMATION KHI MỞ
+   OPENING
 ========================================================= */
 
+.is-opening .mw-envelope {
+  animation: none;
+
+  transform:
+    translateY(-8px)
+    scale(1.02);
+
+  filter:
+    drop-shadow(
+      0 35px 65px rgba(30, 50, 60, 0.2)
+    );
+}
+
+/*
+ * Nắp phong bì mở ra
+ */
+
 .is-opening .mw-envelope__front {
-  transform: rotateX(-160deg);
+  transform:
+    rotateX(-165deg);
 
   opacity: 0;
 }
+
+/*
+ * Thiệp trồi mạnh lên
+ */
 
 .is-opening .mw-card {
-  transform: translateY(-26%) scale(1.04);
+  transform:
+    translateY(-46%)
+    scale(1.045);
+
+  filter:
+    drop-shadow(
+      0 25px 35px rgba(30, 50, 60, 0.12)
+    );
 }
 
-.is-opened .mw-card {
-  transform: translateY(-16%) scale(1.06);
+/*
+ * Seal biến mất
+ */
+
+.is-opening .mw-envelope__seal {
+  transform:
+    translateX(-50%)
+    translateY(-25px)
+    scale(0.5);
 
   opacity: 0;
+}
+
+/*
+ * Nội dung nền biến mất nhẹ
+ */
+
+.is-opening .mw-spark {
+  animation-play-state: paused;
+}
+
+/* =========================================================
+   OPENED
+========================================================= */
+
+.is-opened {
+  background-color: var(--mw-paper);
 }
 
 .is-opened .mw-envelope {
+  transform:
+    translateY(-25px)
+    scale(1.08);
+
   opacity: 0;
 
-  transition: opacity 0.4s ease;
+  filter: blur(5px);
+
+  transition:
+    transform 0.7s ease,
+    opacity 0.75s ease,
+    filter 0.75s ease;
 }
+
+.is-opened .mw-spark {
+  opacity: 0;
+
+  transition: opacity 0.5s ease;
+}
+
+/* =========================================================
+   BUTTON TRANSITION
+========================================================= */
 
 .mw-open-button-enter-active,
 .mw-open-button-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .mw-open-button-enter-from,
 .mw-open-button-leave-to {
   opacity: 0;
-  transform: translateY(10px);
+
+  transform:
+    translateY(10px)
+    scale(0.95);
 }
 
 /* =========================================================
-   KEYFRAMES
+   MOBILE
 ========================================================= */
 
-@keyframes mw-spark-twinkle {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(0.8) rotate(0deg);
+@media (max-width: 600px) {
+  .mw-opening {
+    padding:
+      24px
+      16px;
   }
 
-  50% {
-    opacity: 1;
-    transform: scale(1.25) rotate(25deg);
-  }
-}
-
-@keyframes mw-seal-pulse {
-  0%,
-  100% {
-    transform: scale(1);
+  .mw-envelope {
+    width: min(92vw, 330px);
+    height: min(125vw, 440px);
   }
 
-  50% {
-    transform: scale(1.05);
+  .mw-card__inner {
+    min-height: 380px;
+
+    padding:
+      26px
+      16px
+      22px;
+  }
+
+  .mw-card__name {
+    font-size: 24px;
+  }
+
+  .mw-card__guest strong {
+    font-size: 27px;
+  }
+
+  /*
+   * Mobile không có hover.
+   * :active giúp tạo phản hồi khi người dùng chạm.
+   */
+  .mw-envelope:active {
+    transform:
+      translateY(-7px)
+      scale(1.01);
+  }
+
+  .mw-envelope:active .mw-card {
+    transform:
+      translateY(-28%)
+      scale(1.015);
+  }
+
+  .mw-envelope:active .mw-envelope__seal {
+    transform:
+      translateX(-50%)
+      scale(1.08);
   }
 }
 
 /* =========================================================
-   MOBILE NHỎ
+   VERY SMALL PHONE
 ========================================================= */
 
 @media (max-width: 380px) {
   .mw-envelope {
-    height: 420px;
+    height: 410px;
   }
 
   .mw-card__inner {
-    padding: 24px 14px 20px;
+    min-height: 350px;
+
+    padding:
+      22px
+      13px
+      18px;
   }
 
-  .mw-card__guest strong {
-    font-size: 26px;
+  .mw-card__title {
+    font-size: 19px;
   }
 
   .mw-card__name {
-    font-size: 23px;
+    font-size: 22px;
+  }
+
+  .mw-card__guest strong {
+    font-size: 24px;
+  }
+
+  .mw-card__message {
+    font-size: 10px;
+  }
+
+  .mw-envelope__seal {
+    width: 68px;
+    height: 68px;
+
+    font-size: 27px;
   }
 }
 
 /* =========================================================
-   REDUCE MOTION
+   ACCESSIBILITY
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+  .mw-opening__bg,
+  .mw-opening::before,
+  .mw-envelope,
   .mw-spark,
+  .mw-envelope__seal,
+  .mw-envelope__back::before,
+  .mw-open-button::before,
+  .mw-open-button__arrow {
+    animation: none !important;
+  }
+
+  .mw-envelope,
+  .mw-card,
+  .mw-envelope__front,
   .mw-envelope__seal {
-    animation: none;
+    transition-duration: 0.01ms !important;
   }
 }
 </style>
+

@@ -1,9 +1,9 @@
 <template>
   <div class="cfr-countdown">
 
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="cfr-top-custom-head">
-      <p v-if="sectionOverride(sections, 'countdown', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "countdown", "Eyebrow") }}</p>
+    <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+    <header class="cfr-top-custom-head">
+      <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "countdown", "Eyebrow", $t("NGÀY VUI ĐANG ĐẾN GẦN")) }}</p>
     </header>
 
     <h2 class="cfr-title">
@@ -86,7 +86,8 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
+import { t } from "@/lang";
 const props = defineProps({
   countdown: {
     type: [Object, String],
@@ -109,7 +110,7 @@ const props = defineProps({
 ========================================================= */
 
 const heading = computed(() =>
-  sectionText(props.sections, "countdown", "Heading")
+  sectionText(props.sections, "countdown", "Heading", t("Đếm ngược"))
 );
 
 
@@ -250,16 +251,13 @@ onBeforeUnmount(() => {
 
 .cfr-countdown__number {
   position: relative;
-
+  
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 55px;
   height: 38px;
-
   overflow: hidden;
-
   perspective: 180px;
 }
 

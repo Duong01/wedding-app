@@ -5,17 +5,16 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cfr-top-custom-head">
-      <p v-if="sectionOverride(sections, 'timeline', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "timeline", "Eyebrow") }}</p>
+    <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+    <header class="cfr-top-custom-head">
+      <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "timeline", "Eyebrow", $t("DẤU MỐC YÊU THƯƠNG")) }}</p>
     </header>
 
     <h2 class="cfr-title">
       {{ heading }}
     </h2>
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'timeline', 'Intro')" class="cfr-sub-custom-head">
-      <p v-if="sectionOverride(sections, 'timeline', 'Intro')" class="cfr-sub-custom-head__intro">{{ sectionOverride(sections, "timeline", "Intro") }}</p>
+    <header class="cfr-sub-custom-head">
+      <p class="cfr-sub-custom-head__intro">{{ sectionText(sections, "timeline", "Intro", $t("Những khoảnh khắc đặc biệt đã đưa chúng mình đến ngày hôm nay")) }}</p>
     </header>
 
 
@@ -66,7 +65,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
 import { t } from "@/lang";
 const props = defineProps({
   timeline: {
@@ -90,7 +89,7 @@ const props = defineProps({
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "timeline", "Heading", t("Lịch trình ngày cưới"))
+  sectionText(props.sections, "timeline", "Heading", t("Hành trình của chúng mình"))
 );
 
 

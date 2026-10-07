@@ -160,11 +160,11 @@ const wedding = computed(() => props.wedding || {});
 ========================================================= */
 
 const heading = computed(() =>
-  sectionText(props.sections, "couple", "Heading")
+  sectionText(props.sections, "couple", "Heading", t("Thông tin tiệc cưới"))
 );
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "couple", "Eyebrow")
+  sectionText(props.sections, "couple", "Eyebrow", t("TRÂN TRỌNG BÁO HỶ"))
 );
 
 

@@ -211,11 +211,7 @@ async function add() {
 
   if (!content) return;
 
-  const slug = route.params.slug
-    ? route.params.token
-      ? `${route.params.slug}/${route.params.token}`
-      : route.params.slug
-    : "";
+  const slug = route.params.slug || "";
 
   try {
     const response = await addWish({

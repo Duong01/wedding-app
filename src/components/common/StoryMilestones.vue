@@ -50,7 +50,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { t } from "@/lang";
 const props = defineProps({
   wedding: { type: Object, required: true },
@@ -62,13 +62,13 @@ const milestones = computed(() =>
     : []
 );
 
+/*
+ * Eyebrow CHỈ hiện khi người dùng tự nhập ở panel "Tiêu đề
+ * mục" — tránh mục có 2 tiêu đề (1 mặc định + 1 người dùng
+ * sửa). Mặc định: 1 tiêu đề lớn lấy từ story.Title.
+ */
 const eyebrow = computed(() =>
-  sectionText(
-    props.wedding?.sections,
-    "story",
-    "Eyebrow",
-    t("CÂU CHUYỆN CỦA CHÚNG MÌNH")
-  )
+  sectionOverride(props.wedding?.sections, "story", "Eyebrow")
 );
 
 const heading = computed(() =>

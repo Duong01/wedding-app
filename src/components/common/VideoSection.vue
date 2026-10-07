@@ -29,7 +29,7 @@ import { computed, ref } from "vue";
 
 import VideoEmbed from "@/components/common/VideoEmbed.vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 
 import { useSectionTheme } from "@/composables/useSectionTheme";
 import { t } from "@/lang";
@@ -58,8 +58,15 @@ const visible = computed(
     !!(video.value?.Url || "").trim()
 );
 
+/*
+ * Eyebrow CHỈ hiện khi người dùng tự nhập ở panel "Tiêu đề
+ * mục". Trước đây eyebrow luôn rơi về mặc định nên mục này
+ * có 2 tiêu đề (1 mặc định + 1 người dùng sửa ở Heading).
+ * Giờ: mặc định = 1 tiêu đề lớn; người dùng nhập eyebrow thì
+ * thành tiêu đề lớn + subtitle.
+ */
 const eyebrow = computed(() =>
-  sectionText(props.wedding?.sections, "video", "Eyebrow", t("KHOẢNH KHẮC YÊU THƯƠNG"))
+  sectionOverride(props.wedding?.sections, "video", "Eyebrow")
 );
 
 const heading = computed(() =>

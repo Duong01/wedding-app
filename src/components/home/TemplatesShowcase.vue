@@ -1,10 +1,10 @@
 <template>
-  <section id="templates-showcase" class="showcase">
+  <section id="templates-showcase" ref="root" class="showcase">
     <div class="mk-container">
       <!-- =====================================================
            MỤC LỚN — CỬA VÀO TRANG XEM MẪU THIỆP
       ====================================================== -->
-      <article class="showcase-main" @click="goTemplates">
+      <article class="showcase-main rv" @click="goTemplates">
         <div class="showcase-main__media">
           <img
             v-for="(card, index) in deck"
@@ -23,7 +23,85 @@
         <div class="showcase-main__body">
           <p class="showcase-main__eyebrow">
             <span class="pulse-dot" aria-hidden="true"></span>
-            {{ $t("showcase.waiting", { n: weddings.length }) }} </p> <h2> {{ $t('showcase.h2a') }} <em>{{ $t('showcase.h2b') }}</em> {{ $t('showcase.h2c') }} </h2> <p class="showcase-main__lead"> {{ $t('showcase.lead') }} </p> <div class="showcase-main__actions"> <span class="mk-btn mk-btn--solid"> {{ $t("showcase.viewN", { n: weddings.length }) }} <span aria-hidden="true">→</span> </span> <span class="showcase-main__hint"> {{ $t('showcase.badge') }} </span> </div> </div> </article> <!-- ===================================================== ƯU ĐÃI / TÍNH NĂNG NỔI BẬT ====================================================== --> <div class="perks-head"> <p class="mk-eyebrow">{{ $t('showcase.inEvery') }}</p> <h3>{{ $t('showcase.h3') }}</h3> </div> <div class="perks"> <article v-for="perk in PERKS" :key="perk.title" class="perk" :class="{ 'perk--hot': perk.hot }" @click="goTemplates" > <span class="perk__orn" aria-hidden="true">{{ perk.orn }}</span> <span v-if="perk.hot" class="perk__badge">HOT</span> <h4>{{ perk.title }}</h4> <p>{{ perk.text }}</p> </article> </div> </div> </section> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed } from "vue"; import { useRouter } from "vue-router"; import { handleImageError, toCardItem } from "@/utils/weddingCard"; const { t } = useI18n(); const props = defineProps({ weddings: { type: Array, default: () => [] }, }); const router = useRouter(); /* * Ưu đãi / tính năng bán hàng — viết ngắn, gọn, đánh vào * lợi ích người dùng nhận được chứ không liệt kê tính năng. */ const PERKS = [ { orn: "▶", get title() { return t("showcase.f1.title"); },
+            {{ $t("showcase.waiting", { n: weddings.length }) }}
+          </p>
+
+          <h2>
+            {{ $t('showcase.h2a') }}
+            <em>{{ $t('showcase.h2b') }}</em>
+            {{ $t('showcase.h2c') }}
+          </h2>
+
+          <p class="showcase-main__lead">
+            {{ $t('showcase.lead') }}
+          </p>
+
+          <div class="showcase-main__actions">
+            <span class="showcase-main__btn">
+              {{ $t("showcase.viewN", { n: weddings.length }) }}
+              <span aria-hidden="true">→</span>
+            </span>
+
+            <span class="showcase-main__hint">
+              {{ $t('showcase.badge') }}
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <!-- =====================================================
+           ƯU ĐÃI / TÍNH NĂNG NỔI BẬT
+      ====================================================== -->
+      <div class="perks-head rv">
+        <p class="mk-eyebrow">{{ $t('showcase.inEvery') }}</p>
+        <h3>{{ $t('showcase.h3') }}</h3>
+      </div>
+
+      <div class="perks">
+        <article
+          v-for="(perk, index) in PERKS"
+          :key="perk.title"
+          class="perk rv"
+          :class="{ 'perk--hot': perk.hot }"
+          :data-rv-delay="index % 3"
+          @click="goTemplates"
+        >
+          <span class="perk__orn" aria-hidden="true">{{ perk.orn }}</span>
+          <span v-if="perk.hot" class="perk__badge">HOT</span>
+          <h4>{{ perk.title }}</h4>
+          <p>{{ perk.text }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+
+import { useReveal } from "@/composables/useReveal";
+import { handleImageError, toCardItem } from "@/utils/weddingCard";
+
+const { t } = useI18n();
+
+const root = useReveal();
+
+const props = defineProps({
+  weddings: { type: Array, default: () => [] },
+});
+
+const router = useRouter();
+
+/*
+ * Ưu đãi / tính năng bán hàng — viết ngắn, gọn, đánh vào
+ * lợi ích người dùng nhận được chứ không liệt kê tính năng.
+ */
+const PERKS = [
+  {
+    orn: "▶",
+    get title() { return t("showcase.f1.title"); },
     get text() { return t("showcase.f1.text"); },
     hot: true,
   },
@@ -86,25 +164,23 @@ function goTemplates() {
 
   overflow: hidden;
 
-  border: 1px solid rgba(185, 151, 91, 0.45);
+  border: 1px solid rgba(233, 189, 118, 0.3);
   border-radius: 30px;
 
   background:
     radial-gradient(
       circle at 88% 8%,
-      rgba(185, 151, 91, 0.16),
+      rgba(233, 189, 118, 0.2),
       transparent 42%
     ),
     radial-gradient(
       circle at 4% 96%,
-      rgba(166, 58, 46, 0.08),
+      rgba(110, 32, 24, 0.5),
       transparent 40%
     ),
-    var(--studio-card, #fffdf8);
+    linear-gradient(165deg, #a63a2e 0%, #8a2c22 45%, #6e2018 100%);
 
-  box-shadow:
-    0 30px 70px rgba(43, 33, 24, 0.14),
-    0 0 0 6px rgba(185, 151, 91, 0.08);
+  box-shadow: 0 30px 70px rgba(110, 32, 24, 0.4);
 
   cursor: pointer;
 
@@ -117,11 +193,9 @@ function goTemplates() {
 .showcase-main:hover {
   transform: translateY(-4px);
 
-  border-color: rgba(185, 151, 91, 0.75);
+  border-color: rgba(233, 189, 118, 0.55);
 
-  box-shadow:
-    0 40px 90px rgba(43, 33, 24, 0.18),
-    0 0 0 8px rgba(185, 151, 91, 0.12);
+  box-shadow: 0 40px 90px rgba(110, 32, 24, 0.5);
 }
 
 /* --- media: bộ ba thiệp xoè quạt --- */
@@ -273,7 +347,7 @@ function goTemplates() {
 .showcase-main__body h2 {
   margin: 0;
 
-  color: var(--studio-ink, #2b2118);
+  color: #fdf6ec;
 
   font-family: var(--font-heading);
   font-size: clamp(26px, 3.6vw, 42px);
@@ -284,7 +358,7 @@ function goTemplates() {
 }
 
 .showcase-main__body h2 em {
-  color: var(--studio-seal, #a63a2e);
+  color: var(--studio-foil-bright, #d8bc7e);
 
   font-style: italic;
 }
@@ -294,7 +368,7 @@ function goTemplates() {
 
   margin: 16px 0 0;
 
-  color: var(--studio-ink-soft, #5c4f43);
+  color: rgba(253, 246, 236, 0.72);
 
   font-size: 15.5px;
 
@@ -311,8 +385,28 @@ function goTemplates() {
   margin-top: 26px;
 }
 
+/* nút foil sáng — nổi trên nền tối của khối */
+.showcase-main__btn {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 13px 26px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #e9bd76, #c99a55);
+  color: #241811;
+
+  font-size: 14.5px;
+  font-weight: 700;
+
+  box-shadow: 0 14px 30px rgba(233, 189, 118, 0.25);
+}
+
 .showcase-main__hint {
-  color: var(--studio-ink-faint, #8a7a68);
+  color: rgba(253, 246, 236, 0.55);
 
   font-size: 12.5px;
 

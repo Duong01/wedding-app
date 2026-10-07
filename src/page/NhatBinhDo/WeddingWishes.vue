@@ -5,17 +5,16 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="cfr-top-custom-head">
-      <p v-if="sectionOverride(sections, 'guestbook', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "guestbook", "Eyebrow") }}</p>
+    <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+    <header class="cfr-top-custom-head">
+      <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "guestbook", "Eyebrow", $t("LỜI CHÚC TỪ BẠN")) }}</p>
     </header>
 
     <h2 class="cfr-title">
       {{ heading }}
     </h2>
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="cfr-sub-custom-head">
-      <p v-if="sectionOverride(sections, 'guestbook', 'Intro')" class="cfr-sub-custom-head__intro">{{ sectionOverride(sections, "guestbook", "Intro") }}</p>
+    <header class="cfr-sub-custom-head">
+      <p class="cfr-sub-custom-head__intro">{{ sectionText(sections, "guestbook", "Intro", $t("Mỗi lời chúc là một kỷ niệm đẹp mà chúng mình muốn lưu giữ trong ngày đặc biệt này")) }}</p>
     </header>
 
 
@@ -113,7 +112,7 @@ import { computed, reactive, ref } from "vue";
 
 import { useRoute } from "vue-router";
 
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
 
 import { addWish, getAllWishes } from "@/model/api";
 import { t } from "@/lang";
@@ -146,7 +145,7 @@ const route = useRoute();
 ===================================================== */
 
 const heading = computed(() =>
-  sectionText(props.sections, "guestbook", "Heading")
+  sectionText(props.sections, "guestbook", "Heading", t("Sổ lưu bút"))
 );
 
 
@@ -285,11 +284,7 @@ async function submit() {
   submitting.value = true;
 
   try {
-    const slug = route.params.slug
-      ? route.params.token
-        ? `${route.params.slug}/${route.params.token}`
-        : route.params.slug
-      : "";
+    const slug = route.params.slug || "";
 
     const response = await addWish({ slug, guestName: name, message });
 

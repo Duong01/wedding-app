@@ -1,6 +1,6 @@
 <template>
   <section class="cb-story">
-    <p class="cb-eyebrow">{{ sectionText(sections, "story", "Eyebrow", $t("CÂU CHUYỆN CỦA CHÚNG MÌNH")) }}</p>
+    <p v-if="sectionOverride(sections, 'story', 'Eyebrow')" class="cb-eyebrow">{{ sectionOverride(sections, "story", "Eyebrow") }}</p>
 
     <h2>{{ sectionText(sections, "story", "Heading", storyTitle) }}</h2>
 
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 const props = defineProps({ sections: { type: Object, default: () => ({}) }, story: { type: [String, Object], default: "" } });
 

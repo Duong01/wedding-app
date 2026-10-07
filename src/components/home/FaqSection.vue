@@ -1,7 +1,7 @@
 <template>
-  <section class="mk-section">
+  <section ref="root" class="mk-section">
     <div class="mk-container faq-grid">
-      <header class="faq-head">
+      <header class="faq-head rv">
         <p class="mk-eyebrow">{{ $t('guide.faqEyebrow') }}</p>
 
         <h2>
@@ -21,7 +21,9 @@
         </router-link>
       </header>
 
-      <FaqAccordion :items="FAQS" />
+      <div class="rv" data-rv-delay="1">
+        <FaqAccordion :items="FAQS" />
+      </div>
     </div>
   </section>
 </template>
@@ -29,7 +31,10 @@
 <script setup>
 import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
 
+import { useReveal } from "@/composables/useReveal";
 import { FAQS } from "@/data/siteContent";
+
+const root = useReveal();
 </script>
 
 <style scoped>

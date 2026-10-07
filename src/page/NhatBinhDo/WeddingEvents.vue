@@ -5,9 +5,9 @@
          TIÊU ĐỀ
     ====================================================== -->
 
-    <!-- Tiêu đề mục: mẫu gốc không có — chỉ hiện khi người dùng nhập ở panel "Tiêu đề mục" -->
-    <header v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="cfr-top-custom-head">
-      <p v-if="sectionOverride(sections, 'events', 'Eyebrow')" class="cfr-top-custom-head__eyebrow">{{ sectionOverride(sections, "events", "Eyebrow") }}</p>
+    <!-- Tiêu đề mục — tự fill mặc định, người dùng nhập ở panel "Tiêu đề mục" thì ghi đè -->
+    <header class="cfr-top-custom-head">
+      <p class="cfr-top-custom-head__eyebrow">{{ sectionText(sections, "events", "Eyebrow", $t("TIỆC BÁO HỶ")) }}</p>
     </header>
 
     <h2 class="cfr-title">
@@ -312,7 +312,7 @@ import { computed, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { Confirm } from "@/model/api";
-import { sectionOverride, sectionText } from "@/data/sectionTitles";
+import { sectionText } from "@/data/sectionTitles";
 
 import EventMap from "@/components/common/EventMap.vue";
 
@@ -359,7 +359,7 @@ const route = useRoute();
 ========================================================= */
 
 const heading = computed(() =>
-  sectionText(props.sections, "events", "Heading")
+  sectionText(props.sections, "events", "Heading", t("Thông tin tiệc báo hỷ"))
 );
 
 
@@ -549,18 +549,14 @@ async function submitConfirmation() {
     return;
   }
 
-  const slug = route.params.slug
-    ? route.params.token
-      ? `${route.params.slug}/${route.params.token}`
-      : route.params.slug
-    : "";
+  const slug = route.params.slug || "";
 
   const payload = {
     Slug: slug,
     RecipientToken: route.params.token || null,
     GuestName: form.name,
     Attendance:
-      form.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
+      form.attendance === "attending" ? "Có tham dự" : "Không tham dự",
     NumberOfPeople:
       form.attendance === "attending" ? form.numberOfPeople : 0,
   };

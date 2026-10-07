@@ -55,6 +55,38 @@ export function gameTypeMeta(type) {
 }
 
 /*
+ * Loại game thật sự chạy được — quiz không có câu hỏi hay
+ * ghép hình không có ảnh thì rơi về vòng quay (luôn chạy
+ * được: prizes mặc định là lời chúc).
+ *
+ * Dùng chung cho GameSection (render thiệp) và panel
+ * "Tiêu đề mục" (fill tiêu đề mặc định theo game).
+ */
+export function effectiveGameType(wedding) {
+  const type = wedding?.game?.GameType || "lucky-wheel";
+
+  const questions = (wedding?.gameQuestions || []).filter(
+    (q) => (q?.Question || "").trim() && (q?.OptionA || "").trim()
+  );
+
+  const images = (wedding?.gameImages || []).filter((i) =>
+    (i?.Image || "").trim()
+  );
+
+  const gallery = Array.isArray(wedding?.gallery) ? wedding.gallery : [];
+
+  if (type === "couple-quiz" && questions.length === 0) {
+    return "lucky-wheel";
+  }
+
+  if (type === "memory-match" && images.length === 0 && gallery.length === 0) {
+    return "lucky-wheel";
+  }
+
+  return type;
+}
+
+/*
  * 8 lời chúc mặc định (chế độ vui) — đủ số chẵn để chia đều
  * conic-gradient, mỗi ô 45°.
  */

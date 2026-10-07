@@ -85,15 +85,24 @@
             <span aria-hidden="true"></span>
           </div>
 
+          <!-- ĐỊA ĐIỂM — lấy từ panel "Ảnh bìa" (hero.Location) -->
+          <p v-if="venue" class="cfr-open__venue">
+            {{ venue }}
+          </p>
 
-          <!-- NGƯỜI ĐƯỢC MỜI -->
 
-          <div v-if="recipient" class="cfr-open__guest">
-            <span class="cfr-open__guest-label">
+          <!-- LỜI MỜI + NGƯỜI ĐƯỢC MỜI
+               Lời mời (hero.Subtitle) LUÔN hiện — trước đây
+               bị bọc trong v-if="recipient" nên thiệp không
+               có tên khách thì lời mời nhập ở panel Ảnh bìa
+               không thấy đâu. -->
+
+          <div v-if="invite || recipient" class="cfr-open__guest">
+            <span v-if="invite" class="cfr-open__guest-label">
               {{ invite }}
             </span>
 
-            <strong class="cfr-open__guest-name">
+            <strong v-if="recipient" class="cfr-open__guest-name">
               {{ recipient }}
             </strong>
           </div>
@@ -128,6 +137,7 @@
 import { computed, ref } from "vue";
 
 import { sectionText } from "@/data/sectionTitles";
+import { t } from "@/lang";
 
 import {
   flower1,
@@ -171,23 +181,53 @@ const emit = defineEmits(["open"]);
 ========================================================= */
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "opening", "Eyebrow")
+  sectionText(props.sections, "opening", "Eyebrow", t("THIỆP MỜI CƯỚI"))
 );
 
-const kicker = computed(() =>
-  sectionText(props.sections, "opening", "Kicker")
+/*
+ * Tiêu đề / lời mời / địa điểm nhập ở panel "Ảnh bìa"
+ * (wedding.hero) phải hiện trên màn hình mở thiệp.
+ *
+ * Thứ tự ưu tiên: hero (người dùng nhập ở panel Ảnh bìa)
+ * → ô ghi đè ở panel "Tiêu đề mục" → mặc định.
+ * Nhờ vậy mỗi dòng chỉ có MỘT nguồn hiển thị, không bị
+ * trùng 2 tiêu đề.
+ */
+const heroTitle = computed(() => (props.wedding?.hero?.Title || "").trim());
+
+const heroSubtitle = computed(() => (props.wedding?.hero?.Subtitle || "").trim());
+
+const heroLocation = computed(() => (props.wedding?.hero?.Location || "").trim());
+
+const kicker = computed(
+  () =>
+    heroTitle.value ||
+    sectionText(props.sections, "opening", "Kicker", "SAVE THE DATE")
 );
 
-const invite = computed(() =>
-  sectionText(props.sections, "opening", "Invite")
+const invite = computed(
+  () =>
+    heroSubtitle.value ||
+    sectionText(props.sections, "opening", "Invite", t("Trân trọng kính mời"))
+);
+
+const venue = computed(
+  () =>
+    heroLocation.value ||
+    sectionText(props.sections, "opening", "Venue", "")
 );
 
 const buttonLabel = computed(() =>
-  sectionText(props.sections, "opening", "Button")
+  sectionText(props.sections, "opening", "Button", t("CHẠM ĐỂ MỞ THIỆP"))
 );
 
 const hint = computed(() =>
-  sectionText(props.sections, "opening", "Hint")
+  sectionText(
+    props.sections,
+    "opening",
+    "Hint",
+    t("Một lời mời · Một câu chuyện · Một ngày đặc biệt")
+  )
 );
 
 
@@ -566,6 +606,24 @@ function openInvitation() {
     var(--cfr-red, #9c1f2c) 45%,
     transparent
   );
+}
+
+
+/* ĐỊA ĐIỂM — dòng nhỏ dưới ngày cưới */
+
+.cfr-open__venue {
+  max-width: 30ch;
+
+  margin: 0;
+
+  color: color-mix(in srgb, var(--cfr-red-deep, #560207) 78%, transparent);
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  letter-spacing: 0.04em;
+
+  text-align: center;
 }
 
 

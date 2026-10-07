@@ -460,17 +460,13 @@ async function submitConfirmation() {
   submitting.value = true;
 
   try {
-    const slug = route.params.slug
-      ? route.params.token
-        ? `${route.params.slug}/${route.params.token}`
-        : route.params.slug
-      : "";
+    const slug = route.params.slug || "";
 
     const payload = {
       Slug: slug,
       RecipientToken: route.params.token || null,
       GuestName: form.value.name,
-      Attendance: form.value.attendance === "attending" ? t("Có tham dự") : t("Không tham dự"),
+      Attendance: form.value.attendance === "attending" ? "Có tham dự" : "Không tham dự",
       NumberOfPeople: form.value.attendance === "attending" ? form.value.numberOfPeople : 0,
     };
 

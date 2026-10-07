@@ -101,6 +101,8 @@ import { useWeddingDetailStore } from "@/stores/weddingDetail";
 
 import { PUBLISH_STATE } from "@/model/weddingAdmin";
 
+import { GetWeddingForEdit } from "@/model/api";
+
 /* =========================================================
    THEMES
    Dùng map lazy-load từ @/themes — chỉ tải đúng theme
@@ -253,23 +255,6 @@ async function loadWedding() {
   const token = route.params.token;
 
   // Kiểm tra slug
-  // Support editor preview draft: if query.draft=1 and a draft exists in sessionStorage
-  if (route.query && route.query.draft === "1") {
-    try {
-      const draft = sessionStorage.getItem("wedding-draft");
-
-      if (draft) {
-        store.wedding = JSON.parse(draft);
-        store.loading = false;
-        store.error = null;
-
-        return;
-      }
-    } catch (e) {
-      console.warn("Could not read wedding draft from sessionStorage", e);
-    }
-  }
-
   if (typeof slug !== "string" || !slug.trim()) {
     store.wedding = null;
     store.error = t("Đường dẫn thiệp không hợp lệ.");
@@ -295,6 +280,34 @@ async function loadWedding() {
     const result = response?.data;
 
     if (!result || result.status !== "success" || !result.data) {
+      /*
+       * CHỦ THIỆP XEM BẢN NHÁP CỦA MÌNH.
+       *
+       * Thiệp mới lưu có IsActive = 0 + Status = 'Pending'
+       * (chờ xuất bản / thanh toán) nên endpoint công khai
+       * không trả về. Nếu đang đăng nhập và là chủ sở hữu,
+       * thử endpoint getWeddingForEdit để xem trước thiệp
+       * thay vì báo "chưa xuất bản".
+       */
+      if (localStorage.getItem("token")) {
+        try {
+          const editResponse = await GetWeddingForEdit(slug);
+
+          const editResult = editResponse?.data;
+
+          if (editResult?.status === "success" && editResult.data) {
+            store.wedding = editResult.data;
+
+            return;
+          }
+        } catch (editError) {
+          console.warn(
+            "[WeddingApi] getWeddingForEdit fallback lỗi:",
+            editError?.response?.status || editError?.message
+          );
+        }
+      }
+
       /*
        * Server trả "không tìm thấy" — có thể thiệp chưa
        * kích hoạt (Pending/Locked, IsActive = 0). Hỏi trạng

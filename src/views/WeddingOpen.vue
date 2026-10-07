@@ -170,26 +170,6 @@ watch(
 async function loadWedding() {
   const slug = route.params.slug;
 
-  /*
-   * Xem trước bản nháp từ editor: /wedding/<slug>/open?draft=1
-   * đọc bản nháp trong sessionStorage thay vì gọi API.
-   */
-  if (route.query && route.query.draft === "1") {
-    try {
-      const draft = sessionStorage.getItem("wedding-draft");
-
-      if (draft) {
-        store.wedding = JSON.parse(draft);
-        store.loading = false;
-        store.error = null;
-
-        return;
-      }
-    } catch (e) {
-      console.warn("Could not read wedding draft from sessionStorage", e);
-    }
-  }
-
   if (typeof slug !== "string" || !slug.trim()) {
     store.wedding = null;
     store.error = "Đường dẫn thiệp không hợp lệ.";

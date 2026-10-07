@@ -1,7 +1,7 @@
 <template>
-  <section id="gallery" class="gallery">
+  <section id="gallery" ref="root" class="gallery">
     <div class="mk-container">
-      <header class="gallery-head">
+      <header class="gallery-head rv">
         <h2>
           {{ $t('gallery.h2a') }}
           <em>{{ $t('gallery.h2b') }}</em>
@@ -10,7 +10,7 @@
         <p>{{ $t('gallery.lead') }}</p>
       </header>
 
-      <div class="chips">
+      <div class="chips rv" data-rv-delay="1">
         <button
           v-for="tab in tabs"
           :key="tab.id"
@@ -58,10 +58,13 @@ import { useRouter } from "vue-router";
 
 import TemplateCarousel3D from "@/components/marketing/TemplateCarousel3D.vue";
 
+import { useReveal } from "@/composables/useReveal";
 import { COLLECTIONS } from "@/data/templateCollections";
 import { themeMeta, toCardItem } from "@/utils/weddingCard";
 
 const { t } = useI18n();
+
+const root = useReveal();
 
 const props = defineProps({
   weddings: { type: Array, default: () => [] },

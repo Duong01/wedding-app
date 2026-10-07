@@ -1,7 +1,7 @@
 <template>
-  <section class="mk-section mk-section--alt">
+  <section ref="root" class="mk-section mk-section--alt">
     <div class="mk-container">
-      <header class="mk-head mk-head--center">
+      <header class="mk-head mk-head--center rv">
         <p class="mk-eyebrow">{{ $t('stats.collections') }}</p>
 
         <h2>
@@ -16,12 +16,17 @@
 
       <div class="collections">
         <router-link
-          v-for="col in cards"
+          v-for="(col, index) in cards"
           :key="col.id"
           :to="{ name: col.routeName }"
-          class="col-card"
+          class="col-card rv"
+          :data-rv-delay="index % 3"
         >
-          <div class="col-media">
+          <div
+            class="col-media"
+            @mouseenter="scroll.start"
+            @mouseleave="scroll.stop"
+          >
             <img
               v-if="col.src"
               :src="col.src"
@@ -59,9 +64,19 @@
 <script setup>
 import { computed } from "vue";
 
+import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
+import { useReveal } from "@/composables/useReveal";
 import { COLLECTIONS } from "@/data/templateCollections";
 import { COLLECTION_LANDING } from "@/data/siteContent";
 import { handleImageError, previewFor, themeMeta } from "@/utils/weddingCard";
+
+const root = useReveal();
+
+/*
+ * Hover vào ảnh bìa bộ sưu tập → ảnh nguyên trang tự cuộn
+ * xuống chậm rãi cho xem trọn bộ thiết kế (xem useHoverAutoScroll).
+ */
+const scroll = useHoverAutoScroll();
 
 const props = defineProps({
   weddings: { type: Array, default: () => [] },
@@ -132,8 +147,15 @@ const cards = computed(() =>
 
 /* --- ảnh bìa --- */
 
+/*
+ * Khung ảnh giữ tỉ lệ 4/3, ảnh bên trong để height:auto —
+ * phần tràn nằm dưới khung để useHoverAutoScroll cuộn bằng
+ * translateY khi hover (xem composables/useHoverAutoScroll.js).
+ */
 .col-media {
   position: relative;
+
+  display: block;
 
   aspect-ratio: 4 / 3;
 
@@ -146,22 +168,15 @@ const cards = computed(() =>
   display: block;
 
   width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  object-position: center top;
-
-  transition: transform 0.5s ease;
-}
-
-.col-card:hover .col-img {
-  transform: scale(1.05);
+  height: auto;
 }
 
 .col-img--empty {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  height: 100%;
 
   color: rgba(43, 33, 24, 0.25);
 
@@ -333,8 +348,7 @@ const cards = computed(() =>
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .col-card,
-  .col-img {
+  .col-card {
     transition: none;
   }
 }

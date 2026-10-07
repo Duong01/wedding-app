@@ -438,11 +438,11 @@ export default {
     "背景画像をアップロード",
   ],
   "sections.desc": [
-    "Đổi tên các mục hiển thị trên thiệp. Bỏ trống để dùng tiêu đề mặc định của mẫu.",
-    "Rename the sections shown on the invitation. Leave blank to use the template's default titles.",
-    "修改请柬上显示的栏目名称。留空则使用模板默认标题。",
-    "청첩장에 표시되는 섹션 이름을 바꿉니다. 비워 두면 템플릿 기본 제목을 사용합니다.",
-    "招待状に表示されるセクション名を変更します。空欄ならテンプレートの既定の見出しを使います。",
+    "Đổi tên các mục hiển thị trên thiệp. Các ô đã điền sẵn tiêu đề mặc định — sửa trực tiếp, xoá chữ để trở về mặc định.",
+    "Rename the sections shown on the invitation. Fields are pre-filled with the default titles — edit directly, clear the text to revert to the default.",
+    "修改请柬上显示的栏目名称。输入框已预填默认标题 — 可直接修改，清空即恢复默认。",
+    "청첩장에 표시되는 섹션 이름을 바꿉니다. 입력창에 기본 제목이 미리 채워져 있습니다 — 바로 수정하고, 지우면 기본값으로 돌아갑니다.",
+    "招待状に表示されるセクション名を変更します。入力欄には既定の見出しが入っています — そのまま編集し、消すと既定に戻ります。",
   ],
   "sections.search": [
     "Tìm mục cần đổi tên...",

@@ -41,7 +41,7 @@
 <script setup>
 import { computed } from "vue";
 
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 /* =====================================================
    PROPS
 ===================================================== */
@@ -63,7 +63,7 @@ const props = defineProps({
 ===================================================== */
 
 const eyebrow = computed(() =>
-  sectionText(props.sections, "story", "Eyebrow")
+  sectionOverride(props.sections, "story", "Eyebrow")
 );
 
 

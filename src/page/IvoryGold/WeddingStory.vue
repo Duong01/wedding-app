@@ -22,8 +22,11 @@
         <!-- HEADER -->
         <div class="story-header">
 
-          <span class="story-eyebrow">
-            {{ sectionText(sections, "story", "Eyebrow", $t("CÂU CHUYỆN CỦA CHÚNG MÌNH")) }}
+          <span
+            v-if="sectionOverride(sections, 'story', 'Eyebrow')"
+            class="story-eyebrow"
+          >
+            {{ sectionOverride(sections, "story", "Eyebrow") }}
           </span>
 
           <div class="story-title-row">
@@ -86,7 +89,7 @@
 
 
 <script setup>
-import { sectionText } from "@/data/sectionTitles";
+import { sectionOverride, sectionText } from "@/data/sectionTitles";
 import { computed } from "vue";
 import { may } from "./nhatBinhDoAssets";
 const props = defineProps({
