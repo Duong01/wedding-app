@@ -38,14 +38,14 @@
         </p>
 
         <div class="hero-actions">
-          <router-link :to="{ name: 'Editor' }" class="hero-cta">
+          <router-link :to="{ name: 'Templates' }" class="hero-cta">
             <span class="hero-cta__label">{{ $t('hero.cta') }}</span>
             <span class="hero-cta__arrow" aria-hidden="true">→</span>
           </router-link>
 
-          <router-link :to="{ name: 'Templates' }" class="hero-cta hero-cta--ghost">
+          <!-- <router-link :to="{ name: 'Templates' }" class="hero-cta hero-cta--ghost">
             {{ $t('hero.viewTemplates') }}
-          </router-link>
+          </router-link> -->
         </div>
 
         <p class="hero-trust">

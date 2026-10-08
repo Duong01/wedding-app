@@ -9,15 +9,22 @@
         <p>{{ $t('galleryPanel.desc') }}</p>
       </div>
 
-      <button
-        type="button"
-        class="small-primary-button"
-        @click="addGallery"
-      >
-        <v-icon size="17"> mdi-image-plus-outline </v-icon>
+      <div class="panel-header-actions">
+        <button
+          type="button"
+          class="small-primary-button"
+          @click="addGallery"
+        >
+          <v-icon size="17"> mdi-image-plus-outline </v-icon>
 
-        {{ $t('galleryPanel.add') }}
-      </button>
+          {{ $t('galleryPanel.add') }}
+        </button>
+
+        <PanelProgressBadge
+          :done="progress?.done || 0"
+          :total="progress?.total || 0"
+        />
+      </div>
     </div>
 
     <!-- =====================================================
@@ -162,11 +169,11 @@ import {
   resolveGalleryLayout,
 } from "@/data/galleryLayouts";
 
-import { confirmDialog } from "@/composables/useConfirm";
+import { confirmDialog } from "@/composables/useConfirm"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const { t } = useI18n();
 
-const props = defineProps({
+const props = defineProps({ /* { done, total } từ Editor.vue — badge hoàn thiện mục. */ progress: { type: Object, default: null },
   wedding: { type: Object, required: true },
 });
 

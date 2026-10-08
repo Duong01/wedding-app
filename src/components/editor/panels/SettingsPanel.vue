@@ -187,8 +187,13 @@ const SETTINGS_DEFAULTS = {
 };
 
 /*
- * Dữ liệu cũ có thể chưa có ShowDressCode → bổ sung
- * mặc định để switch hiển thị và ghi được giá trị.
+ * Back-fill cờ thiếu (thiệp cũ trước khi có ShowDressCode /
+ * ShowSeasonFx...). Cờ mới ShowVideo/ShowGame mặc định TẮT —
+ * thiệp cũ mở editor không tự bật mục chưa có nội dung.
+ *
+ * Với thiệp bị lưu dở (settings null): API giờ trả object mặc
+ * định đầy đủ nên mọi cờ đã là boolean — back-fill không ghi
+ * đè gì, cấu hình người dùng chọn được giữ nguyên.
  */
 const settings = computed(() => {
   const data = props.wedding.settings;

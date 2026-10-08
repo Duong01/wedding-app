@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> WEDDING INFORMATION </span>
 
@@ -8,6 +8,11 @@
 
         <p>{{ $t('generalPanel.desc') }}</p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <!-- =====================================================
@@ -18,7 +23,7 @@
       <div class="progress-head">
         <strong> {{ $t('generalPanel.progress') }} </strong>
 
-        <span> {{ $t("generalPanel.progressCount", { done: completedCount, total: checklist.length }) }} </span> </div> <div class="progress-bar"> <i :style="{ width: `${progressPercent}%` }" /> </div> <ul class="progress-list"> <li v-for="item in checklist" :key="item.label" :class="{ done: item.done }" > <v-icon size="14"> {{ item.done ? "mdi-check-circle" : "mdi-circle-outline" }} </v-icon> <span>{{ item.label }}</span> </li> </ul> </div> <div class="form-grid"> <div class="editor-field"> <label>{{ $t('panel.groomName') }}</label> <input v-model="wedding.groomName" type="text" placeholder="Trần Hiếu" /> <small class="field-help"> {{ $t('generalPanel.namesSync') }} </small> </div> <div class="editor-field"> <label>{{ $t('panel.brideName') }}</label> <input v-model="wedding.brideName" type="text" placeholder="Hà Uyên" /> <small class="field-help"> {{ $t('generalPanel.namesSync') }} </small> </div> <div class="editor-field full"> <label>Slug</label> <div class="slug-row"> <input v-model="wedding.slug" type="text" placeholder="ha-uyen-tran-hieu" /> <button type="button" class="slug-button" :title="$t('generalPanel.slugFromNames')" @click="generateSlug" > <v-icon size="16"> mdi-auto-fix </v-icon> {{ $t('generalPanel.fromNames') }} </button> </div> <small class="field-help"> {{ $t('generalPanel.slugHint') }} <template v-if="wedding.slug"> {{ $t('generalPanel.guestsOpenAt') }} <code>/{{ wedding.slug }}</code> </template> </small> </div> <div class="editor-field"> <label>{{ $t('generalPanel.cardLanguage') }}</label> <select v-model="wedding.language"> <option v-for="lang in LANGUAGES" :key="lang.code" :value="lang.code" > {{ lang.flag }} {{ lang.label }} </option> </select> <small class="field-help"> {{ $t('generalPanel.cardLanguageHint') }} </small> </div> <div class="editor-field"> <label>{{ $t('panel.weddingDate') }}</label> <input :value="datetimeLocalValue" type="datetime-local" @input="onDateInput" /> <small v-if="weddingDateLabel" class="field-help"> {{ weddingDateLabel }} </small> <small v-else class="field-help"> {{ $t('generalPanel.dateHint') }} </small> </div> <div class="editor-field full"> <label>{{ $t('generalPanel.lunarDate') }}</label> <input v-model="wedding.weddingLunar" type="text" :placeholder="$t('generalPanel.lunarPlaceholder')" /> <small class="field-help"> {{ $t('generalPanel.lunarHint') }} </small> </div> <div class="editor-field full"> <label>{{ $t('editor.menu.hero') }}</label> <UploadField v-model="wedding.coverImage" kind="image" :button-text="$t('generalPanel.uploadCover')" /> <small class="field-help"> {{ $t('generalPanel.coverHint') }} </small> </div> </div> </section> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed } from "vue"; import UploadField from "@/components/editor/UploadField.vue"; import { LANGUAGES } from "@/lang"; import { fromDatetimeLocal, parseWeddingDate, toDatetimeLocal, } from "@/utils/datetime"; const { t } = useI18n(); const props = defineProps({ wedding: { type: Object, required: true }, }); /* * Input datetime-local không nhận phần giây còn hệ * thống lưu "2026-11-14T08:00:00" (ISO) — chuyển đổi * 2 chiều qua utils/datetime. */ const datetimeLocalValue = computed(() => { return toDatetimeLocal(props.wedding.weddingDate); }); function onDateInput(event) { props.wedding.weddingDate = fromDatetimeLocal(event.target.value); } /* * Hiển thị lại ngày cưới bằng chữ để người dùng kiểm * tra nhanh mình chọn đúng ngày chưa. */ const weddingDateLabel = computed(() => { const date = parseWeddingDate(props.wedding.weddingDate); if (!date) { return ""; } return new Intl.DateTimeFormat("vi-VN", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", }).format(date); }); /* ===================================================== SLUG ===================================================== */ /* * Bỏ dấu tiếng Việt + ký tự đặc biệt để ra slug hợp lệ * trên URL. "Hà Uyên & Trần Hiếu" → "ha-uyen-tran-hieu". */ function slugify(value) { return String(value || "")
+        <span> {{ $t("generalPanel.progressCount", { done: completedCount, total: checklist.length }) }} </span> </div> <div class="progress-bar"> <i :style="{ width: `${progressPercent}%` }" /> </div> <ul class="progress-list"> <li v-for="item in checklist" :key="item.id || item.label" :class="{ done: item.complete }" > <v-icon size="14"> {{ item.complete ? "mdi-check-circle" : "mdi-circle-outline" }} </v-icon> <span>{{ item.label }}</span> <em v-if="item.total > 1" class="progress-count"> {{ item.done }}/{{ item.total }} </em> </li> </ul> </div> <div class="form-grid"> <div class="editor-field"> <label>{{ $t('panel.groomName') }}</label> <input v-model="wedding.groomName" type="text" placeholder="Trần Hiếu" /> <small class="field-help"> {{ $t('generalPanel.namesSync') }} </small> </div> <div class="editor-field"> <label>{{ $t('panel.brideName') }}</label> <input v-model="wedding.brideName" type="text" placeholder="Hà Uyên" /> <small class="field-help"> {{ $t('generalPanel.namesSync') }} </small> </div> <div class="editor-field full"> <label>Slug</label> <div class="slug-row"> <input v-model="wedding.slug" type="text" placeholder="ha-uyen-tran-hieu" /> <button type="button" class="slug-button" :title="$t('generalPanel.slugFromNames')" @click="generateSlug" > <v-icon size="16"> mdi-auto-fix </v-icon> {{ $t('generalPanel.fromNames') }} </button> </div> <small class="field-help"> {{ $t('generalPanel.slugHint') }} <template v-if="wedding.slug"> {{ $t('generalPanel.guestsOpenAt') }} <code>/{{ wedding.slug }}</code> </template> </small> </div> <div class="editor-field"> <label>{{ $t('generalPanel.cardLanguage') }}</label> <select v-model="wedding.language"> <option v-for="lang in LANGUAGES" :key="lang.code" :value="lang.code" > {{ lang.flag }} {{ lang.label }} </option> </select> <small class="field-help"> {{ $t('generalPanel.cardLanguageHint') }} </small> </div> <div class="editor-field"> <label>{{ $t('panel.weddingDate') }}</label> <input :value="dateInputValue" type="date" @input="onDateInput" /> <small v-if="weddingDateLabel" class="field-help"> {{ weddingDateLabel }} </small> <small v-else class="field-help"> {{ $t('generalPanel.dateHint') }} </small> </div> <div class="editor-field full"> <label>{{ $t('generalPanel.lunarDate') }}</label> <input v-model="wedding.weddingLunar" type="text" :placeholder="$t('generalPanel.lunarPlaceholder')" /> <small class="field-help"> {{ $t('generalPanel.lunarHint') }} </small> </div> </div> </section> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed } from "vue"; import { LANGUAGES } from "@/lang"; import { parseWeddingDate } from "@/utils/datetime"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue"; const { t } = useI18n(); const props = defineProps({ wedding: { type: Object, required: true }, /* { done, total } từ Editor.vue — badge hoàn thiện mục. */ progress: { type: Object, default: null }, /* Danh sách mục nội dung + tiến độ từng mục (Editor.vue). */ checklist: { type: Array, default: null }, /* { done, total, percent } toàn thiệp (Editor.vue). */ overall: { type: Object, default: null }, }); /* * Ngày cưới chỉ chọn NGÀY (input type="date" — * "YYYY-MM-DD"). Hệ thống vẫn lưu ISO đầy đủ * "2026-11-14T08:00:00" để countdown/hero không đổi * định dạng: giờ giữ nguyên nếu đã có, chưa có thì * mặc định 08:00. */ const dateInputValue = computed(() => { const raw = props.wedding.weddingDate; if (!raw) { return ""; } return String(raw).slice(0, 10); }); function onDateInput(event) { const day = event.target.value; if (!day) { props.wedding.weddingDate = ""; return; } const existing = parseWeddingDate(props.wedding.weddingDate); const hours = existing ? String(existing.getHours()).padStart(2, "0") : "08"; const minutes = existing ? String(existing.getMinutes()).padStart(2, "0") : "00"; props.wedding.weddingDate = `${day}T${hours}:${minutes}:00`; } /* * Hiển thị lại ngày cưới bằng chữ để người dùng kiểm * tra nhanh mình chọn đúng ngày chưa. */ const weddingDateLabel = computed(() => { const date = parseWeddingDate(props.wedding.weddingDate); if (!date) { return ""; } return new Intl.DateTimeFormat("vi-VN", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric", }).format(date); }); /* ===================================================== SLUG ===================================================== */ /* * Bỏ dấu tiếng Việt + ký tự đặc biệt để ra slug hợp lệ * trên URL. "Hà Uyên & Trần Hiếu" → "ha-uyen-tran-hieu". */ function slugify(value) { return String(value || "")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/đ/gi, "d")
@@ -45,44 +50,78 @@ function generateSlug() {
    CHECKLIST HOÀN THIỆN
 ===================================================== */
 
-const checklist = computed(() => {
+/*
+ * Danh sách mục + tiến độ do Editor.vue truyền xuống
+ * (props.checklist) — cùng nguồn với badge ở từng panel và
+ * thanh tiến độ trên header, nên ba chỗ luôn khớp nhau.
+ *
+ * Nếu vì lý do nào đó không có checklist (panel dùng độc
+ * lập), rơi về danh sách rút gọn tính tại chỗ.
+ */
+const FALLBACK_CHECKLIST = computed(() => {
   const wedding = props.wedding;
 
   return [
     {
+      id: "general",
       get label() { return t("generalPanel.check.names"); },
-      done: !!(wedding.groomName && wedding.brideName),
+      done: wedding.groomName && wedding.brideName ? 1 : 0,
+      total: 1,
     },
     {
-      get label() { return t("panel.weddingDate"); },
-      done: !!wedding.weddingDate,
-    },
-    {
-      get label() { return t("editor.menu.hero"); },
-      done: !!wedding.coverImage,
-    },
-    {
+      id: "events",
       get label() { return t("editor.menu.events"); },
-      done: Array.isArray(wedding.events) && wedding.events.length > 0,
+      done: Array.isArray(wedding.events) ? wedding.events.length : 0,
+      total: Math.max(wedding.events?.length || 0, 1),
     },
     {
+      id: "gallery",
       get label() { return t("editor.menu.gallery"); },
-      done: Array.isArray(wedding.gallery) && wedding.gallery.length > 0,
+      done: Array.isArray(wedding.gallery) && wedding.gallery.length ? 1 : 0,
+      total: 1,
     },
     {
+      id: "story",
       get label() { return t("editor.menu.story"); },
-      done: !!wedding.story?.Description,
+      done: wedding.story?.Description ? 1 : 0,
+      total: 1,
     },
   ];
 });
 
+const checklist = computed(() => {
+  const source =
+    Array.isArray(props.checklist) && props.checklist.length
+      ? props.checklist
+      : FALLBACK_CHECKLIST.value;
+
+  /* Chuẩn hoá: luôn có done/total/complete để template dùng thống nhất. */
+  return source.map((item) => {
+    const done = item.done || 0;
+    const total = item.total || 0;
+
+    return {
+      ...item,
+      done,
+      total,
+      complete: total > 0 && done >= total,
+    };
+  });
+});
+
 const completedCount = computed(
-  () => checklist.value.filter((item) => item.done).length
+  () => checklist.value.filter((item) => item.complete).length
 );
 
-const progressPercent = computed(() =>
-  Math.round((completedCount.value / checklist.value.length) * 100)
-);
+const progressPercent = computed(() => {
+  if (props.overall?.total) {
+    return props.overall.percent || 0;
+  }
+
+  return checklist.value.length
+    ? Math.round((completedCount.value / checklist.value.length) * 100)
+    : 0;
+});
 </script>
 
 <style scoped>
@@ -170,6 +209,15 @@ const progressPercent = computed(() =>
 
 .progress-list li.done {
   color: #3a7d44;
+}
+
+/* Số phần đã điền của mục có nhiều phần tử (sự kiện, lịch trình...). */
+.progress-count {
+  color: #a8988a;
+
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 650;
 }
 
 .slug-row {

@@ -135,6 +135,8 @@ import { AddDataWedding } from "@/model/api";
 
 import { setCardLocale, clearCardLocale } from "@/lang";
 
+import { ensureNewSections } from "@/utils/weddingShape";
+
 /*
  * =========================================================
  * THEMES
@@ -245,10 +247,48 @@ const currentTheme = computed(() => {
 ========================================================= */
 
 async function backToEditor() {
-  await router.push({
+  /*
+   * Giữ slug trên URL: nếu người dùng vào /preview?slug=...
+   * bằng link trực tiếp (tab mới / F5) thì quay lại editor
+   * phải mở đúng thiệp đó, không rơi về thiệp mới.
+   */
+  const slug =
+    (typeof route.query.slug === "string" && route.query.slug) ||
+    wedding.value?.slug ||
+    "";
+
+  /*
+   * Đến từ Editor (luồng Editor → Preview) → quay lại bằng
+   * history.back(), KHÔNG push /editor mới.
+   *
+   * Push cộng thêm một mục lịch sử: nút back của Editor lại
+   * quay về đúng Preview này, rồi back ở preview lại push
+   * /editor — người dùng kẹt trong vòng lặp Editor ↔ Preview
+   * không thoát ra được. back() không cộng mục mới.
+   */
+  const previous = router.options.history.state?.back;
+
+  const previousIsEditor =
+    previous === "/editor" ||
+    (typeof previous === "string" && previous.startsWith("/editor?"));
+
+  if (previousIsEditor) {
+    router.back();
+
+    return;
+  }
+
+  /*
+   * Mở /preview trực tiếp bằng link / F5 — không có Editor
+   * trước đó. Dùng REPLACE (không push) để ghi đè mục
+   * /preview: lần sau bấm back khỏi Editor không quay lại
+   * Preview.
+   */
+  await router.replace({
     path: "/editor",
     query: {
       theme: themeName.value,
+      slug: slug || undefined,
     },
   });
 }
@@ -325,6 +365,15 @@ function saveWedding() {
          * registry localStorage nữa.
          */
 
+        /*
+         * Cache weddingStore vẫn giữ bản cũ — xoá để lần mở
+         * editor/preview sau lấy lại dữ liệu vừa lưu từ API.
+         */
+        weddingStore.invalidate(
+          (typeof route.query.slug === "string" && route.query.slug) ||
+            wedding.value?.slug
+        );
+
         showSaveMessage(t("editor.save.success"));
       },
 
@@ -398,6 +447,13 @@ async function loadFromApi(slug) {
     }
 
     editorStore.setWedding(copy);
+
+    /*
+     * Thiệp cũ / thiệp lưu dở có thể thiếu couple, video,
+     * game, settings... — back-fill để theme render không
+     * crash khi preview được mở thẳng bằng URL.
+     */
+    ensureNewSections(editorStore.wedding);
 
     console.log("[WeddingPreview] API wedding:", editorStore.wedding);
   } catch (err) {

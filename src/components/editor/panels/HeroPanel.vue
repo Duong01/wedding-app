@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> HERO </span>
 
@@ -8,6 +8,11 @@
 
         <p>{{ $t('heroPanel.desc') }}</p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <!-- =====================================================
@@ -98,7 +103,7 @@
 
         <input
           :value="heroDateInput"
-          type="datetime-local"
+          type="date"
           @input="onHeroDateInput"
         />
 
@@ -120,20 +125,6 @@
           {{ $t('heroPanel.venueHint') }}
         </small>
       </div>
-
-      <div class="editor-field full">
-        <label>{{ $t('heroPanel.bg') }}</label>
-
-        <UploadField
-          v-model="wedding.hero.Background"
-          kind="image"
-          :button-text="$t('heroPanel.uploadBg')"
-        />
-
-        <small class="field-help">
-          {{ $t('heroPanel.bgHint') }}
-        </small>
-      </div>
     </div>
   </section>
 </template>
@@ -141,29 +132,53 @@
 <script setup>
 import { computed } from "vue";
 
-import UploadField from "@/components/editor/UploadField.vue";
+import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 import {
-  fromDatetimeLocal,
   parseWeddingDate,
-  toDatetimeLocal,
 } from "@/utils/datetime";
 
 const props = defineProps({
   wedding: { type: Object, required: true },
+
+  /* { done, total } từ Editor.vue — badge hoàn thiện mục. */
+  progress: { type: Object, default: null },
 });
 
 /*
- * Hero.WeddingDate là DateTime? bên API — dùng chung
- * input datetime-local và utils/datetime để không lệch
- * định dạng với mục Thông tin chung.
+ * Hero.WeddingDate là DateTime? bên API — hiển thị dạng
+ * ngày (không giờ) vì người dùng chỉ chọn ngày ở mục
+ * Thông tin chung. Giữ nguyên giờ cũ khi đổi ngày.
  */
-const heroDateInput = computed(() =>
-  toDatetimeLocal(props.wedding.hero?.WeddingDate)
-);
+const heroDateInput = computed(() => {
+  const raw = props.wedding.hero?.WeddingDate;
+
+  if (!raw) {
+    return "";
+  }
+
+  return String(raw).slice(0, 10);
+});
 
 function onHeroDateInput(event) {
-  props.wedding.hero.WeddingDate = fromDatetimeLocal(event.target.value);
+  const day = event.target.value;
+
+  if (!day) {
+    props.wedding.hero.WeddingDate = "";
+    return;
+  }
+
+  const existing = parseWeddingDate(props.wedding.hero?.WeddingDate);
+
+  const hours = existing
+    ? String(existing.getHours()).padStart(2, "0")
+    : "08";
+
+  const minutes = existing
+    ? String(existing.getMinutes()).padStart(2, "0")
+    : "00";
+
+  props.wedding.hero.WeddingDate = `${day}T${hours}:${minutes}:00`;
 }
 
 const heroDateLabel = computed(() => {

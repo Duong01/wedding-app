@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> THE COUPLE </span>
 
@@ -8,6 +8,11 @@
 
         <p>{{ $t('couplePanel.desc') }}</p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <!-- =====================================================
@@ -425,32 +430,64 @@
 </template>
 
 <script setup>
+import { watchEffect } from "vue";
+
 import UploadField from "@/components/editor/UploadField.vue";
+
+import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const props = defineProps({
   wedding: { type: Object, required: true },
+
+  /* { done, total } từ Editor.vue — badge hoàn thiện mục. */
+  progress: { type: Object, default: null },
 });
 
 /*
+ * Panel này là panel DUY NHẤT dùng v-model đi thẳng vào
+ * wedding.couple.Bride.* / wedding.couple.Groom.* (không
+ * optional chaining) — vì vậy couple/Bride/Groom BẮT BUỘC
+ * phải là object trước khi render.
+ *
+ * Trước đây phần bù này chạy một lần ở module scope: nếu lúc
+ * đó wedding.couple còn null (thiệp lưu dở, hoặc panel được
+ * mount trước khi ensureNewSections chạy) thì không bù gì cả
+ * và template ném lỗi → cả mục "Cô dâu & Chú rể" trắng trơn.
+ *
+ * watchEffect chạy lại mỗi khi wedding đổi, nên dữ liệu về
+ * muộn (load API xong) vẫn được bù đúng.
+ *
  * FamilyLabel / BirthOrder là trường một số mẫu dùng
  * (RoyalRed hiển thị danh xưng gia đình, LongPhungV3
  * hiển thị thứ tự trong gia đình) — bổ sung mặc định
  * cho dữ liệu cũ để v-model ghi được.
  */
-["Bride", "Groom"].forEach((role) => {
-  const person = props.wedding.couple?.[role];
+watchEffect(() => {
+  const wedding = props.wedding;
 
-  if (!person) {
+  if (!wedding) {
     return;
   }
 
-  if (typeof person.FamilyLabel !== "string") {
-    person.FamilyLabel = "Ông Bà";
+  if (!wedding.couple || typeof wedding.couple !== "object") {
+    wedding.couple = {};
   }
 
-  if (typeof person.BirthOrder !== "string") {
-    person.BirthOrder = "";
-  }
+  ["Bride", "Groom"].forEach((role) => {
+    if (!wedding.couple[role] || typeof wedding.couple[role] !== "object") {
+      wedding.couple[role] = {};
+    }
+
+    const person = wedding.couple[role];
+
+    if (typeof person.FamilyLabel !== "string") {
+      person.FamilyLabel = "Ông Bà";
+    }
+
+    if (typeof person.BirthOrder !== "string") {
+      person.BirthOrder = "";
+    }
+  });
 });
 </script>
 

@@ -8,14 +8,14 @@
     ====================================================== -->
     <section class="page-hero manage-hero">
       <div class="container hero-inner">
-        <h1>{{ $t('nav.myWeddings') }}</h1>
+        <h1>{{ $t("nav.myWeddings") }}</h1>
 
-        <p>{{ $t('manage.sub') }}</p>
+        <p>{{ $t("manage.sub") }}</p>
 
         <div class="hero-actions">
           <button type="button" class="primary-btn" @click="goCreate">
             <span>＋</span>
-            {{ $t('manage.create') }}
+            {{ $t("manage.create") }}
           </button>
         </div>
       </div>
@@ -30,15 +30,15 @@
         <v-icon size="22"> mdi-information-outline </v-icon>
 
         <div class="guest-banner-text">
-          <strong>{{ $t('manage.loginTitle') }}</strong>
+          <strong>{{ $t("manage.loginTitle") }}</strong>
 
           <p>
-            {{ $t('manage.loginBody') }}
+            {{ $t("manage.loginBody") }}
           </p>
         </div>
 
         <button type="button" class="primary-btn" @click="goLogin">
-          {{ $t('manage.loginNow') }}
+          {{ $t("manage.loginNow") }}
         </button>
       </div>
 
@@ -75,12 +75,12 @@
       <div v-else-if="loadError" class="state-box">
         <div class="empty-icon">⚠</div>
 
-        <h3>{{ $t('manage.loadErrorTitle') }}</h3>
+        <h3>{{ $t("manage.loadErrorTitle") }}</h3>
 
         <p>{{ loadError }}</p>
 
         <button type="button" class="retry-btn" @click="retryLoad">
-          {{ $t('common.retry') }}
+          {{ $t("common.retry") }}
         </button>
       </div>
 
@@ -88,14 +88,14 @@
       <div v-else-if="filteredEntries.length === 0" class="state-box empty">
         <div class="empty-icon">♡</div>
 
-        <h3>{{ $t('manage.emptyTitle') }}</h3>
+        <h3>{{ $t("manage.emptyTitle") }}</h3>
 
         <p>
-          {{ $t('manage.emptyBody') }}
+          {{ $t("manage.emptyBody") }}
         </p>
 
         <button type="button" class="retry-btn" @click="goCreate">
-          {{ $t('footer.createNow') }}
+          {{ $t("footer.createNow") }}
         </button>
       </div>
 
@@ -112,16 +112,13 @@
               <h3>{{ getCoupleName(entry) }}</h3>
 
               <span class="card-open-hint">
-                {{ $t('manage.editInvitation') }}
+                {{ $t("manage.editInvitation") }}
                 <v-icon size="14"> mdi-chevron-right </v-icon>
               </span>
             </div>
 
             <div class="card-chips">
-              <span
-                class="status-chip"
-                :class="statusChipClass(entry)"
-              >
+              <span class="status-chip" :class="statusChipClass(entry)">
                 {{ statusChipLabel(entry) }}
               </span>
 
@@ -138,8 +135,367 @@
               <span v-if="entry.slug">/{{ entry.slug }}</span>
 
               <span v-if="entry.isLocalDraft">
-                {{ $t("manage.localCreated", { date: formatDate(entry.createdAt) }) }} </span> <span v-else-if="formatDate(entry.createdAt)"> {{ $t("manage.createdAt", { date: formatDate(entry.createdAt) }) }} </span> </div> </div> <!-- ACTION BAR — tách đáy thẻ --> <div class="card-bar"> <!-- Thẻ bản nháp (chưa đăng nhập) --> <template v-if="entry.isLocalDraft"> <button type="button" class="bar-btn primary" @click="editDraft" > <v-icon size="16"> mdi-pencil-outline </v-icon> {{ $t('preview.edit') }} </button> <button type="button" class="bar-btn danger" @click="deleteDraft" > <v-icon size="16"> mdi-delete-outline </v-icon> {{ $t('manage.delete') }} </button> </template> <!-- Thẻ thiệp đã lưu trên server --> <template v-else> <button type="button" class="bar-btn primary" @click="editWedding(entry)" > <v-icon size="16"> mdi-pencil-outline </v-icon> {{ $t('manage.editShort') }} </button> <button type="button" class="bar-btn" @click="viewWedding(entry)" > <v-icon size="16"> mdi-eye-outline </v-icon> Xem </button> <button v-if="canPublish(entry)" type="button" class="bar-btn publish" :disabled="publishing === entry.slug" @click="publishEntry(entry)" > <v-progress-circular v-if="publishing === entry.slug" indeterminate size="14" width="2" /> <v-icon v-else size="16"> mdi-rocket-launch-outline </v-icon> {{ $t('editor.header.publish') }} </button> <button type="button" class="bar-btn" @click="openGuests(entry)" > <v-icon size="16"> mdi-account-multiple-outline </v-icon> {{ $t('editor.menu.recipient') }} </button> <button type="button" class="bar-btn" @click="openWinners(entry)" > <v-icon size="16"> mdi-gift-outline </v-icon> {{ $t('manage.gamePrizes') }} </button> <button type="button" class="bar-btn" @click="copyLink(entry)" > <v-icon size="16"> mdi-link-variant </v-icon> {{ canPublish(entry) ? $t('manage.linkUnopened') : "Link" }} </button> <button type="button" class="bar-btn" @click="goPayment(entry)" > <v-icon size="16"> mdi-credit-card-outline </v-icon> {{ $t('manage.payment') }} </button> <button type="button" class="bar-btn danger" :disabled="deleting === entry.slug" @click="confirmDelete(entry)" > <v-progress-circular v-if="deleting === entry.slug" indeterminate size="13" width="2" /> <v-icon v-else size="16"> mdi-delete-outline </v-icon> {{ $t('manage.delete') }} </button> </template> </div> </article> </div> </section> <!-- ===================================================== DELETE CONFIRM ====================================================== --> <Teleport to="body"> <Transition name="detail-modal"> <div v-if="deleteTarget" class="detail-modal" @click.self="deleteTarget = null" > <div class="confirm-panel"> <div class="confirm-icon danger"> <v-icon size="26"> mdi-alert-outline </v-icon> </div> <h3>{{ $t('manage.deleteTitle') }}</h3> <p> <i18n-t keypath="manage.deleteBody" tag="span"> <template #name> <strong>{{ getCoupleName(deleteTarget) }}</strong> </template> <template #slug>{{ deleteTarget.slug }}</template> </i18n-t> </p> <div class="confirm-actions"> <button type="button" class="action-btn" @click="deleteTarget = null" > {{ $t('common.cancel2') }} </button> <button type="button" class="action-btn danger" :disabled="deleting === deleteTarget.slug" @click="doDelete" > <v-progress-circular v-if="deleting === deleteTarget.slug" indeterminate size="13" width="2" /> {{ $t('manage.deleteConfirm') }} </button> </div> </div> </div> </Transition> </Teleport> <!-- ===================================================== GUESTS MODAL ====================================================== --> <Teleport to="body"> <Transition name="detail-modal"> <div v-if="guestsTarget" class="detail-modal" @click.self="closeGuests" > <div class="guests-panel"> <div class="guests-head"> <div> <span class="guests-eyebrow"> {{ $t('manage.guestsTitle') }} </span> <h3>{{ getCoupleName(guestsTarget) }}</h3> <p class="guests-slug">/{{ guestsTarget.slug }}</p> </div> <button type="button" class="guests-close" @click="closeGuests" > <v-icon size="20"> mdi-close </v-icon> </button> </div> <p v-if="guestsMessage" class="guests-message" :class="{ error: guestsError }"> {{ guestsMessage }} </p> <!-- ADD FORM --> <div class="guest-add-row"> <input v-model.trim="newGuestName" type="text" :placeholder="$t('manage.guestPlaceholder')" maxlength="100" @keyup.enter="addGuest" /> <button type="button" class="action-btn primary" :disabled="guestsBusy || !newGuestName" @click="addGuest" > <v-progress-circular v-if="guestsBusy" indeterminate size="13" width="2" /> <v-icon v-else size="16"> mdi-account-plus-outline </v-icon> {{ $t('manage.add') }} </button> </div> <!-- LIST --> <div v-if="guestsLoading" class="guests-loading"> <v-progress-circular indeterminate size="26" width="2" /> <span> {{ $t('manage.loadingGuests') }} </span> </div> <div v-else-if="guests.length === 0" class="guests-empty"> {{ $t('manage.noGuests') }} </div> <div v-else class="guests-list"> <div v-for="guest in guests" :key="guest.Token" class="guest-row" > <template v-if="editingToken === guest.Token"> <input v-model.trim="editingName" type="text" class="guest-edit-input" maxlength="100" @keyup.enter="saveGuestEdit(guest)" /> <button type="button" class="action-btn primary" :disabled="guestsBusy" @click="saveGuestEdit(guest)" > {{ $t('editor.mobile.save') }} </button> <button type="button" class="action-btn" @click="cancelGuestEdit" > {{ $t('common.cancel2') }} </button> </template> <template v-else> <div class="guest-info"> <strong>{{ guest.Name || $t('manage.noName') }}</strong> <code>{{ guest.Token }}</code> </div> <div class="guest-actions"> <button type="button" class="icon-btn" :title="$t('manage.copyGuestLink')" @click="copyGuestLink(guest)" > <v-icon size="16"> mdi-link-variant </v-icon> </button> <button type="button" class="icon-btn" :title="$t('manage.rename')" @click="startGuestEdit(guest)" > <v-icon size="16"> mdi-pencil-outline </v-icon> </button> <button type="button" class="icon-btn danger" :title="$t('recipientPanel.remove')" :disabled="guestsBusy" @click="removeGuest(guest)" > <v-icon size="16"> mdi-delete-outline </v-icon> </button> </div> </template> </div> </div> <p class="guests-hint"> <i18n-t keypath="manage.guestsHint" tag="span"> <template #path> <code>/{{ guestsTarget.slug }}/{token}</code> </template> </i18n-t> </p> </div> </div> </Transition> </Teleport> <!-- ===================================================== WINNERS MODAL — khách trúng quà trò chơi ====================================================== --> <Teleport to="body"> <Transition name="detail-modal"> <div v-if="winnersTarget" class="detail-modal" @click.self="closeWinners" > <div class="guests-panel"> <div class="guests-head"> <div> <span class="guests-eyebrow"> {{ $t('manage.prizesTitle') }} </span> <h3>{{ getCoupleName(winnersTarget) }}</h3> <p class="guests-slug">/{{ winnersTarget.slug }}</p> </div> <button type="button" class="guests-close" @click="closeWinners" > <v-icon size="20"> mdi-close </v-icon> </button> </div> <p v-if="winnersMessage" class="guests-message" :class="{ error: winnersError }"> {{ winnersMessage }} </p> <div v-if="winnersLoading" class="guests-loading"> <v-progress-circular indeterminate size="26" width="2" /> <span> {{ $t('manage.loadingWinners') }} </span> </div> <div v-else-if="winners.length === 0" class="guests-empty"> {{ $t('manage.noWinners') }} </div> <div v-else class="guests-list winners-list"> <div v-for="winner in winners" :key="winner.Id" class="winner-row" > <div class="winner-info"> <strong>{{ winner.GuestName }}</strong> <span class="winner-prize"> 🎁 {{ winner.PrizeTitle }} </span> </div> <div class="winner-meta"> <span class="winner-game"> {{ gameLabel(winner.GameType) }} </span> <span v-if="winner.CreatedAt" class="winner-time"> {{ formatWinnerTime(winner.CreatedAt) }} </span> </div> </div> </div> <p class="guests-hint"> {{ $t('manage.oneGift') }} </p> </div> </div> </Transition> </Teleport> <!-- ===================================================== TOAST ====================================================== --> <Transition name="toast"> <div v-if="toast" class="manage-toast"> {{ toast }} </div> </Transition> </main> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed, onMounted, ref, watch } from "vue"; import { useRoute, useRouter } from "vue-router"; import { addRecipient as addRecipientApi, deleteRecipient as deleteRecipientApi, deleteWedding as deleteWeddingApi, getRecipients as getRecipientsApi, updateRecipient as updateRecipientApi, getGameWinners as getGameWinnersApi, getMyWeddings, publishWedding as publishWeddingApi, } from "@/model/api"; import { PUBLISH_STATE } from "@/model/weddingAdmin"; import { gameTypeMeta } from "@/data/gameData"; import { useAuthStore } from "@/stores/auth"; import { useWeddingEditorStore } from "@/stores/weddingEditor";
-import { useTabResume } from "@/composables/useTabResume"; const { t } = useI18n(); const router = useRouter(); const route = useRoute(); const auth = useAuthStore(); const editorStore = useWeddingEditorStore(); /* ========================================================= STATE ========================================================= */ const entries = ref([]); const loading = ref(false); const loadError = ref("");
+                {{
+                  $t("manage.localCreated", {
+                    date: formatDate(entry.createdAt),
+                  })
+                }}
+              </span>
+              <span v-else-if="formatDate(entry.createdAt)">
+                {{
+                  $t("manage.createdAt", { date: formatDate(entry.createdAt) })
+                }}
+              </span>
+            </div>
+          </div>
+          <!-- ACTION BAR — tách đáy thẻ -->
+          <div class="card-bar">
+            <!-- Thẻ bản nháp (chưa đăng nhập) -->
+            <template v-if="entry.isLocalDraft">
+              <button type="button" class="bar-btn primary" @click="editDraft">
+                <v-icon size="16"> mdi-pencil-outline </v-icon>
+                {{ $t("preview.edit") }}
+              </button>
+              <button type="button" class="bar-btn danger" @click="deleteDraft">
+                <v-icon size="16"> mdi-delete-outline </v-icon>
+                {{ $t("manage.delete") }}
+              </button>
+            </template>
+            <!-- Thẻ thiệp đã lưu trên server -->
+            <template v-else>
+              <button
+                type="button"
+                class="bar-btn primary"
+                @click="editWedding(entry)"
+              >
+                <v-icon size="16"> mdi-pencil-outline </v-icon>
+                {{ $t("manage.editShort") }}
+              </button>
+              <button type="button" class="bar-btn" @click="viewWedding(entry)">
+                <v-icon size="16"> mdi-eye-outline </v-icon> Xem
+              </button>
+              <button
+                v-if="canPublish(entry)"
+                type="button"
+                class="bar-btn publish"
+                :disabled="publishing === entry.slug"
+                @click="publishEntry(entry)"
+              >
+                <v-progress-circular
+                  v-if="publishing === entry.slug"
+                  indeterminate
+                  size="14"
+                  width="2"
+                />
+                <v-icon v-else size="16"> mdi-rocket-launch-outline </v-icon>
+                {{ $t("editor.header.publish") }}
+              </button>
+              <button type="button" class="bar-btn" @click="openGuests(entry)">
+                <v-icon size="16"> mdi-account-multiple-outline </v-icon>
+                {{ $t("editor.menu.recipient") }}
+              </button>
+              <button type="button" class="bar-btn" @click="openWinners(entry)">
+                <v-icon size="16"> mdi-gift-outline </v-icon>
+                {{ $t("manage.gamePrizes") }}
+              </button>
+              <button type="button" class="bar-btn" @click="copyLink(entry)">
+                <v-icon size="16"> mdi-link-variant </v-icon>
+                {{ canPublish(entry) ? $t("manage.linkUnopened") : "Link" }}
+              </button>
+              <button type="button" class="bar-btn" @click="goPayment(entry)">
+                <v-icon size="16"> mdi-credit-card-outline </v-icon>
+                {{ $t("manage.payment") }}
+              </button>
+              <button
+                type="button"
+                class="bar-btn danger"
+                :disabled="deleting === entry.slug"
+                @click="confirmDelete(entry)"
+              >
+                <v-progress-circular
+                  v-if="deleting === entry.slug"
+                  indeterminate
+                  size="13"
+                  width="2"
+                />
+                <v-icon v-else size="16"> mdi-delete-outline </v-icon>
+                {{ $t("manage.delete") }}
+              </button>
+            </template>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- ===================================================== DELETE CONFIRM ====================================================== -->
+    <Teleport to="body">
+      <Transition name="detail-modal">
+        <div
+          v-if="deleteTarget"
+          class="detail-modal"
+          @click.self="deleteTarget = null"
+        >
+          <div class="confirm-panel">
+            <div class="confirm-icon danger">
+              <v-icon size="26"> mdi-alert-outline </v-icon>
+            </div>
+            <h3>{{ $t("manage.deleteTitle") }}</h3>
+            <p>
+              <i18n-t keypath="manage.deleteBody" tag="span">
+                <template #name>
+                  <strong>{{ getCoupleName(deleteTarget) }}</strong>
+                </template>
+                <template #slug>{{ deleteTarget.slug }}</template>
+              </i18n-t>
+            </p>
+            <div class="confirm-actions">
+              <button
+                type="button"
+                class="action-btn"
+                @click="deleteTarget = null"
+              >
+                {{ $t("common.cancel2") }}
+              </button>
+              <button
+                type="button"
+                class="action-btn danger"
+                :disabled="deleting === deleteTarget.slug"
+                @click="doDelete"
+              >
+                <v-progress-circular
+                  v-if="deleting === deleteTarget.slug"
+                  indeterminate
+                  size="13"
+                  width="2"
+                />
+                {{ $t("manage.deleteConfirm") }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+    <!-- ===================================================== GUESTS MODAL ====================================================== -->
+    <Teleport to="body">
+      <Transition name="detail-modal">
+        <div v-if="guestsTarget" class="detail-modal" @click.self="closeGuests">
+          <div class="guests-panel">
+            <div class="guests-head">
+              <div>
+                <span class="guests-eyebrow">
+                  {{ $t("manage.guestsTitle") }}
+                </span>
+                <h3>{{ getCoupleName(guestsTarget) }}</h3>
+                <p class="guests-slug">/{{ guestsTarget.slug }}</p>
+              </div>
+              <button type="button" class="guests-close" @click="closeGuests">
+                <v-icon size="20"> mdi-close </v-icon>
+              </button>
+            </div>
+            <p
+              v-if="guestsMessage"
+              class="guests-message"
+              :class="{ error: guestsError }"
+            >
+              {{ guestsMessage }}
+            </p>
+            <!-- ADD FORM -->
+            <div class="guest-add-row">
+              <input
+                v-model.trim="newGuestName"
+                type="text"
+                :placeholder="$t('manage.guestPlaceholder')"
+                maxlength="100"
+                @keyup.enter="addGuest"
+              />
+              <button
+                type="button"
+                class="action-btn primary"
+                :disabled="guestsBusy || !newGuestName"
+                @click="addGuest"
+              >
+                <v-progress-circular
+                  v-if="guestsBusy"
+                  indeterminate
+                  size="13"
+                  width="2"
+                />
+                <v-icon v-else size="16"> mdi-account-plus-outline </v-icon>
+                {{ $t("manage.add") }}
+              </button>
+            </div>
+            <!-- LIST -->
+            <div v-if="guestsLoading" class="guests-loading">
+              <v-progress-circular indeterminate size="26" width="2" />
+              <span> {{ $t("manage.loadingGuests") }} </span>
+            </div>
+            <div v-else-if="guests.length === 0" class="guests-empty">
+              {{ $t("manage.noGuests") }}
+            </div>
+            <div v-else class="guests-list">
+              <div v-for="guest in guests" :key="guest.Token" class="guest-row">
+                <template v-if="editingToken === guest.Token">
+                  <input
+                    v-model.trim="editingName"
+                    type="text"
+                    class="guest-edit-input"
+                    maxlength="100"
+                    @keyup.enter="saveGuestEdit(guest)"
+                  />
+                  <button
+                    type="button"
+                    class="action-btn primary"
+                    :disabled="guestsBusy"
+                    @click="saveGuestEdit(guest)"
+                  >
+                    {{ $t("editor.mobile.save") }}
+                  </button>
+                  <button
+                    type="button"
+                    class="action-btn"
+                    @click="cancelGuestEdit"
+                  >
+                    {{ $t("common.cancel2") }}
+                  </button>
+                </template>
+                <template v-else>
+                  <div class="guest-info">
+                    <strong>{{ guest.Name || $t("manage.noName") }}</strong>
+                    <code>{{ guest.Token }}</code>
+                  </div>
+                  <div class="guest-actions">
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      :title="$t('manage.copyGuestLink')"
+                      @click="copyGuestLink(guest)"
+                    >
+                      <v-icon size="16"> mdi-link-variant </v-icon>
+                    </button>
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      :title="$t('manage.rename')"
+                      @click="startGuestEdit(guest)"
+                    >
+                      <v-icon size="16"> mdi-pencil-outline </v-icon>
+                    </button>
+                    <button
+                      type="button"
+                      class="icon-btn danger"
+                      :title="$t('recipientPanel.remove')"
+                      :disabled="guestsBusy"
+                      @click="removeGuest(guest)"
+                    >
+                      <v-icon size="16"> mdi-delete-outline </v-icon>
+                    </button>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <p class="guests-hint">
+              <i18n-t keypath="manage.guestsHint" tag="span">
+                <template #path>
+                  <code>/{{ guestsTarget.slug }}/{token}</code>
+                </template>
+              </i18n-t>
+            </p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+    <!-- ===================================================== WINNERS MODAL — khách trúng quà trò chơi ====================================================== -->
+    <Teleport to="body">
+      <Transition name="detail-modal">
+        <div
+          v-if="winnersTarget"
+          class="detail-modal"
+          @click.self="closeWinners"
+        >
+          <div class="guests-panel">
+            <div class="guests-head">
+              <div>
+                <span class="guests-eyebrow">
+                  {{ $t("manage.prizesTitle") }}
+                </span>
+                <h3>{{ getCoupleName(winnersTarget) }}</h3>
+                <p class="guests-slug">/{{ winnersTarget.slug }}</p>
+              </div>
+              <button type="button" class="guests-close" @click="closeWinners">
+                <v-icon size="20"> mdi-close </v-icon>
+              </button>
+            </div>
+            <p
+              v-if="winnersMessage"
+              class="guests-message"
+              :class="{ error: winnersError }"
+            >
+              {{ winnersMessage }}
+            </p>
+            <div v-if="winnersLoading" class="guests-loading">
+              <v-progress-circular indeterminate size="26" width="2" />
+              <span> {{ $t("manage.loadingWinners") }} </span>
+            </div>
+            <div v-else-if="winners.length === 0" class="guests-empty">
+              {{ $t("manage.noWinners") }}
+            </div>
+            <div v-else class="guests-list winners-list">
+              <div
+                v-for="winner in winners"
+                :key="winner.Id"
+                class="winner-row"
+              >
+                <div class="winner-info">
+                  <strong>{{ winner.GuestName }}</strong>
+                  <span class="winner-prize"> 🎁 {{ winner.PrizeTitle }} </span>
+                </div>
+                <div class="winner-meta">
+                  <span class="winner-game">
+                    {{ gameLabel(winner.GameType) }}
+                  </span>
+                  <span v-if="winner.CreatedAt" class="winner-time">
+                    {{ formatWinnerTime(winner.CreatedAt) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <p class="guests-hint">{{ $t("manage.oneGift") }}</p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+    <!-- ===================================================== TOAST ====================================================== -->
+    <Transition name="toast">
+      <div v-if="toast" class="manage-toast">{{ toast }}</div>
+    </Transition>
+  </main>
+</template> <script setup>
+import { useI18n } from "vue-i18n";
+import { computed, onMounted, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import {
+  addRecipient as addRecipientApi,
+  deleteRecipient as deleteRecipientApi,
+  deleteWedding as deleteWeddingApi,
+  getRecipients as getRecipientsApi,
+  updateRecipient as updateRecipientApi,
+  getGameWinners as getGameWinnersApi,
+  getMyWeddings,
+  publishWedding as publishWeddingApi,
+} from "@/model/api";
+import { PUBLISH_STATE } from "@/model/weddingAdmin";
+import { gameTypeMeta } from "@/data/gameData";
+import { useAuthStore } from "@/stores/auth";
+import { useWeddingEditorStore } from "@/stores/weddingEditor";
+import { useTabResume } from "@/composables/useTabResume";
+const { t } = useI18n();
+const router = useRouter();
+const route = useRoute();
+const auth = useAuthStore();
+const editorStore = useWeddingEditorStore();
+/* ========================================================= STATE ========================================================= */ const entries =
+  ref([]);
+const loading = ref(false);
+const loadError = ref("");
 const deleting = ref("");
 const deleteTarget = ref(null);
 const toast = ref("");
@@ -219,9 +575,27 @@ const filterTabs = computed(() => {
   const published = all.filter(isPublishedEntry);
 
   return [
-    { key: "all", get label() { return t("manage.tabAll"); }, count: all.length },
-    { key: "published", get label() { return t("manage.tabPublished"); }, count: published.length },
-    { key: "draft", get label() { return t("manage.tabDraft"); }, count: all.length - published.length },
+    {
+      key: "all",
+      get label() {
+        return t("manage.tabAll");
+      },
+      count: all.length,
+    },
+    {
+      key: "published",
+      get label() {
+        return t("manage.tabPublished");
+      },
+      count: published.length,
+    },
+    {
+      key: "draft",
+      get label() {
+        return t("manage.tabDraft");
+      },
+      count: all.length - published.length,
+    },
   ];
 });
 
@@ -318,8 +692,7 @@ async function openWinners(entry) {
     if (result && result.status === "success" && Array.isArray(result.data)) {
       winners.value = result.data;
     } else {
-      winnersMessage.value =
-        result?.message || t("manage.loadWinnersFailed");
+      winnersMessage.value = result?.message || t("manage.loadWinnersFailed");
       winnersError.value = true;
     }
   } catch (error) {
@@ -346,6 +719,16 @@ async function loadEntries() {
   if (!auth.isLoggedIn) {
     loadLocalDraft();
 
+    return;
+  }
+
+  /*
+   * Chống gọi đè: onMounted + watch isLoggedIn + useTabResume
+   * đều có thể kích hoạt gần như cùng lúc (vd F5 xong token
+   * restore → guard chạy restoreSession → watch bắn). Request
+   * đang bay thì bỏ qua — kết quả cũ vẫn đúng để hiển thị.
+   */
+  if (loading.value) {
     return;
   }
 
@@ -388,15 +771,13 @@ async function loadEntries() {
         daysLeft: item.DaysLeft ?? item.daysLeft ?? 0,
       }));
     } else {
-      loadError.value =
-        result?.message || t("wedding.loadListFailed");
+      loadError.value = result?.message || t("wedding.loadListFailed");
     }
   } catch (error) {
     console.error("[Manage] getMyWeddings error:", error);
 
     loadError.value =
-      error?.response?.data?.message ||
-      t("manage.loadListRetry");
+      error?.response?.data?.message || t("manage.loadListRetry");
   } finally {
     loading.value = false;
   }
@@ -663,17 +1044,12 @@ async function doDelete() {
     const result = response?.data;
 
     if (!result || result.status !== "success") {
-      showToast(
-        result?.message || t("manage.deleteFailed"),
-        true
-      );
+      showToast(result?.message || t("manage.deleteFailed"), true);
 
       return;
     }
 
-    entries.value = entries.value.filter(
-      (item) => item.slug !== target.slug
-    );
+    entries.value = entries.value.filter((item) => item.slug !== target.slug);
 
     deleteTarget.value = null;
 
@@ -681,11 +1057,7 @@ async function doDelete() {
   } catch (error) {
     console.error("[Manage] deleteWedding error:", error);
 
-    showToast(
-      error?.response?.data?.message ||
-        t("manage.deleteFailed"),
-      true
-    );
+    showToast(error?.response?.data?.message || t("manage.deleteFailed"), true);
   } finally {
     deleting.value = "";
   }
@@ -726,10 +1098,7 @@ async function openGuests(entry) {
     if (result && result.status === "success" && Array.isArray(result.data)) {
       guests.value = result.data;
     } else {
-      showGuestsMessage(
-        result?.message || t("manage.loadGuestsFailed"),
-        true
-      );
+      showGuestsMessage(result?.message || t("manage.loadGuestsFailed"), true);
     }
   } catch (error) {
     console.error("[Manage] getRecipients error:", error);
@@ -780,10 +1149,7 @@ async function addGuest() {
 
       showGuestsMessage(t("manage.guestAdded"));
     } else {
-      showGuestsMessage(
-        result?.message || t("manage.guestAddFailed"),
-        true
-      );
+      showGuestsMessage(result?.message || t("manage.guestAddFailed"), true);
     }
   } catch (error) {
     console.error("[Manage] addRecipient error:", error);
@@ -850,10 +1216,7 @@ async function saveGuestEdit(guest) {
 
       showGuestsMessage(t("recipientPanel.renamed"));
     } else {
-      showGuestsMessage(
-        result?.message || t("manage.guestUpdateFailed"),
-        true
-      );
+      showGuestsMessage(result?.message || t("manage.guestUpdateFailed"), true);
     }
   } catch (error) {
     console.error("[Manage] updateRecipient error:", error);
@@ -889,10 +1252,7 @@ async function removeGuest(guest) {
 
       showGuestsMessage(t("manage.guestDeleted"));
     } else {
-      showGuestsMessage(
-        result?.message || t("manage.guestDeleteFailed"),
-        true
-      );
+      showGuestsMessage(result?.message || t("manage.guestDeleteFailed"), true);
     }
   } catch (error) {
     console.error("[Manage] deleteRecipient error:", error);
@@ -918,7 +1278,9 @@ async function copyGuestLink(guest) {
   try {
     await navigator.clipboard.writeText(url);
 
-    showToast(t("manage.linkCopiedFor", { name: guest.Name || t("manage.guestLower") }));
+    showToast(
+      t("manage.linkCopiedFor", { name: guest.Name || t("manage.guestLower") })
+    );
   } catch (error) {
     showToast(t("manage.copyFailed"));
   }
@@ -1087,9 +1449,7 @@ function showToast(message) {
 
   cursor: pointer;
 
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .filter-tab:hover {

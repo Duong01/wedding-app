@@ -32,6 +32,14 @@ export const useWeddingStore = defineStore("wedding", {
     loading: false,
     error: null,
     cache: {},
+
+    /*
+     * Map slug → Promise đang bay của loadWedding(slug).
+     * Editor (onMounted/onActivated) và Preview có thể gọi
+     * loadWedding cùng slug gần như đồng thời — không gom
+     * thì 2 request getWeddingForEdit bay song song.
+     */
+    inflight: {},
   }),
 
   getters: {
@@ -124,20 +132,49 @@ export const useWeddingStore = defineStore("wedding", {
      * (thiệp chưa lưu trên server) thì fallback về mock.
      */
     async loadWedding(slug) {
+      if (!slug) {
+        this.error = t("wedding.missingSlug");
+
+        throw new Error(t("wedding.missingSlug"));
+      }
+
+      if (this.cache[slug]) {
+        this.wedding = this.cache[slug];
+
+        return this.wedding;
+      }
+
+      /*
+       * Request cùng slug đang bay → trả lại chính Promise
+       * đó. Caller thứ hai nhận cùng kết quả, không gây
+       * request thứ hai nhân bản.
+       */
+      if (this.inflight[slug]) {
+        return this.inflight[slug];
+      }
+
       this.loading = true;
       this.error = null;
 
+      const promise = this.fetchWeddingUncached(slug).finally(() => {
+        delete this.inflight[slug];
+
+        this.loading = false;
+      });
+
+      this.inflight[slug] = promise;
+
+      return promise;
+    },
+
+    /*
+     * Phần thân load thật — chỉ chạy MỘT lần cho mỗi slug
+     * nhờ inflight map ở trên.
+     */
+    async fetchWeddingUncached(slug) {
+      this.error = null;
+
       try {
-        if (!slug) {
-          throw new Error(t("wedding.missingSlug"));
-        }
-
-        if (this.cache[slug]) {
-          this.wedding = this.cache[slug];
-
-          return this.wedding;
-        }
-
         /*
          * Gọi API thật.
          *
@@ -227,8 +264,6 @@ export const useWeddingStore = defineStore("wedding", {
         this.wedding = null;
 
         throw error;
-      } finally {
-        this.loading = false;
       }
     },
 
@@ -308,6 +343,23 @@ export const useWeddingStore = defineStore("wedding", {
 
     clearCache() {
       this.cache = {};
+    },
+
+    /*
+     * Xoá cache của MỘT slug — gọi sau khi lưu thiệp thành công.
+     *
+     * loadWedding() trả cache[slug] TRƯỚC khi gọi API, nên nếu
+     * không xoá thì lần sau mở lại editor sẽ nhận bản cũ (thiếu
+     * nội dung vừa nhập, hoặc thiếu các mục API mới trả về).
+     */
+    invalidate(slug) {
+      if (!slug) {
+        this.cache = {};
+
+        return;
+      }
+
+      delete this.cache[slug];
     },
   },
 });

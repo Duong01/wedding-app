@@ -20,12 +20,76 @@ export function ensureNewSections(wedding) {
     wedding.language = "vi";
   }
 
+  /*
+   * Thiệp bị lưu dở (backend cũ commit từng phần) → API trả
+   * couple/hero/settings null hoặc thiếu Bride/Groom. Back-fill
+   * object rỗng để panel editor v-model không crash và lần save
+   * sau ghi lại đầy đủ.
+   */
+  if (!wedding.couple || typeof wedding.couple !== "object") {
+    wedding.couple = { Bride: {}, Groom: {} };
+  }
+
+  ["Bride", "Groom"].forEach((role) => {
+    if (!wedding.couple[role] || typeof wedding.couple[role] !== "object") {
+      wedding.couple[role] = {};
+    }
+  });
+
+  if (!wedding.hero || typeof wedding.hero !== "object") {
+    wedding.hero = {};
+  }
+
+  if (!wedding.story || typeof wedding.story !== "object") {
+    wedding.story = { Title: "", Description: "", Mode: "text" };
+  }
+
+  if (!wedding.guestBook || typeof wedding.guestBook !== "object") {
+    wedding.guestBook = { Enabled: true, Title: "", Guest: [] };
+  }
+
+  if (!wedding.countdown || typeof wedding.countdown !== "object") {
+    wedding.countdown = { Enabled: true, Target: "" };
+  }
+
+  if (!wedding.footer || typeof wedding.footer !== "object") {
+    wedding.footer = { Message: "", Copyright: "", GroomName: "", BrideName: "" };
+  }
+
+  if (!wedding.music || typeof wedding.music !== "object") {
+    wedding.music = { Enabled: true, Url: "", Title: "", Autoplay: true };
+  }
+
+  if (!wedding.dressCode || typeof wedding.dressCode !== "object") {
+    wedding.dressCode = { Note: "", Colors: [], Suggestions: [] };
+  }
+
   if (!wedding.video || typeof wedding.video !== "object") {
     wedding.video = { Enabled: true, Url: "", Title: "" };
   }
 
   if (!wedding.game || typeof wedding.game !== "object") {
     wedding.game = { Enabled: true, GameType: "lucky-wheel", Title: "" };
+  }
+
+  if (!Array.isArray(wedding.events)) {
+    wedding.events = [];
+  }
+
+  if (!Array.isArray(wedding.timeline)) {
+    wedding.timeline = [];
+  }
+
+  if (!Array.isArray(wedding.gallery)) {
+    wedding.gallery = [];
+  }
+
+  if (!Array.isArray(wedding.gifts)) {
+    wedding.gifts = [];
+  }
+
+  if (!Array.isArray(wedding.recipientName)) {
+    wedding.recipientName = [];
   }
 
   if (!Array.isArray(wedding.storyMilestones)) {

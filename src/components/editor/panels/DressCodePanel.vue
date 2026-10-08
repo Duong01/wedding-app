@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> DRESS CODE </span>
 
@@ -10,6 +10,11 @@
           {{ $t('dressPanel.desc') }}
         </p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <div class="switch-card">
@@ -182,12 +187,15 @@
 
 <script setup>
 import { useI18n } from "vue-i18n";
-import { confirmDialog } from "@/composables/useConfirm";
+import { confirmDialog } from "@/composables/useConfirm"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
+
+  /* { done, total } từ Editor.vue — badge hoàn thiện mục. */
+  progress: { type: Object, default: null },
 });
 
 /*

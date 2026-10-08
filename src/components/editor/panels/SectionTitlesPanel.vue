@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> SECTION TITLES </span>
 
@@ -10,6 +10,11 @@
           {{ $t('sections.desc') }}
         </p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <!-- =====================================================
@@ -42,7 +47,7 @@
                 từ panel khác — story/video/game). Người dùng
                 gõ thì ghi đè vào wedding.sections; xoá hết
                 chữ thì tự rơi về mặc định.
-              --> <input :value="fieldValue(section, field)" type="text" @input="setFieldValue(section, field, $event.target.value)" /> <button v-if="fieldValue(section, field)" type="button" class="field-clear" :title="$t('sections.clearToDefault')" @click="setFieldValue(section, field, '')" > <v-icon size="15"> mdi-close </v-icon> </button> </div> </div> </div> </section> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed, ref } from "vue"; import { SECTION_TITLES, ensureSections, sectionDefault, sectionOverride, } from "@/data/sectionTitles"; import { confirmDialog } from "@/composables/useConfirm"; const { t } = useI18n(); const props = defineProps({ wedding: { type: Object, required: true }, }); /* * wedding.sections có thể chưa tồn tại (dữ liệu cũ) nên * phải tạo sẵn object rỗng trước khi v-model ghi vào. * ensureSections sửa trực tiếp trên wedding nên gọi lại * nhiều lần vẫn an toàn. */ function sections() { return ensureSections(props.wedding); } /* ===================================================== GIÁ TRỊ Ô NHẬP ===================================================== */ /* * Ô hiển thị: giá trị người dùng đã nhập, nếu chưa nhập * thì hiện sẵn chữ mặc định (người dùng thấy ngay chữ sẽ * hiển thị trên thiệp và sửa trực tiếp từ đó). */ function fieldValue(section, field) { const override = sectionOverride(sections(), section.key, field.name); if (override) { return override; } return sectionDefault(props.wedding, section.key, field.name); } /* * Ghi giá trị người dùng gõ vào wedding.sections. * Gõ đúng nguyên văn chữ mặc định vẫn tính là "đã đổi" — * đơn giản, và người dùng muốn về mặc định chỉ cần xoá * chữ (nút ✕ hoặc select-all + Delete). */ function setFieldValue(section, field, value) { sections()[section.key][field.name] = value; } /* ===================================================== TÌM KIẾM ===================================================== */ const keyword = ref("");
+              --> <input :value="fieldValue(section, field)" type="text" @input="setFieldValue(section, field, $event.target.value)" /> <button v-if="fieldValue(section, field)" type="button" class="field-clear" :title="$t('sections.clearToDefault')" @click="setFieldValue(section, field, '')" > <v-icon size="15"> mdi-close </v-icon> </button> </div> </div> </div> </section> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed, ref } from "vue"; import { SECTION_TITLES, ensureSections, sectionDefault, sectionOverride, } from "@/data/sectionTitles"; import { confirmDialog } from "@/composables/useConfirm"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue"; const { t } = useI18n(); const props = defineProps({ wedding: { type: Object, required: true }, /* { done, total } từ Editor.vue — badge hoàn thiện mục. */ progress: { type: Object, default: null }, }); /* * wedding.sections có thể chưa tồn tại (dữ liệu cũ) nên * phải tạo sẵn object rỗng trước khi v-model ghi vào. * ensureSections sửa trực tiếp trên wedding nên gọi lại * nhiều lần vẫn an toàn. */ function sections() { return ensureSections(props.wedding); } /* ===================================================== GIÁ TRỊ Ô NHẬP ===================================================== */ /* * Ô hiển thị: giá trị người dùng đã nhập, nếu chưa nhập * thì hiện sẵn chữ mặc định (người dùng thấy ngay chữ sẽ * hiển thị trên thiệp và sửa trực tiếp từ đó). */ function fieldValue(section, field) { const override = sectionOverride(sections(), section.key, field.name); if (override) { return override; } return sectionDefault(props.wedding, section.key, field.name); } /* * Ghi giá trị người dùng gõ vào wedding.sections. * Gõ đúng nguyên văn chữ mặc định vẫn tính là "đã đổi" — * đơn giản, và người dùng muốn về mặc định chỉ cần xoá * chữ (nút ✕ hoặc select-all + Delete). */ function setFieldValue(section, field, value) { sections()[section.key][field.name] = value; } /* ===================================================== TÌM KIẾM ===================================================== */ const keyword = ref("");
 
 /*
  * Tìm theo tên mục hoặc tên trường — người dùng thường

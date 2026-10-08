@@ -115,6 +115,8 @@ import themes from "@/themes";
 import { ensureFonts } from "@/utils/fontLoader";
 import { fontsForTheme } from "@/data/themeFonts";
 import { t, setCardLocale, clearCardLocale } from "@/lang";
+
+import { ensureNewSections } from "@/utils/weddingShape";
 /*
  * Thiệp đã qua phong bì chưa — tự cuộn chỉ chạy sau khi mở
  * (theme phát "open" khi khách bấm mở thiệp).
@@ -296,7 +298,7 @@ async function loadWedding() {
           const editResult = editResponse?.data;
 
           if (editResult?.status === "success" && editResult.data) {
-            store.wedding = editResult.data;
+            store.wedding = ensureNewSections(editResult.data);
 
             return;
           }
@@ -328,7 +330,7 @@ async function loadWedding() {
       return;
     }
 
-    store.wedding = result.data;
+    store.wedding = ensureNewSections(result.data);
   } catch (error) {
     console.error("WeddingDetail API error:", error);
 

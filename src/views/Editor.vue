@@ -11,6 +11,7 @@
       :publishState="publishState"
       :daysLeft="daysLeft"
       :publishing="publishing"
+      :progress="overallProgress"
       @back="backToTemplates"
       @preview="previewWedding"
       @save="saveWedding"
@@ -47,14 +48,14 @@
         </template>
 
         <template v-else>
-          {{ $t('editor.notice.localOnly') }}
+          {{ $t("editor.notice.localOnly") }}
         </template>
       </span>
 
       <button type="button" class="notice-login" @click="goToLogin">
         <v-icon size="15"> mdi-login-variant </v-icon>
 
-        <span>{{ $t('auth.login') }}</span>
+        <span>{{ $t("auth.login") }}</span>
       </button>
 
       <button
@@ -75,9 +76,9 @@
       <div class="loading-card">
         <v-progress-circular indeterminate size="38" />
 
-        <strong> {{ $t('editor.loading') }} </strong>
+        <strong> {{ $t("editor.loading") }} </strong>
 
-        <span> {{ $t('common.pleaseWait') }} </span>
+        <span> {{ $t("common.pleaseWait") }} </span>
       </div>
     </div>
 
@@ -88,16 +89,16 @@
           <v-icon> mdi-alert-circle-outline </v-icon>
         </div>
 
-        <h2>{{ $t('editor.loadError') }}</h2>
+        <h2>{{ $t("editor.loadError") }}</h2>
 
         <p>
-          {{ error || $t('editor.notReady') }}
+          {{ error || $t("editor.notReady") }}
         </p>
 
         <button type="button" class="save-button" @click="initializeEditor">
           <v-icon> mdi-refresh </v-icon>
 
-          {{ $t('common.retry') }}
+          {{ $t("common.retry") }}
         </button>
       </div>
     </div>
@@ -116,41 +117,111 @@
 
       <!-- CENTER EDITOR -->
       <section class="editor-center">
-        <GeneralPanel v-if="activeMenu === 'general'" :wedding="wedding" />
+        <GeneralPanel
+          v-if="activeMenu === 'general'"
+          :wedding="wedding"
+          :progress="completion.general"
+          :checklist="progressChecklist"
+          :overall="overallProgress"
+        />
 
-        <CouplePanel v-if="activeMenu === 'couple'" :wedding="wedding" />
+        <CouplePanel
+          v-if="activeMenu === 'couple'"
+          :wedding="wedding"
+          :progress="completion.couple"
+        />
 
-        <HeroPanel v-if="activeMenu === 'hero'" :wedding="wedding" />
+        <HeroPanel
+          v-if="activeMenu === 'hero'"
+          :wedding="wedding"
+          :progress="completion.hero"
+        />
 
-        <StoryPanel v-if="activeMenu === 'story'" :wedding="wedding" />
+        <StoryPanel
+          v-if="activeMenu === 'story'"
+          :wedding="wedding"
+          :progress="completion.story"
+        />
 
-        <VideoPanel v-if="activeMenu === 'video'" :wedding="wedding" />
+        <VideoPanel
+          v-if="activeMenu === 'video'"
+          :wedding="wedding"
+          :progress="completion.video"
+        />
 
-        <EventsPanel v-if="activeMenu === 'events'" :wedding="wedding" />
+        <EventsPanel
+          v-if="activeMenu === 'events'"
+          :wedding="wedding"
+          :progress="completion.events"
+        />
 
-        <TimelinePanel v-if="activeMenu === 'timeline'" :wedding="wedding" />
+        <TimelinePanel
+          v-if="activeMenu === 'timeline'"
+          :wedding="wedding"
+          :progress="completion.timeline"
+        />
 
-        <GalleryPanel v-if="activeMenu === 'gallery'" :wedding="wedding" />
+        <GalleryPanel
+          v-if="activeMenu === 'gallery'"
+          :wedding="wedding"
+          :progress="completion.gallery"
+        />
 
-        <GamePanel v-if="activeMenu === 'game'" :wedding="wedding" />
+        <GamePanel
+          v-if="activeMenu === 'game'"
+          :wedding="wedding"
+          :progress="completion.game"
+        />
 
-        <RecipientPanel v-if="activeMenu === 'recipient'" :wedding="wedding" />
+        <RecipientPanel
+          v-if="activeMenu === 'recipient'"
+          :wedding="wedding"
+          :progress="completion.recipient"
+        />
 
-        <GiftsPanel v-if="activeMenu === 'gifts'" :wedding="wedding" />
+        <GiftsPanel
+          v-if="activeMenu === 'gifts'"
+          :wedding="wedding"
+          :progress="completion.gifts"
+        />
 
-        <GuestbookPanel v-if="activeMenu === 'guestbook'" :wedding="wedding" />
+        <GuestbookPanel
+          v-if="activeMenu === 'guestbook'"
+          :wedding="wedding"
+          :progress="completion.guestbook"
+        />
 
-        <CountdownPanel v-if="activeMenu === 'countdown'" :wedding="wedding" />
+        <CountdownPanel
+          v-if="activeMenu === 'countdown'"
+          :wedding="wedding"
+          :progress="completion.countdown"
+        />
 
-        <MusicPanel v-if="activeMenu === 'music'" :wedding="wedding" />
+        <MusicPanel
+          v-if="activeMenu === 'music'"
+          :wedding="wedding"
+          :progress="completion.music"
+        />
 
-        <FooterPanel v-if="activeMenu === 'footer'" :wedding="wedding" />
+        <FooterPanel
+          v-if="activeMenu === 'footer'"
+          :wedding="wedding"
+          :progress="completion.footer"
+        />
 
         <SettingsPanel v-if="activeMenu === 'settings'" :wedding="wedding" />
 
-        <DressCodePanel v-if="activeMenu === 'dressCode'" :wedding="wedding" />
+        <DressCodePanel
+          v-if="activeMenu === 'dressCode'"
+          :wedding="wedding"
+          :progress="completion.dressCode"
+        />
 
-        <SectionTitlesPanel v-if="activeMenu === 'sections'" :wedding="wedding" />
+        <SectionTitlesPanel
+          v-if="activeMenu === 'sections'"
+          :wedding="wedding"
+          :progress="completion.sections"
+        />
 
         <ThemePanel v-if="activeMenu === 'theme'" :wedding="wedding" />
       </section>
@@ -193,7 +264,7 @@
     >
       <v-icon size="18"> mdi-eye-outline </v-icon>
 
-      <span> {{ $t('editor.preview') }} </span>
+      <span> {{ $t("editor.preview") }} </span>
     </button>
 
     <!-- =====================================================
@@ -273,10 +344,83 @@
         </div>
 
         <div class="draft-body">
-          <strong> {{ $t('editor.draft.title') }} </strong>
+          <strong> {{ $t("editor.draft.title") }} </strong>
 
           <span>
-            {{ $t("editor.draft.body", { time: draftPrompt.time }) }} </span> </div> <div class="draft-actions"> <button type="button" class="draft-btn ghost" @click="discardDraft"> {{ $t('common.discard') }} </button> <button type="button" class="draft-btn" @click="restoreDraft"> {{ $t('editor.draft.restore') }} </button> </div> </div> </Transition> </div> </template> <script setup> import { useI18n } from "vue-i18n"; import { ref, computed, onMounted, onActivated, onBeforeUnmount, watch } from "vue"; import { useRouter, useRoute } from "vue-router"; import { useWeddingStore } from "@/stores/wedding"; import { useWeddingEditorStore } from "@/stores/weddingEditor"; import { useAuthStore } from "@/stores/auth"; import { AddDataWedding } from "@/model/api"; import EditorHeader from "@/components/editor/EditorHeader.vue"; import EditorSidebarNav from "@/components/editor/EditorSidebarNav.vue"; import EditorPreviewPanel from "@/components/editor/EditorPreviewPanel.vue"; import PreviewOverlay from "@/components/editor/PreviewOverlay.vue"; import EditorMobileBar from "@/components/editor/EditorMobileBar.vue"; import EditorMobileSheet from "@/components/editor/EditorMobileSheet.vue"; import EditorConfirmDialog from "@/components/editor/EditorConfirmDialog.vue"; import PublishDialog from "@/components/editor/PublishDialog.vue"; import SaveToast from "@/components/editor/SaveToast.vue"; import GeneralPanel from "@/components/editor/panels/GeneralPanel.vue"; import CouplePanel from "@/components/editor/panels/CouplePanel.vue"; import HeroPanel from "@/components/editor/panels/HeroPanel.vue"; import StoryPanel from "@/components/editor/panels/StoryPanel.vue"; import VideoPanel from "@/components/editor/panels/VideoPanel.vue"; import EventsPanel from "@/components/editor/panels/EventsPanel.vue"; import TimelinePanel from "@/components/editor/panels/TimelinePanel.vue"; import GalleryPanel from "@/components/editor/panels/GalleryPanel.vue"; import GamePanel from "@/components/editor/panels/GamePanel.vue"; import RecipientPanel from "@/components/editor/panels/RecipientPanel.vue"; import GiftsPanel from "@/components/editor/panels/GiftsPanel.vue"; import GuestbookPanel from "@/components/editor/panels/GuestbookPanel.vue"; import CountdownPanel from "@/components/editor/panels/CountdownPanel.vue"; import MusicPanel from "@/components/editor/panels/MusicPanel.vue"; import FooterPanel from "@/components/editor/panels/FooterPanel.vue"; import SettingsPanel from "@/components/editor/panels/SettingsPanel.vue"; import DressCodePanel from "@/components/editor/panels/DressCodePanel.vue"; import SectionTitlesPanel from "@/components/editor/panels/SectionTitlesPanel.vue"; import ThemePanel from "@/components/editor/panels/ThemePanel.vue"; import { useWeddingPreviewSync } from "@/composables/useWeddingPreviewSync"; import { useEditorHistory } from "@/composables/useEditorHistory"; import { useWeddingPublish } from "@/composables/useWeddingPublish"; import { confirmDialog } from "@/composables/useConfirm"; import { ensureSections } from "@/data/sectionTitles"; import { ensureNewSections } from "@/utils/weddingShape"; import "@/assets/styles/editor.css"; const { t } = useI18n(); defineOptions({ name: "WeddingEditor", }); const router = useRouter(); const route = useRoute(); /* ========================================================= STORE ========================================================= */ const weddingStore = useWeddingStore(); const editorStore = useWeddingEditorStore(); const auth = useAuthStore(); /* ========================================================= STATE ========================================================= */ const activeMenu = ref("general");
+            {{ $t("editor.draft.body", { time: draftPrompt.time }) }}
+          </span>
+        </div>
+        <div class="draft-actions">
+          <button type="button" class="draft-btn ghost" @click="discardDraft">
+            {{ $t("common.discard") }}
+          </button>
+          <button type="button" class="draft-btn" @click="restoreDraft">
+            {{ $t("editor.draft.restore") }}
+          </button>
+        </div>
+      </div>
+    </Transition>
+  </div>
+</template> <script setup>
+import { useI18n } from "vue-i18n";
+import {
+  ref,
+  computed,
+  onMounted,
+  onActivated,
+  onBeforeUnmount,
+  watch,
+} from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useWeddingStore } from "@/stores/wedding";
+import { useWeddingEditorStore } from "@/stores/weddingEditor";
+import { useAuthStore } from "@/stores/auth";
+import { AddDataWedding } from "@/model/api";
+import EditorHeader from "@/components/editor/EditorHeader.vue";
+import EditorSidebarNav from "@/components/editor/EditorSidebarNav.vue";
+import EditorPreviewPanel from "@/components/editor/EditorPreviewPanel.vue";
+import PreviewOverlay from "@/components/editor/PreviewOverlay.vue";
+import EditorMobileBar from "@/components/editor/EditorMobileBar.vue";
+import EditorMobileSheet from "@/components/editor/EditorMobileSheet.vue";
+import EditorConfirmDialog from "@/components/editor/EditorConfirmDialog.vue";
+import PublishDialog from "@/components/editor/PublishDialog.vue";
+import SaveToast from "@/components/editor/SaveToast.vue";
+import GeneralPanel from "@/components/editor/panels/GeneralPanel.vue";
+import CouplePanel from "@/components/editor/panels/CouplePanel.vue";
+import HeroPanel from "@/components/editor/panels/HeroPanel.vue";
+import StoryPanel from "@/components/editor/panels/StoryPanel.vue";
+import VideoPanel from "@/components/editor/panels/VideoPanel.vue";
+import EventsPanel from "@/components/editor/panels/EventsPanel.vue";
+import TimelinePanel from "@/components/editor/panels/TimelinePanel.vue";
+import GalleryPanel from "@/components/editor/panels/GalleryPanel.vue";
+import GamePanel from "@/components/editor/panels/GamePanel.vue";
+import RecipientPanel from "@/components/editor/panels/RecipientPanel.vue";
+import GiftsPanel from "@/components/editor/panels/GiftsPanel.vue";
+import GuestbookPanel from "@/components/editor/panels/GuestbookPanel.vue";
+import CountdownPanel from "@/components/editor/panels/CountdownPanel.vue";
+import MusicPanel from "@/components/editor/panels/MusicPanel.vue";
+import FooterPanel from "@/components/editor/panels/FooterPanel.vue";
+import SettingsPanel from "@/components/editor/panels/SettingsPanel.vue";
+import DressCodePanel from "@/components/editor/panels/DressCodePanel.vue";
+import SectionTitlesPanel from "@/components/editor/panels/SectionTitlesPanel.vue";
+import ThemePanel from "@/components/editor/panels/ThemePanel.vue";
+import { useWeddingPreviewSync } from "@/composables/useWeddingPreviewSync";
+import { useEditorHistory } from "@/composables/useEditorHistory";
+import { useWeddingPublish } from "@/composables/useWeddingPublish";
+import { confirmDialog } from "@/composables/useConfirm";
+import { ensureSections } from "@/data/sectionTitles";
+import { ensureNewSections } from "@/utils/weddingShape";
+import "@/assets/styles/editor.css";
+const { t } = useI18n();
+defineOptions({ name: "WeddingEditor" });
+const router = useRouter();
+const route = useRoute();
+/* ========================================================= STORE ========================================================= */ const weddingStore =
+  useWeddingStore();
+const editorStore = useWeddingEditorStore();
+const auth = useAuthStore();
+/* ========================================================= STATE ========================================================= */ const activeMenu =
+  ref("general");
 const previewDevice = ref("desktop");
 const mobileMenuOpen = ref(false);
 const previewOverlayOpen = ref(false);
@@ -622,161 +766,252 @@ watch(
  * quét mắt: Nội dung thiệp → Khách mời → Cấu hình.
  */
 const MENU_GROUPS = [
-  { id: "content", get label() { return t("editor.group.content"); } },
-  { id: "guests", get label() { return t("editor.group.guests"); } },
-  { id: "config", get label() { return t("editor.group.config"); } },
+  {
+    id: "content",
+    get label() {
+      return t("editor.group.content");
+    },
+  },
+  {
+    id: "guests",
+    get label() {
+      return t("editor.group.guests");
+    },
+  },
+  {
+    id: "config",
+    get label() {
+      return t("editor.group.config");
+    },
+  },
 ];
 
 const menus = [
   {
     id: "general",
     group: "content",
-    get label() { return t("editor.menu.general"); },
-    get description() { return t("editor.menu.generalDesc"); },
+    get label() {
+      return t("editor.menu.general");
+    },
+    get description() {
+      return t("editor.menu.generalDesc");
+    },
     icon: "mdi-card-account-details-outline",
   },
 
   {
     id: "couple",
     group: "content",
-    get label() { return t("editor.menu.couple"); },
-    get description() { return t("editor.menu.coupleDesc"); },
+    get label() {
+      return t("editor.menu.couple");
+    },
+    get description() {
+      return t("editor.menu.coupleDesc");
+    },
     icon: "mdi-heart-outline",
   },
 
   {
     id: "hero",
     group: "content",
-    get label() { return t("editor.menu.hero"); },
-    get description() { return t("editor.menu.heroDesc"); },
+    get label() {
+      return t("editor.menu.hero");
+    },
+    get description() {
+      return t("editor.menu.heroDesc");
+    },
     icon: "mdi-image-outline",
   },
 
   {
     id: "story",
     group: "content",
-    get label() { return t("editor.menu.story"); },
-    get description() { return t("editor.menu.storyDesc"); },
+    get label() {
+      return t("editor.menu.story");
+    },
+    get description() {
+      return t("editor.menu.storyDesc");
+    },
     icon: "mdi-book-heart-outline",
   },
 
   {
     id: "video",
     group: "content",
-    get label() { return t("editor.menu.video"); },
-    get description() { return t("editor.menu.videoDesc"); },
+    get label() {
+      return t("editor.menu.video");
+    },
+    get description() {
+      return t("editor.menu.videoDesc");
+    },
     icon: "mdi-play-circle-outline",
   },
 
   {
     id: "events",
     group: "content",
-    get label() { return t("editor.menu.events"); },
-    get description() { return t("editor.menu.eventsDesc"); },
+    get label() {
+      return t("editor.menu.events");
+    },
+    get description() {
+      return t("editor.menu.eventsDesc");
+    },
     icon: "mdi-calendar-heart-outline",
   },
 
   {
     id: "dressCode",
     group: "content",
-    get label() { return t("editor.menu.dressCode"); },
-    get description() { return t("editor.menu.dressCodeDesc"); },
+    get label() {
+      return t("editor.menu.dressCode");
+    },
+    get description() {
+      return t("editor.menu.dressCodeDesc");
+    },
     icon: "mdi-tshirt-crew-outline",
   },
 
   {
     id: "timeline",
     group: "content",
-    get label() { return t("sections.timeline"); },
-    get description() { return t("editor.menu.timeline"); },
+    get label() {
+      return t("sections.timeline");
+    },
+    get description() {
+      return t("editor.menu.timeline");
+    },
     icon: "mdi-timeline-outline",
   },
 
   {
     id: "gallery",
     group: "content",
-    get label() { return t("editor.menu.gallery"); },
-    get description() { return t("editor.menu.galleryDesc"); },
+    get label() {
+      return t("editor.menu.gallery");
+    },
+    get description() {
+      return t("editor.menu.galleryDesc");
+    },
     icon: "mdi-image-multiple-outline",
   },
 
   {
     id: "game",
     group: "content",
-    get label() { return t("editor.menu.game"); },
-    get description() { return t("editor.menu.gameDesc"); },
+    get label() {
+      return t("editor.menu.game");
+    },
+    get description() {
+      return t("editor.menu.gameDesc");
+    },
     icon: "mdi-party-popper",
   },
 
   {
     id: "countdown",
     group: "content",
-    get label() { return t("editor.menu.countdown"); },
-    get description() { return t("editor.menu.countdownDesc"); },
+    get label() {
+      return t("editor.menu.countdown");
+    },
+    get description() {
+      return t("editor.menu.countdownDesc");
+    },
     icon: "mdi-timer-outline",
   },
 
   {
     id: "footer",
     group: "content",
-    get label() { return t("editor.menu.footer"); },
-    get description() { return t("editor.menu.footerDesc"); },
+    get label() {
+      return t("editor.menu.footer");
+    },
+    get description() {
+      return t("editor.menu.footerDesc");
+    },
     icon: "mdi-page-layout-footer",
   },
 
   {
     id: "music",
     group: "content",
-    get label() { return t("editor.menu.music"); },
-    get description() { return t("editor.menu.musicDesc"); },
+    get label() {
+      return t("editor.menu.music");
+    },
+    get description() {
+      return t("editor.menu.musicDesc");
+    },
     icon: "mdi-music-outline",
   },
 
   {
     id: "recipient",
     group: "guests",
-    get label() { return t("editor.menu.recipient"); },
-    get description() { return t("editor.menu.recipientDesc"); },
+    get label() {
+      return t("editor.menu.recipient");
+    },
+    get description() {
+      return t("editor.menu.recipientDesc");
+    },
     icon: "mdi-account-multiple-outline",
   },
 
   {
     id: "gifts",
     group: "guests",
-    get label() { return t("editor.menu.gifts"); },
-    get description() { return t("editor.menu.giftsDesc"); },
+    get label() {
+      return t("editor.menu.gifts");
+    },
+    get description() {
+      return t("editor.menu.giftsDesc");
+    },
     icon: "mdi-gift-outline",
   },
 
   {
     id: "guestbook",
     group: "guests",
-    get label() { return t("editor.menu.guestbook"); },
-    get description() { return t("editor.menu.guestbookDesc"); },
+    get label() {
+      return t("editor.menu.guestbook");
+    },
+    get description() {
+      return t("editor.menu.guestbookDesc");
+    },
     icon: "mdi-message-heart-outline",
   },
 
   {
     id: "sections",
     group: "config",
-    get label() { return t("editor.menu.sections"); },
-    get description() { return t("editor.menu.sectionsDesc"); },
+    get label() {
+      return t("editor.menu.sections");
+    },
+    get description() {
+      return t("editor.menu.sectionsDesc");
+    },
     icon: "mdi-format-title",
   },
 
   {
     id: "settings",
     group: "config",
-    get label() { return t("editor.menu.settings"); },
-    get description() { return t("editor.menu.settingsDesc"); },
+    get label() {
+      return t("editor.menu.settings");
+    },
+    get description() {
+      return t("editor.menu.settingsDesc");
+    },
     icon: "mdi-tune-variant",
   },
 
   {
     id: "theme",
     group: "config",
-    get label() { return t("editor.menu.theme"); },
-    get description() { return t("editor.menu.themeDesc"); },
+    get label() {
+      return t("editor.menu.theme");
+    },
+    get description() {
+      return t("editor.menu.themeDesc");
+    },
     icon: "mdi-palette-outline",
   },
 ];
@@ -789,6 +1024,11 @@ const menus = [
  * Đánh dấu mục nào đã có nội dung để sidebar hiện tick
  * — người dùng nhìn ra ngay còn thiếu gì mà không phải
  * mở từng mục.
+ *
+ * Mỗi mục trả { done, total }:
+ *   - done >= total → sidebar tick + badge "Đã có nội dung"
+ *   - done > 0      → badge "x%" (làm dở)
+ *   - done = 0      → badge "Chưa có nội dung"
  */
 const completion = computed(() => {
   const data = wedding.value;
@@ -805,36 +1045,148 @@ const completion = computed(() => {
     return typeof value === "string" ? !!value.trim() : !!value;
   };
 
+  /* Đếm số phần tử trong list thỏa điều kiện. */
+  const count = (list, predicate) =>
+    Array.isArray(list) ? list.filter(predicate).length : 0;
+
+  const coupleDone =
+    count(
+      [data.couple?.Bride, data.couple?.Groom],
+      (person) => person && has(person.Name)
+    ) + has(data.couple?.Bride?.Description) + has(data.couple?.Groom?.Description);
+
+  const eventsDone = count(
+    data.events,
+    (event) => has(event?.Title) && has(event?.EventDate)
+  );
+
+  const timelineDone = count(
+    data.timeline,
+    (item) => has(item?.Title) && has(item?.Time)
+  );
+
+  const giftsDone = count(
+    data.gifts,
+    (gift) => has(gift?.Name) && (has(gift?.AccountNumber) || has(gift?.QrCode))
+  );
+
   return {
-    general: has(data.brideName) && has(data.groomName) && has(data.weddingDate),
-    couple: has(data.couple?.Bride?.Name) || has(data.couple?.Groom?.Name),
-    hero: has(data.hero?.Background) || has(data.hero?.Subtitle),
-    story:
-      has(data.story?.Description) ||
-      has(data.story?.Title) ||
-      has(data.storyMilestones),
-    video: has(data.video?.Url),
-    events: has(data.events),
-    dressCode: has(data.dressCode?.Note) || has(data.dressCode?.Colors),
-    timeline: has(data.timeline),
-    gallery: has(data.gallery),
-    game: has(data.game?.Title) || data.settings?.ShowGame === true,
-    countdown: !!data.countdown?.Enabled,
-    footer: has(data.footer?.Message) || has(data.thankYouNote),
-    music: has(data.music?.Url),
-    recipient: has(data.recipientName),
-    gifts: has(data.gifts),
-    guestbook: has(data.guestBook?.Guest),
-    sections: Object.values(data.sections || {}).some((section) =>
-      Object.values(section || {}).some((value) => has(value))
-    ),
+    general: {
+      done:
+        has(data.brideName) +
+        has(data.groomName) +
+        has(data.weddingDate) +
+        has(data.slug),
+      total: 4,
+    },
+    couple: { done: coupleDone, total: 4 },
+    hero: {
+      done:
+        has(data.hero?.Title) +
+        has(data.hero?.Subtitle) +
+        has(data.hero?.Location),
+      total: 3,
+    },
+    story: {
+      done:
+        has(data.story?.Title) +
+        (has(data.story?.Description) || has(data.storyMilestones)),
+      total: 2,
+    },
+    video: { done: has(data.video?.Url) ? 1 : 0, total: 1 },
+    events: { done: eventsDone, total: Math.max(data.events?.length || 0, 1) },
+    dressCode: {
+      done: has(data.dressCode?.Note) || has(data.dressCode?.Colors) ? 1 : 0,
+      total: 1,
+    },
+    timeline: {
+      done: timelineDone,
+      total: Math.max(data.timeline?.length || 0, 1),
+    },
+    gallery: {
+      done: has(data.gallery) ? 1 : 0,
+      total: 1,
+    },
+    game: {
+      done: has(data.game?.Title) || data.settings?.ShowGame === true ? 1 : 0,
+      total: 1,
+    },
+    countdown: { done: has(data.countdown?.Target) ? 1 : 0, total: 1 },
+    footer: {
+      done: has(data.footer?.Message) || has(data.thankYouNote) ? 1 : 0,
+      total: 1,
+    },
+    music: { done: has(data.music?.Url) ? 1 : 0, total: 1 },
+    recipient: {
+      done: has(data.recipientName) ? 1 : 0,
+      total: 1,
+    },
+    gifts: { done: giftsDone, total: Math.max(data.gifts?.length || 0, 1) },
+    guestbook: {
+      done: has(data.guestBook?.Title) || has(data.guestBook?.Guest) ? 1 : 0,
+      total: 1,
+    },
+    sections: {
+      done: Object.values(data.sections || {}).some((section) =>
+        Object.values(section || {}).some((value) => has(value))
+      )
+        ? 1
+        : 0,
+      total: 1,
+    },
   };
 });
+
+/*
+ * Tổng hợp toàn thiệp: cộng done/total của mọi mục nội dung
+ * (bỏ "settings"/"theme" vì đó là cấu hình, không phải nội
+ * dung khách mời nhìn thấy). Dùng cho thanh tiến độ trên
+ * header — người dùng thấy ngay còn bao nhiêu phần trăm.
+ */
+const overallProgress = computed(() => {
+  const entries = Object.entries(completion.value).filter(
+    ([id]) => id !== "settings" && id !== "theme"
+  );
+
+  const total = entries.reduce((sum, [, value]) => sum + (value.total || 0), 0);
+
+  const done = entries.reduce(
+    (sum, [, value]) => sum + Math.min(value.done || 0, value.total || 0),
+    0
+  );
+
+  return {
+    done,
+    total,
+    percent: total ? Math.round((done / total) * 100) : 0,
+  };
+});
+
+/*
+ * Danh sách mục nội dung kèm tiến độ — dùng cho thẻ "Tiến
+ * độ hoàn thiện" ở panel Thông tin chung. Lấy từ chính
+ * `completion` nên số liệu luôn khớp với badge ở từng mục
+ * và thanh tiến độ trên header.
+ */
+const progressChecklist = computed(() =>
+  menus
+    .filter((item) => item.id !== "settings" && item.id !== "theme")
+    .map((item) => {
+      const value = completion.value[item.id] || { done: 0, total: 0 };
+
+      return {
+        id: item.id,
+        label: item.label,
+        done: value.done || 0,
+        total: value.total || 0,
+        complete: value.total > 0 && value.done >= value.total,
+      };
+    })
+);
 
 /* =========================================================
    SELECT MENU
 ========================================================= */
-
 function selectMenu(id) {
   activeMenu.value = id;
   mobileMenuOpen.value = false;
@@ -942,6 +1294,15 @@ function saveWedding() {
           editorStore.markSaved();
           editorStore.clearDraft();
 
+          /*
+           * Cache của weddingStore vẫn giữ bản CŨ. loadWedding()
+           * trả cache trước khi gọi API → lần sau mở lại editor
+           * sẽ thiếu nội dung vừa lưu. Xoá cache của slug này.
+           */
+          weddingStore.invalidate(
+            routeSlug.value || wedding.value?.slug
+          );
+
           showSaveMessage(t("editor.save.success"));
           saving.value = false;
 
@@ -951,10 +1312,7 @@ function saveWedding() {
         (err) => {
           console.error("[WeddingEditor] save error:", err);
 
-          showSaveMessage(
-            err?.message || t("editor.save.failed"),
-            true
-          );
+          showSaveMessage(err?.message || t("editor.save.failed"), true);
 
           saving.value = false;
 
@@ -964,10 +1322,7 @@ function saveWedding() {
     } catch (err) {
       console.error("[WeddingEditor] save exception:", err);
 
-      showSaveMessage(
-        err?.message || t("editor.save.failed"),
-        true
-      );
+      showSaveMessage(err?.message || t("editor.save.failed"), true);
 
       saving.value = false;
 
@@ -1009,10 +1364,16 @@ async function publishWedding() {
   }
 
   const ok = await confirmDialog({
-    get title() { return t("editor.publish.confirmTitle"); },
+    get title() {
+      return t("editor.publish.confirmTitle");
+    },
     message: t("editor.publish.confirmMessage"),
-    get confirmText() { return t("editor.publish.now"); },
-    get cancelText() { return t("common.later"); },
+    get confirmText() {
+      return t("editor.publish.now");
+    },
+    get cancelText() {
+      return t("common.later");
+    },
   });
 
   if (!ok) {
@@ -1070,9 +1431,7 @@ function goToPayment() {
 
 async function previewWedding() {
   if (!wedding.value) {
-    console.warn(
-      "[WeddingEditor] Không có wedding để preview."
-    );
+    console.warn("[WeddingEditor] Không có wedding để preview.");
 
     return;
   }
@@ -1082,13 +1441,16 @@ async function previewWedding() {
    *
    * WeddingPreview sẽ lấy trực tiếp từ
    * useWeddingEditorStore().
+   *
+   * Nhưng VẪN truyền slug: nếu người dùng tải lại trang
+   * /preview (hoặc mở tab mới) thì editor store rỗng —
+   * không có slug thì preview báo "không có dữ liệu".
    */
   await router.push({
     path: "/preview",
     query: {
-      theme:
-        wedding.value.theme?.Name ||
-        routeTheme.value,
+      theme: wedding.value.theme?.Name || routeTheme.value,
+      slug: routeSlug.value || wedding.value.slug || undefined,
     },
   });
 }
@@ -1105,10 +1467,18 @@ async function backToTemplates() {
    */
   if (editorStore.dirty) {
     const ok = await confirmDialog({
-      get title() { return t("editor.leave.title"); },
-      get message() { return t("editor.leave.message"); },
-      get confirmText() { return t("editor.leave.confirm"); },
-      get cancelText() { return t("editor.leave.stay"); },
+      get title() {
+        return t("editor.leave.title");
+      },
+      get message() {
+        return t("editor.leave.message");
+      },
+      get confirmText() {
+        return t("editor.leave.confirm");
+      },
+      get cancelText() {
+        return t("editor.leave.stay");
+      },
       danger: true,
     });
 
@@ -1123,17 +1493,33 @@ async function backToTemplates() {
    * trang mẫu, hay từ link trực tiếp. Dùng history.back()
    * để giữ đúng luồng điều hướng; chỉ khi không có trang
    * trước (mở tab mới / vào thẳng link) mới fallback về
-   * danh sách mẫu.
+   * danh sách thiệp của tôi.
+   *
+   * vue-router lưu vị trí trước ở history.state.back; đọc
+   * qua router.options.history.state để không phụ thuộc
+   * window.history.state (có thể bị thay bởi router khác).
    */
-  const hasPrevious = !!window.history.state?.back;
+  const previous = router.options.history.state?.back;
 
-  if (hasPrevious) {
+  /*
+   * Trang trước là Preview (vòng Editor ↔ Preview) hoặc một
+   * Editor khác thì KHÔNG back vào — quay lại là lặp qua lại
+   * không thoát ra được. Thoát về danh sách thiệp.
+   */
+  const isSelfOrPreview =
+    typeof previous === "string" &&
+    (previous === "/preview" ||
+      previous.startsWith("/preview?") ||
+      previous === "/editor" ||
+      previous.startsWith("/editor?"));
+
+  if (previous && !isSelfOrPreview) {
     router.back();
     return;
   }
 
   await router.push({
-    path: "/templates",
+    path: "/manage",
   });
 }
 
@@ -1162,11 +1548,9 @@ async function initializeEditor() {
      * Không được tạo lại dữ liệu.
      */
     if (editorStore.wedding) {
-      const storeTheme =
-        editorStore.wedding.theme?.Name || "";
+      const storeTheme = editorStore.wedding.theme?.Name || "";
 
-      const storeSlug =
-        editorStore.wedding.slug || "";
+      const storeSlug = editorStore.wedding.slug || "";
 
       /*
        * URL yêu cầu theme KHÁC draft hiện tại
@@ -1190,9 +1574,7 @@ async function initializeEditor() {
        * hiện tại (đang mở từ trang "Thiệp của tôi")
        * → bỏ qua draft, rơi xuống nhánh load API.
        */
-      const needLoadSlug =
-        routeSlug.value &&
-        routeSlug.value !== storeSlug;
+      const needLoadSlug = routeSlug.value && routeSlug.value !== storeSlug;
 
       if (!needLoadSlug) {
         /*
@@ -1225,18 +1607,12 @@ async function initializeEditor() {
      * Khi đó mới load API.
      */
     if (routeSlug.value) {
-      const result =
-        await weddingStore.loadWedding(
-          routeSlug.value
-        );
+      const result = await weddingStore.loadWedding(routeSlug.value);
 
-      const data =
-        result || weddingStore.wedding;
+      const data = result || weddingStore.wedding;
 
       if (!data) {
-        throw new Error(
-          t("editor.apiNoData")
-        );
+        throw new Error(t("editor.apiNoData"));
       }
 
       /*
@@ -1249,14 +1625,9 @@ async function initializeEditor() {
       try {
         copy = structuredClone(data);
       } catch (cloneError) {
-        console.warn(
-          "[WeddingEditor] structuredClone failed:",
-          cloneError
-        );
+        console.warn("[WeddingEditor] structuredClone failed:", cloneError);
 
-        copy = JSON.parse(
-          JSON.stringify(data)
-        );
+        copy = JSON.parse(JSON.stringify(data));
       }
 
       editorStore.setWedding(copy);
@@ -1281,19 +1652,12 @@ async function initializeEditor() {
      * Kiểm tra bắt buộc.
      */
     if (!editorStore.wedding) {
-      throw new Error(
-        t("editor.storeInitFailed")
-      );
+      throw new Error(t("editor.storeInitFailed"));
     }
   } catch (err) {
-    console.error(
-      "[WeddingEditor] initialize error:",
-      err
-    );
+    console.error("[WeddingEditor] initialize error:", err);
 
-    error.value =
-      err?.message ||
-      t("editor.loadErrorDot");
+    error.value = err?.message || t("editor.loadErrorDot");
   } finally {
     /*
      * Dữ liệu cũ có thể chưa có wedding.sections —
@@ -1330,18 +1694,37 @@ async function initializeEditor() {
    MOUNT
 ========================================================= */
 
-onMounted(() => {
-  initializeEditor();
+/*
+ * Editor nằm trong <KeepAlive include="WeddingEditor"> (App.vue)
+ * nên vòng đời là:
+ *
+ *   Lần đầu vào:  onMounted → onActivated   (cả hai cùng chạy)
+ *   Quay lại:     chỉ onActivated
+ *
+ * Trước đây cả hai hook đều gọi initializeEditor() → lần đầu
+ * vào editor, API bị gọi 2 LẦN (getWeddingForEdit +
+ * getWeddingStatus nhân đôi). Cờ mountedInit chặn chạy lần 2
+ * trong cùng một lần mount; onActivated vẫn chạy mỗi lần quay
+ * lại từ trang khác (query theme/slug có thể đã đổi).
+ */
+let mountedInit = false;
 
+onMounted(() => {
   window.addEventListener("keydown", onEditorKeydown);
+
+  mountedInit = true;
+
+  initializeEditor();
 });
 
-/*
- * KeepAlive: quay lại Editor từ Preview / trang khác
- * vẫn phải đọc lại query trên URL (theme/slug có thể
- * đã đổi) — onMounted không chạy lại.
- */
 onActivated(() => {
+  if (mountedInit) {
+    /* Vừa mount xong — initializeEditor đã chạy ở onMounted. */
+    mountedInit = false;
+
+    return;
+  }
+
   initializeEditor();
 });
 

@@ -27,6 +27,20 @@
       <strong>
         {{ wedding?.theme?.Name || routeTheme }}
       </strong>
+
+      <!--
+        TIẾN ĐỘ TOÀN THIỆP — cộng dồn mọi mục nội dung.
+        Người dùng thấy ngay còn bao nhiêu phần chưa điền mà
+        không phải mở từng mục.
+      -->
+      <div
+        class="editor-progress"
+        :title="$t('editor.progress.overall', { done: progress?.done || 0, total: progress?.total || 0 })"
+      >
+        <i :style="{ width: `${progress?.percent || 0}%` }" />
+
+        <b>{{ progress?.percent || 0 }}%</b>
+      </div>
     </div>
 
     <div class="editor-actions">
@@ -176,6 +190,9 @@ const props = defineProps({
   publishState: { type: String, default: "Draft" },
   daysLeft: { type: Number, default: 0 },
   publishing: { type: Boolean, default: false },
+
+  /* { done, total, percent } — tiến độ toàn thiệp. */
+  progress: { type: Object, default: null },
 });
 
 /*

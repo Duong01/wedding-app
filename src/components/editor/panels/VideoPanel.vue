@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> VIDEO </span>
 
@@ -10,6 +10,11 @@
           {{ $t('videoPanel.desc') }}
         </p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <div class="switch-card">
@@ -81,10 +86,13 @@ import { computed } from "vue";
 
 import VideoEmbed from "@/components/common/VideoEmbed.vue";
 
-import { parseVideoUrl } from "@/utils/videoEmbed";
+import { parseVideoUrl } from "@/utils/videoEmbed"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const props = defineProps({
   wedding: { type: Object, required: true },
+
+  /* { done, total } từ Editor.vue — badge hoàn thiện mục. */
+  progress: { type: Object, default: null },
 });
 
 /*

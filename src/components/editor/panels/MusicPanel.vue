@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> WEDDING MUSIC </span>
 
@@ -8,6 +8,11 @@
 
         <p>{{ $t('musicPanel.desc') }}</p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <div class="switch-card">
@@ -161,12 +166,15 @@
 import { useI18n } from "vue-i18n";
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 
-import UploadField from "@/components/editor/UploadField.vue";
+import UploadField from "@/components/editor/UploadField.vue"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
+
+  /* { done, total } từ Editor.vue — badge hoàn thiện mục. */
+  progress: { type: Object, default: null },
 });
 
 /*

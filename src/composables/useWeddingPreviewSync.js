@@ -30,22 +30,61 @@ export function useWeddingPreviewSync(
     }
   }
 
+  /*
+   * Trả về true khi đã gửi được (hoặc không có iframe để gửi —
+   * overlay đang đóng), false khi iframe tồn tại nhưng chưa có
+   * contentWindow (đang mount, hoặc panel vừa reload qua
+   * about:blank). Trường hợp false sẽ được hẹn gửi lại.
+   */
   function postToIframe(iframe, payload) {
-    if (!iframe?.value?.contentWindow) {
-      return;
+    const el = iframe?.value;
+
+    if (!el) {
+      return true;
+    }
+
+    const target = el.contentWindow;
+
+    if (!target) {
+      return false;
     }
 
     try {
-      iframe.value.contentWindow.postMessage(
-        payload,
-        window.location.origin
-      );
+      target.postMessage(payload, window.location.origin);
+
+      return true;
     } catch (e) {
       console.warn(
         "[WeddingEditor] Không thể gửi dữ liệu preview:",
         e
       );
+
+      return false;
     }
+  }
+
+  /*
+   * Iframe chưa sẵn sàng → bản cập nhật sẽ bị mất nếu chỉ gửi
+   * một lần. Hẹn gửi lại mỗi 150ms, tối đa 10 lần (~1.5s) —
+   * đủ để iframe mount xong hoặc reload xong.
+   */
+  const RETRY_DELAY = 150;
+  const MAX_RETRY = 10;
+
+  let retryTimer = null;
+  let retryCount = 0;
+
+  function scheduleRetry() {
+    if (retryTimer || retryCount >= MAX_RETRY) {
+      return;
+    }
+
+    retryTimer = window.setTimeout(() => {
+      retryTimer = null;
+      retryCount += 1;
+
+      pushWeddingToIframes();
+    }, RETRY_DELAY);
   }
 
   function pushWeddingToIframes() {
@@ -62,8 +101,16 @@ export function useWeddingPreviewSync(
       wedding: cloneWedding(wedding.value),
     };
 
-    postToIframe(previewIframe, payload);
-    postToIframe(overlayIframe, payload);
+    const sentPreview = postToIframe(previewIframe, payload);
+    const sentOverlay = postToIframe(overlayIframe, payload);
+
+    if (sentPreview && sentOverlay) {
+      retryCount = 0;
+
+      return;
+    }
+
+    scheduleRetry();
   }
 
   /*
@@ -76,6 +123,9 @@ export function useWeddingPreviewSync(
     wedding,
     () => {
       window.clearTimeout(previewSyncTimer);
+
+      /* Dữ liệu mới → cho phép retry lại từ đầu */
+      retryCount = 0;
 
       previewSyncTimer = window.setTimeout(() => {
         pushWeddingToIframes();
@@ -94,6 +144,8 @@ export function useWeddingPreviewSync(
     }
 
     if (event.data?.type === "preview:ready") {
+      retryCount = 0;
+
       pushWeddingToIframes();
     }
   }
@@ -106,6 +158,7 @@ export function useWeddingPreviewSync(
     window.removeEventListener("message", onPreviewMessage);
 
     window.clearTimeout(previewSyncTimer);
+    window.clearTimeout(retryTimer);
   });
 
   return {

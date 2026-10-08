@@ -381,17 +381,22 @@
       ======================================== -->
 
       <!-- =======================================
-           SITE FOOTER (contact admin → Facebook)
-           ẩn trên trang thiệp khách mời + editor/admin
+           SITE FOOTER — CHỈ TRANG BÊN NGOÀI
+           (trang chủ, thư viện mẫu, trang đích SEO,
+           giới thiệu, bảng giá, hướng dẫn, liên hệ).
+           Trong app (quản lý thiệp, editor, admin,
+           profile, thanh toán...) ẩn để tập trung
+           vào nội dung chính.
       ======================================== -->
       <SiteFooter v-if="showFooter" />
 
       <!-- =======================================
            NÚT LÊN ĐẦU TRANG
-           Trang chủ và các trang marketing nay rất dài —
-           hiện cùng nhóm với header/footer.
+           Hiện cùng nhóm trang với header — trang dài
+           bên trong app (danh sách thiệp...) vẫn cần
+           cuộn lên đầu.
       ======================================== -->
-      <ScrollTop v-if="showFooter" />
+      <ScrollTop v-if="showTopNav" />
 
       <!-- =======================================
            GLOBAL DECORATION
@@ -552,6 +557,17 @@ async function loadMyWeddingCount() {
     return;
   }
 
+  /*
+   * Chống gọi đè: onMounted + watch isLoggedIn + useTabResume
+   * + watch route.name đều có thể kích hoạt gần nhau. Request
+   * đang bay thì bỏ — badge chỉ là số hiển thị, không critical.
+   */
+  if (loadMyWeddingCount.inflight) {
+    return;
+  }
+
+  loadMyWeddingCount.inflight = true;
+
   try {
     const response = await getMyWeddings();
 
@@ -572,6 +588,8 @@ async function loadMyWeddingCount() {
   } catch (error) {
     /* Lỗi mạng — giữ số cache ở localStorage */
     console.warn("[App] getMyWeddings error:", error);
+  } finally {
+    loadMyWeddingCount.inflight = false;
   }
 }
 
@@ -746,15 +764,6 @@ const showTopNav = computed(() => {
 });
 
 /*
- * Footer liên hệ (nút "Liên hệ Admin" → Facebook)
- * ẩn cùng nhóm trang với header: thiệp khách mời,
- * editor, admin, preview.
- */
-const showFooter = computed(() => {
-  return showTopNav.value;
-});
-
-/*
  * Nhóm trang marketing (trang chủ, thư viện mẫu, trang đích
  * SEO, trang giới thiệu mẫu thiệp) — nay dùng chung khung
  * sáng studio với các trang ứng dụng; danh sách này giữ lại
@@ -778,6 +787,20 @@ const marketingFrameRoutes = [
 
 const isMarketingFrame = computed(() => {
   return marketingFrameRoutes.includes(route.name);
+});
+
+/*
+ * Footer liên hệ chỉ hiện trên TRANG BÊN NGOÀI (marketing):
+ * trang chủ, thư viện mẫu, trang đích SEO, giới thiệu, bảng
+ * giá, hướng dẫn, liên hệ. Vào trong app (quản lý thiệp,
+ * editor, admin, profile, thanh toán, thiệp khách mời) thì
+ * ẩn — người dùng đang tập trung vào nội dung chính.
+ *
+ * WeddingIntro tuy là trang công khai nhưng ẩn header theo
+ * thiết kế riêng → footer cũng ẩn cho đồng bộ (&& showTopNav).
+ */
+const showFooter = computed(() => {
+  return isMarketingFrame.value && showTopNav.value;
 });
 
 /*

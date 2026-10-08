@@ -179,6 +179,55 @@
   font-weight: 700;
 }
 
+/*
+ * Thanh tiến độ toàn thiệp trên header — rộng 132px, kèm
+ * số phần trăm để người dùng biết chính xác còn thiếu gì.
+ */
+.editor-progress {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 132px;
+
+  height: 14px;
+
+  margin-top: 7px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #f0e8dd;
+}
+
+.editor-progress i {
+  position: absolute;
+
+  inset: 0 auto 0 0;
+
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, var(--gold, #b9975b), var(--wine, #a63a2e));
+
+  transition: width 0.35s ease;
+}
+
+.editor-progress b {
+  position: relative;
+
+  color: #3a2c26;
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 0.04em;
+}
+
 .editor-actions {
   display: flex;
 
@@ -785,6 +834,21 @@
   justify-content: space-between;
 
   gap: 20px;
+}
+
+/*
+ * Nhóm nút hành động + badge hoàn thiện ở góc phải header.
+ * Dùng chung cho các panel có nút "Thêm ..." (sự kiện, lịch
+ * trình, album, mừng cưới, cá nhân hoá).
+ */
+.panel-header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex: 0 0 auto;
 }
 
 .panel-eyebrow {
@@ -2687,6 +2751,12 @@
     align-items: flex-start;
 
     flex-direction: column;
+  }
+
+  .panel-header-actions {
+    width: 100%;
+
+    justify-content: space-between;
   }
 
   .form-grid,

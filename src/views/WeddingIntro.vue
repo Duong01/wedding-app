@@ -5,11 +5,7 @@
     ========================================================== -->
     <div class="intro-topbar">
       <div class="topbar-inner">
-        <button
-          type="button"
-          class="back-btn"
-          @click="goTemplates"
-        >
+        <button type="button" class="back-btn" @click="goTemplates">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -21,14 +17,10 @@
             <path d="m11 18-6-6 6-6"></path>
           </svg>
 
-          {{ $t('intro.templateList') }}
+          {{ $t("intro.templateList") }}
         </button>
 
-        <button
-          type="button"
-          class="share-btn"
-          @click="shareTemplate"
-        >
+        <button type="button" class="share-btn" @click="shareTemplate">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -42,7 +34,7 @@
             <path d="m8.3 13.2 7.4 4.4" />
           </svg>
 
-          {{ $t('mobile.shareShort') }}
+          {{ $t("mobile.shareShort") }}
         </button>
       </div>
     </div>
@@ -53,7 +45,7 @@
     <div v-if="store.loading" class="intro-state">
       <div class="state-orn">{{ FALLBACK_ORN }}</div>
 
-      <div class="state-title">{{ $t('intro.loading') }}</div>
+      <div class="state-title">{{ $t("intro.loading") }}</div>
 
       <div class="state-spinner"></div>
     </div>
@@ -64,14 +56,14 @@
     <div v-else-if="store.error || !wedding" class="intro-state">
       <div class="state-orn">{{ FALLBACK_ORN }}</div>
 
-      <h1>{{ $t('intro.notFound') }}</h1>
+      <h1>{{ $t("intro.notFound") }}</h1>
 
       <p>
-        {{ $t('intro.notFoundText') }}
+        {{ $t("intro.notFoundText") }}
       </p>
 
       <button type="button" class="state-btn" @click="goTemplates">
-        {{ $t('intro.viewList') }}
+        {{ $t("intro.viewList") }}
       </button>
     </div>
 
@@ -146,13 +138,13 @@
           <div class="info-col">
             <nav class="breadcrumb" aria-label="Breadcrumb">
               <router-link :to="{ name: 'Home' }">
-                {{ $t('nav.home') }}
+                {{ $t("nav.home") }}
               </router-link>
 
               <span class="sep">/</span>
 
               <router-link :to="{ name: 'Templates' }">
-                {{ $t('editor.header.template') }}
+                {{ $t("editor.header.template") }}
               </router-link>
 
               <span class="sep">/</span>
@@ -180,7 +172,341 @@
                 <span class="date-day">{{ mainEvent.Day }}</span>
 
                 <span class="date-rest">
-                  {{ $t("intro.monthYear", { month: mainEvent.Month, year: mainEvent.Year }) }} </span> </div> <p class="event-meta"> {{ mainEvent.Title }} · {{ mainEvent.EventTime }} · {{ mainEvent.Location }} </p> </div> <p class="info-desc"> {{ meta.desc }} </p> <!-- từ khóa phong cách --> <div class="info-tags"> <span v-for="tag in meta.tags" :key="tag" class="info-tag" > {{ tag }} </span> </div> <p class="info-updated"> {{ $t("intro.updated", { date: updatedLabel }) }} </p> <!-- HÀNH ĐỘNG — tin cậy + hai nút --> <div class="cta-block"> <p class="cta-trust"> {{ $t('hero.badge') }} </p> <div class="cta-actions"> <button type="button" class="primary-btn" @click="goEditor" > <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" > <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /> </svg> {{ $t('intro.useThis') }} </button> <button type="button" class="outline-btn" @click="goOpen" > <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" > <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /> <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z" /> </svg> Xem demo </button> </div> <p class="cta-note"> {{ $t('intro.switchAnytime') }} </p> </div> </div> </div> </section> <!-- ========================================= THANH HÀNH ĐỘNG CỐ ĐỊNH — chỉ trên điện thoại Bản mobile của khối CTA: dòng tin cậy + ghi chú + 2 nút, dính đáy màn hình. ========================================== --> <div class="mobile-cta"> <p class="mobile-trust"> {{ $t('hero.badge') }} </p> <p class="mobile-note"> {{ $t('intro.switchAnytime') }} </p> <div class="mobile-actions"> <button type="button" class="primary-btn" @click="goEditor" > <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" > <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /> </svg> {{ $t('intro.useThis') }} </button> <button type="button" class="outline-btn" @click="goOpen" > <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" > <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /> <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z" /> </svg> Xem demo </button> </div> </div> <template v-if="content"> <!-- ========================================= 2. ĐIỂM NỔI BẬT ========================================== --> <section class="detail-section"> <div class="container"> <span class="eyebrow"> <span class="eyebrow-line"></span> {{ $t('intro.highlights') }} <span class="eyebrow-line"></span> </span> <h2 class="section-title"> {{ $t("intro.whyChoose", { name: getThemeLabel(wedding) }) }} </h2> <ul class="highlights-grid"> <li v-for="item in content.highlights" :key="item.text" > <span class="hl-orn">{{ item.orn }}</span> <p>{{ item.text }}</p> </li> </ul> </div> </section> <!-- ========================================= 3. GIỚI THIỆU + TOÀN CẢNH THIỆP Khung phải hiển thị ảnh xem trước DÀI đầy đủ (toàn bộ thiệp) trong khung cuộn được — khách xem trọn bộ thiết kế mà không rời trang. Khung dính (sticky) trên máy tính để vừa đọc giới thiệu vừa xem thiệp. ========================================== --> <section class="detail-section"> <div class="container"> <span class="eyebrow"> <span class="eyebrow-line"></span> {{ $t('nav.about') }} <span class="eyebrow-line"></span> </span> <h2 class="section-title"> {{ $t("intro.templateNamed", { name: getThemeLabel(wedding) }) }} </h2> <div class="overview-grid"> <div class="overview-text"> <p v-for="(paragraph, index) in content.paragraphs" :key="index" > {{ paragraph }} </p> <!-- 4. PHÙ HỢP CHO + link hướng dẫn --> <div class="suitable"> <h3>{{ $t('intro.suitableFor') }}</h3> <div class="suitable-tags"> <span v-for="item in content.suitable" :key="item" class="info-tag" > {{ item }} </span> </div> <button type="button" class="guide-link" @click="goGuide" > {{ $t('intro.guideLink') }} </button> </div> </div> <figure class="overview-frame"> <div class="frame-scroll"> <img :src="previewFor(wedding)" :alt="$t('intro.fullViewAlt', { name: getThemeLabel(wedding) })" loading="lazy" @error="onImageError" /> </div> <figcaption class="frame-hint"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" > <path stroke-linecap="round" d="M12 5v14" /> <path stroke-linecap="round" stroke-linejoin="round" d="m19 12-7 7-7-7" /> </svg> {{ $t('intro.scrollFrame') }} </figcaption> </figure> </div> </div> </section> <!-- ========================================= 5. TÍNH NĂNG ========================================== --> <section class="detail-section sec-features"> <div class="container"> <span class="eyebrow"> <span class="eyebrow-line"></span> {{ $t('pricing.feature') }} <span class="eyebrow-line"></span> </span> <h2 class="section-title"> {{ $t('intro.featuresTitle') }} </h2> <p class="section-lead"> {{ $t('intro.featuresLead') }} </p> <ul class="features-grid"> <li v-for="feature in FEATURES" :key="feature.label" > <span class="feat-orn">{{ feature.orn }}</span> {{ feature.label }} </li> </ul> </div> </section> <!-- ========================================= 6. CÂU HỎI THƯỜNG GẶP ========================================== --> <section class="detail-section"> <div class="container"> <span class="eyebrow"> <span class="eyebrow-line"></span> {{ $t('intro.faq') }} <span class="eyebrow-line"></span> </span> <h2 class="section-title"> {{ $t("intro.aboutTemplate", { name: getThemeLabel(wedding) }) }} </h2> <div class="faq-wrap"> <FaqAccordion :items="content.faqs" /> </div> </div> </section> <!-- ========================================= 7. MẪU THIỆP LIÊN QUAN — cùng bộ sưu tập trước ========================================== --> <section v-if="relatedTemplates.length" class="detail-section" > <div class="container"> <span class="eyebrow"> <span class="eyebrow-line"></span> {{ $t('intro.related') }} <span class="eyebrow-line"></span> </span> <h2 class="section-title"> {{ $t('intro.sameStyle') }} </h2> <div class="related-grid"> <article v-for="tpl in relatedTemplates" :key="tpl.slug" class="related-card" @click="goRelated(tpl.slug)" > <div class="related-thumb" @mouseenter="relatedScroll.start" @mouseleave="relatedScroll.stop" > <img :src="tpl.src" :alt="tpl.label" loading="lazy" @error="onImageError" /> </div> <div class="related-body"> <span class="related-collection"> {{ tpl.collection }} </span> <h3 class="related-name"> {{ tpl.label }} </h3> <p class="related-desc"> {{ tpl.desc }} </p> <span class="related-more">{{ $t('intro.viewTemplate') }}</span> </div> </article> </div> </div> </section> <!-- ========================================= 8. BÀI VIẾT LIÊN QUAN ========================================== --> <section class="detail-section"> <div class="container"> <span class="eyebrow"> <span class="eyebrow-line"></span> {{ $t('intro.articles') }} <span class="eyebrow-line"></span> </span> <h2 class="section-title"> {{ $t('intro.readFirst') }} </h2> <div class="articles-grid"> <article v-for="article in RELATED_ARTICLES" :key="article.title" class="article-card" @click="goArticle(article)" > <h3>{{ article.title }}</h3> <p>{{ article.desc }}</p> <span class="article-more">{{ $t('intro.readMore') }}</span> </article> </div> </div> </section> </template> <!-- ========================================= 9. CTA CUỐI TRANG ========================================== --> <section class="final-cta"> <div class="final-inner"> <span class="final-orn">{{ meta.orn }}</span> <h2>{{ $t("intro.likeIt", { name: getThemeLabel(wedding) }) }}</h2> <p> {{ $t('intro.finalText') }} </p> <div class="final-actions"> <button type="button" class="primary-btn" @click="goEditor" > {{ $t('intro.useThis') }} </button> <button type="button" class="outline-btn" @click="goOpen" > Xem demo </button> </div> </div> </section> </template> <!-- ===================================================== TOAST ====================================================== --> <Transition name="toast"> <div v-if="toast" class="toast-message"> <span>✓</span> {{ toast }} </div> </Transition> </main> </template> <script setup> import { useI18n } from "vue-i18n"; import { computed, onBeforeUnmount, ref, watch } from "vue"; import { useRoute, useRouter } from "vue-router"; import { useWeddingStore } from "@/stores/wedding"; import { getCollection, getThemeMeta, } from "@/data/templateCollections"; import { handleImageError, previewFor, } from "@/utils/weddingCard"; import { BRAND } from "@/data/siteContent"; import { faqJsonLd, useSeo } from "@/composables/useSeo"; import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll"; import FaqAccordion from "@/components/marketing/FaqAccordion.vue"; const { t } = useI18n(); /* ========================================================= TRANG GIỚI THIỆU MẪU — trang đích đầy đủ nội dung cho từng mẫu thiệp (kiểu trang landing mẫu): hero một màn → điểm nổi bật → giới thiệu + toàn cảnh → phù hợp cho → tính năng → hỏi đáp → mẫu liên quan → bài viết liên quan → CTA cuối. Luồng: /wedding/:slug (ở đây) → /open (phong bì) → /view Toàn trang dùng hệ màu studio chung (giấy dó, mực nho, vàng foil) — bản sắc từng mẫu nằm ở ảnh, tên, mô tả, từ khóa và nội dung dựng từ THEME_META. ========================================================= */ const route = useRoute(); const router = useRouter(); const store = useWeddingStore(); const wedding = computed(() => store.wedding); const FALLBACK_ORN = "囍"; /* getWeddingMeta nhận cả object thiệp (trước đây truyền nhầm tên mẫu → luôn rơi về FALLBACK_META) */ const meta = computed(() => getWeddingMeta(wedding.value)); /* ========================================================= HELPERS — đọc dữ liệu hiển thị của mẫu ========================================================= */ function themeNameOf(item) { return item?.theme?.Name || item?.theme || ""; } function getWeddingMeta(item) { return getThemeMeta(themeNameOf(item)); } function getCoupleName(item) { const bride = item?.couple?.Bride?.Name || ""; const groom = item?.couple?.Groom?.Name || ""; if (!bride && !groom) { return t("sections.couple");
+                  {{
+                    $t("intro.monthYear", {
+                      month: mainEvent.Month,
+                      year: mainEvent.Year,
+                    })
+                  }}
+                </span>
+              </div>
+              <p class="event-meta">
+                {{ mainEvent.Title }} · {{ mainEvent.EventTime }} ·
+                {{ mainEvent.Location }}
+              </p>
+            </div>
+            <p class="info-desc">{{ meta.desc }}</p>
+            <!-- từ khóa phong cách -->
+            <div class="info-tags">
+              <span v-for="tag in meta.tags" :key="tag" class="info-tag">
+                {{ tag }}
+              </span>
+            </div>
+            <p class="info-updated">
+              {{ $t("intro.updated", { date: updatedLabel }) }}
+            </p>
+            <!-- HÀNH ĐỘNG — tin cậy + hai nút -->
+            <div class="cta-block">
+              <p class="cta-trust">{{ $t("hero.badge") }}</p>
+              <div class="cta-actions">
+                <button type="button" class="primary-btn" @click="goEditor">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  {{ $t("intro.useThis") }}
+                </button>
+                <button type="button" class="outline-btn" @click="goOpen">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"
+                    />
+                  </svg>
+                  Xem demo
+                </button>
+              </div>
+              <p class="cta-note">{{ $t("intro.switchAnytime") }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ========================================= THANH HÀNH ĐỘNG CỐ ĐỊNH — chỉ trên điện thoại Bản mobile của khối CTA: dòng tin cậy + ghi chú + 2 nút, dính đáy màn hình. ========================================== -->
+      <div class="mobile-cta">
+        <p class="mobile-trust">{{ $t("hero.badge") }}</p>
+        <p class="mobile-note">{{ $t("intro.switchAnytime") }}</p>
+        <div class="mobile-actions">
+          <button type="button" class="primary-btn" @click="goEditor">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.5 12.75l6 6 9-13.5"
+              />
+            </svg>
+            {{ $t("intro.useThis") }}
+          </button>
+          <button type="button" class="outline-btn" @click="goOpen">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"
+              />
+            </svg>
+            Xem demo
+          </button>
+        </div>
+      </div>
+      <template v-if="content">
+        <!-- ========================================= 2. ĐIỂM NỔI BẬT ========================================== -->
+        <section class="detail-section">
+          <div class="container">
+            <span class="eyebrow">
+              <span class="eyebrow-line"></span> {{ $t("intro.highlights") }}
+              <span class="eyebrow-line"></span>
+            </span>
+            <h2 class="section-title">
+              {{ $t("intro.whyChoose", { name: getThemeLabel(wedding) }) }}
+            </h2>
+            <ul class="highlights-grid">
+              <li v-for="item in content.highlights" :key="item.text">
+                <span class="hl-orn">{{ item.orn }}</span>
+                <p>{{ item.text }}</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- ========================================= 3. GIỚI THIỆU + TOÀN CẢNH THIỆP Khung phải hiển thị ảnh xem trước DÀI đầy đủ (toàn bộ thiệp) trong khung cuộn được — khách xem trọn bộ thiết kế mà không rời trang. Khung dính (sticky) trên máy tính để vừa đọc giới thiệu vừa xem thiệp. ========================================== -->
+        <section class="detail-section">
+          <div class="container">
+            <span class="eyebrow">
+              <span class="eyebrow-line"></span> {{ $t("nav.about") }}
+              <span class="eyebrow-line"></span>
+            </span>
+            <h2 class="section-title">
+              {{ $t("intro.templateNamed", { name: getThemeLabel(wedding) }) }}
+            </h2>
+            <div class="overview-grid">
+              <div class="overview-text">
+                <p
+                  v-for="(paragraph, index) in content.paragraphs"
+                  :key="index"
+                >
+                  {{ paragraph }}
+                </p>
+                <!-- 4. PHÙ HỢP CHO + link hướng dẫn -->
+                <div class="suitable">
+                  <h3>{{ $t("intro.suitableFor") }}</h3>
+                  <div class="suitable-tags">
+                    <span
+                      v-for="item in content.suitable"
+                      :key="item"
+                      class="info-tag"
+                    >
+                      {{ item }}
+                    </span>
+                  </div>
+                  <button type="button" class="guide-link" @click="goGuide">
+                    {{ $t("intro.guideLink") }}
+                  </button>
+                </div>
+              </div>
+              <figure class="overview-frame">
+                <div class="frame-scroll">
+                  <img
+                    :src="previewFor(wedding)"
+                    :alt="
+                      $t('intro.fullViewAlt', { name: getThemeLabel(wedding) })
+                    "
+                    loading="lazy"
+                    @error="onImageError"
+                  />
+                </div>
+                <figcaption class="frame-hint">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
+                    <path stroke-linecap="round" d="M12 5v14" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m19 12-7 7-7-7"
+                    />
+                  </svg>
+                  {{ $t("intro.scrollFrame") }}
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <!-- ========================================= 5. TÍNH NĂNG ========================================== -->
+        <section class="detail-section sec-features">
+          <div class="container">
+            <span class="eyebrow">
+              <span class="eyebrow-line"></span> {{ $t("pricing.feature") }}
+              <span class="eyebrow-line"></span>
+            </span>
+            <h2 class="section-title">{{ $t("intro.featuresTitle") }}</h2>
+            <p class="section-lead">{{ $t("intro.featuresLead") }}</p>
+            <ul class="features-grid">
+              <li v-for="feature in FEATURES" :key="feature.label">
+                <span class="feat-orn">{{ feature.orn }}</span>
+                {{ feature.label }}
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- ========================================= 6. CÂU HỎI THƯỜNG GẶP ========================================== -->
+        <section class="detail-section">
+          <div class="container">
+            <span class="eyebrow">
+              <span class="eyebrow-line"></span> {{ $t("intro.faq") }}
+              <span class="eyebrow-line"></span>
+            </span>
+            <h2 class="section-title">
+              {{ $t("intro.aboutTemplate", { name: getThemeLabel(wedding) }) }}
+            </h2>
+            <div class="faq-wrap"><FaqAccordion :items="content.faqs" /></div>
+          </div>
+        </section>
+        <!-- ========================================= 7. MẪU THIỆP LIÊN QUAN — cùng bộ sưu tập trước ========================================== -->
+        <section v-if="relatedTemplates.length" class="detail-section">
+          <div class="container">
+            <span class="eyebrow">
+              <span class="eyebrow-line"></span> {{ $t("intro.related") }}
+              <span class="eyebrow-line"></span>
+            </span>
+            <h2 class="section-title">{{ $t("intro.sameStyle") }}</h2>
+            <div class="related-grid">
+              <article
+                v-for="tpl in relatedTemplates"
+                :key="tpl.slug"
+                class="related-card"
+                @click="goRelated(tpl.slug)"
+              >
+                <div
+                  class="related-thumb"
+                  @mouseenter="relatedScroll.start"
+                  @mouseleave="relatedScroll.stop"
+                >
+                  <img
+                    :src="tpl.src"
+                    :alt="tpl.label"
+                    loading="lazy"
+                    @error="onImageError"
+                  />
+                </div>
+                <div class="related-body">
+                  <span class="related-collection"> {{ tpl.collection }} </span>
+                  <h3 class="related-name">{{ tpl.label }}</h3>
+                  <p class="related-desc">{{ tpl.desc }}</p>
+                  <span class="related-more">{{
+                    $t("intro.viewTemplate")
+                  }}</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <!-- ========================================= 8. BÀI VIẾT LIÊN QUAN ========================================== -->
+        <section class="detail-section">
+          <div class="container">
+            <span class="eyebrow">
+              <span class="eyebrow-line"></span> {{ $t("intro.articles") }}
+              <span class="eyebrow-line"></span>
+            </span>
+            <h2 class="section-title">{{ $t("intro.readFirst") }}</h2>
+            <div class="articles-grid">
+              <article
+                v-for="article in RELATED_ARTICLES"
+                :key="article.title"
+                class="article-card"
+                @click="goArticle(article)"
+              >
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.desc }}</p>
+                <span class="article-more">{{ $t("intro.readMore") }}</span>
+              </article>
+            </div>
+          </div>
+        </section>
+      </template>
+      <!-- ========================================= 9. CTA CUỐI TRANG ========================================== -->
+      <section class="final-cta">
+        <div class="final-inner">
+          <span class="final-orn">{{ meta.orn }}</span>
+          <h2>{{ $t("intro.likeIt", { name: getThemeLabel(wedding) }) }}</h2>
+          <p>{{ $t("intro.finalText") }}</p>
+          <div class="final-actions">
+            <button type="button" class="primary-btn" @click="goEditor">
+              {{ $t("intro.useThis") }}
+            </button>
+            <button type="button" class="outline-btn" @click="goOpen">
+              Xem demo
+            </button>
+          </div>
+        </div>
+      </section>
+    </template>
+    <!-- ===================================================== TOAST ====================================================== -->
+    <Transition name="toast">
+      <div v-if="toast" class="toast-message"><span>✓</span> {{ toast }}</div>
+    </Transition>
+  </main>
+</template> <script setup>
+import { useI18n } from "vue-i18n";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useWeddingStore } from "@/stores/wedding";
+import { getCollection, getThemeMeta } from "@/data/templateCollections";
+import { handleImageError, previewFor } from "@/utils/weddingCard";
+import { BRAND } from "@/data/siteContent";
+import { faqJsonLd, useSeo } from "@/composables/useSeo";
+import { useHoverAutoScroll } from "@/composables/useHoverAutoScroll";
+import FaqAccordion from "@/components/marketing/FaqAccordion.vue";
+const { t } = useI18n();
+/* ========================================================= TRANG GIỚI THIỆU MẪU — trang đích đầy đủ nội dung cho từng mẫu thiệp (kiểu trang landing mẫu): hero một màn → điểm nổi bật → giới thiệu + toàn cảnh → phù hợp cho → tính năng → hỏi đáp → mẫu liên quan → bài viết liên quan → CTA cuối. Luồng: /wedding/:slug (ở đây) → /open (phong bì) → /view Toàn trang dùng hệ màu studio chung (giấy dó, mực nho, vàng foil) — bản sắc từng mẫu nằm ở ảnh, tên, mô tả, từ khóa và nội dung dựng từ THEME_META. ========================================================= */ const route =
+  useRoute();
+const router = useRouter();
+const store = useWeddingStore();
+const wedding = computed(() => store.wedding);
+const FALLBACK_ORN = "囍";
+/* getWeddingMeta nhận cả object thiệp (trước đây truyền nhầm tên mẫu → luôn rơi về FALLBACK_META) */ const meta =
+  computed(() => getWeddingMeta(wedding.value));
+/* ========================================================= HELPERS — đọc dữ liệu hiển thị của mẫu ========================================================= */ function themeNameOf(
+  item
+) {
+  return item?.theme?.Name || item?.theme || "";
+}
+function getWeddingMeta(item) {
+  return getThemeMeta(themeNameOf(item));
+}
+function getCoupleName(item) {
+  const bride = item?.couple?.Bride?.Name || "";
+  const groom = item?.couple?.Groom?.Name || "";
+  if (!bride && !groom) {
+    return t("sections.couple");
   }
 
   return `${bride} & ${groom}`;
@@ -410,7 +736,7 @@ const COLOR_TAG_KEYS = new Set([
 
 /* Tên gọi của ký tự họa tiết đặc trưng (orn) trong câu văn. */
 const ORN_KEYS = {
-  "囍": "intro.orn.xi",
+  囍: "intro.orn.xi",
   "✦": "intro.orn.foil",
   "❀": "intro.orn.pattern",
   "❧": "intro.orn.leaf",
@@ -429,13 +755,29 @@ const COLLECTION_KEY = {
 };
 
 const SUITABLE_BY_COLLECTION = {
-  traditional: ["intro.event.traditional", "intro.event.ancestral", "intro.event.formalParty"],
+  traditional: [
+    "intro.event.traditional",
+    "intro.event.ancestral",
+    "intro.event.formalParty",
+  ],
   romantic: ["intro.event.outdoor", "intro.event.modern", "intro.event.garden"],
-  modern: ["intro.event.luxuryParty", "intro.event.restaurant", "intro.event.city"],
-  classic: ["intro.event.luxuryParty", "intro.event.formalCeremony", "intro.event.restaurant"],
+  modern: [
+    "intro.event.luxuryParty",
+    "intro.event.restaurant",
+    "intro.event.city",
+  ],
+  classic: [
+    "intro.event.luxuryParty",
+    "intro.event.formalCeremony",
+    "intro.event.restaurant",
+  ],
   art: ["intro.event.outdoor", "intro.event.creative", "intro.event.garden"],
   nature: ["intro.event.outdoor", "intro.event.nature", "intro.event.garden"],
-  asian: ["intro.event.traditional", "intro.event.ancestral", "intro.event.formalParty"],
+  asian: [
+    "intro.event.traditional",
+    "intro.event.ancestral",
+    "intro.event.formalParty",
+  ],
 };
 
 /* Các mục nội dung của thiệp — đọc từ settings trong wedding.json. */
@@ -470,7 +812,8 @@ const content = computed(() => {
 
   const colorKey = tagKeys.find((key) => COLOR_TAG_KEYS.has(key)) || tagKeys[0];
 
-  const motifKey = tagKeys.filter((key) => key !== colorKey).pop() || tagKeys[0];
+  const motifKey =
+    tagKeys.filter((key) => key !== colorKey).pop() || tagKeys[0];
 
   const colorTag = label(colorKey);
 
@@ -479,30 +822,49 @@ const content = computed(() => {
   const ornLabel = t(ORN_KEYS[m.orn] || "intro.orn.default");
 
   /* Tránh lặp khi theme chỉ có 1 tag ("Cổ điển" cả hai vai). */
-  const motifText = motifKey !== colorKey ? label(motifKey).toLowerCase() : ornLabel;
+  const motifText =
+    motifKey !== colorKey ? label(motifKey).toLowerCase() : ornLabel;
 
   const settings = item.settings || {};
 
-  const sections = SECTION_LABELS.filter(([key]) => settings[key]).map(([, key]) => t(key));
+  const sections = SECTION_LABELS.filter(([key]) => settings[key]).map(
+    ([, key]) => t(key)
+  );
 
   const colKey = COLLECTION_KEY[m.collection] || "classic";
 
   const suitable = SUITABLE_BY_COLLECTION[colKey].map((key) => t(key));
 
-  const audience = COLLECTION_KEY[m.collection] ? t(`intro.audience.${colKey}`) : t("intro.audience.default");
+  const audience = COLLECTION_KEY[m.collection]
+    ? t(`intro.audience.${colKey}`)
+    : t("intro.audience.default");
 
-  const feeling = COLLECTION_KEY[m.collection] ? t(`intro.feeling.${colKey}`) : t("intro.feeling.default");
+  const feeling = COLLECTION_KEY[m.collection]
+    ? t(`intro.feeling.${colKey}`)
+    : t("intro.feeling.default");
 
   const couple = getCoupleName(item);
 
-  const sectionList = sections.length ? join(sections.slice(0, 5)) : t("intro.allSections");
+  const sectionList = sections.length
+    ? join(sections.slice(0, 5))
+    : t("intro.allSections");
 
   const seal = m.orn === "囍" ? t("intro.seal") : "";
 
-  const base = { name: m.name, collection: collection.name, color: colorLower, orn: ornLabel, seal, desc: m.desc };
+  const base = {
+    name: m.name,
+    collection: collection.name,
+    color: colorLower,
+    orn: ornLabel,
+    seal,
+    desc: m.desc,
+  };
 
   const highlights = [
-    { orn: m.orn, text: t("intro.hl.accent", { color: colorTag, motif: motifText }) },
+    {
+      orn: m.orn,
+      text: t("intro.hl.accent", { color: colorTag, motif: motifText }),
+    },
     { orn: "✉", text: t("intro.hl.envelope", base) },
     {
       orn: "❊",
@@ -514,22 +876,39 @@ const content = computed(() => {
   ];
 
   const paragraphs = [
-    t("intro.p1", { ...base, audience, feeling, bg: t(m.dark ? "intro.onDark" : "intro.onWarm") }),
+    t("intro.p1", {
+      ...base,
+      audience,
+      feeling,
+      bg: t(m.dark ? "intro.onDark" : "intro.onWarm"),
+    }),
     t("intro.p2", { ...base, list: sectionList, couple }),
     t("intro.p3", { ...base, brand: BRAND.name }),
   ];
 
   const faqs = [
-    { q: t("intro.faq1.q", base), a: t("intro.faq1.a", { ...base, motif: motifText }) },
+    {
+      q: t("intro.faq1.q", base),
+      a: t("intro.faq1.a", { ...base, motif: motifText }),
+    },
     {
       q: t("intro.faq2.q", base),
       a:
         m.collection === "a-dong"
           ? t("intro.faq2.aAsian", base)
-          : t("intro.faq2.a", { ...base, s1: suitable[0].toLowerCase(), s2: suitable[1].toLowerCase() }),
+          : t("intro.faq2.a", {
+              ...base,
+              s1: suitable[0].toLowerCase(),
+              s2: suitable[1].toLowerCase(),
+            }),
     },
     { q: t("intro.faq3.q", base), a: t("intro.faq3.a", base) },
-    { q: t("intro.faq4.q", base), a: t("intro.faq4.a", { list: join(suitable.map((s) => s.toLowerCase())) }) },
+    {
+      q: t("intro.faq4.q", base),
+      a: t("intro.faq4.a", {
+        list: join(suitable.map((s) => s.toLowerCase())),
+      }),
+    },
   ];
 
   return { highlights, paragraphs, suitable, faqs };
@@ -540,25 +919,73 @@ const content = computed(() => {
 ========================================================= */
 
 const FEATURES = [
-  { orn: "❊", get label() { return t("intro.f1"); } },
-  { orn: "✦", get label() { return t("intro.f2"); } },
-  { orn: "◈", get label() { return t("intro.f3"); } },
-  { orn: "♪", get label() { return t("intro.f4"); } },
-  { orn: "✉", get label() { return t("intro.f5"); } },
-  { orn: "❋", get label() { return t("intro.f6"); } },
-  { orn: "✓", get label() { return t("intro.f7"); } },
-  { orn: "❦", get label() { return t("intro.f8"); } },
+  {
+    orn: "❊",
+    get label() {
+      return t("intro.f1");
+    },
+  },
+  {
+    orn: "✦",
+    get label() {
+      return t("intro.f2");
+    },
+  },
+  {
+    orn: "◈",
+    get label() {
+      return t("intro.f3");
+    },
+  },
+  {
+    orn: "♪",
+    get label() {
+      return t("intro.f4");
+    },
+  },
+  {
+    orn: "✉",
+    get label() {
+      return t("intro.f5");
+    },
+  },
+  {
+    orn: "❋",
+    get label() {
+      return t("intro.f6");
+    },
+  },
+  {
+    orn: "✓",
+    get label() {
+      return t("intro.f7");
+    },
+  },
+  {
+    orn: "❦",
+    get label() {
+      return t("intro.f8");
+    },
+  },
 ];
 
 const RELATED_ARTICLES = [
   {
-    get title() { return t("intro.article1.title"); },
-    get desc() { return t("intro.article1.desc"); },
+    get title() {
+      return t("intro.article1.title");
+    },
+    get desc() {
+      return t("intro.article1.desc");
+    },
     route: { name: "Guide" },
   },
   {
-    get title() { return t("intro.article2.title"); },
-    get desc() { return t("intro.article2.desc"); },
+    get title() {
+      return t("intro.article2.title");
+    },
+    get desc() {
+      return t("intro.article2.desc");
+    },
     route: { name: "Pricing" },
   },
 ];
@@ -603,8 +1030,7 @@ const relatedTemplates = computed(() => {
 
   const currentCollection = meta.value.collection;
 
-  const collectionOf = (w) =>
-    getThemeMeta(themeNameOf(w)).collection;
+  const collectionOf = (w) => getThemeMeta(themeNameOf(w)).collection;
 
   const decorate = (w) => ({
     slug: w.slug,
@@ -666,8 +1092,12 @@ useSeo(() => {
 
   if (!item) {
     return {
-      get title() { return t("nav.templatesTitle"); },
-      get description() { return t("intro.previewDesc"); },
+      get title() {
+        return t("nav.templatesTitle");
+      },
+      get description() {
+        return t("intro.previewDesc");
+      },
       path: route.path,
     };
   }
@@ -693,13 +1123,17 @@ useSeo(() => {
             {
               "@type": "ListItem",
               position: 1,
-              get name() { return t("nav.home"); },
+              get name() {
+                return t("nav.home");
+              },
               item: BRAND.siteUrl,
             },
             {
               "@type": "ListItem",
               position: 2,
-              get name() { return t("editor.header.template"); },
+              get name() {
+                return t("editor.header.template");
+              },
               item: `${BRAND.siteUrl}/mau-thiep-cuoi`,
             },
             {
@@ -758,7 +1192,7 @@ watch(
 
     loadWedding(slug);
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 /* =========================================================
@@ -841,7 +1275,9 @@ async function shareTemplate() {
     if (navigator.share) {
       await navigator.share({
         title: getThemeLabel(wedding.value),
-        get text() { return t("intro.shareText"); },
+        get text() {
+          return t("intro.shareText");
+        },
         url: openUrl.value,
       });
 
@@ -870,18 +1306,12 @@ async function shareTemplate() {
   min-height: 100vh;
   min-height: 100dvh;
 
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at 8% 4%,
       rgba(185, 151, 91, 0.1),
       transparent 30%
     ),
-    linear-gradient(
-      180deg,
-      #fdfbf5 0%,
-      #faf7ef 50%,
-      #f6f1e4 100%
-    );
+    linear-gradient(180deg, #fdfbf5 0%, #faf7ef 50%, #f6f1e4 100%);
 
   color: var(--text);
 
@@ -937,10 +1367,7 @@ async function shareTemplate() {
 
   cursor: pointer;
 
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
     transform 0.2s ease;
 }
 
@@ -1196,8 +1623,7 @@ async function shareTemplate() {
 
   background: #fff;
 
-  box-shadow:
-    0 24px 60px rgba(43, 33, 24, 0.16),
+  box-shadow: 0 24px 60px rgba(43, 33, 24, 0.16),
     0 0 0 4px rgba(185, 151, 91, 0.16);
 }
 
@@ -1486,10 +1912,7 @@ async function shareTemplate() {
 
   cursor: pointer;
 
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease,
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease,
     border-color 0.25s ease;
 }
 
@@ -1639,9 +2062,7 @@ async function shareTemplate() {
 
   background: var(--studio-card, #fffdf8);
 
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
+  transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -1665,11 +2086,7 @@ async function shareTemplate() {
 
   border-radius: 12px;
 
-  background: color-mix(
-    in srgb,
-    var(--studio-foil, #b9975b) 14%,
-    transparent
-  );
+  background: color-mix(in srgb, var(--studio-foil, #b9975b) 14%, transparent);
 
   color: var(--studio-seal, #a63a2e);
 
@@ -1737,8 +2154,7 @@ async function shareTemplate() {
 
   background: #fff;
 
-  box-shadow:
-    0 20px 50px rgba(43, 33, 24, 0.14),
+  box-shadow: 0 20px 50px rgba(43, 33, 24, 0.14),
     0 0 0 4px rgba(185, 151, 91, 0.14);
 }
 
@@ -1892,9 +2308,7 @@ async function shareTemplate() {
 
   line-height: 1.4;
 
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
+  transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -1918,11 +2332,7 @@ async function shareTemplate() {
 
   border-radius: 10px;
 
-  background: color-mix(
-    in srgb,
-    var(--studio-foil, #b9975b) 14%,
-    transparent
-  );
+  background: color-mix(in srgb, var(--studio-foil, #b9975b) 14%, transparent);
 
   color: var(--studio-seal, #a63a2e);
 
@@ -1975,9 +2385,7 @@ async function shareTemplate() {
 
   cursor: pointer;
 
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
+  transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -2093,9 +2501,7 @@ async function shareTemplate() {
 
   cursor: pointer;
 
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
+  transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -2246,9 +2652,7 @@ async function shareTemplate() {
 
 .toast-enter-active,
 .toast-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .toast-enter-from,

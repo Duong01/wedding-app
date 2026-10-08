@@ -1,6 +1,6 @@
 <template>
   <section class="editor-panel">
-    <div class="panel-header">
+    <div class="panel-header panel-header-row">
       <div>
         <span class="panel-eyebrow"> MINI GAME </span>
 
@@ -10,6 +10,11 @@
           {{ $t('gamePanel.desc') }}
         </p>
       </div>
+
+      <PanelProgressBadge
+        :done="progress?.done || 0"
+        :total="progress?.total || 0"
+      />
     </div>
 
     <div class="switch-card">
@@ -301,12 +306,15 @@ import UploadField from "@/components/editor/UploadField.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
 
-import { GAME_TYPES } from "@/data/gameData";
+import { GAME_TYPES } from "@/data/gameData"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const { t } = useI18n();
 
 const props = defineProps({
   wedding: { type: Object, required: true },
+
+  /* { done, total } từ Editor.vue — badge hoàn thiện mục. */
+  progress: { type: Object, default: null },
 });
 
 /* =========================================================

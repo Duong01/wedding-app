@@ -358,14 +358,20 @@ export const useWeddingEditorStore =
           return this.wedding;
         }
 
+        /*
+         * Thiệp mới khởi tạo với NỘI DUNG MẪU đầy đủ (lấy từ
+         * mock/wedding.json) — người dùng vào chỉ cần ĐỔI nội
+         * dung cho đúng mình, không phải nhập từ trang trắng.
+         * Slug để trống: người dùng tự đặt (hoặc bấm "từ tên").
+         */
         this.wedding = {
           Id: null,
           slug: "",
 
-          groomName: "",
-          brideName: "",
+          groomName: "Trần Hiếu",
+          brideName: "Hà Uyên",
           language: "vi",
-          weddingDate: "",
+          weddingDate: "2026-11-14T08:00:00",
 
           coverImage: "",
 
@@ -395,44 +401,44 @@ export const useWeddingEditorStore =
 
           couple: {
             Bride: {
-              Name: "",
-              Nickname: "",
+              Name: "Hà Uyên",
+              Nickname: "Uyên",
               Role: "Cô dâu",
               Avatar: "",
               Cover: "",
-              Father: "",
-              Mother: "",
-              Address: "",
-              Description: "",
+              Father: "Đinh Văn Tá",
+              Mother: "Nguyễn Thị Thu",
+              Address: "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
+              Description: "Một cô gái nhẹ nhàng, luôn mang đến sự ấm áp cho mọi người.",
             },
 
             Groom: {
-              Name: "",
-              Nickname: "",
+              Name: "Trần Hiếu",
+              Nickname: "Hiếu",
               Role: "Chú rể",
               Avatar: "",
               Cover: "",
-              Father: "",
-              Mother: "",
-              Address: "",
-              Description: "",
+              Father: "Trần Văn Bình",
+              Mother: "Nguyễn Thị Bảy",
+              Address: "Số 9 đường Cống Đồng, thôn Đức Hậu, xã Đa Phúc, TP Hà Nội",
+              Description: "Một chàng trai chân thành, luôn biết quan tâm và sẻ chia.",
             },
           },
 
           hero: {
-            GroomName: "",
-            BrideName: "",
-            Title: "",
-            WeddingDate: "",
-            Subtitle: "",
+            GroomName: "Trần Hiếu",
+            BrideName: "Hà Uyên",
+            Title: "Save The Date",
+            WeddingDate: "2026-11-14T08:00:00",
+            Subtitle: "Trân trọng kính mời",
             Background: "",
             Music: "",
-            Location: "",
+            Location: "Thôn Đồng Tâm, xã Hợp Thịnh, huyện Hiệp Hòa, tỉnh Bắc Ninh",
           },
 
           story: {
-            Title: "",
-            Description: "",
+            Title: "Chuyện Tình Yêu",
+            Description: "Từ những người bạn, chúng mình đã cùng nhau đi qua nhiều chặng đường và quyết định nắm tay nhau suốt cuộc đời.",
 
             /*
              * Chế độ hiển thị: 'text' (1 khối văn bản) hoặc
@@ -455,8 +461,8 @@ export const useWeddingEditorStore =
            */
           video: {
             Enabled: true,
-            Url: "",
-            Title: "",
+            Url: "https://www.youtube.com/watch?v=PggDHkV0nGU",
+            Title: "Video cưới của chúng mình",
           },
 
           /*
@@ -467,7 +473,7 @@ export const useWeddingEditorStore =
           game: {
             Enabled: true,
             GameType: "lucky-wheel",
-            Title: "",
+            Title: "Ghép hình cặp đôi",
           },
 
           /*
@@ -486,28 +492,134 @@ export const useWeddingEditorStore =
           /* Ảnh ghép đôi (game memory-match) — rỗng dùng album. */
           gameImages: [],
 
-          events: [],
-          timeline: [],
+          /*
+           * Sự kiện cưới — 2 buổi mẫu (vu quy + thành hôn),
+           * người dùng đổi ngày/giờ/địa chỉ cho đúng mình.
+           */
+          events: [
+            {
+              Id: 1,
+              EventType: "vuquy",
+              Title: "Lễ Vu Quy",
+              Weekday: "THỨ BẢY",
+              Day: "14",
+              Month: "11",
+              Year: "2026",
+              EventDate: "2026-11-14",
+              EventTime: "09:00",
+              Lunar: "",
+              Location: "Tư gia nhà gái",
+              Address: "Thôn Đồng Tâm, xã Hợp Thịnh, Bắc Ninh",
+              Map: "",
+            },
+            {
+              Id: 2,
+              EventType: "tanthanh",
+              Title: "Lễ Thành Hôn",
+              Weekday: "THỨ BẢY",
+              Day: "14",
+              Month: "11",
+              Year: "2026",
+              EventDate: "2026-11-14",
+              EventTime: "17:30",
+              Lunar: "",
+              Location: "Nhà hàng ABC",
+              Address: "123 Đường Lê Lợi, Hà Nội",
+              Map: "",
+            },
+          ],
+
+          /*
+           * Lịch trình ngày cưới — 5 mốc mẫu theo trình tự
+           * một buổi tiệc chuẩn.
+           */
+          timeline: [
+            {
+              Id: 1,
+              Time: "08:00",
+              Title: "Chuẩn bị đón khách",
+              Description: "Cô dâu chú rể chuẩn bị những khoảnh khắc đầu tiên.",
+              Location: "Tư gia nhà gái",
+              Icon: "♡",
+            },
+            {
+              Id: 2,
+              Time: "09:30",
+              Title: "Làm lễ gia tiên",
+              Description: "Nghi thức gia tiên và trao gửi lời chúc phúc.",
+              Location: "Tư gia",
+              Icon: "囍",
+            },
+            {
+              Id: 3,
+              Time: "11:00",
+              Title: "Đón khách",
+              Description: "Trân trọng đón tiếp quý khách đến chung vui.",
+              Location: "Sảnh tiệc cưới",
+              Icon: "♡",
+            },
+            {
+              Id: 4,
+              Time: "11:30",
+              Title: "Khai tiệc",
+              Description: "Cùng nhau nâng ly chúc mừng hạnh phúc đôi uyên ương.",
+              Location: "Nhà hàng tiệc cưới",
+              Icon: "✦",
+            },
+            {
+              Id: 5,
+              Time: "12:00",
+              Title: "Chụp ảnh lưu niệm",
+              Description: "Lưu lại những khoảnh khắc đáng nhớ cùng gia đình và bạn bè.",
+              Location: "Sảnh tiệc",
+              Icon: "✧",
+            },
+          ],
+
           gallery: [],
           recipientName: [],
-          gifts: [],
+
+          /*
+           * Quà cưới — 2 mục mẫu (chuyển khoản + ví điện tử),
+           * người dùng thay bằng tài khoản thật của mình.
+           */
+          gifts: [
+            {
+              Id: 1,
+              Name: "Chuyển khoản",
+              Description: "Nếu muốn gửi lời chúc bằng món quà nhỏ, bạn có thể chuyển khoản theo thông tin dưới đây.",
+              BankName: "MB Bank",
+              AccountName: "TRẦN VĂN HIẾU",
+              AccountNumber: "0123456789",
+              QrCode: "",
+            },
+            {
+              Id: 2,
+              Name: "Ví điện tử",
+              Description: "Bạn cũng có thể gửi lời chúc thông qua ví điện tử.",
+              BankName: "Momo",
+              AccountName: "HÀ THỊ UYÊN",
+              AccountNumber: "0123456789",
+              QrCode: "",
+            },
+          ],
 
           guestBook: {
             Enabled: true,
-            Title: "",
+            Title: "Sổ Lưu Bút",
             Guest: [],
           },
 
           countdown: {
             Enabled: true,
-            Target: "",
+            Target: "2026-11-14T09:00:00",
           },
 
           footer: {
-            Message: "",
-            Copyright: "",
-            GroomName: "",
-            BrideName: "",
+            Message: "Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi.",
+            Copyright: "Hà Uyên & Trần Hiếu",
+            GroomName: "Trần Hiếu",
+            BrideName: "Hà Uyên",
           },
 
           settings: {
@@ -538,8 +650,8 @@ export const useWeddingEditorStore =
 
           music: {
             Enabled: true,
-            Url: "",
-            Title: "",
+            Url: "/music/So_Beautiful_In_White.mp3",
+            Title: "So Beautiful In White",
             Autoplay: true,
           },
 

@@ -9,15 +9,22 @@
         <p>{{ $t('timelinePanel.desc') }}</p>
       </div>
 
-      <button
-        type="button"
-        class="small-primary-button"
-        @click="addTimeline"
-      >
-        <v-icon size="17"> mdi-plus </v-icon>
+      <div class="panel-header-actions">
+        <button
+          type="button"
+          class="small-primary-button"
+          @click="addTimeline"
+        >
+          <v-icon size="17"> mdi-plus </v-icon>
 
-        {{ $t('timelinePanel.add') }}
-      </button>
+          {{ $t('timelinePanel.add') }}
+        </button>
+
+        <PanelProgressBadge
+          :done="progress?.done || 0"
+          :total="progress?.total || 0"
+        />
+      </div>
     </div>
 
     <div class="items-list">
@@ -141,11 +148,11 @@
 import { useI18n } from "vue-i18n";
 import EditorItemActions from "@/components/editor/EditorItemActions.vue";
 
-import { confirmDialog } from "@/composables/useConfirm";
+import { confirmDialog } from "@/composables/useConfirm"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const { t } = useI18n();
 
-const props = defineProps({
+const props = defineProps({ /* { done, total } từ Editor.vue — badge hoàn thiện mục. */ progress: { type: Object, default: null },
   wedding: { type: Object, required: true },
 });
 
