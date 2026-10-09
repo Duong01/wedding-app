@@ -13,7 +13,7 @@ const api = axios.create({
    * loading vô hạn: F5 cũng chỉ treo lại lần nữa.
    * Riêng upload file lớn (PostFile) giữ hạn dài hơn.
    */
-  timeout: 30000,
+  timeout: 60000,
 
   headers: {
     "Content-Type": "application/json;charset=UTF-8",

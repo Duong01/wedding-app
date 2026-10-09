@@ -667,6 +667,9 @@ function onGoogleCredential(response) {
   auth
     .loginWithGoogle(response.credential)
     .then(() => {
+      /* Thông báo đăng nhập thành công trước khi rời trang */
+      successMessage.value = t("login.success");
+
       redirectAfterAuth();
     })
     .catch((e) => {
@@ -751,6 +754,9 @@ async function submitLogin() {
 
   try {
     await auth.login(loginForm.email, loginForm.password);
+
+    /* Thông báo đăng nhập thành công trước khi rời trang */
+    successMessage.value = t("login.success");
 
     redirectAfterAuth();
   } catch (e) {

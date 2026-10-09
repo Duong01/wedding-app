@@ -103,6 +103,26 @@ export const uploadMedia = (file, success, error) => {
   return https.PostFile(`/wedding/uploadMedia`, form, success, error);
 };
 
+/*
+ * Xóa 1 file media trên R2 ngay khi người dùng bấm xóa ảnh/nhạc
+ * trong editor — không cần chờ lưu thiệp.
+ *
+ * Chỉ chủ sở hữu thiệp xóa được, và chỉ file nằm trong thư mục
+ * Uploads/{slug}/ của chính thiệp đó. Ảnh ngoài (Google, data URI)
+ * server trả success luôn vì không có gì để xóa.
+ *
+ * Gọi best-effort: lỗi mạng không được chặn thao tác xóa trên
+ * giao diện — xem composables/useMediaCleanup.js.
+ */
+export const deleteMedia = (slug, url, success, error) => {
+  return https.Post(
+    `/wedding/deleteMedia`,
+    { slug, url },
+    success,
+    error
+  );
+};
+
 /* ======================
    TÀI KHOẢN / ĐĂNG NHẬP
 ====================== */

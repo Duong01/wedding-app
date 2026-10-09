@@ -306,6 +306,8 @@ import UploadField from "@/components/editor/UploadField.vue";
 
 import { confirmDialog } from "@/composables/useConfirm";
 
+import { deleteMediaFile } from "@/composables/useMediaCleanup";
+
 import { GAME_TYPES } from "@/data/gameData"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
 const { t } = useI18n();
@@ -372,6 +374,9 @@ async function removeImage(index) {
   });
 
   if (ok) {
+    /* Xóa file gốc trên R2 trước khi bỏ khỏi mảng (best-effort). */
+    deleteMediaFile(props.wedding.gameImages[index]?.Image);
+
     props.wedding.gameImages.splice(index, 1);
   }
 }

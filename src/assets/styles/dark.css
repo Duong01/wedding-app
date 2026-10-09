@@ -17,6 +17,15 @@
 =========================================================== */
 
 html.theme-dark {
+  /*
+   * Báo cho trình duyệt đây là giao diện tối — popup <option>
+   * của <select>, scrollbar, input date... do HỆ ĐIỀU HÀNH vẽ
+   * nên không theo CSS var. Thiếu dòng này thì danh sách chọn
+   * phong cách/sắp xếp trong trang mẫu thiệp mở ra nền TRẮNG
+   * chữ đen trong khi khung chọn nền tối — lệch hẳn.
+   */
+  color-scheme: dark;
+
   /* Mực nho → ngà sáng: chữ chính trên nền tối */
   --studio-ink: #f0e9dc;
 
@@ -1110,6 +1119,36 @@ html.theme-dark .editor-field textarea::placeholder {
 
 /* Khung xem trước thiệp trong trang intro mẫu — giữ trắng
  * cố ý (thiệp render trong iframe nền trắng). */
+
+/* Thẻ lỗi khi tải thiệp thất bại (Editor.vue) */
+html.theme-dark .error-card {
+  background: var(--studio-card);
+
+  border-color: var(--studio-line);
+}
+
+/* Icon lỗi đỏ đậm → đỏ dịu */
+html.theme-dark .error-icon {
+  color: #d07070;
+
+  background: rgba(208, 112, 112, 0.15);
+}
+
+/* Chú thích dưới khung QR trong dialog xuất bản — QR giữ
+ * trắng để quét được, chỉ chữ chú thích đổi sang ngà. */
+html.theme-dark .publish-qr {
+  color: var(--studio-ink-soft);
+}
+
+/* Nút "Xuất bản" trong trang quản lý — vàng đậm đọc được
+ * trên thẻ sáng nhưng chìm trên thẻ tối → sáng lên. */
+html.theme-dark .action-btn.publish {
+  color: var(--app-warn);
+}
+
+html.theme-dark .action-btn.publish:hover:not(:disabled) {
+  background: rgba(211, 178, 113, 0.16);
+}
 
 /* Chip game thắng trong Manage (danh sách người thắng) */
 html.theme-dark .winner-game {

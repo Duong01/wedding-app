@@ -192,6 +192,13 @@ export default {
     "로그인 중...",
     "ログイン中...",
   ],
+  "login.success": [
+    "Đăng nhập thành công!",
+    "Logged in successfully!",
+    "登录成功！",
+    "로그인되었습니다!",
+    "ログインしました！",
+  ],
   "login.minChars": [
     "Tối thiểu 6 ký tự",
     "At least 6 characters",

@@ -54,6 +54,30 @@ export const useWeddingStore = defineStore("wedding", {
 
   actions: {
     /*
+     * Cache LRU: mỗi thiệp đã mở chiếm bộ nhớ (gallery, story,
+     * music...). Người dùng duyệt 10 thiệp liên tiếp thì 10 bản
+     * nằm mãi trong cache. Giữ tối đa 5 bản gần nhất — bản cũ
+     * nhất bị đẩy ra, lần sau mở lại thì gọi API (vài trăm ms,
+     * chấp nhận được để đổi lấy bộ nhớ ổn định).
+     */
+    touchCache(slug) {
+      const order = this._cacheOrder || (this._cacheOrder = []);
+
+      const at = order.indexOf(slug);
+
+      if (at >= 0) {
+        order.splice(at, 1);
+      }
+
+      order.push(slug);
+
+      while (order.length > 5) {
+        const evict = order.shift();
+
+        delete this.cache[evict];
+      }
+    },
+    /*
      * Danh sách mẫu thiệp hiển thị ở Home / Templates.
      *
      * Backend hiện chưa có endpoint "lấy tất cả thiệp"
@@ -199,6 +223,8 @@ export const useWeddingStore = defineStore("wedding", {
 
               this.cache[slug] = data;
 
+              this.touchCache(slug);
+
               this.wedding = data;
 
               return data;
@@ -220,6 +246,8 @@ export const useWeddingStore = defineStore("wedding", {
             const data = result.data;
 
             this.cache[slug] = data;
+
+            this.touchCache(slug);
 
             this.wedding = data;
 
@@ -252,6 +280,8 @@ export const useWeddingStore = defineStore("wedding", {
         };
 
         this.cache[slug] = data;
+
+        this.touchCache(slug);
 
         this.wedding = data;
 
@@ -313,6 +343,8 @@ export const useWeddingStore = defineStore("wedding", {
 
         this.cache[slug] = data;
 
+        this.touchCache(slug);
+
         this.wedding = data;
 
         return data;
@@ -343,6 +375,8 @@ export const useWeddingStore = defineStore("wedding", {
 
     clearCache() {
       this.cache = {};
+
+      this._cacheOrder = [];
     },
 
     /*
@@ -354,12 +388,16 @@ export const useWeddingStore = defineStore("wedding", {
      */
     invalidate(slug) {
       if (!slug) {
-        this.cache = {};
+        this.clearCache();
 
         return;
       }
 
       delete this.cache[slug];
+
+      if (Array.isArray(this._cacheOrder)) {
+        this._cacheOrder = this._cacheOrder.filter((s) => s !== slug);
+      }
     },
   },
 });

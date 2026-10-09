@@ -171,6 +171,8 @@ import {
 
 import { confirmDialog } from "@/composables/useConfirm"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
+import { deleteMediaFile } from "@/composables/useMediaCleanup";
+
 const { t } = useI18n();
 
 const props = defineProps({ /* { done, total } từ Editor.vue — badge hoàn thiện mục. */ progress: { type: Object, default: null },
@@ -254,6 +256,12 @@ async function removeGallery(index) {
   if (!ok) {
     return;
   }
+
+  /*
+   * Xóa file gốc trên R2 trước khi bỏ khỏi mảng — sau splice thì
+   * URL không còn chỗ nào giữ. Best-effort, không await.
+   */
+  deleteMediaFile(props.wedding.gallery[index]?.Image);
 
   props.wedding.gallery.splice(index, 1);
 }

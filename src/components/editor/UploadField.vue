@@ -68,6 +68,8 @@ import { computed, ref } from "vue";
 
 import { uploadMedia } from "@/model/api";
 
+import { deleteMediaFile } from "@/composables/useMediaCleanup";
+
 const { t } = useI18n();
 
 const props = defineProps({
@@ -207,6 +209,14 @@ async function uploadOne(file) {
     const result = response?.data;
 
     if (result && result.status === "success" && result.data?.url) {
+      /*
+       * Upload đè lên ảnh cũ → ảnh cũ thành mồ côi trên R2.
+       * Xóa trước khi ghi URL mới (best-effort, không await).
+       */
+      if (props.modelValue && props.modelValue !== result.data.url) {
+        deleteMediaFile(props.modelValue);
+      }
+
       emit("update:modelValue", result.data.url);
 
       previewError.value = false;
@@ -282,6 +292,13 @@ async function uploadMany(files) {
 }
 
 function clearValue() {
+  /*
+   * Xóa file gốc trên R2 trước khi bỏ URL khỏi dữ liệu — sau khi
+   * emit thì giá trị cũ không còn chỗ nào giữ. Best-effort, không
+   * await: giao diện phải phản hồi tức thì.
+   */
+  deleteMediaFile(props.modelValue);
+
   emit("update:modelValue", "");
 
   previewError.value = false;

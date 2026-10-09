@@ -318,6 +318,12 @@ export const useAuthStore = defineStore("auth", {
     /*
      * Khởi động app: nếu có token thì xác thực lại
      * với server (CheckSession) và đồng bộ role.
+     *
+     * Server còn trả về token GIA HẠN khi token hiện tại
+     * sắp hết hạn (sliding session — xem backend
+     * AccountApiController.CheckSession): người dùng còn
+     * hoạt động thì phiên được nối dài, không cần đăng
+     * nhập lại. Thấy token mới thì thay ngay.
      */
     async restoreSession() {
       if (!this.token) {
@@ -338,6 +344,14 @@ export const useAuthStore = defineStore("auth", {
         }
 
         /*
+         * Token gia hạn từ server — thay token cũ trước khi
+         * đọc payload (role lấy từ token mới cho khớp).
+         */
+        if (result.data.token) {
+          this.token = result.data.token;
+        }
+
+        /*
          * Giữ dữ liệu user cũ (có Role),
          * chỉ bổ sung thông tin từ server.
          */
@@ -345,6 +359,8 @@ export const useAuthStore = defineStore("auth", {
           ...(this.user || {}),
           ...result.data,
         };
+
+        delete this.user.token;
 
         const payload = decodeJwtPayload(this.token);
 

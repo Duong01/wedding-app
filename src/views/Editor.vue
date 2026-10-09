@@ -368,6 +368,7 @@ import {
   computed,
   onMounted,
   onActivated,
+  onDeactivated,
   onBeforeUnmount,
   watch,
 } from "vue";
@@ -1726,6 +1727,25 @@ onActivated(() => {
   }
 
   initializeEditor();
+});
+
+/*
+ * Rời editor (về Manage / Templates...) — component vẫn sống
+ * trong KeepAlive nhưng lịch sử hoàn tác 40 snapshot full
+ * wedding không cần giữ: người dùng không ở đó để bấm undo.
+ * Cắt còn 5 bước gần nhất — quay lại vẫn hoàn tác được vài
+ * thao tác, bộ nhớ giảm ngay vài chục MB với thiệp nhiều ảnh.
+ */
+onDeactivated(() => {
+  const history = editorStore.history;
+
+  if (Array.isArray(history) && history.length > 5) {
+    const cut = history.length - 5;
+
+    history.splice(0, cut);
+
+    editorStore.historyIndex = Math.max(0, editorStore.historyIndex - cut);
+  }
 });
 
 onBeforeUnmount(() => {

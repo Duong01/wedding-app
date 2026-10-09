@@ -1686,7 +1686,7 @@ function onImageError(event) {
    * seal là vàng kim nên đặt làm màu chữ trên nền trắng
    * sẽ khó đọc. Ký tự orn phía trước vẫn mang màu bản sắc.
    */
-  color: var(--studio-ink, #2b2118);
+  color: var(--text);
 
   font-size: 11px;
 

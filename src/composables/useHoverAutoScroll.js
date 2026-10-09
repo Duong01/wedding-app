@@ -30,7 +30,7 @@ import { onBeforeUnmount } from "vue";
 const SCROLL_SPEED = 130;
 
 const MIN_DURATION = 5000;
-const MAX_DURATION = 30000;
+const MAX_DURATION = 60000;
 
 export function useHoverAutoScroll() {
   let anim = null;

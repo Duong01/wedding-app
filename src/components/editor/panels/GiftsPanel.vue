@@ -171,6 +171,8 @@ import UploadField from "@/components/editor/UploadField.vue";
 
 import { confirmDialog } from "@/composables/useConfirm"; import PanelProgressBadge from "@/components/editor/PanelProgressBadge.vue";
 
+import { deleteMediaFile } from "@/composables/useMediaCleanup";
+
 const { t } = useI18n();
 
 const props = defineProps({ /* { done, total } từ Editor.vue — badge hoàn thiện mục. */ progress: { type: Object, default: null },
@@ -232,6 +234,9 @@ async function removeGift(index) {
   if (!ok) {
     return;
   }
+
+  /* Xóa file QR gốc trên R2 trước khi bỏ khỏi mảng (best-effort). */
+  deleteMediaFile(gift?.QrCode);
 
   props.wedding.gifts.splice(index, 1);
 }

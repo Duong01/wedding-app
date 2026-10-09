@@ -21,8 +21,17 @@ let lastSynced = {};
  * snapshot JSON của wedding — đủ nhỏ để giữ trong
  * bộ nhớ nhưng vẫn cho người dùng "cứu" được các
  * thao tác nhập liệu.
+ *
+ * Thiệp nhiều ảnh (gallery 30+ mục) thì mỗi snapshot
+ * nặng lên theo — 40 bản có thể chiếm hàng trăm MB.
+ * Giới hạn cứng theo SỐ BƯỚC + giới hạn mềm theo
+ * TỔNG DUNG LƯỢNG: vượt 24MB thì tự cắt bớt snapshot
+ * cũ cho tới khi về mức an toàn.
  */
 const HISTORY_LIMIT = 40;
+
+/* Tổng dung lượng snapshot tối đa (bytes) — ~24MB. */
+const HISTORY_BYTES_LIMIT = 24 * 1024 * 1024;
 
 /*
  * Khóa localStorage giữ bản nháp khi người dùng
@@ -231,6 +240,56 @@ export const useWeddingEditorStore =
         }
 
         this.historyIndex = this.history.length - 1;
+
+        this.enforceHistoryBytes();
+      },
+
+      /*
+       * Giới hạn mềm theo dung lượng: snapshot chứa URL ảnh
+       * dài (gallery 30+ mục, QR, avatar...) nên mỗi bản có
+       * thể nặng vài trăm KB. 40 bản × 600KB = 24MB — quá
+       * nặng cho điện thoại.
+       *
+       * Ước lượng nhanh bằng JSON.stringify của snapshot vừa
+       * push (chỉ chạy khi push, không phải mỗi keystroke —
+       * đã debounce 700ms ở useEditorHistory). Vượt ngưỡng
+       * thì bỏ snapshot CŨ NHẤT cho tới khi về mức an toàn,
+       * giữ nguyên historyIndex tương đối.
+       */
+      enforceHistoryBytes() {
+        try {
+          let total = 0;
+
+          const sizes = this.history.map((item) => {
+            const size =
+              item === null || item === undefined
+                ? 0
+                : JSON.stringify(item).length;
+
+            total += size;
+
+            return size;
+          });
+
+          let cut = 0;
+
+          while (
+            total > HISTORY_BYTES_LIMIT &&
+            this.history.length - cut > 1
+          ) {
+            total -= sizes[cut];
+
+            cut += 1;
+          }
+
+          if (cut > 0) {
+            this.history.splice(0, cut);
+
+            this.historyIndex = Math.max(0, this.historyIndex - cut);
+          }
+        } catch {
+          /* Ước lượng lỗi thì thôi — giới hạn số bước vẫn còn. */
+        }
       },
 
       undo() {

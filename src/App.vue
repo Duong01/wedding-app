@@ -306,16 +306,6 @@
             </button>
 
             <button
-              v-if="auth.isAdmin"
-              type="button"
-              class="mobile-nav-link"
-              @click="goAdmin"
-            >
-              <v-icon size="17"> mdi-shield-account-outline </v-icon>
-              {{ $t('nav.adminRoles') }}
-            </button>
-
-            <button
               type="button"
               class="mobile-nav-link logout"
               :disabled="loggingOut"
@@ -447,6 +437,9 @@ import { getPaymentRequests, getMyWeddings } from "@/model/api";
 
 // Tự đồng bộ lại khi quay lại tab sau thời gian dài
 import { useTabResume } from "@/composables/useTabResume";
+
+// Tự cắt giảm bộ nhớ khi trình duyệt bị nặng (heap phình to)
+import { useMemoryGuard } from "@/composables/useMemoryGuard";
 
 // Auth store
 import { useAuthStore } from "@/stores/auth";
@@ -915,6 +908,14 @@ useTabResume(() => {
     loadMyWeddingCount();
   }
 });
+
+/*
+ * Tự giải phóng bộ nhớ khi trình duyệt bị nặng — theo dõi
+ * heap mỗi 30s, vượt ngưỡng thì cắt giảm theo tầng (cache
+ * wedding → lịch sử hoàn tác → nháp treo). Xem composable
+ * useMemoryGuard để chi tiết từng tầng.
+ */
+useMemoryGuard();
 
 onBeforeUnmount(() => {
   document.removeEventListener("click", onDocumentClick);
@@ -1540,6 +1541,10 @@ body {
 
   min-width: 250px;
 
+  max-height: calc(100dvh - 90px);
+
+  overflow-y: auto;
+
   padding: 10px;
 
   border: 1px solid var(--studio-line, rgba(43, 33, 24, 0.12));
@@ -1549,6 +1554,11 @@ body {
   background: var(--studio-card, #fffdf8);
 
   box-shadow: 0 18px 44px rgba(43, 33, 24, 0.18);
+
+  /* Cuộn mượt trên iOS + không ăn thanh cuộn hẹp */
+  -webkit-overflow-scrolling: touch;
+
+  overscroll-behavior: contain;
 }
 
 .mobile-nav-link {
@@ -1780,6 +1790,17 @@ body {
 
     min-width: 0;
 
+    /*
+     * Menu dài (đăng nhập + Admin có ~12 dòng ≈ 550px) không
+     * vừa màn điện thoại (~640px viewport) và còn bị thanh
+     * "Mẫu thiệp / Thiệp của tôi" cố định đáy màn che mất nút
+     * Đăng xuất. Giới hạn chiều cao = viewport − header −
+     * thanh đáy, phần tràn cuộn bên trong panel.
+     */
+    max-height: calc(100dvh - 60px - 78px - env(safe-area-inset-bottom));
+
+    overflow-y: auto;
+
     border: 0;
 
     border-radius: 0 0 14px 14px;
@@ -1884,6 +1905,35 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ==================================================
+   CHỐT MÀU CHỮ NÚT — chống reset Vuetify
+   --------------------------------------------------
+   Bundle CSS đưa style block này vào TRƯỚC vuetify/styles
+   (main.js import App.vue trước) nên reset
+   [type=button]{color:inherit} của Vuetify đứng SAU với
+   CÙNG specificity (0,1,0) → đè mất màu chữ của mọi nút
+   button phía trên. Chữ khi đó kế thừa từ body (--text bị
+   theme-chungdoi đổi thành mực đen) → dark mode thành chữ
+   đen trên nền tối: nút "Thiệp của tôi" ở thanh đáy mobile,
+   nút ☰, menu trượt, dropdown tài khoản... Tiền tố button
+   nâng specificity lên (0,1,1) — luôn thắng reset, cả hai
+   chế độ sáng/tối. Link (<a>) không bị reset nên không cần.
+================================================== */
+button.quick-link {
+  color: var(--studio-ink, #2b2118);
+}
+
+button.theme-toggle {
+  color: var(--studio-seal, #a63a2e);
+}
+
+button.nav-toggle,
+button.user-button,
+button.dropdown-item,
+button.mobile-nav-link {
+  color: var(--studio-ink-soft, #5c4f43);
 }
 </style>
 
