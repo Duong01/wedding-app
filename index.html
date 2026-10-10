@@ -14,19 +14,6 @@
     />
 
     <meta name="theme-color" content="#a63a2e" />
-
-    <!--
-      Áp theme tối TRƯỚC khi CSS tải — tránh chớp nền sáng khi
-      người dùng đã chọn tối. Key localStorage phải khớp store
-      theme (thiepnhaminh:theme). Mặc định là sáng.
-
-      Đồng thời MIGRATION khóa localStorage: đổi tiền tố
-      thiepduyen:* (thương hiệu cũ) sang thiepnhaminh:* — chạy
-      ở đây vì script inline thực thi TRƯỚC mọi module JS, nên
-      các store đọc localStorage lúc khởi tạo đã thấy khóa mới.
-      Khóa cũ có giá trị thì chuyển sang, xóa cũ — chạy đúng
-      một lần, các lần sau không còn khóa cũ để chuyển.
-    -->
     <script>
       (function () {
         try {

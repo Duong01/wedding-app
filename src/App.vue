@@ -346,34 +346,23 @@
     </header>
 
     <!-- =========================================
-         GLOBAL LOADING
-    ========================================== -->
-    <Transition name="fade" v-if="loading">
-      <AppLoading
-        v-if="loading"
-        @finish="handleLoadingFinish"
-      />
-    </Transition>
-
-    <!-- =========================================
          APPLICATION
     ========================================== -->
-    <template v-else>
-      <!-- Page content -->
-      <RouterView v-slot="{ Component, route }">
-        <Transition
-          name="page"
-          appear
-          mode="out-in"
-        >
-          <KeepAlive :include="['WeddingEditor']">
-            <component
-              :is="Component"
-              :key="route.name"
-            />
-          </KeepAlive>
-        </Transition>
-      </RouterView>
+    <!-- Page content -->
+    <RouterView v-slot="{ Component, route }">
+      <Transition
+        name="page"
+        appear
+        mode="out-in"
+      >
+        <KeepAlive :include="['WeddingEditor']">
+          <component
+            :is="Component"
+            :key="route.name"
+          />
+        </KeepAlive>
+      </Transition>
+    </RouterView>
 
       <!-- =======================================
            GLOBAL WEDDING MUSIC
@@ -417,7 +406,6 @@
         class="global-decoration global-decoration-right"
         aria-hidden="true"
       />
-    </template>
   </v-app>
 </template>
 
@@ -425,20 +413,12 @@
 import {
   ref,
   computed,
-  defineAsyncComponent,
   onMounted,
   onBeforeUnmount,
   watch,
 } from "vue";
 
 import { useRoute, useRouter } from "vue-router";
-
-// Global components
-// AppLoading chỉ dùng khi loading === true (hiện tại luôn false)
-// → tải lazy để gsap + vue3-lottie không rơi vào bundle chính
-const AppLoading = defineAsyncComponent(() =>
-  import("@/components/common/Loading.vue")
-);
 
 import SiteFooter from "@/components/common/SiteFooter.vue";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher.vue";
@@ -738,16 +718,6 @@ function onDocumentClick(event) {
     mobileNavOpen.value = false;
   }
 }
-
-// --------------------------------------------------
-// Loading
-// --------------------------------------------------
-
-const loading = ref(false);
-
-const handleLoadingFinish = () => {
-  loading.value = false;
-};
 
 // --------------------------------------------------
 // Global decoration
@@ -1422,7 +1392,7 @@ body {
    nên cần cao hơn chữ đơn thuần mới đọc rõ được */
 .brand-logo-img {
   display: block;
-  height: 90px;
+  height: 70px;
   width: auto;
   object-fit: contain;
 }
@@ -1519,20 +1489,6 @@ body {
   opacity: 0;
 
   transform: translateY(-10px) scale(0.995);
-}
-
-/* ==================================================
-   LOADING TRANSITION
-================================================== */
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.45s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 
 /* ==================================================
