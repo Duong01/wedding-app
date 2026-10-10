@@ -2,14 +2,15 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icon.png" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Thiệp Duyên |Thiệp cưới online - Lưu giữ ngày mình thuộc về nhau</title>
+    <title>Thiệp Nhà Mình | Nơi Lưu Giữ Ngày Chung Đôi</title>
 
     <meta
       name="description"
-      content="Thiệp Duyên giúp bạn tạo thiệp cưới online đẹp chỉ trong vài phút: chọn mẫu, điền thông tin, gửi khách mời qua link hoặc mã QR. Tạo miễn phí, dùng thử 3 ngày, ưng mới thanh toán."
+      content="Khám phá mẫu thiệp cưới online đẹp, hiện đại và tinh tế tại Thiệp Nhà Mình. Tạo thiệp cưới điện tử mang dấu ấn riêng, dễ chia sẻ cùng người thân và bạn bè."
     />
 
     <meta name="theme-color" content="#a63a2e" />
@@ -17,12 +18,63 @@
     <!--
       Áp theme tối TRƯỚC khi CSS tải — tránh chớp nền sáng khi
       người dùng đã chọn tối. Key localStorage phải khớp store
-      theme (thiepduyen:theme). Mặc định là sáng.
+      theme (thiepnhaminh:theme). Mặc định là sáng.
+
+      Đồng thời MIGRATION khóa localStorage: đổi tiền tố
+      thiepduyen:* (thương hiệu cũ) sang thiepnhaminh:* — chạy
+      ở đây vì script inline thực thi TRƯỚC mọi module JS, nên
+      các store đọc localStorage lúc khởi tạo đã thấy khóa mới.
+      Khóa cũ có giá trị thì chuyển sang, xóa cũ — chạy đúng
+      một lần, các lần sau không còn khóa cũ để chuyển.
     -->
     <script>
       (function () {
         try {
-          if (localStorage.getItem("thiepduyen:theme") === "dark") {
+          /* ---- Migration khóa cố định ---- */
+          var FIXED = {
+            "thiepduyen:theme": "thiepnhaminh:theme",
+            "thiepduyen-locale": "thiepnhaminh-locale",
+            "thiepduyen:myWeddingCount": "thiepnhaminh:myWeddingCount",
+          };
+
+          Object.keys(FIXED).forEach(function (oldKey) {
+            var value = localStorage.getItem(oldKey);
+
+            if (value !== null) {
+              if (localStorage.getItem(FIXED[oldKey]) === null) {
+                localStorage.setItem(FIXED[oldKey], value);
+              }
+
+              localStorage.removeItem(oldKey);
+            }
+          });
+
+          /* ---- Migration khóa có tiền tố (prize-claimed:{slug}) ---- */
+          var PREFIX_OLD = "thiepduyen:prize-claimed:";
+          var PREFIX_NEW = "thiepnhaminh:prize-claimed:";
+          var stale = [];
+          var i;
+
+          for (i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+
+            if (key && key.indexOf(PREFIX_OLD) === 0) {
+              var newKey = PREFIX_NEW + key.slice(PREFIX_OLD.length);
+
+              if (localStorage.getItem(newKey) === null) {
+                localStorage.setItem(newKey, localStorage.getItem(key));
+              }
+
+              stale.push(key);
+            }
+          }
+
+          stale.forEach(function (key) {
+            localStorage.removeItem(key);
+          });
+
+          /* ---- Áp theme (khóa mới) ---- */
+          if (localStorage.getItem("thiepnhaminh:theme") === "dark") {
             document.documentElement.classList.add("theme-dark");
           }
         } catch (error) {}
@@ -30,18 +82,52 @@
     </script>
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Thiệp Duyên" />
+    <meta property="og:site_name" content="Thiệp Nhà Mình" />
     <meta
       property="og:title"
-      content="Thiệp Duyên |Thiệp cưới online đẹp, tạo thiệp cưới điện tử miễn phí"
+      content="Thiệp Nhà Mình – Thiệp Cưới Online Đẹp, Hiện Đại"
     />
     <meta
       property="og:description"
-      content="Thiệp cưới online – Trao lời yêu, gửi một đời duyên. Chọn mẫu, điền nội dung, gửi khách mời trong vài phút."
+      content="Thiệp cưới online – Trao lời yêu, gửi một đời duyên. Khám phá những mẫu thiệp tinh tế và tạo dấu ấn riêng cho ngày chung đôi."
     />
-    <meta property="og:url" content="https://thiepduyen.vn/" />
+    <meta property="og:url" content="https://thiepnhaminh.com/" />
+    <meta property="og:image" content="https://thiepnhaminh.com/images/logo-header.png" />
+    <meta property="og:image:alt" content="Thiệp Nhà Mình — Thiệp cưới online" />
+    <meta property="og:locale" content="vi_VN" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Thiệp Nhà Mình – Thiệp Cưới Online Đẹp, Hiện Đại"
+    />
+    <meta
+      name="twitter:description"
+      content="Thiệp cưới online – Trao lời yêu, gửi một đời duyên.Thao tác nhanh chóng,c họn mẫu, điền nội dung, gửi khách mời trong vài phút."
+    />
+    <meta name="twitter:image" content="https://thiepnhaminh.com/images/logo-header.png" />
+
+    <!--
+      Dữ liệu có cấu trúc — Google hiểu đây là website thương mại
+      Việt Nam. useSeo (src/composables/useSeo.js) sẽ thay bằng
+      JSON-LD riêng của từng trang khi trang đó mở.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Thiệp Nhà Mình",
+        "url": "https://thiepnhaminh.com/",
+        "logo": "https://thiepnhaminh.com/images/logo.png",
+        "slogan": "Thiệp cưới online – Trao lời yêu, gửi một đời duyên.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "hotro@thiepnhaminh.com",
+          "availableLanguage": ["vi"]
+        }
+      }
+    </script>
 
     <!--
       Font Google nạp ĐỘNG theo trang đang mở (xem

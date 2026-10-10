@@ -913,6 +913,20 @@ export default {
     "삭제",
     "削除",
   ],
+  "upload.doneShort": [
+    "Xong",
+    "Done",
+    "完成",
+    "완료",
+    "完了",
+  ],
+  "upload.failedShort": [
+    "Lỗi",
+    "Failed",
+    "失败",
+    "실패",
+    "失敗",
+  ],
   "upload.failed": [
     "Không thể tải file lên server.",
     "Couldn't upload the file to the server.",

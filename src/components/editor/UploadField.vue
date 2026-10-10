@@ -36,6 +36,49 @@
       {{ message }}
     </p>
 
+    <!-- Tiến trình từng file khi upload nhiều ảnh cùng lúc -->
+    <ul v-if="uploadQueue.length" class="upload-queue">
+      <li
+        v-for="item in uploadQueue"
+        :key="item.name"
+        class="upload-queue-item"
+        :class="{ done: item.done, failed: item.failed }"
+      >
+        <v-icon size="14" class="queue-icon">
+          {{
+            item.failed
+              ? "mdi-alert-circle-outline"
+              : item.done
+                ? "mdi-check-circle-outline"
+                : "mdi-loading mdi-spin"
+          }}
+        </v-icon>
+
+        <span class="queue-name" :title="item.name">
+          {{ item.name }}
+        </span>
+
+        <span v-if="!item.done && !item.failed" class="queue-percent">
+          {{ item.percent }}%
+        </span>
+
+        <span v-else-if="item.done" class="queue-percent">
+          {{ $t("upload.doneShort") }}
+        </span>
+
+        <span v-else class="queue-percent">
+          {{ $t("upload.failedShort") }}
+        </span>
+
+        <i class="queue-bar">
+          <i
+            class="queue-bar-fill"
+            :style="{ width: `${item.percent}%` }"
+          />
+        </i>
+      </li>
+    </ul>
+
     <div v-if="showPreview && previewUrl" class="upload-preview">
       <img
         v-if="kind === 'image'"
@@ -118,6 +161,14 @@ const message = ref("");
 const isError = ref(false);
 
 const previewError = ref(false);
+
+/*
+ * Tiến trình upload nhiều file — mảng trạng thái từng file
+ * để hiện progress bar riêng: [{ name, percent, done, failed }].
+ * percent = 100 nghĩa là trình duyệt đã gửi xong, đang chờ
+ * server xử lý (tối ưu ảnh + đẩy lên R2).
+ */
+const uploadQueue = ref([]);
 
 const accept = computed(() =>
   props.kind === "audio"
@@ -238,10 +289,16 @@ async function uploadOne(file) {
 }
 
 /*
- * Tải nhiều file lần lượt (không song song để tránh
- * nghẽn server) rồi phát 1 sự kiện "uploaded" duy nhất
- * với mảng URL thành công.
+ * Tải nhiều file SONG SONG (giới hạn 3 request cùng lúc —
+ * đủ nhanh mà không nghẽn băng thông / connection pool của
+ * trình duyệt). Trước đây upload tuần tự từng file một:
+ * 10 ảnh × 4s/ảnh = 40s; song song 3 luồng chỉ còn ~15s.
+ *
+ * Mỗi file có progress bar riêng (onUploadProgress của axios)
+ * để người dùng thấy rõ đang gửi tới đâu, không tưởng là treo.
  */
+const PARALLEL_UPLOADS = 3;
+
 async function uploadMany(files) {
   const valid = files.filter((file) => !validateFile(file));
 
@@ -253,29 +310,75 @@ async function uploadMany(files) {
 
   uploading.value = true;
 
+  /* Khởi tạo trạng thái từng file cho progress bar */
+  uploadQueue.value = valid.map((file) => ({
+    name: file.name,
+    percent: 0,
+    done: false,
+    failed: false,
+  }));
+
   const urls = [];
 
   let failed = 0;
 
-  for (const file of valid) {
-    try {
-      const response = await uploadMedia(file);
+  let nextIndex = 0;
 
-      const result = response?.data;
+  async function uploadWorker() {
+    while (nextIndex < valid.length) {
+      const index = nextIndex;
 
-      if (result && result.status === "success" && result.data?.url) {
-        urls.push(result.data.url);
-      } else {
+      nextIndex += 1;
+
+      const file = valid[index];
+
+      const state = uploadQueue.value[index];
+
+      try {
+        const response = await uploadMedia(file, null, null, (event) => {
+          if (event.total) {
+            state.percent = Math.round(
+              (event.loaded / event.total) * 100
+            );
+          }
+        });
+
+        const result = response?.data;
+
+        if (result && result.status === "success" && result.data?.url) {
+          urls.push(result.data.url);
+
+          state.done = true;
+        } else {
+          failed += 1;
+
+          state.failed = true;
+        }
+      } catch (error) {
+        console.error("[UploadField] uploadMedia error:", error);
+
         failed += 1;
-      }
-    } catch (error) {
-      console.error("[UploadField] uploadMedia error:", error);
 
-      failed += 1;
+        state.failed = true;
+      }
     }
   }
 
+  /* Chạy N worker song song, mỗi worker tự lấy file kế tiếp */
+  const workers = [];
+
+  for (let i = 0; i < Math.min(PARALLEL_UPLOADS, valid.length); i += 1) {
+    workers.push(uploadWorker());
+  }
+
+  await Promise.all(workers);
+
   uploading.value = false;
+
+  /* Giữ progress bar 1.2s cho người dùng thấy kết quả rồi ẩn */
+  window.setTimeout(() => {
+    uploadQueue.value = [];
+  }, 1200);
 
   if (urls.length) {
     emit("uploaded", urls);
@@ -420,6 +523,122 @@ function clearValue() {
   background: rgba(198, 40, 40, 0.08);
 
   color: #c62828;
+}
+
+/* ==================================================
+   PROGRESS QUEUE — tiến trình từng file khi upload nhiều
+================================================== */
+
+.upload-queue {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.upload-queue-item {
+  display: grid;
+
+  grid-template-columns: 16px 1fr auto 64px;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 6px 8px;
+
+  border: 1px solid var(--border, rgba(43, 33, 24, 0.1));
+
+  border-radius: 8px;
+
+  background: rgba(246, 241, 234, 0.6);
+
+  font-size: 11px;
+}
+
+.queue-icon {
+  color: var(--wine, #a63a2e);
+}
+
+.upload-queue-item.done .queue-icon {
+  color: #2e7d32;
+}
+
+.upload-queue-item.failed .queue-icon {
+  color: #c62828;
+}
+
+.queue-name {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: var(--studio-ink-soft, #5c4f43);
+}
+
+.queue-percent {
+  color: var(--studio-ink-faint, #8a7a68);
+
+  font-variant-numeric: tabular-nums;
+}
+
+.upload-queue-item.done .queue-percent {
+  color: #2e7d32;
+}
+
+.upload-queue-item.failed .queue-percent {
+  color: #c62828;
+}
+
+.queue-bar {
+  position: relative;
+
+  display: block;
+
+  width: 64px;
+
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: rgba(43, 33, 24, 0.1);
+
+  overflow: hidden;
+}
+
+.queue-bar-fill {
+  position: absolute;
+
+  inset: 0 auto 0 0;
+
+  display: block;
+
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, var(--wine, #a63a2e), #d98a4a);
+
+  transition: width 0.2s ease;
+}
+
+.upload-queue-item.done .queue-bar-fill {
+  width: 100% !important;
+
+  background: #2e7d32;
+}
+
+.upload-queue-item.failed .queue-bar-fill {
+  width: 100% !important;
+
+  background: #c62828;
 }
 
 .upload-preview {

@@ -14,7 +14,13 @@ import { defineStore } from "pinia";
  * để không chớp nền sáng khi mở trang ở chế độ tối.
  */
 
-const STORAGE_KEY = "thiepduyen:theme";
+/*
+ * Key localStorage — tiền tố thiepnhaminh (thương hiệu mới).
+ * Người dùng cũ có khóa thiepduyen:theme được script inline
+ * trong index.html chuyển sang khóa này ngay khi tải trang,
+ * trước khi store đọc — không mất lựa chọn theme của ai.
+ */
+const STORAGE_KEY = "thiepnhaminh:theme";
 
 export const THEME_MODES = ["light", "dark"];
 

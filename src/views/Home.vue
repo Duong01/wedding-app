@@ -54,7 +54,7 @@ const weddings = computed(() => store.weddings || []);
 /*
  * Không truyền title riêng: useSeo sẽ dùng thẳng
  * BRAND.title làm tiêu đề trang chủ, tránh lặp thành
- * "… | Thiệp Duyên" trong khi tiêu đề đã có tên thương hiệu.
+ * "… | Thiệp Nhà Mình" trong khi tiêu đề đã có tên thương hiệu.
  */
 useSeo({
   description: BRAND.description,

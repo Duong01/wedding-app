@@ -122,7 +122,7 @@ async function submit() {
        * (DB vẫn là nguồn thật — đây chỉ để UI mượt).
        */
       try {
-        localStorage.setItem(`thiepduyen:prize-claimed:${props.slug}`, name.value);
+        localStorage.setItem(`thiepnhaminh:prize-claimed:${props.slug}`, name.value);
       } catch {
         /* localStorage bị chặn — bỏ qua */
       }

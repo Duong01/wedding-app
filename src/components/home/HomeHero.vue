@@ -15,7 +15,7 @@
       ====================================================== -->
       <div class="hero-copy">
         <p class="hero-brand">
-          <span class="hero-brand__name">ThiệpDuyên</span><span>.vn</span>
+          <span class="hero-brand__name">ThiệpNhàMình</span><span>.com</span>
         </p>
 
         <h1>

@@ -117,6 +117,10 @@ import { fontsForTheme } from "@/data/themeFonts";
 import { t, setCardLocale, clearCardLocale } from "@/lang";
 
 import { ensureNewSections } from "@/utils/weddingShape";
+
+import { BRAND } from "@/data/siteContent";
+import { previewFor, coupleName } from "@/utils/weddingCard";
+import { useSeo } from "@/composables/useSeo";
 /*
  * Thiệp đã qua phong bì chưa — tự cuộn chỉ chạy sau khi mở
  * (theme phát "open" khi khách bấm mở thiệp).
@@ -183,6 +187,47 @@ const blockMessage = computed(() => {
     default:
       return t("Thiệp cưới này đang chờ xác nhận thanh toán. Vui lòng liên hệ với cô dâu chú rể hoặc quay lại sau.");
   }
+});
+
+/* =========================================================
+   SEO — thiệp thật là trang được chia sẻ nhiều nhất
+   (link/QR gửi khách mời) nên cần thẻ riêng: tên cô dâu
+   chú rể làm tiêu đề, ảnh xem trước của theme làm
+   og:image. Thiệp bị chặn thì noindex để Google không
+   lưu bản "thiệp chưa kích hoạt" vào kết quả tìm kiếm.
+========================================================= */
+
+useSeo(() => {
+  const item = wedding.value;
+
+  /* Thiệp bị chặn (khóa/hết thử/chưa xuất bản) → không index */
+  if (blockReason.value) {
+    return {
+      title: "Thiệp cưới online",
+      description: BRAND.description,
+      path: route.path,
+      noindex: true,
+    };
+  }
+
+  if (!item) {
+    return {
+      title: "Thiệp cưới online",
+      description: BRAND.description,
+      path: route.path,
+    };
+  }
+
+  const couple = coupleName(item);
+
+  return {
+    title: `Thiệp cưới ${couple}`,
+    description:
+      `Thiệp cưới online của ${couple} — mời bạn đến chung vui cùng cô dâu chú rể. ` +
+      `Xem thiệp, xác nhận tham dự, để lại lời chúc tại ${BRAND.name}.`,
+    path: route.path,
+    image: previewFor(item),
+  };
 });
 
 async function checkWeddingStatus(slug) {

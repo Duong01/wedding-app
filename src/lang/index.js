@@ -47,7 +47,12 @@ export const LOCALE_CODES = LANGUAGES.map((item) => item.code);
 
 const DEFAULT_LOCALE = "vi";
 
-const STORAGE_KEY = "thiepduyen-locale";
+/*
+ * Key localStorage — tiền tố thiepnhaminh (thương hiệu mới).
+ * Người dùng cũ có khóa thiepduyen-locale được script inline
+ * trong index.html chuyển sang trước khi module này chạy.
+ */
+const STORAGE_KEY = "thiepnhaminh-locale";
 
 /*
  * Gom mọi module (import.meta.glob — thêm file mới trong

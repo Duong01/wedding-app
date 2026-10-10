@@ -22,7 +22,7 @@
       </div>
 
       <div class="subtitle">
-        Thiệp Duyên
+        Thiệp Nhà Mình
       </div>
 
       <!-- Lottie -->

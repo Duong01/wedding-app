@@ -87,6 +87,23 @@ export function useSeo(options = {}) {
    */
   const resolve = typeof options === "function" ? options : () => options;
 
+  /*
+   * og:image bắt buộc URL TUYỆT ĐỐI (Facebook/Zalo không
+   * nhận đường dẫn tương đối). Ảnh asset của Vite trong
+   * production có dạng "/assets/..." → ghép thêm siteUrl.
+   */
+  const absoluteUrl = (image) => {
+    if (!image) {
+      return "";
+    }
+
+    if (/^https?:\/\//i.test(image)) {
+      return image;
+    }
+
+    return `${BRAND.siteUrl}${image.startsWith("/") ? "" : "/"}${image}`;
+  };
+
   const apply = () => {
     const {
       title,
@@ -94,6 +111,7 @@ export function useSeo(options = {}) {
       path = "",
       image,
       jsonLd = null,
+      noindex = false,
     } = resolve() || {};
 
     const fullTitle = title
@@ -106,20 +124,38 @@ export function useSeo(options = {}) {
 
     upsertMeta("name", "description", description);
 
+    /*
+     * Luôn khai báo robots — trang thường thì "index, follow";
+     * trang khai báo noindex (thiệp nháp/khóa, trang nội bộ)
+     * thì "noindex, nofollow". Viết đè mỗi lần để không giữ
+     * lại giá trị của trang trước khi điều hướng.
+     */
+    upsertMeta(
+      "name",
+      "robots",
+      noindex ? "noindex, nofollow" : "index, follow"
+    );
+
     upsertMeta("property", "og:title", fullTitle);
     upsertMeta("property", "og:description", description);
     upsertMeta("property", "og:type", "website");
     upsertMeta("property", "og:url", url);
     upsertMeta("property", "og:site_name", BRAND.name);
+    upsertMeta("property", "og:locale", "vi_VN");
 
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertMeta("name", "twitter:title", fullTitle);
     upsertMeta("name", "twitter:description", description);
 
-    if (image) {
-      upsertMeta("property", "og:image", image);
-      upsertMeta("name", "twitter:image", image);
-    }
+    /*
+     * Trang không khai báo ảnh riêng (vd trang Bảng giá)
+     * → dùng logo thương hiệu, để link chia sẻ lúc nào
+     * cũng có ảnh và không giữ lại ảnh của trang trước.
+     */
+    const shareImage = absoluteUrl(image || BRAND.ogImage);
+
+    upsertMeta("property", "og:image", shareImage);
+    upsertMeta("name", "twitter:image", shareImage);
 
     upsertCanonical(url);
 

@@ -724,8 +724,8 @@ async function loadEntries() {
 
   /*
    * Chống gọi đè: onMounted + watch isLoggedIn + useTabResume
-   * đều có thể kích hoạt gần như cùng lúc (vd F5 xong token
-   * restore → guard chạy restoreSession → watch bắn). Request
+   * đều có thể kích hoạt gần như cùng lúc (vd F5 xong
+   * restoreSession nền ở App.vue xong → watch bắn). Request
    * đang bay thì bỏ qua — kết quả cũ vẫn đúng để hiển thị.
    */
   if (loading.value) {

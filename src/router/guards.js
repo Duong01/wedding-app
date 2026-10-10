@@ -32,9 +32,18 @@ export function setupRouterGuards(router) {
      * vue-router 4 đã bỏ dần kiểu callback (cảnh báo
      * VUE_ROUTER_R0025). `undefined` = cho đi tiếp.
      */
-    router.beforeEach(async (to) => {
+    router.beforeEach((to) => {
 
-        document.title = to.meta.title || "Thiệp Duyên — Thiệp cưới online";
+        /*
+         * Title tạm ngay khi điều hướng — trang có useSeo
+         * (src/composables/useSeo.js) sẽ ghi đè bằng thẻ đầy
+         * đủ hơn sau khi component mount. Trang không có
+         * useSeo (Login, Manage, Admin...) vẫn giữ lại tên
+         * thương hiệu ở cuối tiêu đề.
+         */
+        document.title = to.meta.title
+            ? `${to.meta.title} | Thiệp Nhà Mình`
+            : "Thiệp Nhà Mình — Thiệp cưới online";
 
         const auth = useAuthStore();
 
@@ -78,27 +87,20 @@ export function setupRouterGuards(router) {
         }
 
         /*
-         * Có token nhưng chưa xác thực lại với server
-         * (F5 / mở tab mới) → kiểm tra session một lần.
-         */
-        if (!auth.checking && !auth.sessionVerified) {
-            const valid = await auth.restoreSession();
-
-            auth.sessionVerified = true;
-
-            if (!valid) {
-                return {
-                    name: "Login",
-                    query: {
-                        redirect: to.fullPath,
-                    },
-                };
-            }
-        }
-
-        /*
-         * Phân quyền theo meta.roles
-         * (Admin / User / Guest).
+         * KHÔNG xác thực session (CheckSession) ở đây.
+         *
+         * Phiên bản trước `await auth.restoreSession()` xong mới
+         * cho điều hướng: lần đầu bấm vào trang bảo vệ (Profile,
+         * Admin, Thanh toán...) sau khi F5 / mở tab mới, người
+         * dùng đứng im chờ API trả về — server free tier đang
+         * ngủ đông thì là cả chục giây, cảm giác nút bấm bị treo.
+         *
+         * Giữ cảm giác tức thì: điều hướng NGAY bằng role đã lưu
+         * trong localStorage (đọc đồng bộ, không đi mạng). Session
+         * được xác thực ở NỀN lúc app mở (App.vue onMounted) và
+         * khi quay lại tab (useTabResume). Token chết thì
+         * restoreSession tự forceLogout, API của trang vừa mở
+         * sẽ 401 và interceptor https.js đá về /login.
          */
         const allowedRoles = to.meta.roles;
 

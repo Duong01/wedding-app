@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Thiệp Nhà Mình — thiepnhaminh.com
+
+  Thiệp thật của khách (/:slug) là URL động nên không liệt kê
+  được ở đây; Google tự khám qua link chia sẻ. Chỉ liệt kê trang
+  tĩnh + 26 trang mẫu demo (/wedding/:slug) để Google index hết
+  thư viện thiết kế.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Trang chính -->
+  <url>
+    <loc>https://thiepnhaminh.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Thư viện mẫu + trang đích SEO -->
+  <url>
+    <loc>https://thiepnhaminh.com/mau-thiep-cuoi</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/mau-thiep-cuoi-dep</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/thiep-cuoi-hien-dai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/thiep-cuoi-truyen-thong</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/thiep-cuoi-online</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/tao-thiep-cuoi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trang hỗ trợ -->
+  <url>
+    <loc>https://thiepnhaminh.com/bang-gia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/huong-dan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/gioi-thieu</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thiepnhaminh.com/lien-he</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 26 mẫu thiệp demo — mỗi mẫu một URL -->
+  <url><loc>https://thiepnhaminh.com/wedding/ha-uyen-tran-hieu</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/minh-anh-quoc-huy</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/ngoc-linh-hai-dang</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/thu-ha-minh-quan</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/thu-ha-minh-quan1</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/royal-red</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/dong-son</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/ivory-gold</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/lan-anh-viet-trung</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/thu-thao-duc-minh</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/anh-thu-nguyen-hai</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/my-linh-dinh-nghia</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/hoa-mi-quang-huy</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/thao-lam</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/mai-phuc-anh-tuan</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/anh-thu-duc-anh</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/ha-vy-minh-quan</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/emerald-luxe</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/long-phung-v3</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/quang-duy-ha-linh</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/khanh-vy-tuan-minh</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/thao-nguyen-cong-minh</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/bach-cuc-hoang-nam</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/phuong-thao-dai-cat</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/ha-anh-tien-dat</loc><priority>0.6</priority></url>
+  <url><loc>https://thiepnhaminh.com/wedding/minh-chau-bao-long</loc><priority>0.6</priority></url>
+</urlset>

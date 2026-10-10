@@ -5,6 +5,24 @@
 
     <div class="auth-card">
       <!-- =========================================
+           LOADING OVERLAY — đăng nhập Google đang xử lý
+           (chọn tài khoản xong, đang xác thực với server).
+           Che toàn bộ card để người dùng biết rõ đang loading,
+           không bấm được gì thêm.
+      ========================================== -->
+      <Transition name="fade">
+        <div v-if="googleSubmitting" class="auth-loading-overlay">
+          <v-progress-circular
+            indeterminate
+            size="34"
+            width="3"
+          />
+
+          <span>{{ $t('login.googleProcessing') }}</span>
+        </div>
+      </Transition>
+
+      <!-- =========================================
            BACK
       ========================================== -->
       <button
@@ -19,11 +37,20 @@
       </button>
 
       <!-- =========================================
-           BRAND
+           BRAND — logo nếu có (BRAND.logo), không thì chữ
       ========================================== -->
       <router-link to="/" class="auth-brand">
-        <span class="brand-mark">Thiệp</span>
-        <span class="brand-text">Duyên</span>
+        <img
+          v-if="brandLogo"
+          :src="brandLogo"
+          alt="Thiệp Nhà Mình"
+          class="auth-brand-logo"
+        />
+
+        <template v-else>
+          <span class="brand-mark">Thiệp</span>
+          <span class="brand-text">Nhà Mình</span>
+        </template>
       </router-link>
 
       <!-- =========================================
@@ -446,6 +473,8 @@ import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { useWeddingEditorStore } from "@/stores/weddingEditor";
 import { ForgotPassword } from "@/model/api";
+import { BRAND } from "@/data/siteContent";
+import { useThemeStore } from "@/stores/theme";
 
 const { t } = useI18n();
 
@@ -459,6 +488,17 @@ const route = useRoute();
 const auth = useAuthStore();
 
 const editorStore = useWeddingEditorStore();
+
+const themeStore = useThemeStore();
+
+/* Logo thương hiệu — theme tối dùng bản logoDark nếu có */
+const brandLogo = computed(() => {
+  if (themeStore.isDark) {
+    return BRAND.logoDark || BRAND.logo || "";
+  }
+
+  return BRAND.logo || "";
+});
 
 /* =========================================================
    STATE
@@ -902,6 +942,53 @@ async function submitForgot() {
   box-shadow: 0 30px 80px rgba(43, 33, 24, 0.12);
 }
 
+/*
+ * Overlay loading khi đăng nhập Google — che toàn bộ card
+ * (spinner + chữ), nền mờ để nội dung phía sau vẫn nhận ra
+ * nhưng không bấm được. z-index cao hơn mọi phần tử trong card.
+ */
+.auth-loading-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 20;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  border-radius: 24px;
+
+  background: var(--studio-glass-strong, rgba(255, 253, 248, 0.88));
+
+  backdrop-filter: blur(4px);
+
+  color: var(--studio-ink, #2b2118);
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* Transition fade cục bộ cho overlay (style scoped không
+   thấy được rule .fade-* toàn cục ở App.vue). */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .back-btn {
   margin-bottom: 18px;
 
@@ -920,6 +1007,18 @@ async function submitForgot() {
   margin-bottom: 22px;
 
   text-decoration: none;
+}
+
+/* Logo thương hiệu (khi BRAND.logo đã điền) — trang đăng nhập
+   là trang thương hiệu nên logo to rõ, không bó trong header */
+.auth-brand-logo {
+  display: block;
+
+  height: 64px;
+
+  width: auto;
+
+  object-fit: contain;
 }
 
 .brand-mark {
@@ -1361,6 +1460,10 @@ async function submitForgot() {
 @media (max-width: 480px) {
   .auth-card {
     padding: 28px 20px 22px;
+  }
+
+  .auth-brand-logo {
+    height: 52px;
   }
 
   .field-row {

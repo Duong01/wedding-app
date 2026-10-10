@@ -1,0 +1,18 @@
+# Thiệp Nhà Mình — thiepnhaminh.com
+
+User-agent: *
+Allow: /
+
+# Trang nội bộ — không cần index
+Disallow: /admin
+Disallow: /admin/
+Disallow: /manage
+Disallow: /manage/
+Disallow: /profile
+Disallow: /login
+Disallow: /editor
+Disallow: /preview
+Disallow: /preview-bare
+
+# Sitemap
+Sitemap: https://thiepnhaminh.com/sitemap.xml

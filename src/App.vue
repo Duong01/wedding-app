@@ -3,8 +3,22 @@
     <header ref="headerRef" v-if="showTopNav" class="site-header">
       <div class="site-header-inner">
         <router-link :to="{ name: 'Home' }" class="brand">
-          <span class="brand-mark">Thiệp</span>
-          <span>Duyên</span>
+          <!--
+               LOGO / BRAND — có logo (public/images/logo.png, xem
+               BRAND trong siteContent.js) thì hiện logo; chưa có
+               thì hiện brand chữ: pill "Thiệp" + "Nhà Mình".
+          -->
+          <img
+            v-if="brandLogo"
+            :src="brandLogo"
+            alt="Thiệp Nhà Mình"
+            class="brand-logo-img"
+          />
+
+          <template v-else>
+            <span class="brand-mark">Thiệp</span>
+            <span>Nhà Mình</span>
+          </template>
         </router-link>
 
         <!-- =========================================
@@ -431,7 +445,7 @@ import LanguageSwitcher from "@/components/common/LanguageSwitcher.vue";
 import ScrollTop from "@/components/common/ScrollTop.vue";
 import "@/assets/styles/chungdoi.css";
 
-import { NAV_LINKS } from "@/data/siteContent";
+import { BRAND, NAV_LINKS } from "@/data/siteContent";
 
 import { getPaymentRequests, getMyWeddings } from "@/model/api";
 
@@ -480,6 +494,19 @@ const userMenuRef = ref(null);
 const headerRef = ref(null);
 const avatarBroken = ref(false);
 
+/*
+ * Logo thương hiệu — có logo (điền đường dẫn vào BRAND.logo
+ * trong siteContent.js) thì hiện logo, theme tối dùng bản
+ * logoDark nếu có. Chưa có → brand chữ.
+ */
+const brandLogo = computed(() => {
+  if (theme.isDark) {
+    return BRAND.logoDark || BRAND.logo || "";
+  }
+
+  return BRAND.logo || "";
+});
+
 const mobileNavOpen = ref(false);
 
 /*
@@ -513,7 +540,7 @@ const myWeddingCount = ref(0);
 
 function readCachedWeddingCount() {
   try {
-    const cached = localStorage.getItem("thiepduyen:myWeddingCount");
+    const cached = localStorage.getItem("thiepnhaminh:myWeddingCount");
 
     return cached ? Number(cached) || 0 : 0;
   } catch {
@@ -571,7 +598,7 @@ async function loadMyWeddingCount() {
 
       try {
         localStorage.setItem(
-          "thiepduyen:myWeddingCount",
+          "thiepnhaminh:myWeddingCount",
           String(result.data.length)
         );
       } catch {
@@ -858,6 +885,26 @@ onMounted(() => {
   loadPendingPayments();
 
   loadMyWeddingCount();
+
+  /*
+   * Xác thực session ở NỀN ngay khi app mở — thay cho việc
+   * từng làm trong router guard (guard chờ API xong mới cho
+   * chuyển trang → bấm nút nào cũng đứng im chờ server).
+   *
+   * Không chặn render: trang hiện lên ngay, CheckSession
+   * chạy song song. Token chết thì restoreSession tự
+   * forceLogout, API của trang đang mở sẽ 401 và interceptor
+   * https.js đá về /login.
+   *
+   * Không cần tải lại badge sau khi xác thực — các loader
+   * phía trên đã chạy với token hiện có; token chết thì
+   * watch isLoggedIn tự đếm lại bản nháp local.
+   */
+  if (auth.isLoggedIn && !auth.sessionVerified) {
+    auth.restoreSession().then(() => {
+      auth.sessionVerified = true;
+    });
+  }
 });
 
 /* Đăng nhập / đăng xuất → tải lại số thiệp cho badge */
@@ -1371,6 +1418,15 @@ body {
   text-decoration: none;
 }
 
+/* Logo thương hiệu (khi BRAND.logo đã điền) — logo ngang 2:1
+   nên cần cao hơn chữ đơn thuần mới đọc rõ được */
+.brand-logo-img {
+  display: block;
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+}
+
 .brand-mark {
   display: inline-flex;
   align-items: center;
@@ -1683,6 +1739,10 @@ body {
     min-height: 60px;
   }
 
+  .brand-logo-img {
+    height: 70px;
+  }
+
   /*
    * 2 mục chính trên mobile: thanh cố định ĐÁY màn hình
    * (đã Teleport ra body). Dạng tab bar dọc: icon trên,
@@ -1853,6 +1913,10 @@ body {
     gap: 7px;
 
     font-size: 20px;
+  }
+
+  .brand-logo-img {
+    height: 60px;
   }
 
   .brand-mark {

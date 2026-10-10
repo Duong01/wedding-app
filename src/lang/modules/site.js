@@ -109,11 +109,11 @@ export default {
     "専用リンク",
   ],
   "features.domain.text": [
-    "Đường link ngắn gọn dạng thiepduyen.com/ten-hai-ban, dễ đọc, dễ nhớ, dễ chia sẻ.",
-    "A short link like thiepduyen.com/your-names — easy to read, remember and share.",
-    "简短链接，如 thiepduyen.com/你们的名字，易读、易记、易分享。",
-    "thiepduyen.com/두-분-이름 처럼 짧은 주소 — 읽기 쉽고, 기억하기 쉽고, 공유하기 쉬워요.",
-    "thiepduyen.com/お二人の名前 のような短いリンク — 読みやすく、覚えやすく、共有しやすい。",
+    "Đường link ngắn gọn dạng thiepnhaminh.com/ten-hai-ban, dễ đọc, dễ nhớ, dễ chia sẻ.",
+    "A short link like thiepnhaminh.com/your-names — easy to read, remember and share.",
+    "简短链接，如 thiepnhaminh.com/你们的名字，易读、易记、易分享。",
+    "thiepnhaminh.com/두-분-이름 처럼 짧은 주소 — 읽기 쉽고, 기억하기 쉽고, 공유하기 쉬워요.",
+    "thiepnhaminh.com/お二人の名前 のような短いリンク — 読みやすく、覚えやすく、共有しやすい。",
   ],
   "steps.pick.title": [
     "Chọn mẫu",
@@ -2426,11 +2426,11 @@ export default {
     "公開ボタンで共有リンクを取得。Zalo・Messenger・Facebook で送るか、紙の招待状に QR コードを印刷。",
   ],
   "guide.d3.p1": [
-    "Đường link dạng thiepduyen.com/ten-hai-ban, dễ đọc",
-    "Links like thiepduyen.com/your-names — easy to read",
-    "链接形如 thiepduyen.com/你们的名字，易读",
-    "thiepduyen.com/두-분-이름 형태로 읽기 쉬움",
-    "thiepduyen.com/お二人の名前 の形で読みやすい",
+    "Đường link dạng thiepnhaminh.com/ten-hai-ban, dễ đọc",
+    "Links like thiepnhaminh.com/your-names — easy to read",
+    "链接形如 thiepnhaminh.com/你们的名字，易读",
+    "thiepnhaminh.com/두-분-이름 형태로 읽기 쉬움",
+    "thiepnhaminh.com/お二人の名前 の形で読みやすい",
   ],
   "guide.d3.p2": [
     "Khách mở là xem được, không cần cài ứng dụng",

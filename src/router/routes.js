@@ -4,7 +4,7 @@ export default [
     name: "Home",
     component: () => import("@/views/Home.vue"),
     meta: {
-      title: "Thiệp cưới online - Lưu giữ ngày mình thuộc về nhau",
+      title: "Thiệp Nhà Mình – Nơi Lưu Giữ Ngày Chung Đôi",
     },
   },
 
@@ -295,7 +295,7 @@ export default [
     name: "NotFound",
     component: () => import("@/views/Home.vue"),
     meta: {
-      title: "Thiệp cưới online – Lưu giữ ngày mình thuộc về nhau",
+      title: "Thiệp Nhà Mình – Nơi Lưu Giữ Ngày Chung Đôi",
     },
   },
 ];

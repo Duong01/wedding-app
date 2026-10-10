@@ -269,7 +269,16 @@ function GetNew(url, params = {}, success, error) {
    POST FILE
 ====================== */
 
-function PostFile(url, form, success, error) {
+/*
+ * PostFile — upload multipart/form-data, hạn timeout riêng
+ * (5 phút) cho ảnh/nhạc lớn qua mạng chậm.
+ *
+ * onUploadProgress: callback tiến trình (axios) — truyền vào
+ * để UI hiện % đã gửi. Lưu ý: % này là phần TRÍNH DUYỆT gửi
+ * được, chưa gồm thời gian server xử lý (tối ưu ảnh) — khi
+ * progress = 100% thì request vẫn đang chờ server trả về.
+ */
+function PostFile(url, form, success, error, onUploadProgress) {
   return api
     .post(url, form, {
       headers: {
@@ -278,6 +287,8 @@ function PostFile(url, form, success, error) {
 
       /* Upload ảnh/nhạc lớn qua mạng chậm — hạn riêng, dài hơn JSON. */
       timeout: 300000,
+
+      onUploadProgress,
     })
     .then((response) => {
       if (success) {

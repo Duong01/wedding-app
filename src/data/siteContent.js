@@ -15,15 +15,40 @@ import { t } from "@/lang";
  */
 
 export const BRAND = {
-  name: "Thiệp Duyên",
+  name: "Thiệp Nhà Mình",
   mark: "Thiệp",
-  suffix: "Duyên",
-  domain: "thiepduyen.com",
-  siteUrl: "https://thiepduyen.vn",
+  suffix: "Nhà Mình",
+  domain: "thiepnhaminh.com",
+  siteUrl: "https://thiepnhaminh.com",
+
+  /*
+   * LOGO THƯƠNG HIỆU — file nằm trong public/images:
+   *
+   *   logo-header.png (1774×887, ngang) — header trang web,
+   *     trang đăng nhập và ảnh chia sẻ og:image mặc định.
+   *   logo.png (1254×1254, vuông) — nút brand trong Editor
+   *     và apple-touch-icon (icon app trên điện thoại).
+   *
+   * logoDark: bản logo cho theme tối — đang trống nên theme
+   * tối dùng lại logo sáng.
+   */
+  logo: "/images/logo-header.png",
+  logoDark: "",
+
+  /* Logo vuông — nút brand trong Editor, apple-touch-icon. */
+  icon: "/images/logo.png",
+
+  /*
+   * Ảnh mặc định khi chia sẻ trang lên Facebook/Zalo
+   * (og:image / twitter:image). useSeo tự ghép thành URL
+   * tuyệt đối với siteUrl.
+   */
+  ogImage: "/images/logo-header.png",
+
   title: "Thiệp cưới online đẹp – Tạo thiệp cưới điện tử miễn phí",
   slogan: "Thiệp cưới online – Trao lời yêu, gửi một đời duyên.",
   description:
-    "Thiệp Duyên giúp bạn tạo thiệp cưới online đẹp chỉ trong vài phút: " +
+    "Thiệp Nhà Mình giúp bạn tạo thiệp cưới online đẹp chỉ trong vài phút: " +
     "chọn mẫu, điền thông tin, gửi khách mời qua link hoặc mã QR. " +
     "Tạo miễn phí, dùng thử 3 ngày, ưng mới thanh toán.",
 };
@@ -36,7 +61,7 @@ export const CONTACT = {
   facebook: "https://www.facebook.com/your-page",
   zalo: "",
   messenger: "https://m.me/470216759513444",
-  email: "hotro@thiepduyen.vn",
+  email: "hotro@thiepnhaminh.com",
   phone: "0900 000 000",
   get hours() { return t("contact.hours"); },
   address: "Việt Nam",

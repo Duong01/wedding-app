@@ -199,6 +199,13 @@ export default {
     "로그인되었습니다!",
     "ログインしました！",
   ],
+  "login.googleProcessing": [
+    "Đang đăng nhập bằng Google...",
+    "Signing in with Google...",
+    "正在通过 Google 登录...",
+    "Google로 로그인 중...",
+    "Google でログイン中...",
+  ],
   "login.minChars": [
     "Tối thiểu 6 ký tự",
     "At least 6 characters",

@@ -7,11 +7,11 @@
         :title="$t('editor.header.backToTemplates')"
         @click="backToTemplates"
       >
-        ♥
+        <img :src="BRAND.icon" alt="Thiệp Nhà Mình" class="brand-logo-img" />
       </button>
 
       <div class="brand-text">
-        <strong>Thiệp Duyên</strong>
+        <strong>Thiệp Nhà Mình</strong>
 
         <span>
           Wedding Editor
@@ -168,6 +168,7 @@
 
 <script setup>
 import LanguageSwitcher from "@/components/common/LanguageSwitcher.vue";
+import { BRAND } from "@/data/siteContent";
 import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 

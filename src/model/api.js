@@ -95,12 +95,18 @@ export const claimGamePrize = (param, success, error) => {
  */
 export const getGameWinners = (param, success, error) => {return https.Get(`/wedding/getGameWinners`, param, success, error);};
 
-export const uploadMedia = (file, success, error) => {
+export const uploadMedia = (file, success, error, onUploadProgress) => {
   const form = new FormData();
 
   form.append("file", file);
 
-  return https.PostFile(`/wedding/uploadMedia`, form, success, error);
+  return https.PostFile(
+    `/wedding/uploadMedia`,
+    form,
+    success,
+    error,
+    onUploadProgress
+  );
 };
 
 /*
